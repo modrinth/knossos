@@ -1,116 +1,223 @@
 <template>
   <div v-if="user">
     <ModalCreation ref="modal_creation" />
-    <div class="user-header-wrapper normal-page">
-      <div class="user-header normal-page__header">
-        <Avatar
-          :src="previewImage ? previewImage : user.avatar_url"
-          size="md"
-          circle
-          :alt="user.username"
-        />
-        <div class="user-header__text">
-          <div class="user-header__title">
-            <h1 class="username">
-              {{ user.username }}
-            </h1>
-            <ModrinthIcon
-              v-if="user.role === 'admin'"
-              v-tooltip="'Modrinth team'"
-              class="badge-icon"
-            />
-            <ScaleIcon
-              v-else-if="user.role === 'moderator'"
-              v-tooltip="'Moderator'"
-              class="badge-icon moderator"
-            />
-            <BoxIcon
-              v-else-if="user.role === 'developer'"
-              v-tooltip="'Creator'"
-              class="badge-icon creator"
-            />
+    <Modal ref="editModal" header="Edit profile">
+      <div class="modal-body">
+        <div class="edit-section">
+          <div class="avatar-section">
+            <FileInput
+              id="project-icon"
+              :max-size="262144"
+              :show-icon="true"
+              accept="image/png,image/jpeg,image/gif,image/webp"
+              class="upload-button clickable"
+              style="white-space: nowrap"
+              prompt=""
+              @change="showPreviewImage"
+            >
+              <Avatar size="lg" :src="previewImage ?? user.avatar_url" circle />
+              <ImageIcon class="image-icon" />
+            </FileInput>
           </div>
-          <div class="markdown-body">
-            <p>
-              {{ user.bio }}
-            </p>
-          </div>
-          <div class="stats">
-            <div class="stat">
-              <HeartIcon aria-hidden="true" />
-              {{ sumFollows }} followers
-            </div>
-            <div class="stat">
-              <DownloadIcon aria-hidden="true" />
-              {{ sumDownloads }} downloads
-            </div>
-            <div class="stat">
-              <SunriseIcon aria-hidden="true" />
-              Joined {{ fromNow(user.created) }}
+          <input v-model="username" type="text" placeholder="Username" />
+          <textarea v-model="bio" placeholder="About me" />
+        </div>
+        <div class="input-group push-right">
+          <Button @click="$refs.editModal.hide()">
+            <XIcon />
+            Cancel
+          </Button>
+          <Button color="primary" :disabled="!hasChanges" @click="saveChanges()">
+            <SaveIcon />
+            Save changes
+          </Button>
+        </div>
+      </div>
+    </Modal>
+    <div class="normal-page">
+      <div class="user-header">
+        <div class="banner-img">
+          <div class="banner-content">
+            <Avatar :src="previewImage ?? user.avatar_url" size="lg" circle :alt="user.username" />
+            <div class="user-text">
+              <div class="title">
+                <h1 class="username">
+                  {{ user.username }}
+                </h1>
+                <ModrinthIcon
+                  v-if="user.role === 'admin'"
+                  v-tooltip="'Modrinth team'"
+                  class="icon"
+                />
+                <ScaleIcon
+                  v-else-if="user.role === 'moderator'"
+                  v-tooltip="'Moderator'"
+                  class="icon moderator"
+                />
+                <BoxIcon
+                  v-else-if="user.role === 'developer'"
+                  v-tooltip="'Creator'"
+                  class="icon creator"
+                />
+              </div>
+              <div class="markdown-body">
+                <p>
+                  {{ user.bio }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
+        <PageBar>
+          <span class="page-bar__title"><FilterIcon /> Filter by</span>
+          <a
+            class="nav-button"
+            :class="{ 'router-link-exact-active': selectedFilter === 'all' }"
+            @click="() => (selectedFilter = 'all')"
+            >All</a
+          >
+          <template v-for="(filter, index) in projectTypes" :key="filter">
+            <div
+              v-if="filter === selectedFilter || index < 2"
+              class="nav-button"
+              :class="{ 'router-link-exact-active': selectedFilter === filter }"
+              @click="() => (selectedFilter = filter)"
+            >
+              <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
+              <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
+              <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
+              <template v-if="filter === 'shader'"><GlassesIcon /> Shaders </template>
+              <template v-if="filter === 'world'"><WorldIcon /> Worlds </template>
+              <template v-if="filter === 'plugin'"><ServerIcon /> Plugins </template>
+              <template v-if="filter === 'modpack'"><PackageIcon /> Modpacks </template>
+            </div>
+          </template>
+          <OverflowMenu
+            v-if="
+              projectTypes &&
+              projectTypes.length > 2 &&
+              projectTypes
+                .slice(2, projectTypes.length)
+                .filter((filter) => filter !== selectedFilter).length > 0
+            "
+            class="link btn transparent nav-button"
+            :options="
+              projectTypes
+                .slice(2, projectTypes.length)
+                .filter((filter) => filter !== selectedFilter)
+                .map((filter) => ({
+                  id: filter,
+                  action: () => {
+                    selectedFilter = filter
+                  },
+                }))
+            "
+            position="right"
+            direction="down"
+          >
+            <MoreHorizontalIcon />
+            <template #mod> <BoxIcon /> Mods </template>
+            <template #datapack> <BracesIcon /> Data Packs </template>
+            <template #resourcepack> <ImageIcon /> Resource Packs </template>
+            <template #shader> <GlassesIcon /> Shaders </template>
+            <template #world> <WorldIcon /> Worlds </template>
+            <template #plugin> <ServerIcon /> Plugins </template>
+            <template #modpack> <PackageIcon /> Modpacks </template>
+          </OverflowMenu>
+          <template #right>
+            <div
+              v-if="
+                auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
+              "
+              class="nav-button button-base"
+              @click="showEditModal"
+            >
+              <EditIcon />
+              Edit profile
+            </div>
+            <div
+              v-if="auth.user && auth.user.id !== user.id"
+              class="nav-button button-base"
+              @click="() => $refs.modal_report.show()"
+            >
+              <TrashIcon />
+              Report
+            </div>
+          </template>
+        </PageBar>
       </div>
       <div class="normal-page__sidebar">
-        <div class="card">
-          <h2>Badges</h2>
-          <div class="badges-container">
-            <div class="badge">
-              <BadgeModrinthTeam />
+        <div class="card about-card">
+          <h2 class="sidebar-card-header">About</h2>
+          <div class="sidebar__item">
+            <div class="secondary-stat">
+              <DownloadIcon class="secondary-stat__icon" />
+              <span class="secondary-stat__text">
+                <span class="secondary-stat__value">{{ formatNumber(sumDownloads) }}</span>
+                <span>downloads</span>
+              </span>
             </div>
-            <div class="badge">
-              <Badge100kDownloads />
+            <div class="secondary-stat">
+              <HeartIcon class="secondary-stat__icon" />
+              <span class="secondary-stat__text">
+                <span class="secondary-stat__value">{{ formatNumber(sumFollows) }}</span>
+                <span>followers of projects</span>
+              </span>
             </div>
-            <div class="badge">
-              <Badge1MDownloads />
+            <div class="secondary-stat">
+              <BoxIcon class="secondary-stat__icon" />
+              <span class="secondary-stat__text">
+                <span class="secondary-stat__value">{{ projects.length }}</span>
+                <span>Projects</span>
+              </span>
+            </div>
+            <div class="secondary-stat">
+              <SunriseIcon class="secondary-stat__icon" />
+              <span class="secondary-stat__text">
+                <span>Joined</span>
+                <span class="secondary-stat__value">{{ fromNow(user.created) }}</span>
+              </span>
             </div>
           </div>
+          <Card v-if="organizations">
+            <h2 class="sidebar-card-header">Organizations</h2>
+            <div class="organizations">
+              <router-link
+                v-for="org in organizations"
+                :key="org.id"
+                class="button-base clickable"
+                :to="'/organization/' + org.title"
+              >
+                <Avatar
+                  :key="org.id"
+                  :src="org.icon_url"
+                  :alt="org.title"
+                  size="sm"
+                  @click="$router.push('/organization/' + org.title)"
+                />
+              </router-link>
+            </div>
+          </Card>
         </div>
       </div>
       <div class="normal-page__content">
         <Promotion />
-        <nav class="navigation-card">
-          <NavRow
-            :links="[
-              {
-                label: formatMessage(commonMessages.allProjectType),
-                href: `/user/${user.username}`,
-              },
-              ...projectTypes.map((x) => {
-                return {
-                  label: formatMessage(getProjectTypeMessage(x, true)),
-                  href: `/user/${user.username}/${x}s`,
-                }
-              }),
-            ]"
-          />
-          <div class="input-group">
-            <NuxtLink
-              v-if="auth.user && auth.user.id === user.id"
-              class="btn"
-              to="/settings/projects"
-            >
-              <SettingsIcon />
-              {{ formatMessage(messages.profileManageProjectsButton) }}
-            </NuxtLink>
-            <button
-              v-tooltip="
-                formatMessage(commonMessages[`${cosmetics.searchDisplayMode.user}InputView`])
-              "
-              :aria-label="
-                formatMessage(commonMessages[`${cosmetics.searchDisplayMode.user}InputView`])
-              "
-              class="btn icon-only"
-              @click="cycleSearchDisplayMode()"
-            >
-              <GridIcon v-if="cosmetics.searchDisplayMode.user === 'grid'" />
-              <ImageIcon v-else-if="cosmetics.searchDisplayMode.user === 'gallery'" />
-              <ListIcon v-else />
-            </button>
+        <div class="search-row">
+          <div class="iconified-input">
+            <SearchIcon />
+            <input
+              id="search-input"
+              v-model="inputText"
+              type="text"
+              placeholder="Search for mods..."
+            />
+            <Button class="r-btn" :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
+              <XIcon />
+            </Button>
           </div>
-        </nav>
+        </div>
         <div
-          v-if="projects.length > 0"
+          v-if="projects && projects.length > 0"
           class="project-list"
           :class="
             'display-mode--' +
@@ -120,16 +227,9 @@
           "
         >
           <ProjectCard
-            v-for="project in (route.params.projectType !== undefined
-              ? projects.filter(
-                  (x) =>
-                    x.project_type ===
-                    route.params.projectType.substr(0, route.params.projectType.length - 1)
-                )
-              : projects
-            )
-              .slice()
-              .sort((a, b) => b.downloads - a.downloads)"
+            v-for="project in projects
+              .filter((x) => x.project_type === selectedFilter || selectedFilter === 'all')
+              .filter((x) => x.title.toLowerCase().includes(inputText.toLowerCase()))"
             :id="project.slug || project.id"
             :key="project.id"
             :name="project.title"
@@ -187,26 +287,42 @@ import {
   SunriseIcon,
   ProjectCard,
   Avatar,
-  NavRow,
-  SettingsIcon,
-  GridIcon,
-  ListIcon,
   ImageIcon,
-  cycleValue,
+  Modal,
+  Button,
+  Card,
+  PageBar,
+  SearchIcon,
+  XIcon,
+  TrashIcon,
+  EditIcon,
+  SaveIcon,
+  FileInput,
+  MoreHorizontalIcon,
+  OverflowMenu,
+  ServerIcon,
+  FilterIcon,
+  formatNumber,
 } from 'omorphia'
-import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
-import Badge1MDownloads from '~/assets/images/badges/downloads-1m.svg'
-import Badge100kDownloads from '~/assets/images/badges/downloads-100k.svg'
-import BadgeModrinthTeam from '~/assets/images/badges/modrinth-team.svg'
+import BracesIcon from '~/assets/images/utils/braces.svg'
+import GlassesIcon from '~/assets/images/utils/glasses.svg'
+import WorldIcon from '~/assets/images/utils/world.svg'
+import PackageIcon from '~/assets/images/utils/package-open.svg'
+
+import { getProjectTypeForUrl } from '~/helpers/projects.js'
 
 const route = useRoute()
 const auth = await useAuth()
 const cosmetics = useCosmetics()
 const tags = useTags()
+
+const editModal = ref(null)
+const selectedFilter = ref('all')
+const inputText = ref('')
 
 const vintl = useVIntl()
 const { formatMessage } = vintl
@@ -239,9 +355,9 @@ const messages = defineMessages({
   },
 })
 
-let user, projects
+let user, projects, organizations
 try {
-  ;[{ data: user }, { data: projects }] = await Promise.all([
+  ;[{ data: user }, { data: projects }, { data: organizations }] = await Promise.all([
     useAsyncData(`user/${route.params.id}`, () => useBaseFetch(`user/${route.params.id}`)),
     useAsyncData(
       `user/${route.params.id}/projects`,
@@ -249,7 +365,6 @@ try {
       {
         transform: (projects) => {
           for (const project of projects) {
-            project.categories = project.categories.concat(project.loaders)
             project.project_type = getProjectTypeForUrl(
               project.project_type,
               project.categories,
@@ -260,6 +375,9 @@ try {
           return projects
         },
       }
+    ),
+    useAsyncData(`user/${route.params.id}/organizations`, () =>
+      useBaseFetch(`user/${route.params.id}/organizations`)
     ),
   ])
 } catch {
@@ -300,6 +418,11 @@ useSeoMeta({
   ogImage: () => user.value.avatar_url ?? 'https://cdn.modrinth.com/placeholder.png',
 })
 
+const icon = shallowRef(null)
+const username = ref(user.value.username)
+const bio = ref(user.value.bio)
+const previewImage = shallowRef(null)
+
 const projectTypes = computed(() => {
   const obj = {}
 
@@ -328,14 +451,80 @@ const sumFollows = computed(() => {
   return sum
 })
 
-const previewImage = shallowRef(null)
+function showPreviewImage(files) {
+  const reader = new FileReader()
+  icon.value = files[0]
+  reader.readAsDataURL(icon.value)
+  reader.onload = (event) => {
+    previewImage.value = event.target.result
+  }
+}
 
-function cycleSearchDisplayMode() {
-  cosmetics.value.searchDisplayMode.user = cycleValue(
-    cosmetics.value.searchDisplayMode.user,
-    tags.value.projectViewModes
-  )
-  saveCosmetics()
+function showEditModal() {
+  editModal.value.show()
+  username.value = user.value.username
+  bio.value = user.value.bio
+}
+
+const hasChanges = computed(
+  () =>
+    (icon.value && icon.value !== user.value.avatar_url) ||
+    username.value !== user.value.username ||
+    bio.value !== user.value.bio
+)
+
+async function saveChanges() {
+  startLoading()
+  try {
+    if (icon.value) {
+      await useBaseFetch(
+        `user/${auth.value.user.id}/icon?ext=${
+          icon.value.type.split('/')[icon.value.type.split('/').length - 1]
+        }`,
+        {
+          method: 'PATCH',
+          body: icon.value,
+        }
+      )
+    }
+
+    const reqData = {
+      email: user.value.email,
+      bio: bio.value,
+    }
+
+    if (username.value !== auth.value.user.username) {
+      reqData.username = username.value
+    }
+
+    await useBaseFetch(`user/${auth.value.user.id}`, {
+      method: 'PATCH',
+      body: reqData,
+    })
+
+    user.value.username = username.value
+    user.value.bio = bio.value
+
+    await useAuth(auth.value.token)
+
+    editModal.value.hide()
+
+    addNotification({
+      group: 'main',
+      title: 'Profile updated',
+      text: 'Your profile has been updated',
+      type: 'success',
+    })
+  } catch (err) {
+    console.error(err)
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err,
+      type: 'error',
+    })
+  }
+  stopLoading()
 }
 </script>
 
@@ -491,6 +680,169 @@ function cycleSearchDisplayMode() {
       width: 100%;
       height: 100%;
     }
+  }
+}
+
+.team-member {
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  margin-left: -0.25rem;
+  .member-info {
+    overflow: hidden;
+    margin: auto 0 auto 0.75rem;
+    .name {
+      font-weight: bold;
+    }
+    p {
+      font-size: var(--font-size-sm);
+      margin: 0.2rem 0;
+    }
+  }
+}
+.user-header {
+  .banner-img {
+    width: 100%;
+    height: 12rem;
+    background: var(--color-raised-bg) url('https://launcher-files.modrinth.com/assets/maze-bg.png')
+      no-repeat center;
+    background-size: cover;
+    border-radius: var(--radius-md);
+    border: 1px var(--color-button-bg) solid;
+    position: relative;
+    margin-bottom: calc(4.5rem + var(--gap-md));
+    .banner-content {
+      position: absolute;
+      left: var(--gap-md);
+      bottom: -4.5rem;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      gap: var(--gap-sm);
+      .avatar {
+        border: 6px var(--color-bg) solid;
+        box-shadow: none;
+      }
+      .user-text {
+        height: 4.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .title {
+        display: inline-flex;
+        gap: var(--gap-sm);
+        align-items: baseline;
+        > * {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+.filter-row {
+  margin-bottom: 1rem;
+  .title {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem 0.75rem 0;
+    color: var(--color-secondary);
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
+}
+.new-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 2px solid var(--color-button-bg);
+  svg {
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+  a,
+  .link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    padding: 0.75rem 1rem;
+    margin-bottom: -2px;
+    &.router-link-exact-active {
+      color: var(--color-contrast);
+      border-color: var(--color-brand);
+    }
+  }
+}
+.user-header {
+  grid-area: header;
+}
+.organizations {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap-sm);
+  flex-wrap: wrap;
+}
+.about-card {
+  h2 {
+    margin-bottom: var(--gap-md);
+  }
+  .sidebar__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+  }
+}
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  padding: var(--gap-lg);
+}
+.edit-section {
+  display: grid;
+  grid-template:
+    'icon name' 40px
+    'icon description' auto
+    / auto 1fr;
+  grid-gap: var(--gap-sm);
+  column-gap: var(--gap-md);
+  .avatar-section {
+    position: relative;
+    grid-area: icon;
+    .upload-button {
+      display: flex;
+      width: 9rem;
+      height: 9rem;
+      position: relative;
+      :deep(.avatar) {
+        border: 3px dashed var(--color-contrast);
+        filter: opacity(0.75);
+        transition: filter 0.2s ease-in-out;
+        cursor: pointer;
+        &:hover {
+          filter: opacity(1);
+        }
+      }
+      .image-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 2.5rem;
+        width: 2.5rem;
+        color: var(--color-contrast);
+        text-shadow: 0 0 5px var(--color-bg);
+        pointer-events: none;
+      }
+    }
+  }
+  input {
+    grid-area: name;
+  }
+  textarea {
+    grid-area: description;
   }
 }
 </style>
