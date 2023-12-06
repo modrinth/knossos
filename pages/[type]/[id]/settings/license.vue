@@ -273,7 +273,7 @@ const hasChanges = computed(() => Object.keys(patchData.value).length > 0)
 
 function saveChanges() {
   if (hasChanges.value) {
-    props.patchProject(patchData.vaue)
+    props.patchProject(patchData.value)
   }
 }
 </script>
