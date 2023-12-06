@@ -7,7 +7,7 @@
       link
     />
     <Modal ref="editModal" :header="`Edit ${collection.name}`">
-      <div class="modal-body">
+      <div class="universal-modal">
         <div class="edit-section">
           <div class="avatar-section">
             <Avatar
@@ -155,20 +155,6 @@
           </template>
         </PageBar>
         <Promotion />
-        <div v-if="projects && projects.length > 0" class="search-row">
-          <div class="iconified-input">
-            <SearchIcon />
-            <input
-              id="search-input"
-              v-model="inputText"
-              type="text"
-              placeholder="Search for mods..."
-            />
-            <Button class="r-btn" :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
-              <XIcon />
-            </Button>
-          </div>
-        </div>
         <div v-if="projects && projects.length > 0" class="project-list display-mode--list">
           <ProjectCard
             v-for="project in projects
@@ -200,6 +186,7 @@
             "
             :type="project.project_type"
             :color="project.color"
+            :from-now="fromNow"
           >
             <Button
               v-if="enableEditing"
@@ -236,7 +223,6 @@ import {
   Promotion,
   EditIcon,
   XIcon,
-  SearchIcon,
   SaveIcon,
   ShareModal,
   FilterIcon,
@@ -272,11 +258,6 @@ const collection = shallowRef(
   ).then((res) => res.data)
 )
 
-const creator = shallowRef(
-  await useAsyncData(`user/${collection.value.user}`, () =>
-    useBaseFetch(`user/${collection.value.user}`)
-  ).then((res) => res.data)
-)
 if (!collection.value) {
   throw createError({
     fatal: true,
@@ -285,10 +266,13 @@ if (!collection.value) {
   })
 }
 
-const projects = shallowRef(
-  await useAsyncData(`projects?ids=${JSON.stringify(collection.value.projects)}]`, () =>
-    useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
-  ).then((res) => res.data)
+const { data: creator } = await useAsyncData(`user/${collection.value.user}`, () =>
+  useBaseFetch(`user/${collection.value.user}`)
+)
+
+const { data: projects } = await useAsyncData(
+  `projects?ids=${JSON.stringify(collection.value.projects)}]`,
+  () => useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
 )
 
 const selectedFilter = ref('all')
@@ -325,6 +309,7 @@ const patchCollection = async (resData, quiet = false) => {
     await useBaseFetch(`collection/${collection.value.id}`, {
       method: 'PATCH',
       body: resData,
+      apiVersion: 3,
     })
     await resetCollection()
     result = true
@@ -470,28 +455,10 @@ const showEditModal = () => {
 </script>
 
 <style scoped lang="scss">
-.settings-header {
-  display: flex;
-  flex-direction: row;
-  gap: var(--gap-sm);
-  align-items: center;
-  margin-bottom: var(--gap-lg);
-  .settings-header__icon {
-    flex-shrink: 0;
-  }
-  .settings-header__text {
-    h1 {
-      font-size: var(--font-size-md);
-      margin: 0;
-    }
-  }
-}
-.sidebar {
-  margin-bottom: var(--gap-md);
-}
 .project-list {
   width: 100%;
 }
+
 .page-header__icon {
   position: relative;
   .upload {
@@ -505,19 +472,23 @@ const showEditModal = () => {
     right: var(--gap-sm);
   }
 }
+
 .summary-input {
   width: 100%;
   max-width: 24rem;
 }
+
 .popout-heading {
   padding: var(--gap-sm) var(--gap-md);
   margin: 0;
   font-size: var(--font-size-md);
   color: var(--color-text);
 }
+
 .popout-checkbox {
   padding: var(--gap-sm) var(--gap-md);
 }
+
 .filter-row {
   margin-bottom: 1rem;
   .title {
@@ -530,30 +501,7 @@ const showEditModal = () => {
     }
   }
 }
-.new-nav {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  border-bottom: 2px solid var(--color-button-bg);
-  svg {
-    height: 1.2rem;
-    width: 1.2rem;
-  }
-  a,
-  .link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    border-bottom: 3px solid transparent;
-    padding: 0.75rem 1rem;
-    margin-bottom: -2px;
-    &.router-link-exact-active {
-      color: var(--color-contrast);
-      border-color: var(--color-brand);
-    }
-  }
-}
+
 .collection-info {
   display: flex;
   flex-direction: row;
@@ -572,15 +520,11 @@ const showEditModal = () => {
     }
   }
 }
+
 .collection-description {
   margin-bottom: var(--gap-sm);
 }
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-md);
-  padding: var(--gap-lg);
-}
+
 .edit-section {
   display: grid;
   grid-template:
@@ -610,6 +554,7 @@ const showEditModal = () => {
     grid-area: description;
   }
 }
+
 .icon-edit-menu {
   display: flex;
   flex-direction: column;

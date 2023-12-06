@@ -20,7 +20,7 @@
         autocomplete="off"
       />
       <label for="additional-information">
-        <span class="label__title">Summary</span>
+        <span class="label__title">Summary<span class="required">*</span></span>
         <span class="label__description">This appears on your collection's page.</span>
       </label>
       <div class="textarea-wrapper">

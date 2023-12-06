@@ -106,7 +106,6 @@
               to="/home"
               class="tab button-animation"
               :class="{
-                bubble: user.notifications.some((notif) => !notif.read),
                 'no-active': mobileUserOpen || mobileBrowseOpen,
               }"
               title="Notifications"
@@ -463,7 +462,6 @@ import ModalCreation from '~/components/ui/ModalCreation.vue'
 const loading = useLoading()
 
 const auth = await useAuth()
-const user = await useUser()
 const cosmetics = useCosmetics()
 const colorMode = useTheme()
 
