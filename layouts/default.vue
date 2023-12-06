@@ -220,7 +220,7 @@
               { divider: true },
               {
                 id: 'new-organization',
-                action: () => {},
+                action: () => $refs.modal_create_org.show(),
               },
             ]"
           >
@@ -320,6 +320,7 @@
       </nav>
       <main>
         <ModalCreation v-if="auth.user" ref="modal_creation" />
+        <OrganizationCreateModal v-if="auth.user" ref="modal_create_org" />
         <section v-if="displayWarning" class="warning-banner card">
           <IssuesIcon class="warning-icon" />
           <template v-if="auth.user.email">
@@ -451,6 +452,7 @@ import {
   Avatar,
   TextLogo,
 } from 'omorphia'
+import OrganizationCreateModal from '~/components/ui/OrganizationCreateModal.vue'
 import PackageIcon from '~/assets/images/utils/package-open.svg'
 import GlassesIcon from '~/assets/images/utils/glasses.svg'
 import BracesIcon from '~/assets/images/utils/braces.svg'

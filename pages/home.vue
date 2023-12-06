@@ -1,5 +1,6 @@
 <template>
   <div class="normal-page">
+    <OrganizationCreateModal ref="orgModal" />
     <div class="normal-page__header">
       <h1>Home</h1>
     </div>
@@ -84,6 +85,36 @@
           <ListIcon />View all projects <ChevronRightIcon />
         </nuxt-link>
       </section>
+      <section class="card">
+        <h2 class="sidebar-card-header">Your organizations</h2>
+        <div
+          v-if="organizations && organizations.length > 0"
+          class="mini-project-table organizations"
+        >
+          <p>Showing organizations you are a part of and your role in them.</p>
+          <div
+            v-for="organization in organizations"
+            :key="organization.id"
+            class="mini-project-row"
+          >
+            <div class="project-icon">
+              <Avatar :src="organization.icon_url" size="xxs" />
+            </div>
+            <nuxt-link class="project-name goto-link">
+              {{ organization.title }}
+            </nuxt-link>
+            <div class="project-change neutral">
+              {{ organization.members.find((member) => member.user.id === auth.user.id).role }}
+            </div>
+          </div>
+        </div>
+        <div v-else>
+          <p>You are not a part of any organizations.</p>
+        </div>
+        <button class="btn btn-primary" @click="$refs.orgModal.show">
+          <PlusIcon />Create an organization
+        </button>
+      </section>
     </div>
     <div class="normal-page__content">
       <div class="search-row">
@@ -165,9 +196,11 @@ import {
   Checkbox,
   formatNumber,
   formatMoney,
+  PlusIcon,
 } from 'omorphia'
 import BanknoteIcon from '~/assets/images/utils/banknote.svg'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
+import OrganizationCreateModal from '~/components/ui/OrganizationCreateModal.vue'
 
 definePageMeta({
   middleware: 'auth',
@@ -175,10 +208,14 @@ definePageMeta({
 
 const auth = await useAuth()
 
-const { data: projects } = await useAsyncData(`user/${auth.value.user.id}/projects`, () =>
-  useBaseFetch(`user/${auth.value.user.id}/projects`)
-)
-
+const [{ data: projects }, { data: organizations }] = await Promise.all([
+  useAsyncData(`user/${auth.value.user.id}/projects`, () =>
+    useBaseFetch(`user/${auth.value.user.id}/projects`)
+  ),
+  useAsyncData(`user/${auth.value.user.id}/organizations`, () =>
+    useBaseFetch(`user/${auth.value.user.id}/organizations`)
+  ),
+])
 const allNotifs = groupNotifications(await fetchNotifications(), true)
 
 const notifications = computed(() =>
