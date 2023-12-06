@@ -54,7 +54,9 @@
               <button
                 v-for="project in modList"
                 :key="project.id"
-                :class="`btn project-card ${selectedProject?.id === project.id ? '' : ''}`"
+                :class="`btn project-card ${
+                  selectedProject?.id === project.id ? 'project-card__selected' : ''
+                }`"
                 @click="
                   () => {
                     selectedProject = project
@@ -68,11 +70,10 @@
                       {{ project.name }}
                     </div>
                     <div>
-                      {{ flameAnvilClassIDToType(project.classId) }}
+                      {{ formatProjectType(flameAnvilClassIDToType(project.classId) || 'unknown') }}
                     </div>
                   </div>
                 </div>
-                <!-- <div class="project-card__body">Meow</div> -->
               </button>
             </div>
           </Card>
@@ -99,13 +100,21 @@
             </div>
 
             <h3>Environment</h3>
-            <p>Please select which environment this project is for.</p>
 
-            <div>
+            <p>Modrinth projects can be client-side, server-side, or both.</p>
+            <p>
+              Please select which environment(s) this project is for. If you are unsure, you can
+              skip this step and fill it in later.
+            </p>
+
+            <div class="universal-labels">
+              <label for="client-chips"> <span class="label__title"> Client </span> </label>
               <Chips
                 v-model="selectedProjectClientEnv"
                 :items="['required', 'optional', 'unsupported']"
               />
+
+              <label for="client-chips"> <span class="label__title"> Server </span> </label>
               <Chips
                 v-model="selectedProjectServerEnv"
                 :items="['required', 'optional', 'unsupported']"
@@ -141,7 +150,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Avatar, Button, Card, Chips, SearchIcon, CheckIcon } from 'omorphia'
+import { formatProjectType, Avatar, Button, Card, Chips, SearchIcon, CheckIcon } from 'omorphia'
 import { ref } from 'vue'
 import { valid as semverValid } from 'semver'
 
@@ -513,6 +522,16 @@ const migrationHandleVersionFiles = async (mrProject: { title: string; id: strin
     .project-card__title__text__name {
       font-weight: var(--font-weight-bold);
     }
+  }
+}
+
+.project-card__selected {
+  color: var(--color-contrast);
+  background-color: var(--color-brand-highlight);
+  box-shadow: inset 0 0 0 transparent, 0 0 0 2px var(--color-brand);
+
+  &:hover {
+    background-color: var(--color-brand-highlight);
   }
 }
 </style>
