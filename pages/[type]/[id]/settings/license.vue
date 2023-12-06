@@ -1,8 +1,8 @@
 <template>
   <div>
-    <section class="card">
-      <div class="adjacent-input">
-        <label for="license-multiselect">
+    <Card>
+      <div class="license-input-grid">
+        <label class="label-grid-item">
           <span class="label__title size-card-header">License</span>
           <span class="label__description">
             It is very important to choose a proper license for your
@@ -95,12 +95,12 @@
           Save changes
         </button>
       </div>
-    </section>
+    </Card>
   </div>
 </template>
 
 <script setup>
-import { Checkbox, SaveIcon, formatProjectType } from 'omorphia'
+import { Card, Checkbox, SaveIcon, formatProjectType } from 'omorphia'
 import Multiselect from 'vue-multiselect'
 
 definePageMeta({
@@ -139,7 +139,7 @@ const allowOrLater = ref(props.project.license.id.includes('-or-later'))
 const nonSpdxLicense = ref(props.project.license.id.includes('LicenseRef-'))
 const showKnownErrors = ref(false)
 
-const defaultLicenses = shallowRef([
+const defaultLicenses = [
   { friendly: 'Custom', short: '' },
   {
     friendly: 'All Rights Reserved/No License',
@@ -208,7 +208,7 @@ const defaultLicenses = shallowRef([
   { friendly: 'MIT License', short: 'MIT' },
   { friendly: 'Mozilla Public License 2.0', short: 'MPL-2.0' },
   { friendly: 'zlib License', short: 'Zlib' },
-])
+]
 
 const licenseUrl = ref(props.project.license.url)
 
@@ -218,7 +218,7 @@ const trimmedLicenseId = props.project.license.id
   .replaceAll('LicenseRef-', '')
 
 const license = ref(
-  defaultLicenses.value.find((x) => x.short === trimmedLicenseId) ?? {
+  defaultLicenses.find((x) => x.short === trimmedLicenseId) ?? {
     friendly: 'Custom',
     short: props.project.license.id.replaceAll('LicenseRef-', ''),
   }
@@ -227,7 +227,7 @@ const license = ref(
 if (props.project.license.id === 'LicenseRef-Unknown') {
   license.value = {
     friendly: 'Unknown',
-    short: licenseId.replaceAll('LicenseRef-', ''),
+    short: 'Unknown',
   }
 }
 
@@ -273,7 +273,22 @@ const hasChanges = computed(() => Object.keys(patchData.value).length > 0)
 
 function saveChanges() {
   if (hasChanges.value) {
-    props.patchProject(patchData.value)
+    props.patchProject(patchData.vaue)
   }
 }
 </script>
+
+<style scoped>
+.license-input-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    .label-grid-item {
+      grid-column: span 2 / span 2;
+    }
+  }
+}
+</style>

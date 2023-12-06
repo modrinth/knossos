@@ -5,12 +5,12 @@ import { satisfies } from 'semver'
 
 export const inferVersionInfo = async function (rawFile, project, gameVersions) {
   function versionType(number) {
-    if (number.includes('alpha')) {
+    if (number?.includes('alpha')) {
       return 'alpha'
     } else if (
-      number.includes('beta') ||
-      number.match(/[^A-z](rc)[^A-z]/) || // includes `rc`
-      number.match(/[^A-z](pre)[^A-z]/) // includes `pre`
+      number?.includes('beta') ||
+      number?.match(/[^A-z](rc)[^A-z]/) || // includes `rc`
+      number?.match(/[^A-z](pre)[^A-z]/) // includes `pre`
     ) {
       return 'beta'
     } else {
@@ -106,7 +106,7 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
         const manifestFile = zip.file('META-INF/MANIFEST.MF')
         if (
           // eslint-disable-next-line no-template-curly-in-string
-          metadata.mods[0].version.includes('${file.jarVersion}') &&
+          metadata.mods[0].version?.includes('${file.jarVersion}') &&
           manifestFile !== null
         ) {
           const manifestText = await manifestFile.async('text')
@@ -276,10 +276,13 @@ export const inferVersionInfo = async function (rawFile, project, gameVersions) 
         const endingIndex = gameVersions.findIndex((x) => x.version === versionB)
 
         const final = []
-        const filterOnlyRelease = gameVersions[startingIndex].version_type === 'release'
+        const filterOnlyRelease = gameVersions[startingIndex]?.version_type === 'release'
 
         for (let i = startingIndex; i >= endingIndex; i--) {
-          if (gameVersions[i].version_type === 'release' || !filterOnlyRelease) {
+          if (
+            gameVersions[i]?.version &&
+            (gameVersions[i]?.version_type === 'release' || !filterOnlyRelease)
+          ) {
             final.push(gameVersions[i].version)
           }
         }
