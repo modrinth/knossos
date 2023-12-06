@@ -35,7 +35,12 @@
                     v-if="!deletedIcon && (previewImage || collection.icon_url)"
                     style="white-space: nowrap"
                     transparent
-                    @click="markIconForDeletion"
+                    @click="
+                      () => {
+                        deletedIcon = true
+                        previewImage = null
+                      }
+                    "
                   >
                     <TrashIcon />
                     Delete icon
@@ -52,7 +57,7 @@
             <XIcon />
             Cancel
           </Button>
-          <Button color="primary" :disabled="!hasChanges" @click="saveChanges()">
+          <Button color="primary" @click="saveChanges()">
             <SaveIcon />
             Save changes
           </Button>
@@ -157,9 +162,9 @@
         <Promotion />
         <div v-if="projects && projects.length > 0" class="project-list display-mode--list">
           <ProjectCard
-            v-for="project in projects
-              .filter((p) => selectedFilter === p.project_type || selectedFilter === 'all')
-              .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
+            v-for="project in projects.filter(
+              (p) => selectedFilter === p.project_type || selectedFilter === 'all'
+            )"
             :id="project.slug || project.id"
             :key="project.id"
             :name="project.title"
@@ -187,18 +192,7 @@
             :type="project.project_type"
             :color="project.color"
             :from-now="fromNow"
-          >
-            <Button
-              v-if="enableEditing"
-              class="btn"
-              color="danger"
-              :disabled="!hasPermission"
-              @click="() => removeProject(project.id)"
-            >
-              <XIcon />
-              Remove
-            </Button>
-          </ProjectCard>
+          />
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
@@ -252,10 +246,9 @@ const user = await useUser()
 const tags = useTags()
 const editModal = ref(null)
 
-const collection = shallowRef(
-  await useAsyncData(`collection/${route.params.id}`, () =>
-    useBaseFetch(`collection/${route.params.id}`, { apiVersion: 3 })
-  ).then((res) => res.data)
+const { data: collection, refresh: refreshCollection } = await useAsyncData(
+  `collection/${route.params.id}`,
+  () => useBaseFetch(`collection/${route.params.id}`, { apiVersion: 3 })
 )
 
 if (!collection.value) {
@@ -266,170 +259,73 @@ if (!collection.value) {
   })
 }
 
-const { data: creator } = await useAsyncData(`user/${collection.value.user}`, () =>
-  useBaseFetch(`user/${collection.value.user}`)
-)
-
-const { data: projects } = await useAsyncData(
-  `projects?ids=${JSON.stringify(collection.value.projects)}]`,
-  () => useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
-)
+const [{ data: creator }, { data: projects, refresh: refreshProjects }] = await Promise.all([
+  await useAsyncData(`user/${collection.value.user}`, () =>
+    useBaseFetch(`user/${collection.value.user}`)
+  ),
+  await useAsyncData(`projects?ids=${JSON.stringify(collection.value.projects)}]`, () =>
+    useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
+  ),
+])
 
 const selectedFilter = ref('all')
 const filterOptions = computed(() =>
   projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
 )
-const inputText = ref('')
+
 const icon = ref(null)
 const deletedIcon = ref(false)
 const previewImage = ref(null)
+
 const name = ref(collection.value.name)
 const summary = ref(collection.value.description)
 const visibility = ref(collection.value.status)
-const enableEditing = ref(false)
 
-const patchData = computed(() => {
-  const data = {}
-  if (name.value !== collection.value.name) {
-    data.name = name.value
-  }
-  if (summary.value !== collection.value.description) {
-    data.description = summary.value
-  }
-  if (hasModifiedVisibility() && tags.value.approvedStatuses.includes(visibility.value)) {
-    data.status = visibility.value
-  }
-  return data
-})
-
-const patchCollection = async (resData, quiet = false) => {
-  let result = false
+async function saveChanges() {
   startLoading()
   try {
+    if (deletedIcon.value) {
+      await useBaseFetch(`collection/${collection.value.id}/icon`, {
+        method: 'DELETE',
+        apiVersion: 3,
+      })
+    } else if (icon.value) {
+      await useBaseFetch(
+        `collection/${collection.value.id}/icon?ext=${
+          icon.value.type.split('/')[icon.value.type.split('/').length - 1]
+        }`,
+        {
+          method: 'PATCH',
+          body: icon.value,
+          apiVersion: 3,
+        }
+      )
+    }
+
     await useBaseFetch(`collection/${collection.value.id}`, {
       method: 'PATCH',
-      body: resData,
+      body: {
+        name: name.value,
+        description: summary.value,
+        status: visibility.value,
+      },
       apiVersion: 3,
     })
-    await resetCollection()
-    result = true
-    if (!quiet) {
-      addNotification({
-        group: 'main',
-        title: 'Collection updated',
-        text: 'Your collection has been updated.',
-        type: 'success',
-      })
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
+
+    await Promise.all([refreshCollection(), refreshProjects()])
+    editModal.value.hide()
   } catch (err) {
     addNotification({
       group: 'main',
       title: 'An error occurred',
-      text: err,
+      text: err.data.description,
       type: 'error',
     })
-    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   stopLoading()
-  return result
 }
 
-const patchIcon = async (icon) => {
-  let result = false
-  startLoading()
-  try {
-    await useBaseFetch(
-      `collection/${collection.value.id}/icon?ext=${
-        icon.type.split('/')[icon.type.split('/').length - 1]
-      }`,
-      {
-        method: 'PATCH',
-        body: icon,
-      }
-    )
-    await resetCollection()
-    result = true
-    addNotification({
-      group: 'main',
-      title: 'Collection icon updated',
-      text: "Your collection's icon has been updated.",
-      type: 'success',
-    })
-  } catch (err) {
-    addNotification({
-      group: 'main',
-      title: 'An error occurred',
-      text: err,
-      type: 'error',
-    })
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-  stopLoading()
-  return result
-}
-
-const deleteIcon = async () => {
-  await useBaseFetch(`collection/${collection.value.id}/icon`, {
-    method: 'DELETE',
-  })
-  await resetCollection()
-  addNotification({
-    group: 'main',
-    title: 'Collection icon removed',
-    text: "Your Collections's icon has been removed.",
-    type: 'success',
-  })
-}
-
-const resetCollection = async () => {
-  collection.value = await useBaseFetch(`collection/${collection.value.id}`)
-  projects.value = await useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
-}
-const hasPermission = computed(() => {
-  return (
-    auth.value.user &&
-    (auth.value.user.id === collection.value.user || tags.staffRoles.includes(auth.user.role))
-  )
-})
-
-const hasChanges = computed(() => {
-  return (
-    Object.keys(patchData.value).length > 0 ||
-    deletedIcon.value ||
-    icon.value ||
-    hasModifiedVisibility()
-  )
-})
-
-const hasModifiedVisibility = () => {
-  const originalVisibility = tags.value.approvedStatuses.includes(collection.value.status)
-    ? collection.value.status
-    : 'listed'
-  return originalVisibility !== visibility.value
-}
-
-const saveChanges = async () => {
-  if (hasChanges.value) {
-    await patchCollection(patchData.value)
-  }
-  if (deletedIcon.value) {
-    await deleteIcon()
-    deletedIcon.value = false
-  } else if (icon.value) {
-    await patchIcon(icon.value)
-    icon.value = null
-  }
-  editModal.value.hide()
-}
-
-const markIconForDeletion = () => {
-  deletedIcon.value = true
-  icon.value = null
-  previewImage.value = null
-}
-
-const showPreviewImage = (files) => {
+function showPreviewImage(files) {
   const reader = new FileReader()
   icon.value = files[0]
   deletedIcon.value = false
@@ -439,18 +335,12 @@ const showPreviewImage = (files) => {
   }
 }
 
-const removeProject = (projectId) => {
-  const projectList = collection.value.projects
-  projectList.splice(projectList.indexOf(projectId), 1)
-  patchCollection({ new_projects: projectList })
-}
-
-const showEditModal = () => {
-  editModal.value.show()
+function showEditModal() {
   name.value = collection.value.name
   summary.value = collection.value.description
   previewImage.value = null
   deletedIcon.value = false
+  editModal.value.show()
 }
 </script>
 
