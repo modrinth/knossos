@@ -64,7 +64,12 @@
             :options="['listed', 'unlisted', 'private']"
             :disabled="visibility === 'rejected'"
             :multiple="false"
-            :display-name="capitalizeString"
+            :display-name="
+              (s) => {
+                if (s === 'listed') return 'Public'
+                return capitalizeString(s)
+              }
+            "
             :searchable="false"
             render-up
           />
@@ -90,8 +95,8 @@
           <div class="page-header__text">
             <div class="visibility-badge">
               <template v-if="collection.status === 'listed'">
-                <EyeIcon />
-                Listed
+                <WorldIcon />
+                Public
               </template>
               <template v-else-if="collection.status === 'unlisted'">
                 <LinkIcon />
@@ -268,7 +273,6 @@ import {
   PageBar,
   ProjectCard,
   DropdownSelect,
-  EyeIcon,
   LinkIcon,
   LockIcon,
 } from 'omorphia'
