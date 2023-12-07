@@ -231,38 +231,70 @@
         </PageBar>
         <Promotion />
         <div v-if="projects && projects.length > 0" class="project-list display-mode--list">
-          <ProjectCard
+          <div
             v-for="project in projects.filter(
               (p) => selectedFilter === p.project_type || selectedFilter === 'all'
             )"
-            :id="project.slug || project.id"
             :key="project.id"
-            :name="project.title"
-            :display="cosmetics.searchDisplayMode.user"
-            :featured-image="
-              project.gallery
-                .slice()
-                .sort((a, b) => b.featured - a.featured)
-                .map((x) => x.url)[0]
-            "
-            :description="project.description"
-            :created-at="project.published"
-            :updated-at="project.updated"
-            :downloads="project.downloads.toString()"
-            :follows="project.followers.toString()"
-            :icon-url="project.icon_url"
-            :categories="project.categories"
-            :client-side="project.client_side"
-            :server-side="project.server_side"
-            :status="
-              auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
-                ? project.status
-                : null
-            "
-            :type="project.project_type"
-            :color="project.color"
-            :from-now="fromNow"
-          />
+            class="project-list__item"
+          >
+            <ProjectCard
+              :id="project.slug || project.id"
+              :name="project.title"
+              :display="cosmetics.searchDisplayMode.user"
+              :featured-image="
+                project.gallery
+                  .slice()
+                  .sort((a, b) => b.featured - a.featured)
+                  .map((x) => x.url)[0]
+              "
+              :description="project.description"
+              :created-at="project.published"
+              :updated-at="project.updated"
+              :downloads="project.downloads.toString()"
+              :follows="project.followers.toString()"
+              :icon-url="project.icon_url"
+              :categories="project.categories"
+              :client-side="project.client_side"
+              :server-side="project.server_side"
+              :status="
+                auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
+                  ? project.status
+                  : null
+              "
+              :type="project.project_type"
+              :color="project.color"
+              :from-now="fromNow"
+            />
+            <OverflowMenu
+              v-if="auth.user && auth.user.id === creator.id"
+              class="btn transparent"
+              :options="[
+                {
+                  id: 'goto-project',
+                  link: `/project/${project.slug || project.id}`,
+                  external: true,
+                },
+                { divider: true },
+                {
+                  id: 'delete',
+                  color: 'danger',
+                  action: () => removeProjectFromCollection(project.id),
+                },
+              ]"
+              direction="left"
+            >
+              <MoreHorizontalIcon />
+              <template #goto-project>
+                <BoxIcon />
+                Visit project
+              </template>
+              <template #delete>
+                <TrashIcon />
+                Remove
+              </template>
+            </OverflowMenu>
+          </div>
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
@@ -402,6 +434,29 @@ async function saveChanges() {
   stopLoading()
 }
 
+async function removeProjectFromCollection(id) {
+  startLoading()
+  try {
+    await useBaseFetch(`collection/${collection.value.id}`, {
+      method: 'PATCH',
+      apiVersion: 3,
+      body: {
+        new_projects: collection.value.projects.filter((p) => p !== id),
+      },
+    })
+    await refreshCollection() // Need to be refreshed first to get the new projects list
+    await refreshProjects()
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}
+
 async function deleteCollection() {
   startLoading()
   try {
@@ -456,6 +511,12 @@ function showEditModal() {
 
 .project-list {
   width: 100%;
+
+  .project-list__item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
 }
 
 .page-header__icon {
@@ -502,6 +563,7 @@ function showEditModal() {
 }
 
 .collection-info {
+  // font-size: var(--font-size-sm);
   display: flex;
   flex-direction: row;
   align-items: center;
