@@ -6,6 +6,21 @@
       :share-text="`Check out the cool projects that are a part of the ${collection.name} collection on Modrinth!`"
       link
     />
+    <Modal ref="deleteModal" :header="`Delete ${collection.name}`">
+      <div class="universal-modal">
+        <p>Are you sure you want to delete this collection? This action cannot be undone.</p>
+        <div class="input-group push-right">
+          <Button @click="$refs.deleteModal.hide()">
+            <XIcon />
+            Cancel
+          </Button>
+          <Button color="danger" @click="deleteCollection()">
+            <TrashIcon />
+            Delete collection
+          </Button>
+        </div>
+      </div>
+    </Modal>
     <Modal ref="editModal" :header="`Edit ${collection.name}`">
       <div class="universal-modal modal-spacing">
         <div class="edit-section">
@@ -52,12 +67,10 @@
           <input v-model="name" type="text" placeholder="Collection title" />
           <textarea v-model="summary" placeholder="Add an optional description" />
         </div>
-        <div>
-          <div class="universal-labels">
-            <label for="visibility">
-              <span class="label__title"> Visibility </span>
-            </label>
-          </div>
+        <div class="universal-labels">
+          <label for="visibility">
+            <span class="label__title"> Visibility </span>
+          </label>
           <DropdownSelect
             v-model="visibility"
             id="visibility"
@@ -71,7 +84,6 @@
               }
             "
             :searchable="false"
-            render-up
           />
         </div>
         <div class="input-group push-right">
@@ -189,14 +201,32 @@
             <template #modpack> <PackageIcon /> Modpacks </template>
           </OverflowMenu>
           <template #right>
-            <div
+            <OverflowMenu
               v-if="auth.user && auth.user.id === creator.id"
               class="nav-button button-base"
-              @click="showEditModal"
+              :options="[
+                {
+                  id: 'edit',
+                  action: showEditModal,
+                },
+                {
+                  id: 'delete',
+                  color: 'danger',
+                  action: () => $refs.deleteModal.show(),
+                },
+              ]"
             >
-              <EditIcon />
-              Edit collection
-            </div>
+              <ManageIcon />
+              Manage
+              <template #edit>
+                <EditIcon />
+                Edit
+              </template>
+              <template #delete>
+                <TrashIcon />
+                Delete
+              </template>
+            </OverflowMenu>
           </template>
         </PageBar>
         <Promotion />
@@ -283,12 +313,15 @@ import BracesIcon from 'assets/images/utils/braces.svg'
 import UpToDate from 'assets/images/illustrations/up_to_date.svg'
 import { addNotification } from '~/composables/notifs'
 
+import ManageIcon from '~/assets/images/utils/settings-2.svg'
+
 const route = useRoute()
 const cosmetics = useCosmetics()
 const auth = await useAuth()
 const user = await useUser()
 const tags = useTags()
 const editModal = ref(null)
+const deleteModal = ref(null)
 
 const { data: collection, refresh: refreshCollection } = await useAsyncData(
   `collection/${route.params.id}`,
@@ -358,6 +391,25 @@ async function saveChanges() {
 
     await Promise.all([refreshCollection(), refreshProjects()])
     editModal.value.hide()
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}
+
+async function deleteCollection() {
+  startLoading()
+  try {
+    await useBaseFetch(`collection/${collection.value.id}`, {
+      method: 'DELETE',
+      apiVersion: 3,
+    })
+    await navigateTo('/settings/collections')
   } catch (err) {
     addNotification({
       group: 'main',
