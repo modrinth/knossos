@@ -271,12 +271,6 @@
               class="btn transparent"
               :options="[
                 {
-                  id: 'goto-project',
-                  link: `/project/${project.slug || project.id}`,
-                  external: true,
-                },
-                { divider: true },
-                {
                   id: 'delete',
                   color: 'danger',
                   action: () => removeProjectFromCollection(project.id),
@@ -285,10 +279,6 @@
               direction="left"
             >
               <MoreHorizontalIcon />
-              <template #goto-project>
-                <BoxIcon />
-                Visit project
-              </template>
               <template #delete>
                 <TrashIcon />
                 Remove
