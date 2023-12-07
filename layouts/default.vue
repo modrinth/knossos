@@ -209,10 +209,12 @@
                 id: 'new-project',
                 action: () => $refs.modal_creation.show(),
               },
-              // {
-              //   id: 'import-project',
-              //   action: () => {},
-              // },
+              {
+                id: 'import-project',
+                action: () => {
+                  navigateTo('/migrate')
+                },
+              },
               {
                 id: 'new-collection',
                 action: () => {},

@@ -291,6 +291,7 @@ export default defineNuxtConfig({
       apiBaseUrl: getApiUrl(),
       siteUrl: getDomain(),
       flameAnvilUrl: process.env.FLAMEANVIL_URL,
+      flameAnvilVerifyUrl: process.env.FLAMEANVIL_VERIFY_URL,
 
       owner: process.env.VERCEL_GIT_REPO_OWNER || 'modrinth',
       slug: process.env.VERCEL_GIT_REPO_SLUG || 'knossos',

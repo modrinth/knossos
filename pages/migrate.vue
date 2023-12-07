@@ -2,49 +2,36 @@
   <div>
     <div class="normal-page">
       <div>
-        <section>
+        <section v-if="step === 0">
           <Card>
             <h1>Migrate</h1>
             <p>
-              This page is for migrating projects from Flame Anvil to Modrinth. It is currently a
-              work in progress. Plug in your Flame Anvil username and click search to get started.
+              Move your projects from Flame Anvil to Modrinth. This will copy over your projects
+              description, versions, screenshots, and more.
             </p>
-            <Button>Get Started</Button>
+            <Button
+              @click="
+                () => {
+                  getStarted = true
+                }
+              "
+              >Get Started</Button
+            >
           </Card>
         </section>
 
-        <section>
+        <section v-if="step === 1">
           <Card>
             <h2>Search</h2>
             <p>
-              Search using your CurseForge username exactly how it is on the website. This will find
-              all projects you have created and allow you to migrate them.
+              Search using your Flame Anvil username exactly how it is on the website. This will
+              find all projects you have created and allow you to migrate them.
             </p>
             <div class="input-row">
               <input v-model="username" type="text" placeholder="username" />
               <Button @click="searchHandler">
                 <SearchIcon />
                 Search
-              </Button>
-            </div>
-          </Card>
-        </section>
-
-        <section>
-          <Card>
-            <h2>Authorize</h2>
-            <p>
-              Go to
-              <a href="https://authors-old.curseforge.com/account/api-tokens">
-                https://authors-old.curseforge.com/account/api-tokens
-              </a>
-              and create a new token to confirm your identity.
-            </p>
-            <div class="input-row">
-              <input v-model="faToken" type="text" />
-              <Button @click="searchHandler">
-                <CheckIcon />
-                Confirm
               </Button>
             </div>
           </Card>
@@ -137,29 +124,106 @@
               </div>
 
               <div>
-                <Button @click="startMigration"> Migrate {{ selectedProject.name }} </Button>
+                <h3>Authorize</h3>
+                <p>
+                  Go to
+                  <a
+                    href="https://authors-old.curseforge.com/account/api-tokens"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    https://authors-old.curseforge.com/account/api-tokens
+                  </a>
+                  and create a new token to confirm your identity.
+                </p>
+                <div class="input-row">
+                  <input v-model="faToken" type="text" />
+                  <Button @click="verifyModOwnership">
+                    <CheckIcon />
+                    Confirm
+                  </Button>
+                </div>
+              </div>
+
+              <div>
+                <!-- 
+                  :disabled="!isVerifiedToOwnSelectedMod"
+                 -->
+                <Button color="primary" @click="startMigration">
+                  <RightArrowIcon />
+                  Migrate {{ selectedProject.name }}
+                </Button>
               </div>
             </div>
           </Card>
         </section>
 
-        <section>
+        <section v-if="migrationStarted">
           <Card>
-            <h2>Progress</h2>
+            <div class="card-grid">
+              <div>
+                <h2>Progress</h2>
 
-            <p>
-              This is the progress of the migration. It will show you how many versions and
-              screenshots have been migrated.
-            </p>
+                <p>
+                  This is the progress of the migration. It will show you how many versions and
+                  screenshots have been migrated.
+                </p>
+              </div>
 
-            <div>
-              {{ migrationInProgress ? 'Migration in progress' : 'Migration not in progress' }}
+              <div>
+                <template v-if="migrationInProgress">
+                  <template v-if="migrationSuccess">
+                    <CheckIcon />
+                    Migration successful!
+                  </template>
+                  <template v-else> Migrating... </template>
+                </template>
+                <template v-else> Migration not in progress. </template>
+              </div>
+
+              <div>
+                <div class="universal-labels">
+                  <label for="migration-project-progress">
+                    <span class="label__title"> Project </span>
+                  </label>
+                </div>
+
+                <div>
+                  <Badge v-if="projectCreatedOnModrinth" type="processed" />
+                  <Badge v-else type="pending" />
+                </div>
+              </div>
+
+              <div>
+                <div class="universal-labels">
+                  <label for="migration-version-progress">
+                    <span class="label__title"> Versions </span>
+                  </label>
+                </div>
+
+                <div>
+                  <progress
+                    id="migration-version-progress"
+                    :value="migrationVersionIndexProgress"
+                    :max="migrationVersionIndexTotal"
+                  ></progress>
+                </div>
+              </div>
+              <div>
+                <div class="universal-labels">
+                  <label for="migration-screenshot-progress">
+                    <span class="label__title"> Screenshots </span>
+                  </label>
+                </div>
+                <div>
+                  <progress
+                    id="migration-screenshot-progress"
+                    :value="migrateScreenshotProgress"
+                    :max="migrationScreenshotTotal"
+                  ></progress>
+                </div>
+              </div>
             </div>
-
-            <div>
-              Versions: {{ migrationVersionIndexProgress }} / {{ migrationVersionIndexTotal }}
-            </div>
-            <div>Screenshots: {{ migrateScreenshotProgress }} / {{ migrationScreenshotTotal }}</div>
           </Card>
         </section>
       </div>
@@ -168,7 +232,17 @@
 </template>
 
 <script lang="ts" setup>
-import { formatProjectType, Avatar, Button, Card, Chips, SearchIcon, CheckIcon } from 'omorphia'
+import {
+  formatProjectType,
+  RightArrowIcon,
+  Avatar,
+  Button,
+  Card,
+  Chips,
+  SearchIcon,
+  CheckIcon,
+  Badge,
+} from 'omorphia'
 import { ref } from 'vue'
 import { valid as semverValid } from 'semver'
 
@@ -177,9 +251,12 @@ import {
   useFlameAnvilModsByUser,
   useFlameAnvilModsByID,
   useFlameAnvilVersionsFromMod,
+  verifyFlameAnvilOwnership,
 } from '~/composables/flame-utils.ts'
 import type { FAMod } from '~/types/flame-anvil.ts'
 import { inferVersionInfo } from '~/helpers/infer'
+
+const getStarted = ref(false)
 
 const username = ref<string>('')
 const faToken = ref<string>('')
@@ -193,6 +270,20 @@ const selectedProjectLicense = ref<{ id: string; url?: string }>({
 })
 const selectedProjectClientEnv = ref<string>('required')
 const selectedProjectServerEnv = ref<string>('required')
+
+const step = computed(() => {
+  // everything below choosing a project is one big step
+  if (!getStarted.value) {
+    return 0
+  }
+  if (!userID.value) {
+    return 1
+  }
+  if (!faToken.value) {
+    return 2
+  }
+  return 3
+})
 
 const searchHandler = async () => {
   const searchResults = await useFlameAnvilModsByUser(username.value)
@@ -218,18 +309,51 @@ const searchHandler = async () => {
     .sort((a, b) => b.downloadCount - a.downloadCount)
 }
 
+const isVerifiedToOwnSelectedMod = ref(false)
+
+const verifyModOwnership = async () => {
+  if (!selectedProject.value) {
+    throw new Error('No project selected')
+  }
+  if (!userID.value) {
+    throw new Error('No user ID')
+  }
+  if (faToken.value?.length === 0) {
+    throw new Error('No FA token')
+  }
+
+  const ownsProject = await verifyFlameAnvilOwnership(selectedProject.value.id, faToken.value)
+
+  isVerifiedToOwnSelectedMod.value = ownsProject
+}
+
+const migrationStarted = ref(false)
 const migrationInProgress = ref(false)
+const migrationSuccess = ref(false)
 
 const startMigration = async () => {
+  if (!selectedProject.value) {
+    throw new Error('No project selected')
+  }
+  // if (!isVerifiedToOwnSelectedMod.value) {
+  //   throw new Error('Not verified to own selected mod')
+  // }
+
+  migrationStarted.value = true
+
   try {
     migrationInProgress.value = true
     await migrationHandler()
+    migrationSuccess.value = true
   } catch (error) {
     console.error(error)
   }
 
   migrationInProgress.value = false
 }
+
+const projectCreatedOnModrinth = ref(false)
+const projectOnModrinth = ref<Record<string, any> | null>(null)
 
 const migrationHandler = async () => {
   if (!selectedProject.value) {
@@ -321,6 +445,9 @@ const migrationHandler = async () => {
   if (!mrProject || !mrProject.id || !mrProject.title) {
     throw new Error('Failed to create project')
   }
+
+  projectCreatedOnModrinth.value = true
+  projectOnModrinth.value = mrProject
 
   // TODO: This should be optional
   await migrationHandleVersionFiles(mrProject)
@@ -565,5 +692,32 @@ const migrationHandleVersionFiles = async (mrProject: { title: string; id: strin
   &:hover {
     background-color: var(--color-brand-highlight);
   }
+}
+
+progress {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  width: 100%;
+  height: 30px; /* Large height for a larger progress bar */
+  border-radius: var(--radius-md);
+
+  max-width: 24rem;
+}
+
+progress::-webkit-progress-bar {
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+progress::-webkit-progress-value {
+  background-color: var(--color-brand);
+  border-radius: var(--radius-md);
+}
+
+progress::-moz-progress-bar {
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
 }
 </style>

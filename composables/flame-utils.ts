@@ -217,3 +217,32 @@ export const useFlameAnvilModDescription = async (modId: number): Promise<string
   const content = json?.data ?? ''
   return fixDescription(content)
 }
+
+export const verifyFlameAnvilOwnership = async (modId: number, token: string): Promise<boolean> => {
+  const config = useRuntimeConfig()
+
+  const API_URL = config.public.flameAnvilVerifyUrl
+  if (!API_URL) {
+    throw new Error('Source URL not set')
+  }
+
+  const url = new URL(
+    'https://cors-clean.modrinth.workers.dev/?url=' +
+      encodeURIComponent(`${API_URL}projects/${modId}/update-file`)
+  )
+
+  // Multipart
+  const formData = new FormData()
+
+  formData.append('metadata', '{ fileID: 0 }')
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'X-Api-Token': token,
+    },
+    body: formData,
+  })
+
+  return response.status === 400 && (await response.json())?.errorCode === 1014
+}
