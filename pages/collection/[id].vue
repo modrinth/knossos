@@ -7,7 +7,7 @@
       link
     />
     <Modal ref="editModal" :header="`Edit ${collection.name}`">
-      <div class="universal-modal">
+      <div class="universal-modal modal-spacing">
         <div class="edit-section">
           <div class="avatar-section">
             <Avatar
@@ -51,6 +51,23 @@
           </div>
           <input v-model="name" type="text" placeholder="Collection title" />
           <textarea v-model="summary" placeholder="Add an optional description" />
+        </div>
+        <div>
+          <div class="universal-labels">
+            <label for="visibility">
+              <span class="label__title"> Visibility </span>
+            </label>
+          </div>
+          <DropdownSelect
+            v-model="visibility"
+            id="visibility"
+            :options="['listed', 'unlisted', 'private']"
+            :disabled="visibility === 'rejected'"
+            :multiple="false"
+            :display-name="capitalizeString"
+            :searchable="false"
+            render-up
+          />
         </div>
         <div class="input-group push-right">
           <Button @click="$refs.editModal.hide()">
@@ -210,6 +227,7 @@
 
 <script setup>
 import {
+  capitalizeString,
   Avatar,
   Button,
   ShareIcon,
@@ -231,6 +249,7 @@ import {
   FileInput,
   PageBar,
   ProjectCard,
+  DropdownSelect,
 } from 'omorphia'
 import WorldIcon from 'assets/images/utils/world.svg'
 import GlassesIcon from 'assets/images/utils/glasses.svg'
@@ -415,13 +434,18 @@ function showEditModal() {
   margin-bottom: var(--gap-sm);
 }
 
+.modal-spacing {
+  display: grid;
+  gap: var(--gap-md);
+}
+
 .edit-section {
   display: grid;
   grid-template:
     'icon name' 40px
     'icon description' auto
     / auto 1fr;
-  grid-gap: var(--gap-sm);
+  grid-gap: var(--gap-md);
   .avatar-section {
     position: relative;
     grid-area: icon;
