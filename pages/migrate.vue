@@ -16,6 +16,10 @@
         <section>
           <Card>
             <h2>Search</h2>
+            <p>
+              Search using your CurseForge username exactly how it is on the website. This will find
+              all projects you have created and allow you to migrate them.
+            </p>
             <div class="input-row">
               <input v-model="username" type="text" placeholder="username" />
               <Button @click="searchHandler">
@@ -34,10 +38,10 @@
               <a href="https://authors-old.curseforge.com/account/api-tokens">
                 https://authors-old.curseforge.com/account/api-tokens
               </a>
-              and create a new token to confirm your identity. TODO: Authentication, validation
+              and create a new token to confirm your identity.
             </p>
             <div class="input-row">
-              <input v-model="faToken" type="text" placeholder="TODO: uuid display" />
+              <input v-model="faToken" type="text" />
               <Button @click="searchHandler">
                 <CheckIcon />
                 Confirm
@@ -54,6 +58,7 @@
               <button
                 v-for="project in modList"
                 :key="project.id"
+                v-tooltip="project.name"
                 :class="`btn project-card ${
                   selectedProject?.id === project.id ? 'project-card__selected' : ''
                 }`"
@@ -81,47 +86,60 @@
 
         <section v-if="selectedProject">
           <Card>
-            <h2>Migrate {{ selectedProject.name }}</h2>
+            <div class="card-grid">
+              <div>
+                <h2>Migrate {{ selectedProject.name }}</h2>
 
-            <p>
-              Modrinth needs to know some information that other platforms may not have available.
-              If you don't know the answer to a question, you can choose to defer and fill it in at
-              a later time.
-            </p>
+                <p>
+                  Modrinth needs to know some information that other platforms may not have
+                  available. If you don't know the answer to a question, you can choose to defer and
+                  fill it in at a later time.
+                </p>
 
-            <h3>License</h3>
-            <p>
-              Please select which license this project is under. If you are unsure, you can skip
-              this step and fill it in later.
-            </p>
+                <h3>License</h3>
 
-            <div>
-              <pre><code>{{ JSON.stringify(selectedProjectLicense, null, 2) }}</code></pre>
+                <p>
+                  Please select which license this project is under. If you are unsure, you can skip
+                  this step and fill it in later.
+                </p>
+
+                <LicenseSelect
+                  @update:short-code="
+                    (newLicense) => {
+                      selectedProjectLicense = newLicense
+                    }
+                  "
+                />
+              </div>
+
+              <div>
+                <h3>Environment</h3>
+
+                <p>Modrinth projects can be client-side, server-side, or both.</p>
+                <p>
+                  Please select which environment(s) this project is for. If you are unsure, you can
+                  skip this step and fill it in later.
+                </p>
+
+                <div class="universal-labels">
+                  <label for="client-chips"> <span class="label__title"> Client </span> </label>
+                  <Chips
+                    v-model="selectedProjectClientEnv"
+                    :items="['required', 'optional', 'unsupported']"
+                  />
+
+                  <label for="client-chips"> <span class="label__title"> Server </span> </label>
+                  <Chips
+                    v-model="selectedProjectServerEnv"
+                    :items="['required', 'optional', 'unsupported']"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Button @click="startMigration"> Migrate {{ selectedProject.name }} </Button>
+              </div>
             </div>
-
-            <h3>Environment</h3>
-
-            <p>Modrinth projects can be client-side, server-side, or both.</p>
-            <p>
-              Please select which environment(s) this project is for. If you are unsure, you can
-              skip this step and fill it in later.
-            </p>
-
-            <div class="universal-labels">
-              <label for="client-chips"> <span class="label__title"> Client </span> </label>
-              <Chips
-                v-model="selectedProjectClientEnv"
-                :items="['required', 'optional', 'unsupported']"
-              />
-
-              <label for="client-chips"> <span class="label__title"> Server </span> </label>
-              <Chips
-                v-model="selectedProjectServerEnv"
-                :items="['required', 'optional', 'unsupported']"
-              />
-            </div>
-
-            <Button @click="startMigration"> Migrate {{ selectedProject.name }} </Button>
           </Card>
         </section>
 
@@ -154,6 +172,7 @@ import { formatProjectType, Avatar, Button, Card, Chips, SearchIcon, CheckIcon }
 import { ref } from 'vue'
 import { valid as semverValid } from 'semver'
 
+import LicenseSelect from '~/components/ui/LicenseSelect.vue'
 import {
   useFlameAnvilModsByUser,
   useFlameAnvilModsByID,
@@ -254,6 +273,7 @@ const migrationHandler = async () => {
     server_side: selectedProjectServerEnv.value,
 
     license_id: selectedProjectLicense.value.id,
+    license_url: selectedProjectLicense.value.url,
 
     is_draft: true,
   }
@@ -472,6 +492,11 @@ const migrationHandleVersionFiles = async (mrProject: { title: string; id: strin
 </script>
 
 <style lang="scss" scoped>
+.card-grid {
+  display: grid;
+  gap: var(--gap-lg);
+}
+
 .input-row {
   display: flex;
   align-items: center;
@@ -514,12 +539,19 @@ const migrationHandleVersionFiles = async (mrProject: { title: string; id: strin
     gap: var(--gap-sm);
 
     .project-card__title__text {
+      overflow: hidden;
+
       display: flex;
       flex-direction: column;
       gap: var(--gap-xs);
     }
 
     .project-card__title__text__name {
+      // truncate
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
       font-weight: var(--font-weight-bold);
     }
   }
