@@ -88,6 +88,24 @@
             <Avatar size="lg" :src="collection.icon_url" />
           </div>
           <div class="page-header__text">
+            <div class="visibility-badge">
+              <template v-if="collection.status === 'listed'">
+                <EyeIcon />
+                Listed
+              </template>
+              <template v-else-if="collection.status === 'unlisted'">
+                <LinkIcon />
+                Unlisted
+              </template>
+              <template v-else-if="collection.status === 'private'">
+                <LockIcon />
+                Private
+              </template>
+              <template v-else-if="collection.status === 'rejected'">
+                <XIcon />
+                Rejected
+              </template>
+            </div>
             <div class="title">
               <h1>{{ collection.name }}</h1>
               <Button
@@ -250,6 +268,9 @@ import {
   PageBar,
   ProjectCard,
   DropdownSelect,
+  EyeIcon,
+  LinkIcon,
+  LockIcon,
 } from 'omorphia'
 import WorldIcon from 'assets/images/utils/world.svg'
 import GlassesIcon from 'assets/images/utils/glasses.svg'
@@ -364,6 +385,19 @@ function showEditModal() {
 </script>
 
 <style scoped lang="scss">
+.visibility-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+
+  // padding: 0.25rem 0.5rem;
+  // border-radius: 0.25rem;
+  // background-color: var(--color-button-bg);
+}
+
 .project-list {
   width: 100%;
 }
