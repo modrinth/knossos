@@ -3,7 +3,7 @@
     <section class="card payout-history">
       <Breadcrumbs
         current-title="Transfer history"
-        :link-stack="[{ href: '/settings/revenue', label: 'Revenue' }]"
+        :link-stack="[{ href: '/creations/revenue', label: 'Revenue' }]"
       />
       <h2>Transfer history</h2>
       <p>All of your withdrawals from your Modrinth balance will be listed here:</p>

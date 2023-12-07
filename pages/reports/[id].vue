@@ -2,7 +2,7 @@
   <ReportView
     :auth="auth"
     :report-id="route.params.id"
-    :breadcrumbs-stack="[{ href: '/settings/reports', label: 'Active reports' }]"
+    :breadcrumbs-stack="[{ href: '/reports', label: 'Active reports' }]"
   />
 </template>
 <script setup>

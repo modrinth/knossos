@@ -1,5 +1,11 @@
 <template>
   <div class="report">
+    <nuxt-link
+      v-if="compact"
+      :to="moderation ? `/moderation/report/${report.id}` : `/reports/${report.id}`"
+      class="full-link"
+    >
+    </nuxt-link>
     <div v-if="report.item_type === 'project'" class="item-info">
       <nuxt-link
         :to="`/${getProjectTypeForUrl(report.project.project_type, report.project.loaders)}/${
@@ -62,7 +68,7 @@
       :thread="thread"
       class="thread-summary"
       :raised="raised"
-      :link="`/${moderation ? 'moderation' : 'dashboard'}/report/${report.id}`"
+      :link="moderation ? `/moderation/report/${report.id}` : `/reports/${report.id}`"
       :auth="auth"
     />
     <div class="reporter-info">
@@ -90,6 +96,7 @@
 <script setup>
 import dayjs from 'dayjs'
 import {
+  ConditionalNuxtLink,
   renderHighlightedString,
   formatProjectType,
   Avatar,
@@ -126,6 +133,10 @@ defineProps({
   auth: {
     type: Object,
     required: true,
+  },
+  compact: {
+    type: Boolean,
+    default: false,
   },
 })
 

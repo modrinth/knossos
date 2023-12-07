@@ -1,9 +1,7 @@
 <template>
   <div>
-    <section class="card">
-      <h2>Reports</h2>
-      <ReportsList :auth="auth" moderation />
-    </section>
+    <h2>Reports</h2>
+    <ReportsList :auth="auth" moderation />
   </div>
 </template>
 <script setup>

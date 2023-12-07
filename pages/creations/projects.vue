@@ -161,149 +161,190 @@
       </div>
     </Modal>
     <ModalCreation ref="modal_creation" />
-    <div class="card">
-      <h2>Projects</h2>
-      <div class="input-group">
-        <button class="btn btn-primary" @click="$refs.modal_creation.show()">
-          <PlusIcon />
-          Create a project
-        </button>
+    <h2>Projects</h2>
+    <div v-if="editMode" class="input-group edit-row">
+      <button
+        class="btn"
+        :disabled="selectedProjects.length === 0"
+        @click="$refs.editLinksModal.show()"
+      >
+        <EditIcon />
+        Edit links
+      </button>
+      <Button color="primary" :action="() => (editMode = false)" class="push-right">
+        <SaveIcon /> Save changes
+      </Button>
+    </div>
+    <div v-else class="search-row">
+      <div class="iconified-input">
+        <label for="search-input" hidden>Search notifications</label>
+        <SearchIcon />
+        <input id="search-input" v-model="filterQuery" type="text" />
+        <Button :class="filterQuery ? '' : 'empty'" @click="() => (filterQuery = '')">
+          <XIcon />
+        </Button>
       </div>
-      <p v-if="projects.length < 1">
-        You don't have any projects yet. Click the green button above to begin.
-      </p>
-      <template v-else>
-        <p>You can edit multiple projects at once by selecting them below.</p>
-        <div class="input-group">
+      <OverflowMenu
+        class="btn btn-primary btn-dropdown-animation"
+        :options="[
+          {
+            id: 'new',
+            action: () => $refs.modal_creation.show(),
+          },
+          {
+            id: 'import',
+            disabled: true,
+            action: () => {},
+          },
+        ]"
+      >
+        <PlusIcon /> Create new <DropdownIcon />
+        <template #new> <BoxIcon /> New project</template>
+        <template #import> <BoxImportIcon /> Import project</template>
+      </OverflowMenu>
+      <OverflowMenu
+        class="btn icon-only"
+        :options="[
+          {
+            id: 'edit',
+            action: () => {
+              editMode = true
+            },
+          },
+        ]"
+      >
+        <MoreHorizontalIcon />
+        <template #edit> <EditIcon /> Edit</template>
+      </OverflowMenu>
+    </div>
+    <p v-if="projects.length < 1">
+      You don't have any projects yet. Click the green button above to begin.
+    </p>
+    <template v-else>
+      <div class="input-group sort-row">
+        <div class="labeled-control-row">
+          Sort by
+          <DropdownSelect
+            v-model="sortBy"
+            :options="['Name', 'Status', 'Type']"
+            @update:model-value="projects = updateSort(projects, sortBy, descending)"
+          />
           <button
-            class="btn"
-            :disabled="selectedProjects.length === 0"
-            @click="$refs.editLinksModal.show()"
+            v-tooltip="descending ? 'Descending' : 'Ascending'"
+            class="btn icon-only"
+            @click="updateDescending()"
           >
-            <EditIcon />
-            Edit links
+            <SortDescendingIcon v-if="descending" />
+            <SortAscendingIcon v-else />
           </button>
-          <div class="push-right">
-            <div class="labeled-control-row">
-              Sort by
-              <Multiselect
-                v-model="sortBy"
-                :searchable="false"
-                class="small-select"
-                :options="['Name', 'Status', 'Type']"
-                :close-on-select="true"
-                :show-labels="false"
-                :allow-empty="false"
-                @update:model-value="projects = updateSort(projects, sortBy, descending)"
-              />
-              <button
-                v-tooltip="descending ? 'Descending' : 'Ascending'"
-                class="btn icon-only"
-                @click="updateDescending()"
-              >
-                <SortDescendingIcon v-if="descending" />
-                <SortAscendingIcon v-else />
-              </button>
-            </div>
-          </div>
         </div>
-        <div class="grid-table">
-          <div class="grid-table__row grid-table__header">
-            <div>
-              <Checkbox
-                :model-value="selectedProjects === projects"
-                @update:model-value="
-                  selectedProjects === projects
-                    ? (selectedProjects = [])
-                    : (selectedProjects = projects)
-                "
-              />
-            </div>
-            <div>Icon</div>
-            <div>Name</div>
-            <div>ID</div>
-            <div>Type</div>
-            <div>Status</div>
-            <div />
+      </div>
+      <div class="grid-table" :class="{ 'edit-mode': editMode }">
+        <div class="grid-table__row grid-table__header">
+          <div class="edit-mode-only">
+            <Checkbox
+              :model-value="selectedProjects === projects"
+              @update:model-value="
+                selectedProjects === projects
+                  ? (selectedProjects = [])
+                  : (selectedProjects = projects)
+              "
+            />
           </div>
-          <div v-for="project in projects" :key="`project-${project.id}`" class="grid-table__row">
-            <div>
-              <Checkbox
-                :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
-                :model-value="selectedProjects.includes(project)"
-                @update:model-value="
-                  selectedProjects.includes(project)
-                    ? (selectedProjects = selectedProjects.filter((it) => it !== project))
-                    : selectedProjects.push(project)
-                "
+          <div>Icon</div>
+          <div class="sortable" @click="() => toggleSort('Name')">
+            Name <DropdownIcon v-if="sortBy === `Name`" :class="{ flip: descending }" />
+          </div>
+          <div>ID</div>
+          <div class="sortable" @click="() => toggleSort('Type')">
+            Type <DropdownIcon v-if="sortBy === `Type`" :class="{ flip: descending }" />
+          </div>
+          <div class="sortable" @click="() => toggleSort('Status')">
+            Status <DropdownIcon v-if="sortBy === `Status`" :class="{ flip: descending }" />
+          </div>
+          <div />
+        </div>
+        <div
+          v-for="project in filteredProjects"
+          :key="`project-${project.id}`"
+          class="grid-table__row"
+        >
+          <div class="edit-mode-only">
+            <Checkbox
+              :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
+              :model-value="selectedProjects.includes(project)"
+              @update:model-value="
+                selectedProjects.includes(project)
+                  ? (selectedProjects = selectedProjects.filter((it) => it !== project))
+                  : selectedProjects.push(project)
+              "
+            />
+          </div>
+          <div>
+            <nuxt-link
+              tabindex="-1"
+              :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                project.slug ? project.slug : project.id
+              }`"
+            >
+              <Avatar
+                :src="project.icon_url"
+                aria-hidden="true"
+                :alt="'Icon for ' + project.title"
+                no-shadow
               />
-            </div>
-            <div>
+            </nuxt-link>
+          </div>
+
+          <div>
+            <span class="project-title">
+              <IssuesIcon
+                v-if="project.moderator_message"
+                aria-label="Project has a message from the moderators. View the project to see more."
+              />
+
               <nuxt-link
-                tabindex="-1"
+                class="hover-link wrap-as-needed"
                 :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
                   project.slug ? project.slug : project.id
                 }`"
               >
-                <Avatar
-                  :src="project.icon_url"
-                  aria-hidden="true"
-                  :alt="'Icon for ' + project.title"
-                  no-shadow
-                />
+                {{ project.title }}
               </nuxt-link>
-            </div>
+            </span>
+          </div>
 
-            <div>
-              <span class="project-title">
-                <IssuesIcon
-                  v-if="project.moderator_message"
-                  aria-label="Project has a message from the moderators. View the project to see more."
-                />
+          <div>
+            <CopyCode :text="project.id" />
+          </div>
 
-                <nuxt-link
-                  class="hover-link wrap-as-needed"
-                  :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                    project.slug ? project.slug : project.id
-                  }`"
-                >
-                  {{ project.title }}
-                </nuxt-link>
-              </span>
-            </div>
+          <div>
+            {{ formatProjectType(getProjectTypeForUrl(project.project_type, project.loaders)) }}
+          </div>
 
-            <div>
-              <CopyCode :text="project.id" />
-            </div>
+          <div>
+            <Badge v-if="project.status" :type="project.status" class="status" />
+          </div>
 
-            <div>
-              {{ formatProjectType(getProjectTypeForUrl(project.project_type, project.loaders)) }}
-            </div>
-
-            <div>
-              <Badge v-if="project.status" :type="project.status" class="status" />
-            </div>
-
-            <div>
-              <nuxt-link
-                class="btn icon-only"
-                :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                  project.slug ? project.slug : project.id
-                }/settings`"
-              >
-                <SettingsIcon />
-              </nuxt-link>
-            </div>
+          <div>
+            <nuxt-link
+              class="btn icon-only"
+              :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                project.slug ? project.slug : project.id
+              }/settings`"
+            >
+              <SettingsIcon />
+            </nuxt-link>
           </div>
         </div>
-      </template>
-    </div>
+      </div>
+    </template>
   </div>
 </template>
 
 <script setup>
-import { Multiselect } from 'vue-multiselect'
 import {
+  DropdownSelect,
   Badge,
   Checkbox,
   Modal,
@@ -319,16 +360,23 @@ import {
   SortAscendingIcon,
   SortDescendingIcon,
   formatProjectType,
+  SearchIcon,
+  OverflowMenu,
+  DropdownIcon,
+  BoxIcon,
+  MoreHorizontalIcon,
+  Button,
 } from 'omorphia'
 import { getProjectTypeForUrl } from '~/helpers/projects.js'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
+import BoxImportIcon from '~/assets/images/utils/box-import.svg'
 
 definePageMeta({
   middleware: 'auth',
 })
 
 useHead({
-  title: 'Projects - Modrinth',
+  title: 'Your projects - Modrinth',
 })
 
 const cosmetics = useCosmetics()
@@ -340,7 +388,14 @@ const editLinksModal = ref()
 const EDIT_DETAILS = ref(1 << 2)
 
 const projects = ref(updateSort(user.value.projects, 'Name'))
+const filteredProjects = computed(() =>
+  projects.value.filter(
+    (x) => !filterQuery.value || x.title.toLowerCase().includes(filterQuery.value.toLowerCase())
+  )
+)
 const selectedProjects = ref([])
+const editMode = ref(false)
+const filterQuery = ref('')
 const sortBy = ref('Name')
 const descending = ref(false)
 const editLinks = ref({
@@ -362,6 +417,16 @@ const editLinks = ref({
     clear: false,
   },
 })
+
+function toggleSort(name) {
+  if (sortBy.value === name) {
+    descending.value = !descending.value
+  } else {
+    sortBy.value = name
+    descending.value = false
+  }
+  projects.value = updateSort(projects.value, sortBy.value, descending.value)
+}
 
 function updateDescending() {
   descending.value = !descending.value
@@ -470,11 +535,29 @@ async function bulkEditLinks() {
 .grid-table {
   display: grid;
   grid-template-columns:
-    min-content min-content minmax(min-content, 2fr)
+    min-content minmax(min-content, 2fr)
     minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) min-content;
   border-radius: var(--radius-sm);
   overflow: hidden;
   margin-top: var(--gap-md);
+  background-color: var(--color-raised-bg);
+  border: 1px solid var(--color-card-divider);
+
+  &.edit-mode {
+    grid-template-columns:
+      min-content min-content minmax(min-content, 2fr)
+      minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1fr) min-content;
+  }
+
+  &:not(.edit-mode) {
+    .grid-table__row > :nth-child(2) {
+      padding-left: var(--gap-lg);
+    }
+
+    .edit-mode-only {
+      display: none;
+    }
+  }
 
   .grid-table__row {
     display: contents;
@@ -506,6 +589,22 @@ async function bulkEditLinks() {
       color: var(--color-contrast);
       padding-top: var(--gap-lg);
       padding-bottom: var(--gap-lg);
+      flex-direction: row;
+      justify-content: left;
+      align-items: center;
+      gap: 0.5rem;
+
+      &.sortable {
+        cursor: pointer;
+
+        svg.flip {
+          rotate: 180deg;
+        }
+
+        &:active svg {
+          scale: 0.9;
+        }
+      }
     }
   }
 
@@ -648,5 +747,19 @@ h1 {
   margin-block: var(--gap-sm) var(--gap-lg);
   font-size: 2em;
   line-height: 1em;
+}
+
+.edit-row {
+  margin-bottom: var(--gap-lg);
+}
+
+.sort-row {
+  display: none;
+}
+
+@media screen and (max-width: 750px) {
+  .sort-row {
+    display: flex;
+  }
 }
 </style>

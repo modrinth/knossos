@@ -2,7 +2,7 @@
   <section class="card">
     <Breadcrumbs
       current-title="Withdraw"
-      :link-stack="[{ href: '/settings/revenue', label: 'Revenue' }]"
+      :link-stack="[{ href: '/creations/revenue', label: 'Revenue' }]"
     />
 
     <h2>Withdraw</h2>
@@ -127,7 +127,7 @@
       </template>
     </div>
     <div class="input-group push-right">
-      <nuxt-link to="/settings/revenue" class="btn">
+      <nuxt-link to="/creations/revenue" class="btn">
         <XIcon />
         Cancel
       </nuxt-link>
@@ -273,7 +273,7 @@ async function withdraw() {
       apiVersion: 3,
     })
     await useAuth(auth.value.token)
-    await navigateTo('/settings/revenue')
+    await navigateTo('/creations/revenue')
     addNotification({
       group: 'main',
       title: 'Withdrawal complete',

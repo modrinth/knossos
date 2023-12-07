@@ -28,23 +28,6 @@
             <ServerIcon />
             Applications
           </NuxtLink>
-          <h3>Manage</h3>
-          <NuxtLink to="/settings/revenue">
-            <CurrencyIcon />
-            Revenue
-          </NuxtLink>
-          <NuxtLink to="/settings/projects">
-            <ListIcon />
-            Projects
-          </NuxtLink>
-          <NuxtLink to="/settings/reports">
-            <ReportIcon />
-            Reports
-          </NuxtLink>
-          <NuxtLink to="/settings/follows">
-            <HeartIcon />
-            Follows
-          </NuxtLink>
         </template>
       </div>
     </aside>
