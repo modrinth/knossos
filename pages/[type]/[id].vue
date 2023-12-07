@@ -15,6 +15,170 @@
       :share-text="`${config.public.siteUrl}/${project.project_type}/${project.slug ?? project.id}`"
       :link="true"
     />
+    <Modal ref="downloadModal" :header="`Download ${project.title}`">
+      <div class="download-modal-content">
+        <div v-if="selectingGameVersion" class="list-selection-page">
+          <div class="heading">
+            <h2>Select game version</h2>
+            <button class="btn" @click="() => (selectingGameVersion = false)">
+              <LeftArrowIcon /> Back
+            </button>
+          </div>
+          <div class="iconified-input">
+            <label class="hidden" for="search">Search</label>
+            <SearchIcon aria-hidden="true" />
+            <input
+              id="search"
+              v-model="gameVersionQuery"
+              type="text"
+              name="search"
+              :placeholder="`Search versions...`"
+              autocomplete="off"
+            />
+            <Button v-if="gameVersionQuery" @click="() => (gameVersionQuery = '')">
+              <XIcon />
+            </Button>
+          </div>
+          <ScrollableMultiSelect>
+            <ListSelector
+              v-for="{ version, valid } in gameVersionSuggestions.filter(
+                (x) => !gameVersionQuery || x.version.includes(gameVersionQuery)
+              )"
+              :key="version"
+              v-tooltip="
+                !valid
+                  ? `${project.title} is not available for ${formatCategory(
+                      selectedPlatform
+                    )} on ${version}`
+                  : null
+              "
+              :class="{
+                incompatible: !valid,
+              }"
+              :model-value="selectedGameVersion === version"
+              class="list-selector"
+              @click="
+                () => {
+                  selectedGameVersion = version
+                  selectingGameVersion = false
+
+                  if (!valid) {
+                    selectedPlatform = null
+                    highlightPlatform = true
+                  }
+                }
+              "
+            >
+              {{ version }}
+            </ListSelector>
+          </ScrollableMultiSelect>
+          <div class="toggle-option">
+            <label for="show-all-versions"> Show snapshot versions </label>
+            <Toggle id="show-all-versions" v-model="showSnapshots" :checked="showSnapshots" />
+          </div>
+        </div>
+        <div v-else-if="selectingPlatform" class="list-selection-page">
+          <div class="heading">
+            <h2>Select platform</h2>
+            <button class="btn" @click="() => (selectingPlatform = false)">
+              <LeftArrowIcon /> Back
+            </button>
+          </div>
+          <ScrollableMultiSelect>
+            <ListSelector
+              v-for="{ platform, valid } in platformSuggestions"
+              :key="platform"
+              v-tooltip="
+                !valid
+                  ? `${project.title} is not available for ${formatCategory(
+                      platform
+                    )} on ${selectedGameVersion}`
+                  : null
+              "
+              :class="{
+                incompatible: !valid,
+              }"
+              class="list-selector"
+              :model-value="selectedPlatform === platform"
+              @click="
+                () => {
+                  selectedPlatform = platform
+                  selectingPlatform = false
+
+                  if (!valid) {
+                    selectedGameVersion = null
+                    highlightGameVersion = true
+                  }
+                }
+              "
+            >
+              {{ formatCategory(platform) }}
+            </ListSelector>
+          </ScrollableMultiSelect>
+        </div>
+        <div v-else class="main-page">
+          <div class="input-group">
+            <button
+              class="btn"
+              :disabled="project.game_versions.length === 1"
+              :class="{ 'warning-outline': highlightGameVersion && !selectedGameVersion }"
+              @click="() => (selectingGameVersion = true)"
+            >
+              <GameIcon />
+
+              {{
+                project.game_versions.length === 1
+                  ? `Game version: ${project.game_versions[0]}`
+                  : selectedGameVersion
+                  ? `Game version: ${selectedGameVersion}`
+                  : 'Select game version'
+              }}
+              <ChevronRightIcon />
+            </button>
+            <UnknownIcon
+              v-if="project.game_versions.length === 1"
+              v-tooltip="
+                `${project.title} is only available for ${formatCategory(project.game_versions[0])}`
+              "
+              class="help-icon"
+            />
+          </div>
+          <div class="input-group">
+            <button
+              class="btn"
+              :disabled="project.loaders.length === 1"
+              :class="{ 'warning-outline': highlightPlatform && !selectedPlatform }"
+              @click="() => (selectingPlatform = true)"
+            >
+              <WrenchIcon />
+              {{
+                project.loaders.length === 1
+                  ? `Platform: ${formatCategory(project.loaders[0])}`
+                  : selectedPlatform
+                  ? `Platform: ${formatCategory(selectedPlatform)}`
+                  : 'Select platform'
+              }}
+              <ChevronRightIcon />
+            </button>
+            <UnknownIcon
+              v-if="project.loaders.length === 1"
+              v-tooltip="
+                `${project.title} is only available for ${formatCategory(project.loaders[0])}`
+              "
+              class="help-icon"
+            />
+          </div>
+          <Button
+            color="primary"
+            large
+            :link="selectedVersion ? selectedVersion.primaryFile.url : ''"
+            :disabled="!selectedVersion"
+          >
+            <DownloadIcon /> Download
+          </Button>
+        </div>
+      </div>
+    </Modal>
     <div
       :class="{
         'normal-page': true,
@@ -124,23 +288,33 @@
           </div>
           <div class="mod-buttons">
             <div class="joined-buttons">
-              <Button color="primary" large>
+              <Button
+                color="primary"
+                large
+                @click="
+                  () => {
+                    downloadModal.show()
+                    selectedGameVersion = null
+                    selectedPlatform = null
+                  }
+                "
+              >
                 <DownloadIcon />
                 Download
               </Button>
-              <OverflowMenu
-                class="btn btn-primary btn-large"
-                :options="[
-                  {
-                    id: 'install',
-                    action: () => {},
-                    color: 'green',
-                  },
-                ]"
-              >
-                <DropdownIcon />
-                <template #install><DownloadIcon /> Install with App</template>
-              </OverflowMenu>
+              <!--              <OverflowMenu-->
+              <!--                class="btn btn-primary btn-large"-->
+              <!--                :options="[-->
+              <!--                  {-->
+              <!--                    id: 'install',-->
+              <!--                    action: () => {},-->
+              <!--                    color: 'green',-->
+              <!--                  },-->
+              <!--                ]"-->
+              <!--              >-->
+              <!--                <DropdownIcon />-->
+              <!--                <template #install><DownloadIcon /> Install with App</template>-->
+              <!--              </OverflowMenu>-->
             </div>
           </div>
         </div>
@@ -723,6 +897,10 @@ import {
   SlashIcon as BanIcon,
   MessageIcon as ModerationIcon,
   ShareModal,
+  Toggle,
+  ScrollableMultiSelect,
+  ListSelector,
+  SearchIcon,
 } from 'omorphia'
 import { reportProject } from '~/utils/report-helpers.ts'
 import {
@@ -747,6 +925,9 @@ const cosmetics = useCosmetics()
 const tags = useTags()
 const vintl = useVIntl()
 const { formats } = vintl
+
+const selectingGameVersion = ref(false)
+const selectingPlatform = ref(false)
 
 if (
   !route.params.id ||
@@ -873,7 +1054,7 @@ versions.value = computeVersions(versions.value, allMembers.value)
 // A: It will incorrectly generate the version slugs because it doesn't have the full context of
 //    all the versions. For example, if version 1.1.0 for Forge is featured but 1.1.0 for Fabric
 //    is not, but the Fabric one was uploaded first, the Forge version would link to the Fabric
-///   version
+//    version
 const featuredIds = featuredVersions.value.map((x) => x.id)
 featuredVersions.value = versions.value.filter((version) => featuredIds.includes(version.id))
 
@@ -884,11 +1065,120 @@ featuredVersions.value.sort((a, b) => {
   return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
 })
 
+const selectedGameVersion = ref(null)
+const selectedPlatform = ref(null)
+
+const platformSuggestions = computed(() => {
+  const validPlatformsSet = new Set()
+
+  versions.value.forEach((version) => {
+    if (!selectedGameVersion.value || version.game_versions.includes(selectedGameVersion.value)) {
+      version.loaders.forEach((platform) => validPlatformsSet.add(platform))
+    }
+  })
+
+  const validPlatforms = [...validPlatformsSet]
+
+  return [
+    ...validPlatforms.map((platform) => ({
+      platform,
+      valid: true,
+    })),
+    ...project.value.loaders
+      .filter((x) => !validPlatforms.includes(x))
+      .map((platform) => ({
+        platform,
+        valid: false,
+      })),
+  ].sort((a, b) => {
+    const compareValid = b.valid - a.valid
+    if (compareValid !== 0) {
+      return compareValid
+    }
+
+    return a.platform.localeCompare(b.platform)
+  })
+})
+
+const gameVersionSuggestions = computed(() => {
+  const validGameVersionsSet = new Set()
+
+  versions.value.forEach((version) => {
+    if (!selectedPlatform.value || version.loaders.includes(selectedPlatform.value)) {
+      version.game_versions.forEach((gameVersion) => validGameVersionsSet.add(gameVersion))
+    }
+  })
+
+  const validGameVersions = [...validGameVersionsSet]
+
+  return [
+    ...validGameVersions.map((gameVersion) => ({
+      version: gameVersion,
+      valid: true,
+    })),
+    ...project.value.game_versions
+      .filter((x) => !validGameVersions.includes(x))
+      .map((gameVersions) => ({
+        version: gameVersions,
+        valid: false,
+      })),
+  ]
+    .filter(
+      (version) =>
+        showSnapshots.value ||
+        allGameVersionsSorted.value.find((x) => x.version === version.version).version_type !==
+          'snapshot'
+    )
+    .sort((a, b) => {
+      const compareValid = b.valid - a.valid
+
+      if (compareValid !== 0) {
+        return compareValid
+      }
+
+      const indexA = allGameVersionsSorted.value.findIndex((x) => x.version === a.version)
+      const indexB = allGameVersionsSorted.value.findIndex((x) => x.version === b.version)
+
+      return indexA - indexB
+    })
+})
+
+const selectedVersion = computed(() => {
+  let platform = selectedPlatform.value
+  let gameVersion = selectedGameVersion.value
+
+  if (!platform && project.value.loaders.length === 1) {
+    platform = project.value.loaders[0]
+  }
+
+  if (!gameVersion && project.value.game_versions.length === 1) {
+    gameVersion = project.value.game_versions[0]
+  }
+
+  const matchesSelection = (version) =>
+    version.loaders.includes(platform) && version.game_versions.includes(gameVersion)
+
+  const nonAlphas = versions.value.filter(
+    (version) => version.version_type !== 'alpha' && matchesSelection(version)
+  )
+
+  return nonAlphas.length > 0
+    ? nonAlphas[0]
+    : versions.value.find((version) => matchesSelection(version)) || null
+})
+
+const showSnapshots = ref(false)
+
+const highlightGameVersion = ref(false)
+const highlightPlatform = ref(false)
+
+const gameVersionQuery = ref('')
+
 const licenseIdDisplay = computed(() => {
   const id = project.value.license.id
 
   if (id === 'LicenseRef-All-Rights-Reserved') {
-    return 'ARR'
+    return 'All rights reserved'
   } else if (id.includes('LicenseRef')) {
     return id.replaceAll('LicenseRef-', '').replaceAll('-', ' ')
   } else {
@@ -986,6 +1276,7 @@ async function setProcessing() {
   stopLoading()
 }
 
+const downloadModal = ref(null)
 const modalLicense = ref(null)
 const licenseText = ref('')
 async function getLicenseData() {
@@ -1099,11 +1390,15 @@ async function updateMembers() {
   )
 }
 
-const supportsMcVersions = computed(() => {
-  const allMcVersions = tags.value.gameVersions
-  const versions = project.value.game_versions.slice().sort((a, b) => {
+const allGameVersionsSorted = computed(() =>
+  tags.value.gameVersions.sort((a, b) => {
     return new Date(b.date) - new Date(a.date)
   })
+)
+
+const supportsMcVersions = computed(() => {
+  const allMcVersions = allGameVersionsSorted.value
+  const versions = project.value.game_versions.slice()
   const display = []
   if (
     versions.length > 0 &&
@@ -1813,6 +2108,118 @@ async function copyId() {
 @media screen and (max-width: 900px) {
   .page-bar .desktop-settings-button {
     display: none;
+  }
+}
+
+.download-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: var(--gap-lg);
+  height: 27rem;
+  padding: var(--gap-lg);
+
+  > .list-selection-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+
+    .scrollable-pane-wrapper {
+      max-height: 15rem;
+      flex-shrink: 1;
+      width: 20rem;
+
+      :deep(.wrapper-wrapper) {
+        background-color: var(--color-bg);
+        border-radius: var(--radius-md);
+        padding: var(--gap-sm);
+
+        &::before {
+          background-image: linear-gradient(var(--color-bg), transparent);
+        }
+
+        &::after {
+          background-image: linear-gradient(transparent, var(--color-bg));
+        }
+      }
+
+      .list-selector.incompatible {
+        color: var(--color-red);
+        opacity: 0.5;
+      }
+    }
+
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h2 {
+        margin: 0;
+        font-size: var(--font-size-md);
+      }
+    }
+  }
+
+  > .main-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+    width: 18rem;
+
+    .btn {
+      width: 100%;
+    }
+
+    .btn:not(.btn-primary) {
+      justify-content: left;
+      text-align: left;
+
+      &:disabled {
+        background-color: transparent;
+
+        svg:last-child {
+          display: none;
+        }
+      }
+
+      svg:last-child {
+        margin-left: auto;
+      }
+    }
+
+    .input-group {
+      display: flex;
+      flex-wrap: nowrap;
+
+      .help-icon {
+        margin-right: 1rem;
+      }
+
+      .btn.warning-outline {
+        border-color: var(--color-red);
+        background-color: var(--color-warning-banner-bg);
+      }
+    }
+  }
+}
+
+.toggle-option {
+  margin-inline: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+
+  label {
+    flex-grow: 1;
+    font-weight: 600;
+  }
+
+  :not(:focus-visible) {
+    box-shadow: none;
   }
 }
 </style>
