@@ -222,6 +222,7 @@ onMounted(() => {
     }
   }, 1000)
 })
+
 const props = defineProps({
   project: {
     type: Object,
@@ -230,11 +231,13 @@ const props = defineProps({
     },
   },
 })
+
 const totalData = ref({
   downloads: 0,
   pageViews: 0,
   revenue: 0,
 })
+
 const countryNames = shallowRef({
   ad: 'Andorra',
   ae: 'United Arab Emirates',
@@ -493,6 +496,7 @@ const countryNames = shallowRef({
   zm: 'Zambia',
   zw: 'Zimbabwe',
 })
+
 const finishedLoading = ref(false)
 const selectedResolution = ref('daily')
 const startDate = ref(new Date(new Date() - 30 * 24 * 60 * 60 * 1000))
@@ -530,6 +534,7 @@ const processAnalytics = (analytics, accumulateData) => {
     ],
   }
 }
+
 const processCountryData = (analytics) => {
   const data = {
     total: 0,
@@ -547,6 +552,7 @@ const processCountryData = (analytics) => {
   data.data.sort((a, b) => b.value - a.value)
   return data
 }
+
 const refetchData = async () => {
   const body = `project_ids=["${
     props.project.id
@@ -569,7 +575,7 @@ const refetchData = async () => {
     ] = await Promise.all([
       useAsyncData(
         `analytics/downloads?${body}`,
-        () => useBaseFetch(`analytics/downloads?${body}`, { apiVersion: 3 }),
+        () => useBaseFetch(`analytics/downloads?${body}`, { apiVersion: 2 }),
         {
           transform: (analytics) =>
             processAnalytics(
@@ -580,7 +586,7 @@ const refetchData = async () => {
       ),
       useAsyncData(
         `analytics/views?${body}`,
-        () => useBaseFetch(`analytics/views?${body}`, { apiVersion: 3 }),
+        () => useBaseFetch(`analytics/views?${body}`, { apiVersion: 2 }),
         {
           transform: (analytics) =>
             processAnalytics(
@@ -591,7 +597,7 @@ const refetchData = async () => {
       ),
       useAsyncData(
         `analytics/revenue?${body}`,
-        () => useBaseFetch(`analytics/revenue?${body}`, { apiVersion: 3 }),
+        () => useBaseFetch(`analytics/revenue?${body}`, { apiVersion: 2 }),
         {
           transform: (analytics) =>
             processAnalytics(
@@ -602,14 +608,14 @@ const refetchData = async () => {
       ),
       useAsyncData(
         `analytics/countries/downloads?${body}`,
-        () => useBaseFetch(`analytics/countries/downloads?${body}`, { apiVersion: 3 }),
+        () => useBaseFetch(`analytics/countries/downloads?${body}`, { apiVersion: 2 }),
         {
           transform: (analytics) => processCountryData(analytics),
         }
       ),
       useAsyncData(
         `analytics/countries/views?${body}`,
-        () => useBaseFetch(`analytics/countries/views?${body}`, { apiVersion: 3 }),
+        () => useBaseFetch(`analytics/countries/views?${body}`, { apiVersion: 2 }),
         {
           transform: (analytics) => processCountryData(analytics),
         }
@@ -626,6 +632,7 @@ const refetchData = async () => {
     markReload.value = false
   }
 }
+
 const selectResolution = async (resolution) => {
   if (selectedResolution.value !== resolution) {
     selectedResolution.value = resolution
@@ -648,12 +655,14 @@ const selectResolution = async (resolution) => {
     await refetchData()
   }
 }
+
 const openCustomModal = () => {
   customStartDate.value = null
   customEndDate.value = null
   customTimeResolution.value = 1440
   customTimeModal.value.show()
 }
+
 const applyCustomModal = async () => {
   if (customStartDate.value && timeResolution.value) {
     customTimeModal.value.hide()
