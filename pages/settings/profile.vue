@@ -54,23 +54,31 @@
         </span>
       </label>
       <textarea id="bio-field" v-model="bio" type="text" />
-      <Button v-if="hasUnsavedChanges" color="primary" :action="() => saveChanges()">
-        <SaveIcon /> Save changes
-      </Button>
+      <div v-if="hasUnsavedChanges" class="input-group">
+        <Button color="primary" :action="() => saveChanges()"> <SaveIcon /> Save changes </Button>
+        <Button :action="() => cancel()"> <XIcon /> Cancel </Button>
+      </div>
       <div v-else class="input-group">
         <Button disabled color="primary" :action="() => saveChanges()">
-          <SaveIcon /> Changes saved
+          <SaveIcon /> {{ saved ? 'Changes saved' : 'Save changes' }}
         </Button>
-        <NuxtLink class="btn" :to="`/user/${auth.user.username}`">
-          <UserIcon /> Visit your profile
-        </NuxtLink>
+        <Button :link="`/user/${auth.user.username}`"> <UserIcon /> Visit your profile </Button>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { Button, UserIcon, SaveIcon, Avatar, FileInput, UploadIcon, UndoIcon } from 'omorphia'
+import {
+  Button,
+  UserIcon,
+  SaveIcon,
+  Avatar,
+  FileInput,
+  UploadIcon,
+  UndoIcon,
+  XIcon,
+} from 'omorphia'
 
 useHead({
   title: 'Account settings - Modrinth',
@@ -87,6 +95,7 @@ const bio = ref(auth.value.user.bio)
 const avatarUrl = ref(auth.value.user.avatar_url)
 const icon = shallowRef(null)
 const previewImage = shallowRef(null)
+const saved = ref(false)
 
 const hasUnsavedChanges = computed(
   () =>
@@ -102,6 +111,13 @@ function showPreviewImage(files) {
   reader.onload = (event) => {
     previewImage.value = event.target.result
   }
+}
+
+function cancel() {
+  icon.value = null
+  previewImage.value = null
+  username.value = auth.value.user.username
+  bio.value = auth.value.user.bio
 }
 
 async function saveChanges() {
@@ -137,6 +153,7 @@ async function saveChanges() {
     })
     await useAuth(auth.value.token)
     avatarUrl.value = auth.value.user.avatar_url
+    saved.value = true
   } catch (err) {
     addNotification({
       group: 'main',

@@ -144,7 +144,7 @@
           }
         "
       >
-        <PlusIcon /> New Application
+        <PlusIcon /> Create new
       </button>
     </div>
     <p>

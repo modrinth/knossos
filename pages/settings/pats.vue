@@ -86,7 +86,7 @@
           }
         "
       >
-        <PlusIcon /> Create a PAT
+        <PlusIcon /> Create new
       </button>
     </div>
     <p>
