@@ -656,6 +656,7 @@ const rows = shallowRef([
     width: 13rem;
     height: 13rem;
     margin-bottom: 2.5rem;
+    color: var(--color-brand);
   }
 
   h2 {

@@ -1040,10 +1040,6 @@ function setClosestMaxResults() {
   margin: 2rem;
 }
 
-#search-results {
-  min-height: 20vh;
-}
-
 @media screen and (min-width: 860px) {
   .labeled-control {
     flex-wrap: nowrap !important;
