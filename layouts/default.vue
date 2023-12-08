@@ -59,7 +59,7 @@
                 <PlusIcon aria-hidden="true" />
                 Create a project
               </button>
-              <NuxtLink class="btn" to="/settings/follows">
+              <NuxtLink class="btn" to="/collection/following">
                 <HeartIcon aria-hidden="true" />
                 Following
               </NuxtLink>
@@ -230,7 +230,7 @@
             title="Create new..."
             class="btn btn-transparent icon-only btn-dropdown-animation"
             position="bottom"
-            direction="right"
+            direction="left"
             :options="[
               {
                 id: 'new-project',
@@ -730,7 +730,7 @@ function toggleBrowseMenu() {
       }
     }
 
-    @media screen and (max-width: 700px) and (hover: none) {
+    @media screen and (max-width: 700px) {
       .modrinth-app-promo {
         display: none;
       }
@@ -988,10 +988,10 @@ function toggleBrowseMenu() {
 
         &.router-link-exact-active:not(&.no-active) {
           svg {
-            color: var(--color-contrast);
+            color: var(--color-brand);
           }
 
-          color: var(--color-contrast);
+          color: var(--color-brand);
 
           &::before {
             content: '';

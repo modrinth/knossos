@@ -18,11 +18,11 @@
         <nuxt-link
           v-if="auth.user.payout_data.balance >= minWithdraw"
           class="btn btn-primary"
-          to="/creations/revenue/withdraw"
+          to="/settings/revenue/withdraw"
         >
           <TransferIcon /> Withdraw
         </nuxt-link>
-        <NuxtLink class="btn" to="/creations/revenue/transfers">
+        <NuxtLink class="btn" to="/settings/revenue/transfers">
           <HistoryIcon /> View transfer history
         </NuxtLink>
       </div>

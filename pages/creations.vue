@@ -12,7 +12,7 @@
         <nuxt-link :to="`/creations/organizations`" class="button-base nav-button">
           <OrganizationIcon /> Organizations
         </nuxt-link>
-        <nuxt-link :to="`/creations/revenue`" class="button-base nav-button">
+        <nuxt-link :to="`/settings/revenue`" class="button-base nav-button">
           <CurrencyIcon /> Revenue
         </nuxt-link>
       </PageBar>

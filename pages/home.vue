@@ -41,7 +41,7 @@
         <nuxt-link class="goto-link" :to="`/user/${auth.user.username}`">
           <UserIcon /> View profile <ChevronRightIcon />
         </nuxt-link>
-        <nuxt-link class="goto-link" :to="`/user/${auth.user.username}`">
+        <nuxt-link class="goto-link" :to="`/settings/profile`">
           <SettingsIcon /> Edit profile <ChevronRightIcon />
         </nuxt-link>
       </section>
@@ -51,10 +51,10 @@
         <button class="btn rewards-display">
           {{ formatMoney(auth.user.payout_data.balance, true) }}
         </button>
-        <nuxt-link class="goto-link" to="/creations/revenue">
+        <nuxt-link class="goto-link" to="/settings/revenue">
           <BanknoteIcon /> Withdraw rewards <ChevronRightIcon />
         </nuxt-link>
-        <nuxt-link class="goto-link" to="/creations/revenue/transfers">
+        <nuxt-link class="goto-link" to="/settings/revenue/transfers">
           <TransferIcon />View transfer history <ChevronRightIcon />
         </nuxt-link>
       </section>
@@ -80,7 +80,7 @@
         <nuxt-link class="goto-link" to="/analytics">
           <ChartIcon />View more analytics <ChevronRightIcon />
         </nuxt-link>
-        <nuxt-link class="goto-link" to="/settings/projects">
+        <nuxt-link class="goto-link" to="/creations/projects">
           <ListIcon />View all projects <ChevronRightIcon />
         </nuxt-link>
       </section>
