@@ -33,8 +33,16 @@
         placeholder="Search options..."
         autocomplete="off"
       />
+      <Button v-if="search" class="r-btn" @click="() => (search = '')">
+        <XIcon />
+      </Button>
     </div>
-    <div class="withdraw-options-scroll">
+    <div
+      v-if="
+        payoutMethods.filter((x) => x.name.toLowerCase().includes(search.toLowerCase())).length > 0
+      "
+      class="withdraw-options-scroll"
+    >
       <div class="withdraw-options">
         <button
           v-for="method in payoutMethods.filter((x) =>
@@ -70,7 +78,7 @@
         </button>
       </div>
     </div>
-
+    <div v-else>No withdraw methods matching '{{ search }}'</div>
     <h3>Amount</h3>
     <p>
       You are initiating a transfer of your revenue from Modrinth's Creator Monetization Program.
@@ -152,6 +160,7 @@
 <script setup>
 import { Multiselect } from 'vue-multiselect'
 import {
+  Button,
   PayPalIcon,
   SearchIcon,
   RadioButtonIcon,

@@ -38,8 +38,8 @@ dependencies:
     specifier: '=13.0.1'
     version: 13.0.1(patch_hash=3vlxaukqep4gvqytxeznhg6wbq)
   omorphia:
-    specifier: ^0.9.4
-    version: 0.9.4(vue@3.3.4)
+    specifier: ^0.9.5
+    version: 0.9.5(vue@3.3.4)
   qrcode.vue:
     specifier: ^3.4.0
     version: 3.4.0(vue@3.3.4)
@@ -6751,8 +6751,8 @@ packages:
     resolution: {integrity: sha512-zuHHiGTYTA1sYJ/wZN+t5HKZaH23i4yI1HMwbuXm24Nid7Dv0KcuRlKoNKS9UNfAVSBlnGLcuQrnOKWOZoEGaw==}
     dev: true
 
-  /omorphia@0.9.4(vue@3.3.4):
-    resolution: {integrity: sha512-boHJHwC1myPd+Tu3jajYqDLP9wSqQPSP/nt4sWQi7NpNZpa19Waf1Mo+4syABq0s0IfCjyEDT46RpAJum8/TNA==}
+  /omorphia@0.9.5(vue@3.3.4):
+    resolution: {integrity: sha512-Mrw2EAHldA+3eGQxzBOX0YVd/gqkYjmk4yn2Mv+H40t7dLWXXMR2x5MRKNelLgMiHbDm//f1bE/h+VpbTQuk9Q==}
     peerDependencies:
       vue: ^3.3.4
     dependencies:

@@ -3,10 +3,10 @@
     <h2>Collections</h2>
     <div class="search-row">
       <div class="iconified-input">
-        <label for="search-input" hidden>Search notifications</label>
+        <label for="search-input" hidden>Search your collections</label>
         <SearchIcon />
         <input id="search-input" v-model="filterQuery" type="text" />
-        <Button :class="filterQuery ? '' : 'empty'" @click="() => (filterQuery = '')">
+        <Button v-if="filterQuery" class="r-btn" @click="() => (filterQuery = '')">
           <XIcon />
         </Button>
       </div>

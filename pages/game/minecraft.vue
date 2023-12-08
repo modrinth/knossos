@@ -6,7 +6,7 @@
       shaders, and plugins hosted on Modrinth.
     </p>
     <div class="search-row">
-      <div class="iconified-input">
+      <div class="">
         <label for="search-input" hidden>Search Minecraft: Java Edition projects</label>
         <SearchIcon />
         <input id="search-input" type="text" placeholder="Search Minecraft: Java Edition content" />

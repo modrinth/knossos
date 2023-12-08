@@ -18,10 +18,9 @@
   </div>
 </template>
 <script setup>
-import { BoxIcon as ProjectIcon, PageBar, CurrencyIcon } from 'omorphia'
+import { BoxIcon as ProjectIcon, PageBar } from 'omorphia'
 import OrganizationIcon from '~/assets/images/utils/organization.svg'
 import CollectionIcon from '~/assets/images/utils/collection.svg'
-import DashboardIcon from '~/assets/images/utils/layout-dashboard.svg'
 
 definePageMeta({
   middleware: 'auth',

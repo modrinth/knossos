@@ -266,45 +266,46 @@
             aria-label="User menu"
             position="bottom"
             direction="left"
-            allow-hover
-            :options="[
-              {
-                id: 'profile',
-                link: `/user/${auth.user.username}`,
-              },
-              {
-                id: 'notifications',
-                link: `/home`,
-              },
-              {
-                id: 'saved',
-                link: `/creations/collections`,
-              },
-              {
-                id: 'creations',
-                link: `/creations`,
-              },
-              {
-                id: 'reports',
-                link: `/reports`,
-              },
-              { divider: true },
-              {
-                id: 'moderation',
-                link: `/moderation`,
-              },
-              {
-                id: 'settings',
-                link: `/settings`,
-              },
-              { divider: true },
-              {
-                id: 'sign-out',
-                color: 'danger',
-                action: () => logoutUser(),
-                hoverFilled: true,
-              },
-            ]"
+            :options="
+              [
+                {
+                  id: 'profile',
+                  link: `/user/${auth.user.username}`,
+                },
+                {
+                  id: 'notifications',
+                  link: `/home`,
+                },
+                {
+                  id: 'saved',
+                  link: `/creations/collections`,
+                },
+                {
+                  id: 'creations',
+                  link: `/creations`,
+                },
+                {
+                  id: 'reports',
+                  link: `/reports`,
+                },
+                { divider: true },
+                {
+                  id: 'moderation',
+                  link: `/moderation`,
+                },
+                {
+                  id: 'settings',
+                  link: `/settings`,
+                },
+                { divider: true },
+                {
+                  id: 'sign-out',
+                  color: 'danger',
+                  action: () => logoutUser(),
+                  hoverFilled: true,
+                },
+              ].filter((x) => x.id !== 'moderation' || tags.staffRoles.includes(auth.user.role))
+            "
           >
             <Avatar
               :src="auth.user.avatar_url"
@@ -512,7 +513,8 @@ const colorMode = useTheme()
 
 const config = useRuntimeConfig()
 const route = useRoute()
-const router = useRouter()
+const tags = useTags()
+
 const link = config.public.siteUrl + route.path.replace(/\/+$/, '')
 useHead({
   link: [
