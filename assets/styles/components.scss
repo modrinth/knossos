@@ -10,21 +10,32 @@
   margin-bottom: var(--gap-lg);
   padding-inline: calc(var(--gap-xl) - 1.1rem - 0.5rem);
   flex-wrap: wrap;
+  border-right: 2px solid var(--color-divider);
 
   a {
     display: flex;
     align-items: center;
     padding: var(--gap-sm) var(--gap-md);
-    border-radius: var(--radius-md);
     font-weight: 500;
+    border-top-left-radius: var(--radius-md);
+    border-bottom-left-radius: var(--radius-md);
 
     svg {
       margin-right: 0.5rem;
+      color: var(--color-secondary);
     }
 
     &.router-link-exact-active {
       background-color: var(--color-button-bg);
       color: var(--color-contrast);
+      border-right: 3px solid var(--color-brand);
+      margin-right: -2px;
+      position: relative;
+      pointer-events: none;
+
+      svg {
+        color: var(--color-contrast);
+      }
     }
 
     .chevron {

@@ -59,7 +59,7 @@
                 <PlusIcon aria-hidden="true" />
                 Create a project
               </button>
-              <NuxtLink class="btn" to="/settings/follows">
+              <NuxtLink class="btn" to="/collection/following">
                 <HeartIcon aria-hidden="true" />
                 Following
               </NuxtLink>
@@ -84,8 +84,17 @@
           </div>
         </div>
         <div class="mobile-navbar" :class="{ expanded: mobileBrowseOpen || mobileUserOpen }">
-          <NuxtLink to="/" class="tab button-animation" title="Home">
-            <ModrinthIcon />
+          <NuxtLink
+            to="/"
+            class="tab button-animation"
+            title="Home"
+            :class="{
+              bubble: auth.user && user.notifications.some((notif) => !notif.read),
+              'no-active': mobileUserOpen || mobileBrowseOpen,
+              'router-link-exact-active': route.name === 'home',
+            }"
+          >
+            <ModrinthIcon /> Home
           </NuxtLink>
           <button
             class="tab button-animation"
@@ -93,34 +102,18 @@
             title="Search"
             @click="toggleBrowseMenu()"
           >
-            <template v-if="auth.user">
-              <SearchIcon />
-            </template>
-            <template v-else>
-              <SearchIcon class="smaller" />
-              Search
-            </template>
+            <SearchIcon /> Browse
           </button>
           <template v-if="auth.user">
             <NuxtLink
-              to="/home"
+              to="/creations"
               class="tab button-animation"
+              title="Dashboard"
               :class="{
-                bubble: user.notifications.some((notif) => !notif.read),
                 'no-active': mobileUserOpen || mobileBrowseOpen,
               }"
-              title="Notifications"
-              @click="
-                () => {
-                  mobileUserOpen = false
-                  mobileBrowseOpen = false
-                }
-              "
             >
-              <NotificationIcon />
-            </NuxtLink>
-            <NuxtLink to="/" class="tab button-animation" title="Dashboard">
-              <ChartIcon />
+              <ListIcon /> Creations
             </NuxtLink>
           </template>
           <button
@@ -129,12 +122,17 @@
             @click="toggleMobileMenu()"
           >
             <template v-if="!auth.user">
-              <HamburgerIcon v-if="!mobileUserOpen" />
-              <CrossIcon v-else />
+              <template v-if="!mobileUserOpen">
+                <HamburgerIcon />
+                More
+              </template>
+              <template v-else>
+                <CrossIcon />
+                Less
+              </template>
             </template>
             <template v-else>
               <Avatar
-                v-if="false"
                 :src="auth.user.avatar_url"
                 class="user-icon"
                 :class="{ expanded: mobileUserOpen }"
@@ -143,6 +141,8 @@
                 circle
                 :size="'none'"
               />
+              <template v-if="!mobileUserOpen"> More </template>
+              <template v-else> Less </template>
             </template>
           </button>
         </div>
@@ -151,16 +151,13 @@
     <div class="page-layout">
       <nav>
         <div class="navbar-brand">
-          <NuxtLink to="/" class="button-base logo-button" aria-label="Modrinth home page">
+          <NuxtLink to="/" class="btn btn-transparent logo-button" aria-label="Modrinth home page">
             <TextLogo :animate="loading" aria-hidden="true" />
           </NuxtLink>
         </div>
         <div class="navbar-links">
           <OverflowMenu
-            class="btn btn-transparent btn-dropdown-animation"
-            :class="{
-              'visibly-active': route && route.name && route.name.startsWith('search-'),
-            }"
+            class="btn btn-transparent btn-header btn-dropdown-animation small-width-displayed"
             position="bottom"
             direction="right"
             :options="[
@@ -198,84 +195,117 @@
             <template #shaders> <GlassesIcon /> Shaders </template>
             <template #plugins> <ServerIcon /> Plugins </template>
           </OverflowMenu>
-
+          <nuxt-link class="btn btn-transparent btn-header small-width-hidden" :to="`/mods`">
+            Mods
+          </nuxt-link>
+          <nuxt-link class="btn btn-transparent btn-header small-width-hidden" :to="`/modpacks`">
+            Modpacks
+          </nuxt-link>
+          <nuxt-link class="btn btn-transparent btn-header small-width-hidden" :to="`/datapacks`">
+            Data Packs
+          </nuxt-link>
+          <nuxt-link
+            class="btn btn-transparent btn-header small-width-hidden"
+            :to="`/resourcepacks`"
+          >
+            Resource Packs
+          </nuxt-link>
+          <nuxt-link class="btn btn-transparent btn-header small-width-hidden" :to="`/shaders`">
+            Shaders
+          </nuxt-link>
+          <nuxt-link class="btn btn-transparent btn-header small-width-hidden" :to="`/plugins`">
+            Plugins
+          </nuxt-link>
+        </div>
+        <div class="navbar-user">
+          <nuxt-link
+            v-if="!cosmetics.hideModrinthAppPromos"
+            class="btn btn-outline btn-primary modrinth-app-promo"
+            to="/app"
+          >
+            <DownloadIcon /> Get Modrinth App
+          </nuxt-link>
           <OverflowMenu
             v-if="auth.user"
-            class="btn btn-transparent btn-dropdown-animation"
+            title="Create new..."
+            class="btn btn-transparent icon-only btn-dropdown-animation"
             position="bottom"
-            direction="right"
+            direction="left"
             :options="[
               {
                 id: 'new-project',
                 action: () => $refs.modal_creation.show(),
               },
-              // {
-              //   id: 'import-project',
-              //   action: () => {},
-              // },
+              {
+                id: 'import-project',
+                disabled: true,
+                action: () => {},
+              },
               {
                 id: 'new-collection',
+                disabled: true,
                 action: () => {},
               },
               { divider: true },
               {
                 id: 'new-organization',
+                disabled: true,
                 action: () => {},
               },
             ]"
           >
-            Create <DropdownIcon />
+            <PlusIcon /> <DropdownIcon />
             <template #new-project> <BoxIcon /> New project </template>
             <template #import-project> <BoxImportIcon /> Import project </template>
             <template #new-collection> <CollectionIcon /> New collection </template>
             <template #new-organization> <OrganizationIcon /> New organization </template>
           </OverflowMenu>
-          <nuxt-link class="btn btn-transparent btn-primary" to="/app"> Modrinth App </nuxt-link>
-        </div>
-        <div class="navbar-user">
-          <button class="btn btn-transparent icon-only" @click="changeTheme(colorMode.value)">
-            <MoonIcon v-if="colorMode.value === 'light'" class="icon" />
-            <SunIcon v-else class="icon" />
-          </button>
           <OverflowMenu
             v-if="auth.user"
-            class="btn btn-transparent btn-dropdown-animation"
+            class="btn btn-transparent btn-dropdown-animation profile-button"
             aria-label="User menu"
             position="bottom"
             direction="left"
-            :options="[
-              {
-                id: 'profile',
-                action: () => {
-                  router.push(`/user/${auth.user.username}`)
+            :options="
+              [
+                {
+                  id: 'profile',
+                  link: `/user/${auth.user.username}`,
                 },
-              },
-              {
-                id: 'saved',
-                action: () => {
-                  router.push(`/settings/follows`)
+                {
+                  id: 'notifications',
+                  link: `/home`,
                 },
-              },
-              {
-                id: 'projects',
-                action: () => {
-                  router.push(`/settings/projects`)
+                {
+                  id: 'saved',
+                  link: `/creations/collections`,
                 },
-              },
-              {
-                id: 'reports',
-                action: () => {
-                  router.push(`/settings/reports`)
+                {
+                  id: 'creations',
+                  link: `/creations`,
                 },
-              },
-              { divider: true },
-              {
-                id: 'sign-out',
-                color: 'danger',
-                action: () => logoutUser(),
-                hoverFilled: true,
-              },
-            ]"
+                {
+                  id: 'reports',
+                  link: `/reports`,
+                },
+                { divider: true },
+                {
+                  id: 'moderation',
+                  link: `/moderation`,
+                },
+                {
+                  id: 'settings',
+                  link: `/settings`,
+                },
+                { divider: true },
+                {
+                  id: 'sign-out',
+                  color: 'danger',
+                  action: () => logoutUser(),
+                  hoverFilled: true,
+                },
+              ].filter((x) => x.id !== 'moderation' || tags.staffRoles.includes(auth.user.role))
+            "
           >
             <Avatar
               :src="auth.user.avatar_url"
@@ -285,12 +315,15 @@
               circle
               size="none"
             />
-            {{ auth.user.username }}
-            <DropdownIcon />
 
             <template #profile>
               <UserIcon aria-hidden="true" />
               Profile
+            </template>
+
+            <template #notifications>
+              <NotificationIcon aria-hidden="true" />
+              Notifications
             </template>
 
             <template #saved>
@@ -298,19 +331,29 @@
               Saved
             </template>
 
-            <template #projects>
-              <ListIcon aria-hidden="true" />
-              Projects
-            </template>
-
-            <template #create-project>
-              <PlusIcon aria-hidden="true" />
-              Create a project
-            </template>
-
             <template #reports>
               <ReportIcon aria-hidden="true" />
               Reports
+            </template>
+
+            <template #creations>
+              <ListIcon aria-hidden="true" />
+              Creations
+            </template>
+
+            <template #moderation>
+              <ModerationIcon aria-hidden="true" />
+              Moderation
+            </template>
+
+            <template #settings>
+              <SettingsIcon aria-hidden="true" />
+              Settings
+            </template>
+
+            <template #sign-out>
+              <LogOutIcon aria-hidden="true" />
+              Sign out
             </template>
           </OverflowMenu>
           <template v-else>
@@ -450,6 +493,7 @@ import {
   IssuesIcon,
   Avatar,
   TextLogo,
+  CurrencyIcon,
 } from 'omorphia'
 import PackageIcon from '~/assets/images/utils/package-open.svg'
 import GlassesIcon from '~/assets/images/utils/glasses.svg'
@@ -469,7 +513,8 @@ const colorMode = useTheme()
 
 const config = useRuntimeConfig()
 const route = useRoute()
-const router = useRouter()
+const tags = useTags()
+
 const link = config.public.siteUrl + route.path.replace(/\/+$/, '')
 useHead({
   link: [
@@ -666,6 +711,10 @@ function toggleBrowseMenu() {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
 
+    .small-width-displayed {
+      display: none;
+    }
+
     @media screen and (min-width: 1280px) {
       max-width: 1280px;
       width: 1280px;
@@ -673,12 +722,19 @@ function toggleBrowseMenu() {
       margin-right: auto;
     }
 
-    @media screen and (max-width: 910px) {
-      grid-template: 'brand user' 'links links';
-      grid-template-columns: 1fr auto;
+    @media screen and (max-width: 1250px) {
+      .small-width-displayed {
+        display: flex;
+      }
 
-      .navbar-links {
-        margin-inline: auto;
+      .small-width-hidden {
+        display: none;
+      }
+    }
+
+    @media screen and (max-width: 700px) {
+      .modrinth-app-promo {
+        display: none;
       }
     }
 
@@ -707,7 +763,7 @@ function toggleBrowseMenu() {
     }
 
     .user-avatar {
-      --size: 1.5rem !important;
+      --size: 2.5rem !important;
     }
 
     .logo-heading {
@@ -721,6 +777,7 @@ function toggleBrowseMenu() {
     }
 
     .logo-button {
+      margin: calc(-1 * var(--gap-sm)) calc(-1 * var(--gap-md));
       svg {
         height: 1.8rem;
         width: auto;
@@ -729,14 +786,10 @@ function toggleBrowseMenu() {
       }
     }
 
-    .btn {
+    .btn-header,
+    .popup-menu .btn {
       box-shadow: none;
-      color: var(--color);
       font-weight: 600;
-
-      &:not(.icon-only) svg {
-        color: var(--color-secondary);
-      }
 
       > svg {
         flex-shrink: 0;
@@ -747,105 +800,10 @@ function toggleBrowseMenu() {
       &.router-link-exact-active {
         color: var(--color-brand);
         background-color: var(--color-brand-highlight);
+        pointer-events: none;
 
         &:not(.icon-only) svg {
           color: var(--color);
-        }
-      }
-
-      &.danger {
-        color: var(--color-red);
-
-        svg {
-          color: var(--color-red);
-        }
-      }
-    }
-
-    .page-links {
-      margin-top: var(--gap-xs);
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-
-      .btn {
-        margin-top: var(--gap-xs);
-        text-align: unset;
-
-        &:not(.icon-only) {
-          width: 100%;
-        }
-      }
-
-      .game-button {
-        border: 1px solid var(--color-divider);
-
-        .game-icon {
-          height: 2rem;
-          width: 2rem;
-          margin-right: 0.5rem;
-        }
-
-        .game-title {
-          display: flex;
-          flex-direction: column;
-
-          .game-title__title {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            flex-shrink: 1;
-            width: 7rem;
-          }
-
-          .game-title__subtitle {
-            font-size: 0.8rem;
-            color: var(--color-secondary);
-          }
-        }
-
-        .switch-icon {
-          margin-left: auto;
-        }
-      }
-
-      .top-links {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-
-        .game-button {
-          margin-bottom: var(--gap-sm);
-        }
-      }
-
-      .bottom-links {
-        display: flex;
-        flex-direction: column;
-        margin-top: auto;
-
-        .btn-primary {
-          color: var(--color-accent-contrast);
-
-          svg {
-            color: var(--color-accent-contrast);
-          }
-        }
-
-        .sign-in.router-link-exact-active {
-          visibility: hidden;
-        }
-
-        .get-app-button {
-          color: var(--color-brand);
-
-          svg {
-            color: var(--color-brand);
-          }
-        }
-
-        .game-button {
-          margin-top: var(--gap-sm);
         }
       }
     }
@@ -938,7 +896,8 @@ function toggleBrowseMenu() {
     }
 
     .mobile-navbar {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       height: calc(var(--size-mobile-navbar-height) + env(safe-area-inset-bottom));
       border-radius: var(--round-card) var(--round-card) 0 0;
       padding-bottom: env(safe-area-inset-bottom);
@@ -949,8 +908,6 @@ function toggleBrowseMenu() {
       box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
       z-index: 7;
       width: 100%;
-      align-items: center;
-      justify-content: space-between;
       transition: border-radius 0.3s ease-out;
       border-top: 2px solid rgba(0, 0, 0, 0);
       box-sizing: border-box;
@@ -967,13 +924,15 @@ function toggleBrowseMenu() {
         flex-basis: 0;
         justify-content: center;
         align-items: center;
-        flex-direction: row;
+        flex-direction: column;
         gap: 0.25rem;
-        font-weight: bold;
+        font-weight: 600;
         padding: 0;
         transition: color ease-in-out 0.15s;
         color: var(--color-secondary);
         text-align: center;
+        font-size: var(--font-size-sm);
+        height: 100%;
 
         &.browse {
           svg {
@@ -1000,13 +959,8 @@ function toggleBrowseMenu() {
         }
 
         svg {
-          height: 1.75rem;
-          width: 1.75rem;
-
-          &.smaller {
-            width: 1.25rem;
-            height: 1.25rem;
-          }
+          height: 1.5rem;
+          width: 1.5rem;
         }
 
         .user-icon {
@@ -1025,20 +979,21 @@ function toggleBrowseMenu() {
           color: var(--color-base);
         }
 
-        &:first-child {
-          margin-left: 2rem;
-        }
-
-        &:last-child {
-          margin-right: 2rem;
-        }
-
         &.router-link-exact-active:not(&.no-active) {
           svg {
             color: var(--color-brand);
           }
 
           color: var(--color-brand);
+
+          &::before {
+            content: '';
+            inset: 0.25rem;
+            position: absolute;
+            background-color: var(--color-brand-highlight);
+            z-index: -1;
+            border-radius: 1rem;
+          }
         }
       }
     }
@@ -1194,6 +1149,22 @@ footer {
 
   .warning-icon {
     color: var(--color-orange);
+  }
+}
+
+.profile-button {
+  padding: 0;
+  background-color: transparent !important;
+
+  .user-avatar {
+    border: 2px solid var(--color-button-bg);
+    transition: border-color 100ms ease-out;
+  }
+
+  &.popout-open {
+    .user-avatar {
+      border-color: var(--color-brand);
+    }
   }
 }
 </style>

@@ -1,16 +1,15 @@
 <template>
   <div>
-    <section class="card">
-      <h2>Messages</h2>
+    <h2>Messages</h2>
 
-      <ThreadSummary
-        v-for="thread in inbox"
-        :key="thread.id"
-        :thread="thread"
-        :link="getLink(thread)"
-        :auth="auth"
-      />
-    </section>
+    <ThreadSummary
+      v-for="thread in inbox"
+      :key="thread.id"
+      :thread="thread"
+      :link="getLink(thread)"
+      :auth="auth"
+      raised
+    />
   </div>
 </template>
 <script setup>

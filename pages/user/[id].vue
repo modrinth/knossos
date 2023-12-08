@@ -88,7 +88,7 @@
             <NuxtLink
               v-if="auth.user && auth.user.id === user.id"
               class="btn"
-              to="/settings/projects"
+              to="/creations/projects"
             >
               <SettingsIcon />
               {{ formatMessage(messages.profileManageProjectsButton) }}

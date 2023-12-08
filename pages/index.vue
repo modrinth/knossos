@@ -31,7 +31,7 @@
         >
           Sign up
         </nuxt-link>
-        <nuxt-link v-else to="/settings/projects" class="btn outline-button">
+        <nuxt-link v-else to="/creations/projects" class="btn outline-button">
           Your projects
         </nuxt-link>
       </div>

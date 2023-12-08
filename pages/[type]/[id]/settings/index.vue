@@ -407,7 +407,7 @@ async function deleteProject() {
     method: 'DELETE',
   })
   await initUserProjects()
-  await router.push('/settings/projects')
+  await router.push('/creations/projects')
   addNotification({
     group: 'main',
     title: 'Project deleted',

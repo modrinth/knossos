@@ -10,9 +10,9 @@
     :report="report"
     :thread="report.thread"
     :moderation="moderation"
-    raised
     :auth="auth"
-    class="card recessed"
+    class="card"
+    :compact="compact"
   />
   <p v-if="reports.length === 0">You don't have any active reports.</p>
 </template>
@@ -29,6 +29,10 @@ defineProps({
   auth: {
     type: Object,
     required: true,
+  },
+  compact: {
+    type: Boolean,
+    default: false,
   },
 })
 
