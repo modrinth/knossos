@@ -785,12 +785,11 @@ function toggleBrowseMenu() {
     }
 
     .btn-header,
-    :deep(.popup-menu) .btn {
+    .popup-menu .btn {
       box-shadow: none;
       font-weight: 600;
 
       > svg {
-        color: var(--color-secondary);
         flex-shrink: 0;
       }
 
@@ -803,14 +802,6 @@ function toggleBrowseMenu() {
 
         &:not(.icon-only) svg {
           color: var(--color);
-        }
-      }
-
-      &.danger {
-        color: var(--color-red);
-
-        svg {
-          color: var(--color-red);
         }
       }
     }

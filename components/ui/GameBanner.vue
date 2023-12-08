@@ -3,7 +3,7 @@
     <img :src="bannerUrl" class="game-banner" :alt="`Banner art for ${game}`" />
     <div class="banner-overlay">
       <div class="banner-overlay__content">
-        <MinecraftIcon class="game-icon" />
+        <Avatar class="game-icon" :src="iconUrl" />
         <h1 class="game-title">
           <span class="game-name">{{ formatMessage(messages.minecraftTitle) }}</span>
           <span class="game-subtitle">{{ formatMessage(messages.minecraftSubtitle) }}</span>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import MinecraftIcon from 'assets/images/games/minecraft.svg'
+import { Avatar } from 'omorphia'
 
 defineProps({
   game: {
@@ -41,10 +41,8 @@ const messages = defineMessages({
   },
 })
 
-const bannerUrl = computed(
-  () =>
-    'https://education.minecraft.net/content/dam/education-edition/blogs/1-20-update/TrailsnTales_EduBlogBanner_NoLogo.png'
-)
+const iconUrl = computed(() => 'https://cdn.modrinth.com/game/minecraft-java-icon.png')
+const bannerUrl = computed(() => 'https://cdn.modrinth.com/game/minecraft-java-banner.jpg')
 </script>
 
 <style lang="scss" scoped>
@@ -76,6 +74,9 @@ const bannerUrl = computed(
       width: 3rem;
       height: 3rem;
       margin-right: 1rem;
+      border: none;
+      background-color: transparent;
+      box-shadow: none;
     }
 
     .game-title {
