@@ -1164,7 +1164,7 @@ footer {
   background-color: transparent !important;
 
   .user-avatar {
-    border: 2px solid transparent;
+    border: 2px solid var(--color-button-bg);
     transition: border-color 100ms ease-out;
   }
 
