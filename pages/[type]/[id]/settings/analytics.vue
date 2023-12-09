@@ -125,7 +125,7 @@
           </label>
           <div class="country-values">
             <div
-              v-for="[name, count] in analyticsData.formattedData.value.downloadsByCountry.chart"
+              v-for="[name, count] in analyticsData.formattedData.value.downloadsByCountry.data"
               :key="name"
               class="country-value"
             >
@@ -142,19 +142,16 @@
               </div>
               <div
                 v-tooltip="
-                  `${
-                    Math.round(
-                      (count / analyticsData.formattedData.value.downloadsByCountry.sum) * 10000
-                    ) / 100
-                  }%`
+                  formatPercent(count, analyticsData.formattedData.value.downloadsByCountry.sum)
                 "
                 class="percentage-bar"
               >
                 <span
                   :style="{
-                    width: `${
-                      (count / analyticsData.formattedData.value.downloadsByCountry.sum) * 100
-                    }%`,
+                    width: formatPercent(
+                      count,
+                      analyticsData.formattedData.value.downloadsByCountry.sum
+                    ),
                     backgroundColor: 'var(--color-brand)',
                   }"
                 ></span>
@@ -168,7 +165,7 @@
           </label>
           <div class="country-values">
             <div
-              v-for="[name, count] in analyticsData.formattedData.value.viewsByCountry.chart"
+              v-for="[name, count] in analyticsData.formattedData.value.viewsByCountry.data"
               :key="name"
               class="country-value"
             >
@@ -224,7 +221,13 @@ import {
   AnimatedLogo,
 } from 'omorphia'
 import dayjs from 'dayjs'
-import { all } from 'iso-3166-1'
+import {
+  countryCodeToName,
+  formatTimestamp,
+  formatPercent,
+  processAnalytics,
+  processAnalyticsByCountry,
+} from '~/composables/analytics'
 import CalendarClockIcon from 'assets/images/utils/calendar-clock.svg'
 import CompactChart from '~/components/ui/charts/CompactChart.vue'
 
@@ -237,95 +240,26 @@ const props = defineProps({
   },
 })
 
-const countries = all()
-  .map((entry) => ({
-    [entry.alpha2]: entry.country,
-  }))
-  .reduce((acc, cur) => ({ ...acc, ...cur }), {})
-
-const countryCodeToName = (code) => {
-  if (countries[code]) {
-    return countries[code]
-  }
-  return code
-}
-
 const selectedResolution = ref('daily')
 const startDate = ref(new Date(new Date() - 30 * 24 * 60 * 60 * 1000))
 const customStartDate = ref(null)
 const endDate = ref(new Date(new Date() - 24 * 60 * 60 * 1000))
 const customEndDate = ref(null)
-const markReload = ref(false)
 const timeResolution = ref(1440)
 const customTimeResolution = ref(null)
 const customTimeModal = ref(null)
 
-const formatTimestamp = (timestamp) => {
-  return dayjs.unix(timestamp).format('YYYY-MM-DD')
-}
+const sortCount = ([_a, a], [_b, b]) => b - a
+const sortTimestamp = ([a], [b]) => a - b
+const roundValue = ([ts, value]) => [ts, Math.round(parseFloat(value) * 100) / 100]
 
-const processCountryAnalytics = (category, projectId) => {
-  const projectData = category?.[projectId]
-  if (!projectData) {
-    return null
-  }
+const processCountryAnalytics = (c, pid) => processAnalyticsByCountry(c, pid, sortCount)
 
-  const sortedByCount = Object.entries(projectData).sort(([_a, a], [_b, b]) => b - a)
+const processDownloadAnalytics = (c, pid) =>
+  processAnalytics(c, pid, formatTimestamp, sortTimestamp, null, 'Downloads')
 
-  return {
-    sum: Object.values(projectData).reduce((acc, cur) => acc + cur, 0),
-    len: Object.values(projectData).length,
-    chart: sortedByCount,
-  }
-}
-
-const processDownloadAnalytics = (category, projectId) => {
-  const projectData = category?.[projectId]
-  if (!projectData) {
-    return null
-  }
-
-  const sortedByTimestamp = Object.entries(projectData).sort((a, b) => a[0] - b[0])
-
-  return {
-    sum: sortedByTimestamp.reduce((acc, cur) => acc + cur[1], 0),
-    len: sortedByTimestamp.length,
-    chart: {
-      labels: sortedByTimestamp.map(([ts, _]) => formatTimestamp(ts)),
-      data: [
-        {
-          name: 'Downloads',
-          data: sortedByTimestamp.map(([_, value]) => value),
-        },
-      ],
-    },
-  }
-}
-
-const processRevAnalytics = (category, projectId) => {
-  const projectData = category?.[projectId]
-  if (!projectData) {
-    return null
-  }
-
-  const sortedByTimestamp = Object.entries(projectData)
-    .sort(([a, _a], [b, _b]) => a - b)
-    .map(([ts, value]) => [ts, Math.round(parseFloat(value) * 100) / 100])
-
-  return {
-    sum: sortedByTimestamp.reduce((acc, cur) => acc + cur[1], 0),
-    len: sortedByTimestamp.length,
-    chart: {
-      labels: sortedByTimestamp.map(([ts, _]) => formatTimestamp(ts)),
-      data: [
-        {
-          name: 'Revenue',
-          data: sortedByTimestamp.map(([_, value]) => value),
-        },
-      ],
-    },
-  }
-}
+const processRevAnalytics = (c, pid) =>
+  processAnalytics(c, pid, formatTimestamp, sortTimestamp, roundValue, 'Revenue')
 
 const useAsyncFetchAnalytics = async (
   url,
@@ -431,7 +365,6 @@ const selectResolution = async (resolution) => {
     } else if (resolution === 'custom') {
       startDate.value = new Date(customStartDate.value)
     }
-    markReload.value = true
   }
 }
 
@@ -455,6 +388,10 @@ const applyCustomModal = async () => {
   width: 40px;
   height: 27px;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   overflow: hidden;
 
   border: 1px solid var(--color-divider);
@@ -462,9 +399,10 @@ const applyCustomModal = async () => {
 }
 
 .country-flag {
-  width: 100%;
-  height: auto;
   object-fit: cover;
+
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .spark-data {
@@ -500,12 +438,7 @@ const applyCustomModal = async () => {
   justify-content: space-between;
   width: 100%;
   gap: var(--gap-sm);
-  img {
-    grid-area: flag;
-    object-fit: fill;
-    width: 4rem;
-    height: 2.4rem;
-  }
+
   .country-text {
     grid-area: text;
     display: flex;

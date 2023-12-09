@@ -383,7 +383,7 @@ const fetchNewData = async () => {
     ;[{ data: downloadData }, { data: viewData }, { data: revenueData }] = await Promise.all([
       useAsyncData(
         `analytics/downloads?${body}`,
-        () => useBaseFetch(`analytics/downloads?${body}`, { apiVersion: 3 }),
+        () => useBaseFetch(`analytics/downloads?${body}`, { apiVersion: 2 }),
         {
           transform: (data) =>
             processData(
@@ -396,7 +396,7 @@ const fetchNewData = async () => {
       ),
       useAsyncData(
         `analytics/views?${body}`,
-        () => useBaseFetch(`analytics/views?${body}`, { apiVersion: 3 }),
+        () => useBaseFetch(`analytics/views?${body}`, { apiVersion: 2 }),
         {
           transform: (data) =>
             processData(
@@ -409,7 +409,7 @@ const fetchNewData = async () => {
       ),
       useAsyncData(
         `analytics/revenue?${body}`,
-        () => useBaseFetch(`analytics/revenue?${body}`, { apiVersion: 3 }),
+        () => useBaseFetch(`analytics/revenue?${body}`, { apiVersion: 2 }),
         {
           transform: (data) =>
             processData(
