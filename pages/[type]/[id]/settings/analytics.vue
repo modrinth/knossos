@@ -39,7 +39,7 @@
         well as the total downloads and page views for {{ project.title }} by country.
       </p>
     </div>
-    <PageBar v-if="finishedLoading" class="resolution-header">
+    <PageBar class="resolution-header">
       <span class="page-bar__title"><HistoryIcon /> Range</span>
       <div
         class="nav-button button-base"
@@ -63,7 +63,7 @@
         Last year
       </div>
       <template #right>
-        <div class="nav-button button-base" @click="refetchData"><UpdatedIcon /> Refresh</div>
+        <div class="nav-button button-base" @click="() => null"><UpdatedIcon /> Refresh</div>
         <div
           class="nav-button button-base"
           :class="{ 'router-link-exact-active': selectedResolution === 'custom' }"
@@ -73,116 +73,140 @@
         </div>
       </template>
     </PageBar>
-    <div v-if="finishedLoading && !markReload" class="spark-data">
-      <client-only>
-        <CompactChart
-          v-if="downloadData.value && downloadData.value.data && downloadData.value.labels"
-          :title="`Downloads since ${dayjs(startDate).format('MMM D, YYYY')}`"
-          color="var(--color-brand)"
-          :value="formatNumber(totalData.downloads, false)"
-          :data="downloadData.value.data"
-          :labels="downloadData.value.labels"
-          suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
-        />
-      </client-only>
-      <client-only>
-        <CompactChart
-          v-if="viewData.value && viewData.value.data && viewData.value.labels"
-          :title="`Page views since ${dayjs(startDate).format('MMM D, YYYY')}`"
-          color="var(--color-blue)"
-          :value="formatNumber(totalData.pageViews, false)"
-          :data="viewData.value.data"
-          :labels="viewData.value.labels"
-          suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
-        />
-      </client-only>
-      <client-only>
-        <CompactChart
-          v-if="revenueData.value && revenueData.value.data && revenueData.value.labels"
-          :title="`Revenue since ${dayjs(startDate).format('MMM D, YYYY')}`"
-          color="var(--color-purple)"
-          :value="formatMoney(totalData.revenue, false)"
-          :data="revenueData.value.data"
-          :labels="revenueData.value.labels"
-          is-money
-        />
-      </client-only>
+    <div v-if="analyticsData.error.value">
+      <div>{{ analyticsData.error }}</div>
     </div>
-    <div v-if="finishedLoading && !markReload" class="country-data">
-      <Card v-if="downloadsByCountry.value" class="country-downloads">
-        <label>
-          <span class="label__title">Downloads by country</span>
-        </label>
-        <div class="country-values">
-          <div
-            v-for="country in downloadsByCountry.value.data"
-            :key="country.name"
-            class="country-value"
-          >
-            <img
-              :src="`https://flagcdn.com/h240/${country.name.toLowerCase()}.png`"
-              :alt="country.name"
-            />
-            <div class="country-text">
-              <span class="country-name">{{ countryCodeToName(country.name.toUpperCase()) }}</span>
-              <span class="data-point">{{ formatNumber(country.value) }}</span>
-            </div>
+    <div v-else-if="analyticsData.loading.value">
+      <AnimatedLogo />
+    </div>
+    <div v-else>
+      <div class="spark-data">
+        <client-only>
+          <CompactChart
+            v-if="analyticsData.formattedData.value.downloads"
+            :title="`Downloads since ${dayjs(startDate).format('MMM D, YYYY')}`"
+            color="var(--color-brand)"
+            :value="formatNumber(analyticsData.formattedData.value.downloads.sum, false)"
+            :data="analyticsData.formattedData.value.downloads.chart.data"
+            :labels="analyticsData.formattedData.value.downloads.chart.labels"
+            suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
+          />
+        </client-only>
+        <client-only>
+          <CompactChart
+            v-if="analyticsData.formattedData.value.views"
+            :title="`Page views since ${dayjs(startDate).format('MMM D, YYYY')}`"
+            color="var(--color-blue)"
+            :value="formatNumber(analyticsData.formattedData.value.views.sum, false)"
+            :data="analyticsData.formattedData.value.views.chart.data"
+            :labels="analyticsData.formattedData.value.views.chart.labels"
+            suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
+          />
+        </client-only>
+        <client-only>
+          <CompactChart
+            v-if="analyticsData.formattedData.value.revenue"
+            :title="`Revenue since ${dayjs(startDate).format('MMM D, YYYY')}`"
+            color="var(--color-purple)"
+            :value="formatMoney(analyticsData.formattedData.value.revenue.sum, false)"
+            :data="analyticsData.formattedData.value.revenue.chart.data"
+            :labels="analyticsData.formattedData.value.revenue.chart.labels"
+            is-money
+          />
+        </client-only>
+      </div>
+      <div class="country-data">
+        <Card
+          v-if="analyticsData.formattedData.value?.downloadsByCountry"
+          class="country-downloads"
+        >
+          <label>
+            <span class="label__title">Downloads by country</span>
+          </label>
+          <div class="country-values">
             <div
-              v-tooltip="
-                `${Math.round((country.value / downloadsByCountry.value.total) * 10000) / 100}%`
-              "
-              class="percentage-bar"
+              v-for="[name, count] in analyticsData.formattedData.value.downloadsByCountry.chart"
+              :key="name"
+              class="country-value"
             >
-              <span
-                :style="{
-                  width: `${(country.value / downloadsByCountry.value.total) * 100}%`,
-                  backgroundColor: 'var(--color-brand)',
-                }"
-              ></span>
+              <div class="country-flag-container">
+                <img
+                  :src="`https://flagcdn.com/h240/${name.toLowerCase()}.png`"
+                  :alt="name"
+                  class="country-flag"
+                />
+              </div>
+              <div class="country-text">
+                <strong class="country-name">{{ countryCodeToName(name) }}</strong>
+                <span class="data-point">{{ formatNumber(count) }}</span>
+              </div>
+              <div
+                v-tooltip="
+                  `${
+                    Math.round(
+                      (count / analyticsData.formattedData.value.downloadsByCountry.sum) * 10000
+                    ) / 100
+                  }%`
+                "
+                class="percentage-bar"
+              >
+                <span
+                  :style="{
+                    width: `${
+                      (count / analyticsData.formattedData.value.downloadsByCountry.sum) * 100
+                    }%`,
+                    backgroundColor: 'var(--color-brand)',
+                  }"
+                ></span>
+              </div>
             </div>
           </div>
-        </div>
-      </Card>
-      <Card v-if="viewsByCountry.value" class="country-downloads">
-        <label>
-          <span class="label__title">Page views by country</span>
-        </label>
-        <div class="country-values">
-          <div
-            v-for="country in viewsByCountry.value.data"
-            :key="country.name"
-            class="country-value"
-          >
-            <img
-              :src="`https://flagcdn.com/h240/${country.name.toLowerCase()}.png`"
-              width="64"
-              height="48"
-              :alt="country.name"
-            />
-            <div class="country-text">
-              <span class="country-name">{{ countryCodeToName(country.name.toUpperCase()) }}</span>
-              <span class="data-point">{{ formatNumber(country.value) }}</span>
-            </div>
+        </Card>
+        <Card v-if="analyticsData.formattedData.value?.viewsByCountry" class="country-downloads">
+          <label>
+            <span class="label__title">Page views by country</span>
+          </label>
+          <div class="country-values">
             <div
-              v-tooltip="
-                `${Math.round((country.value / viewsByCountry.value.total) * 10000) / 100}%`
-              "
-              class="percentage-bar"
+              v-for="[name, count] in analyticsData.formattedData.value.viewsByCountry.chart"
+              :key="name"
+              class="country-value"
             >
-              <span
-                :style="{
-                  width: `${(country.value / viewsByCountry.value.total) * 100}%`,
-                  backgroundColor: 'var(--color-blue)',
-                }"
-              ></span>
+              <div class="country-flag-container">
+                <img
+                  :src="`https://flagcdn.com/h240/${name.toLowerCase()}.png`"
+                  :alt="name"
+                  class="country-flag"
+                />
+              </div>
+
+              <div class="country-text">
+                <strong class="country-name">{{ countryCodeToName(name) }}</strong>
+                <span class="data-point">{{ formatNumber(count) }}</span>
+              </div>
+              <div
+                v-tooltip="
+                  `${
+                    Math.round(
+                      (count / analyticsData.formattedData.value.viewsByCountry.sum) * 10000
+                    ) / 100
+                  }%`
+                "
+                class="percentage-bar"
+              >
+                <span
+                  :style="{
+                    width: `${
+                      (count / analyticsData.formattedData.value.viewsByCountry.sum) * 100
+                    }%`,
+                    backgroundColor: 'var(--color-blue)',
+                  }"
+                ></span>
+              </div>
             </div>
           </div>
-        </div>
-      </Card>
-    </div>
-    <AnimatedLogo v-else-if="(!finishedLoading || markReload) && !failedToLoad" />
-    <div v-if="failedToLoad" class="markdown-body">
-      <p>Failed to load analytics data. Please try again later.</p>
+        </Card>
+      </div>
     </div>
   </div>
 </template>
@@ -204,27 +228,6 @@ import { all } from 'iso-3166-1'
 import CalendarClockIcon from 'assets/images/utils/calendar-clock.svg'
 import CompactChart from '~/components/ui/charts/CompactChart.vue'
 
-onMounted(() => {
-  setTimeout(async () => {
-    try {
-      await refetchData()
-      if (
-        downloadData.value &&
-        viewData.value &&
-        revenueData.value &&
-        downloadsByCountry.value &&
-        viewsByCountry.value
-      ) {
-        finishedLoading.value = true
-      } else {
-        failedToLoad.value = true
-      }
-    } catch (err) {
-      failedToLoad.value = true
-    }
-  }, 1000)
-})
-
 const props = defineProps({
   project: {
     type: Object,
@@ -232,12 +235,6 @@ const props = defineProps({
       return {}
     },
   },
-})
-
-const totalData = ref({
-  downloads: 0,
-  pageViews: 0,
-  revenue: 0,
 })
 
 const countries = all()
@@ -253,7 +250,6 @@ const countryCodeToName = (code) => {
   return code
 }
 
-const finishedLoading = ref(false)
 const selectedResolution = ref('daily')
 const startDate = ref(new Date(new Date() - 30 * 24 * 60 * 60 * 1000))
 const customStartDate = ref(null)
@@ -263,131 +259,159 @@ const markReload = ref(false)
 const timeResolution = ref(1440)
 const customTimeResolution = ref(null)
 const customTimeModal = ref(null)
-const failedToLoad = ref(false)
-const downloadData = ref(null)
-const viewData = ref(null)
-const revenueData = ref(null)
-const downloadsByCountry = ref(null)
-const viewsByCountry = ref(null)
-const processAnalytics = (analytics, accumulateData) => {
-  const labels = []
-  const revData = []
-  for (const trueData of Object.values(analytics)) {
-    for (const [key, value] of Object.entries(trueData)) {
-      const parsedData = Math.round(parseFloat(value) * 100) / 100
-      accumulateData(parsedData)
-      labels.push(dayjs.unix(key).format('YYYY-MM-DD'))
-      revData.push(parsedData)
+
+const formatTimestamp = (timestamp) => {
+  return dayjs.unix(timestamp).format('YYYY-MM-DD')
+}
+
+const processCountryAnalytics = (category, projectId) => {
+  const projectData = category?.[projectId]
+  if (!projectData) {
+    return null
+  }
+
+  const sortedByCount = Object.entries(projectData).sort(([_a, a], [_b, b]) => b - a)
+
+  return {
+    sum: Object.values(projectData).reduce((acc, cur) => acc + cur, 0),
+    len: Object.values(projectData).length,
+    chart: sortedByCount,
+  }
+}
+
+const processDownloadAnalytics = (category, projectId) => {
+  const projectData = category?.[projectId]
+  if (!projectData) {
+    return null
+  }
+
+  const sortedByTimestamp = Object.entries(projectData).sort((a, b) => a[0] - b[0])
+
+  return {
+    sum: sortedByTimestamp.reduce((acc, cur) => acc + cur[1], 0),
+    len: sortedByTimestamp.length,
+    chart: {
+      labels: sortedByTimestamp.map(([ts, _]) => formatTimestamp(ts)),
+      data: [
+        {
+          name: 'Downloads',
+          data: sortedByTimestamp.map(([_, value]) => value),
+        },
+      ],
+    },
+  }
+}
+
+const processRevAnalytics = (category, projectId) => {
+  const projectData = category?.[projectId]
+  if (!projectData) {
+    return null
+  }
+
+  const sortedByTimestamp = Object.entries(projectData)
+    .sort(([a, _a], [b, _b]) => a - b)
+    .map(([ts, value]) => [ts, Math.round(parseFloat(value) * 100) / 100])
+
+  return {
+    sum: sortedByTimestamp.reduce((acc, cur) => acc + cur[1], 0),
+    len: sortedByTimestamp.length,
+    chart: {
+      labels: sortedByTimestamp.map(([ts, _]) => formatTimestamp(ts)),
+      data: [
+        {
+          name: 'Revenue',
+          data: sortedByTimestamp.map(([_, value]) => value),
+        },
+      ],
+    },
+  }
+}
+
+const useAsyncFetchAnalytics = async (
+  url,
+  baseOptions = {},
+  options = {
+    apiVersion: 3,
+  }
+) => {
+  return useAsyncData(url, () => useBaseFetch(url, baseOptions), options)
+}
+
+const useFetchAllAnalytics = () => {
+  const downloadData = ref(null)
+  const viewData = ref(null)
+  const revenueData = ref(null)
+  const downloadsByCountry = ref(null)
+  const viewsByCountry = ref(null)
+  const loading = ref(true)
+  const error = ref(null)
+
+  const qs = ref(null)
+
+  const formattedData = computed(() => {
+    return {
+      downloads: processDownloadAnalytics(downloadData.value, props.project.id),
+      views: processDownloadAnalytics(viewData.value, props.project.id),
+      revenue: processRevAnalytics(revenueData.value, props.project.id),
+      downloadsByCountry: processCountryAnalytics(downloadsByCountry.value, props.project.id),
+      viewsByCountry: processCountryAnalytics(viewsByCountry.value, props.project.id),
+    }
+  })
+
+  const fetchData = async () => {
+    try {
+      loading.value = true
+      error.value = null
+
+      const responses = await Promise.all([
+        useAsyncFetchAnalytics(`analytics/downloads?${qs.value}`),
+        useAsyncFetchAnalytics(`analytics/views?${qs.value}`),
+        useAsyncFetchAnalytics(`analytics/revenue?${qs.value}`),
+        useAsyncFetchAnalytics(`analytics/countries/downloads?${qs.value}`),
+        useAsyncFetchAnalytics(`analytics/countries/views?${qs.value}`),
+      ])
+
+      downloadData.value = responses[0]?.data?.value || null
+      viewData.value = responses[1]?.data?.value || null
+      revenueData.value = responses[2]?.data?.value || null
+      downloadsByCountry.value = responses[3]?.data?.value || null
+      viewsByCountry.value = responses[4]?.data?.value || null
+    } catch (e) {
+      error.value = e
+    } finally {
+      loading.value = false
     }
   }
+
+  watchEffect(() => {
+    const query = new URLSearchParams()
+
+    query.append('project_ids', JSON.stringify([props.project.id]))
+    query.append('start_date', startDate.value.toISOString())
+    query.append('end_date', endDate.value.toISOString())
+    query.append('resolution_minutes', timeResolution.value)
+
+    qs.value = query.toString()
+
+    fetchData()
+  })
+
+  // Invoke the fetch operation
+  fetchData()
+
   return {
-    labels,
-    data: [
-      {
-        name: 'Downloads',
-        data: revData,
-      },
-    ],
+    downloadData,
+    viewData,
+    revenueData,
+    downloadsByCountry,
+    viewsByCountry,
+    formattedData,
+    loading,
+    error,
   }
 }
 
-const processCountryData = (analytics) => {
-  const data = {
-    total: 0,
-    data: [],
-  }
-  const countryData = Object.values(analytics)
-  for (const [key, value] of Object.entries(countryData[0])) {
-    const parsedData = Math.round(parseFloat(value) * 100) / 100
-    data.total = data.total + parsedData
-    data.data.push({
-      name: key,
-      value: parsedData,
-    })
-  }
-  data.data.sort((a, b) => b.value - a.value)
-  return data
-}
-
-const refetchData = async () => {
-  const body = `project_ids=["${
-    props.project.id
-  }"]&start_date=${startDate.value.toISOString()}&end_date=${endDate.value.toISOString()}&resolution_minutes=${
-    timeResolution.value
-  }`
-  totalData.value = {
-    downloads: 0,
-    pageViews: 0,
-    revenue: 0,
-  }
-  markReload.value = true
-  try {
-    ;[
-      { data: downloadData.value },
-      { data: viewData.value },
-      { data: revenueData.value },
-      { data: downloadsByCountry.value },
-      { data: viewsByCountry.value },
-    ] = await Promise.all([
-      useAsyncData(
-        `analytics/downloads?${body}`,
-        () => useBaseFetch(`analytics/downloads?${body}`, { apiVersion: 2 }),
-        {
-          transform: (analytics) =>
-            processAnalytics(
-              analytics,
-              (parsedData) => (totalData.value.downloads = totalData.value.downloads + parsedData)
-            ),
-        }
-      ),
-      useAsyncData(
-        `analytics/views?${body}`,
-        () => useBaseFetch(`analytics/views?${body}`, { apiVersion: 2 }),
-        {
-          transform: (analytics) =>
-            processAnalytics(
-              analytics,
-              (parsedData) => (totalData.value.pageViews = totalData.value.pageViews + parsedData)
-            ),
-        }
-      ),
-      useAsyncData(
-        `analytics/revenue?${body}`,
-        () => useBaseFetch(`analytics/revenue?${body}`, { apiVersion: 2 }),
-        {
-          transform: (analytics) =>
-            processAnalytics(
-              analytics,
-              (parsedData) => (totalData.value.revenue = totalData.value.revenue + parsedData)
-            ),
-        }
-      ),
-      useAsyncData(
-        `analytics/countries/downloads?${body}`,
-        () => useBaseFetch(`analytics/countries/downloads?${body}`, { apiVersion: 2 }),
-        {
-          transform: (analytics) => processCountryData(analytics),
-        }
-      ),
-      useAsyncData(
-        `analytics/countries/views?${body}`,
-        () => useBaseFetch(`analytics/countries/views?${body}`, { apiVersion: 2 }),
-        {
-          transform: (analytics) => processCountryData(analytics),
-        }
-      ),
-    ])
-  } catch (err) {
-    addNotification({
-      group: 'main',
-      title: 'An error occurred',
-      text: err,
-      type: 'error',
-    })
-  } finally {
-    markReload.value = false
-  }
-}
+const analyticsData = useFetchAllAnalytics()
 
 const selectResolution = async (resolution) => {
   if (selectedResolution.value !== resolution) {
@@ -408,7 +432,6 @@ const selectResolution = async (resolution) => {
       startDate.value = new Date(customStartDate.value)
     }
     markReload.value = true
-    await refetchData()
   }
 }
 
@@ -428,43 +451,34 @@ const applyCustomModal = async () => {
 </script>
 
 <style scoped lang="scss">
-.data-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--color-raised-bg);
-  width: 100%;
-  padding: var(--gap-lg);
-}
-.tabs {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+.country-flag-container {
+  width: 40px;
+  height: 27px;
+
   overflow: hidden;
+
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-xs);
 }
-.line-chart {
+
+.country-flag {
   width: 100%;
-  background-color: var(--color-bg);
-  padding: var(--gap-xl);
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  height: auto;
+  object-fit: cover;
 }
-.bar-graph {
-  width: 100%;
-  background-color: var(--color-bg);
-  padding: var(--gap-xl);
-  border-radius: var(--radius-lg);
-}
+
 .spark-data {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: var(--gap-md);
 }
+
 .country-data {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--gap-md);
 }
+
 .country-values {
   display: flex;
   flex-direction: column;
@@ -477,6 +491,7 @@ const applyCustomModal = async () => {
   overflow-y: auto;
   max-height: 24rem;
 }
+
 .country-value {
   display: grid;
   grid-template-areas: 'flag text bar';
