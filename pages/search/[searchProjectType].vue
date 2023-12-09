@@ -153,7 +153,7 @@
               autocomplete="off"
               @input="onSearchChange(1)"
             />
-            <Button v-if="filterQuery" @click="() => (filterQuery = '')">
+            <Button v-if="filterQuery" class="r-btn" @click="() => (filterQuery = '')">
               <XIcon />
             </Button>
           </div>
@@ -332,7 +332,7 @@
             autocomplete="off"
             @input="onSearchChange(1)"
           />
-          <Button v-if="query" @click="() => (query = '')">
+          <Button v-if="query" class="r-btn" @click="() => (query = '')">
             <XIcon />
           </Button>
         </div>
@@ -1038,10 +1038,6 @@ function setClosestMaxResults() {
 
 .loading-logo {
   margin: 2rem;
-}
-
-#search-results {
-  min-height: 20vh;
 }
 
 @media screen and (min-width: 860px) {

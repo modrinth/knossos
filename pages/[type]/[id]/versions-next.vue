@@ -19,7 +19,8 @@
           <SearchIcon />
           <input id="search-input" v-model="notificationSearchInput" type="text" />
           <Button
-            :class="notificationSearchInput ? '' : 'empty'"
+            v-if="notificationSearchInput"
+            class="r-btn"
             @click="() => (notificationSearchInput = '')"
           >
             <XIcon />

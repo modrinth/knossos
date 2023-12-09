@@ -12,10 +12,24 @@
   --color-base: #c3c4b3;
   --color-secondary: #777a74;
   --color-contrast: #e6e2d1;
+
+  --color-brand: #4d9227;
+  --color-brand-highlight: #25421e;
+  --color-ad: var(--color-brand-highlight);
+  --color-ad-raised: var(--color-brand);
+  --color-ad-contrast: black;
+  --color-ad-highlight: var(--color-brand);
+
+  --color-red: rgb(232, 32, 13);
+  --color-orange: rgb(232, 141, 13);
+  --color-green: rgb(60, 219, 54);
+  --color-blue: rgb(9, 159, 239);
+  --color-purple: rgb(139, 129, 230);
+  --color-gray: #718096;
 }
 
 body {
-  --size-mobile-navbar-height: 3.5rem;
+  --size-mobile-navbar-height: 4rem;
   --size-mobile-navbar-height-expanded: 13.75rem;
 
   @media screen and (min-width: 320px) {

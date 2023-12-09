@@ -265,9 +265,6 @@
               <h1>
                 {{ project.title }}
               </h1>
-              <Button transparent icon-only>
-                <ShareIcon />
-              </Button>
             </div>
             <div class="mod-stats">
               <span class="stat">

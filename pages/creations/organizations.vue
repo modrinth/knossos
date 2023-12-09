@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    <p>Coming soon!</p>
+  </div>
 </template>
 <script setup>
 definePageMeta({
@@ -7,6 +9,6 @@ definePageMeta({
 })
 
 useHead({
-  title: 'Moderation - Modrinth',
+  title: 'Your organizations - Modrinth',
 })
 </script>

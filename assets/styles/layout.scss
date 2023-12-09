@@ -8,6 +8,12 @@
   }
 }
 
+.full-page {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.75rem;
+}
+
 .normal-page {
   display: grid;
   padding: 0 0.75rem;
@@ -76,6 +82,12 @@
 }
 
 @media (min-width: 1024px) {
+  .full-page {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 80rem;
+  }
+
   .normal-page {
     margin: 0 auto;
     max-width: 1280px;
@@ -130,20 +142,17 @@
     grid-template:
       'header header' auto
       'sidebar content' auto
-      'info content' auto
-      'dummy content' 1fr
+      'sidebar content' auto
+      'sidebar content' 1fr
       / 20rem 1fr;
   }
 
   .settings-page__sidebar {
     min-width: 20rem;
     width: 20rem;
-    position: sticky;
-    top: var(--gap-lg);
   }
 
   .settings-page__content {
     max-width: calc(60rem - var(--gap-lg));
-    margin-top: calc(2em + var(--gap-lg) + var(--gap-sm));
   }
 }

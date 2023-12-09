@@ -7,6 +7,6 @@ definePageMeta({
 })
 
 useHead({
-  title: 'Moderation - Modrinth',
+  title: 'Reports - Modrinth',
 })
 </script>

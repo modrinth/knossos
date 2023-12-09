@@ -6,7 +6,7 @@
         :current-title="`Report ${reportId}`"
         :link-stack="breadcrumbsStack"
       />
-      <h2>Report details</h2>
+      <h2>Report details: {{ reportId }}</h2>
       <ReportInfo :report="report" :show-thread="false" :show-message="false" :auth="auth" />
     </section>
     <section class="card">
