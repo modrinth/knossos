@@ -89,7 +89,7 @@
             class="tab button-animation"
             title="Home"
             :class="{
-              bubble: auth.user && user.notifications.some((notif) => !notif.read),
+              bubble: auth?.user?.notifications?.some((notif) => !notif.read),
               'no-active': mobileUserOpen || mobileBrowseOpen,
               'router-link-exact-active': route.name === 'home',
             }"
