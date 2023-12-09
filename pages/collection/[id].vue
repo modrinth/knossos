@@ -85,6 +85,21 @@
             "
             :searchable="false"
           />
+          <label v-if="projects" for="remove-projects">
+            <span class="label__title"> Remove Projects </span>
+          </label>
+
+          <Multiselect
+            v-if="projects"
+            v-model="removeProjects"
+            id="remove-projects"
+            :options="projects"
+            label="title"
+            track-by="id"
+            :multiple="true"
+            :close-on-select="false"
+            :show-labels="false"
+          />
         </div>
         <div class="input-group push-right">
           <Button @click="$refs.editModal.hide()">
@@ -231,60 +246,38 @@
         </PageBar>
         <Promotion />
         <div v-if="projects && projects.length > 0" class="project-list display-mode--list">
-          <div
+          <ProjectCard
             v-for="project in projects.filter(
               (p) => selectedFilter === p.project_type || selectedFilter === 'all'
             )"
             :key="project.id"
-            class="project-list__item"
-          >
-            <ProjectCard
-              :id="project.slug || project.id"
-              :name="project.title"
-              :display="cosmetics.searchDisplayMode.user"
-              :featured-image="
-                project.gallery
-                  .slice()
-                  .sort((a, b) => b.featured - a.featured)
-                  .map((x) => x.url)[0]
-              "
-              :description="project.description"
-              :created-at="project.published"
-              :updated-at="project.updated"
-              :downloads="project.downloads.toString()"
-              :follows="project.followers.toString()"
-              :icon-url="project.icon_url"
-              :categories="project.categories"
-              :client-side="project.client_side"
-              :server-side="project.server_side"
-              :status="
-                auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
-                  ? project.status
-                  : null
-              "
-              :type="project.project_type"
-              :color="project.color"
-              :from-now="fromNow"
-            />
-            <OverflowMenu
-              v-if="auth.user && auth.user.id === creator.id"
-              class="btn transparent"
-              :options="[
-                {
-                  id: 'delete',
-                  color: 'danger',
-                  action: () => removeProjectFromCollection(project.id),
-                },
-              ]"
-              direction="left"
-            >
-              <MoreHorizontalIcon />
-              <template #delete>
-                <TrashIcon />
-                Remove
-              </template>
-            </OverflowMenu>
-          </div>
+            :id="project.slug || project.id"
+            :name="project.title"
+            :display="cosmetics.searchDisplayMode.user"
+            :featured-image="
+              project.gallery
+                .slice()
+                .sort((a, b) => b.featured - a.featured)
+                .map((x) => x.url)[0]
+            "
+            :description="project.description"
+            :created-at="project.published"
+            :updated-at="project.updated"
+            :downloads="project.downloads.toString()"
+            :follows="project.followers.toString()"
+            :icon-url="project.icon_url"
+            :categories="project.categories"
+            :client-side="project.client_side"
+            :server-side="project.server_side"
+            :status="
+              auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
+                ? project.status
+                : null
+            "
+            :type="project.project_type"
+            :color="project.color"
+            :from-now="fromNow"
+          />
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
@@ -328,6 +321,7 @@ import {
   LinkIcon,
   LockIcon,
 } from 'omorphia'
+import { Multiselect } from 'vue-multiselect'
 import WorldIcon from 'assets/images/utils/world.svg'
 import GlassesIcon from 'assets/images/utils/glasses.svg'
 import PackageIcon from 'assets/images/utils/package-open.svg'
@@ -379,6 +373,7 @@ const previewImage = ref(null)
 const name = ref(collection.value.name)
 const summary = ref(collection.value.description)
 const visibility = ref(collection.value.status)
+const removeProjects = ref([])
 
 async function saveChanges() {
   startLoading()
@@ -401,17 +396,28 @@ async function saveChanges() {
       )
     }
 
+    const projectsToRemove = removeProjects.value.map((p) => p.id)
+    const newProjects = projects.value
+      .filter((p) => !projectsToRemove.includes(p.id))
+      .map((p) => p.id)
+    const new_projects = projectsToRemove.length > 0 ? newProjects : undefined
+
     await useBaseFetch(`collection/${collection.value.id}`, {
       method: 'PATCH',
       body: {
         name: name.value,
         description: summary.value,
         status: visibility.value,
+        new_projects,
       },
       apiVersion: 3,
     })
 
-    await Promise.all([refreshCollection(), refreshProjects()])
+    await refreshCollection()
+    await refreshProjects()
+
+    removeProjects.value = []
+
     editModal.value.hide()
   } catch (err) {
     addNotification({
