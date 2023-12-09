@@ -44,7 +44,7 @@
             {{ formatMessage(messages.applicationsTitle) }}
           </NuxtLink>
           <h3>
-            {{ formatMessage(messages.manageTitle) }}
+            {{ formatMessage(messages.manageHeading) }}
           </h3>
           <NuxtLink to="/settings/revenue">
             <CurrencyIcon />
@@ -103,6 +103,10 @@ const messages = defineMessages({
     id: 'settings.heading.developer',
     defaultMessage: 'Developer',
   },
+  manageHeading: {
+    id: 'settings.heading.manage',
+    defaultMessage: 'Manage',
+  },
   appearanceSettings: {
     id: 'settings.appearance.title',
     defaultMessage: 'Appearance',
@@ -138,6 +142,22 @@ const messages = defineMessages({
   applicationsTitle: {
     id: 'settings.applications.title',
     defaultMessage: 'Your applications',
+  },
+  collectionsTitle: {
+    id: 'settings.collections.title',
+    defaultMessage: 'Collections',
+  },
+  projectsTitle: {
+    id: 'settings.projects.title',
+    defaultMessage: 'Projects',
+  },
+  reportsTitle: {
+    id: 'settings.reports.title',
+    defaultMessage: 'Reports',
+  },
+  followsTitle: {
+    id: 'settings.follows.title',
+    defaultMessage: 'Follows',
   },
 })
 
