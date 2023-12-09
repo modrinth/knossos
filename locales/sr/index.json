@@ -9,16 +9,16 @@
     "message": "Сачувај"
   },
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "Зажабљени сте! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "Фотореалистична слика жабљег лавиринта"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural,one {још {count} особа} other {још {count} особе}} су такоће зажабљене!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "Ова страница је отворена пре {ago}"
   },
   "frog.title": {
     "message": "Жаба"
@@ -36,7 +36,7 @@
     "message": "Десила се грешка"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Контролиши пројекте"
   },
   "profile.button.report": {
     "message": "Пријави"
@@ -48,7 +48,7 @@
     "message": "Постави аватар"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "Приступио {ago}"
   },
   "profile.label.edit-bio": {
     "message": "Биографија"
@@ -57,135 +57,135 @@
     "message": "Корисничко име"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Овај корисник нема пројеката!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Немаш никаквих пројеката.\nДа ли би желео да <create-link>направиш један</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Преузми пројекте од {username}, на Модринтху"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Преузми пројекте од {username}, на Модринтху"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural,one {<stat>{count}</stat> преузимање} other {<stat>{count}</stat> преузимања}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> пратиоц} other {<stat>{count}</stat> пратиоца}} од пројеката"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "Кориснички ИД: {id}"
   },
   "project-type.all": {
     "message": "Све"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Дата Пакети"
   },
   "project-type.datapack.singular": {
-    "message": "Data Pack"
+    "message": "Дата Пакет"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Модови"
   },
   "project-type.mod.singular": {
-    "message": "Mod"
+    "message": "Мод"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Пакети модова"
   },
   "project-type.modpack.singular": {
-    "message": "Modpack"
+    "message": "Пакет модова"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Додаци"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "Додатак"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Resurs paketi"
   },
   "project-type.resourcepack.singular": {
-    "message": "Resource Pack"
+    "message": "Resurs paket"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Шејдерси"
   },
   "project-type.shader.singular": {
-    "message": "Shader"
+    "message": "Шејдер"
   },
   "settings.language.categories.auto": {
     "message": "Аутоматски"
   },
   "settings.language.categories.default": {
-    "message": "Standard languages"
+    "message": "Стандардни језик"
   },
   "settings.language.categories.experimental": {
-    "message": "Experimental languages"
+    "message": "Експериментални језици"
   },
   "settings.language.categories.fun": {
-    "message": "Fun languages"
+    "message": "Смешни језици"
   },
   "settings.language.categories.search-result": {
-    "message": "Search results"
+    "message": "Резултати претраге"
   },
   "settings.language.description": {
-    "message": "Choose your preferred language for the site. Translations are contributed by volunteers <crowdin-link>on Crowdin</crowdin-link>."
+    "message": "Изаберите свој матерњи језик за сајт. Преводе су допринели волонтери <crowdin-link>на Кровдину</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Sync with the system language"
+    "message": "Синхрониши са системским језиком"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}. Applying..."
+    "message": "{label} Примењујем..."
   },
   "settings.language.languages.language-label-error": {
-    "message": "{label}. Error"
+    "message": "{label}. Грешка"
   },
   "settings.language.languages.load-failed": {
-    "message": "Cannot load this language. Try again in a bit."
+    "message": "Није могуће учитати овај језик. Покушајте поново касније."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Пошалјите да бисте фокусирали први резултат"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Search for a language..."
+    "message": "Потражие језик..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {No languages match} one {# language matches} other {# languages match}} your search."
+    "message": "{matches, plural,=0 {Нема подударајућих језика} one {# подударајући језик} other {# подударајућа језика}} за твоју претрагу."
   },
   "settings.language.languages.search.no-results": {
-    "message": "No languages match your search."
+    "message": "Нема језика који се поклапају са твојом претрагом."
   },
   "settings.language.title": {
-    "message": "Language"
+    "message": "Језик"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Опозови сесију"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Ево свих уређаја који су тренутно улоговани на твој Модринтх налог. Можете се излоговати са саваког појединачно.\nАко видите уређај који не препознајете, излогујте тај уређај и одмах промените шифру на вашем Модринтх налогу."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Креирано {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Тренутна сесија"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Последње приступљено {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Непознат ОС"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Непозната платформа"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Сесије"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} у {time, time, short}"
   }
 }
