@@ -1,5 +1,4 @@
 <template>
-  <<<<<<< HEAD
   <div v-if="$route.name.startsWith('type-id-settings')" class="normal-page">
     <div class="normal-page__sidebar">
       <aside class="universal-card">
