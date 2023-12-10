@@ -177,10 +177,10 @@
     "message": "上次訪問於 {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "未知作業系統"
+    "message": "未知的作業系統"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "未知平台"
+    "message": "未知的平台"
   },
   "settings.sessions.title": {
     "message": "工作階段"
