@@ -10,7 +10,7 @@
           <XIcon />
         </Button>
       </div>
-      <Button color="primary" disabled> <PlusIcon /> Create new </Button>
+      <Button color="primary"> <PlusIcon /> Create new </Button>
     </div>
     <div class="collections-grid">
       <nuxt-link

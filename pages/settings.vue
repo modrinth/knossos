@@ -50,10 +50,6 @@
             <CurrencyIcon />
             {{ formatMessage(messages.revenueTitle) }}
           </NuxtLink>
-          <NuxtLink to="/settings/collections">
-            <CollectionIcon />
-            {{ formatMessage(messages.collectionsTitle) }}
-          </NuxtLink>
           <NuxtLink to="/settings/projects">
             <ListIcon />
             {{ formatMessage(messages.projectsTitle) }}
@@ -142,10 +138,6 @@ const messages = defineMessages({
   applicationsTitle: {
     id: 'settings.applications.title',
     defaultMessage: 'Your applications',
-  },
-  collectionsTitle: {
-    id: 'settings.collections.title',
-    defaultMessage: 'Collections',
   },
   projectsTitle: {
     id: 'settings.projects.title',
