@@ -245,13 +245,7 @@
 <script setup>
 import { Card, formatMoney, formatNumber, DropdownSelect } from 'omorphia'
 import dayjs from 'dayjs'
-import {
-  countryCodeToName,
-  formatTimestamp,
-  formatPercent,
-  processAnalytics,
-  processAnalyticsByCountry,
-} from '~/composables/analytics'
+import { countryCodeToName, formatPercent, useFetchAllAnalytics } from '~/composables/analytics'
 
 import Chart from '~/components/ui/charts/Chart.vue'
 import CompactChart from '~/components/ui/charts/CompactChart.vue'
@@ -265,7 +259,29 @@ const props = defineProps({
   },
 })
 
-const timeResolution = ref(1440)
+const selectedChart = ref('downloads')
+
+const downloadsChart = ref(null)
+const viewsChart = ref(null)
+const revenueChart = ref(null)
+
+const tinyDownloadChart = ref(null)
+const tinyViewChart = ref(null)
+const tinyRevenueChart = ref(null)
+
+const analyticsData = useFetchAllAnalytics([props.project.id], () => {
+  // On reset we need to reset the charts
+  downloadsChart.value?.resetChart()
+  viewsChart.value?.resetChart()
+  revenueChart.value?.resetChart()
+
+  tinyDownloadChart.value?.resetChart()
+  tinyViewChart.value?.resetChart()
+  tinyRevenueChart.value?.resetChart()
+})
+
+const { startDate, endDate, timeRange, timeResolution } = analyticsData
+
 const selectedResolution = computed({
   get: () => {
     const item = [
@@ -281,7 +297,6 @@ const selectedResolution = computed({
   set: (newRes) => (timeResolution.value = newRes.value),
 })
 
-const timeRange = ref(43200)
 const selectedRange = computed({
   get: () => {
     const item = [
@@ -305,132 +320,6 @@ const selectedRange = computed({
     }
   },
 })
-const startDate = ref(Date.now() - timeRange.value * 60 * 1000)
-const endDate = ref(Date.now())
-
-const selectedChart = ref('downloads')
-
-const downloadsChart = ref(null)
-const viewsChart = ref(null)
-const revenueChart = ref(null)
-
-const tinyDownloadChart = ref(null)
-const tinyViewChart = ref(null)
-const tinyRevenueChart = ref(null)
-
-const sortCount = ([_a, a], [_b, b]) => b - a
-const sortTimestamp = ([a], [b]) => a - b
-const roundValue = ([ts, value]) => [ts, Math.round(parseFloat(value) * 100) / 100]
-
-const processCountryAnalytics = (c, pid) => processAnalyticsByCountry(c, pid, sortCount)
-
-const processDownloadAnalytics = (c, pid) =>
-  processAnalytics(c, pid, formatTimestamp, sortTimestamp, null, 'Downloads')
-
-const processRevAnalytics = (c, pid) =>
-  processAnalytics(c, pid, formatTimestamp, sortTimestamp, roundValue, 'Revenue')
-
-const useAsyncFetchAnalytics = (
-  url,
-  baseOptions = {
-    apiVersion: 2,
-  }
-) => {
-  return useBaseFetch(url, baseOptions)
-}
-
-const useFetchAllAnalytics = () => {
-  const downloadData = ref(null)
-  const viewData = ref(null)
-  const revenueData = ref(null)
-  const downloadsByCountry = ref(null)
-  const viewsByCountry = ref(null)
-  const loading = ref(true)
-  const error = ref(null)
-
-  const formattedData = computed(() => {
-    return {
-      downloads: processDownloadAnalytics(downloadData.value, props.project.id),
-      views: processDownloadAnalytics(viewData.value, props.project.id),
-      revenue: processRevAnalytics(revenueData.value, props.project.id),
-      downloadsByCountry: processCountryAnalytics(downloadsByCountry.value, props.project.id),
-      viewsByCountry: processCountryAnalytics(viewsByCountry.value, props.project.id),
-    }
-  })
-
-  const fetchData = async (query) => {
-    const normalQuery = new URLSearchParams(query)
-
-    const revQuery = new URLSearchParams(query)
-    revQuery.delete('resolution_minutes')
-
-    const qs = normalQuery.toString()
-    const revQs = revQuery.toString()
-
-    try {
-      loading.value = true
-      error.value = null
-
-      const responses = await Promise.all([
-        useAsyncFetchAnalytics(`analytics/downloads?${qs}`),
-        useAsyncFetchAnalytics(`analytics/views?${qs}`),
-        useAsyncFetchAnalytics(`analytics/revenue?${revQs}`),
-        useAsyncFetchAnalytics(`analytics/countries/downloads?${qs}`),
-        useAsyncFetchAnalytics(`analytics/countries/views?${qs}`),
-      ])
-
-      downloadData.value = responses[0] || null
-      viewData.value = responses[1] || null
-      revenueData.value = responses[2] || null
-      downloadsByCountry.value = responses[3] || null
-      viewsByCountry.value = responses[4] || null
-    } catch (e) {
-      error.value = e
-    } finally {
-      loading.value = false
-    }
-  }
-
-  watch(
-    [
-      () => startDate.value,
-      () => endDate.value,
-      () => timeResolution.value,
-      () => props.project.id,
-    ],
-    async () => {
-      await fetchData({
-        project_ids: JSON.stringify([props.project.id]),
-        start_date: dayjs(startDate.value).toISOString(),
-        end_date: dayjs(endDate.value).toISOString(),
-        resolution_minutes: timeResolution.value,
-      })
-
-      downloadsChart.value?.resetChart()
-      viewsChart.value?.resetChart()
-      revenueChart.value?.resetChart()
-      tinyDownloadChart.value?.resetChart()
-      tinyViewChart.value?.resetChart()
-      tinyRevenueChart.value?.resetChart()
-    },
-    {
-      immediate: true,
-    }
-  )
-
-  return {
-    downloadData,
-    viewData,
-    revenueData,
-    downloadsByCountry,
-    viewsByCountry,
-    formattedData,
-    loading,
-    error,
-  }
-}
-
-const analyticsData = useFetchAllAnalytics()
 </script>
 
 <style scoped lang="scss">
@@ -485,13 +374,22 @@ const analyticsData = useFetchAllAnalytics()
   }
 }
 
+// Mobile
 @media (max-width: 768px) {
   .graphs {
     flex-direction: column;
     gap: var(--gap-md);
 
     .graphs__vertical-bar {
+      display: block;
+
       width: 100%;
+      max-width: none;
+    }
+
+    .graphs__main-graph {
+      display: block;
+      overflow: hidden;
     }
   }
 }
@@ -527,12 +425,6 @@ const analyticsData = useFetchAllAnalytics()
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--gap-md);
-}
-
-@media (max-width: 768px) {
-  .country-data {
-    grid-template-columns: 1fr;
-  }
 }
 
 .country-values {
@@ -577,6 +469,17 @@ const analyticsData = useFetchAllAnalytics()
     }
   }
 }
+
+@media (max-width: 768px) {
+  .country-data {
+    display: block;
+  }
+
+  .country-value {
+    grid-template-columns: auto 1fr 5rem;
+  }
+}
+
 .markdown-body {
   margin-bottom: var(--gap-md);
 }
