@@ -98,9 +98,9 @@ const useFetchAnalytics = (
 
 /**
  * @param {string[] | undefined} projectIds
- * @param {(() => Promise<void>) | undefined} onDataRefetch
+ * @param {undefined | () => any} onDataRefresh
  */
-export const useFetchAllAnalytics = (projectIds = undefined, onDataRefetch = undefined) => {
+export const useFetchAllAnalytics = (onDataRefresh, projectIds = undefined) => {
   const timeResolution = ref(1440) // 1 day
   const timeRange = ref(43200) // 30 days
 
@@ -115,13 +115,13 @@ export const useFetchAllAnalytics = (projectIds = undefined, onDataRefetch = und
   const loading = ref(true)
   const error = ref(null)
 
-  const formattedData = reactive({
+  const formattedData = computed(() => ({
     downloads: processDownloadAnalytics(downloadData.value, projectIds),
     views: processDownloadAnalytics(viewData.value, projectIds),
     revenue: processRevAnalytics(revenueData.value, projectIds),
     downloadsByCountry: processCountryAnalytics(downloadsByCountry.value, projectIds),
     viewsByCountry: processCountryAnalytics(viewsByCountry.value, projectIds),
-  })
+  }))
 
   const fetchData = async (query) => {
     const normalQuery = new URLSearchParams(query)
@@ -166,14 +166,9 @@ export const useFetchAllAnalytics = (projectIds = undefined, onDataRefetch = und
         resolution_minutes: timeResolution.value,
       })
 
-      await onDataRefetch()
-
-      downloadsChart.value?.resetChart()
-      viewsChart.value?.resetChart()
-      revenueChart.value?.resetChart()
-      tinyDownloadChart.value?.resetChart()
-      tinyViewChart.value?.resetChart()
-      tinyRevenueChart.value?.resetChart()
+      if (onDataRefresh) {
+        onDataRefresh()
+      }
     },
     {
       immediate: true,
