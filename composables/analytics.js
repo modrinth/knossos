@@ -1,4 +1,4 @@
-import dayjs from 'dayjs'
+import { unix } from 'dayjs'
 import { all } from 'iso-3166-1'
 
 const countries = all()
@@ -17,11 +17,10 @@ export const countryCodeToName = (code) => {
 }
 
 export const formatTimestamp = (timestamp) => {
-  return dayjs.unix(timestamp).format('YYYY-MM-DD')
+  return unix(timestamp).format()
 }
 
 export const formatPercent = (value, sum) => {
-  console.log(value, sum)
   return `${((value / sum) * 100).toFixed(2)}%`
 }
 
