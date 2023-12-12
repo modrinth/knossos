@@ -69,6 +69,12 @@
 }
 
 @media (min-width: 1024px) {
+  .full-page {
+    margin: 0 auto;
+    max-width: min(1280px, 100vw);
+    width: 80rem;
+  }
+
   .normal-page {
     margin: 0 auto;
     max-width: 80rem;
