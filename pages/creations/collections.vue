@@ -1,12 +1,12 @@
 <template>
   <div>
     <CollectionCreateModal ref="modal_creation" />
-    <h2>Collections</h2>
+    <h2>Collections {{ filterQuery }}</h2>
     <div class="search-row">
       <div class="iconified-input">
         <label for="search-input" hidden>Search your collections</label>
         <SearchIcon />
-        <input id="search-input" v-model="filterQuery" type="text" />
+        <input v-model="filterQuery" id="search-input" type="text" />
         <Button v-if="filterQuery" class="r-btn" @click="() => (filterQuery = '')">
           <XIcon />
         </Button>
@@ -16,20 +16,6 @@
       </Button>
     </div>
     <div class="collections-grid">
-      <nuxt-link
-        v-for="collection in orderedCollections"
-        :to="`/collection/${collection.id}`"
-        class="card collection"
-      >
-        <Avatar :src="collection.icon_url" class="icon" />
-        <div class="details">
-          <span class="title">{{ collection.name }}</span>
-          <span class="description">
-            {{ collection.description }}
-          </span>
-          <span class="stats"><BoxIcon /> {{ collection.projects?.length || 0 }} projects</span>
-        </div>
-      </nuxt-link>
       <nuxt-link
         v-if="'followed projects'.includes(filterQuery)"
         :to="`/collection/following`"
@@ -41,17 +27,54 @@
           <span class="description">
             Auto-generated collection of all the projects you're following.
           </span>
-          <span class="stats"><BoxIcon /> {{ user.follows.length }} projects</span>
+          <div class="stat-bar">
+            <div class="stats"><BoxIcon /> {{ user.follows.length }} projects</div>
+          </div>
         </div>
       </nuxt-link>
-      <div v-else>
-        <p>No collections matching '{{ filterQuery }}'</p>
-      </div>
+      <nuxt-link
+        v-for="collection in orderedCollections"
+        :to="`/collection/${collection.id}`"
+        class="card collection"
+      >
+        <Avatar :src="collection.icon_url" class="icon" />
+        <div class="details">
+          <span class="title">{{ collection.name }}</span>
+          <span class="description">
+            {{ collection.description }}
+          </span>
+          <div class="stat-bar">
+            <div class="stats"><BoxIcon /> {{ collection.projects?.length || 0 }} projects</div>
+            <div class="stats">
+              <template v-if="collection.status === 'listed'">
+                <WorldIcon />
+                <span> Public </span>
+              </template>
+              <template v-else-if="collection.status === 'unlisted'">
+                <LinkIcon />
+                <span> Unlisted </span>
+              </template>
+              <template v-else-if="collection.status === 'private'">
+                <LockIcon />
+                <span> Private </span>
+              </template>
+              <template v-else-if="collection.status === 'rejected'">
+                <XIcon />
+                <span> Rejected </span>
+              </template>
+            </div>
+          </div>
+        </div>
+      </nuxt-link>
+    </div>
+    <div>
+      <pre><code>{{ JSON.stringify(collections, null, 2) }}</code></pre>
     </div>
   </div>
 </template>
 <script setup>
-import { Avatar, BoxIcon, SearchIcon, XIcon, Button, PlusIcon } from 'omorphia'
+import { Avatar, BoxIcon, SearchIcon, XIcon, Button, PlusIcon, LinkIcon, LockIcon } from 'omorphia'
+import WorldIcon from 'assets/images/utils/world.svg'
 import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 
 definePageMeta({
@@ -64,9 +87,12 @@ useHead({
 
 const user = await useUser()
 const auth = await useAuth()
+
 if (process.client) {
   await initUserFollows()
 }
+
+const filterQuery = ref('')
 
 const { data: collections } = await useAsyncData(`user/${auth.value.user.id}/collections`, () =>
   useBaseFetch(`user/${auth.value.user.id}/collections`, { apiVersion: 3 })
@@ -74,14 +100,17 @@ const { data: collections } = await useAsyncData(`user/${auth.value.user.id}/col
 
 const orderedCollections = computed(() => {
   if (!collections.value) return []
-  return collections.value.sort((a, b) => {
-    const aUpdated = new Date(a.updated)
-    const bUpdated = new Date(b.updated)
-    return bUpdated - aUpdated
-  })
+  return collections.value
+    .sort((a, b) => {
+      const aUpdated = new Date(a.updated)
+      const bUpdated = new Date(b.updated)
+      return bUpdated - aUpdated
+    })
+    .filter((collection) => {
+      if (!filterQuery.value) return true
+      return collection.name.toLowerCase().includes(filterQuery.value.toLowerCase())
+    })
 })
-
-const filterQuery = ref('')
 </script>
 <style lang="scss">
 .collections-grid {
@@ -119,11 +148,17 @@ const filterQuery = ref('')
         font-size: var(--font-size-sm);
       }
 
+      .stat-bar {
+        display: flex;
+        align-items: center;
+        gap: var(--gap-md);
+        margin-top: auto;
+      }
+
       .stats {
         display: flex;
         align-items: center;
         gap: var(--gap-xs);
-        margin-top: auto;
 
         svg {
           color: var(--color-secondary);

@@ -50,18 +50,6 @@
             <CurrencyIcon />
             {{ formatMessage(messages.revenueTitle) }}
           </NuxtLink>
-          <NuxtLink to="/settings/projects">
-            <ListIcon />
-            {{ formatMessage(messages.projectsTitle) }}
-          </NuxtLink>
-          <NuxtLink to="/settings/reports">
-            <ReportIcon />
-            {{ formatMessage(messages.reportsTitle) }}
-          </NuxtLink>
-          <NuxtLink to="/settings/follows">
-            <HeartIcon />
-            {{ formatMessage(messages.followsTitle) }}
-          </NuxtLink>
         </template>
       </div>
     </aside>
@@ -81,7 +69,6 @@ import {
   ServerIcon,
   CurrencyIcon,
 } from 'omorphia'
-import CollectionIcon from '~/assets/images/utils/collection.svg'
 import MonitorSmartphoneIcon from '~/assets/images/utils/monitor-smartphone.svg'
 
 const { formatMessage } = useVIntl()
