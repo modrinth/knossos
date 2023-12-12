@@ -19,13 +19,13 @@
         <div class="graphs__vertical-bar">
           <client-only>
             <CompactChart
-              v-if="analyticsData.formattedData.downloads"
+              v-if="analyticsData.formattedData.value.downloads"
               ref="tinyDownloadChart"
               :title="`Downloads since ${dayjs(startDate).format('MMM D, YYYY')}`"
               color="var(--color-brand)"
-              :value="formatNumber(analyticsData.formattedData.downloads.sum, false)"
-              :data="analyticsData.formattedData.downloads.chart.data"
-              :labels="analyticsData.formattedData.downloads.chart.labels"
+              :value="formatNumber(analyticsData.formattedData.value.downloads.sum, false)"
+              :data="analyticsData.formattedData.value.downloads.chart.data"
+              :labels="analyticsData.formattedData.value.downloads.chart.labels"
               suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
               :class="`clickable button-base ${
                 selectedChart === 'downloads' ? 'button-base__selected' : ''
@@ -36,13 +36,13 @@
           </client-only>
           <client-only>
             <CompactChart
-              v-if="analyticsData.formattedData.views"
+              v-if="analyticsData.formattedData.value.views"
               ref="tinyViewChart"
               :title="`Page views since ${dayjs(startDate).format('MMM D, YYYY')}`"
               color="var(--color-blue)"
-              :value="formatNumber(analyticsData.formattedData.views.sum, false)"
-              :data="analyticsData.formattedData.views.chart.data"
-              :labels="analyticsData.formattedData.views.chart.labels"
+              :value="formatNumber(analyticsData.formattedData.value.views.sum, false)"
+              :data="analyticsData.formattedData.value.views.chart.data"
+              :labels="analyticsData.formattedData.value.views.chart.labels"
               suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
               :class="`clickable button-base ${
                 selectedChart === 'views' ? 'button-base__selected' : ''
@@ -53,13 +53,13 @@
           </client-only>
           <client-only>
             <CompactChart
-              v-if="analyticsData.formattedData.revenue"
+              v-if="analyticsData.formattedData.value.revenue"
               ref="tinyRevenueChart"
               :title="`Revenue since ${dayjs(startDate).format('MMM D, YYYY')}`"
               color="var(--color-purple)"
-              :value="formatMoney(analyticsData.formattedData.revenue.sum, false)"
-              :data="analyticsData.formattedData.revenue.chart.data"
-              :labels="analyticsData.formattedData.revenue.chart.labels"
+              :value="formatMoney(analyticsData.formattedData.value.revenue.sum, false)"
+              :data="analyticsData.formattedData.value.revenue.chart.data"
+              :labels="analyticsData.formattedData.value.revenue.chart.labels"
               is-money
               :class="`clickable button-base ${
                 selectedChart === 'revenue' ? 'button-base__selected' : ''
@@ -101,12 +101,12 @@
             </div>
             <client-only>
               <Chart
-                v-if="analyticsData.formattedData.downloads && selectedChart === 'downloads'"
+                v-if="analyticsData.formattedData.value.downloads && selectedChart === 'downloads'"
                 ref="downloadsChart"
                 type="line"
                 name="Download data"
-                :data="analyticsData.formattedData.downloads.chart.data"
-                :labels="analyticsData.formattedData.downloads.chart.labels"
+                :data="analyticsData.formattedData.value.downloads.chart.data"
+                :labels="analyticsData.formattedData.value.downloads.chart.labels"
                 :colors="['var(--color-brand)']"
                 suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
                 legend-position="right"
@@ -114,12 +114,12 @@
                 <h2>Downloads</h2>
               </Chart>
               <Chart
-                v-if="analyticsData.formattedData.views && selectedChart === 'views'"
+                v-if="analyticsData.formattedData.value.views && selectedChart === 'views'"
                 ref="viewsChart"
                 type="line"
                 name="View data"
-                :data="analyticsData.formattedData.views.chart.data"
-                :labels="analyticsData.formattedData.views.chart.labels"
+                :data="analyticsData.formattedData.value.views.chart.data"
+                :labels="analyticsData.formattedData.value.views.chart.labels"
                 :colors="['var(--color-blue)']"
                 suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
                 legend-position="right"
@@ -127,12 +127,12 @@
                 <h2 class="">Views</h2>
               </Chart>
               <Chart
-                v-if="analyticsData.formattedData.revenue && selectedChart === 'revenue'"
+                v-if="analyticsData.formattedData.value.revenue && selectedChart === 'revenue'"
                 ref="revenueChart"
                 type="line"
                 name="Revenue data"
-                :data="analyticsData.formattedData.revenue.chart.data"
-                :labels="analyticsData.formattedData.revenue.chart.labels"
+                :data="analyticsData.formattedData.value.revenue.chart.data"
+                :labels="analyticsData.formattedData.value.revenue.chart.labels"
                 :colors="['var(--color-purple)']"
                 suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
                 legend-position="right"
@@ -144,7 +144,8 @@
           <div class="country-data">
             <Card
               v-if="
-                analyticsData.formattedData?.downloadsByCountry && selectedChart === 'downloads'
+                analyticsData.formattedData.value?.downloadsByCountry &&
+                selectedChart === 'downloads'
               "
               class="country-downloads"
             >
@@ -153,7 +154,7 @@
               </label>
               <div class="country-values">
                 <div
-                  v-for="[name, count] in analyticsData.formattedData.downloadsByCountry.data"
+                  v-for="[name, count] in analyticsData.formattedData.value.downloadsByCountry.data"
                   :key="name"
                   class="country-value"
                 >
@@ -170,7 +171,7 @@
                   </div>
                   <div
                     v-tooltip="
-                      formatPercent(count, analyticsData.formattedData.downloadsByCountry.sum)
+                      formatPercent(count, analyticsData.formattedData.value.downloadsByCountry.sum)
                     "
                     class="percentage-bar"
                   >
@@ -178,7 +179,7 @@
                       :style="{
                         width: formatPercent(
                           count,
-                          analyticsData.formattedData.downloadsByCountry.sum
+                          analyticsData.formattedData.value.downloadsByCountry.sum
                         ),
                         backgroundColor: 'var(--color-brand)',
                       }"
@@ -188,7 +189,7 @@
               </div>
             </Card>
             <Card
-              v-if="analyticsData.formattedData?.viewsByCountry && selectedChart === 'views'"
+              v-if="analyticsData.formattedData.value?.viewsByCountry && selectedChart === 'views'"
               class="country-downloads"
             >
               <label>
@@ -196,7 +197,7 @@
               </label>
               <div class="country-values">
                 <div
-                  v-for="[name, count] in analyticsData.formattedData.viewsByCountry.data"
+                  v-for="[name, count] in analyticsData.formattedData.value.viewsByCountry.data"
                   :key="name"
                   class="country-value"
                 >
@@ -216,7 +217,7 @@
                     v-tooltip="
                       `${
                         Math.round(
-                          (count / analyticsData.formattedData.viewsByCountry.sum) * 10000
+                          (count / analyticsData.formattedData.value.viewsByCountry.sum) * 10000
                         ) / 100
                       }%`
                     "
@@ -224,7 +225,9 @@
                   >
                     <span
                       :style="{
-                        width: `${(count / analyticsData.formattedData.viewsByCountry.sum) * 100}%`,
+                        width: `${
+                          (count / analyticsData.formattedData.value.viewsByCountry.sum) * 100
+                        }%`,
                         backgroundColor: 'var(--color-blue)',
                       }"
                     ></span>
@@ -235,6 +238,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div>
+      <pre><code>{{ analyticsData }}</code></pre>
     </div>
   </div>
 </template>
@@ -266,8 +272,8 @@ const tinyDownloadChart = ref(null)
 const tinyViewChart = ref(null)
 const tinyRevenueChart = ref(null)
 
-const analyticsData = useFetchAllAnalytics([props.project.id], () => {
-  // On reset we need to reset the charts
+const remountCharts = () => {
+  // On reset we need to reset the charts bc they don't remount properly
   downloadsChart.value?.resetChart()
   viewsChart.value?.resetChart()
   revenueChart.value?.resetChart()
@@ -275,8 +281,9 @@ const analyticsData = useFetchAllAnalytics([props.project.id], () => {
   tinyDownloadChart.value?.resetChart()
   tinyViewChart.value?.resetChart()
   tinyRevenueChart.value?.resetChart()
-})
+}
 
+const analyticsData = useFetchAllAnalytics(remountCharts, [props.project.id])
 const { startDate, endDate, timeRange, timeResolution } = analyticsData
 
 const selectedResolution = computed({
