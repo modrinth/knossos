@@ -117,27 +117,9 @@
       <div class="normal-page__header">
         <div class="page-header">
           <div class="page-header__icon">
-            <Avatar size="lg" :src="collection.icon_url" />
+            <Avatar size="md" :src="collection.icon_url" />
           </div>
           <div class="page-header__text">
-            <div class="visibility-badge">
-              <template v-if="collection.status === 'listed'">
-                <WorldIcon />
-                Public
-              </template>
-              <template v-else-if="collection.status === 'unlisted'">
-                <LinkIcon />
-                Unlisted
-              </template>
-              <template v-else-if="collection.status === 'private'">
-                <LockIcon />
-                Private
-              </template>
-              <template v-else-if="collection.status === 'rejected'">
-                <XIcon />
-                Rejected
-              </template>
-            </div>
             <div class="title">
               <h1>{{ collection.name }}</h1>
               <Button
@@ -146,15 +128,72 @@
                 <ShareIcon />
               </Button>
             </div>
+
             <div class="collection-info">
-              <span>
+              <div class="metadata-item">
+                <UserIcon />
                 by
                 <router-link :to="`/user/${creator.username}`">{{ creator.username }}</router-link>
-              </span>
+              </div>
+
+              <div class="metadata-item">
+                <template v-if="collection.status === 'listed'">
+                  <WorldIcon />
+                  <span> Public </span>
+                </template>
+                <template v-else-if="collection.status === 'unlisted'">
+                  <LinkIcon />
+                  <span> Unlisted </span>
+                </template>
+                <template v-else-if="collection.status === 'private'">
+                  <LockIcon />
+                  <span> Private </span>
+                </template>
+                <template v-else-if="collection.status === 'rejected'">
+                  <XIcon />
+                  <span> Rejected </span>
+                </template>
+              </div>
+
+              <div class="metadata-item">
+                <UpdatedIcon />
+                Updated
+                <span>
+                  {{ fromNow(collection.updated) }}
+                </span>
+              </div>
             </div>
             <div class="markdown-body collection-description">
               <p>{{ collection.description }}</p>
             </div>
+          </div>
+          <div class="page-header__buttons">
+            <OverflowMenu
+              v-if="auth.user && auth.user.id === creator.id"
+              class="btn btn-primary btn-large"
+              :options="[
+                {
+                  id: 'edit',
+                  action: showEditModal,
+                },
+                {
+                  id: 'delete',
+                  color: 'danger',
+                  action: () => $refs.deleteModal.show(),
+                },
+              ]"
+            >
+              <ManageIcon />
+              Manage
+              <template #edit>
+                <EditIcon />
+                Edit
+              </template>
+              <template #delete>
+                <TrashIcon />
+                Delete
+              </template>
+            </OverflowMenu>
           </div>
         </div>
       </div>
@@ -215,34 +254,6 @@
             <template #plugin> <ServerIcon /> Plugins </template>
             <template #modpack> <PackageIcon /> Modpacks </template>
           </OverflowMenu>
-          <template #right>
-            <OverflowMenu
-              v-if="auth.user && auth.user.id === creator.id"
-              class="nav-button button-base"
-              :options="[
-                {
-                  id: 'edit',
-                  action: showEditModal,
-                },
-                {
-                  id: 'delete',
-                  color: 'danger',
-                  action: () => $refs.deleteModal.show(),
-                },
-              ]"
-            >
-              <ManageIcon />
-              Manage
-              <template #edit>
-                <EditIcon />
-                Edit
-              </template>
-              <template #delete>
-                <TrashIcon />
-                Delete
-              </template>
-            </OverflowMenu>
-          </template>
         </PageBar>
         <Promotion />
         <div v-if="projects && projects.length > 0" class="project-list display-mode--list">
@@ -320,8 +331,11 @@ import {
   DropdownSelect,
   LinkIcon,
   LockIcon,
+  UserIcon,
+  UpdatedIcon,
 } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
+
 import WorldIcon from 'assets/images/utils/world.svg'
 import GlassesIcon from 'assets/images/utils/glasses.svg'
 import PackageIcon from 'assets/images/utils/package-open.svg'
@@ -492,17 +506,15 @@ function showEditModal() {
 </script>
 
 <style scoped lang="scss">
-.visibility-badge {
+.metadata-item {
   display: flex;
   align-items: center;
-  gap: var(--gap-xs);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
+
   color: var(--color-text);
 
-  // padding: 0.25rem 0.5rem;
-  // border-radius: 0.25rem;
-  // background-color: var(--color-button-bg);
+  span {
+    font-weight: var(--font-weight-medium);
+  }
 }
 
 .project-list {
@@ -512,6 +524,22 @@ function showEditModal() {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+  }
+}
+
+.page-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--gap-md);
+  .page-header__text {
+    flex: 1;
+  }
+  .page-header__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--gap-sm);
   }
 }
 
