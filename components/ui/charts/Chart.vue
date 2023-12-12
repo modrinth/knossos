@@ -175,11 +175,14 @@ const chartOptions = ref({
   },
   tooltip: {
     custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+      const label = w.globals.lastXAxis.categories[dataPointIndex]
+      const formattedLabel = props.formatLabels(label)
+
       return (
         '<div class="bar-tooltip">' +
         '<div class="seperated-entry title">' +
         '<div class="label">' +
-        props.formatLabels(w.globals.lastXAxis.categories[dataPointIndex]) +
+        formattedLabel +
         '</div>' +
         (props.hideTotal
           ? ''
@@ -307,6 +310,12 @@ const downloadCSV = () => {
 }
 
 const resetChart = () => {
+  chart.value.updateSeries([...props.data])
+  chart.value.updateOptions({
+    xaxis: {
+      categories: props.labels,
+    },
+  })
   chart.value.resetSeries()
   legendValues.value.forEach((legend) => {
     legend.visible = true

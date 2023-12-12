@@ -39,7 +39,7 @@ const props = defineProps({
 })
 
 // no grid lines, no toolbar, no legend, no data labels
-const chartOptions = ref({
+const chartOptions = {
   chart: {
     id: props.title,
     fontFamily:
@@ -54,6 +54,7 @@ const chartOptions = ref({
     sparkline: {
       enabled: true,
     },
+    parentHeightOffset: 0,
   },
   stroke: {
     curve: 'smooth',
@@ -146,6 +147,22 @@ const chartOptions = ref({
       )
     },
   },
+}
+
+const chart = ref(null)
+
+const resetChart = () => {
+  chart.value?.updateSeries([...props.data])
+  chart.value?.updateOptions({
+    xaxis: {
+      categories: props.labels,
+    },
+  })
+  chart.value?.resetSeries()
+}
+
+defineExpose({
+  resetChart,
 })
 </script>
 
@@ -157,14 +174,9 @@ const chartOptions = ref({
     <div class="subtitle">
       {{ title }}
     </div>
-    <VueApexCharts
-      ref="chart"
-      type="area"
-      height="120"
-      :options="chartOptions"
-      :series="data"
-      class="chart"
-    />
+    <div class="chart">
+      <VueApexCharts ref="chart" type="area" :options="chartOptions" :series="data" height="70" />
+    </div>
   </Card>
 </template>
 
@@ -172,14 +184,18 @@ const chartOptions = ref({
 .compact-chart {
   display: flex;
   flex-direction: column;
+
   gap: var(--gap-xs);
   border: 1px solid var(--color-button-bg);
   border-radius: var(--radius-md);
   background-color: var(--color-raised-bg);
   box-shadow: var(--shadow-floating);
+
   color: var(--color-base);
   font-size: var(--font-size-nm);
+
   width: 100%;
+
   padding-top: var(--gap-xl);
   padding-bottom: 0;
 
@@ -189,7 +205,7 @@ const chartOptions = ref({
 }
 
 .chart {
-  width: calc(100% + 3rem);
+  // width: calc(100% + 3rem);
   margin: 0 -1.5rem 0.25rem -1.5rem;
 }
 
