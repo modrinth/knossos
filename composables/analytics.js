@@ -115,14 +115,12 @@ export const useFetchAllAnalytics = (projectIds = undefined, onDataRefetch = und
   const loading = ref(true)
   const error = ref(null)
 
-  const formattedData = computed(() => {
-    return {
-      downloads: processDownloadAnalytics(downloadData.value, projectIds),
-      views: processDownloadAnalytics(viewData.value, projectIds),
-      revenue: processRevAnalytics(revenueData.value, projectIds),
-      downloadsByCountry: processCountryAnalytics(downloadsByCountry.value, projectIds),
-      viewsByCountry: processCountryAnalytics(viewsByCountry.value, projectIds),
-    }
+  const formattedData = reactive({
+    downloads: processDownloadAnalytics(downloadData.value, projectIds),
+    views: processDownloadAnalytics(viewData.value, projectIds),
+    revenue: processRevAnalytics(revenueData.value, projectIds),
+    downloadsByCountry: processCountryAnalytics(downloadsByCountry.value, projectIds),
+    viewsByCountry: processCountryAnalytics(viewsByCountry.value, projectIds),
   })
 
   const fetchData = async (query) => {
@@ -183,17 +181,21 @@ export const useFetchAllAnalytics = (projectIds = undefined, onDataRefetch = und
   )
 
   return {
+    // Configuration
     timeResolution,
     timeRange,
 
     startDate,
     endDate,
 
+    // Data
     downloadData,
     viewData,
     revenueData,
     downloadsByCountry,
     viewsByCountry,
+
+    // Computed state
     formattedData,
     loading,
     error,
