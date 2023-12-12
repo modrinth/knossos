@@ -1,37 +1,7 @@
 <template>
   <div>
-    <Modal ref="customTimeModal" header="Define date range and resolution">
-      <div class="modal-body universal-body">
-        <label for="start-date">
-          <span class="label__title">Start date</span>
-        </label>
-        <input id="start-date" v-model="customStartDate" type="date" />
-        <label for="end-date">
-          <span class="label__title">End date</span>
-        </label>
-        <input id="end-date" v-model="customEndDate" type="date" />
-        <label for="data-resolution">
-          <span class="label__title">Data resolution</span>
-          <span class="label__description">
-            The amount of minutes each data point represents.
-            <span class="label__subdescription">
-              60 = 1 hour, 1440 = 1 day, 10080 = 1 week, 43200 = 1 month
-            </span>
-          </span>
-        </label>
-        <input id="data-resolution" v-model="customTimeResolution" type="number" />
-        <div class="input-group push-right">
-          <Button
-            color="primary"
-            :disabled="!customStartDate || !customTimeResolution || !customEndDate"
-            @click="applyCustomModal"
-          >
-            Apply
-          </Button>
-        </div>
-      </div>
-    </Modal>
     <h2>Analytics</h2>
+
     <div class="markdown-body">
       <p>
         This page shows you the analytics for your project, <strong>{{ project.title }}</strong
@@ -39,187 +9,241 @@
         well as the total downloads and page views for {{ project.title }} by country.
       </p>
     </div>
-    <PageBar class="resolution-header">
-      <span class="page-bar__title"><HistoryIcon /> Range</span>
-      <div
-        class="nav-button button-base"
-        :class="{ 'router-link-exact-active': selectedResolution === 'daily' }"
-        @click="() => selectResolution('daily')"
-      >
-        Last month
-      </div>
-      <div
-        class="nav-button button-base"
-        :class="{ 'router-link-exact-active': selectedResolution === 'weekly' }"
-        @click="() => selectResolution('weekly')"
-      >
-        Last quarter
-      </div>
-      <div
-        class="nav-button button-base"
-        :class="{ 'router-link-exact-active': selectedResolution === 'monthly' }"
-        @click="() => selectResolution('monthly')"
-      >
-        Last year
-      </div>
-      <template #right>
-        <div class="nav-button button-base" @click="() => null"><UpdatedIcon /> Refresh</div>
-        <div
-          class="nav-button button-base"
-          :class="{ 'router-link-exact-active': selectedResolution === 'custom' }"
-          @click="openCustomModal"
-        >
-          <CalendarClockIcon /> Custom range
-        </div>
-      </template>
-    </PageBar>
+
     <div v-if="analyticsData.error.value">
       <div>{{ analyticsData.error }}</div>
     </div>
-    <div v-else-if="analyticsData.loading.value">
-      <AnimatedLogo />
-    </div>
-    <div v-else>
-      <div class="spark-data">
-        <client-only>
-          <CompactChart
-            v-if="analyticsData.formattedData.value.downloads"
-            :title="`Downloads since ${dayjs(startDate).format('MMM D, YYYY')}`"
-            color="var(--color-brand)"
-            :value="formatNumber(analyticsData.formattedData.value.downloads.sum, false)"
-            :data="analyticsData.formattedData.value.downloads.chart.data"
-            :labels="analyticsData.formattedData.value.downloads.chart.labels"
-            suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
-          />
-        </client-only>
-        <client-only>
-          <CompactChart
-            v-if="analyticsData.formattedData.value.views"
-            :title="`Page views since ${dayjs(startDate).format('MMM D, YYYY')}`"
-            color="var(--color-blue)"
-            :value="formatNumber(analyticsData.formattedData.value.views.sum, false)"
-            :data="analyticsData.formattedData.value.views.chart.data"
-            :labels="analyticsData.formattedData.value.views.chart.labels"
-            suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
-          />
-        </client-only>
-        <client-only>
-          <CompactChart
-            v-if="analyticsData.formattedData.value.revenue"
-            :title="`Revenue since ${dayjs(startDate).format('MMM D, YYYY')}`"
-            color="var(--color-purple)"
-            :value="formatMoney(analyticsData.formattedData.value.revenue.sum, false)"
-            :data="analyticsData.formattedData.value.revenue.chart.data"
-            :labels="analyticsData.formattedData.value.revenue.chart.labels"
-            is-money
-          />
-        </client-only>
-      </div>
-      <div class="country-data">
-        <Card
-          v-if="analyticsData.formattedData.value?.downloadsByCountry"
-          class="country-downloads"
-        >
-          <label>
-            <span class="label__title">Downloads by country</span>
-          </label>
-          <div class="country-values">
-            <div
-              v-for="[name, count] in analyticsData.formattedData.value.downloadsByCountry.data"
-              :key="name"
-              class="country-value"
-            >
-              <div class="country-flag-container">
-                <img
-                  :src="`https://flagcdn.com/h240/${name.toLowerCase()}.png`"
-                  :alt="name"
-                  class="country-flag"
-                />
-              </div>
-              <div class="country-text">
-                <strong class="country-name">{{ countryCodeToName(name) }}</strong>
-                <span class="data-point">{{ formatNumber(count) }}</span>
-              </div>
-              <div
-                v-tooltip="
-                  formatPercent(count, analyticsData.formattedData.value.downloadsByCountry.sum)
-                "
-                class="percentage-bar"
-              >
-                <span
-                  :style="{
-                    width: formatPercent(
-                      count,
-                      analyticsData.formattedData.value.downloadsByCountry.sum
-                    ),
-                    backgroundColor: 'var(--color-brand)',
-                  }"
-                ></span>
-              </div>
-            </div>
-          </div>
-        </Card>
-        <Card v-if="analyticsData.formattedData.value?.viewsByCountry" class="country-downloads">
-          <label>
-            <span class="label__title">Page views by country</span>
-          </label>
-          <div class="country-values">
-            <div
-              v-for="[name, count] in analyticsData.formattedData.value.viewsByCountry.data"
-              :key="name"
-              class="country-value"
-            >
-              <div class="country-flag-container">
-                <img
-                  :src="`https://flagcdn.com/h240/${name.toLowerCase()}.png`"
-                  :alt="name"
-                  class="country-flag"
-                />
-              </div>
 
-              <div class="country-text">
-                <strong class="country-name">{{ countryCodeToName(name) }}</strong>
-                <span class="data-point">{{ formatNumber(count) }}</span>
-              </div>
-              <div
-                v-tooltip="
-                  `${
-                    Math.round(
-                      (count / analyticsData.formattedData.value.viewsByCountry.sum) * 10000
-                    ) / 100
-                  }%`
-                "
-                class="percentage-bar"
-              >
-                <span
-                  :style="{
-                    width: `${
-                      (count / analyticsData.formattedData.value.viewsByCountry.sum) * 100
-                    }%`,
-                    backgroundColor: 'var(--color-blue)',
-                  }"
-                ></span>
-              </div>
+    <div v-else>
+      <div class="graphs">
+        <div class="graphs__vertical-bar">
+          <client-only>
+            <CompactChart
+              v-if="analyticsData.formattedData.value.downloads"
+              ref="tinyDownloadChart"
+              :title="`Downloads since ${dayjs(startDate).format('MMM D, YYYY')}`"
+              color="var(--color-brand)"
+              :value="formatNumber(analyticsData.formattedData.value.downloads.sum, false)"
+              :data="analyticsData.formattedData.value.downloads.chart.data"
+              :labels="analyticsData.formattedData.value.downloads.chart.labels"
+              suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
+              :class="`clickable button-base ${
+                selectedChart === 'downloads' ? 'button-base__selected' : ''
+              }`"
+              :onclick="() => (selectedChart = 'downloads')"
+              role="button"
+            />
+          </client-only>
+          <client-only>
+            <CompactChart
+              v-if="analyticsData.formattedData.value.views"
+              ref="tinyViewChart"
+              :title="`Page views since ${dayjs(startDate).format('MMM D, YYYY')}`"
+              color="var(--color-blue)"
+              :value="formatNumber(analyticsData.formattedData.value.views.sum, false)"
+              :data="analyticsData.formattedData.value.views.chart.data"
+              :labels="analyticsData.formattedData.value.views.chart.labels"
+              suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
+              :class="`clickable button-base ${
+                selectedChart === 'views' ? 'button-base__selected' : ''
+              }`"
+              :onclick="() => (selectedChart = 'views')"
+              role="button"
+            />
+          </client-only>
+          <client-only>
+            <CompactChart
+              v-if="analyticsData.formattedData.value.revenue"
+              ref="tinyRevenueChart"
+              :title="`Revenue since ${dayjs(startDate).format('MMM D, YYYY')}`"
+              color="var(--color-purple)"
+              :value="formatMoney(analyticsData.formattedData.value.revenue.sum, false)"
+              :data="analyticsData.formattedData.value.revenue.chart.data"
+              :labels="analyticsData.formattedData.value.revenue.chart.labels"
+              is-money
+              :class="`clickable button-base ${
+                selectedChart === 'revenue' ? 'button-base__selected' : ''
+              }`"
+              :onclick="() => (selectedChart = 'revenue')"
+              role="button"
+            />
+          </client-only>
+        </div>
+        <div class="graphs__main-graph">
+          <Card>
+            <div class="graphs__main-graph-control">
+              <DropdownSelect
+                v-model="selectedRange"
+                :options="[
+                  { label: 'Last 30 minutes', value: 30, selectedRes: 5 },
+                  { label: 'Last hour', value: 60, selectedRes: 5 },
+                  { label: 'Last 12 hours', value: 720, selectedRes: 30 },
+                  { label: 'Last day', value: 1440, selectedRes: 60 },
+                  { label: 'Last week', value: 10080, selectedRes: 720 },
+                  { label: 'Last month', value: 43200, selectedRes: 1440 },
+                  { label: 'Last quarter', value: 129600, selectedRes: 10080 },
+                  { label: 'Last year', value: 525600, selectedRes: 10080 },
+                ]"
+                :display-name="(o) => o.label"
+              />
+              <DropdownSelect
+                v-model="selectedResolution"
+                :options="[
+                  { label: '5 minutes', value: 5 },
+                  { label: '30 minutes', value: 30 },
+                  { label: 'An hour', value: 60 },
+                  { label: '12 hours', value: 720 },
+                  { label: 'A day', value: 1440 },
+                  { label: 'A week', value: 10080 },
+                ]"
+                :display-name="(o) => o.label"
+              />
             </div>
+            <client-only>
+              <Chart
+                v-if="analyticsData.formattedData.value.downloads && selectedChart === 'downloads'"
+                ref="downloadsChart"
+                type="line"
+                name="Download data"
+                :data="analyticsData.formattedData.value.downloads.chart.data"
+                :labels="analyticsData.formattedData.value.downloads.chart.labels"
+                :colors="['var(--color-brand)']"
+                suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
+                legend-position="right"
+              >
+                <h2>Downloads</h2>
+              </Chart>
+              <Chart
+                v-if="analyticsData.formattedData.value.views && selectedChart === 'views'"
+                ref="viewsChart"
+                type="line"
+                name="View data"
+                :data="analyticsData.formattedData.value.views.chart.data"
+                :labels="analyticsData.formattedData.value.views.chart.labels"
+                :colors="['var(--color-blue)']"
+                suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
+                legend-position="right"
+              >
+                <h2 class="">Views</h2>
+              </Chart>
+              <Chart
+                v-if="analyticsData.formattedData.value.revenue && selectedChart === 'revenue'"
+                ref="revenueChart"
+                type="line"
+                name="Revenue data"
+                :data="analyticsData.formattedData.value.revenue.chart.data"
+                :labels="analyticsData.formattedData.value.revenue.chart.labels"
+                :colors="['var(--color-purple)']"
+                suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
+                legend-position="right"
+              >
+                <h2 class="">Revenue</h2>
+              </Chart>
+            </client-only>
+          </Card>
+          <div class="country-data">
+            <Card
+              v-if="
+                analyticsData.formattedData.value?.downloadsByCountry &&
+                selectedChart === 'downloads'
+              "
+              class="country-downloads"
+            >
+              <label>
+                <span class="label__title">Downloads by country</span>
+              </label>
+              <div class="country-values">
+                <div
+                  v-for="[name, count] in analyticsData.formattedData.value.downloadsByCountry.data"
+                  :key="name"
+                  class="country-value"
+                >
+                  <div class="country-flag-container">
+                    <img
+                      :src="`https://flagcdn.com/h240/${name.toLowerCase()}.png`"
+                      :alt="name"
+                      class="country-flag"
+                    />
+                  </div>
+                  <div class="country-text">
+                    <strong class="country-name">{{ countryCodeToName(name) }}</strong>
+                    <span class="data-point">{{ formatNumber(count) }}</span>
+                  </div>
+                  <div
+                    v-tooltip="
+                      formatPercent(count, analyticsData.formattedData.value.downloadsByCountry.sum)
+                    "
+                    class="percentage-bar"
+                  >
+                    <span
+                      :style="{
+                        width: formatPercent(
+                          count,
+                          analyticsData.formattedData.value.downloadsByCountry.sum
+                        ),
+                        backgroundColor: 'var(--color-brand)',
+                      }"
+                    ></span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+            <Card
+              v-if="analyticsData.formattedData.value?.viewsByCountry && selectedChart === 'views'"
+              class="country-downloads"
+            >
+              <label>
+                <span class="label__title">Page views by country</span>
+              </label>
+              <div class="country-values">
+                <div
+                  v-for="[name, count] in analyticsData.formattedData.value.viewsByCountry.data"
+                  :key="name"
+                  class="country-value"
+                >
+                  <div class="country-flag-container">
+                    <img
+                      :src="`https://flagcdn.com/h240/${name.toLowerCase()}.png`"
+                      :alt="name"
+                      class="country-flag"
+                    />
+                  </div>
+
+                  <div class="country-text">
+                    <strong class="country-name">{{ countryCodeToName(name) }}</strong>
+                    <span class="data-point">{{ formatNumber(count) }}</span>
+                  </div>
+                  <div
+                    v-tooltip="
+                      `${
+                        Math.round(
+                          (count / analyticsData.formattedData.value.viewsByCountry.sum) * 10000
+                        ) / 100
+                      }%`
+                    "
+                    class="percentage-bar"
+                  >
+                    <span
+                      :style="{
+                        width: `${
+                          (count / analyticsData.formattedData.value.viewsByCountry.sum) * 100
+                        }%`,
+                        backgroundColor: 'var(--color-blue)',
+                      }"
+                    ></span>
+                  </div>
+                </div>
+              </div>
+            </Card>
           </div>
-        </Card>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import {
-  Button,
-  Card,
-  formatMoney,
-  formatNumber,
-  HistoryIcon,
-  Modal,
-  UpdatedIcon,
-  PageBar,
-  AnimatedLogo,
-} from 'omorphia'
+import { Card, formatMoney, formatNumber, DropdownSelect } from 'omorphia'
 import dayjs from 'dayjs'
 import {
   countryCodeToName,
@@ -228,7 +252,8 @@ import {
   processAnalytics,
   processAnalyticsByCountry,
 } from '~/composables/analytics'
-import CalendarClockIcon from 'assets/images/utils/calendar-clock.svg'
+
+import Chart from '~/components/ui/charts/Chart.vue'
 import CompactChart from '~/components/ui/charts/CompactChart.vue'
 
 const props = defineProps({
@@ -240,14 +265,58 @@ const props = defineProps({
   },
 })
 
-const selectedResolution = ref('daily')
-const startDate = ref(new Date(new Date() - 30 * 24 * 60 * 60 * 1000))
-const customStartDate = ref(null)
-const endDate = ref(new Date(new Date() - 24 * 60 * 60 * 1000))
-const customEndDate = ref(null)
 const timeResolution = ref(1440)
-const customTimeResolution = ref(null)
-const customTimeModal = ref(null)
+const selectedResolution = computed({
+  get: () => {
+    const item = [
+      { label: '5 minutes', value: 5 },
+      { label: '30 minutes', value: 30 },
+      { label: 'An hour', value: 60 },
+      { label: '12 hours', value: 720 },
+      { label: 'A day', value: 1440 },
+      { label: 'A week', value: 10080 },
+    ].find((option) => option.value === timeResolution.value)
+    return item || { label: 'Custom', value: timeResolution.value }
+  },
+  set: (newRes) => (timeResolution.value = newRes.value),
+})
+
+const timeRange = ref(43200)
+const selectedRange = computed({
+  get: () => {
+    const item = [
+      { label: 'Last 30 minutes', value: 30 },
+      { label: 'Last hour', value: 60 },
+      { label: 'Last 12 hours', value: 720 },
+      { label: 'Last day', value: 1440 },
+      { label: 'Last week', value: 10080 },
+      { label: 'Last month', value: 43200 },
+      { label: 'Last quarter', value: 129600 },
+      { label: 'Last year', value: 525600 },
+    ].find((option) => option.value === timeRange.value)
+    return item || { label: 'Custom', value: timeRange.value }
+  },
+  set: (newRange) => {
+    timeRange.value = newRange.value
+    startDate.value = Date.now() - timeRange.value * 60 * 1000
+    endDate.value = Date.now()
+    selectedResolution.value = {
+      value: newRange.selectedRes,
+    }
+  },
+})
+const startDate = ref(Date.now() - timeRange.value * 60 * 1000)
+const endDate = ref(Date.now())
+
+const selectedChart = ref('downloads')
+
+const downloadsChart = ref(null)
+const viewsChart = ref(null)
+const revenueChart = ref(null)
+
+const tinyDownloadChart = ref(null)
+const tinyViewChart = ref(null)
+const tinyRevenueChart = ref(null)
 
 const sortCount = ([_a, a], [_b, b]) => b - a
 const sortTimestamp = ([a], [b]) => a - b
@@ -261,14 +330,13 @@ const processDownloadAnalytics = (c, pid) =>
 const processRevAnalytics = (c, pid) =>
   processAnalytics(c, pid, formatTimestamp, sortTimestamp, roundValue, 'Revenue')
 
-const useAsyncFetchAnalytics = async (
+const useAsyncFetchAnalytics = (
   url,
-  baseOptions = {},
-  options = {
-    apiVersion: 3,
+  baseOptions = {
+    apiVersion: 2,
   }
 ) => {
-  return useAsyncData(url, () => useBaseFetch(url, baseOptions), options)
+  return useBaseFetch(url, baseOptions)
 }
 
 const useFetchAllAnalytics = () => {
@@ -280,8 +348,6 @@ const useFetchAllAnalytics = () => {
   const loading = ref(true)
   const error = ref(null)
 
-  const qs = ref(null)
-
   const formattedData = computed(() => {
     return {
       downloads: processDownloadAnalytics(downloadData.value, props.project.id),
@@ -292,24 +358,32 @@ const useFetchAllAnalytics = () => {
     }
   })
 
-  const fetchData = async () => {
+  const fetchData = async (query) => {
+    const normalQuery = new URLSearchParams(query)
+
+    const revQuery = new URLSearchParams(query)
+    revQuery.delete('resolution_minutes')
+
+    const qs = normalQuery.toString()
+    const revQs = revQuery.toString()
+
     try {
       loading.value = true
       error.value = null
 
       const responses = await Promise.all([
-        useAsyncFetchAnalytics(`analytics/downloads?${qs.value}`),
-        useAsyncFetchAnalytics(`analytics/views?${qs.value}`),
-        useAsyncFetchAnalytics(`analytics/revenue?${qs.value}`),
-        useAsyncFetchAnalytics(`analytics/countries/downloads?${qs.value}`),
-        useAsyncFetchAnalytics(`analytics/countries/views?${qs.value}`),
+        useAsyncFetchAnalytics(`analytics/downloads?${qs}`),
+        useAsyncFetchAnalytics(`analytics/views?${qs}`),
+        useAsyncFetchAnalytics(`analytics/revenue?${revQs}`),
+        useAsyncFetchAnalytics(`analytics/countries/downloads?${qs}`),
+        useAsyncFetchAnalytics(`analytics/countries/views?${qs}`),
       ])
 
-      downloadData.value = responses[0]?.data?.value || null
-      viewData.value = responses[1]?.data?.value || null
-      revenueData.value = responses[2]?.data?.value || null
-      downloadsByCountry.value = responses[3]?.data?.value || null
-      viewsByCountry.value = responses[4]?.data?.value || null
+      downloadData.value = responses[0] || null
+      viewData.value = responses[1] || null
+      revenueData.value = responses[2] || null
+      downloadsByCountry.value = responses[3] || null
+      viewsByCountry.value = responses[4] || null
     } catch (e) {
       error.value = e
     } finally {
@@ -317,21 +391,32 @@ const useFetchAllAnalytics = () => {
     }
   }
 
-  watchEffect(() => {
-    const query = new URLSearchParams()
+  watch(
+    [
+      () => startDate.value,
+      () => endDate.value,
+      () => timeResolution.value,
+      () => props.project.id,
+    ],
+    async () => {
+      await fetchData({
+        project_ids: JSON.stringify([props.project.id]),
+        start_date: dayjs(startDate.value).toISOString(),
+        end_date: dayjs(endDate.value).toISOString(),
+        resolution_minutes: timeResolution.value,
+      })
 
-    query.append('project_ids', JSON.stringify([props.project.id]))
-    query.append('start_date', startDate.value.toISOString())
-    query.append('end_date', endDate.value.toISOString())
-    query.append('resolution_minutes', timeResolution.value)
-
-    qs.value = query.toString()
-
-    fetchData()
-  })
-
-  // Invoke the fetch operation
-  fetchData()
+      downloadsChart.value?.resetChart()
+      viewsChart.value?.resetChart()
+      revenueChart.value?.resetChart()
+      tinyDownloadChart.value?.resetChart()
+      tinyViewChart.value?.resetChart()
+      tinyRevenueChart.value?.resetChart()
+    },
+    {
+      immediate: true,
+    }
+  )
 
   return {
     downloadData,
@@ -346,44 +431,71 @@ const useFetchAllAnalytics = () => {
 }
 
 const analyticsData = useFetchAllAnalytics()
+</script>
 
-const selectResolution = async (resolution) => {
-  if (selectedResolution.value !== resolution) {
-    selectedResolution.value = resolution
-    if (resolution === 'daily') {
-      startDate.value = new Date(new Date() - 30 * 24 * 60 * 60 * 1000)
-      timeResolution.value = 1440
-      endDate.value = new Date(new Date() - 24 * 60 * 60 * 1000)
-    } else if (resolution === 'weekly') {
-      startDate.value = new Date(new Date() - 3 * 30 * 24 * 60 * 60 * 1000)
-      timeResolution.value = 10800
-      endDate.value = new Date(new Date() - 24 * 60 * 60 * 1000)
-    } else if (resolution === 'monthly') {
-      startDate.value = new Date(new Date().getFullYear(), 0, 1)
-      timeResolution.value = 43200
-      endDate.value = new Date(new Date() - 24 * 60 * 60 * 1000)
-    } else if (resolution === 'custom') {
-      startDate.value = new Date(customStartDate.value)
+<style scoped lang="scss">
+.button-base__selected {
+  overflow: hidden;
+  color: var(--color-contrast);
+  background-color: var(--color-brand-highlight);
+  box-shadow: inset 0 0 0 transparent, 0 0 0 2px var(--color-brand);
+
+  &:hover {
+    background-color: var(--color-brand-highlight);
+  }
+}
+
+.graphs {
+  // Pages clip so we need to add a margin
+  margin-left: 0.25rem;
+
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap-md);
+
+  .graphs__vertical-bar {
+    // Take up 1/3 of the width
+    flex-grow: 0;
+    flex-shrink: 0;
+    max-width: 16rem;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .graphs__main-graph {
+    // Take up the rest of the width
+    flex-grow: 1;
+
+    display: grid;
+    grid-template-columns: 1fr;
+
+    .graphs__main-graph-control {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: end;
+      margin-bottom: var(--gap-md);
+      gap: var(--gap-md);
+
+      .animated-dropdown {
+        width: auto;
+      }
     }
   }
 }
 
-const openCustomModal = () => {
-  customStartDate.value = null
-  customEndDate.value = null
-  customTimeResolution.value = 1440
-  customTimeModal.value.show()
-}
+@media (max-width: 768px) {
+  .graphs {
+    flex-direction: column;
+    gap: var(--gap-md);
 
-const applyCustomModal = async () => {
-  if (customStartDate.value && timeResolution.value) {
-    customTimeModal.value.hide()
-    await selectResolution('custom')
+    .graphs__vertical-bar {
+      width: 100%;
+    }
   }
 }
-</script>
 
-<style scoped lang="scss">
 .country-flag-container {
   width: 40px;
   height: 27px;
@@ -413,8 +525,14 @@ const applyCustomModal = async () => {
 
 .country-data {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: var(--gap-md);
+}
+
+@media (max-width: 768px) {
+  .country-data {
+    grid-template-columns: 1fr;
+  }
 }
 
 .country-values {
@@ -433,7 +551,7 @@ const applyCustomModal = async () => {
 .country-value {
   display: grid;
   grid-template-areas: 'flag text bar';
-  grid-template-columns: auto 10rem 1fr;
+  grid-template-columns: auto 1fr 10rem;
   align-items: center;
   justify-content: space-between;
   width: 100%;
