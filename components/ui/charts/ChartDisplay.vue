@@ -63,6 +63,7 @@
             <DropdownSelect
               v-model="selectedRange"
               :options="selectableRanges"
+              name="Time range"
               :display-name="(o: typeof selectableRanges[number] | undefined) => o?.label || 'Custom'"
             />
             <!-- <DropdownSelect

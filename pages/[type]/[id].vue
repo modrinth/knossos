@@ -853,6 +853,8 @@ import dayjs from 'dayjs'
 import {
   Avatar,
   Promotion,
+  LeftArrowIcon,
+  XIcon,
   Button,
   ShareIcon,
   ClearIcon,
@@ -860,7 +862,6 @@ import {
   CodeIcon,
   ClientIcon,
   ServerIcon,
-  DropdownIcon,
   ClipboardCopyIcon,
   OverflowMenu,
   Modal,
