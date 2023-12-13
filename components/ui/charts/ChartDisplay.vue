@@ -322,6 +322,7 @@ const defaultRanges: Record<number, [string, number] | string> = {
 .graphs {
   // Pages clip so we need to add a margin
   margin-left: 0.25rem;
+  margin-top: 0.25rem;
 
   display: flex;
   flex-direction: row;

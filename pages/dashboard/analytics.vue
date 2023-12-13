@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>Analytics</h2>
     <ChartDisplay :projects="projects ?? undefined" />
   </div>
 </template>
