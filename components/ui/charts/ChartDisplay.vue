@@ -12,7 +12,7 @@
             :title="`Downloads since ${dayjs(startDate).format('MMM D, YYYY')}`"
             color="var(--color-brand)"
             :value="formatNumber(analytics.formattedData.value.downloads.sum, false)"
-            :data="analytics.formattedData.value.downloads.chart.data"
+            :data="analytics.formattedData.value.downloads.chart.sumData"
             :labels="analytics.formattedData.value.downloads.chart.labels"
             suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
             :class="`clickable button-base ${
@@ -29,7 +29,7 @@
             :title="`Page views since ${dayjs(startDate).format('MMM D, YYYY')}`"
             color="var(--color-blue)"
             :value="formatNumber(analytics.formattedData.value.views.sum, false)"
-            :data="analytics.formattedData.value.views.chart.data"
+            :data="analytics.formattedData.value.views.chart.sumData"
             :labels="analytics.formattedData.value.views.chart.labels"
             suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
             :class="`clickable button-base ${
@@ -46,7 +46,7 @@
             :title="`Revenue since ${dayjs(startDate).format('MMM D, YYYY')}`"
             color="var(--color-purple)"
             :value="formatMoney(analytics.formattedData.value.revenue.sum, false)"
-            :data="analytics.formattedData.value.revenue.chart.data"
+            :data="analytics.formattedData.value.revenue.chart.sumData"
             :labels="analytics.formattedData.value.revenue.chart.labels"
             is-money
             :class="`clickable button-base ${
