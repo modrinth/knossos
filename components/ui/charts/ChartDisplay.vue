@@ -132,11 +132,7 @@
                 class="country-value"
               >
                 <div class="country-flag-container">
-                  <img
-                    :src="`https://flagcdn.com/h240/${name.toLowerCase()}.png`"
-                    :alt="name"
-                    class="country-flag"
-                  />
+                  <img :src="countryCodeToFlag(name)" :alt="name" class="country-flag" />
                 </div>
                 <div class="country-text">
                   <strong class="country-name">{{ countryCodeToName(name) }}</strong>

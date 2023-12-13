@@ -10,6 +10,13 @@ export const countryCodeToName = (code) => {
   return regionNames.of(code) || 'Unknown'
 }
 
+export const countryCodeToFlag = (code) => {
+  if (countryCodeToName(code) === 'Unknown') {
+    return undefined
+  }
+  return `https://flagcdn.com/h240/${code.toLowerCase()}.png`
+}
+
 export const formatTimestamp = (timestamp) => {
   return unix(timestamp).format()
 }
