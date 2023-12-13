@@ -41,7 +41,7 @@
         <nuxt-link class="goto-link" :to="`/user/${auth.user.username}`">
           <UserIcon /> View profile <ChevronRightIcon />
         </nuxt-link>
-        <nuxt-link class="goto-link" :to="`/user/${auth.user.username}`">
+        <nuxt-link class="goto-link" :to="`/settings/profile`">
           <SettingsIcon /> Edit profile <ChevronRightIcon />
         </nuxt-link>
       </section>
@@ -80,7 +80,7 @@
         <nuxt-link class="goto-link" to="/analytics">
           <ChartIcon />View more analytics <ChevronRightIcon />
         </nuxt-link>
-        <nuxt-link class="goto-link" to="/settings/projects">
+        <nuxt-link class="goto-link" to="/creations/projects">
           <ListIcon />View all projects <ChevronRightIcon />
         </nuxt-link>
       </section>
@@ -92,7 +92,8 @@
           <SearchIcon />
           <input id="search-input" v-model="notificationSearchInput" type="text" />
           <Button
-            :class="notificationSearchInput ? '' : 'empty'"
+            v-if="notificationSearchInput"
+            class="r-btn"
             @click="() => (notificationSearchInput = '')"
           >
             <XIcon />
@@ -319,12 +320,6 @@ const notificationSearchInput = ref('')
 
   h2 {
     margin: 0;
-  }
-}
-
-.iconified-input {
-  .empty {
-    visibility: hidden;
   }
 }
 

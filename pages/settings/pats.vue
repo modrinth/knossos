@@ -72,7 +72,7 @@
 
     <div class="header__row">
       <div class="header__title">
-        <h2>Personal Access Tokens</h2>
+        <h2>Personal access tokens</h2>
       </div>
       <button
         class="btn btn-primary"
@@ -86,7 +86,7 @@
           }
         "
       >
-        <PlusIcon /> Create a PAT
+        <PlusIcon /> Create new
       </button>
     </div>
     <p>
