@@ -81,6 +81,7 @@
               :data="analytics.formattedData.value.downloads.chart.data"
               :labels="analytics.formattedData.value.downloads.chart.labels"
               suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
+              :colors="analytics.formattedData.value.downloads.chart.colors"
             >
               <h2>Downloads</h2>
             </Chart>
@@ -93,6 +94,7 @@
               :data="analytics.formattedData.value.views.chart.data"
               :labels="analytics.formattedData.value.views.chart.labels"
               suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
+              :colors="analytics.formattedData.value.views.chart.colors"
             >
               <h2 class="">Views</h2>
             </Chart>
@@ -105,6 +107,7 @@
               :data="analytics.formattedData.value.revenue.chart.data"
               :labels="analytics.formattedData.value.revenue.chart.labels"
               suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
+              :colors="analytics.formattedData.value.revenue.chart.colors"
             >
               <h2 class="">Revenue</h2>
             </Chart>
@@ -218,6 +221,9 @@ import CompactChart from '~/components/ui/charts/CompactChart.vue'
 const props = withDefaults(
   defineProps<{
     projects?: any[]
+    /**
+     * @deprecated Use `ranges` instead
+     */
     resoloutions?: Record<string, number>
     ranges?: Record<number, [string, number] | string>
   }>(),
@@ -228,10 +234,6 @@ const props = withDefaults(
   }
 )
 
-const selectableResoloutions = Object.entries(props.resoloutions).map((i) => ({
-  label: i[0],
-  value: i[1],
-}))
 const selectableRanges = Object.entries(props.ranges).map(([duration, extra]) => ({
   label: typeof extra === 'string' ? extra : extra[0],
   value: Number(duration),
@@ -259,18 +261,6 @@ const analytics = useFetchAllAnalytics(() => {
 }, props.projects)
 
 const { startDate, endDate, timeRange, timeResolution } = analytics
-
-const selectedResolution = computed({
-  get: () => {
-    return (
-      selectableResoloutions.find((option) => option.value === timeResolution.value) || {
-        label: 'Custom',
-        value: timeResolution.value,
-      }
-    )
-  },
-  set: (newRes) => (timeResolution.value = newRes.value),
-})
 
 const selectedRange = computed({
   get: () => {

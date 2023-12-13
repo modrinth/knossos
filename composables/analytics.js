@@ -26,6 +26,34 @@ export const formatPercent = (value, sum) => {
   return `${((value / sum) * 100).toFixed(2)}%`
 }
 
+const decimalToHex = (decimalColor) => {
+  // Convert decimal to RGB
+  let r = (decimalColor >> 16) & 255
+  let g = (decimalColor >> 8) & 255
+  let b = decimalColor & 255
+
+  // Find the maximum component to determine the dominant color
+  const maxComponent = Math.max(r, g, b)
+
+  // Increase saturation by reducing the other two components proportionally
+  if (maxComponent > 0) {
+    // avoid division by zero
+    r = Math.floor((r / maxComponent) * 255)
+    g = Math.floor((g / maxComponent) * 255)
+    b = Math.floor((b / maxComponent) * 255)
+  }
+
+  // Convert back to a single decimal color
+  const adjustedDecimal = (r << 16) + (g << 8) + b
+
+  // Convert to hex
+  let hexColor = adjustedDecimal.toString(16)
+  while (hexColor.length < 6) {
+    hexColor = '0' + hexColor
+  }
+  return '#' + hexColor
+}
+
 const emptyAnalytics = {
   sum: 0,
   len: 0,
@@ -38,6 +66,7 @@ const emptyAnalytics = {
         data: [],
       },
     ],
+    colors: [],
   },
 }
 
@@ -97,6 +126,14 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
           }),
         },
       ],
+      colors: projectData.map((_, i) => {
+        const project = projects.find((p) => p.id === loadedProjectIds[i])
+        if (!project) {
+          throw new Error(`Project ${loadedProjectIds[i]} not found`)
+        }
+
+        return project.color ? decimalToHex(project.color) : '--color-brand'
+      }),
     },
   }
 }
