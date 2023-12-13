@@ -26,32 +26,30 @@ export const formatPercent = (value, sum) => {
   return `${((value / sum) * 100).toFixed(2)}%`
 }
 
-const decimalToHex = (decimalColor) => {
-  // Convert decimal to RGB
-  let r = (decimalColor >> 16) & 255
-  let g = (decimalColor >> 8) & 255
-  let b = decimalColor & 255
-
-  // Find the maximum component to determine the dominant color
-  const maxComponent = Math.max(r, g, b)
-
-  // Increase saturation by reducing the other two components proportionally
-  if (maxComponent > 0) {
-    // avoid division by zero
-    r = Math.floor((r / maxComponent) * 255)
-    g = Math.floor((g / maxComponent) * 255)
-    b = Math.floor((b / maxComponent) * 255)
-  }
-
-  // Convert back to a single decimal color
-  const adjustedDecimal = (r << 16) + (g << 8) + b
-
-  // Convert to hex
-  let hexColor = adjustedDecimal.toString(16)
-  while (hexColor.length < 6) {
-    hexColor = '0' + hexColor
-  }
-  return '#' + hexColor
+const RGBToHSL = (r, g, b) => {
+  r /= 255
+  g /= 255
+  b /= 255
+  const l = Math.max(r, g, b)
+  const s = l - Math.min(r, g, b)
+  const h = s ? (l === r ? (g - b) / s : l === g ? 2 + (b - r) / s : 4 + (r - g) / s) : 0
+  return [60 * h < 0 ? 60 * h + 360 : 60 * h, 100, 50]
+}
+const HSLToRGB = (h, s, l) => {
+  s /= 100
+  l /= 100
+  const k = (n) => (n + h / 30) % 12
+  const a = s * Math.min(l, 1 - l)
+  const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
+  return [255 * f(0), 255 * f(8), 255 * f(4)]
+}
+const intToRgba = (int) => {
+  const r = (int >> 16) & 255
+  const g = (int >> 8) & 255
+  const b = int & 255
+  const vibrant = RGBToHSL(r, g, b)
+  const final = HSLToRGB(vibrant[0], vibrant[1], vibrant[2])
+  return `rgba(${final[0]}, ${final[1]}, ${final[2]}, 1)`
 }
 
 const emptyAnalytics = {
@@ -132,7 +130,7 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
           throw new Error(`Project ${loadedProjectIds[i]} not found`)
         }
 
-        return project.color ? decimalToHex(project.color) : '--color-brand'
+        return project.color ? intToRgba(project.color) : '--color-brand'
       }),
     },
   }
