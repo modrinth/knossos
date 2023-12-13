@@ -1,24 +1,13 @@
 import dayjs from 'dayjs'
-import { all } from 'iso-3166-1'
 
 // note: build step can miss unix import for some reason, so
 // we have to import it like this
 // eslint-disable-next-line import/no-named-as-default-member
 const { unix } = dayjs
 
-const countries = all()
-  .map((entry) => ({
-    [entry.alpha2]: entry.country,
-  }))
-  .reduce((acc, cur) => ({ ...acc, ...cur }), {})
-
 export const countryCodeToName = (code) => {
-  if (code === 'TW') return 'Taiwan'
-  if (code === 'XX') return 'Unknown'
-  if (countries[code]) {
-    return countries[code]
-  }
-  return code
+  const regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
+  return regionNames.of(code) || 'Unknown'
 }
 
 export const formatTimestamp = (timestamp) => {
@@ -124,20 +113,25 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
     len: timestamps.length,
     chart: {
       labels: timestamps.map(labelFn),
-      data: projectData.map((data, i) => {
-        const project = projects.find((p) => p.id === loadedProjectIds[i])
-        if (!project) {
-          throw new Error(`Project ${loadedProjectIds[i]} not found`)
-        }
+      data: projectData
+        .map((data, i) => {
+          const project = projects.find((p) => p.id === loadedProjectIds[i])
+          if (!project) {
+            throw new Error(`Project ${loadedProjectIds[i]} not found`)
+          }
 
-        return {
-          name: `${project.title}`,
-          data: timestamps.map((ts) => {
-            const entry = data.find(([ets]) => ets === ts)
-            return entry ? entry[1] : 0
-          }),
-        }
-      }),
+          return {
+            name: `${project.title}`,
+            data: timestamps.map((ts) => {
+              const entry = data.find(([ets]) => ets === ts)
+              return entry ? entry[1] : 0
+            }),
+          }
+        })
+        .sort(
+          (a, b) =>
+            b.data.reduce((acc, cur) => acc + cur, 0) - a.data.reduce((acc, cur) => acc + cur, 0)
+        ),
       sumData: [
         {
           name: chartName,
