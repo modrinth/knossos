@@ -203,44 +203,51 @@
           class="project-list"
           :class="'display-mode--' + cosmetics.searchDisplayMode.user"
         >
-          <ProjectCard
-            v-for="project in (route.params.projectType !== undefined
-              ? projects.filter(
-                  (x) =>
-                    x.project_type ===
-                    route.params.projectType.substr(0, route.params.projectType.length - 1)
-                )
-              : projects
-            )
-              .slice()
-              .sort((a, b) => b.downloads - a.downloads)"
-            :id="project.slug || project.id"
-            :key="project.id"
-            :name="project.title"
-            :display="cosmetics.searchDisplayMode.user"
-            :featured-image="
-              project.gallery
+          <template v-if="route.params.projectType !== 'collection'">
+            <ProjectCard
+              v-for="project in (route.params.projectType !== undefined
+                ? projects.filter(
+                    (x) =>
+                      x.project_type ===
+                      route.params.projectType.substr(0, route.params.projectType.length - 1)
+                  )
+                : projects
+              )
                 .slice()
-                .sort((a, b) => b.featured - a.featured)
-                .map((x) => x.url)[0]
-            "
-            :description="project.description"
-            :created-at="project.published"
-            :updated-at="project.updated"
-            :downloads="project.downloads.toString()"
-            :follows="project.followers.toString()"
-            :icon-url="project.icon_url"
-            :categories="project.categories"
-            :client-side="project.client_side"
-            :server-side="project.server_side"
-            :status="
-              auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
-                ? project.status
-                : null
-            "
-            :type="project.project_type"
-            :color="project.color"
-          />
+                .sort((a, b) => b.downloads - a.downloads)"
+              :id="project.slug || project.id"
+              :key="project.id"
+              :name="project.title"
+              :display="cosmetics.searchDisplayMode.user"
+              :featured-image="
+                project.gallery
+                  .slice()
+                  .sort((a, b) => b.featured - a.featured)
+                  .map((x) => x.url)[0]
+              "
+              :description="project.description"
+              :created-at="project.published"
+              :updated-at="project.updated"
+              :downloads="project.downloads.toString()"
+              :follows="project.followers.toString()"
+              :icon-url="project.icon_url"
+              :categories="project.categories"
+              :client-side="project.client_side"
+              :server-side="project.server_side"
+              :status="
+                auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
+                  ? project.status
+                  : null
+              "
+              :type="project.project_type"
+              :color="project.color"
+            />
+          </template>
+          <template v-if="['all', 'collection', undefined].includes(route.params.projectType)">
+            <div v-for="collection in collections" :key="collection.id">
+              TODO: {{ collection.name }}
+            </div>
+          </template>
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
@@ -360,9 +367,9 @@ const messages = defineMessages({
   },
 })
 
-let user, projects
+let user, projects, collections
 try {
-  ;[{ data: user }, { data: projects }] = await Promise.all([
+  ;[{ data: user }, { data: projects }, { data: collections }] = await Promise.all([
     useAsyncData(`user/${route.params.id}`, () => useBaseFetch(`user/${route.params.id}`)),
     useAsyncData(
       `user/${route.params.id}/projects`,
@@ -381,6 +388,9 @@ try {
           return projects
         },
       }
+    ),
+    useAsyncData(`user/${route.params.id}/collections`, () =>
+      useBaseFetch(`user/${route.params.id}/collections`, { apiVersion: 3 })
     ),
   ])
 } catch {
@@ -403,26 +413,26 @@ if (user.value.username !== route.params.id) {
   await navigateTo(`/user/${user.value.username}`, { redirectCode: 301 })
 }
 
-const title = `${user.value.username} - Modrinth`
-const description = ref(
+const title = computed(() => `${user.value.username} - Modrinth`)
+const description = computed(() =>
   user.value.bio
-    ? `${formatMessage(messages.profileMetaDescriptionWithBio, {
+    ? formatMessage(messages.profileMetaDescriptionWithBio, {
         bio: user.value.bio,
         username: user.value.username,
-      })}`
-    : `${formatMessage(messages.profileMetaDescription, { username: user.value.username })}`
+      })
+    : formatMessage(messages.profileMetaDescription, { username: user.value.username })
 )
 
 useSeoMeta({
-  title,
-  description,
-  ogTitle: title,
-  ogDescription: description,
-  ogImage: user.value.avatar_url ?? 'https://cdn.modrinth.com/placeholder.png',
+  title: () => title.value,
+  description: () => description.value,
+  ogTitle: () => title.value,
+  ogDescription: () => description.value,
+  ogImage: () => user.value.avatar_url ?? 'https://cdn.modrinth.com/placeholder.png',
 })
 
 const projectTypes = computed(() => {
-  const obj = {}
+  const obj = { collection: true }
 
   for (const project of projects.value) {
     obj[project.project_type] = true

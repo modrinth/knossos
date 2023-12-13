@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="universal-card">
     <CollectionCreateModal ref="modal_creation" />
-    <h2>Collections {{ filterQuery }}</h2>
+    <h2>Collections</h2>
     <div class="search-row">
       <div class="iconified-input">
         <label for="search-input" hidden>Search your collections</label>
         <SearchIcon />
-        <input v-model="filterQuery" id="search-input" type="text" />
+        <input id="search-input" v-model="filterQuery" type="text" />
         <Button v-if="filterQuery" class="r-btn" @click="() => (filterQuery = '')">
           <XIcon />
         </Button>
@@ -19,7 +19,7 @@
       <nuxt-link
         v-if="'followed projects'.includes(filterQuery)"
         :to="`/collection/following`"
-        class="card collection"
+        class="universal-card recessed collection"
       >
         <Avatar src="https://cdn.modrinth.com/follow-collection.png" class="icon" />
         <div class="details">
@@ -29,13 +29,14 @@
           </span>
           <div class="stat-bar">
             <div class="stats"><BoxIcon /> {{ user.follows.length }} projects</div>
+            <div class="stats"><LockIcon /> <span> Private </span></div>
           </div>
         </div>
       </nuxt-link>
       <nuxt-link
         v-for="collection in orderedCollections"
         :to="`/collection/${collection.id}`"
-        class="card collection"
+        class="universal-card recessed collection"
       >
         <Avatar :src="collection.icon_url" class="icon" />
         <div class="details">
@@ -67,14 +68,11 @@
         </div>
       </nuxt-link>
     </div>
-    <div>
-      <pre><code>{{ JSON.stringify(collections, null, 2) }}</code></pre>
-    </div>
   </div>
 </template>
 <script setup>
 import { Avatar, BoxIcon, SearchIcon, XIcon, Button, PlusIcon, LinkIcon, LockIcon } from 'omorphia'
-import WorldIcon from 'assets/images/utils/world.svg'
+// import WorldIcon from '~/assets/images/utils/world.svg'
 import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 
 definePageMeta({
@@ -115,13 +113,14 @@ const orderedCollections = computed(() => {
 <style lang="scss">
 .collections-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--gap-lg);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-md);
 
   .collection {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: var(--gap-md);
+    margin-bottom: 0;
 
     .icon {
       width: 100% !important;
@@ -164,6 +163,23 @@ const orderedCollections = computed(() => {
           color: var(--color-secondary);
         }
       }
+    }
+  }
+}
+
+.search-row {
+  margin-bottom: var(--gap-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--gap-lg) var(--gap-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .iconified-input {
+    flex-grow: 1;
+
+    input {
+      height: 2rem;
     }
   }
 }

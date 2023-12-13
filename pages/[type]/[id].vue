@@ -253,13 +253,9 @@
             <hr class="card-divider" />
             <div class="input-group">
               <template v-if="auth.user">
-                <button class="iconified-button" @click="() => reportProject(project.id)">
-                  <ReportIcon aria-hidden="true" />
-                  Report
-                </button>
                 <button
                   v-if="!user.follows.find((x) => x.id === project.id)"
-                  class="iconified-button"
+                  class="btn"
                   @click="userFollowProject(project)"
                 >
                   <HeartIcon aria-hidden="true" />
@@ -267,12 +263,59 @@
                 </button>
                 <button
                   v-if="user.follows.find((x) => x.id === project.id)"
-                  class="iconified-button"
+                  class="btn"
                   @click="userUnfollowProject(project)"
                 >
                   <HeartIcon fill="currentColor" aria-hidden="true" />
                   Unfollow
                 </button>
+                <PopoutMenu class="btn" direction="right" position="bottom" from="top-right">
+                  <BookmarkIcon aria-hidden="true" />
+                  Save
+                  <template #menu>
+                    <input
+                      v-model="displayCollectionsSearch"
+                      type="text"
+                      placeholder="Search collections..."
+                      class="search-input menu-search"
+                    />
+                    <div v-if="collections.length > 0" class="collections-list">
+                      <Checkbox
+                        v-for="option in collections"
+                        :key="option.id"
+                        :model-value="option.projects.includes(project.id)"
+                        class="popout-checkbox"
+                        @update:model-value="userCollectProject(option, project.id)"
+                      >
+                        {{ option.name }}
+                      </Checkbox>
+                    </div>
+                    <div v-else class="menu-text">
+                      <p class="popout-text">No collections found.</p>
+                    </div>
+                    <button class="btn collection-button" @click="$refs.modal_collection.show()">
+                      <PlusIcon />
+                      Create new collection
+                    </button>
+                  </template>
+                </PopoutMenu>
+                <OverflowMenu
+                  class="btn icon-only"
+                  :options="[
+                    {
+                      id: 'report',
+                      action: () => reportProject(project.id),
+                      color: 'red',
+                      hoverOnly: true,
+                    },
+                    { id: 'copy-id', action: () => copyId() },
+                  ]"
+                  direction="right"
+                >
+                  <MoreHorizontalIcon />
+                  <template #report> <ReportIcon /> Report</template>
+                  <template #copy-id> <ClipboardCopyIcon /> Copy ID</template>
+                </OverflowMenu>
               </template>
               <template v-else>
                 <nuxt-link class="iconified-button" to="/auth/sign-in">
@@ -283,6 +326,24 @@
                   <HeartIcon aria-hidden="true" />
                   Follow
                 </nuxt-link>
+
+                <OverflowMenu
+                  class="btn icon-only"
+                  :options="[
+                    {
+                      id: 'report',
+                      action: () => navigateTo('/auth/sign-in'),
+                      color: 'red',
+                      hoverOnly: true,
+                    },
+                    { id: 'copy-id', action: () => copyId() },
+                  ]"
+                  direction="right"
+                >
+                  <MoreHorizontalIcon />
+                  <template #report> <ReportIcon /> Report</template>
+                  <template #copy-id> <ClipboardCopyIcon /> Copy ID</template>
+                </OverflowMenu>
               </template>
             </div>
           </div>
@@ -659,7 +720,16 @@
   </div>
 </template>
 <script setup>
-import { Promotion } from 'omorphia'
+import {
+  Promotion,
+  OverflowMenu,
+  PopoutMenu,
+  BookmarkIcon,
+  MoreHorizontalIcon,
+  ClipboardCopyIcon,
+  PlusIcon,
+  Checkbox,
+} from 'omorphia'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import ClearIcon from '~/assets/images/utils/clear.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
@@ -702,7 +772,7 @@ import VersionIcon from '~/assets/images/utils/version.svg'
 import { renderString } from '~/helpers/parse.js'
 import { reportProject } from '~/utils/report-helpers.ts'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
-import { userCollectProject } from '~/composables/user'
+import { userCollectProject } from '~/composables/user.js'
 import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 
 const data = useNuxtApp()
@@ -1134,7 +1204,6 @@ const collapsedChecklist = ref(false)
 }
 
 .project__header {
-  overflow: hidden;
   .project__gallery {
     display: none;
   }
@@ -1143,11 +1212,12 @@ const collapsedChecklist = ref(false)
       display: inline-block;
       width: 100%;
       height: 10rem;
-      background-color: var(--color-button-bg-active);
       img {
         width: 100%;
         height: 10rem;
         object-fit: cover;
+        background-color: var(--color-button-bg-active);
+        border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
       }
     }
     .project__icon {
@@ -1161,6 +1231,9 @@ const collapsedChecklist = ref(false)
     margin: 0;
     background: none;
     border-radius: unset;
+  }
+  .input-group {
+    flex-wrap: nowrap;
   }
 }
 
@@ -1406,7 +1479,6 @@ const collapsedChecklist = ref(false)
   overflow-y: auto;
   background-color: var(--color-bg);
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-divider);
   margin: var(--gap-sm) var(--gap-md);
   padding: var(--gap-sm);
 }
