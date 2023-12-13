@@ -115,13 +115,13 @@ function generateTooltip({ series, seriesIndex, dataPointIndex, w }, props) {
   // Logic for total and percent stacked
   if (!props.hideTotal) {
     if (props.percentStacked) {
-      const total = series.reduce((a, b) => a + b[dataPointIndex], 0)
+      const total = series.reduce((a, b) => a + (b?.[dataPointIndex] || 0), 0)
       const percentValue = (100 * series[seriesIndex][dataPointIndex]) / total
       tooltip += `<div class="value">${props.prefix}${formatNumber(percentValue)}%${
         props.suffix
       }</div>`
     } else {
-      const totalValue = series.reduce((a, b) => a + b[dataPointIndex], 0)
+      const totalValue = series.reduce((a, b) => a + (b?.[dataPointIndex] || 0), 0)
       tooltip += `<div class="value">${props.prefix}${formatTooltipValue(totalValue, props)}${
         props.suffix
       }</div>`
