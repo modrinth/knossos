@@ -24,56 +24,107 @@ export const formatPercent = (value, sum) => {
   return `${((value / sum) * 100).toFixed(2)}%`
 }
 
-export const processAnalytics = (category, projectId, labelFn, sortFn, mapFn, chartName) => {
-  const projectData = category?.[projectId]
-  if (!projectData) {
-    return {
-      sum: 0,
-      len: 0,
-      chart: {
-        labels: [],
-        data: [
-          {
-            name: chartName,
-            data: [],
-          },
-        ],
-      },
-    }
+const emptyAnalytics = {
+  sum: 0,
+  len: 0,
+  chart: {
+    labels: [],
+    data: [],
+  },
+}
+
+export const processAnalytics = (category, projects, labelFn, sortFn, mapFn) => {
+  if (!category || !projects) {
+    return emptyAnalytics
   }
 
-  const entries = Object.entries(projectData)
-  const sortedEntries = sortFn ? entries.sort(sortFn) : entries
+  // Get an intersection of category keys and project ids
+  const projectIds = projects.map((p) => p.id)
+  const loadedProjectIds = Object.keys(category).filter((id) => projectIds.includes(id))
 
-  const mappedEntries = mapFn ? sortedEntries.map(mapFn) : sortedEntries
+  if (!loadedProjectIds?.length) {
+    return emptyAnalytics
+  }
+
+  const loadedProjectData = loadedProjectIds.map((id) => category[id])
+
+  // Convert each project's data into a list of [unix_ts_str, number] pairs
+  // Sort, label&map
+  const projectData = loadedProjectData
+    .map((data) => Object.entries(data))
+    .map((data) => data.sort(sortFn))
+    .map((data) => (mapFn ? data.map(mapFn) : data))
+
+  // Each project may not include the same timestamps, so we should use the union of all timestamps
+  const timestamps = Array.from(
+    new Set(projectData.flatMap((data) => data.map(([ts]) => ts)))
+  ).sort()
 
   return {
-    sum: mappedEntries.reduce((acc, cur) => acc + cur[1], 0),
-    len: mappedEntries.length,
+    // The total count of all the values across all projects
+    sum: projectData.reduce((acc, cur) => acc + cur.reduce((a, c) => a + c[1], 0), 0),
+    len: timestamps.length,
     chart: {
-      labels: mappedEntries.map(([ts]) => labelFn(ts)),
-      data: [
-        {
-          name: chartName,
-          data: mappedEntries.map(([_, value]) => value),
-        },
-      ],
+      labels: timestamps.map(labelFn),
+      data: projectData.map((data, i) => {
+        const project = projects.find((p) => p.id === loadedProjectIds[i])
+        if (!project) {
+          throw new Error(`Project ${loadedProjectIds[i]} not found`)
+        }
+
+        return {
+          name: `${project.title}`,
+          data: timestamps.map((ts) => {
+            const entry = data.find(([ets]) => ets === ts)
+            return entry ? entry[1] : 0
+          }),
+        }
+      }),
     },
   }
 }
 
-export const processAnalyticsByCountry = (category, projectId, sortFn) => {
-  const projectData = category?.[projectId]
-  if (!projectData) {
-    return null
+export const processAnalyticsByCountry = (category, projects, sortFn) => {
+  if (!category || !projects) {
+    return {
+      sum: 0,
+      len: 0,
+      data: [],
+    }
   }
 
-  const entries = Object.entries(projectData).sort(sortFn)
+  // Get an intersection of category keys and project ids
+  const projectIds = projects.map((p) => p.id)
+  const loadedProjectIds = Object.keys(category).filter((id) => projectIds.includes(id))
+
+  if (!loadedProjectIds?.length) {
+    return {
+      sum: 0,
+      len: 0,
+      data: [],
+    }
+  }
+
+  const loadedProjectData = loadedProjectIds.map((id) => category[id])
+
+  // Convert each project's data into a list of [countrycode, number] pairs
+  // Fold into a single list with summed values for each country over all projects
+
+  const countrySums = new Map()
+
+  loadedProjectData.forEach((data) => {
+    Object.entries(data).forEach(([country, value]) => {
+      const current = countrySums.get(country) || 0
+      countrySums.set(country, current + value)
+    })
+  })
+
+  const entries = Array.from(countrySums.entries())
 
   return {
     sum: entries.reduce((acc, cur) => acc + cur[1], 0),
     len: entries.length,
-    data: entries,
+    data: entries.sort(sortFn),
   }
 }
 
@@ -81,26 +132,26 @@ const sortCount = ([_a, a], [_b, b]) => b - a
 const sortTimestamp = ([a], [b]) => a - b
 const roundValue = ([ts, value]) => [ts, Math.round(parseFloat(value) * 100) / 100]
 
-const processCountryAnalytics = (c, pid) => processAnalyticsByCountry(c, pid, sortCount)
-const processDownloadAnalytics = (c, pid) =>
-  processAnalytics(c, pid, formatTimestamp, sortTimestamp, null, 'Downloads')
-const processRevAnalytics = (c, pid) =>
-  processAnalytics(c, pid, formatTimestamp, sortTimestamp, roundValue, 'Revenue')
+const processCountryAnalytics = (c, projects) => processAnalyticsByCountry(c, projects, sortCount)
+const processNumberAnalytics = (c, projects) =>
+  processAnalytics(c, projects, formatTimestamp, sortTimestamp, null, 'Downloads')
+const processRevAnalytics = (c, projects) =>
+  processAnalytics(c, projects, formatTimestamp, sortTimestamp, roundValue, 'Revenue')
 
 const useFetchAnalytics = (
   url,
   baseOptions = {
-    apiVersion: 2,
+    apiVersion: 3,
   }
 ) => {
   return useBaseFetch(url, baseOptions)
 }
 
 /**
- * @param {string[] | undefined} projectIds
+ * @param {any} projects
  * @param {undefined | () => any} onDataRefresh
  */
-export const useFetchAllAnalytics = (onDataRefresh, projectIds = undefined) => {
+export const useFetchAllAnalytics = (onDataRefresh, projects = undefined) => {
   const timeResolution = ref(1440) // 1 day
   const timeRange = ref(43200) // 30 days
 
@@ -116,11 +167,11 @@ export const useFetchAllAnalytics = (onDataRefresh, projectIds = undefined) => {
   const error = ref(null)
 
   const formattedData = computed(() => ({
-    downloads: processDownloadAnalytics(downloadData.value, projectIds),
-    views: processDownloadAnalytics(viewData.value, projectIds),
-    revenue: processRevAnalytics(revenueData.value, projectIds),
-    downloadsByCountry: processCountryAnalytics(downloadsByCountry.value, projectIds),
-    viewsByCountry: processCountryAnalytics(viewsByCountry.value, projectIds),
+    downloads: processNumberAnalytics(downloadData.value, projects),
+    views: processNumberAnalytics(viewData.value, projects),
+    revenue: processRevAnalytics(revenueData.value, projects),
+    downloadsByCountry: processCountryAnalytics(downloadsByCountry.value, projects),
+    viewsByCountry: processCountryAnalytics(viewsByCountry.value, projects),
   }))
 
   const fetchData = async (query) => {
@@ -157,14 +208,19 @@ export const useFetchAllAnalytics = (onDataRefresh, projectIds = undefined) => {
   }
 
   watch(
-    [() => startDate.value, () => endDate.value, () => timeResolution.value, () => projectIds],
+    [() => startDate.value, () => endDate.value, () => timeResolution.value, () => projects],
     async () => {
-      await fetchData({
-        project_ids: JSON.stringify(projectIds?.length ? [...projectIds] : undefined),
+      const q = {
         start_date: dayjs(startDate.value).toISOString(),
         end_date: dayjs(endDate.value).toISOString(),
         resolution_minutes: timeResolution.value,
-      })
+      }
+
+      if (projects?.length) {
+        q.project_ids = JSON.stringify(projects.map((p) => p.id))
+      }
+
+      await fetchData(q)
 
       if (onDataRefresh) {
         onDataRefresh()

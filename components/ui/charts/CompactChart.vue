@@ -1,6 +1,7 @@
 <script setup>
 import { Card, formatMoney, formatNumber } from 'omorphia'
 import dayjs from 'dayjs'
+
 const VueApexCharts = defineAsyncComponent(() => import('vue3-apexcharts'))
 
 const props = defineProps({
@@ -114,8 +115,7 @@ const chartOptions = {
     },
   },
   tooltip: {
-    custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-      console.log(seriesIndex, w)
+    custom: function ({ series, _, dataPointIndex, w }) {
       return (
         '<div class="bar-tooltip">' +
         series
