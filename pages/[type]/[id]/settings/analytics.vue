@@ -10,7 +10,7 @@
       </p>
     </div>
 
-    <ChartDisplay :project-ids="[props.project.id]" />
+    <ChartDisplay :projects="[props.project]" />
   </div>
 </template>
 

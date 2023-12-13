@@ -204,9 +204,6 @@
         </div>
       </div>
     </div>
-    <div>
-      <pre><code>{{ analytics.formattedData }}</code></pre>
-    </div>
   </div>
 </template>
 
