@@ -74,7 +74,24 @@
             <div class="project-name">
               {{ project.title }}
             </div>
-            <div class="project-change positive">+0.24%</div>
+            <div
+              :class="`project-change ${
+                projectDiff?.[project.id]?.isValid
+                  ? projectDiff?.[project.id]?.sign > 0
+                    ? 'positive'
+                    : projectDiff?.[project.id]?.sign < 0
+                    ? 'negative'
+                    : 'neutral'
+                  : 'neutral'
+              }`"
+            >
+              {{
+                projectDiff?.[project.id]?.value.toLocaleString(undefined, {
+                  style: 'percent',
+                  minimumFractionDigits: 2,
+                })
+              }}
+            </div>
           </div>
         </div>
         <nuxt-link class="goto-link" to="/creations/analytics">
@@ -167,6 +184,7 @@ import {
   formatNumber,
   formatMoney,
 } from 'omorphia'
+import dayjs from 'dayjs'
 import BanknoteIcon from '~/assets/images/utils/banknote.svg'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
 
@@ -205,6 +223,84 @@ const filterOptions = computed(() => [...new Set(notifications.value.map((notif)
 const selectedFilters = ref([])
 
 const projectsPreview = computed(() => projects.value.slice(0, 10))
+
+const projectDiff = ref()
+
+const processProjectsIntoRate = (projectIds, projectsData) => {
+  const output = Object.entries(projectsData).reduce((acc, [pid, data]) => {
+    const sum = Object.values(data).reduce((acc, val) => acc + val, 0)
+    return {
+      ...acc,
+      [pid]: sum,
+    }
+  }, {})
+
+  // keys from projectsData may be missing from output, so put missing keys in with 0
+  for (const pid of projectIds) {
+    if (!output[pid]) {
+      output[pid] = 0
+    }
+  }
+
+  return output
+}
+
+watch(
+  [projectsPreview],
+  async () => {
+    const weekInMinutes = 60 * 24 * 7
+
+    const now = dayjs()
+    const weekAgo = dayjs(Date.now() - weekInMinutes * 60 * 1000)
+    const twoWeeksAgo = dayjs(Date.now() - weekInMinutes * 2 * 60 * 1000)
+
+    const topProjects = projectsPreview.value
+    const topProjectIds = topProjects.map((p) => p.id)
+
+    const lastWeek = await useBaseFetch('analytics/downloads', {
+      apiVersion: 3,
+      query: {
+        project_ids: JSON.stringify(topProjectIds),
+        start_date: weekAgo.toISOString(),
+        end_date: now.toISOString(),
+      },
+    })
+
+    const lastWeekSums = processProjectsIntoRate(topProjectIds, lastWeek)
+
+    const previousWeek = await useBaseFetch('analytics/downloads', {
+      apiVersion: 3,
+      query: {
+        project_ids: JSON.stringify(topProjectIds),
+        start_date: twoWeeksAgo.toISOString(),
+        end_date: weekAgo.toISOString(),
+      },
+    })
+
+    const previousWeekSums = processProjectsIntoRate(topProjectIds, previousWeek)
+
+    // diff is % change from previous week to last week
+    const diff = Object.entries(lastWeekSums).reduce((acc, [pid, sum]) => {
+      const previousSum = previousWeekSums[pid] || 0
+      // Change in terms of %
+      const change = (sum - previousSum) / previousSum
+      const isValidNumber = !Number.isNaN(change) && Number.isFinite(change)
+      return {
+        ...acc,
+        [pid]: {
+          isValid: isValidNumber,
+          value: isValidNumber ? change : 0,
+          sign: Math.sign(change),
+        },
+      }
+    }, {})
+
+    projectDiff.value = diff
+  },
+  {
+    immediate: true,
+  }
+)
 
 const sumDownloads = computed(() => {
   let sum = 0
