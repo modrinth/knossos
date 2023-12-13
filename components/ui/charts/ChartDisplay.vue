@@ -294,14 +294,15 @@ const defaultResoloutions: Record<string, number> = {
 }
 
 const defaultRanges: Record<number, [string, number] | string> = {
-  30: ['Last 30 minutes', 5],
+  30: ['Last 30 minutes', 1],
   60: ['Last hour', 5],
-  720: ['Last 12 hours', 30],
+  720: ['Last 12 hours', 15],
   1440: ['Last day', 60],
   10080: ['Last week', 720],
   43200: ['Last month', 1440],
-  129600: ['Last quarter', 43200],
-  525600: ['Last year', 43200],
+  129600: ['Last quarter', 10080],
+  525600: ['Last year', 20160],
+  1051200: ['Last two years', 40320],
 }
 </script>
 
