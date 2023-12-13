@@ -20,6 +20,7 @@
     <NuxtPage />
   </div>
 </template>
+
 <script setup>
 import { BoxIcon as ProjectIcon, PageBar, ChartIcon } from 'omorphia'
 import OrganizationIcon from '~/assets/images/utils/organization.svg'
