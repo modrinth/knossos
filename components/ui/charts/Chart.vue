@@ -217,9 +217,14 @@ const chartOptions = ref({
     show: !props.hideLegend,
     position: props.legendPosition,
     showForZeroSeries: false,
+    showForSingleSeries: false,
+    showForNullSeries: false,
     fontSize: 'var(--font-size-nm)',
     fontFamily:
       'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+    onItemClick: {
+      toggleDataSeries: false,
+    },
   },
   markers: {
     size: 0,
