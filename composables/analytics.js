@@ -30,10 +30,16 @@ const emptyAnalytics = {
   chart: {
     labels: [],
     data: [],
+    sumData: [
+      {
+        name: '',
+        data: [],
+      },
+    ],
   },
 }
 
-export const processAnalytics = (category, projects, labelFn, sortFn, mapFn) => {
+export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, chartName) => {
   if (!category || !projects) {
     return emptyAnalytics
   }
@@ -80,6 +86,15 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn) => 
           }),
         }
       }),
+      sumData: [
+        {
+          name: chartName,
+          data: timestamps.map((ts) => {
+            const entries = projectData.flat().filter(([ets]) => ets === ts)
+            return entries.reduce((acc, cur) => acc + cur[1], 0)
+          }),
+        },
+      ],
     },
   }
 }
