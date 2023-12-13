@@ -1,12 +1,12 @@
 {
   "button.cancel": {
-    "message": "Cancel"
+    "message": "Anulează"
   },
   "button.edit": {
-    "message": "Edit"
+    "message": "Editare"
   },
   "button.save": {
-    "message": "Save"
+    "message": "Salvați"
   },
   "frog": {
     "message": "Ai fost broscățuit! 🐸"
@@ -24,94 +24,94 @@
     "message": "Broască"
   },
   "input.view.gallery": {
-    "message": "Gallery view"
+    "message": "Vizualizare în mod galerie"
   },
   "input.view.grid": {
-    "message": "Grid view"
+    "message": "Vizualizare în mod grilă"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Vizualizare în mod listă"
   },
   "notification.error.title": {
-    "message": "An error occurred"
+    "message": "A avut loc o eroare"
   },
   "profile.button.manage-projects": {
-    "message": "Manage projects"
+    "message": "Gestionează proiecte"
   },
   "profile.button.report": {
-    "message": "Report"
+    "message": "Raportează"
   },
   "profile.error.not-found": {
-    "message": "User not found"
+    "message": "Utilizatorul nu a fost găsit"
   },
   "profile.input.upload-avatar": {
-    "message": "Upload avatar"
+    "message": "Încarcă avatar"
   },
   "profile.joined-at": {
-    "message": "Joined {ago}"
+    "message": "S-a alăturat acum {ago}"
   },
   "profile.label.edit-bio": {
     "message": "Bio"
   },
   "profile.label.edit-username": {
-    "message": "Username"
+    "message": "Nume de utilizator"
   },
   "profile.label.no-projects": {
-    "message": "This user has no projects!"
+    "message": "Acest utilizator nu are proiecte!"
   },
   "profile.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Nu aveți proiecte.\nDoriți să <create-link>creați unul</create-link>?"
   },
   "profile.meta.description": {
-    "message": "Download {username}'s projects on Modrinth"
+    "message": "Descarcă proiectele lui {username} pe Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Download {username}'s projects on Modrinth"
+    "message": "{bio} - Descarcă proiectele lui {username} pe Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+    "message": "{count, plural, one {<stat>{count}</stat> descărcare} few {<stat>{count}</stat> descărcări} other {<stat>{count}</stat> descărcari}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> urmăritor} few {<stat>{count}</stat> urmăritori} other {<stat>{count}</stat> urmăritori}} de proiecte"
   },
   "profile.user-id": {
-    "message": "User ID: {id}"
+    "message": "ID-ul utilizatorului: {id}"
   },
   "project-type.all": {
-    "message": "All"
+    "message": "Toate"
   },
   "project-type.datapack.plural": {
-    "message": "Data Packs"
+    "message": "Data Packuri"
   },
   "project-type.datapack.singular": {
     "message": "Data Pack"
   },
   "project-type.mod.plural": {
-    "message": "Mods"
+    "message": "Mod-uri"
   },
   "project-type.mod.singular": {
     "message": "Mod"
   },
   "project-type.modpack.plural": {
-    "message": "Modpacks"
+    "message": "Modpack-uri"
   },
   "project-type.modpack.singular": {
     "message": "Modpack"
   },
   "project-type.plugin.plural": {
-    "message": "Plugins"
+    "message": "Plugin-uri"
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
   },
   "project-type.resourcepack.plural": {
-    "message": "Resource Packs"
+    "message": "Resource Pack-uri"
   },
   "project-type.resourcepack.singular": {
     "message": "Resource Pack"
   },
   "project-type.shader.plural": {
-    "message": "Shaders"
+    "message": "Shadere"
   },
   "project-type.shader.singular": {
     "message": "Shader"
@@ -162,30 +162,30 @@
     "message": "Limbă"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Anulare sesiune"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Aici sunt toate dispozitivele care sunt în prezent conectate la contul dvs. Modrinth. Vă puteți deconecta de la fiecare cont individual.\n\nDacă vedeți o intrare pe care nu o recunoașteți, deconectați-vă de pe acel dispozitiv și schimbați parola pentru contul Modrinth imediat."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Creat acum {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Sesiunea curentă"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Accesat ultima oară {ago}"
   },
   "settings.sessions.label.unknown-os": {
-    "message": "Unknown OS"
+    "message": "OS necunoscut"
   },
   "settings.sessions.label.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Platformă necunoscută"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Sesiuni"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} la {time, time, short}"
   }
 }
