@@ -309,8 +309,11 @@ const defaultRanges: Record<number, [string, number] | string> = {
 </script>
 
 <style scoped lang="scss">
-.button-base__selected {
+.button-base {
   overflow: hidden;
+}
+
+.button-base__selected {
   color: var(--color-contrast);
   background-color: var(--color-brand-highlight);
   box-shadow: inset 0 0 0 transparent, 0 0 0 2px var(--color-brand);
