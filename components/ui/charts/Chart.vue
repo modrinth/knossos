@@ -85,6 +85,78 @@ const props = defineProps({
   },
 })
 
+function formatTooltipValue(value, props) {
+  return props.isMoney ? formatMoney(value, false) : formatNumber(value, false)
+}
+
+function generateListEntry(value, index, _, w, props) {
+  const color = props.colors[index % props.colors.length]
+
+  return `<div class="list-entry">
+    <span class="circle" style="background-color: ${color}"></span>
+    <div class="label">
+      ${w.globals.seriesNames[index]}
+    </div>
+    <div class="value">
+      ${props.prefix}${formatTooltipValue(value, props)}${props.suffix}
+    </div>
+  </div>`
+}
+
+function generateTooltip({ series, seriesIndex, dataPointIndex, w }, props) {
+  const label = w.globals.lastXAxis.categories[dataPointIndex]
+
+  const formattedLabel = props.formatLabels(label)
+
+  let tooltip = `<div class="bar-tooltip">
+    <div class="seperated-entry title">
+      <div class="label">${formattedLabel}</div>`
+
+  // Logic for total and percent stacked
+  if (!props.hideTotal) {
+    if (props.percentStacked) {
+      const total = series.reduce((a, b) => a + b[dataPointIndex], 0)
+      const percentValue = (100 * series[seriesIndex][dataPointIndex]) / total
+      tooltip += `<div class="value">${props.prefix}${formatNumber(percentValue)}%${
+        props.suffix
+      }</div>`
+    } else {
+      const totalValue = series.reduce((a, b) => a + b[dataPointIndex], 0)
+      tooltip += `<div class="value">${props.prefix}${formatTooltipValue(totalValue, props)}${
+        props.suffix
+      }</div>`
+    }
+  }
+
+  tooltip += '</div><hr class="card-divider" />'
+
+  // Logic for generating list entries
+  if (props.percentStacked) {
+    tooltip += generateListEntry(
+      series[seriesIndex][dataPointIndex],
+      seriesIndex,
+      seriesIndex,
+      w,
+      props
+    )
+  } else {
+    const listEntries = series
+      .map((value, index) => [
+        value[dataPointIndex],
+        generateListEntry(value[dataPointIndex], index, seriesIndex, w, props),
+      ])
+      .filter((value) => value[0] > 0)
+      .sort((a, b) => b[0] - a[0])
+      .map((value) => value[1])
+      .join('')
+
+    tooltip += listEntries
+  }
+
+  tooltip += '</div>'
+  return tooltip
+}
+
 const chartOptions = ref({
   chart: {
     id: props.name,
@@ -174,89 +246,7 @@ const chartOptions = ref({
     width: 2,
   },
   tooltip: {
-    custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-      const label = w.globals.lastXAxis.categories[dataPointIndex]
-      const formattedLabel = props.formatLabels(label)
-
-      return (
-        '<div class="bar-tooltip">' +
-        '<div class="seperated-entry title">' +
-        '<div class="label">' +
-        formattedLabel +
-        '</div>' +
-        (props.hideTotal
-          ? ''
-          : props.percentStacked
-          ? `
-        <div class="value">
-          ${props.prefix}
-          ${formatNumber(
-            Math.trunc(
-              ((100 * series[seriesIndex][dataPointIndex]) /
-                series.reduce((a, b) => a + b[dataPointIndex], 0)) *
-                100
-            ) / 100
-          )}%
-          ${props.suffix}
-        </div>`
-          : `<div class="value">
-        ${props.prefix}
-        ${
-          props.isMoney
-            ? formatMoney(
-                series.reduce((a, b) => a + b[dataPointIndex], 0),
-                false
-              )
-            : formatNumber(
-                series.reduce((a, b) => a + b[dataPointIndex], 0),
-                false
-              )
-        }
-        ${props.suffix}
-        </div>`) +
-        '</div><hr class="card-divider" />' +
-        (props.percentStacked
-          ? `<div class="list-entry">
-            <span class="circle" style="background-color: ${w.globals.colors[seriesIndex]}"> </span>
-            <div class="label">
-              ${w.globals.seriesNames[seriesIndex]}
-            </div>
-            <div class="value">
-              ${props.prefix}
-              ${
-                props.isMoney
-                  ? formatMoney(series[seriesIndex][dataPointIndex], false)
-                  : formatNumber(series[seriesIndex][dataPointIndex], false)
-              }
-              ${props.suffix}
-            </div>
-          </div>`
-          : series
-              .map((value, index) => [
-                value[dataPointIndex],
-                `<div class="list-entry">
-                <span class="circle" style="background-color: ${w.globals.colors[index]}"> </span>
-                <div class="label">
-                  ${w.globals.seriesNames[index]}
-                </div>
-                <div class="value">
-                  ${props.prefix}
-                  ${
-                    props.isMoney
-                      ? formatMoney(value[dataPointIndex], false)
-                      : formatNumber(value[dataPointIndex], false)
-                  }
-                  ${props.suffix}
-                </div>
-              </div>`,
-              ])
-              .filter((value) => value[0] > 0)
-              .sort((a, b) => b[0] - a[0])
-              .map((value) => value[1])
-              .reduce((a, b) => a + b)) +
-        '</div>'
-      )
-    },
+    custom: (d) => generateTooltip(d, props),
   },
 })
 
