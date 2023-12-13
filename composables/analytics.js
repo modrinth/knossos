@@ -1,6 +1,9 @@
 import dayjs from 'dayjs'
 import { all } from 'iso-3166-1'
 
+// note: build step can miss unix import for some reason, so
+// we have to import it like this
+// eslint-disable-next-line import/no-named-as-default-member
 const { unix } = dayjs
 
 const countries = all()
