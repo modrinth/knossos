@@ -12,13 +12,16 @@
         <nuxt-link :to="`/creations/organizations`" class="button-base nav-button">
           <OrganizationIcon /> Organizations
         </nuxt-link>
+        <nuxt-link :to="`/creations/analytics`" class="button-base nav-button">
+          <ChartIcon /> Analytics
+        </nuxt-link>
       </PageBar>
     </div>
     <NuxtPage />
   </div>
 </template>
 <script setup>
-import { BoxIcon as ProjectIcon, PageBar } from 'omorphia'
+import { BoxIcon as ProjectIcon, PageBar, ChartIcon } from 'omorphia'
 import OrganizationIcon from '~/assets/images/utils/organization.svg'
 import CollectionIcon from '~/assets/images/utils/collection.svg'
 

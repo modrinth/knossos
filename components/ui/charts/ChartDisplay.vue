@@ -65,11 +65,11 @@
               :options="selectableRanges"
               :display-name="(o: typeof selectableRanges[number] | undefined) => o?.label || 'Custom'"
             />
-            <DropdownSelect
+            <!-- <DropdownSelect
               v-model="selectedResolution"
               :options="selectableResoloutions"
               :display-name="(o: typeof selectableResoloutions[number] | undefined) => o?.label || 'Custom'"
-            />
+            /> -->
           </div>
           <client-only>
             <Chart

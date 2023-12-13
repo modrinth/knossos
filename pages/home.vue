@@ -77,7 +77,7 @@
             <div class="project-change positive">+0.24%</div>
           </div>
         </div>
-        <nuxt-link class="goto-link" to="/analytics">
+        <nuxt-link class="goto-link" to="/creations/analytics">
           <ChartIcon />View more analytics <ChevronRightIcon />
         </nuxt-link>
         <nuxt-link class="goto-link" to="/creations/projects">
