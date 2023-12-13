@@ -1,5 +1,7 @@
-import dayjs, { unix } from 'dayjs'
+import dayjs from 'dayjs'
 import { all } from 'iso-3166-1'
+
+const { unix } = dayjs
 
 const countries = all()
   .map((entry) => ({
