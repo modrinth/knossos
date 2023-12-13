@@ -1,6 +1,5 @@
 <script setup>
-import { Card, formatMoney, formatNumber } from 'omorphia'
-import dayjs from 'dayjs'
+import { Card } from 'omorphia'
 
 const VueApexCharts = defineAsyncComponent(() => import('vue3-apexcharts'))
 
@@ -115,37 +114,7 @@ const chartOptions = {
     },
   },
   tooltip: {
-    custom: function ({ series, _, dataPointIndex, w }) {
-      return (
-        '<div class="bar-tooltip">' +
-        series
-          .map((value) =>
-            value[dataPointIndex] > 0
-              ? `<div class="list-entry">
-                <div class="label">
-                  <span class="circle" style="background-color: ${w.globals.colors[0]}"> </span>
-                  ${dayjs(w.globals.lastXAxis.categories[dataPointIndex]).format('MMM D')}
-                </div>
-                <div class="divider">
-                  |
-                </div>
-                <div class="value">
-                  ${props.prefix}
-                  ${
-                    props.isMoney
-                      ? formatMoney(value[dataPointIndex], false)
-                      : formatNumber(value[dataPointIndex], false)
-                  }
-                  ${props.suffix}
-                </div>
-              </div>`
-              : ''
-          )
-          .reverse()
-          .reduce((a, b) => a + b) +
-        '</div>'
-      )
-    },
+    enabled: false,
   },
 }
 
