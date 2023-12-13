@@ -215,11 +215,9 @@ import { defineProps, ref, computed } from 'vue'
 import Chart from '~/components/ui/charts/Chart.vue'
 import CompactChart from '~/components/ui/charts/CompactChart.vue'
 
-import type { LabrinthAPI } from '~/types/labrinth'
-
 const props = withDefaults(
   defineProps<{
-    projects?: LabrinthAPI.Project[]
+    projects?: any[]
     resoloutions?: Record<string, number>
     ranges?: Record<number, [string, number] | string>
   }>(),
@@ -229,7 +227,6 @@ const props = withDefaults(
     ranges: () => defaultRanges,
   }
 )
-// const projectIds = computed(() => props.projects?.map((project) => project.id))
 
 const selectableResoloutions = Object.entries(props.resoloutions).map((i) => ({
   label: i[0],
