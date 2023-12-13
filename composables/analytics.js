@@ -33,8 +33,9 @@ const RGBToHSL = (r, g, b) => {
   const l = Math.max(r, g, b)
   const s = l - Math.min(r, g, b)
   const h = s ? (l === r ? (g - b) / s : l === g ? 2 + (b - r) / s : 4 + (r - g) / s) : 0
-  return [60 * h < 0 ? 60 * h + 360 : 60 * h, 100, 50]
+  return [60 * h < 0 ? 60 * h + 360 : 60 * h, 60, 50]
 }
+
 const HSLToRGB = (h, s, l) => {
   s /= 100
   l /= 100
@@ -43,12 +44,31 @@ const HSLToRGB = (h, s, l) => {
   const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
   return [255 * f(0), 255 * f(8), 255 * f(4)]
 }
-const intToRgba = (int) => {
+
+const stringToHash = (string) => {
+  let hash = 0
+  for (let i = 0; i < string.length; i++) {
+    const char = string.charCodeAt(i)
+    hash = (hash << 5) - hash + char
+    hash = hash & hash // Convert to 32bit integer
+  }
+  return hash
+}
+
+const adjustHue = (hue, amount) => {
+  return (hue + amount) % 360
+}
+
+const intToRgba = (int, pid = 'Unknown') => {
   const r = (int >> 16) & 255
   const g = (int >> 8) & 255
   const b = int & 255
+
   const vibrant = RGBToHSL(r, g, b)
-  const final = HSLToRGB(vibrant[0], vibrant[1], vibrant[2])
+  const hash = stringToHash(pid)
+  const adjustedHue = adjustHue(vibrant[0], hash % 45)
+
+  const final = HSLToRGB(adjustedHue, vibrant[1], vibrant[2])
   return `rgba(${final[0]}, ${final[1]}, ${final[2]}, 1)`
 }
 
@@ -130,7 +150,7 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
           throw new Error(`Project ${loadedProjectIds[i]} not found`)
         }
 
-        return project.color ? intToRgba(project.color) : '--color-brand'
+        return project.color ? intToRgba(project.color, project.id) : '--color-brand'
       }),
     },
   }
