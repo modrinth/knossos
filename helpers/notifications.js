@@ -1,5 +1,4 @@
 import { useNuxtApp } from '#app'
-import { userReadNotifications } from '~/composables/user.js'
 
 async function getBulk(type, ids) {
   if (ids.length === 0) {

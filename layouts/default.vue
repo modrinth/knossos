@@ -33,7 +33,6 @@
                 v-if="auth.user"
                 to="/dashboard/notifications"
                 class="control-button button-transparent"
-                :class="{ bubble: user.notifications.some((notif) => !notif.read) }"
                 title="Notifications"
               >
                 <NotificationIcon aria-hidden="true" />
@@ -236,7 +235,7 @@
               to="/dashboard/notifications"
               class="tab button-animation"
               :class="{
-                'no-active': mobileUserOpen || mobileBrowseOpen,
+                'no-active': isMobileMenuOpen || isBrowseMenuOpen,
               }"
               title="Notifications"
               @click="
