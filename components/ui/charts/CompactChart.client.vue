@@ -1,7 +1,10 @@
 <script setup>
 import { Card } from 'omorphia'
 
-const VueApexCharts = defineAsyncComponent(() => import('vue3-apexcharts'))
+let VueApexCharts
+if (process.client) {
+  VueApexCharts = defineAsyncComponent(() => import('vue3-apexcharts'))
+}
 
 const props = defineProps({
   value: {
