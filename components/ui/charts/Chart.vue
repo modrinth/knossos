@@ -315,6 +315,7 @@ const resetChart = () => {
     xaxis: {
       categories: props.labels,
     },
+    colors: props.colors,
   })
   chart.value.resetSeries()
   legendValues.value.forEach((legend) => {
