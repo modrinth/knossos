@@ -62,37 +62,35 @@
         <h2 class="sidebar-card-header">Your projects</h2>
         <p>Showing downloads this week compared to last week.</p>
         <div class="mini-project-table">
-          <div
-            v-for="(project, index) in projectsPreview"
-            :key="project.id"
-            class="mini-project-row"
-          >
-            <div class="index">{{ index + 1 }}.</div>
-            <div class="project-icon">
-              <Avatar :src="project.icon_url" size="xxs" />
-            </div>
-            <div class="project-name">
-              {{ project.title }}
-            </div>
-            <div
-              :class="`project-change ${
-                projectDiff?.[project.id]?.isValid
-                  ? projectDiff?.[project.id]?.sign > 0
-                    ? 'positive'
-                    : projectDiff?.[project.id]?.sign < 0
-                    ? 'negative'
+          <template v-for="(project, index) in projectsPreview" :key="project.id">
+            <div v-if="projectDiff?.[project.id]?.isValid" class="mini-project-row">
+              <div class="index">{{ index + 1 }}.</div>
+              <div class="project-icon">
+                <Avatar :src="project.icon_url" size="xxs" />
+              </div>
+              <div class="project-name">
+                {{ project.title }}
+              </div>
+              <div
+                :class="`project-change ${
+                  projectDiff?.[project.id]?.isValid
+                    ? projectDiff?.[project.id]?.sign > 0
+                      ? 'positive'
+                      : projectDiff?.[project.id]?.sign < 0
+                      ? 'negative'
+                      : 'neutral'
                     : 'neutral'
-                  : 'neutral'
-              }`"
-            >
-              {{
-                projectDiff?.[project.id]?.value.toLocaleString(undefined, {
-                  style: 'percent',
-                  minimumFractionDigits: 2,
-                })
-              }}
+                }`"
+              >
+                {{
+                  projectDiff?.[project.id]?.value.toLocaleString(undefined, {
+                    style: 'percent',
+                    minimumFractionDigits: 2,
+                  })
+                }}
+              </div>
             </div>
-          </div>
+          </template>
         </div>
         <nuxt-link class="goto-link" to="/creations/analytics">
           <ChartIcon />View more analytics <ChevronRightIcon />
@@ -250,9 +248,10 @@ watch(
   async () => {
     const weekInMinutes = 60 * 24 * 7
 
-    const now = dayjs()
-    const weekAgo = dayjs(Date.now() - weekInMinutes * 60 * 1000)
-    const twoWeeksAgo = dayjs(Date.now() - weekInMinutes * 2 * 60 * 1000)
+    // "now is 1 day ago"
+    const now = dayjs(Date.now() - 24 * 60 * 60 * 1000)
+    const weekAgo = dayjs(now - weekInMinutes * 60 * 1000)
+    const twoWeeksAgo = dayjs(now - weekInMinutes * 2 * 60 * 1000)
 
     const topProjects = projectsPreview.value
     const topProjectIds = topProjects.map((p) => p.id)
@@ -288,6 +287,7 @@ watch(
       return {
         ...acc,
         [pid]: {
+          project: topProjects.find((p) => p.id === pid),
           isValid: isValidNumber,
           value: isValidNumber ? change : 0,
           sign: Math.sign(change),
