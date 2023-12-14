@@ -5,13 +5,22 @@ import dayjs from 'dayjs'
 // eslint-disable-next-line import/no-named-as-default-member
 const { unix } = dayjs
 
+export function useCountryNames(style = 'long') {
+  const formattingOptions = { type: 'region', style }
+  const { formats } = useVIntl()
+  return function formatCountryName(code) {
+    return formats.displayName(code, formattingOptions)
+  }
+}
+
 export const countryCodeToName = (code) => {
-  const regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
-  return regionNames.of(code) || 'Unknown'
+  const formatCountryName = useCountryNames()
+
+  return formatCountryName(code)
 }
 
 export const countryCodeToFlag = (code) => {
-  if (countryCodeToName(code) === 'Unknown') {
+  if (code === 'XX') {
     return undefined
   }
   return `https://flagcdn.com/h240/${code.toLowerCase()}.png`
@@ -25,40 +34,40 @@ export const formatPercent = (value, sum) => {
   return `${((value / sum) * 100).toFixed(2)}%`
 }
 
-const RGBToHSL = (r, g, b) => {
-  r /= 255
-  g /= 255
-  b /= 255
-  const l = Math.max(r, g, b)
-  const s = l - Math.min(r, g, b)
-  const h = s ? (l === r ? (g - b) / s : l === g ? 2 + (b - r) / s : 4 + (r - g) / s) : 0
-  return [60 * h < 0 ? 60 * h + 360 : 60 * h, 60, 50]
-}
-
-const HSLToRGB = (h, s, l) => {
-  s /= 100
-  l /= 100
-  const k = (n) => (n + h / 30) % 12
-  const a = s * Math.min(l, 1 - l)
-  const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
-  return [255 * f(0), 255 * f(8), 255 * f(4)]
-}
-
-const stringToHash = (string) => {
-  let hash = 0
-  for (let i = 0; i < string.length; i++) {
-    const char = string.charCodeAt(i)
-    hash = (hash << 5) - hash + char
-    hash = hash & hash // Convert to 32bit integer
-  }
-  return hash
-}
-
-const adjustHue = (hue, amount) => {
-  return (hue + amount) % 360
-}
-
 const intToRgba = (int, pid = 'Unknown') => {
+  const RGBToHSL = (r, g, b) => {
+    r /= 255
+    g /= 255
+    b /= 255
+    const l = Math.max(r, g, b)
+    const s = l - Math.min(r, g, b)
+    const h = s ? (l === r ? (g - b) / s : l === g ? 2 + (b - r) / s : 4 + (r - g) / s) : 0
+    return [60 * h < 0 ? 60 * h + 360 : 60 * h, 60, 50]
+  }
+
+  const HSLToRGB = (h, s, l) => {
+    s /= 100
+    l /= 100
+    const k = (n) => (n + h / 30) % 12
+    const a = s * Math.min(l, 1 - l)
+    const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
+    return [255 * f(0), 255 * f(8), 255 * f(4)]
+  }
+
+  const stringToHash = (string) => {
+    let hash = 0
+    for (let i = 0; i < string.length; i++) {
+      const char = string.charCodeAt(i)
+      hash = (hash << 5) - hash + char
+      hash = hash & hash // Convert to 32bit integer
+    }
+    return hash
+  }
+
+  const adjustHue = (hue, amount) => {
+    return (hue + amount) % 360
+  }
+
   const r = (int >> 16) & 255
   const g = (int >> 8) & 255
   const b = int & 255
@@ -254,7 +263,6 @@ export const useFetchAllAnalytics = (onDataRefresh, projects = undefined) => {
     const normalQuery = new URLSearchParams(query)
 
     const revQuery = new URLSearchParams(query)
-    revQuery.delete('resolution_minutes')
 
     const qs = normalQuery.toString()
     const revQs = revQuery.toString()
