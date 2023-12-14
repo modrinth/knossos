@@ -212,9 +212,7 @@
 import { Card, formatMoney, formatNumber, DropdownSelect } from 'omorphia'
 import dayjs from 'dayjs'
 import { defineProps, ref, computed } from 'vue'
-
-import Chart from '~/components/ui/charts/Chart.client.vue'
-import CompactChart from '~/components/ui/charts/CompactChart.client.vue'
+import { UiChartsCompactChart as CompactChart, UiChartsChart as Chart } from '#components'
 
 const props = withDefaults(
   defineProps<{
