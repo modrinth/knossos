@@ -335,7 +335,6 @@ import WorldIcon from 'assets/images/utils/world.svg'
 import UpToDate from 'assets/images/illustrations/up_to_date.svg'
 import { addNotification } from '~/composables/notifs.js'
 import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import Modal from '~/components/ui/Modal.vue'
 import NavRow from '~/components/ui/NavRow.vue'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 
@@ -344,7 +343,6 @@ const { formatMessage } = vintl
 
 const route = useRoute()
 const auth = await useAuth()
-const editModal = ref(null)
 
 const isEditing = ref(false)
 
@@ -474,12 +472,12 @@ async function saveChanges() {
     visibility.value = collection.value.status
     removeProjects.value = []
 
-    editModal.value.hide()
+    isEditing.value = false
   } catch (err) {
     addNotification({
       group: 'main',
       title: 'An error occurred',
-      text: err.data.description,
+      text: err,
       type: 'error',
     })
   }
@@ -514,19 +512,12 @@ function showPreviewImage(files) {
     previewImage.value = event.target.result
   }
 }
-
-function showEditModal() {
-  name.value = collection.value.name
-  summary.value = collection.value.description
-  previewImage.value = null
-  deletedIcon.value = false
-  editModal.value.show()
-}
 </script>
 
 <style scoped lang="scss">
 .animated-dropdown {
-  width: 100%;
+  // Omorphia's dropdowns are harcoded in width, so we need to override that
+  width: 100% !important;
 }
 
 .inputs {
