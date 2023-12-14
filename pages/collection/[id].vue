@@ -518,6 +518,7 @@ async function saveChanges() {
       type: 'error',
     })
   }
+  await initUserCollections()
   stopLoading()
 }
 
@@ -537,6 +538,7 @@ async function deleteCollection() {
       type: 'error',
     })
   }
+  await initUserCollections()
   stopLoading()
 }
 
