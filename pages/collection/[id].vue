@@ -12,11 +12,53 @@
     <div class="normal-page">
       <div class="normal-page__sidebar">
         <Card>
-          <div class="card__overlay">
-            <Button v-if="canEdit" @click="isEditing = !isEditing">
-              <EditIcon />
-              Edit
-            </Button>
+          <div class="card__overlay input-group">
+            <template v-if="canEdit && isEditing === false">
+              <Button @click="isEditing = true">
+                <EditIcon />
+                Edit
+              </Button>
+              <Button id="delete-collection" @click="() => $refs.deleteModal.show()">
+                <TrashIcon />
+                Delete
+              </Button>
+            </template>
+            <template v-else-if="canEdit && isEditing === true">
+              <PopoutMenu class="btn" position="bottom" direction="right">
+                <EditIcon /> Edit icon
+                <template #menu>
+                  <span class="icon-edit-menu">
+                    <FileInput
+                      id="project-icon"
+                      :max-size="262144"
+                      :show-icon="true"
+                      accept="image/png,image/jpeg,image/gif,image/webp"
+                      class="btn btn-transparent upload"
+                      style="white-space: nowrap"
+                      prompt=""
+                      @change="showPreviewImage"
+                    >
+                      <UploadIcon />
+                      Upload icon
+                    </FileInput>
+                    <Button
+                      v-if="!deletedIcon && (previewImage || collection.icon_url)"
+                      style="white-space: nowrap"
+                      transparent
+                      @click="
+                        () => {
+                          deletedIcon = true
+                          previewImage = null
+                        }
+                      "
+                    >
+                      <TrashIcon />
+                      Delete icon
+                    </Button>
+                  </span>
+                </template>
+              </PopoutMenu>
+            </template>
           </div>
           <!-- Editing -->
           <template v-if="isEditing">
@@ -26,40 +68,6 @@
                   size="md"
                   :src="deletedIcon ? null : previewImage ? previewImage : collection.icon_url"
                 />
-                <PopoutMenu class="btn" position="bottom" direction="right">
-                  <EditIcon /> Edit icon
-                  <template #menu>
-                    <span class="icon-edit-menu">
-                      <FileInput
-                        id="project-icon"
-                        :max-size="262144"
-                        :show-icon="true"
-                        accept="image/png,image/jpeg,image/gif,image/webp"
-                        class="btn btn-transparent upload"
-                        style="white-space: nowrap"
-                        prompt=""
-                        @change="showPreviewImage"
-                      >
-                        <UploadIcon />
-                        Upload icon
-                      </FileInput>
-                      <Button
-                        v-if="!deletedIcon && (previewImage || collection.icon_url)"
-                        style="white-space: nowrap"
-                        transparent
-                        @click="
-                          () => {
-                            deletedIcon = true
-                            previewImage = null
-                          }
-                        "
-                      >
-                        <TrashIcon />
-                        Delete icon
-                      </Button>
-                    </span>
-                  </template>
-                </PopoutMenu>
               </div>
               <label for="collection-title">
                 <span class="label__title"> Title </span>
@@ -90,7 +98,7 @@
               />
             </div>
             <div class="push-right input-group">
-              <Button @click="$refs.editModal.hide()">
+              <Button @click="isEditing = false">
                 <XIcon />
                 Cancel
               </Button>
@@ -98,24 +106,6 @@
                 <SaveIcon />
                 Save
               </Button>
-            </div>
-
-            <hr class="card-divider" />
-
-            <div class="universal-labels">
-              <label for="delete-collection">
-                <span class="label__title"> Manage </span>
-              </label>
-              <div class="input-group">
-                <Button
-                  id="delete-collection"
-                  color="danger"
-                  @click="() => $refs.deleteModal.show()"
-                >
-                  <TrashIcon />
-                  Delete collection
-                </Button>
-              </div>
             </div>
           </template>
           <!-- Content -->
