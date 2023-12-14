@@ -21,6 +21,9 @@
           <NavStackItem v-if="true" link="/dashboard/projects" label="Projects">
             <ListIcon />
           </NavStackItem>
+          <NavStackItem v-if="true" link="/dashboard/organizations" label="Organizations">
+            <OrganizationIcon />
+          </NavStackItem>
           <NavStackItem link="/dashboard/revenue" label="Revenue">
             <CurrencyIcon />
           </NavStackItem>
@@ -42,6 +45,7 @@ import ListIcon from '~/assets/images/utils/list.svg'
 import ReportIcon from '~/assets/images/utils/report.svg'
 import NotificationsIcon from '~/assets/images/utils/bell.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
+import OrganizationIcon from '~/assets/images/utils/organization.svg'
 
 definePageMeta({
   middleware: 'auth',

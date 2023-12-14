@@ -1,33 +1,109 @@
+<template>
+  <div
+    v-if="organization"
+    class="normal-page"
+    :class="{ 'alt-layout': $route.name.startsWith('organization-id-settings') }"
+  >
+    <div v-if="$route.name.startsWith('organization-id-settings')" class="normal-page__sidebar">
+      <div class="settings-page__header">
+        <Breadcrumbs
+          current-title="Settings"
+          :link-stack="[
+            {
+              href: `/organization/${organization.title}`,
+              label: organization.title,
+              allowTrimming: true,
+            },
+          ]"
+        />
+        <div class="settings-header">
+          <Avatar
+            :src="organization.icon_url"
+            :alt="organization.title"
+            size="sm"
+            class="settings-header__icon"
+          />
+          <div class="settings-header__text">
+            <h1 class="wrap-as-needed">
+              {{ organization.title }}
+            </h1>
+          </div>
+        </div>
+      </div>
+      <h2>Organization settings</h2>
+      <NavStack>
+        <NavStackItem :link="`/organization/${organization.title}/settings`" label="General">
+          <SettingsIcon />
+        </NavStackItem>
+        <NavStackItem :link="`/organization/${organization.title}/members`" label="Members">
+          <UsersIcon />
+        </NavStackItem>
+        <NavStackItem :link="`/organization/${organization.title}/projects`" label="Projects">
+          <ListIcon />
+        </NavStackItem>
+        <NavStackItem :link="`/organization/${organization.title}/analytics`" label="Analytics">
+          <ChartIcon />
+        </NavStackItem>
+      </NavStack>
+    </div>
+    <div v-else class="normal-page__sidebar">
+      <Card>
+        <Avatar :src="organization.icon_url" size="lg" :alt="organization.title" />
+        <div class="user-text">
+          <div class="title">
+            <h2 class="username">
+              {{ organization.name }}
+            </h2>
+          </div>
+          <div class="markdown-body">
+            <p>
+              {{ organization.description }}
+            </p>
+          </div>
+        </div>
+      </Card>
+      <Card class="creator-list">
+        <div class="title-and-link">
+          <h3>Creators</h3>
+        </div>
+        <div
+          v-for="member in organization.members"
+          :key="member.user.id"
+          class="creator button-base"
+          @click="$router.push(`/user/${member.user.username}`)"
+        >
+          <Avatar :src="member.user.avatar_url" circle />
+          <p class="name">{{ member.user.username }}</p>
+          <p class="role">{{ member.role }}</p>
+        </div>
+      </Card>
+    </div>
+    <NuxtPage
+      v-model:organization="organization"
+      v-model:projects="projects"
+      :current-member="currentMember"
+      :patch-organization="patchOrganization"
+    />
+  </div>
+</template>
 <script setup>
-import {
-  SettingsIcon,
-  UsersIcon,
-  ListIcon,
-  ChartIcon,
-  ShareModal,
-  BoxIcon,
-  ServerIcon,
-  MoreHorizontalIcon,
-  OverflowMenu,
-  PageBar,
-  Avatar,
-  Breadcrumbs,
-  FilterIcon,
-  ImageIcon,
-  Card,
-} from 'omorphia'
-import WorldIcon from 'assets/images/utils/world.svg'
-import GlassesIcon from 'assets/images/utils/glasses.svg'
-import PackageIcon from 'assets/images/utils/package-open.svg'
-import BracesIcon from 'assets/images/utils/braces.svg'
+import { SettingsIcon, UsersIcon, ListIcon, ChartIcon, Avatar, Breadcrumbs, Card } from 'omorphia'
+import NavStack from '~/components/ui/NavStack.vue'
+import NavStackItem from '~/components/ui/NavStackItem.vue'
+
 const auth = await useAuth()
 const route = useRoute()
-const router = useRouter()
-const organization = shallowRef(
-  await useAsyncData(`organization/${route.params.id}`, () =>
+const tags = useTags()
+
+const [{ data: organization }, { data: projects }] = await Promise.all([
+  useAsyncData(`organization/${route.params.id}`, () =>
     useBaseFetch(`organization/${route.params.id}`, { apiVersion: 3 })
-  ).then((res) => res.data)
-)
+  ),
+  useAsyncData(`organization/${route.params.id}/projects`, () =>
+    useBaseFetch(`organization/${route.params.id}/projects`, { apiVersion: 3 })
+  ),
+])
+
 if (!organization.value) {
   throw createError({
     fatal: true,
@@ -35,15 +111,29 @@ if (!organization.value) {
     message: 'Organization not found',
   })
 }
-const projects = shallowRef(
-  await useAsyncData(`organization/${route.params.id}/projects`, () =>
-    useBaseFetch(`organization/${route.params.id}/projects`, { apiVersion: 3 })
-  ).then((res) => res.data)
+
+const currentMember = ref(
+  auth.value.user && organization.value
+    ? organization.value.members.find((x) => x.user.id === auth.value.user.id)
+    : null
 )
-const selectedFilter = ref(route.query.filter ?? 'all')
-const filterOptions = computed(() =>
-  projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
-)
+
+if (
+  !currentMember.value &&
+  auth.value.user &&
+  tags.value.staffRoles.includes(auth.value.user.role)
+) {
+  currentMember.value = {
+    user: auth.value.user,
+    role: auth.value.role,
+    permissions: auth.value.user.role === 'admin' ? 1023 : 12,
+    accepted: true,
+    payouts_split: 0,
+    avatar_url: auth.value.user.avatar_url,
+    name: auth.value.user.username,
+  }
+}
+
 const patchOrganization = async (resData, quiet = false) => {
   let result = false
   startLoading()
@@ -76,53 +166,7 @@ const patchOrganization = async (resData, quiet = false) => {
   stopLoading()
   return result
 }
-const patchIcon = async (icon) => {
-  let result = false
-  startLoading()
-  try {
-    await useBaseFetch(
-      `organization/${organization.value.id}/icon?ext=${
-        icon.type.split('/')[icon.type.split('/').length - 1]
-      }`,
-      {
-        method: 'PATCH',
-        body: icon,
-        apiVersion: 3,
-      }
-    )
-    await resetOrganization()
-    result = true
-    addNotification({
-      group: 'main',
-      title: 'Organization icon updated',
-      text: "Your organization's icon has been updated.",
-      type: 'success',
-    })
-  } catch (err) {
-    addNotification({
-      group: 'main',
-      title: 'An error occurred',
-      text: err,
-      type: 'error',
-    })
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-  stopLoading()
-  return result
-}
-const deleteIcon = async () => {
-  await useBaseFetch(`organization/${organization.value.id}/icon`, {
-    method: 'DELETE',
-    apiVersion: 3,
-  })
-  await resetOrganization()
-  addNotification({
-    group: 'main',
-    title: 'organization icon removed',
-    text: "Your Organization's icon has been removed.",
-    type: 'success',
-  })
-}
+
 const resetOrganization = async () => {
   organization.value = await useBaseFetch(`organization/${organization.value.id}`, {
     apiVersion: 3,
@@ -133,365 +177,8 @@ const resetOrganization = async () => {
   )
    */
 }
-const currentMember = ref(
-  auth.value.user && organization.value
-    ? organization.value.members.find((x) => x.user.id === auth.value.user.id)
-    : null
-)
-if (
-  !currentMember.value &&
-  auth.value.user &&
-  tags.value.staffRoles.includes(auth.value.user.role)
-) {
-  currentMember.value = {
-    user: auth.value.user,
-    role: auth.value.role,
-    permissions: auth.value.user.role === 'admin' ? 1023 : 12,
-    accepted: true,
-    payouts_split: 0,
-    avatar_url: auth.value.user.avatar_url,
-    name: auth.value.user.username,
-  }
-}
-const selectFilter = (filter) => {
-  router.push(`/organization/${organization.value.title}?filter=${filter}`)
-}
-const deleteOrganization = async () => {
-  startLoading()
-  try {
-    await useBaseFetch(`organization/${organization.value.id}`, {
-      method: 'DELETE',
-      apiVersion: 3,
-    })
-    addNotification({
-      group: 'main',
-      title: 'Organization deleted',
-      text: 'Your organization has been deleted.',
-      type: 'success',
-    })
-    await router.push('/')
-  } catch (err) {
-    addNotification({
-      group: 'main',
-      title: 'An error occurred',
-      text: err,
-      type: 'error',
-    })
-  }
-  stopLoading()
-}
 </script>
-<template>
-  <div
-    v-if="organization"
-    class="normal-page"
-    :class="{ 'alt-layout': $route.name.startsWith('organization-id-settings') }"
-  >
-    <ShareModal
-      v-if="organization"
-      ref="shareModal"
-      :share-title="organization.title"
-      :share-text="`Check out the cool projects ${organization.title} is making on Modrinth!`"
-      link
-    />
-    <div class="organization-header">
-      <div class="banner-img">
-        <div class="banner-content">
-          <Avatar :src="organization.icon_url" size="lg" :alt="organization.title" />
-          <div class="user-text">
-            <div class="title">
-              <h2 class="username">
-                {{ organization.title }}
-              </h2>
-            </div>
-            <div class="markdown-body">
-              <p>
-                {{ organization.description }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <PageBar>
-        <span class="page-bar__title"><FilterIcon /> Filter by</span>
-        <div
-          class="nav-button button-base"
-          :class="{
-            'router-link-exact-active':
-              selectedFilter === 'all' && !$route.name.startsWith('organization-id-settings'),
-          }"
-          @click="selectFilter('all')"
-        >
-          All
-        </div>
-        <template v-for="(filter, index) in filterOptions" :key="filter">
-          <div
-            v-if="filter === selectedFilter || index < 2"
-            class="nav-button button-base"
-            :class="{
-              'router-link-exact-active':
-                selectedFilter === filter && !$route.name.startsWith('organization-id-settings'),
-            }"
-            @click="selectFilter(filter)"
-          >
-            <template v-if="filter === 'mod'"><BoxIcon /> Mods </template>
-            <template v-if="filter === 'datapack'"><BracesIcon /> Data Packs </template>
-            <template v-if="filter === 'resourcepack'"><ImageIcon /> Resource Packs </template>
-            <template v-if="filter === 'shader'"><GlassesIcon /> Shaders </template>
-            <template v-if="filter === 'world'"><WorldIcon /> Worlds </template>
-            <template v-if="filter === 'plugin'"><ServerIcon /> Plugins </template>
-            <template v-if="filter === 'modpack+'"><PackageIcon /> Modpacks </template>
-          </div>
-        </template>
-        <OverflowMenu
-          v-if="
-            filterOptions.length > 2 &&
-            filterOptions
-              .slice(2, filterOptions.length)
-              .filter((filter) => filter !== selectedFilter).length > 0
-          "
-          class="nav-button button-base"
-          :options="
-            filterOptions
-              .slice(2, filterOptions.length)
-              .filter((filter) => filter !== selectedFilter)
-              .map((filter) => ({
-                id: filter,
-                action: () => {
-                  selectedFilter = filter
-                },
-              }))
-          "
-          position="right"
-          direction="down"
-        >
-          <MoreHorizontalIcon />
-          <template #mod> <BoxIcon /> Mods </template>
-          <template #datapack> <BracesIcon /> Data Packs </template>
-          <template #resourcepack> <ImageIcon /> Resource Packs </template>
-          <template #shader> <GlassesIcon /> Shaders </template>
-          <template #world> <WorldIcon /> Worlds </template>
-          <template #plugin> <ServerIcon /> Plugins </template>
-          <template #modpack> <PackageIcon /> Modpacks </template>
-        </OverflowMenu>
-        <template #right>
-          <div
-            class="nav-button button-base"
-            :class="{
-              'router-link-exact-active': $route.name.startsWith('organization-id-settings'),
-            }"
-            @click="() => $router.push(`/organization/${organization.title}/settings`)"
-          >
-            <SettingsIcon /> Settings
-          </div>
-        </template>
-      </PageBar>
-    </div>
-    <div v-if="$route.name.startsWith('organization-id-settings')" class="normal-page__sidebar">
-      <div class="settings-page__header">
-        <Breadcrumbs
-          current-title="Settings"
-          :link-stack="[
-            {
-              href: `/organization/${organization.title}`,
-              label: organization.title,
-              allowTrimming: true,
-            },
-          ]"
-        />
-        <div class="settings-header">
-          <Avatar
-            :src="organization.icon_url"
-            :alt="organization.title"
-            size="sm"
-            class="settings-header__icon"
-          />
-          <div class="settings-header__text">
-            <h1 class="wrap-as-needed">
-              {{ organization.title }}
-            </h1>
-          </div>
-        </div>
-      </div>
-      <div class="settings-nav">
-        <NuxtLink :to="`/organization/${organization.title}/settings`">
-          <SettingsIcon /> General
-        </NuxtLink>
-        <NuxtLink :to="`/organization/${organization.title}/settings/members`">
-          <UsersIcon /> Members
-        </NuxtLink>
-        <NuxtLink :to="`/organization/${organization.title}/settings/projects`">
-          <ListIcon /> Projects
-        </NuxtLink>
-        <NuxtLink :to="`/organization/${organization.title}/settings/analytics`">
-          <ChartIcon /> Analytics
-        </NuxtLink>
-      </div>
-    </div>
-    <div v-else class="normal-page__sidebar">
-      <Card class="creator-list">
-        <div class="title-and-link">
-          <h3>Creators</h3>
-        </div>
-        <div
-          v-for="member in organization.members"
-          :key="member.user.id"
-          class="creator button-base"
-          @click="$router.push(`/user/${member.user.username}`)"
-        >
-          <Avatar :src="member.user.avatar_url" circle />
-          <p class="name">{{ member.user.username }}</p>
-          <p class="role">{{ member.role }}</p>
-        </div>
-      </Card>
-    </div>
-    <NuxtPage
-      v-model:organization="organization"
-      v-model:projects="projects"
-      v-model:type-filter="selectedFilter"
-      :current-member="currentMember"
-      :patch-icon="patchIcon"
-      :patch-organization="patchOrganization"
-      :delete-icon="deleteIcon"
-      :delete-organization="deleteOrganization"
-    />
-  </div>
-</template>
 <style scoped lang="scss">
-.sidebar {
-  grid-area: sidebar;
-}
-.content {
-  grid-area: content;
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-md);
-}
-.banner {
-  grid-area: banner;
-  display: flex;
-  flex-direction: column;
-  padding: var(--gap-xl);
-  gap: var(--gap-md);
-  overflow: hidden;
-  margin-bottom: 0;
-  .color {
-    height: 10rem;
-    background-color: var(--color-brand);
-    margin: -1.5rem -1.5rem 0 -1.5rem;
-  }
-  h1 {
-    margin: 0 0 var(--gap-sm) 0;
-  }
-  .icon {
-    margin-top: -4rem;
-  }
-  .info {
-    display: flex;
-    flex-direction: column;
-  }
-  .links {
-    display: flex;
-    flex-direction: row;
-    a {
-      margin: 0 0.5rem;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: var(--gap-xs);
-      text-decoration: underline;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
-  .avatar-row {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: var(--gap-md);
-    .input-group {
-      flex-grow: 1;
-    }
-  }
-}
-.iconified-field {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: var(--gap-xs);
-  p {
-    margin: 0;
-  }
-  :deep(.avatar) {
-    --size: 1.5rem;
-  }
-}
-.community-post-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-md);
-  padding: var(--gap-xl);
-  h2 {
-    margin: 0;
-  }
-  .community-post {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-xs);
-    .author {
-      margin-left: 1rem;
-    }
-  }
-}
-.all-projects {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-md);
-  .search-card {
-    margin-bottom: 0;
-    padding: var(--gap-lg);
-  }
-  .projects {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-md);
-  }
-}
-.nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--gap-md);
-}
-.settings-page {
-  .settings-page__content {
-    margin-top: calc(2em + var(--gap-lg) + var(--gap-sm));
-  }
-}
-.settings-nav {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-xs);
-  margin-bottom: var(--gap-lg);
-  padding-inline: calc(var(--gap-xl) - 1.1rem - 0.5rem);
-  flex-wrap: wrap;
-  a {
-    display: flex;
-    align-items: center;
-    padding: var(--gap-sm) var(--gap-md);
-    border-radius: var(--radius-md);
-    font-weight: 500;
-    svg {
-      margin-right: 0.5rem;
-    }
-    &.router-link-exact-active {
-      background-color: var(--color-button-bg);
-      color: var(--color-contrast);
-    }
-  }
-}
 .settings-header {
   display: flex;
   flex-direction: row;
@@ -509,142 +196,7 @@ const deleteOrganization = async () => {
     }
   }
 }
-.links {
-  a,
-  .link-like {
-    display: inline-flex;
-    align-items: center;
-    border-radius: 1rem;
-    svg,
-    img {
-      height: 1rem;
-      width: 1rem;
-    }
-    span {
-      margin-left: var(--gap-xs);
-    }
-    &:not(:last-child)::after {
-      content: '';
-      margin: 0.3rem;
-    }
-  }
-  a {
-    &:focus-visible,
-    &:hover {
-      svg,
-      img,
-      span {
-        color: var(--color-heading);
-      }
-    }
-    &:active {
-      svg,
-      img,
-      span {
-        color: var(--color-text-dark);
-      }
-    }
-  }
-}
-.popout-heading {
-  padding: var(--gap-sm) var(--gap-md);
-  margin: 0;
-  font-size: var(--font-size-md);
-  color: var(--color-text);
-}
-.popout-checkbox {
-  padding: var(--gap-sm) var(--gap-md);
-}
-.stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap-sm);
-  .stat {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: var(--gap-sm);
-    border-radius: var(--radius-md);
-    background: var(--color-raised-bg);
-    text-align: center;
-    box-shadow: var(--shadow-raised);
-    padding: var(--gap-xs) var(--gap-sm);
-    border: 1px solid var(--color-button-bg);
-  }
-}
-.organization-header {
-  grid-area: header;
-  .banner-img {
-    width: 100%;
-    height: 12rem;
-    background: var(--color-raised-bg) url('https://launcher-files.modrinth.com/assets/maze-bg.png')
-      no-repeat center;
-    background-size: cover;
-    border-radius: var(--radius-md);
-    border: 1px var(--color-button-bg) solid;
-    position: relative;
-    margin-bottom: calc(4.5rem + var(--gap-md));
-    .banner-content {
-      position: absolute;
-      left: var(--gap-md);
-      bottom: -4.5rem;
-      display: flex;
-      flex-direction: row;
-      align-items: flex-end;
-      gap: var(--gap-md);
-      .user-text {
-        height: 4.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-      .title {
-        display: inline-flex;
-        gap: var(--gap-sm);
-        align-items: baseline;
-        > * {
-          margin: 0;
-        }
-      }
-    }
-  }
-}
-.filter-row {
-  margin-bottom: 1rem;
-  .title {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem 0.75rem 0;
-    color: var(--color-secondary);
-    svg {
-      margin-right: 0.5rem;
-    }
-  }
-}
-.new-nav {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  border-bottom: 2px solid var(--color-button-bg);
-  svg {
-    height: 1.2rem;
-    width: 1.2rem;
-  }
-  a,
-  .link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    border-bottom: 3px solid transparent;
-    padding: 0.75rem 1rem;
-    margin-bottom: -2px;
-    &.router-link-exact-active {
-      color: var(--color-contrast);
-      border-color: var(--color-brand);
-    }
-  }
-}
+
 .creator-list {
   display: flex;
   flex-direction: column;

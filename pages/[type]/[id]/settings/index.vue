@@ -9,6 +9,16 @@
       proceed-label="Delete"
       @proceed="deleteProject"
     />
+    <ConfirmModal
+      ref="modal_remove"
+      title="Are you sure you want to remove this project from the organization?"
+      description="If you proceed, this project will no longer be owned by the organization."
+      :has-to-type="true"
+      :confirmation-text="project.title"
+      proceed-label="Remove"
+      :noblur="!(cosmetics.advancedRendering ?? true)"
+      @proceed="removeFromOrg"
+    />
     <section class="universal-card">
       <div class="label">
         <h3>
@@ -215,6 +225,41 @@
 
     <section class="universal-card">
       <div class="label">
+        <span class="label__title size-card-header">Organization</span>
+      </div>
+      <p>
+        <template v-if="project.organization">
+          This project is owned by an organization. Members permission defaults are set in the
+          <nuxt-link :to="`/organization/${project.organization.id}/settings/members`">
+            organization members settings </nuxt-link
+          >.
+        </template>
+        <template v-else>
+          This project is not owned by an organization. You can transfer ownership to one of the
+          organizations you are a member of below.
+        </template>
+      </p>
+      <SearchDropdown
+        v-if="!project.organization"
+        v-model="orgText"
+        placeholder="Search for organizations..."
+        render-up
+        circled-icons
+        class="search-dropdown"
+        :disabled="!hasPermission || !organizations"
+        :options="
+          organizations.filter((value) => value.title.toLowerCase().includes(orgText.toLowerCase()))
+        "
+        @on-selected="selectOrg"
+      />
+      <button v-else class="btn btn-danger" @click="$refs.modal_remove.show()">
+        <OrganizationIcon />
+        Remove from organization
+      </button>
+    </section>
+
+    <section class="universal-card">
+      <div class="label">
         <h3>
           <span class="label__title size-card-header">Delete project</span>
         </h3>
@@ -237,6 +282,7 @@
 </template>
 
 <script>
+import { SearchDropdown } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
 import Avatar from '~/components/ui/Avatar.vue'
 import ModalConfirm from '~/components/ui/ModalConfirm.vue'
@@ -248,6 +294,7 @@ import TrashIcon from '~/assets/images/utils/trash.svg'
 import ExitIcon from '~/assets/images/utils/x.svg'
 import IssuesIcon from '~/assets/images/utils/issues.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
+import OrganizationIcon from '~/assets/images/utils/organization.svg'
 
 export default defineNuxtComponent({
   components: {
@@ -261,6 +308,7 @@ export default defineNuxtComponent({
     ExitIcon,
     CheckIcon,
     IssuesIcon,
+    OrganizationIcon,
   },
   props: {
     project: {
