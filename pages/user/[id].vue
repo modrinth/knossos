@@ -198,7 +198,7 @@
             </button>
           </div>
         </nav>
-        <div v-if="projects.length > 0 || collections?.length > 0">
+        <div v-if="projects.length > 0">
           <div
             v-if="route.params.projectType !== 'collections'"
             :class="'project-list display-mode--' + cosmetics.searchDisplayMode.user"
@@ -242,54 +242,67 @@
               :color="project.color"
             />
           </div>
-          <div
-            v-if="['all', 'collections', undefined].includes(route.params.projectType)"
-            class="collections-grid"
-          >
-            <nuxt-link
-              v-for="collection in collections"
-              :key="collection.id"
-              :to="`/collection/${collection.id}`"
-              class="card collection-item"
-            >
-              <div class="collection">
-                <Avatar :src="collection.icon_url" class="icon" />
-                <div class="details">
-                  <h2 class="title">{{ collection.name }}</h2>
-                  <div class="stats">
-                    <LibraryIcon />
-                    Collection
-                  </div>
-                </div>
-              </div>
-              <div class="description">
-                {{ collection.description }}
-              </div>
-              <div class="stat-bar">
-                <div class="stats"><BoxIcon /> {{ collection.projects?.length || 0 }} projects</div>
-                <div class="stats">
-                  <template v-if="collection.status === 'listed'">
-                    <WorldIcon />
-                    <span> Public </span>
-                  </template>
-                  <template v-else-if="collection.status === 'unlisted'">
-                    <LinkIcon />
-                    <span> Unlisted </span>
-                  </template>
-                  <template v-else-if="collection.status === 'private'">
-                    <LockIcon />
-                    <span> Private </span>
-                  </template>
-                  <template v-else-if="collection.status === 'rejected'">
-                    <XIcon />
-                    <span> Rejected </span>
-                  </template>
-                </div>
-              </div>
-            </nuxt-link>
-          </div>
         </div>
-        <div v-else class="error">
+        <div v-else-if="route.params.projectType !== 'collections'" class="error">
+          <UpToDate class="icon" /><br />
+          <span v-if="auth.user && auth.user.id === user.id" class="preserve-lines text">
+            <IntlFormatted :message-id="messages.profileNoProjectsAuthLabel">
+              <template #create-link="{ children }">
+                <a class="link" @click.prevent="$refs.modal_creation.show()">
+                  <component :is="() => children" />
+                </a>
+              </template>
+            </IntlFormatted>
+          </span>
+          <span v-else class="text">{{ formatMessage(messages.profileNoProjectsLabel) }}</span>
+        </div>
+        <div v-if="['collections'].includes(route.params.projectType)" class="collections-grid">
+          <nuxt-link
+            v-for="collection in collections"
+            :key="collection.id"
+            :to="`/collection/${collection.id}`"
+            class="card collection-item"
+          >
+            <div class="collection">
+              <Avatar :src="collection.icon_url" class="icon" />
+              <div class="details">
+                <h2 class="title">{{ collection.name }}</h2>
+                <div class="stats">
+                  <LibraryIcon />
+                  Collection
+                </div>
+              </div>
+            </div>
+            <div class="description">
+              {{ collection.description }}
+            </div>
+            <div class="stat-bar">
+              <div class="stats"><BoxIcon /> {{ collection.projects?.length || 0 }} projects</div>
+              <div class="stats">
+                <template v-if="collection.status === 'listed'">
+                  <WorldIcon />
+                  <span> Public </span>
+                </template>
+                <template v-else-if="collection.status === 'unlisted'">
+                  <LinkIcon />
+                  <span> Unlisted </span>
+                </template>
+                <template v-else-if="collection.status === 'private'">
+                  <LockIcon />
+                  <span> Private </span>
+                </template>
+                <template v-else-if="collection.status === 'rejected'">
+                  <XIcon />
+                  <span> Rejected </span>
+                </template>
+              </div>
+            </div>
+          </nuxt-link>
+        </div>
+        <div
+          v-if="route.params.projectType === 'collections' && collections.length === 0"
+          class="error"
+        >
           <UpToDate class="icon" /><br />
           <span v-if="auth.user && auth.user.id === user.id" class="preserve-lines text">
             <IntlFormatted :message-id="messages.profileNoProjectsAuthLabel">
@@ -303,9 +316,6 @@
           <span v-else class="text">{{ formatMessage(messages.profileNoProjectsLabel) }}</span>
         </div>
       </div>
-    </div>
-    <div>
-      <pre><code>{{ route.params.projectType }}</code></pre>
     </div>
   </div>
 </template>
