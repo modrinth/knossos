@@ -9,13 +9,13 @@
     "message": "Spara"
   },
   "frog": {
-    "message": "Du har blivit froggad! 🐸"
+    "message": "Du har blivit frogged! 🐸"
   },
   "frog.altText": {
     "message": "En fotorealistisk målning av en grodlabyrint"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} person} other {{count} personer}} har blivit froggad!"
+    "message": "{count, plural, one {{count} person} other {{count} personer}} har blivit frogged!"
   },
   "frog.sinceOpened": {
     "message": "Sidan öppnades {ago}"
