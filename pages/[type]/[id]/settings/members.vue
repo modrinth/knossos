@@ -40,6 +40,11 @@
         <button
           class="iconified-button danger-button"
           :disabled="currentMember.role === 'Owner'"
+          :title="
+            currentMember.role === 'Owner'
+              ? 'You can\'t leave if you are the owner of the project!'
+              : ''
+          "
           @click="leaveProject()"
         >
           <UserRemoveIcon />
