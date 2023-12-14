@@ -1,6 +1,7 @@
 <template>
   <div v-if="user">
     <ModalCreation ref="modal_creation" />
+    <CollectionCreateModal ref="modal_collection_creation" />
     <div class="user-header-wrapper">
       <div class="user-header">
         <Avatar
@@ -305,15 +306,15 @@
         >
           <UpToDate class="icon" /><br />
           <span v-if="auth.user && auth.user.id === user.id" class="preserve-lines text">
-            <IntlFormatted :message-id="messages.profileNoProjectsAuthLabel">
+            <IntlFormatted :message-id="messages.profileNoCollectionsAuthLabel">
               <template #create-link="{ children }">
-                <a class="link" @click.prevent="$refs.modal_creation.show()">
+                <a class="link" @click.prevent="$refs.modal_collection_creation.show()">
                   <component :is="() => children" />
                 </a>
               </template>
             </IntlFormatted>
           </span>
-          <span v-else class="text">{{ formatMessage(messages.profileNoProjectsLabel) }}</span>
+          <span v-else class="text">{{ formatMessage(messages.profileNoCollectionsLabel) }}</span>
         </div>
       </div>
     </div>
@@ -345,6 +346,7 @@ import ModalCreation from '~/components/ui/ModalCreation.vue'
 import NavRow from '~/components/ui/NavRow.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Avatar from '~/components/ui/Avatar.vue'
+import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -414,6 +416,15 @@ const messages = defineMessages({
     id: 'profile.label.no-projects-auth',
     defaultMessage:
       "You don't have any projects.\nWould you like to <create-link>create one</create-link>?",
+  },
+  profileNoCollectionsLabel: {
+    id: 'profile.label.no-collections',
+    defaultMessage: 'This user has no collection!',
+  },
+  profileNoCollectionsAuthLabel: {
+    id: 'profile.label.no-collections-auth',
+    defaultMessage:
+      "You don't have any collections.\nWould you like to <create-link>create one</create-link>?",
   },
   userNotFoundError: {
     id: 'profile.error.not-found',

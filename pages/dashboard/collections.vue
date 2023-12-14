@@ -35,6 +35,7 @@
       </nuxt-link>
       <nuxt-link
         v-for="collection in orderedCollections"
+        :key="collection.id"
         :to="`/collection/${collection.id}`"
         class="universal-card recessed collection"
       >
