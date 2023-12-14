@@ -592,6 +592,10 @@ function showPreviewImage(files) {
 .card {
   padding: var(--spacing-card-lg);
 
+  .page-header__icon {
+    margin-block: 0;
+  }
+
   .card__overlay {
     top: var(--spacing-card-lg);
     right: var(--spacing-card-lg);
