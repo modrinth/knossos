@@ -205,6 +205,7 @@
               />
             </Categories>
             <hr class="card-divider" />
+
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
@@ -214,6 +215,7 @@
                 download<span v-if="project.downloads !== 1">s</span>
               </div>
             </div>
+
             <div class="primary-stat">
               <HeartIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">

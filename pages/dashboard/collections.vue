@@ -72,7 +72,7 @@
 </template>
 <script setup>
 import { Avatar, BoxIcon, SearchIcon, XIcon, Button, PlusIcon, LinkIcon, LockIcon } from 'omorphia'
-// import WorldIcon from '~/assets/images/utils/world.svg'
+import WorldIcon from '~/assets/images/utils/world.svg'
 import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 
 definePageMeta({

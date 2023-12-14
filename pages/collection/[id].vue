@@ -4,138 +4,222 @@
       v-if="auth.user && auth.user.id === creator.id"
       ref="deleteModal"
       title="Are you sure you want to delete this collection?"
-      description="This will remove this collection forever (like really forever)."
+      description="This will remove this collection forever. This action cannot be undone."
       :has-to-type="false"
       proceed-label="Delete"
       @proceed="deleteCollection()"
     />
-    <Modal ref="editModal" :header="`Edit ${collection.name}`">
-      <div class="universal-modal modal-spacing">
-        <div class="edit-section">
-          <div class="avatar-section">
-            <Avatar
-              size="lg"
-              :src="deletedIcon ? null : previewImage ? previewImage : collection.icon_url"
-            />
-            <PopoutMenu class="btn icon-edit-button icon-only" position="bottom" direction="right">
-              <EditIcon />
-              <template #menu>
-                <span class="icon-edit-menu">
-                  <FileInput
-                    id="project-icon"
-                    :max-size="262144"
-                    :show-icon="true"
-                    accept="image/png,image/jpeg,image/gif,image/webp"
-                    class="btn btn-transparent upload"
-                    style="white-space: nowrap"
-                    prompt=""
-                    @change="showPreviewImage"
-                  >
-                    <UploadIcon />
-                    Upload icon
-                  </FileInput>
-                  <Button
-                    v-if="!deletedIcon && (previewImage || collection.icon_url)"
-                    style="white-space: nowrap"
-                    transparent
-                    @click="
-                      () => {
-                        deletedIcon = true
-                        previewImage = null
-                      }
-                    "
-                  >
-                    <TrashIcon />
-                    Delete icon
-                  </Button>
-                </span>
-              </template>
-            </PopoutMenu>
-          </div>
-          <input v-model="name" type="text" placeholder="Collection title" />
-          <textarea v-model="summary" placeholder="Add an optional description" />
-        </div>
-        <div class="universal-labels">
-          <label for="visibility">
-            <span class="label__title"> Visibility </span>
-          </label>
-          <DropdownSelect
-            id="visibility"
-            v-model="visibility"
-            :options="['listed', 'unlisted', 'private']"
-            :disabled="visibility === 'rejected'"
-            :multiple="false"
-            :display-name="
-              (s) => {
-                if (s === 'listed') return 'Public'
-                return capitalizeString(s)
-              }
-            "
-            :searchable="false"
-          />
-        </div>
-        <div class="input-group push-right">
-          <Button @click="$refs.editModal.hide()">
-            <XIcon />
-            Cancel
-          </Button>
-          <Button color="primary" @click="saveChanges()">
-            <SaveIcon />
-            Save changes
-          </Button>
-        </div>
-      </div>
-    </Modal>
     <div class="normal-page">
       <div class="normal-page__sidebar">
-        <div class="card">
-          <div class="page-header__icon">
-            <Avatar size="md" :src="collection.icon_url" />
+        <Card>
+          <div class="card__overlay">
+            <Button v-if="canEdit" @click="isEditing = !isEditing">
+              <EditIcon />
+              Edit
+            </Button>
           </div>
-          <div class="page-header__text">
-            <div class="title">
-              <h1>{{ collection.name }}</h1>
+          <!-- Editing -->
+          <template v-if="isEditing">
+            <div class="inputs universal-labels">
+              <div class="avatar-section">
+                <Avatar
+                  size="md"
+                  :src="deletedIcon ? null : previewImage ? previewImage : collection.icon_url"
+                />
+                <PopoutMenu class="btn" position="bottom" direction="right">
+                  <EditIcon /> Edit icon
+                  <template #menu>
+                    <span class="icon-edit-menu">
+                      <FileInput
+                        id="project-icon"
+                        :max-size="262144"
+                        :show-icon="true"
+                        accept="image/png,image/jpeg,image/gif,image/webp"
+                        class="btn btn-transparent upload"
+                        style="white-space: nowrap"
+                        prompt=""
+                        @change="showPreviewImage"
+                      >
+                        <UploadIcon />
+                        Upload icon
+                      </FileInput>
+                      <Button
+                        v-if="!deletedIcon && (previewImage || collection.icon_url)"
+                        style="white-space: nowrap"
+                        transparent
+                        @click="
+                          () => {
+                            deletedIcon = true
+                            previewImage = null
+                          }
+                        "
+                      >
+                        <TrashIcon />
+                        Delete icon
+                      </Button>
+                    </span>
+                  </template>
+                </PopoutMenu>
+              </div>
+              <label for="collection-title">
+                <span class="label__title"> Title </span>
+              </label>
+              <input id="collection-title" v-model="name" maxlength="255" type="text" />
+              <label for="collection-description">
+                <span class="label__title"> Description </span>
+              </label>
+              <div class="textarea-wrapper">
+                <textarea id="collection-description" v-model="summary" maxlength="255" />
+              </div>
+              <label for="visibility">
+                <span class="label__title"> Visibility </span>
+              </label>
+              <DropdownSelect
+                id="visibility"
+                v-model="visibility"
+                :options="['listed', 'unlisted', 'private']"
+                :disabled="visibility === 'rejected'"
+                :multiple="false"
+                :display-name="
+                  (s) => {
+                    if (s === 'listed') return 'Public'
+                    return capitalizeString(s)
+                  }
+                "
+                :searchable="false"
+              />
             </div>
+            <div class="push-right input-group">
+              <Button @click="$refs.editModal.hide()">
+                <XIcon />
+                Cancel
+              </Button>
+              <Button color="primary" @click="saveChanges()">
+                <SaveIcon />
+                Save
+              </Button>
+            </div>
+
+            <hr class="card-divider" />
+
+            <div class="universal-labels">
+              <label for="delete-collection">
+                <span class="label__title"> Manage </span>
+              </label>
+              <div class="input-group">
+                <Button
+                  id="delete-collection"
+                  color="danger"
+                  @click="() => $refs.deleteModal.show()"
+                >
+                  <TrashIcon />
+                  Delete collection
+                </Button>
+              </div>
+            </div>
+          </template>
+          <!-- Content -->
+          <template v-if="!isEditing">
+            <div class="page-header__icon">
+              <Avatar size="md" :src="collection.icon_url" />
+            </div>
+            <div class="page-header__text">
+              <div class="title">
+                <h1>{{ collection.name }}</h1>
+              </div>
+
+              <div class="collection-info">
+                <div class="metadata-item markdown-body collection-description">
+                  <p>{{ collection.description }}</p>
+                </div>
+
+                <hr class="card-divider" />
+
+                <div class="primary-stat">
+                  <template v-if="collection.status === 'listed'">
+                    <WorldIcon class="primary-stat__icon" aria-hidden="true" />
+                    <div class="primary-stat__text">
+                      <strong> Public </strong>
+                    </div>
+                  </template>
+                  <template v-else-if="collection.status === 'unlisted'">
+                    <LinkIcon class="primary-stat__icon" aria-hidden="true" />
+                    <div class="primary-stat__text">
+                      <strong> Unlisted </strong>
+                    </div>
+                  </template>
+                  <template v-else-if="collection.status === 'private'">
+                    <LockIcon class="primary-stat__icon" aria-hidden="true" />
+                    <div class="primary-stat__text">
+                      <strong> Private </strong>
+                    </div>
+                  </template>
+                  <template v-else-if="collection.status === 'rejected'">
+                    <XIcon class="primary-stat__icon" aria-hidden="true" />
+                    <div class="primary-stat__text">
+                      <strong> Rejected </strong>
+                    </div>
+                  </template>
+                </div>
+              </div>
+
+              <div class="primary-stat">
+                <BoxIcon class="primary-stat__icon" aria-hidden="true" />
+                <div class="primary-stat__text">
+                  <span class="primary-stat__counter">
+                    {{ $formatNumber(collection.projects?.length || 0) }}
+                  </span>
+                  project<span v-if="collection.projects?.length !== 1">s</span>
+                </div>
+              </div>
+
+              <div class="metadata-item">
+                <div class="date">
+                  <CalendarIcon />
+                  <label>
+                    Created
+                    {{ fromNow(collection.created) }}
+                  </label>
+                </div>
+              </div>
+
+              <div class="metadata-item">
+                <div class="date">
+                  <UpdatedIcon />
+                  <label>
+                    Updated
+                    {{ fromNow(collection.updated) }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <hr class="card-divider" />
 
             <div class="collection-info">
               <div class="metadata-item">
-                <UserIcon />
-                by
-                <router-link :to="`/user/${creator.username}`">{{ creator.username }}</router-link>
-              </div>
+                <nuxt-link
+                  class="team-member columns button-transparent"
+                  :to="'/user/' + creator.username"
+                >
+                  <Avatar :src="creator.avatar_url" :alt="creator.username" size="sm" circle />
 
-              <div class="metadata-item">
-                <template v-if="collection.status === 'listed'">
-                  <WorldIcon />
-                  <span> Public </span>
-                </template>
-                <template v-else-if="collection.status === 'unlisted'">
-                  <LinkIcon />
-                  <span> Unlisted </span>
-                </template>
-                <template v-else-if="collection.status === 'private'">
-                  <LockIcon />
-                  <span> Private </span>
-                </template>
-                <template v-else-if="collection.status === 'rejected'">
-                  <XIcon />
-                  <span> Rejected </span>
-                </template>
+                  <div class="member-info">
+                    <p class="name">{{ creator.name }}</p>
+                    <p class="role">Owner</p>
+                  </div>
+                </nuxt-link>
               </div>
-
-              <div class="metadata-item">
-                <UpdatedIcon />
-                Updated
-                <span>
-                  {{ fromNow(collection.updated) }}
-                </span>
-              </div>
+              <!-- <hr class="card-divider" />
+            <div class="input-group">
+              <Button @click="() => $refs.shareModal.show()">
+                <ShareIcon />
+                Share
+              </Button>
+            </div> -->
             </div>
-            <div class="markdown-body collection-description">
-              <p>{{ collection.description }}</p>
-            </div>
-          </div>
-        </div>
+          </template>
+        </Card>
       </div>
       <div class="normal-page__content">
         <Promotion />
@@ -155,34 +239,6 @@
               }),
             ]"
           />
-          <OverflowMenu
-            v-if="canEdit"
-            class="btn"
-            :options="[
-              {
-                id: 'edit',
-                action: showEditModal,
-              },
-              {
-                id: 'delete',
-                color: 'danger',
-                action: () => $refs.deleteModal.show(),
-              },
-            ]"
-            direction="right"
-            position="bottom"
-          >
-            <SettingsIcon />
-            Manage
-            <template #edit>
-              <EditIcon />
-              Edit
-            </template>
-            <template #delete>
-              <TrashIcon />
-              Delete
-            </template>
-          </OverflowMenu>
         </nav>
 
         <div v-if="projects && projects.length > 0" class="project-list display-mode--list">
@@ -256,11 +312,13 @@ import {
   capitalizeString,
   Avatar,
   Button,
+  Card,
+  CalendarIcon,
   Promotion,
   EditIcon,
   XIcon,
   SaveIcon,
-  OverflowMenu,
+  BoxIcon,
   UploadIcon,
   TrashIcon,
   PopoutMenu,
@@ -268,12 +326,10 @@ import {
   DropdownSelect,
   LinkIcon,
   LockIcon,
-  UserIcon,
   UpdatedIcon,
-  SettingsIcon,
 } from 'omorphia'
 
-// import WorldIcon from 'assets/images/utils/world.svg'
+import WorldIcon from 'assets/images/utils/world.svg'
 // import ManageIcon from '~/assets/images/utils/settings-2.svg'
 
 import UpToDate from 'assets/images/illustrations/up_to_date.svg'
@@ -289,6 +345,8 @@ const { formatMessage } = vintl
 const route = useRoute()
 const auth = await useAuth()
 const editModal = ref(null)
+
+const isEditing = ref(false)
 
 let collection, refreshCollection, creator, projects, refreshProjects
 
@@ -308,18 +366,15 @@ try {
       useBaseFetch(`user/${auth.value.user.id}/follows`)
     )
     projects = ref(data.data)
-    console.log(projects.value)
 
     creator = ref(auth.value.user)
     refreshProjects = async () => {}
     refreshCollection = async () => {}
-    console.log('dwadaw')
   } else {
     const val = await useAsyncData(`collection/${route.params.id}`, () =>
       useBaseFetch(`collection/${route.params.id}`, { apiVersion: 3 })
     )
     collection = val.data
-    console.log(collection.value)
     refreshCollection = val.refresh
     ;[{ data: creator }, { data: projects, refresh: refreshProjects }] = await Promise.all([
       await useAsyncData(`user/${collection.value.user}`, () =>
@@ -470,7 +525,83 @@ function showEditModal() {
 </script>
 
 <style scoped lang="scss">
+.animated-dropdown {
+  width: 100%;
+}
+
+.inputs {
+  margin-bottom: 1rem;
+
+  input {
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+
+  textarea {
+    min-height: 10rem;
+  }
+
+  label {
+    margin-bottom: 0;
+  }
+}
+
+.team-member {
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+
+  .member-info {
+    overflow: hidden;
+    margin: auto 0 auto 0.75rem;
+
+    .name {
+      font-weight: bold;
+    }
+
+    p {
+      font-size: var(--font-size-sm);
+      margin: 0.2rem 0;
+    }
+  }
+}
+
 .remove-btn {
   margin-top: auto;
+}
+
+.card {
+  padding: var(--spacing-card-lg);
+
+  .card__overlay {
+    top: var(--spacing-card-lg);
+    right: var(--spacing-card-lg);
+  }
+
+  h1 {
+    margin-bottom: var(--gap-md);
+  }
+}
+
+.collection-info {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.date {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-nm);
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+  cursor: default;
+
+  .label {
+    margin-right: 0.25rem;
+  }
+
+  svg {
+    height: 1rem;
+    margin-right: 0.25rem;
+  }
 }
 </style>
