@@ -71,13 +71,15 @@ async function create() {
       apiVersion: 3,
     })
 
+    await initUserCollections()
+
     modal.value.hide()
     await router.push(`/collection/${result.id}`)
   } catch (err) {
     addNotification({
       group: 'main',
       title: 'An error occurred',
-      text: err.data.description,
+      text: err?.data?.description || err?.message || err,
       type: 'error',
     })
   }
