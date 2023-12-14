@@ -1,8 +1,9 @@
 <script setup>
 import dayjs from 'dayjs'
 import { Button, DownloadIcon, UpdatedIcon, formatNumber, formatMoney } from 'omorphia'
+import VueApexCharts from 'vue3-apexcharts'
 
-let VueApexCharts
+// let VueApexCharts
 // if (process.client) {
 //   VueApexCharts = defineAsyncComponent(() => import('vue3-apexcharts'))
 // }
