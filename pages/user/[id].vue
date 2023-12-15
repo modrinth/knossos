@@ -274,9 +274,6 @@
         </div>
       </div>
     </div>
-    <div>
-      {{ organizations }}
-    </div>
   </div>
 </template>
 <script setup>

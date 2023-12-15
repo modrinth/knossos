@@ -69,10 +69,6 @@
       </template>
       <template v-else> Make an organization! </template>
     </section>
-    <div>
-      <pre><code>{{ orgs }}</code></pre>
-      <pre><code>{{ error }}</code></pre>
-    </div>
   </div>
 </template>
 
