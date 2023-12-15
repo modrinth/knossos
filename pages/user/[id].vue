@@ -153,6 +153,23 @@
                 </IntlFormatted>
               </span>
             </div>
+            <template v-if="organizations.length > 0">
+              <hr class="card-divider" />
+              <div class="stats-block__item">
+                <IntlFormatted :message-id="messages.profileOrganizations" />
+                <div class="organizations-grid">
+                  <nuxt-link
+                    v-for="org in organizations"
+                    :key="org.id"
+                    v-tooltip="org.name"
+                    class="organization"
+                    :to="`/organization/${org.id}`"
+                  >
+                    <Avatar :src="org.icon_url" :alt="'Icon for ' + org.name" :size="sm" />
+                  </nuxt-link>
+                </div>
+              </div>
+            </template>
           </template>
         </div>
       </div>
@@ -257,10 +274,14 @@
         </div>
       </div>
     </div>
+    <div>
+      {{ organizations }}
+    </div>
   </div>
 </template>
 <script setup>
 import { Promotion } from 'omorphia'
+
 import ProjectCard from '~/components/ui/ProjectCard.vue'
 import Badge from '~/components/ui/Badge.vue'
 import { reportUser } from '~/utils/report-helpers.ts'
@@ -317,6 +338,10 @@ const messages = defineMessages({
     id: 'profile.user-id',
     defaultMessage: 'User ID: {id}',
   },
+  profileOrganizations: {
+    id: 'profile.label.organizations',
+    defaultMessage: 'Organizations',
+  },
   profileManageProjectsButton: {
     id: 'profile.button.manage-projects',
     defaultMessage: 'Manage projects',
@@ -360,9 +385,9 @@ const messages = defineMessages({
   },
 })
 
-let user, projects
+let user, projects, organizations
 try {
-  ;[{ data: user }, { data: projects }] = await Promise.all([
+  ;[{ data: user }, { data: projects }, { data: organizations }] = await Promise.all([
     useAsyncData(`user/${route.params.id}`, () => useBaseFetch(`user/${route.params.id}`)),
     useAsyncData(
       `user/${route.params.id}/projects`,
@@ -381,6 +406,11 @@ try {
           return projects
         },
       }
+    ),
+    useAsyncData(`user/${route.params.id}/organizations`, () =>
+      useBaseFetch(`user/${route.params.id}/organizations`, {
+        apiVersion: 3,
+      })
     ),
   ])
 } catch {
@@ -519,6 +549,16 @@ export default defineNuxtComponent({
 </script>
 
 <style lang="scss" scoped>
+.organizations-grid {
+  // 5 wide
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+
+  grid-gap: var(--gap-sm);
+  margin-top: 0.5rem;
+}
+
 .user-header-wrapper {
   display: flex;
   margin: 0 auto -1.5rem;
