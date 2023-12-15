@@ -165,7 +165,7 @@
                     class="organization"
                     :to="`/organization/${org.id}`"
                   >
-                    <Avatar :src="org.icon_url" :alt="'Icon for ' + org.name" :size="sm" />
+                    <Avatar :src="org.icon_url" :alt="'Icon for ' + org.name" size="xs" />
                   </nuxt-link>
                 </div>
               </div>

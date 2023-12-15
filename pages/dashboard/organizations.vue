@@ -92,6 +92,13 @@ const { data: orgs, error } = useAsyncData('organizations', () => {
   })
 })
 
+if (error.value) {
+  createError({
+    statusCode: 500,
+    message: 'Failed to fetch organizations',
+  })
+}
+
 const openCreateOrgModal = () => {
   createOrgModal.value?.show()
 }
