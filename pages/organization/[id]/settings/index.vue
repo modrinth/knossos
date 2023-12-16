@@ -9,6 +9,7 @@ import {
   SaveIcon,
   ConfirmModal,
 } from 'omorphia'
+
 const props = defineProps({
   organization: {
     type: Object,
@@ -23,6 +24,12 @@ const props = defineProps({
     },
   },
   patchOrganization: {
+    type: Function,
+    default() {
+      return () => {}
+    },
+  },
+  resetOrganization: {
     type: Function,
     default() {
       return () => {}
@@ -53,53 +60,81 @@ const props = defineProps({
     },
   },
 })
+
 const hasPermission = computed(() => {
   const EDIT_DETAILS = 1 << 2
   return props.currentMember && (props.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
 })
+
 const icon = ref(null)
 const deletedIcon = ref(false)
 const previewImage = ref(null)
-const name = ref(props.organization.title)
+
+const name = ref(props.organization.name)
 const summary = ref(props.organization.description)
+
 const patchData = computed(() => {
   const data = {}
-  if (name.value !== props.organization.title) {
-    data.title = name.value
+  if (name.value !== props.organization.name) {
+    data.name = name.value
   }
   if (summary.value !== props.organization.description) {
     data.description = summary.value
   }
   return data
 })
+
 const hasChanges = computed(() => {
   return Object.keys(patchData.value).length > 0 || deletedIcon.value || icon.value
 })
+
 const markIconForDeletion = () => {
   deletedIcon.value = true
   icon.value = null
   previewImage.value = null
 }
+
 const showPreviewImage = (files) => {
   const reader = new FileReader()
+
   icon.value = files[0]
   deletedIcon.value = false
+
   reader.readAsDataURL(icon.value)
   reader.onload = (event) => {
     previewImage.value = event.target.result
   }
 }
+
 const saveChanges = async () => {
-  if (hasChanges.value) {
-    await props.patchOrganization(patchData.value)
+  startLoading()
+  try {
+    if (hasChanges.value) {
+      await props.patchOrganization(patchData.value)
+    }
+    if (deletedIcon.value) {
+      await props.deleteIcon()
+      deletedIcon.value = false
+    } else if (icon.value) {
+      await props.patchIcon(icon.value)
+      icon.value = null
+    }
+    await props.resetOrganization()
+    addNotification({
+      group: 'main',
+      title: 'Organization updated',
+      text: 'Your organization has been updated.',
+      type: 'success',
+    })
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err,
+      type: 'error',
+    })
   }
-  if (deletedIcon.value) {
-    await props.deleteIcon()
-    deletedIcon.value = false
-  } else if (icon.value) {
-    await props.patchIcon(icon.value)
-    icon.value = null
-  }
+  stopLoading()
 }
 </script>
 
@@ -107,11 +142,11 @@ const saveChanges = async () => {
   <div class="normal-page__content">
     <ConfirmModal
       ref="modal_deletion"
-      :title="`Are you sure you want to ${organization.title}?`"
+      :title="`Are you sure you want to delete ${organization.name}?`"
       description="This will delete this organization forever (like *forever* ever)."
       :has-to-type="true"
       proceed-label="Delete"
-      :confirmation-text="organization.title"
+      :confirmation-text="organization.name"
       @proceed="deleteOrganization"
     />
     <Card>
@@ -126,7 +161,7 @@ const saveChanges = async () => {
       <div class="input-group">
         <Avatar
           :src="deletedIcon ? null : previewImage ? previewImage : organization.icon_url"
-          :alt="organization.title"
+          :alt="organization.name"
           size="md"
           class="project__icon"
         />

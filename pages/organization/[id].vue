@@ -4,63 +4,72 @@
     class="normal-page"
     :class="{ 'alt-layout': $route.name.startsWith('organization-id-settings') }"
   >
-    <div v-if="$route.name.startsWith('organization-id-settings')" class="normal-page__sidebar">
-      <div class="settings-page__header">
-        <Breadcrumbs
-          current-title="Settings"
-          :link-stack="[
-            {
-              href: `/organization/${organization.title}`,
-              label: organization.title,
-              allowTrimming: true,
-            },
-          ]"
-        />
-        <div class="settings-header">
-          <Avatar
-            :src="organization.icon_url"
-            :alt="organization.title"
-            size="sm"
-            class="settings-header__icon"
-          />
-          <div class="settings-header__text">
-            <h1 class="wrap-as-needed">
-              {{ organization.title }}
-            </h1>
-          </div>
-        </div>
+    <div>
+      <strong> TODO: remove debug </strong>
+      <div>
+        {{ organization }}
       </div>
-      <h2>Organization settings</h2>
-      <NavStack>
-        <NavStackItem :link="`/organization/${organization.title}/settings`" label="General">
-          <SettingsIcon />
-        </NavStackItem>
-        <NavStackItem :link="`/organization/${organization.title}/members`" label="Members">
-          <UsersIcon />
-        </NavStackItem>
-        <NavStackItem :link="`/organization/${organization.title}/projects`" label="Projects">
-          <ListIcon />
-        </NavStackItem>
-        <NavStackItem :link="`/organization/${organization.title}/analytics`" label="Analytics">
-          <ChartIcon />
-        </NavStackItem>
-      </NavStack>
     </div>
-    <div v-else class="normal-page__sidebar">
+    <div class="normal-page__sidebar">
       <Card>
-        <Avatar :src="organization.icon_url" size="lg" :alt="organization.title" />
-        <div class="user-text">
-          <div class="title">
-            <h2 class="username">
-              {{ organization.name }}
-            </h2>
-          </div>
-          <div class="markdown-body">
-            <p>
-              {{ organization.description }}
-            </p>
-          </div>
+        <div class="card__overlay input-group">
+          <!-- If the user is able to edit org -->
+          <template v-if="hasPermission">
+            <nuxt-link :to="`/organization/${organization.id}/settings`" class="btn">
+              <EditIcon />
+              Edit
+            </nuxt-link>
+          </template>
         </div>
+        <!-- Content -->
+        <template v-if="true">
+          <div class="page-header__icon">
+            <Avatar size="md" :src="organization.icon_url" />
+          </div>
+          <div class="page-header__text">
+            <div class="title">
+              <h1>{{ organization.name }}</h1>
+            </div>
+
+            <div class="collection-info">
+              <div class="metadata-item markdown-body collection-description">
+                <p>{{ organization.description }}</p>
+              </div>
+
+              <hr class="card-divider" />
+
+              <div class="primary-stat">
+                <UserIcon class="primary-stat__icon" aria-hidden="true" />
+                <div class="primary-stat__text">
+                  <span class="primary-stat__counter">
+                    {{ $formatNumber(organization.members?.length || 0) }}
+                  </span>
+                  member<span v-if="organization.members?.length !== 1">s</span>
+                </div>
+              </div>
+
+              <div class="primary-stat">
+                <BoxIcon class="primary-stat__icon" aria-hidden="true" />
+                <div class="primary-stat__text">
+                  <span class="primary-stat__counter">
+                    {{ $formatNumber(organization.projects?.length || 0) }}
+                  </span>
+                  project<span v-if="organization.projects?.length !== 1">s</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="metadata-item">
+              <div class="date">
+                <CalendarIcon />
+                <label>
+                  Created
+                  {{ fromNow(organization.updated) }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </template>
       </Card>
       <Card class="creator-list">
         <div class="title-and-link">
@@ -78,18 +87,20 @@
         </div>
       </Card>
     </div>
+
     <NuxtPage
       v-model:organization="organization"
       v-model:projects="projects"
       :current-member="currentMember"
       :patch-organization="patchOrganization"
+      :reset-organization="resetOrganization"
+      :patch-icon="patchIcon"
+      :delete-icon="deleteIcon"
     />
   </div>
 </template>
 <script setup>
-import { SettingsIcon, UsersIcon, ListIcon, ChartIcon, Avatar, Breadcrumbs, Card } from 'omorphia'
-import NavStack from '~/components/ui/NavStack.vue'
-import NavStackItem from '~/components/ui/NavStackItem.vue'
+import { Avatar, Card, EditIcon, BoxIcon, CalendarIcon, UserIcon } from 'omorphia'
 
 const auth = await useAuth()
 const route = useRoute()
@@ -134,66 +145,60 @@ if (
   }
 }
 
-const patchOrganization = async (resData, quiet = false) => {
+const hasPermission = computed(() => {
+  const EDIT_DETAILS = 1 << 2
+  return currentMember.value && (currentMember.value.permissions & EDIT_DETAILS) === EDIT_DETAILS
+})
+
+const patchOrganization = async (resData) => {
   let result = false
-  startLoading()
-  try {
-    await useBaseFetch(`organization/${organization.value.id}`, {
-      method: 'PATCH',
-      body: resData,
-      apiVersion: 3,
-    })
-    await resetOrganization()
-    result = true
-    if (!quiet) {
-      addNotification({
-        group: 'main',
-        title: 'Organization updated',
-        text: 'Your organization has been updated.',
-        type: 'success',
-      })
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  } catch (err) {
-    addNotification({
-      group: 'main',
-      title: 'An error occurred',
-      text: err,
-      type: 'error',
-    })
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-  stopLoading()
+  await useBaseFetch(`organization/${organization.value.id}`, {
+    method: 'PATCH',
+    body: resData,
+    apiVersion: 3,
+  })
+  result = true
   return result
+}
+
+const patchIcon = async (icon) => {
+  const ext = icon.name.split('.').pop()
+  await useBaseFetch(`organization/${organization.value.id}/icon`, {
+    method: 'PATCH',
+    body: icon,
+    query: { ext },
+    apiVersion: 3,
+  })
+}
+
+const deleteIcon = async () => {
+  await useBaseFetch(`organization/${organization.value.id}/icon`, {
+    method: 'DELETE',
+    apiVersion: 3,
+  })
 }
 
 const resetOrganization = async () => {
   organization.value = await useBaseFetch(`organization/${organization.value.id}`, {
     apiVersion: 3,
   })
-  /*
-  projects.value = await useBaseFetch(
-    `projects?ids=[${organization.value.projects.map((p) => `"${p}"`).join(',')}]`
-  )
-   */
 }
 </script>
 <style scoped lang="scss">
-.settings-header {
-  display: flex;
-  flex-direction: row;
-  gap: var(--gap-sm);
-  align-items: center;
-  margin-bottom: var(--gap-md);
-  .settings-header__icon {
-    flex-shrink: 0;
+.card {
+  padding: var(--spacing-card-lg);
+
+  .page-header__icon {
+    margin-block: 0;
   }
-  .settings-header__text {
-    h1 {
-      font-size: var(--font-size-md);
-      margin-top: 0;
-      margin-bottom: var(--spacing-card-sm);
-    }
+
+  .card__overlay {
+    top: var(--spacing-card-lg);
+    right: var(--spacing-card-lg);
+  }
+
+  h1 {
+    margin-bottom: var(--gap-md);
   }
 }
 

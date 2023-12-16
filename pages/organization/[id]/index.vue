@@ -1,5 +1,5 @@
 <script setup>
-import { Card, SearchIcon, Button, XIcon, Avatar, Promotion, ProjectCard } from 'omorphia'
+import { SearchIcon, Button, XIcon, Promotion, ProjectCard } from 'omorphia'
 const cosmetics = useCosmetics()
 const tags = useTags()
 const auth = await useAuth()
@@ -41,39 +41,46 @@ selectedFilters.value.push(
         </Button>
       </div>
     </div>
-    <div class="project-list display-mode--list">
-      <ProjectCard
-        v-for="project in projects
-          .filter((p) => typeFilter === p.project_type || typeFilter === 'all')
-          .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
-        :id="project.slug || project.id"
-        :key="project.id"
-        :name="project.title"
-        :display="cosmetics.searchDisplayMode.user"
-        :featured-image="
-          project.gallery
-            .slice()
-            .sort((a, b) => b.featured - a.featured)
-            .map((x) => x.url)[0]
-        "
-        :description="project.description"
-        :created-at="project.published"
-        :updated-at="project.updated"
-        :downloads="project.downloads.toString()"
-        :follows="project.followers.toString()"
-        :icon-url="project.icon_url"
-        :categories="project.categories"
-        :client-side="project.client_side"
-        :server-side="project.server_side"
-        :status="
-          auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
-            ? project.status
-            : null
-        "
-        :type="project.project_type"
-        :color="project.color"
-      />
-    </div>
+
+    <template v-if="projects?.length > 0">
+      <div class="project-list display-mode--list">
+        <ProjectCard
+          v-for="project in projects
+            .filter((p) => typeFilter === p.project_type || typeFilter === 'all')
+            .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
+          :id="project.slug || project.id"
+          :key="project.id"
+          :name="project.title"
+          :display="cosmetics.searchDisplayMode.user"
+          :featured-image="
+            project.gallery
+              .slice()
+              .sort((a, b) => b.featured - a.featured)
+              .map((x) => x.url)[0]
+          "
+          :description="project.description"
+          :created-at="project.published"
+          :updated-at="project.updated"
+          :downloads="project.downloads.toString()"
+          :follows="project.followers.toString()"
+          :icon-url="project.icon_url"
+          :categories="project.categories"
+          :client-side="project.client_side"
+          :server-side="project.server_side"
+          :status="
+            auth.user && (auth.user.id === user.id || tags.staffRoles.includes(auth.user.role))
+              ? project.status
+              : null
+          "
+          :type="project.project_type"
+          :color="project.color"
+        />
+      </div>
+    </template>
+
+    <template v-else>
+      <div class="title">TODO: No projects found</div>
+    </template>
   </div>
 </template>
 
