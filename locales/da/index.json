@@ -162,19 +162,19 @@
     "message": "Sprog"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "Log ud"
   },
   "settings.sessions.description": {
     "message": "Her er alle de enheder, der på nuværende tidspunkt er logget på din Modrinth konto. Du kan logge af hver enhed én ad gangen.\n\nHvis du ser en enhed, du ikke genkender, så log ud af den enhed og ændr adgangskoden til din Mondrinth konto med det samme."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Oprettet {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "Nuværende session"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "Sidst tilgået {ago}"
   },
   "settings.sessions.label.unknown-os": {
     "message": "Ukendt styresystem"
@@ -183,9 +183,9 @@
     "message": "Ukendt platform"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "Sessioner"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} kl. {time, time, short}"
   }
 }
