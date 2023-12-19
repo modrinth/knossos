@@ -105,6 +105,17 @@ const openCreateOrgModal = () => {
 </script>
 
 <style scoped lang="scss">
+.project-meta-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: var(--spacing-card-sm);
+
+  .project-title {
+    margin-bottom: var(--spacing-card-sm);
+  }
+}
+
 .grid-table {
   display: grid;
   grid-template-columns:
@@ -121,6 +132,7 @@ const openCreateOrgModal = () => {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      height: 100%;
       padding: var(--spacing-card-sm);
 
       // Left edge of table

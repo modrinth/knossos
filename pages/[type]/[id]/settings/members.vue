@@ -1,6 +1,23 @@
 <template>
   <div>
-    <div class="universal-card">
+    <Card>
+      <div class="label">
+        <h3>
+          <span class="label__title size-card-header"> Transfer ownership </span>
+        </h3>
+      </div>
+      <span class="label">
+        <span class="label__title">To an organization</span>
+        <span class="label__description">
+          Transfer ownership of this project to an organization. This will remove you as a member of
+          this project.
+        </span>
+      </span>
+      <div>
+        <DropdownSelect name="Orgs" />
+      </div>
+    </Card>
+    <Card>
       <div class="label">
         <h3>
           <span class="label__title size-card-header">Manage members</span>
@@ -46,7 +63,7 @@
           Leave project
         </button>
       </div>
-    </div>
+    </Card>
     <div
       v-for="(member, index) in allTeamMembers"
       :key="member.user.id"
@@ -236,201 +253,202 @@
         </div>
       </div>
     </div>
+    <div>
+      <pre><code>{{ orgs.data }}</code></pre>
+    </div>
   </div>
 </template>
 
-<script>
-import Checkbox from '~/components/ui/Checkbox.vue'
-import Badge from '~/components/ui/Badge.vue'
+<script setup>
+import { Avatar, Badge, Card, Checkbox, DropdownSelect } from 'omorphia'
+import { defineProps } from 'vue'
 
 import DropdownIcon from '~/assets/images/utils/dropdown.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import TransferIcon from '~/assets/images/utils/transfer.svg'
 import UserPlusIcon from '~/assets/images/utils/user-plus.svg'
 import UserRemoveIcon from '~/assets/images/utils/user-x.svg'
-import Avatar from '~/components/ui/Avatar.vue'
+
 import { removeSelfFromTeam } from '~/helpers/teams.js'
 
-export default defineNuxtComponent({
-  components: {
-    Avatar,
-    DropdownIcon,
-    Checkbox,
-    Badge,
-    SaveIcon,
-    TransferIcon,
-    UserPlusIcon,
-    UserRemoveIcon,
-  },
-  props: {
-    project: {
-      type: Object,
-      default() {
-        return {}
-      },
-    },
-    allMembers: {
-      type: Array,
-      default() {
-        return []
-      },
-    },
-    currentMember: {
-      type: Object,
-      default() {
-        return null
-      },
+const props = defineProps({
+  project: {
+    type: Object,
+    default() {
+      return {}
     },
   },
-  data() {
-    return {
-      currentUsername: '',
-      openTeamMembers: [],
-      allTeamMembers: this.allMembers.map((x) => {
-        x.oldRole = x.role
-        return x
-      }),
-    }
+  allMembers: {
+    type: Array,
+    default() {
+      return []
+    },
   },
-  created() {
-    this.UPLOAD_VERSION = 1 << 0
-    this.DELETE_VERSION = 1 << 1
-    this.EDIT_DETAILS = 1 << 2
-    this.EDIT_BODY = 1 << 3
-    this.MANAGE_INVITES = 1 << 4
-    this.REMOVE_MEMBER = 1 << 5
-    this.EDIT_MEMBER = 1 << 6
-    this.DELETE_PROJECT = 1 << 7
-    this.VIEW_ANALYTICS = 1 << 8
-    this.VIEW_PAYOUTS = 1 << 9
-  },
-  methods: {
-    removeSelfFromTeam,
-    async leaveProject() {
-      await removeSelfFromTeam(this.project.team)
-      await this.$router.push('/dashboard/projects')
-    },
-    async inviteTeamMember() {
-      startLoading()
-
-      try {
-        const user = await useBaseFetch(`user/${this.currentUsername}`)
-
-        const data = {
-          user_id: user.id.trim(),
-        }
-
-        await useBaseFetch(`team/${this.project.team}/members`, {
-          method: 'POST',
-          body: data,
-        })
-        this.currentUsername = ''
-        await this.updateMembers()
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-
-      stopLoading()
-    },
-    async removeTeamMember(index) {
-      startLoading()
-
-      try {
-        await useBaseFetch(
-          `team/${this.project.team}/members/${this.allTeamMembers[index].user.id}`,
-          {
-            method: 'DELETE',
-          }
-        )
-        await this.updateMembers()
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-
-      stopLoading()
-    },
-    async updateTeamMember(index) {
-      startLoading()
-
-      try {
-        const data =
-          this.allTeamMembers[index].oldRole !== 'Owner'
-            ? {
-                permissions: this.allTeamMembers[index].permissions,
-                role: this.allTeamMembers[index].role,
-                payouts_split: this.allTeamMembers[index].payouts_split,
-              }
-            : {
-                payouts_split: this.allTeamMembers[index].payouts_split,
-              }
-
-        await useBaseFetch(
-          `team/${this.project.team}/members/${this.allTeamMembers[index].user.id}`,
-          {
-            method: 'PATCH',
-            body: data,
-          }
-        )
-        await this.updateMembers()
-        this.$notify({
-          group: 'main',
-          title: 'Member(s) updated',
-          text: "Your project's member(s) has been updated.",
-          type: 'success',
-        })
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-
-      stopLoading()
-    },
-    async transferOwnership(index) {
-      startLoading()
-
-      try {
-        await useBaseFetch(`team/${this.project.team}/owner`, {
-          method: 'PATCH',
-          body: {
-            user_id: this.allTeamMembers[index].user.id,
-          },
-        })
-        await this.updateMembers()
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-
-      stopLoading()
-    },
-    async updateMembers() {
-      this.allTeamMembers = (await useBaseFetch(`team/${this.project.team}/members`)).map((it) => ({
-        avatar_url: it.user.avatar_url,
-        name: it.user.username,
-        oldRole: it.role,
-        ...it,
-      }))
+  currentMember: {
+    type: Object,
+    default() {
+      return null
     },
   },
 })
+
+const currentUsername = ref('')
+const openTeamMembers = ref([])
+const allTeamMembers = reactive(props.allMembers.map((x) => ({ ...x, oldRole: x.role })))
+
+const auth = await useAuth()
+// @ts-expect-error
+const uid = computed(() => auth.value.user?.id || null)
+
+const orgs = useAsyncData('organizations', () => {
+  if (!uid.value) return Promise.resolve(null)
+  return useBaseFetch('user/' + uid.value + '/organizations', {
+    apiVersion: 3,
+  })
+})
+
+if (orgs.error.value) {
+  createError({
+    statusCode: 500,
+    message: 'Failed to fetch organizations',
+  })
+}
+
+const UPLOAD_VERSION = 1 << 0
+const DELETE_VERSION = 1 << 1
+const EDIT_DETAILS = 1 << 2
+const EDIT_BODY = 1 << 3
+const MANAGE_INVITES = 1 << 4
+const REMOVE_MEMBER = 1 << 5
+const EDIT_MEMBER = 1 << 6
+const DELETE_PROJECT = 1 << 7
+const VIEW_ANALYTICS = 1 << 8
+const VIEW_PAYOUTS = 1 << 9
+
+const leaveProject = async () => {
+  await removeSelfFromTeam(props.project.team)
+  navigateTo('/dashboard/projects')
+}
+
+const inviteTeamMember = async () => {
+  startLoading()
+
+  try {
+    const user = await useBaseFetch(`user/${currentUsername.value}`)
+    const data = {
+      user_id: user.id.trim(),
+    }
+    await useBaseFetch(`team/${props.project.team}/members`, {
+      method: 'POST',
+      body: data,
+    })
+    currentUsername.value = ''
+    await updateMembers()
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err?.data?.description || err?.message || err || 'Unknown error',
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
+const removeTeamMember = async (index) => {
+  startLoading()
+
+  try {
+    await useBaseFetch(`team/${props.project.team}/members/${allTeamMembers[index].user.id}`, {
+      method: 'DELETE',
+    })
+    await updateMembers()
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err?.data?.description || err?.message || err || 'Unknown error',
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
+const updateTeamMember = async (index) => {
+  startLoading()
+
+  try {
+    const data =
+      allTeamMembers[index].oldRole !== 'Owner'
+        ? {
+            permissions: allTeamMembers[index].permissions,
+            role: allTeamMembers[index].role,
+            payouts_split: allTeamMembers[index].payouts_split,
+          }
+        : {
+            payouts_split: allTeamMembers[index].payouts_split,
+          }
+
+    await useBaseFetch(`team/${props.project.team}/members/${allTeamMembers[index].user.id}`, {
+      method: 'PATCH',
+      body: data,
+    })
+    await updateMembers()
+    addNotification({
+      group: 'main',
+      title: 'Member(s) updated',
+      text: "Your project's member(s) has been updated.",
+      type: 'success',
+    })
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err?.data?.description || err?.message || err || 'Unknown error',
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
+const transferOwnership = async (index) => {
+  startLoading()
+
+  try {
+    await useBaseFetch(`team/${props.project.team}/owner`, {
+      method: 'PATCH',
+      body: {
+        user_id: allTeamMembers[index].user.id,
+      },
+    })
+    await updateMembers()
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err?.data?.description || err?.message || err || 'Unknown error',
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
+const updateMembers = async () => {
+  allTeamMembers.splice(
+    0,
+    allTeamMembers.length,
+    ...(await useBaseFetch(`team/${props.project.team}/members`)).map((it) => ({
+      avatar_url: it.user.avatar_url,
+      name: it.user.username,
+      oldRole: it.role,
+      ...it,
+    }))
+  )
+}
 </script>
 
 <style lang="scss" scoped>
