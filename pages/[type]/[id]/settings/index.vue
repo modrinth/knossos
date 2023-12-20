@@ -232,9 +232,9 @@
       </div>
       <p>
         <template v-if="props.project.organization">
-          This project is owned by an organization. Members permission defaults are set in the
+          This project is managed by an organization. The defaults for member permissions are set in the
           <nuxt-link :to="`/organization/${project.organization.id}/settings/members`">
-            organization members settings</nuxt-link
+            organization settings</nuxt-link
           >.
         </template>
         <template v-else>
