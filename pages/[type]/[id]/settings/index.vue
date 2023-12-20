@@ -12,7 +12,7 @@
     <ModalConfirm
       ref="modal_remove"
       title="Are you sure you want to remove this project from the organization?"
-      description="If you proceed, this project will no longer be owned by the organization."
+      description="If you proceed, this project will no longer be managed by the organization."
       :has-to-type="true"
       :confirmation-text="project.title"
       proceed-label="Remove"
