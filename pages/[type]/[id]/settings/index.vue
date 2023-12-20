@@ -258,7 +258,7 @@
         />
         <Button :disabled="!selectedOrganization" @click="() => addToOrg()">
           <CheckIcon />
-          Transfer ownership
+          Transfer management
         </Button>
       </div>
       <button
