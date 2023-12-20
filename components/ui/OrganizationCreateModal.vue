@@ -3,8 +3,8 @@
     <div class="universal-modal modal-creation universal-labels">
       <div class="markdown-body">
         <p>
-          New organizations are created with you as the owner and can be found under your profile
-          page.
+          Organizations can be found under your profile page. You will be set as its owner, but
+          you can invite other members and transfer ownership at any time.
         </p>
       </div>
       <label for="name">
@@ -20,7 +20,7 @@
       />
       <label for="additional-information">
         <span class="label__title">Summary<span class="required">*</span></span>
-        <span class="label__description">This appears on your organization's page.</span>
+        <span class="label__description">This will appear on your organization's page.</span>
       </label>
       <div class="textarea-wrapper">
         <textarea id="additional-information" v-model="description" maxlength="256" />

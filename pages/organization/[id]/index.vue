@@ -75,7 +75,7 @@ const declineInvite = async () => {
   <div class="normal-page__content">
     <div v-if="props.currentMember?.accepted === false" class="universal-card information invited">
       <h2>Invitation to join {{ organization.name }}</h2>
-      <p>You've been invited be a member of this organization.</p>
+      <p>You have been invited to join {{ organization.name }}.</p>
       <div class="input-group">
         <button class="iconified-button brand-button" @click="acceptInvite()">
           <CheckIcon />Accept
