@@ -238,8 +238,8 @@
           >.
         </template>
         <template v-else>
-          This project is not owned by an organization. You can transfer ownership to one of the
-          organizations you are a member of below.
+          This project is not managed by an organization. If you are the member of any
+          organizations, you can transfer management to one of them.
         </template>
       </p>
       <div v-if="!props.project.organization" class="input-group">
