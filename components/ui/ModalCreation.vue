@@ -85,6 +85,10 @@ export default {
       type: String,
       default: '',
     },
+    projectCreateOverride: {
+      type: Function,
+      default: (p) => p,
+    },
   },
   setup() {
     const tags = useTags()
@@ -144,29 +148,32 @@ export default {
 
       const auth = await useAuth()
 
-      formData.append(
-        'data',
-        JSON.stringify({
-          title: this.name.trim(),
-          project_type: projectType.actual,
-          slug: this.slug,
-          description: this.description.trim(),
-          body: '',
-          initial_versions: [],
-          team_members: [
-            {
-              user_id: auth.value.user.id,
-              name: auth.value.user.username,
-              role: 'Owner',
-            },
-          ],
-          categories: [],
-          client_side: this.getClientSide(),
-          server_side: this.getServerSide(),
-          license_id: 'LicenseRef-Unknown',
-          is_draft: true,
-        })
-      )
+      let projectData = {
+        title: this.name.trim(),
+        project_type: projectType.actual,
+        slug: this.slug,
+        description: this.description.trim(),
+        body: '',
+        initial_versions: [],
+        team_members: [
+          {
+            user_id: auth.value.user.id,
+            name: auth.value.user.username,
+            role: 'Owner',
+          },
+        ],
+        categories: [],
+        client_side: this.getClientSide(),
+        server_side: this.getServerSide(),
+        license_id: 'LicenseRef-Unknown',
+        is_draft: true,
+      }
+
+      if (this.projectCreateOverride) {
+        projectData = this.projectCreateOverride(projectData)
+      }
+
+      formData.append('data', JSON.stringify(projectData))
 
       try {
         await useBaseFetch('project', {

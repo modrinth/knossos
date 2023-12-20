@@ -1,20 +1,10 @@
 <template>
-  <div
-    v-if="organization"
-    class="normal-page"
-    :class="{ 'alt-layout': $route.name.startsWith('organization-id-settings') }"
-  >
-    <div>
-      <strong> TODO: remove debug </strong>
-      <div>
-        {{ organization }}
-      </div>
-    </div>
+  <div v-if="organization" class="normal-page">
     <div class="normal-page__sidebar">
       <Card>
         <div class="card__overlay input-group">
           <!-- If the user is able to edit org -->
-          <template v-if="hasPermission">
+          <template v-if="hasPermission && !routeHasSettings">
             <nuxt-link :to="`/organization/${organization.id}/settings`" class="btn">
               <EditIcon />
               Edit
@@ -27,9 +17,7 @@
             <Avatar size="md" :src="organization.icon_url" />
           </div>
           <div class="page-header__text">
-            <div class="title">
-              <h1>{{ organization.name }}</h1>
-            </div>
+            <h1 class="title">{{ organization.name }}</h1>
 
             <div class="collection-info">
               <div class="metadata-item markdown-body collection-description">
@@ -42,9 +30,9 @@
                 <UserIcon class="primary-stat__icon" aria-hidden="true" />
                 <div class="primary-stat__text">
                   <span class="primary-stat__counter">
-                    {{ $formatNumber(organization.members?.length || 0) }}
+                    {{ $formatNumber(acceptedMembers?.length || 0) }}
                   </span>
-                  member<span v-if="organization.members?.length !== 1">s</span>
+                  member<span v-if="acceptedMembers?.length !== 1">s</span>
                 </div>
               </div>
 
@@ -52,42 +40,39 @@
                 <BoxIcon class="primary-stat__icon" aria-hidden="true" />
                 <div class="primary-stat__text">
                   <span class="primary-stat__counter">
-                    {{ $formatNumber(organization.projects?.length || 0) }}
+                    {{ $formatNumber(projects?.length || 0) }}
                   </span>
                   project<span v-if="organization.projects?.length !== 1">s</span>
                 </div>
               </div>
-            </div>
 
-            <div class="metadata-item">
-              <div class="date">
-                <CalendarIcon />
-                <label>
-                  Created
-                  {{ fromNow(organization.updated) }}
-                </label>
+              <hr class="card-divider" />
+
+              <div class="stats-block__item secondary-stat">
+                <OrganizationIcon class="secondary-stat__icon" aria-hidden="true" />
+                <span class="secondary-stat__text">
+                  Org ID:
+                  <CopyCode :text="organization.id" />
+                </span>
               </div>
             </div>
           </div>
         </template>
       </Card>
+
       <Card class="creator-list">
         <div class="title-and-link">
           <h3>Creators</h3>
         </div>
-        <div
-          v-for="member in organization.members"
-          :key="member.user.id"
-          class="creator button-base"
-          @click="$router.push(`/user/${member.user.username}`)"
-        >
-          <Avatar :src="member.user.avatar_url" circle />
-          <p class="name">{{ member.user.username }}</p>
-          <p class="role">{{ member.role }}</p>
-        </div>
+        <template v-for="member in acceptedMembers" :key="member.user.id">
+          <nuxt-link class="creator button-base" :to="`/user/${member.user.username}`">
+            <Avatar :src="member.user.avatar_url" circle />
+            <p class="name">{{ member.user.username }}</p>
+            <p class="role">{{ member.role }}</p>
+          </nuxt-link>
+        </template>
       </Card>
     </div>
-
     <NuxtPage
       v-model:organization="organization"
       v-model:projects="projects"
@@ -99,12 +84,20 @@
     />
   </div>
 </template>
+
 <script setup>
-import { Avatar, Card, EditIcon, BoxIcon, CalendarIcon, UserIcon } from 'omorphia'
+import { Avatar, Card, CopyCode, EditIcon, BoxIcon, UserIcon } from 'omorphia'
+
+import OrganizationIcon from '~/assets/images/utils/organization.svg'
 
 const auth = await useAuth()
 const route = useRoute()
 const tags = useTags()
+
+const modalJoinConfirm = ref(null)
+
+// hacky way to show the edit button on the corner of the card.
+const routeHasSettings = computed(() => route.hash.startsWith('organization-id-settings'))
 
 const [{ data: organization }, { data: projects }] = await Promise.all([
   useAsyncData(`organization/${route.params.id}`, () =>
@@ -122,6 +115,8 @@ if (!organization.value) {
     message: 'Organization not found',
   })
 }
+
+const acceptedMembers = computed(() => organization.value.members.filter((x) => x.accepted))
 
 const currentMember = ref(
   auth.value.user && organization.value
@@ -183,10 +178,17 @@ const resetOrganization = async () => {
     apiVersion: 3,
   })
 }
+
+onMounted(() => {
+  if (currentMember.value && !currentMember.value.accepted) {
+    modalJoinConfirm.value?.show()
+  }
+})
 </script>
 <style scoped lang="scss">
 .card {
   padding: var(--spacing-card-lg);
+  overflow: hidden;
 
   .page-header__icon {
     margin-block: 0;
@@ -238,5 +240,23 @@ const resetOrganization = async () => {
       grid-area: avatar;
     }
   }
+}
+
+.secondary-stat {
+  align-items: center;
+  display: flex;
+  margin-bottom: 0.8rem;
+}
+
+.secondary-stat__icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.secondary-stat__text {
+  margin-left: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 </style>

@@ -543,6 +543,7 @@
           </div>
           <hr class="card-divider" />
         </template>
+        <h2 class="card-header">Org</h2>
         <h2 class="card-header">Project members</h2>
         <nuxt-link
           v-for="member in members"

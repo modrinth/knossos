@@ -3,23 +3,6 @@
     <Card>
       <div class="label">
         <h3>
-          <span class="label__title size-card-header"> Transfer ownership </span>
-        </h3>
-      </div>
-      <span class="label">
-        <span class="label__title">To an organization</span>
-        <span class="label__description">
-          Transfer ownership of this project to an organization. This will remove you as a member of
-          this project.
-        </span>
-      </span>
-      <div>
-        <DropdownSelect name="Orgs" />
-      </div>
-    </Card>
-    <Card>
-      <div class="label">
-        <h3>
           <span class="label__title size-card-header">Manage members</span>
         </h3>
       </div>
@@ -253,19 +236,15 @@
         </div>
       </div>
     </div>
-    <div>
-      <pre><code>{{ orgs.data }}</code></pre>
-    </div>
   </div>
 </template>
 
 <script setup>
-import { Avatar, Badge, Card, Checkbox, DropdownSelect } from 'omorphia'
+import { Avatar, Badge, Card, Checkbox, TransferIcon } from 'omorphia'
 import { defineProps } from 'vue'
 
 import DropdownIcon from '~/assets/images/utils/dropdown.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
-import TransferIcon from '~/assets/images/utils/transfer.svg'
 import UserPlusIcon from '~/assets/images/utils/user-plus.svg'
 import UserRemoveIcon from '~/assets/images/utils/user-x.svg'
 

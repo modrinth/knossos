@@ -1,9 +1,14 @@
 <script setup>
-import { SearchIcon, Button, XIcon, Promotion, ProjectCard } from 'omorphia'
+import { CheckIcon, XIcon, Promotion, ProjectCard } from 'omorphia'
+import { acceptTeamInvite, removeTeamMember } from '~/helpers/teams.js'
+
+import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
+
 const cosmetics = useCosmetics()
 const tags = useTags()
 const auth = await useAuth()
 const user = await useUser()
+
 const props = defineProps({
   organization: {
     type: Object,
@@ -21,36 +26,73 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  resetOrganization: {
+    type: Function,
+    default: () => {},
+  },
+  currentMember: {
+    type: Object,
+    default: () => ({}),
+  },
 })
-const inputText = ref('')
+
 const selectedFilters = ref([])
+
 selectedFilters.value.push(
   ...props.projects.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
 )
+
+const protectedRequest = async (r) => {
+  startLoading()
+
+  try {
+    await r()
+    await props.resetOrganization()
+  } catch (error) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: error?.data?.description || error.message || error || 'Unknown error',
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
+const acceptInvite = async () => {
+  await protectedRequest(async () => await acceptTeamInvite(props.organization.team_id))
+}
+
+const declineInvite = async () => {
+  await protectedRequest(
+    async () => await removeTeamMember(props.organization.team_id, auth.value?.user.id)
+  )
+}
 </script>
 
 <template>
   <div class="normal-page__content">
-    <Promotion />
-    <div class="search-row">
-      <div class="iconified-input">
-        <SearchIcon />
-        <input id="search-input" v-model="inputText" type="text" placeholder="Search projects..." />
-        <Button class="r-btn" :class="inputText ? '' : 'empty'" @click="() => (inputText = '')">
-          <XIcon />
-        </Button>
+    <div v-if="props.currentMember?.accepted === false" class="universal-card information invited">
+      <h2>Invitation to join {{ organization.name }}</h2>
+      <p>You've been invited be a member of this organization.</p>
+      <div class="input-group">
+        <button class="iconified-button brand-button" @click="acceptInvite()">
+          <CheckIcon />Accept
+        </button>
+        <button class="iconified-button danger-button" @click="declineInvite()">
+          <XIcon />Decline
+        </button>
       </div>
     </div>
-
-    <template v-if="projects?.length > 0">
+    <Promotion />
+    <template v-if="props.projects?.length > 0">
       <div class="project-list display-mode--list">
         <ProjectCard
-          v-for="project in projects
-            .filter((p) => typeFilter === p.project_type || typeFilter === 'all')
-            .filter((p) => p.title.toLowerCase().includes(inputText.toLowerCase()))"
+          v-for="project in props.projects"
           :id="project.slug || project.id"
           :key="project.id"
-          :name="project.title"
+          :name="project.name"
           :display="cosmetics.searchDisplayMode.user"
           :featured-image="
             project.gallery
@@ -58,7 +100,8 @@ selectedFilters.value.push(
               .sort((a, b) => b.featured - a.featured)
               .map((x) => x.url)[0]
           "
-          :description="project.description"
+          project-type-url="project"
+          :description="project.summary"
           :created-at="project.published"
           :updated-at="project.updated"
           :downloads="project.downloads.toString()"
@@ -78,9 +121,15 @@ selectedFilters.value.push(
       </div>
     </template>
 
-    <template v-else>
-      <div class="title">TODO: No projects found</div>
-    </template>
+    <div v-else-if="true" class="error">
+      <UpToDate class="icon" /><br />
+      <span class="preserve-lines text">
+        This organization doesn't have any projects yet. Would you like to
+        <nuxt-link :to="`/organization/${organization.id}/settings/projects`" class="url"
+          >create one?</nuxt-link
+        >?
+      </span>
+    </div>
   </div>
 </template>
 

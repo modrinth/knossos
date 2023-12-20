@@ -131,7 +131,7 @@
             )"
             :key="project.id"
           >
-            {{ project.title }}
+            {{ project.name }}
           </li>
           <li v-if="!editLinks.showAffected && selectedProjects.length > 3">
             <strong>and {{ selectedProjects.length - 3 }} more...</strong>
@@ -158,138 +158,142 @@
       </div>
     </Modal>
     <ModalCreation ref="modal_creation" :organization="organization" />
-    <h2>Projects</h2>
-    <div class="input-group">
-      <Button color="primary" @click="$refs.modal_creation.show()">
-        <PlusIcon />
-        Create a project
-      </Button>
-    </div>
-    <p v-if="sortedProjects.length < 1">
-      You don't have any projects yet. Click the green button above to begin.
-    </p>
-    <template v-else>
-      <p>You can edit multiple projects at once by selecting them below.</p>
+    <Card>
+      <h2>Projects</h2>
       <div class="input-group">
-        <Button :disabled="selectedProjects.length === 0" @click="$refs.editLinksModal.show()">
-          <EditIcon />
-          Edit links
+        <Button color="primary" @click="$refs.modal_creation.show()">
+          <PlusIcon />
+          Create a project
         </Button>
-        <div class="push-right">
-          <div class="labeled-control-row">
-            Sort by
-            <Multiselect
-              v-model="sortBy"
-              :searchable="false"
-              class="small-select"
-              :options="['Name', 'Status', 'Type']"
-              :close-on-select="true"
-              :show-labels="false"
-              :allow-empty="false"
-              @update:model-value="sortedProjects = updateSort(sortedProjects, sortBy, descending)"
-            />
-            <Button
-              v-tooltip="descending ? 'Descending' : 'Ascending'"
-              class="square-button"
-              icon-only
-              @click="updateDescending()"
-            >
-              <SortDescendingIcon v-if="descending" />
-              <SortAscendingIcon v-else />
-            </Button>
-          </div>
-        </div>
       </div>
-      <div class="table">
-        <div class="table-row table-head">
-          <div class="table-cell check-cell">
-            <Checkbox
-              :model-value="selectedProjects === sortedProjects"
-              @update:model-value="
-                selectedProjects === sortedProjects
-                  ? (selectedProjects = [])
-                  : (selectedProjects = sortedProjects)
-              "
-            />
+      <p v-if="sortedProjects.length < 1">
+        You don't have any projects yet. Click the green button above to begin.
+      </p>
+      <template v-else>
+        <p>You can edit multiple projects at once by selecting them below.</p>
+        <div class="input-group">
+          <Button :disabled="selectedProjects.length === 0" @click="$refs.editLinksModal.show()">
+            <EditIcon />
+            Edit links
+          </Button>
+          <div class="push-right">
+            <div class="labeled-control-row">
+              Sort by
+              <Multiselect
+                v-model="sortBy"
+                :searchable="false"
+                class="small-select"
+                :options="['Name', 'Status', 'Type']"
+                :close-on-select="true"
+                :show-labels="false"
+                :allow-empty="false"
+                @update:model-value="
+                  sortedProjects = updateSort(sortedProjects, sortBy, descending)
+                "
+              />
+              <Button
+                v-tooltip="descending ? 'Descending' : 'Ascending'"
+                class="square-button"
+                icon-only
+                @click="updateDescending()"
+              >
+                <SortDescendingIcon v-if="descending" />
+                <SortAscendingIcon v-else />
+              </Button>
+            </div>
           </div>
-          <div class="table-cell">Icon</div>
-          <div class="table-cell">Name</div>
-          <div class="table-cell">ID</div>
-          <div class="table-cell">Type</div>
-          <div class="table-cell">Status</div>
-          <div class="table-cell" />
         </div>
-        <div v-for="project in sortedProjects" :key="`project-${project.id}`" class="table-row">
-          <div class="table-cell check-cell">
-            <Checkbox
-              :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
-              :model-value="selectedProjects.includes(project)"
-              @update:model-value="
-                selectedProjects.includes(project)
-                  ? (selectedProjects = selectedProjects.filter((it) => it !== project))
-                  : selectedProjects.push(project)
-              "
-            />
-          </div>
-          <div class="table-cell">
-            <nuxt-link
-              tabindex="-1"
-              :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                project.slug ? project.slug : project.id
-              }`"
-            >
-              <Avatar
-                :src="project.icon_url"
-                aria-hidden="true"
-                :alt="'Icon for ' + project.title"
-                no-shadow
+        <div class="table">
+          <div class="table-row table-head">
+            <div class="table-cell check-cell">
+              <Checkbox
+                :model-value="selectedProjects === sortedProjects"
+                @update:model-value="
+                  selectedProjects === sortedProjects
+                    ? (selectedProjects = [])
+                    : (selectedProjects = sortedProjects)
+                "
               />
-            </nuxt-link>
+            </div>
+            <div class="table-cell">Icon</div>
+            <div class="table-cell">Name</div>
+            <div class="table-cell">ID</div>
+            <div class="table-cell">Type</div>
+            <div class="table-cell">Status</div>
+            <div class="table-cell" />
           </div>
-
-          <div class="table-cell">
-            <span class="project-title">
-              <IssuesIcon
-                v-if="project.moderator_message"
-                aria-label="Project has a message from the moderators. View the project to see more."
+          <div v-for="project in sortedProjects" :key="`project-${project.id}`" class="table-row">
+            <div class="table-cell check-cell">
+              <Checkbox
+                :disabled="(project.permissions & EDIT_DETAILS) === EDIT_DETAILS"
+                :model-value="selectedProjects.includes(project)"
+                @update:model-value="
+                  selectedProjects.includes(project)
+                    ? (selectedProjects = selectedProjects.filter((it) => it !== project))
+                    : selectedProjects.push(project)
+                "
               />
-
+            </div>
+            <div class="table-cell">
               <nuxt-link
-                class="hover-link wrap-as-needed"
+                tabindex="-1"
                 :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
                   project.slug ? project.slug : project.id
                 }`"
               >
-                {{ project.title }}
+                <Avatar
+                  :src="project.icon_url"
+                  aria-hidden="true"
+                  :alt="'Icon for ' + project.name"
+                  no-shadow
+                />
               </nuxt-link>
-            </span>
-          </div>
+            </div>
 
-          <div class="table-cell">
-            <CopyCode :text="project.id" />
-          </div>
+            <div class="table-cell">
+              <span class="project-title">
+                <IssuesIcon
+                  v-if="project.moderator_message"
+                  aria-label="Project has a message from the moderators. View the project to see more."
+                />
 
-          <div class="table-cell">
-            {{ formatProjectType(getProjectTypeForUrl(project.project_type, project.loaders)) }}
-          </div>
+                <nuxt-link
+                  class="hover-link wrap-as-needed"
+                  :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                    project.slug ? project.slug : project.id
+                  }`"
+                >
+                  {{ project.name }}
+                </nuxt-link>
+              </span>
+            </div>
 
-          <div class="table-cell">
-            <Badge v-if="project.status" :type="project.status" class="status" />
-          </div>
+            <div class="table-cell">
+              <CopyCode :text="project.id" />
+            </div>
 
-          <div class="table-cell">
-            <nuxt-link
-              class="btn icon-only"
-              :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                project.slug ? project.slug : project.id
-              }/settings`"
-            >
-              <SettingsIcon />
-            </nuxt-link>
+            <div class="table-cell">
+              {{ formatProjectType(getProjectTypeForUrl(project.project_type, project.loaders)) }}
+            </div>
+
+            <div class="table-cell">
+              <Badge v-if="project.status" :type="project.status" class="status" />
+            </div>
+
+            <div class="table-cell">
+              <nuxt-link
+                class="btn icon-only"
+                :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
+                  project.slug ? project.slug : project.id
+                }/settings`"
+              >
+                <SettingsIcon />
+              </nuxt-link>
+            </div>
           </div>
         </div>
-      </div>
-    </template>
+      </template>
+    </Card>
   </div>
 </template>
 
@@ -300,6 +304,7 @@ import {
   Checkbox,
   Modal,
   Avatar,
+  Card,
   CopyCode,
   SettingsIcon,
   TrashIcon,
@@ -339,7 +344,7 @@ const updateSort = (inputProjects, sort, descending) => {
   switch (sort) {
     case 'Name':
       sortedArray = inputProjects.slice().sort((a, b) => {
-        return a.title.localeCompare(b.title)
+        return a.name.localeCompare(b.name)
       })
       break
     case 'Status':
