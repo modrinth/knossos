@@ -82,6 +82,7 @@ export const configuredXss = new xss.FilterXSS({
           'staging-cdn.modrinth.com',
           'github.com',
           'raw.githubusercontent.com',
+          'user-images.githubusercontent.com',
           'img.shields.io',
           'i.postimg.cc',
           'wsrv.nl',
