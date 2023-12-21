@@ -322,7 +322,7 @@ const onRemoveMember = useClientTry(async (teamId, member) => {
     text: `${member.user.username} has been removed from the project.`,
     type: 'success',
   })
-}, errorHandler)
+})
 
 const onUpdateTeamMember = useClientTry(async (teamId, member) => {
   const data =
@@ -347,7 +347,7 @@ const onUpdateTeamMember = useClientTry(async (teamId, member) => {
     text: `${member.user.name || member.user.username} has been updated.`,
     type: 'success',
   })
-}, errorHandler)
+})
 
 const onTransferOwnership = useClientTry(async (teamId, uid) => {
   const data = {
@@ -364,7 +364,7 @@ const onTransferOwnership = useClientTry(async (teamId, uid) => {
     text: `The ownership of ${organization.value.name} has been successfully transferred.`,
     type: 'success',
   })
-}, errorHandler)
+})
 </script>
 
 <style lang="scss" scoped>
