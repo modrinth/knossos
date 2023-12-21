@@ -3,8 +3,8 @@
     <div class="universal-modal modal-creation universal-labels">
       <div class="markdown-body">
         <p>
-          Organizations can be found under your profile page. You will be set as its owner, but
-          you can invite other members and transfer ownership at any time.
+          Organizations can be found under your profile page. You will be set as its owner, but you
+          can invite other members and transfer ownership at any time.
         </p>
       </div>
       <label for="name">
@@ -47,6 +47,14 @@ const name = ref('')
 const description = ref('')
 
 const modal = ref()
+
+watch([() => name.value], () => {
+  // keep name url safe
+  name.value = name.value
+    .trim()
+    .replace(/ +/g, '')
+    .replace(/[^a-zA-Z0-9-_]/g, '')
+})
 
 async function createProject() {
   startLoading()

@@ -24,6 +24,15 @@ const deletedIcon = ref(false)
 const previewImage = ref(null)
 
 const name = ref(organization.value.name)
+
+watch([() => name.value], () => {
+  // keep name url safe
+  name.value = name.value
+    .trim()
+    .replace(/ +/g, '')
+    .replace(/[^a-zA-Z0-9-_]/g, '')
+})
+
 const summary = ref(organization.value.description)
 
 const patchData = computed(() => {
