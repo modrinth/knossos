@@ -150,7 +150,7 @@
             <XIcon />
             Cancel
           </Button>
-          <Button color="primary" @click="bulkEditLinks()">
+          <Button color="primary" @click="onBulkEditLinks">
             <SaveIcon />
             Save changes
           </Button>
@@ -315,7 +315,7 @@ import ModalCreation from '~/components/ui/ModalCreation.vue'
 
 const { organization, projects } = inject('organizationContext')
 
-const EDIT_DETAILS = shallowRef(1 << 2)
+const EDIT_DETAILS = 1 << 2
 
 const updateSort = (inputProjects, sort, descending) => {
   let sortedArray = inputProjects
@@ -363,7 +363,8 @@ const selectedProjects = ref([])
 const sortBy = ref('Name')
 const descending = ref(false)
 const editLinksModal = ref(null)
-const editLinks = ref({
+
+const emptyLinksData = {
   showAffected: false,
   source: {
     val: '',
@@ -381,69 +382,61 @@ const editLinks = ref({
     val: '',
     clear: false,
   },
-})
+}
+
+const editLinks = ref(emptyLinksData)
 
 const updateDescending = () => {
   descending.value = !descending.value
   sortedProjects.value = updateSort(sortedProjects.value, sortBy.value, descending.value)
 }
 
-const bulkEditLinks = async () => {
-  try {
-    const baseData = {
-      issues_url: editLinks.issues.clear ? null : editLinks.issues.val.trim(),
-      source_url: editLinks.source.clear ? null : editLinks.source.val.trim(),
-      wiki_url: editLinks.wiki.clear ? null : editLinks.wiki.val.trim(),
-      discord_url: editLinks.discord.clear ? null : editLinks.discord.val.trim(),
-    }
+const onBulkEditLinks = useClientTry(async () => {
+  const linkData = editLinks.value
 
-    if (!baseData.issues_url?.length ?? 1 > 0) {
-      delete baseData.issues_url
-    }
+  const baseData = {}
 
-    if (!baseData.source_url?.length ?? 1 > 0) {
-      delete baseData.source_url
-    }
-
-    if (!baseData.wiki_url?.length ?? 1 > 0) {
-      delete baseData.wiki_url
-    }
-
-    if (!baseData.discord_url?.length ?? 1 > 0) {
-      delete baseData.discord_url
-    }
-
-    await useBaseFetch(`projects?ids=${JSON.stringify(selectedProjects.value.map((x) => x.id))}`, {
-      method: 'PATCH',
-      body: baseData,
-    })
-
-    editLinksModal.value.hide()
-    $notify({
-      group: 'main',
-      title: 'Success',
-      text: "Bulk edited selected project's links.",
-      type: 'success',
-    })
-    selectedProjects.value = []
-
-    editLinks.issues.val = ''
-    editLinks.source.val = ''
-    editLinks.wiki.val = ''
-    editLinks.discord.val = ''
-    editLinks.issues.clear = false
-    editLinks.source.clear = false
-    editLinks.wiki.clear = false
-    editLinks.discord.clear = false
-  } catch (e) {
-    $notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: e,
-      type: 'error',
-    })
+  if (linkData.issues.clear) {
+    baseData.issues_url = null
+  } else if (linkData.issues.val.trim().length > 0) {
+    baseData.issues_url = linkData.issues.val.trim()
   }
-}
+
+  if (linkData.source.clear) {
+    baseData.source_url = null
+  } else if (linkData.source.val.trim().length > 0) {
+    baseData.source_url = linkData.source.val.trim()
+  }
+
+  if (linkData.wiki.clear) {
+    baseData.wiki_url = null
+  } else if (linkData.wiki.val.trim().length > 0) {
+    baseData.wiki_url = linkData.wiki.val.trim()
+  }
+
+  if (linkData.discord.clear) {
+    baseData.discord_url = null
+  } else if (linkData.discord.val.trim().length > 0) {
+    baseData.discord_url = linkData.discord.val.trim()
+  }
+
+  await useBaseFetch(`projects?ids=${JSON.stringify(selectedProjects.value.map((x) => x.id))}`, {
+    method: 'PATCH',
+    body: JSON.stringify(baseData),
+  })
+
+  editLinksModal.value.hide()
+
+  addNotification({
+    group: 'main',
+    title: 'Success',
+    text: "Bulk edited selected project's links.",
+    type: 'success',
+  })
+
+  selectedProjects.value = []
+  editLinks.value = emptyLinksData
+})
 </script>
 <style lang="scss" scoped>
 .table {
