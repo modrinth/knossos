@@ -8,64 +8,19 @@
     <Card class="nav-spacing">
       <NavRow :links="links" />
     </Card>
-    <NuxtPage
-      :organization="props.organization"
-      :projects="props.projects"
-      :current-member="props.currentMember"
-      :patch-organization="props.patchOrganization"
-      :reset-organization="props.resetOrganization"
-      :patch-icon="props.patchIcon"
-      :delete-icon="props.deleteIcon"
-    />
+    <NuxtPage />
   </div>
 </template>
 
 <script setup>
 import { Card, NavRow, LeftArrowIcon } from 'omorphia'
 
-const props = defineProps({
-  organization: {
-    type: Object,
-    default() {
-      return {}
-    },
-  },
-  projects: {
-    type: Array,
-    default() {
-      return []
-    },
-  },
-  typeFilter: {
-    type: String,
-    default: '',
-  },
-  resetOrganization: {
-    type: Function,
-    default: () => {},
-  },
-  currentMember: {
-    type: Object,
-    default: () => ({}),
-  },
-  patchOrganization: {
-    type: Function,
-    default: () => {},
-  },
-  patchIcon: {
-    type: Function,
-    default: () => {},
-  },
-  deleteIcon: {
-    type: Function,
-    default: () => {},
-  },
-})
+const { organization } = inject('organizationContext')
 
 const links = [
-  { label: 'settings', href: `/organization/${props.organization.id}/settings` },
-  { label: 'members', href: `/organization/${props.organization.id}/settings/members` },
-  { label: 'projects', href: `/organization/${props.organization.id}/settings/projects` },
+  { label: 'settings', href: `/organization/${organization.value.id}/settings` },
+  { label: 'members', href: `/organization/${organization.value.id}/settings/members` },
+  { label: 'projects', href: `/organization/${organization.value.id}/settings/projects` },
 ]
 </script>
 

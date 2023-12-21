@@ -9,87 +9,52 @@ const tags = useTags()
 const auth = await useAuth()
 const user = await useUser()
 
-const props = defineProps({
-  organization: {
-    type: Object,
-    default() {
-      return {}
-    },
-  },
-  projects: {
-    type: Array,
-    default() {
-      return []
-    },
-  },
-  typeFilter: {
-    type: String,
-    default: '',
-  },
-  resetOrganization: {
-    type: Function,
-    default: () => {},
-  },
-  currentMember: {
-    type: Object,
-    default: () => ({}),
-  },
+const {
+  organization,
+  refresh: refreshOrganization,
+  projects,
+  currentMember,
+} = inject('organizationContext')
+
+const isInvited = computed(() => {
+  return currentMember.value?.accepted === false
 })
 
 const selectedFilters = ref([])
-
 selectedFilters.value.push(
-  ...props.projects.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
+  ...projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
 )
 
-const protectedRequest = async (r) => {
-  startLoading()
+const onAcceptInvite = useClientTry(async () => {
+  await acceptTeamInvite(organization.value.team_id)
+  await refreshOrganization()
+})
 
-  try {
-    await r()
-    await props.resetOrganization()
-  } catch (error) {
-    addNotification({
-      group: 'main',
-      title: 'An error occurred',
-      text: error?.data?.description || error.message || error || 'Unknown error',
-      type: 'error',
-    })
-  }
-
-  stopLoading()
-}
-
-const acceptInvite = async () => {
-  await protectedRequest(async () => await acceptTeamInvite(props.organization.team_id))
-}
-
-const declineInvite = async () => {
-  await protectedRequest(
-    async () => await removeTeamMember(props.organization.team_id, auth.value?.user.id)
-  )
-}
+const onDeclineInvite = useClientTry(async () => {
+  await removeTeamMember(organization.value.team_id, auth.value?.user.id)
+  await refreshOrganization()
+})
 </script>
 
 <template>
   <div class="normal-page__content">
-    <div v-if="props.currentMember?.accepted === false" class="universal-card information invited">
+    <div v-if="isInvited" class="universal-card information invited">
       <h2>Invitation to join {{ organization.name }}</h2>
       <p>You have been invited to join {{ organization.name }}.</p>
       <div class="input-group">
-        <button class="iconified-button brand-button" @click="acceptInvite()">
+        <button class="iconified-button brand-button" @click="onAcceptInvite">
           <CheckIcon />Accept
         </button>
-        <button class="iconified-button danger-button" @click="declineInvite()">
+        <button class="iconified-button danger-button" @click="onDeclineInvite">
           <XIcon />Decline
         </button>
       </div>
     </div>
     <Promotion />
-    <template v-if="props.projects?.length > 0">
+    <template v-if="projects?.length > 0">
       <div class="project-list display-mode--list">
         <ProjectCard
-          v-for="project in props.projects"
+          v-for="project in projects"
           :id="project.slug || project.id"
           :key="project.id"
           :name="project.name"

@@ -72,14 +72,7 @@
         </template>
       </Card>
     </div>
-    <NuxtPage
-      v-model:organization="organization"
-      v-model:projects="projects"
-      :current-member="currentMember"
-      :reset-organization="resetOrganization"
-      :patch-icon="patchIcon"
-      :delete-icon="deleteIcon"
-    />
+    <NuxtPage />
   </div>
 </template>
 
@@ -93,8 +86,6 @@ const route = useRoute()
 const tags = useTags()
 
 const orgId = useRouteId()
-
-const modalJoinConfirm = ref(null)
 
 // hacky way to show the edit button on the corner of the card.
 const routeHasSettings = computed(() => route.path.includes('settings'))
@@ -125,39 +116,33 @@ if (!organization.value) {
 
 const acceptedMembers = computed(() => organization.value.members.filter((x) => x.accepted))
 
-const currentMember = ref(
-  auth.value.user && organization.value
-    ? organization.value.members.find((x) => x.user.id === auth.value.user.id)
-    : null
-)
+const currentMember = computed(() => {
+  if (auth.value.user && organization.value) {
+    const member = organization.value.members.find((x) => x.user.id === auth.value.user.id)
 
-if (
-  !currentMember.value &&
-  auth.value.user &&
-  tags.value.staffRoles.includes(auth.value.user.role)
-) {
-  currentMember.value = {
-    user: auth.value.user,
-    role: auth.value.role,
-    permissions: auth.value.user.role === 'admin' ? 1023 : 12,
-    accepted: true,
-    payouts_split: 0,
-    avatar_url: auth.value.user.avatar_url,
-    name: auth.value.user.username,
+    if (member) {
+      return member
+    }
+
+    if (tags.value.staffRoles.includes(auth.value.user.role)) {
+      return {
+        user: auth.value.user,
+        role: auth.value.user.role,
+        permissions: auth.value.user.role === 'admin' ? 1023 : 12,
+        accepted: true,
+        payouts_split: 0,
+        avatar_url: auth.value.user.avatar_url,
+        name: auth.value.user.username,
+      }
+    }
   }
-}
+
+  return null
+})
 
 const hasPermission = computed(() => {
   const EDIT_DETAILS = 1 << 2
   return currentMember.value && (currentMember.value.permissions & EDIT_DETAILS) === EDIT_DETAILS
-})
-
-provide('organizationContext', {
-  organization,
-  projects,
-  refresh,
-  currentMember,
-  hasPermission,
 })
 
 const patchIcon = async (icon) => {
@@ -177,16 +162,23 @@ const deleteIcon = async () => {
   })
 }
 
-const resetOrganization = async () => {
-  organization.value = await useBaseFetch(`organization/${organization.value.id}`, {
+const patchOrganization = async (orgId, newData) => {
+  await useBaseFetch(`organization/${orgId}`, {
+    method: 'PATCH',
+    body: newData,
     apiVersion: 3,
   })
 }
 
-onMounted(() => {
-  if (currentMember.value && !currentMember.value.accepted) {
-    modalJoinConfirm.value?.show()
-  }
+provide('organizationContext', {
+  organization,
+  projects,
+  refresh,
+  currentMember,
+  hasPermission,
+  patchIcon,
+  deleteIcon,
+  patchOrganization,
 })
 </script>
 <style scoped lang="scss">

@@ -313,20 +313,7 @@ import {
 import { getProjectTypeForUrl } from '~/helpers/projects.js'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
-const props = defineProps({
-  organization: {
-    type: Object,
-    default() {
-      return {}
-    },
-  },
-  projects: {
-    type: Array,
-    default() {
-      return []
-    },
-  },
-})
+const { organization, projects } = inject('organizationContext')
 
 const EDIT_DETAILS = shallowRef(1 << 2)
 
@@ -371,7 +358,7 @@ const updateSort = (inputProjects, sort, descending) => {
   return sortedArray
 }
 
-const sortedProjects = ref(updateSort(props.projects, 'Name'))
+const sortedProjects = ref(updateSort(projects.value, 'Name'))
 const selectedProjects = ref([])
 const sortBy = ref('Name')
 const descending = ref(false)

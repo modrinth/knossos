@@ -10,42 +10,14 @@ import {
   ConfirmModal,
 } from 'omorphia'
 
-import { patchOrganization } from '~/utils/organizations.js'
-
-const props = defineProps({
-  resetOrganization: {
-    type: Function,
-    default() {
-      return () => {}
-    },
-  },
-  patchIcon: {
-    type: Function,
-    default() {
-      return () => {}
-    },
-  },
-  deleteIcon: {
-    type: Function,
-    default() {
-      return () => {}
-    },
-  },
-  currentMember: {
-    type: Object,
-    default() {
-      return {}
-    },
-  },
-  deleteOrganization: {
-    type: Function,
-    default() {
-      return () => {}
-    },
-  },
-})
-
-const { organization, refresh: refreshOrganization, hasPermission } = inject('organizationContext')
+const {
+  organization,
+  refresh: refreshOrganization,
+  hasPermission,
+  deleteIcon,
+  patchIcon,
+  patchOrganization,
+} = inject('organizationContext')
 
 const icon = ref(null)
 const deletedIcon = ref(false)
@@ -89,40 +61,44 @@ const showPreviewImage = (files) => {
 
 const orgId = useRouteId()
 
-const saveChanges = async () => {
-  startLoading()
-
-  try {
-    if (hasChanges.value) {
-      await patchOrganization(orgId, patchData.value)
-    }
-
-    if (deletedIcon.value) {
-      await props.deleteIcon()
-      deletedIcon.value = false
-    } else if (icon.value) {
-      await props.patchIcon(icon.value)
-      icon.value = null
-    }
-
-    await refreshOrganization()
-    addNotification({
-      group: 'main',
-      title: 'Organization updated',
-      text: 'Your organization has been updated.',
-      type: 'success',
-    })
-  } catch (err) {
-    addNotification({
-      group: 'main',
-      title: 'An error occurred',
-      text: err,
-      type: 'error',
-    })
+const onSaveChanges = useClientTry(async () => {
+  if (hasChanges.value) {
+    await patchOrganization(orgId, patchData.value)
   }
 
-  stopLoading()
-}
+  if (deletedIcon.value) {
+    await deleteIcon()
+    deletedIcon.value = false
+  } else if (icon.value) {
+    await patchIcon(icon.value)
+    icon.value = null
+  }
+
+  await refreshOrganization()
+
+  addNotification({
+    group: 'main',
+    title: 'Organization updated',
+    text: 'Your organization has been updated.',
+    type: 'success',
+  })
+})
+
+const onDeleteOrganization = useClientTry(async () => {
+  await useBaseFetch(`organization/${orgId}`, {
+    method: 'DELETE',
+    apiVersion: 3,
+  })
+
+  addNotification({
+    group: 'main',
+    title: 'Organization deleted',
+    text: 'Your organization has been deleted.',
+    type: 'success',
+  })
+
+  await navigateTo('/dashboard/organizations')
+})
 </script>
 
 <template>
@@ -134,7 +110,7 @@ const saveChanges = async () => {
       :has-to-type="true"
       proceed-label="Delete"
       :confirmation-text="organization.name"
-      @proceed="deleteOrganization"
+      @proceed="onDeleteOrganization"
     />
     <Card>
       <div class="label">
@@ -199,7 +175,7 @@ const saveChanges = async () => {
         />
       </div>
       <div class="button-group">
-        <Button color="primary" :disabled="!hasChanges" @click="saveChanges()">
+        <Button color="primary" :disabled="!hasChanges" @click="onSaveChanges">
           <SaveIcon />
           Save changes
         </Button>

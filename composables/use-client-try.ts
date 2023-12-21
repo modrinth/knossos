@@ -1,5 +1,5 @@
 type AsyncFunction<TArgs extends any[], TResult> = (...args: TArgs) => Promise<TResult>
-type ErrorFunction = (err: unknown) => void | Promise<void>
+type ErrorFunction = (err: any) => void | Promise<void>
 type VoidFunction = () => void | Promise<void>
 
 type useClientTry = <TArgs extends any[], TResult>(
@@ -8,8 +8,17 @@ type useClientTry = <TArgs extends any[], TResult>(
   onFinish?: VoidFunction
 ) => (...args: TArgs) => Promise<TResult | undefined>
 
+const defaultOnError: ErrorFunction = (error) => {
+  addNotification({
+    group: 'main',
+    title: 'An error occurred',
+    text: error?.data?.description || error.message || error || 'Unknown error',
+    type: 'error',
+  })
+}
+
 export const useClientTry: useClientTry =
-  (fn, onFail, onFinish) =>
+  (fn, onFail = defaultOnError, onFinish) =>
   async (...args) => {
     startLoading()
     try {
