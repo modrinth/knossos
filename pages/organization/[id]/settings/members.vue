@@ -294,16 +294,8 @@ const leaveProject = async () => {
   await navigateTo(`/organization/${organization.value.title}`)
 }
 
-const errorHandler = (err) => {
-  addNotification({
-    group: 'main',
-    title: 'An error occurred',
-    text: err?.data?.description || err?.message || err,
-    type: 'error',
-  })
-}
-
-const inviteTeamMember = useClientTry(async (teamId, user) => {
+const onInviteTeamMember = useClientTry(async (teamId, username) => {
+  const user = await useBaseFetch(`user/${username}`)
   const data = {
     user_id: user.id.trim(),
   }
@@ -319,12 +311,7 @@ const inviteTeamMember = useClientTry(async (teamId, user) => {
     text: `${user.name || user.username} has been invited to the project.`,
     type: 'success',
   })
-}, errorHandler)
-
-const onInviteTeamMember = async (username) => {
-  const user = await useBaseFetch(`user/${username}`)
-  await inviteTeamMember(organization.value.team_id, user)
-}
+})
 
 const onRemoveMember = useClientTry(async (teamId, member) => {
   await removeTeamMember(teamId, member.user.id)

@@ -266,7 +266,10 @@
             </div>
 
             <div class="table-cell">
-              {{ formatProjectType(getProjectTypeForUrl(project.project_type, project.loaders)) }}
+              <BoxIcon />
+              <span>{{
+                $formatProjectType($getProjectTypeForDisplay(project.project_type, project.loaders))
+              }}</span>
             </div>
 
             <div class="table-cell">
@@ -293,6 +296,7 @@ import { Multiselect } from 'vue-multiselect'
 import {
   Badge,
   Checkbox,
+  BoxIcon,
   Modal,
   Avatar,
   Card,
@@ -307,10 +311,8 @@ import {
   Button,
   SortAscendingIcon,
   SortDescendingIcon,
-  formatProjectType,
 } from 'omorphia'
 
-import { getProjectTypeForUrl } from '~/helpers/projects.js'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 
 const { organization, projects } = inject('organizationContext')
