@@ -11,53 +11,52 @@
             </nuxt-link>
           </template>
         </div>
-        <!-- Content -->
-        <template v-if="true">
-          <div class="page-header__icon">
-            <Avatar size="md" :src="organization.icon_url" />
-          </div>
-          <div class="page-header__text">
-            <h1 class="title">{{ organization.name }}</h1>
 
-            <div class="collection-info">
-              <div class="metadata-item markdown-body collection-description">
-                <p>{{ organization.description }}</p>
-              </div>
+        <div class="page-header__icon">
+          <Avatar size="md" :src="organization.icon_url" />
+        </div>
 
-              <hr class="card-divider" />
+        <div class="page-header__text">
+          <h1 class="title">{{ organization.name }}</h1>
 
-              <div class="primary-stat">
-                <UserIcon class="primary-stat__icon" aria-hidden="true" />
-                <div class="primary-stat__text">
-                  <span class="primary-stat__counter">
-                    {{ $formatNumber(acceptedMembers?.length || 0) }}
-                  </span>
-                  member<span v-if="acceptedMembers?.length !== 1">s</span>
-                </div>
-              </div>
+          <div class="collection-info">
+            <div class="metadata-item markdown-body collection-description">
+              <p>{{ organization.description }}</p>
+            </div>
 
-              <div class="primary-stat">
-                <BoxIcon class="primary-stat__icon" aria-hidden="true" />
-                <div class="primary-stat__text">
-                  <span class="primary-stat__counter">
-                    {{ $formatNumber(projects?.length || 0) }}
-                  </span>
-                  project<span v-if="organization.projects?.length !== 1">s</span>
-                </div>
-              </div>
+            <hr class="card-divider" />
 
-              <hr class="card-divider" />
-
-              <div class="stats-block__item secondary-stat">
-                <OrganizationIcon class="secondary-stat__icon" aria-hidden="true" />
-                <span class="secondary-stat__text">
-                  Org ID:
-                  <CopyCode :text="organization.id" />
+            <div class="primary-stat">
+              <UserIcon class="primary-stat__icon" aria-hidden="true" />
+              <div class="primary-stat__text">
+                <span class="primary-stat__counter">
+                  {{ $formatNumber(acceptedMembers?.length || 0) }}
                 </span>
+                member<span v-if="acceptedMembers?.length !== 1">s</span>
               </div>
             </div>
+
+            <div class="primary-stat">
+              <BoxIcon class="primary-stat__icon" aria-hidden="true" />
+              <div class="primary-stat__text">
+                <span class="primary-stat__counter">
+                  {{ $formatNumber(projects?.length || 0) }}
+                </span>
+                project<span v-if="organization.projects?.length !== 1">s</span>
+              </div>
+            </div>
+
+            <hr class="card-divider" />
+
+            <div class="stats-block__item secondary-stat">
+              <OrganizationIcon class="secondary-stat__icon" aria-hidden="true" />
+              <span class="secondary-stat__text">
+                Org ID:
+                <CopyCode :text="organization.id" />
+              </span>
+            </div>
           </div>
-        </template>
+        </div>
       </Card>
 
       <Card class="creator-list">
@@ -77,7 +76,6 @@
       v-model:organization="organization"
       v-model:projects="projects"
       :current-member="currentMember"
-      :patch-organization="patchOrganization"
       :reset-organization="resetOrganization"
       :patch-icon="patchIcon"
       :delete-icon="deleteIcon"
@@ -94,19 +92,28 @@ const auth = await useAuth()
 const route = useRoute()
 const tags = useTags()
 
+const orgId = useRouteId()
+
 const modalJoinConfirm = ref(null)
 
 // hacky way to show the edit button on the corner of the card.
-const routeHasSettings = computed(() => route.hash.startsWith('organization-id-settings'))
+const routeHasSettings = computed(() => route.path.includes('settings'))
 
-const [{ data: organization }, { data: projects }] = await Promise.all([
-  useAsyncData(`organization/${route.params.id}`, () =>
-    useBaseFetch(`organization/${route.params.id}`, { apiVersion: 3 })
+const [
+  { data: organization, refresh: refreshOrganization },
+  { data: projects, refresh: refreshProjects },
+] = await Promise.all([
+  useAsyncData(`organization/${orgId}`, () =>
+    useBaseFetch(`organization/${orgId}`, { apiVersion: 3 })
   ),
-  useAsyncData(`organization/${route.params.id}/projects`, () =>
-    useBaseFetch(`organization/${route.params.id}/projects`, { apiVersion: 3 })
+  useAsyncData(`organization/${orgId}/projects`, () =>
+    useBaseFetch(`organization/${orgId}/projects`, { apiVersion: 3 })
   ),
 ])
+
+const refresh = async () => {
+  await Promise.all([refreshOrganization(), refreshProjects()])
+}
 
 if (!organization.value) {
   throw createError({
@@ -145,16 +152,13 @@ const hasPermission = computed(() => {
   return currentMember.value && (currentMember.value.permissions & EDIT_DETAILS) === EDIT_DETAILS
 })
 
-const patchOrganization = async (resData) => {
-  let result = false
-  await useBaseFetch(`organization/${organization.value.id}`, {
-    method: 'PATCH',
-    body: resData,
-    apiVersion: 3,
-  })
-  result = true
-  return result
-}
+provide('organizationContext', {
+  organization,
+  projects,
+  refresh,
+  currentMember,
+  hasPermission,
+})
 
 const patchIcon = async (icon) => {
   const ext = icon.name.split('.').pop()

@@ -48,6 +48,18 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  patchOrganization: {
+    type: Function,
+    default: () => {},
+  },
+  patchIcon: {
+    type: Function,
+    default: () => {},
+  },
+  deleteIcon: {
+    type: Function,
+    default: () => {},
+  },
 })
 
 const links = [

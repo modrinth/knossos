@@ -235,12 +235,7 @@
               />
             </div>
             <div class="table-cell">
-              <nuxt-link
-                tabindex="-1"
-                :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                  project.slug ? project.slug : project.id
-                }`"
-              >
+              <nuxt-link tabindex="-1" :to="`/project/${project.slug ? project.slug : project.id}`">
                 <Avatar
                   :src="project.icon_url"
                   aria-hidden="true"
@@ -259,9 +254,7 @@
 
                 <nuxt-link
                   class="hover-link wrap-as-needed"
-                  :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                    project.slug ? project.slug : project.id
-                  }`"
+                  :to="`/project/${project.slug ? project.slug : project.id}`"
                 >
                   {{ project.name }}
                 </nuxt-link>
@@ -283,9 +276,7 @@
             <div class="table-cell">
               <nuxt-link
                 class="btn icon-only"
-                :to="`/${getProjectTypeForUrl(project.project_type, project.loaders)}/${
-                  project.slug ? project.slug : project.id
-                }/settings`"
+                :to="`/project/${project.slug ? project.slug : project.id}/settings`"
               >
                 <SettingsIcon />
               </nuxt-link>

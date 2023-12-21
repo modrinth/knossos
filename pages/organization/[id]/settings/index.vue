@@ -10,25 +10,9 @@ import {
   ConfirmModal,
 } from 'omorphia'
 
+import { patchOrganization } from '~/utils/organizations.js'
+
 const props = defineProps({
-  organization: {
-    type: Object,
-    default() {
-      return {}
-    },
-  },
-  projects: {
-    type: Array,
-    default() {
-      return []
-    },
-  },
-  patchOrganization: {
-    type: Function,
-    default() {
-      return () => {}
-    },
-  },
   resetOrganization: {
     type: Function,
     default() {
@@ -61,24 +45,21 @@ const props = defineProps({
   },
 })
 
-const hasPermission = computed(() => {
-  const EDIT_DETAILS = 1 << 2
-  return props.currentMember && (props.currentMember.permissions & EDIT_DETAILS) === EDIT_DETAILS
-})
+const { organization, refresh: refreshOrganization, hasPermission } = inject('organizationContext')
 
 const icon = ref(null)
 const deletedIcon = ref(false)
 const previewImage = ref(null)
 
-const name = ref(props.organization.name)
-const summary = ref(props.organization.description)
+const name = ref(organization.value.name)
+const summary = ref(organization.value.description)
 
 const patchData = computed(() => {
   const data = {}
-  if (name.value !== props.organization.name) {
+  if (name.value !== organization.value.name) {
     data.name = name.value
   }
-  if (summary.value !== props.organization.description) {
+  if (summary.value !== organization.value.description) {
     data.description = summary.value
   }
   return data
@@ -106,12 +87,16 @@ const showPreviewImage = (files) => {
   }
 }
 
+const orgId = useRouteId()
+
 const saveChanges = async () => {
   startLoading()
+
   try {
     if (hasChanges.value) {
-      await props.patchOrganization(patchData.value)
+      await patchOrganization(orgId, patchData.value)
     }
+
     if (deletedIcon.value) {
       await props.deleteIcon()
       deletedIcon.value = false
@@ -119,7 +104,8 @@ const saveChanges = async () => {
       await props.patchIcon(icon.value)
       icon.value = null
     }
-    await props.resetOrganization()
+
+    await refreshOrganization()
     addNotification({
       group: 'main',
       title: 'Organization updated',
@@ -134,6 +120,7 @@ const saveChanges = async () => {
       type: 'error',
     })
   }
+
   stopLoading()
 }
 </script>

@@ -20,19 +20,23 @@
           type="text"
           placeholder="Username"
           :disabled="
-            (currentMember.organization_permissions & organizationPermissions.MANAGE_INVITES) !==
-            organizationPermissions.MANAGE_INVITES
+            !isPermission(
+              currentMember.organization_permissions,
+              organizationPermissions.MANAGE_INVITES
+            )
           "
-          @keypress.enter="inviteTeamMember()"
+          @keypress.enter="() => onInviteTeamMember(currentUsername)"
         />
         <label for="username" class="hidden">Username</label>
         <Button
           color="primary"
           :disabled="
-            (currentMember.organization_permissions & organizationPermissions.MANAGE_INVITES) !==
-            organizationPermissions.MANAGE_INVITES
+            !isPermission(
+              currentMember.organization_permissions,
+              organizationPermissions.MANAGE_INVITES
+            )
           "
-          @click="inviteTeamMember()"
+          @click="() => onInviteTeamMember(currentUsername)"
         >
           <UserPlusIcon />
           Invite
@@ -57,10 +61,10 @@
     >
       <div class="member-header">
         <div class="info">
-          <Avatar :src="member.avatar_url" :alt="member.username" size="sm" circle />
+          <Avatar :src="member.user.avatar_url" :alt="member.user.username" size="sm" circle />
           <div class="text">
             <nuxt-link :to="'/user/' + member.user.username" class="name">
-              <p>{{ member.name }}</p>
+              <p>{{ member.user.name || member.user.username }}</p>
             </nuxt-link>
             <p>{{ member.role }}</p>
           </div>
@@ -84,25 +88,27 @@
       </div>
       <div class="content">
         <div v-if="member.oldRole !== 'Owner'" class="adjacent-input">
-          <label :for="`member-${allTeamMembers[index].user.username}-role`">
+          <label :for="`member-${member.user.id}-role`">
             <span class="label__title">Role</span>
             <span class="label__description">
               The title of the role that this member plays for this project.
             </span>
           </label>
           <input
-            :id="`member-${allTeamMembers[index].user.username}-role`"
-            v-model="allTeamMembers[index].role"
+            :id="`member-${member.user.id}-role`"
+            v-model="member.role"
             type="text"
             :class="{ 'known-error': member.role === 'Owner' }"
             :disabled="
-              (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
-              organizationPermissions.EDIT_MEMBER
+              !isPermission(
+                currentMember.organization_permissions,
+                organizationPermissions.EDIT_MEMBER
+              )
             "
           />
         </div>
         <div class="adjacent-input">
-          <label :for="`member-${allTeamMembers[index].user.username}-monetization-weight`">
+          <label :for="`member-${member.user.id}-monetization-weight`">
             <span class="label__title">Monetization weight</span>
             <span class="label__description">
               Relative to all other members' monetization weights, this determines what portion of
@@ -110,12 +116,14 @@
             </span>
           </label>
           <input
-            :id="`member-${allTeamMembers[index].user.username}-monetization-weight`"
-            v-model="allTeamMembers[index].payouts_split"
+            :id="`member-${member.user.id}-monetization-weight`"
+            v-model="member.payouts_split"
             type="number"
             :disabled="
-              (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
-              organizationPermissions.EDIT_MEMBER
+              !isPermission(
+                currentMember.organization_permissions,
+                organizationPermissions.EDIT_MEMBER
+              )
             "
           />
         </div>
@@ -129,171 +137,17 @@
           </span>
           <div class="permissions">
             <Checkbox
-              :model-value="
-                (member.permissions & projectPermissions.UPLOAD_VERSION) ===
-                projectPermissions.UPLOAD_VERSION
-              "
+              v-for="[label, permission] in Object.entries(projectPermissions)"
+              :key="permission"
+              :model-value="isPermission(member.permissions, permission)"
               :disabled="
-                (currentMember.organization_permissions &
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.UPLOAD_VERSION) !==
-                  projectPermissions.UPLOAD_VERSION
+                !isPermission(
+                  currentMember.organization_permissions,
+                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS
+                ) || !isPermission(currentMember.permissions, permission)
               "
-              label="Upload version"
-              @update:model-value="
-                allTeamMembers[index].permissions ^= projectPermissions.UPLOAD_VERSION
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.permissions & projectPermissions.DELETE_VERSION) ===
-                projectPermissions.DELETE_VERSION
-              "
-              :disabled="
-                (currentMember.organization_permissions &
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.DELETE_VERSION) !==
-                  projectPermissions.DELETE_VERSION
-              "
-              label="Delete version"
-              @update:model-value="
-                allTeamMembers[index].permissions ^= projectPermissions.DELETE_VERSION
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.permissions & projectPermissions.EDIT_DETAILS) ===
-                projectPermissions.EDIT_DETAILS
-              "
-              :disabled="
-                (currentMember.organization_permissions &
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.EDIT_DETAILS) !==
-                  projectPermissions.EDIT_DETAILS
-              "
-              label="Edit details"
-              @update:model-value="
-                allTeamMembers[index].permissions ^= projectPermissions.EDIT_DETAILS
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.permissions & projectPermissions.EDIT_BODY) === projectPermissions.EDIT_BODY
-              "
-              :disabled="
-                (currentMember.organization_permissions &
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.EDIT_BODY) !==
-                  projectPermissions.EDIT_BODY
-              "
-              label="Edit body"
-              @update:model-value="
-                allTeamMembers[index].permissions ^= projectPermissions.EDIT_BODY
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.permissions & projectPermissions.MANAGE_INVITES) ===
-                projectPermissions.MANAGE_INVITES
-              "
-              :disabled="
-                (currentMember.organization_permissions &
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.MANAGE_INVITES) !==
-                  projectPermissions.MANAGE_INVITES
-              "
-              label="Manage invites"
-              @update:model-value="
-                allTeamMembers[index].permissions ^= projectPermissions.MANAGE_INVITES
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.permissions & projectPermissions.REMOVE_MEMBER) ===
-                projectPermissions.REMOVE_MEMBER
-              "
-              :disabled="
-                (currentMember.organization_permissions &
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.REMOVE_MEMBER) !==
-                  projectPermissions.REMOVE_MEMBER
-              "
-              label="Remove member"
-              @update:model-value="
-                allTeamMembers[index].permissions ^= projectPermissions.REMOVE_MEMBER
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.permissions & projectPermissions.EDIT_MEMBER) ===
-                projectPermissions.EDIT_MEMBER
-              "
-              :disabled="
-                (currentMember.organization_permissions &
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
-                organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS
-              "
-              label="Edit member"
-              @update:model-value="
-                allTeamMembers[index].permissions ^= projectPermissions.EDIT_MEMBER
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.permissions & projectPermissions.DELETE_PROJECT) ===
-                projectPermissions.DELETE_PROJECT
-              "
-              :disabled="
-                (currentMember.organization_permissions &
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.DELETE_PROJECT) !==
-                  projectPermissions.DELETE_PROJECT
-              "
-              label="Delete project"
-              @update:model-value="
-                allTeamMembers[index].permissions ^= projectPermissions.DELETE_PROJECT
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.permissions & projectPermissions.VIEW_ANALYTICS) ===
-                projectPermissions.VIEW_ANALYTICS
-              "
-              :disabled="
-                (currentMember.organization_permissions &
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.VIEW_ANALYTICS) !==
-                  projectPermissions.VIEW_ANALYTICS
-              "
-              label="View analytics"
-              @update:model-value="
-                allTeamMembers[index].permissions ^= projectPermissions.VIEW_ANALYTICS
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.permissions & projectPermissions.VIEW_PAYOUTS) ===
-                projectPermissions.VIEW_PAYOUTS
-              "
-              :disabled="
-                (currentMember.organization_permissions &
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS ||
-                (currentMember.permissions & projectPermissions.VIEW_PAYOUTS) !==
-                  projectPermissions.VIEW_PAYOUTS
-              "
-              label="View revenue"
-              @update:model-value="
-                allTeamMembers[index].permissions ^= projectPermissions.VIEW_PAYOUTS
-              "
+              :label="permToLabel(label)"
+              @update:model-value="allTeamMembers[index].permissions ^= permission"
             />
           </div>
         </template>
@@ -303,143 +157,17 @@
           </span>
           <div class="permissions">
             <Checkbox
-              :model-value="
-                (member.organization_permissions & organizationPermissions.EDIT_DETAILS) ===
-                organizationPermissions.EDIT_DETAILS
-              "
+              v-for="[label, permission] in Object.entries(organizationPermissions)"
+              :key="permission"
+              :model-value="isPermission(member.organization_permissions, permission)"
               :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
-                  organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions & organizationPermissions.EDIT_DETAILS) !==
-                  organizationPermissions.EDIT_DETAILS
-              "
-              label="Edit details"
-              @update:model-value="
-                allTeamMembers[index].organization_permissions ^=
-                  organizationPermissions.EDIT_DETAILS
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.organization_permissions & organizationPermissions.MANAGE_INVITES) ===
-                organizationPermissions.MANAGE_INVITES
-              "
-              :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
-                  organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions &
-                  organizationPermissions.MANAGE_INVITES) !==
-                  organizationPermissions.MANAGE_INVITES
-              "
-              label="Manage invites"
-              @update:model-value="
-                allTeamMembers[index].organization_permissions ^=
-                  organizationPermissions.MANAGE_INVITES
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.organization_permissions & organizationPermissions.REMOVE_MEMBER) ===
-                organizationPermissions.REMOVE_MEMBER
-              "
-              :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
-                  organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions & organizationPermissions.REMOVE_MEMBER) !==
-                  organizationPermissions.REMOVE_MEMBER
-              "
-              label="Remove member"
-              @update:model-value="
-                allTeamMembers[index].organization_permissions ^=
-                  organizationPermissions.REMOVE_MEMBER
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.organization_permissions & organizationPermissions.EDIT_MEMBER) ===
-                organizationPermissions.EDIT_MEMBER
-              "
-              :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
-                organizationPermissions.EDIT_MEMBER
-              "
-              label="Edit member"
-              @update:model-value="
-                allTeamMembers[index].organization_permissions ^=
+                !isPermission(
+                  currentMember.organization_permissions,
                   organizationPermissions.EDIT_MEMBER
+                ) || !isPermission(currentMember.organization_permissions, permission)
               "
-            />
-            <Checkbox
-              :model-value="
-                (member.organization_permissions & organizationPermissions.ADD_PROJECT) ===
-                organizationPermissions.ADD_PROJECT
-              "
-              :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
-                  organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions & organizationPermissions.ADD_PROJECT) !==
-                  organizationPermissions.ADD_PROJECT
-              "
-              label="Add project"
-              @update:model-value="
-                allTeamMembers[index].organization_permissions ^=
-                  organizationPermissions.ADD_PROJECT
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.organization_permissions & organizationPermissions.REMOVE_PROJECT) ===
-                organizationPermissions.REMOVE_PROJECT
-              "
-              :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
-                  organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions &
-                  organizationPermissions.REMOVE_PROJECT) !==
-                  organizationPermissions.REMOVE_PROJECT
-              "
-              label="Remove project"
-              @update:model-value="
-                allTeamMembers[index].organization_permissions ^=
-                  organizationPermissions.REMOVE_PROJECT
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.organization_permissions & organizationPermissions.DELETE_ORGANIZATION) ===
-                organizationPermissions.DELETE_ORGANIZATION
-              "
-              :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
-                  organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions &
-                  organizationPermissions.DELETE_ORGANIZATION) !==
-                  organizationPermissions.DELETE_ORGANIZATION
-              "
-              label="Delete organization"
-              @update:model-value="
-                allTeamMembers[index].organization_permissions ^=
-                  organizationPermissions.DELETE_ORGANIZATION
-              "
-            />
-            <Checkbox
-              :model-value="
-                (member.organization_permissions &
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) ===
-                organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS
-              "
-              :disabled="
-                (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
-                  organizationPermissions.EDIT_MEMBER ||
-                (currentMember.organization_permissions &
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS) !==
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS
-              "
-              label="Edit member default permissions"
-              @update:model-value="
-                allTeamMembers[index].organization_permissions ^=
-                  organizationPermissions.EDIT_MEMBER_DEFAULT_PERMISSIONS
-              "
+              :label="permToLabel(label)"
+              @update:model-value="allTeamMembers[index].organization_permissions ^= permission"
             />
           </div>
         </template>
@@ -447,10 +175,12 @@
           <Button
             color="primary"
             :disabled="
-              (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
-              organizationPermissions.EDIT_MEMBER
+              !isPermission(
+                currentMember.organization_permissions,
+                organizationPermissions.EDIT_MEMBER
+              )
             "
-            @click="updateTeamMember(index)"
+            @click="onUpdateTeamMember(organization.team_id, member)"
           >
             <SaveIcon />
             Save changes
@@ -459,17 +189,23 @@
             v-if="member.oldRole !== 'Owner'"
             color="danger"
             :disabled="
-              (currentMember.organization_permissions & organizationPermissions.EDIT_MEMBER) !==
-              organizationPermissions.EDIT_MEMBER
+              !isPermission(
+                currentMember.organization_permissions,
+                organizationPermissions.EDIT_MEMBER
+              ) &&
+              !isPermission(
+                currentMember.organization_permissions,
+                organizationPermissions.REMOVE_MEMBER
+              )
             "
-            @click="removeTeamMember(index)"
+            @click="onRemoveMember(organization.team_id, member)"
           >
             <UserRemoveIcon />
             Remove member
           </Button>
           <Button
             v-if="member.oldRole !== 'Owner' && currentMember.role === 'Owner' && member.accepted"
-            @click="transferOwnership(index)"
+            @click="() => onTransferOwnership(organization.team_id, member.user.id)"
           >
             <TransferIcon />
             Transfer ownership
@@ -493,24 +229,34 @@ import {
   Card,
   Button,
 } from 'omorphia'
-import { ref, onMounted } from 'vue'
-import { removeSelfFromTeam } from '~/helpers/teams.js'
-const props = defineProps({
-  organization: {
-    type: Object,
-    default: () => ({}),
-  },
-  currentMember: {
-    type: Object,
-    default: () => null,
-  },
-})
+
+import { ref } from 'vue'
+import { removeTeamMember } from '~/helpers/teams.js'
+
+const { organization, refresh: refreshOrganization, currentMember } = inject('organizationContext')
+
+const auth = await useAuth()
+
 const currentUsername = ref('')
 const openTeamMembers = ref([])
-const allTeamMembers = ref(props.organization.members.map((x) => ({ ...x, oldRole: x.role })))
-const appData = useNuxtApp()
-const router = useRouter()
-const projectPermissions = shallowRef({
+
+const processMembers = (members) => {
+  return members
+    .map((x) => ({ ...x, oldRole: x.role }))
+    .sort((a, b) => a.user.username.localeCompare(b.user.username))
+}
+
+const allTeamMembers = ref(processMembers(organization.value.members))
+
+watch(
+  () => organization.value,
+  () => {
+    allTeamMembers.value = processMembers(organization.value.members)
+  },
+  { deep: true, immediate: true }
+)
+
+const projectPermissions = {
   UPLOAD_VERSION: 1 << 0,
   DELETE_VERSION: 1 << 1,
   EDIT_DETAILS: 1 << 2,
@@ -521,8 +267,9 @@ const projectPermissions = shallowRef({
   DELETE_PROJECT: 1 << 7,
   VIEW_ANALYTICS: 1 << 8,
   VIEW_PAYOUTS: 1 << 9,
-})
-const organizationPermissions = shallowRef({
+}
+
+const organizationPermissions = {
   EDIT_DETAILS: 1 << 0,
   MANAGE_INVITES: 1 << 1,
   REMOVE_MEMBER: 1 << 2,
@@ -531,124 +278,106 @@ const organizationPermissions = shallowRef({
   REMOVE_PROJECT: 1 << 5,
   DELETE_ORGANIZATION: 1 << 6,
   EDIT_MEMBER_DEFAULT_PERMISSIONS: 1 << 7,
-})
+}
+
+const permToLabel = (key) => {
+  const o = key.split('_').join(' ')
+  return o.charAt(0).toUpperCase() + o.slice(1).toLowerCase()
+}
+
+const isPermission = (perms, bitflag) => {
+  return (perms & bitflag) === bitflag
+}
+
 const leaveProject = async () => {
-  await removeSelfFromTeam(props.organization.team_id)
-  await router.push(`/organization/${props.organization.title}`)
+  await removeTeamMember(organization.value.team_id, auth.user.id)
+  await navigateTo(`/organization/${organization.value.title}`)
 }
-const inviteTeamMember = async () => {
-  startLoading()
-  try {
-    const user = await useBaseFetch(`user/${currentUsername.value}`)
-    const data = {
-      user_id: user.id.trim(),
-    }
-    await useBaseFetch(`team/${props.organization.team_id}/members`, {
-      method: 'POST',
-      body: data,
-    })
-    currentUsername.value = ''
-    await updateMembers()
-  } catch (err) {
-    appData.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err.data.description,
-      type: 'error',
-    })
+
+const errorHandler = (err) => {
+  addNotification({
+    group: 'main',
+    title: 'An error occurred',
+    text: err?.data?.description || err?.message || err,
+    type: 'error',
+  })
+}
+
+const inviteTeamMember = useClientTry(async (teamId, user) => {
+  const data = {
+    user_id: user.id.trim(),
   }
-  stopLoading()
+  await useBaseFetch(`team/${teamId}/members`, {
+    method: 'POST',
+    body: data,
+  })
+  await refreshOrganization()
+  currentUsername.value = ''
+  addNotification({
+    group: 'main',
+    title: 'Member invited',
+    text: `${user.name || user.username} has been invited to the project.`,
+    type: 'success',
+  })
+}, errorHandler)
+
+const onInviteTeamMember = async (username) => {
+  const user = await useBaseFetch(`user/${username}`)
+  await inviteTeamMember(organization.value.team_id, user)
 }
-const removeTeamMember = async (index) => {
-  startLoading()
-  try {
-    await useBaseFetch(
-      `team/${props.organization.team_id}/members/${allTeamMembers.value[index].user.id}`,
-      {
-        method: 'DELETE',
-      }
-    )
-    await updateMembers()
-  } catch (err) {
-    appData.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err.data.description,
-      type: 'error',
-    })
+
+const onRemoveMember = useClientTry(async (teamId, member) => {
+  await removeTeamMember(teamId, member.user.id)
+  await refreshOrganization()
+  addNotification({
+    group: 'main',
+    title: 'Member removed',
+    text: `${member.user.username} has been removed from the project.`,
+    type: 'success',
+  })
+}, errorHandler)
+
+const onUpdateTeamMember = useClientTry(async (teamId, member) => {
+  const data =
+    member.oldRole !== 'Owner'
+      ? {
+          permissions: member.permissions,
+          organization_permissions: member.organization_permissions,
+          role: member.role,
+          payouts_split: member.payouts_split,
+        }
+      : {
+          payouts_split: member.payouts_split,
+        }
+  await useBaseFetch(`team/${teamId}/members/${member.user.id}`, {
+    method: 'PATCH',
+    body: data,
+  })
+  await refreshOrganization()
+  addNotification({
+    group: 'main',
+    title: 'Member updated',
+    text: `${member.user.name || member.user.username} has been updated.`,
+    type: 'success',
+  })
+}, errorHandler)
+
+const onTransferOwnership = useClientTry(async (teamId, uid) => {
+  const data = {
+    user_id: uid,
   }
-  stopLoading()
-}
-const updateTeamMember = async (index) => {
-  startLoading()
-  try {
-    const data =
-      allTeamMembers.value[index].oldRole !== 'Owner'
-        ? {
-            permissions: allTeamMembers.value[index].permissions,
-            role: allTeamMembers.value[index].role,
-            payouts_split: allTeamMembers.value[index].payouts_split,
-          }
-        : {
-            payouts_split: allTeamMembers.value[index].payouts_split,
-          }
-    await useBaseFetch(
-      `team/${props.organization.team_id}/members/${allTeamMembers.value[index].user.id}`,
-      {
-        method: 'PATCH',
-        body: data,
-      }
-    )
-    await updateMembers()
-    appData.$notify({
-      group: 'main',
-      title: 'Member(s) updated',
-      text: "Your project's member(s) has been updated.",
-      type: 'success',
-    })
-  } catch (err) {
-    appData.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err,
-      type: 'error',
-    })
-  }
-  stopLoading()
-}
-const transferOwnership = async (index) => {
-  startLoading()
-  try {
-    await useBaseFetch(`team/${props.organization.team_id}/owner`, {
-      method: 'PATCH',
-      body: {
-        user_id: allTeamMembers.value[index].user.id,
-      },
-    })
-    await updateMembers()
-  } catch (err) {
-    appData.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err,
-      type: 'error',
-    })
-  }
-  stopLoading()
-}
-const updateMembers = async () => {
-  allTeamMembers.value = (await useBaseFetch(`team/${props.organization.team_id}/members`)).map(
-    (it) => ({
-      avatar_url: it.user.avatar_url,
-      name: it.user.username,
-      oldRole: it.role,
-      ...it,
-    })
-  )
-}
-onMounted(async () => {
-  await updateMembers()
-})
+  await useBaseFetch(`team/${teamId}/owner`, {
+    method: 'PATCH',
+    body: data,
+  })
+  await refreshOrganization()
+  addNotification({
+    group: 'main',
+    title: 'Ownership transferred',
+    text: `The ownership of ${organization.value.name} has been successfully transferred.`,
+    type: 'success',
+  })
+}, errorHandler)
 </script>
 
 <style lang="scss" scoped>
