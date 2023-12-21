@@ -13,8 +13,7 @@ export const useClientTry: useClientTry =
   async (...args) => {
     startLoading()
     try {
-      const output = await fn(...args)
-      return output
+      return await fn(...args)
     } catch (err) {
       if (onFail) {
         await onFail(err)
