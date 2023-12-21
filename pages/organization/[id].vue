@@ -61,7 +61,7 @@
 
       <Card class="creator-list">
         <div class="title-and-link">
-          <h3>Creators</h3>
+          <h3>Members</h3>
         </div>
         <template v-for="member in acceptedMembers" :key="member.user.id">
           <nuxt-link class="creator button-base" :to="`/user/${member.user.username}`">
