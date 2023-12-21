@@ -17,7 +17,7 @@
       :confirmation-text="project.title"
       proceed-label="Remove"
       :noblur="!(cosmetics?.advancedRendering ?? true)"
-      @proceed="removeFromOrg()"
+      @proceed="onRemoveFromOrg"
     />
     <section class="universal-card">
       <div class="label">
@@ -232,7 +232,8 @@
       </div>
       <p>
         <template v-if="props.project.organization">
-          This project is managed by an organization. The defaults for member permissions are set in the
+          This project is managed by an organization. The defaults for member permissions are set in
+          the
           <nuxt-link :to="`/organization/${project.organization.id}/settings/members`">
             organization settings</nuxt-link
           >.
@@ -256,7 +257,7 @@
           :options="organizations || []"
           :disabled="!hasPermission || organizations?.length === 0"
         />
-        <Button :disabled="!selectedOrganization" @click="() => addToOrg()">
+        <Button :disabled="!selectedOrganization" @click="onAddToOrg">
           <CheckIcon />
           Transfer management
         </Button>
@@ -409,50 +410,48 @@ const { data: organizations } = useAsyncData('organizations', () => {
   })
 })
 
-const addToOrg = async () => {
+const onAddToOrg = useClientTry(async () => {
   if (!selectedOrganization.value) return
 
-  try {
-    await useBaseFetch(`organization/${selectedOrganization.value.id}/projects`, {
-      method: 'POST',
-      body: JSON.stringify({
-        project_id: props.project.id,
-      }),
-      apiVersion: 3,
-    })
+  await useBaseFetch(`organization/${selectedOrganization.value.id}/projects`, {
+    method: 'POST',
+    body: JSON.stringify({
+      project_id: props.project.id,
+    }),
+    apiVersion: 3,
+  })
 
-    addNotification({
-      group: 'main',
-      title: 'Project transferred',
-      text: 'Your project has been transferred to the organization.',
-      type: 'success',
-    })
-  } catch (error) {
-    const errorMessage =
-      error.data && error.data.description ? error.data.description : error.message
+  // This is actually a bit of a hack, but it works
+  // updateIcon is just resetting the project icon
+  await props.updateIcon()
 
-    addNotification({
-      group: 'main',
-      title: 'Error',
-      text: errorMessage,
-      type: 'error',
-    })
-  }
-}
+  addNotification({
+    group: 'main',
+    title: 'Project transferred',
+    text: 'Your project has been transferred to the organization.',
+    type: 'success',
+  })
+})
 
-const removeFromOrg = async () => {
+const onRemoveFromOrg = useClientTry(async () => {
   if (!props.project.organization) return
+
   await useBaseFetch(`organization/${props.project.organization}/projects/${props.project.id}`, {
     method: 'DELETE',
     apiVersion: 3,
   })
+
+  // This is actually a bit of a hack, but it works
+  // updateIcon is just resetting the project icon
+  await props.updateIcon()
+
   addNotification({
     group: 'main',
     title: 'Project removed',
     text: 'Your project has been removed from the organization.',
     type: 'success',
   })
-}
+})
 
 const hasModifiedVisibility = () => {
   const originalVisibility = tags.value.approvedStatuses.includes(props.project.status)
