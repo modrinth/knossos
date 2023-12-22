@@ -25,7 +25,7 @@
               organizationPermissions.MANAGE_INVITES
             )
           "
-          @keypress.enter="() => onInviteTeamMember(currentUsername)"
+          @keypress.enter="() => onInviteTeamMember(organization.team_id, currentUsername)"
         />
         <label for="username" class="hidden">Username</label>
         <Button
@@ -36,7 +36,7 @@
               organizationPermissions.MANAGE_INVITES
             )
           "
-          @click="() => onInviteTeamMember(currentUsername)"
+          @click="() => onInviteTeamMember(organization.team_id, currentUsername)"
         >
           <UserPlusIcon />
           Invite
