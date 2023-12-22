@@ -30,7 +30,7 @@ watch([() => name.value], () => {
   name.value = name.value
     .trim()
     .replace(/ +/g, '')
-    .replace(/[^a-zA-Z0-9-_]/g, '')
+    .replace(/[^a-zA-Z0-9-_!@]/g, '')
 })
 
 const summary = ref(organization.value.description)
