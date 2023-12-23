@@ -199,7 +199,7 @@
         :max-size="524288000"
         :accept="acceptFileTypes"
         prompt="Upload an image"
-        :class="`brand-button iconified-button`"
+        :class="`btn btn-primary`"
         :disabled="!isPermission(currentMember?.permissions, 1 << 2)"
         @change="handleFiles"
       >
@@ -208,7 +208,11 @@
       <span class="indicator">
         <InfoIcon /> Click to choose an image or drag one onto this page
       </span>
-      <DropArea :accept="acceptFileTypes" @change="handleFiles" />
+      <DropArea
+        :accept="acceptFileTypes"
+        :disabled="!isPermission(currentMember?.permissions, 1 << 2)"
+        @change="handleFiles"
+      />
     </div>
     <div v-else class="card header-buttons">
       <span class="indicator"> <InfoIcon /> You don't have permission to upload images </span>
@@ -296,6 +300,7 @@ import {
   FileInput,
   DropArea,
 } from 'omorphia'
+
 import { isPermission } from '~/utils/permissions.ts'
 
 const props = defineProps({

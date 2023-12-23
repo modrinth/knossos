@@ -5,7 +5,7 @@
         :max-size="524288000"
         :accept="acceptFileFromProjectType(project.project_type)"
         prompt="Upload a version"
-        class="brand-button iconified-button"
+        class="btn btn-primary"
         :disabled="!isPermission(currentMember?.permissions, 1 << 0)"
         @change="handleFiles"
       >
