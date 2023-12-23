@@ -64,7 +64,7 @@
           <Avatar :src="member.user.avatar_url" :alt="member.user.username" size="sm" circle />
           <div class="text">
             <nuxt-link :to="'/user/' + member.user.username" class="name">
-              <p>{{ member.user.name || member.user.username }}</p>
+              <p>{{ member.user.username }}</p>
             </nuxt-link>
             <p>{{ member.role }}</p>
           </div>
@@ -308,7 +308,7 @@ const onInviteTeamMember = useClientTry(async (teamId, username) => {
   addNotification({
     group: 'main',
     title: 'Member invited',
-    text: `${user.name || user.username} has been invited to the project.`,
+    text: `${user.username} has been invited to the project.`,
     type: 'success',
   })
 })
@@ -344,7 +344,7 @@ const onUpdateTeamMember = useClientTry(async (teamId, member) => {
   addNotification({
     group: 'main',
     title: 'Member updated',
-    text: `${member.user.name || member.user.username} has been updated.`,
+    text: `${member.user.username} has been updated.`,
     type: 'success',
   })
 })
