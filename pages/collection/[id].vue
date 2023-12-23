@@ -11,7 +11,7 @@
     />
     <div class="normal-page">
       <div class="normal-page__sidebar">
-        <Card>
+        <div class="universal-card">
           <div class="card__overlay input-group">
             <template v-if="canEdit && isEditing === false">
               <Button @click="isEditing = true">
@@ -209,7 +209,7 @@
             </div> -->
             </div>
           </template>
-        </Card>
+        </div>
       </div>
       <div class="normal-page__content">
         <Promotion />
@@ -325,7 +325,6 @@ import {
   capitalizeString,
   Avatar,
   Button,
-  Card,
   CalendarIcon,
   Promotion,
   EditIcon,

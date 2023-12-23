@@ -594,9 +594,6 @@ export default defineNuxtComponent({
 </script>
 
 <style lang="scss" scoped>
-.card {
-  padding: var(--spacing-card-bg);
-}
 .collections-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
