@@ -195,7 +195,7 @@
                   <Avatar :src="creator.avatar_url" :alt="creator.username" size="sm" circle />
 
                   <div class="member-info">
-                    <p class="name">{{ creator.name }}</p>
+                    <p class="name">{{ creator.username }}</p>
                     <p class="role">Owner</p>
                   </div>
                 </nuxt-link>
