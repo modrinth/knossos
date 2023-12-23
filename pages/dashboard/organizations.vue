@@ -32,19 +32,14 @@
               />
             </div>
             <div>
-              <nuxt-link tabindex="-1" :to="`/organization/${org.id}`">
-                <Avatar
-                  :src="org.icon_url"
-                  aria-hidden="true"
-                  :alt="'Icon for ' + org.name"
-                  no-shadow
-                />
+              <nuxt-link tabindex="-1" :to="`/organization/${org.name}`">
+                <Avatar :src="org.icon_url" aria-hidden="true" :alt="org.name" no-shadow />
               </nuxt-link>
             </div>
 
             <div>
               <h3 class="project-title">
-                <nuxt-link class="hover-link wrap-as-needed" :to="`/organization/${org.id}`">
+                <nuxt-link class="hover-link wrap-as-needed" :to="`/organization/${org.name}`">
                   {{ org.name }}
                 </nuxt-link>
               </h3>
