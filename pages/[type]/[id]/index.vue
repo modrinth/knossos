@@ -1,5 +1,5 @@
 <template>
-  <div class="markdown-body card" v-html="renderHighlightedString(project.body)" />
+  <div class="markdown-body card" v-html="renderHighlightedString(project.body || '')" />
 </template>
 
 <script>
