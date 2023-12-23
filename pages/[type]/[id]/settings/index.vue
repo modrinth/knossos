@@ -434,10 +434,13 @@ const onAddToOrg = useClientTry(async () => {
 })
 
 const onRemoveFromOrg = useClientTry(async () => {
-  if (!props.project.organization) return
+  if (!props.project.organization || !auth.value?.user?.id) return
 
   await useBaseFetch(`organization/${props.project.organization}/projects/${props.project.id}`, {
     method: 'DELETE',
+    body: JSON.stringify({
+      new_owner: auth.value.user.id,
+    }),
     apiVersion: 3,
   })
 
