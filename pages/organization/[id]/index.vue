@@ -25,6 +25,10 @@ selectedFilters.value.push(
   ...projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
 )
 
+const isPermission = (perms, bitflag) => {
+  return (perms & bitflag) === bitflag
+}
+
 const onAcceptInvite = useClientTry(async () => {
   await acceptTeamInvite(organization.value.team_id)
   await refreshOrganization()
@@ -89,10 +93,10 @@ const onDeclineInvite = useClientTry(async () => {
     <div v-else-if="true" class="error">
       <UpToDate class="icon" /><br />
       <span class="preserve-lines text">
-        This organization doesn't have any projects yet. Would you like to
-        <nuxt-link :to="`/organization/${organization.id}/settings/projects`" class="url"
-          >create one?</nuxt-link
-        >?
+        This organization doesn't have any projects yet.
+        <template v-if="isPermission(currentMember?.organization_permissions, 1 << 4)">
+          Would you like to <nuxt-link class="link" to="/project/create">Create one</nuxt-link>?
+        </template>
       </span>
     </div>
   </div>
