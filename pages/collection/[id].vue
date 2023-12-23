@@ -382,7 +382,7 @@ try {
       icon_url: 'https://cdn.modrinth.com/follow-collection.png',
       name: 'Followed projects',
       description: "Auto-generated collection of all the projects you're following.",
-      status: 'listed',
+      status: 'private',
       user: auth.value.user.id,
       created: auth.value.user.created,
       updated: auth.value.user.created,
