@@ -6,6 +6,7 @@
         :accept="acceptFileFromProjectType(project.project_type)"
         prompt="Upload a version"
         class="brand-button iconified-button"
+        :disabled="!isPermission(currentMember?.permissions, 1 << 0)"
         @change="handleFiles"
       >
         <UploadIcon />

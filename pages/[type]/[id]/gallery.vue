@@ -194,7 +194,7 @@
         </div>
       </div>
     </div>
-    <div v-if="isPermission(currentMember?.permissions, 1 << 2)" class="card header-buttons">
+    <div v-if="currentMember" class="card header-buttons">
       <FileInput
         :max-size="524288000"
         :accept="acceptFileTypes"
@@ -211,9 +211,7 @@
       <DropArea :accept="acceptFileTypes" @change="handleFiles" />
     </div>
     <div v-else class="card header-buttons">
-      <span class="indicator">
-        <InfoIcon /> You need to have the <code>Edit details</code> permission to upload images
-      </span>
+      <span class="indicator"> <InfoIcon /> You don't have permission to upload images </span>
     </div>
     <div class="items">
       <div v-for="(item, index) in project.gallery" :key="index" class="card gallery-item">
