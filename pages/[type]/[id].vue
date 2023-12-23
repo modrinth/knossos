@@ -813,7 +813,7 @@ if (project.value.project_type !== route.params.type || route.params.id !== proj
 const members = computed(() => {
   const acceptedMembers = allMembers.value.filter((x) => x.accepted)
   const owner = acceptedMembers.find((x) => x.role === 'Owner')
-  const rest = acceptedMembers.filter((x) => x.role !== 'Owner')
+  const rest = acceptedMembers.filter((x) => x.role !== 'Owner') || []
 
   rest.sort((a, b) => {
     if (a.role === b.role) {
@@ -883,7 +883,7 @@ const projectTypeDisplay = data.$formatProjectType(
 const title = `${project.value.title} - Minecraft ${projectTypeDisplay}`
 const description = `${project.value.description} - Download the Minecraft ${projectTypeDisplay} ${
   project.value.title
-} by ${members.value.find((x) => x.role === 'Owner')?.user.username || 'a Creator'} on Modrinth`
+} by ${members.value.find((x) => x.role === 'Owner')?.user?.username || 'a Creator'} on Modrinth`
 
 if (!route.name.startsWith('type-id-settings')) {
   useSeoMeta({

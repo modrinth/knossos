@@ -1,10 +1,54 @@
 <template>
   <div v-if="organization" class="normal-page">
     <div class="normal-page__sidebar">
-      <div class="universal-card">
+      <div v-if="routeHasSettings" class="universal-card">
+        <Breadcrumbs
+          current-title="Settings"
+          :link-stack="[
+            { href: `/dashboard/organizations`, label: 'Organizations' },
+            {
+              href: `/organization/${organization.id}`,
+              label: organization.name,
+              allowTrimming: true,
+            },
+          ]"
+        />
+
+        <div class="page-header__settings">
+          <Avatar size="sm" :src="organization.icon_url" />
+          <div class="title-section">
+            <h2 class="title">
+              <nuxt-link :to="`/organization/${organization.id}/settings`">
+                {{ organization.name }}
+              </nuxt-link>
+            </h2>
+          </div>
+        </div>
+
+        <!-- <hr class="card-divider" /> -->
+
+        <h2>Organization settings</h2>
+
+        <NavStack>
+          <NavStackItem :link="`/organization/${organization.id}/settings`" label="Overview">
+            <SettingsIcon />
+          </NavStackItem>
+          <NavStackItem :link="`/organization/${organization.id}/settings/members`" label="Members">
+            <UsersIcon />
+          </NavStackItem>
+          <NavStackItem
+            :link="`/organization/${organization.id}/settings/projects`"
+            label="Projects"
+          >
+            <BoxIcon />
+          </NavStackItem>
+        </NavStack>
+      </div>
+
+      <div v-else class="universal-card">
         <div class="card__overlay input-group">
           <!-- If the user is able to edit org -->
-          <template v-if="hasPermission && !routeHasSettings">
+          <template v-if="hasPermission">
             <nuxt-link :to="`/organization/${organization.id}/settings`" class="btn">
               <EditIcon />
               Edit
@@ -63,6 +107,7 @@
         <div class="title-and-link">
           <h3>Members</h3>
         </div>
+
         <template v-for="member in acceptedMembers" :key="member.user.id">
           <nuxt-link class="creator button-base" :to="`/user/${member.user.username}`">
             <Avatar :src="member.user.avatar_url" circle />
@@ -77,7 +122,20 @@
 </template>
 
 <script setup>
-import { Avatar, Card, CopyCode, EditIcon, BoxIcon, UserIcon } from 'omorphia'
+import {
+  Avatar,
+  BoxIcon,
+  Breadcrumbs,
+  Card,
+  CopyCode,
+  EditIcon,
+  UserIcon,
+  UsersIcon,
+  SettingsIcon,
+} from 'omorphia'
+
+import NavStack from '~/components/ui/NavStack.vue'
+import NavStackItem from '~/components/ui/NavStackItem.vue'
 
 import OrganizationIcon from '~/assets/images/utils/organization.svg'
 
@@ -114,7 +172,22 @@ if (!organization.value) {
   })
 }
 
-const acceptedMembers = computed(() => organization.value.members.filter((x) => x.accepted))
+// Filter accepted, sort by role, then by name and Owner role always goes first
+const acceptedMembers = computed(() => {
+  const acceptedMembers = organization.value.members?.filter((x) => x.accepted)
+  const owner = acceptedMembers.find((x) => x.role === 'Owner')
+  const rest = acceptedMembers.filter((x) => x.role !== 'Owner') || []
+
+  rest.sort((a, b) => {
+    if (a.role === b.role) {
+      return a.user.username.localeCompare(b.user.username)
+    } else {
+      return a.role.localeCompare(b.role)
+    }
+  })
+
+  return [owner, ...rest]
+})
 
 const currentMember = computed(() => {
   if (auth.value.user && organization.value) {
@@ -181,14 +254,33 @@ provide('organizationContext', {
   patchOrganization,
 })
 </script>
-<style scoped lang="scss">
-.card {
-  padding: var(--spacing-card-lg);
-  overflow: hidden;
 
-  .page-header__icon {
-    margin-block: 0;
+<style scoped lang="scss">
+.page-header__settings {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap-md);
+  margin-bottom: var(--gap-md);
+
+  .title-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--gap-xs);
   }
+
+  .title {
+    margin: 0 !important;
+    font-size: var(--font-size-md);
+  }
+}
+
+.page-header__icon {
+  margin-block: 0 !important;
+}
+
+.universal-card {
+  overflow: hidden;
 
   .card__overlay {
     top: var(--spacing-card-lg);
