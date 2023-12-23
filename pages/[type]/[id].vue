@@ -543,7 +543,6 @@
           </div>
           <hr class="card-divider" />
         </template>
-        <h2 class="card-header">Org</h2>
         <h2 class="card-header">Project members</h2>
         <nuxt-link
           v-for="member in members"
@@ -809,7 +808,24 @@ if (project.value.project_type !== route.params.type || route.params.id !== proj
   )
 }
 
-const members = ref(allMembers.value.filter((x) => x.accepted))
+// Members should be an array of all members, without the accepted ones, and with the user with the Owner role at the start
+// The rest of the members should be sorted by role, then by name
+const members = computed(() => {
+  const acceptedMembers = allMembers.value.filter((x) => x.accepted)
+  const owner = acceptedMembers.find((x) => x.role === 'Owner')
+  const rest = acceptedMembers.filter((x) => x.role !== 'Owner')
+
+  rest.sort((a, b) => {
+    if (a.role === b.role) {
+      return a.user.username.localeCompare(b.user.username)
+    } else {
+      return a.role.localeCompare(b.role)
+    }
+  })
+
+  return [owner, ...rest]
+})
+
 const currentMember = ref(
   auth.value.user ? allMembers.value.find((x) => x.user.id === auth.value.user.id) : null
 )
@@ -867,7 +883,7 @@ const projectTypeDisplay = data.$formatProjectType(
 const title = `${project.value.title} - Minecraft ${projectTypeDisplay}`
 const description = `${project.value.description} - Download the Minecraft ${projectTypeDisplay} ${
   project.value.title
-} by ${members.value.find((x) => x.role === 'Owner').user.username} on Modrinth`
+} by ${members.value.find((x) => x.role === 'Owner')?.user.username || 'a Creator'} on Modrinth`
 
 if (!route.name.startsWith('type-id-settings')) {
   useSeoMeta({
@@ -947,7 +963,7 @@ const licenseText = ref('')
 async function getLicenseData() {
   try {
     const text = await useBaseFetch(`tag/license/${project.value.license.id}`)
-    licenseText.value = text.body
+    licenseText.value = text.body || 'License text could not be retrieved.'
   } catch {
     licenseText.value = 'License text could not be retrieved.'
   }
