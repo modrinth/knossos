@@ -25,10 +25,6 @@ selectedFilters.value.push(
   ...projects.value.map((p) => p.project_type).filter((v, i, a) => a.indexOf(v) === i)
 )
 
-const isPermission = (perms, bitflag) => {
-  return (perms & bitflag) === bitflag
-}
-
 const onAcceptInvite = useClientTry(async () => {
   await acceptTeamInvite(organization.value.team_id)
   await refreshOrganization()

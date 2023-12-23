@@ -1,14 +1,5 @@
 <script setup>
-import {
-  Card,
-  Button,
-  FileInput,
-  TrashIcon,
-  Avatar,
-  UploadIcon,
-  SaveIcon,
-  ConfirmModal,
-} from 'omorphia'
+import { Button, FileInput, TrashIcon, Avatar, UploadIcon, SaveIcon, ConfirmModal } from 'omorphia'
 
 const {
   organization,
@@ -121,7 +112,7 @@ const onDeleteOrganization = useClientTry(async () => {
       :confirmation-text="organization.name"
       @proceed="onDeleteOrganization"
     />
-    <Card>
+    <div class="universal-card">
       <div class="label">
         <h3>
           <span class="label__title size-card-header">Organization details</span>
@@ -189,8 +180,8 @@ const onDeleteOrganization = useClientTry(async () => {
           Save changes
         </Button>
       </div>
-    </Card>
-    <Card>
+    </div>
+    <div class="universal-card">
       <div class="label">
         <h3>
           <span class="label__title size-card-header">Delete organization</span>
@@ -204,7 +195,7 @@ const onDeleteOrganization = useClientTry(async () => {
         <TrashIcon />
         Delete organization
       </Button>
-    </Card>
+    </div>
   </div>
 </template>
 

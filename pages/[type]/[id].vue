@@ -408,7 +408,7 @@
           :route="route"
         />
       </section>
-      <div class="card normal-page__info">
+      <div class="universal-card normal-page__info">
         <template
           v-if="
             project.issues_url ||

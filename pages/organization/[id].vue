@@ -1,7 +1,7 @@
 <template>
   <div v-if="organization" class="normal-page">
     <div class="normal-page__sidebar">
-      <Card>
+      <div class="universal-card">
         <div class="card__overlay input-group">
           <!-- If the user is able to edit org -->
           <template v-if="hasPermission && !routeHasSettings">
@@ -57,7 +57,7 @@
             </div>
           </div>
         </div>
-      </Card>
+      </div>
 
       <Card class="creator-list">
         <div class="title-and-link">

@@ -1,6 +1,6 @@
 <template>
   <div class="normal-page__content">
-    <Card>
+    <div class="universal-card">
       <div class="label">
         <h3>
           <span class="label__title size-card-header">Manage members</span>
@@ -52,7 +52,7 @@
           Leave project
         </Button>
       </div>
-    </Card>
+    </div>
     <Card
       v-for="(member, index) in allTeamMembers"
       :key="member.user.id"
@@ -232,6 +232,7 @@ import {
 
 import { ref } from 'vue'
 import { removeTeamMember } from '~/helpers/teams.js'
+import { isPermission } from '~/utils/permissions.ts'
 
 const { organization, refresh: refreshOrganization, currentMember } = inject('organizationContext')
 
@@ -283,10 +284,6 @@ const organizationPermissions = {
 const permToLabel = (key) => {
   const o = key.split('_').join(' ')
   return o.charAt(0).toUpperCase() + o.slice(1).toLowerCase()
-}
-
-const isPermission = (perms, bitflag) => {
-  return (perms & bitflag) === bitflag
 }
 
 const leaveProject = async () => {
