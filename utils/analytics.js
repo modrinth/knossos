@@ -34,50 +34,39 @@ export const formatPercent = (value, sum) => {
   return `${((value / sum) * 100).toFixed(2)}%`
 }
 
-const intToRgba = (int, pid = 'Unknown') => {
-  const RGBToHSL = (r, g, b) => {
-    r /= 255
-    g /= 255
-    b /= 255
-    const l = Math.max(r, g, b)
-    const s = l - Math.min(r, g, b)
-    const h = s ? (l === r ? (g - b) / s : l === g ? 2 + (b - r) / s : 4 + (r - g) / s) : 0
-    return [60 * h < 0 ? 60 * h + 360 : 60 * h, 60, 50]
+const intToRgba = (color, projectId = 'Unknown', theme) => {
+  // Extract RGB values
+  let r = (color >> 16) & 255
+  let g = (color >> 8) & 255
+  let b = color & 255
+
+  // Hash function to alter color slightly based on project_id
+  const hash = projectId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 30
+  r = (r + hash) % 256
+  g = (g + hash) % 256
+  b = (b + hash) % 256
+
+  // Adjust brightness for theme
+  const brightness = r * 0.299 + g * 0.587 + b * 0.114
+  const threshold = theme === 'dark' ? 50 : 200
+  if (theme === 'dark' && brightness < threshold) {
+    // Increase brightness for dark theme
+    r += threshold / 2
+    g += threshold / 2
+    b += threshold / 2
+  } else if (theme === 'light' && brightness > threshold) {
+    // Decrease brightness for light theme
+    r -= threshold / 4
+    g -= threshold / 4
+    b -= threshold / 4
   }
 
-  const HSLToRGB = (h, s, l) => {
-    s /= 100
-    l /= 100
-    const k = (n) => (n + h / 30) % 12
-    const a = s * Math.min(l, 1 - l)
-    const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
-    return [255 * f(0), 255 * f(8), 255 * f(4)]
-  }
+  // Ensure RGB values are within 0-255
+  r = Math.min(255, Math.max(0, r))
+  g = Math.min(255, Math.max(0, g))
+  b = Math.min(255, Math.max(0, b))
 
-  const stringToHash = (string) => {
-    let hash = 0
-    for (let i = 0; i < string.length; i++) {
-      const char = string.charCodeAt(i)
-      hash = (hash << 5) - hash + char
-      hash = hash & hash // Convert to 32bit integer
-    }
-    return hash
-  }
-
-  const adjustHue = (hue, amount) => {
-    return (hue + amount) % 360
-  }
-
-  const r = (int >> 16) & 255
-  const g = (int >> 8) & 255
-  const b = int & 255
-
-  const vibrant = RGBToHSL(r, g, b)
-  const hash = stringToHash(pid)
-  const adjustedHue = adjustHue(vibrant[0], hash % 45)
-
-  const final = HSLToRGB(adjustedHue, vibrant[1], vibrant[2])
-  return `rgba(${final[0]}, ${final[1]}, ${final[2]}, 1)`
+  return `rgba(${r}, ${g}, ${b}, 1)`
 }
 
 const emptyAnalytics = {
@@ -123,31 +112,35 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
     new Set(projectData.flatMap((data) => data.map(([ts]) => ts)))
   ).sort()
 
+  const chartData = projectData
+    .map((data, i) => {
+      const project = projects.find((p) => p.id === loadedProjectIds[i])
+      if (!project) {
+        throw new Error(`Project ${loadedProjectIds[i]} not found`)
+      }
+
+      return {
+        name: `${project.title}`,
+        data: timestamps.map((ts) => {
+          const entry = data.find(([ets]) => ets === ts)
+          return entry ? entry[1] : 0
+        }),
+        id: project.id,
+        color: project.color,
+      }
+    })
+    .sort(
+      (a, b) =>
+        b.data.reduce((acc, cur) => acc + cur, 0) - a.data.reduce((acc, cur) => acc + cur, 0)
+    )
+
   return {
     // The total count of all the values across all projects
     sum: projectData.reduce((acc, cur) => acc + cur.reduce((a, c) => a + c[1], 0), 0),
     len: timestamps.length,
     chart: {
       labels: timestamps.map(labelFn),
-      data: projectData
-        .map((data, i) => {
-          const project = projects.find((p) => p.id === loadedProjectIds[i])
-          if (!project) {
-            throw new Error(`Project ${loadedProjectIds[i]} not found`)
-          }
-
-          return {
-            name: `${project.title}`,
-            data: timestamps.map((ts) => {
-              const entry = data.find(([ets]) => ets === ts)
-              return entry ? entry[1] : 0
-            }),
-          }
-        })
-        .sort(
-          (a, b) =>
-            b.data.reduce((acc, cur) => acc + cur, 0) - a.data.reduce((acc, cur) => acc + cur, 0)
-        ),
+      data: chartData.map((x) => ({ name: x.name, data: x.data })),
       sumData: [
         {
           name: chartName,
@@ -158,12 +151,12 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
         },
       ],
       colors: projectData.map((_, i) => {
-        const project = projects.find((p) => p.id === loadedProjectIds[i])
-        if (!project) {
-          throw new Error(`Project ${loadedProjectIds[i]} not found`)
-        }
+        const theme = useTheme()
+        const project = chartData[i]
 
-        return project.color ? intToRgba(project.color, project.id) : '--color-brand'
+        return project.color
+          ? intToRgba(project.color, project.id, theme.value.value)
+          : '--color-brand'
       }),
     },
   }

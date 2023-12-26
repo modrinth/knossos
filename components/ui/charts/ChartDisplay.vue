@@ -132,10 +132,21 @@
                 class="country-value"
               >
                 <div class="country-flag-container">
-                  <img :src="countryCodeToFlag(name)" :alt="name" class="country-flag" />
+                  <img
+                    :src="
+                      name.toLowerCase() === 'xx' || !name
+                        ? 'https://cdn.modrinth.com/placeholder-banner.svg'
+                        : countryCodeToFlag(name)
+                    "
+                    alt="Hidden country"
+                    class="country-flag"
+                  />
                 </div>
                 <div class="country-text">
-                  <strong class="country-name">{{ countryCodeToName(name) }}</strong>
+                  <strong class="country-name"
+                    ><template v-if="name.toLowerCase() === 'xx' || !name">Hidden</template>
+                    <template v-else>{{ countryCodeToName(name) }}</template>
+                  </strong>
                   <span class="data-point">{{ formatNumber(count) }}</span>
                 </div>
                 <div
@@ -323,17 +334,14 @@ const defaultRanges: Record<number, [string, number] | string> = {
   margin-top: 0.25rem;
 
   display: flex;
-  flex-direction: row;
-  gap: var(--gap-md);
+  flex-direction: column;
 
   .graphs__vertical-bar {
-    // Take up 1/3 of the width
     flex-grow: 0;
     flex-shrink: 0;
-    max-width: 16rem;
-
+    gap: 0.75rem;
     display: flex;
-    flex-direction: column;
+    margin-right: 0.1rem;
   }
 
   .graphs__main-graph {

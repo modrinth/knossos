@@ -27,13 +27,7 @@ const props = defineProps({
   },
   colors: {
     type: Array,
-    default: () => [
-      'var(--color-brand)',
-      'var(--color-blue)',
-      'var(--color-purple)',
-      'var(--color-red)',
-      'var(--color-orange)',
-    ],
+    default: () => [],
   },
   prefix: {
     type: String,
@@ -227,7 +221,7 @@ const chartOptions = ref({
     fontFamily:
       'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
     onItemClick: {
-      toggleDataSeries: false,
+      toggleDataSeries: true,
     },
   },
   markers: {

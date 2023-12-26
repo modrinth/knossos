@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$route.name.startsWith('type-id-settings')" class="normal-page">
+  <div v-if="route.name.startsWith('type-id-settings')" class="normal-page">
     <div class="normal-page__sidebar">
       <aside class="universal-card">
         <Breadcrumbs
@@ -109,8 +109,8 @@
         :project="project"
         :versions="versions"
         :current-member="currentMember"
-        :is-settings="$route.name.startsWith('type-id-settings')"
-        :route-name="$route.name"
+        :is-settings="route.name.startsWith('type-id-settings')"
+        :route-name="route.name"
         :set-processing="setProcessing"
         :collapsed="collapsedChecklist"
         :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
@@ -334,8 +334,8 @@
           :project="project"
           :versions="versions"
           :current-member="currentMember"
-          :is-settings="$route.name.startsWith('type-id-settings')"
-          :route-name="$route.name"
+          :is-settings="route.name.startsWith('type-id-settings')"
+          :route-name="route.name"
           :set-processing="setProcessing"
           :collapsed="collapsedChecklist"
           :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
@@ -500,7 +500,7 @@
           <div class="featured-header">
             <h2 class="card-header">Featured versions</h2>
             <nuxt-link
-              v-if="$route.name !== 'type-id-versions' && (versions.length > 0 || currentMember)"
+              v-if="route.name !== 'type-id-versions' && (versions.length > 0 || currentMember)"
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/versions#all-versions`"
