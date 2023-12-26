@@ -11,7 +11,7 @@
     />
     <div class="normal-page">
       <div class="normal-page__sidebar">
-        <div class="universal-card">
+        <div class="card">
           <div class="card__overlay input-group">
             <template v-if="canEdit && isEditing === false">
               <Button @click="isEditing = true">
@@ -114,8 +114,10 @@
               <Avatar size="md" :src="collection.icon_url" />
             </div>
             <div class="page-header__text">
-              <div class="title">
-                <h1>{{ collection.name }}</h1>
+              <h1 class="title">{{ collection.name }}</h1>
+
+              <div>
+                <span class="collection-label"><BoxIcon /> Collection</span>
               </div>
 
               <div class="collection-info">
@@ -125,7 +127,7 @@
 
                 <hr class="card-divider" />
 
-                <div class="primary-stat">
+                <div v-if="canEdit" class="primary-stat">
                   <template v-if="collection.status === 'listed'">
                     <WorldIcon class="primary-stat__icon" aria-hidden="true" />
                     <div class="primary-stat__text">
@@ -154,17 +156,20 @@
               </div>
 
               <div class="primary-stat">
-                <BoxIcon class="primary-stat__icon" aria-hidden="true" />
+                <LibraryIcon class="primary-stat__icon" aria-hidden="true" />
                 <div class="primary-stat__text">
                   <span class="primary-stat__counter">
-                    {{ $formatNumber(collection.projects?.length || 0) }}
+                    {{ $formatNumber(projects.length || 0) }}
                   </span>
-                  project<span v-if="collection.projects?.length !== 1">s</span>
+                  project<span v-if="projects.length !== 1">s</span>
                 </div>
               </div>
 
               <div class="metadata-item">
-                <div class="date">
+                <div
+                  v-tooltip="$dayjs(collection.created).format('MMMM D, YYYY [at] h:mm A')"
+                  class="date"
+                >
                   <CalendarIcon />
                   <label>
                     Created
@@ -173,8 +178,11 @@
                 </div>
               </div>
 
-              <div class="metadata-item">
-                <div class="date">
+              <div v-if="collection.id !== 'following'" class="metadata-item">
+                <div
+                  v-tooltip="$dayjs(collection.created).format('MMMM D, YYYY [at] h:mm A')"
+                  class="date"
+                >
                   <UpdatedIcon />
                   <label>
                     Updated
@@ -187,6 +195,7 @@
             <hr class="card-divider" />
 
             <div class="collection-info">
+              <h2 class="card-header">Curated by</h2>
               <div class="metadata-item">
                 <nuxt-link
                   class="team-member columns button-transparent"
@@ -330,7 +339,6 @@ import {
   EditIcon,
   XIcon,
   SaveIcon,
-  BoxIcon,
   UploadIcon,
   TrashIcon,
   PopoutMenu,
@@ -342,11 +350,11 @@ import {
   ImageIcon,
   ListIcon,
   UpdatedIcon,
+  LibraryIcon,
+  BoxIcon,
 } from 'omorphia'
 
 import WorldIcon from 'assets/images/utils/world.svg'
-// import ManageIcon from '~/assets/images/utils/settings-2.svg'
-
 import UpToDate from 'assets/images/illustrations/up_to_date.svg'
 import { addNotification } from '~/composables/notifs.js'
 import ModalConfirm from '~/components/ui/ModalConfirm.vue'
@@ -423,6 +431,20 @@ if (!collection.value) {
     fatal: true,
     statusCode: 404,
     message: 'Collection not found',
+  })
+}
+
+const title = `${collection.value.name} - Collection`
+const description = `${collection.value.description} - View the collection ${collection.value.description} by ${creator.value.username} on Modrinth`
+
+if (!route.name.startsWith('type-id-settings')) {
+  useSeoMeta({
+    title,
+    description,
+    ogTitle: title,
+    ogDescription: collection.value.description,
+    ogImage: collection.value.icon_url ?? 'https://cdn.modrinth.com/placeholder.png',
+    robots: collection.value.status === 'listed' ? 'all' : 'noindex',
   })
 }
 
@@ -599,10 +621,6 @@ function showPreviewImage(files) {
     top: var(--spacing-card-lg);
     right: var(--spacing-card-lg);
   }
-
-  h1 {
-    margin-bottom: var(--gap-md);
-  }
 }
 
 .collection-info {
@@ -626,5 +644,29 @@ function showPreviewImage(files) {
     height: 1rem;
     margin-right: 0.25rem;
   }
+}
+
+.card-header {
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: var(--color-heading);
+  margin-bottom: 0.5rem;
+  width: fit-content;
+}
+
+.title {
+  margin: var(--gap-md) 0 var(--spacing-card-xs) 0;
+}
+
+.collection-label {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.collection-description {
+  margin-top: var(--spacing-card-sm);
+  margin-bottom: 0;
 }
 </style>
