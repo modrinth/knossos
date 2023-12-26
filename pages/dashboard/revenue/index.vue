@@ -83,8 +83,8 @@
         Modrinth will deduct <strong>2%</strong> for the fee (minimum of $0.25 and maximum of $20)
         from <strong>all transfers</strong> and if the fee PayPal charges is less than the amount we
         deducted, the difference will be added back to your Modrinth balance. This happens as
-        Modrinth cannot determine if a transaction will be in the United States or international or
-        not until after the transaction has been made.
+        Modrinth cannot determine if a transaction will be in the United States or international
+        until after the transaction has been made.
       </p>
       <h3>Venmo (United States only)</h3>
       <p>
