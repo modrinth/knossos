@@ -61,19 +61,22 @@
       <div class="input-group">
         <button
           v-if="sortedMessages.length > 0"
-          class="iconified-button brand-button"
+          class="btn btn-primary"
           :disabled="!replyBody"
           @click="sendReply()"
         >
           <ReplyIcon /> Reply
         </button>
-        <button
-          v-else
-          class="iconified-button brand-button"
-          :disabled="!replyBody"
-          @click="sendReply()"
-        >
+        <button v-else class="btn btn-primary" :disabled="!replyBody" @click="sendReply()">
           <SendIcon /> Send
+        </button>
+        <button
+          v-if="isStaff(auth.user)"
+          class="btn"
+          :disabled="!replyBody"
+          @click="sendReply(null, true)"
+        >
+          <ModerationIcon /> Add private note
         </button>
         <template v-if="currentMember && !isStaff(auth.user)">
           <template v-if="isRejected(project)">
@@ -113,7 +116,7 @@
             <template v-if="isStaff(auth.user)">
               <button
                 v-if="replyBody"
-                class="iconified-button brand-button"
+                class="btn btn-green"
                 :disabled="isApproved(project)"
                 @click="sendReply(requestedStatus)"
               >
@@ -121,59 +124,74 @@
               </button>
               <button
                 v-else
-                class="iconified-button brand-button"
+                class="btn btn-green"
                 :disabled="isApproved(project)"
                 @click="setStatus(requestedStatus)"
               >
-                <CheckIcon /> Approve project
+                <CheckIcon /> Approve
               </button>
-              <button
-                v-if="replyBody"
-                class="iconified-button moderation-button"
-                :disabled="project.status === 'withheld'"
-                @click="sendReply('withheld')"
-              >
-                <EyeOffIcon /> Withhold with reply
-              </button>
-              <button
-                v-else
-                class="iconified-button moderation-button"
-                :disabled="project.status === 'withheld'"
-                @click="setStatus('withheld')"
-              >
-                <EyeOffIcon /> Withhold project
-              </button>
-              <button
-                v-if="replyBody"
-                class="iconified-button danger-button"
-                :disabled="project.status === 'rejected'"
-                @click="sendReply('rejected')"
-              >
-                <CrossIcon /> Reject with reply
-              </button>
-              <button
-                v-else
-                class="iconified-button danger-button"
-                :disabled="project.status === 'rejected'"
-                @click="setStatus('rejected')"
-              >
-                <CrossIcon /> Reject project
-              </button>
+              <div class="joined-buttons">
+                <button
+                  v-if="replyBody"
+                  class="btn btn-danger"
+                  :disabled="project.status === 'rejected'"
+                  @click="sendReply('rejected')"
+                >
+                  <CrossIcon /> Reject with reply
+                </button>
+                <button
+                  v-else
+                  class="btn btn-danger"
+                  :disabled="project.status === 'rejected'"
+                  @click="setStatus('rejected')"
+                >
+                  <CrossIcon /> Reject
+                </button>
+                <OverflowMenu
+                  class="btn btn-danger btn-dropdown-animation icon-only"
+                  position="top"
+                  direction="left"
+                  :options="
+                    replyBody
+                      ? [
+                          {
+                            id: 'withhold-reply',
+                            color: 'danger',
+                            action: () => {
+                              sendReply('withheld')
+                            },
+                            hoverFilled: true,
+                            disabled: project.status === 'withheld',
+                          },
+                        ]
+                      : [
+                          {
+                            id: 'withhold',
+                            color: 'danger',
+                            action: () => {
+                              setStatus('withheld')
+                            },
+                            hoverFilled: true,
+                            disabled: project.status === 'withheld',
+                          },
+                        ]
+                  "
+                >
+                  <DropdownIcon style="rotate: 180deg" />
+                  <template #withhold-reply> <EyeOffIcon /> Withhold with reply </template>
+                  <template #withhold> <EyeOffIcon /> Withhold </template>
+                </OverflowMenu>
+              </div>
             </template>
           </template>
         </div>
-        <Checkbox
-          v-model="privateMessage"
-          label="Private staff-only message"
-          description="Private staff-only message"
-        />
       </div>
     </template>
   </div>
 </template>
 
 <script setup>
-import { MarkdownEditor } from 'omorphia'
+import { OverflowMenu, MarkdownEditor, DropdownIcon } from 'omorphia'
 import { useImageUpload } from '~/composables/image-upload.ts'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import ReplyIcon from '~/assets/images/utils/reply.svg'
@@ -237,7 +255,6 @@ const members = computed(() => {
 })
 
 const replyBody = ref('')
-const privateMessage = ref(false)
 
 const sortedMessages = computed(() => {
   if (props.thread !== null) {
@@ -276,13 +293,13 @@ async function onUploadImage(file) {
   return response.url
 }
 
-async function sendReply(status = null) {
+async function sendReply(status = null, privateMessage = false) {
   try {
     const body = {
       body: {
         type: 'text',
         body: replyBody.value,
-        private: privateMessage.value,
+        private: privateMessage,
       },
     }
 
@@ -299,7 +316,6 @@ async function sendReply(status = null) {
     })
 
     replyBody.value = ''
-    privateMessage.value = false
 
     await updateThreadLocal()
     if (status !== null) {
