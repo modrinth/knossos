@@ -162,6 +162,11 @@
             </template>
           </template>
         </div>
+        <Checkbox
+          v-model="privateMessage"
+          label="Private staff-only message"
+          description="Private staff-only message"
+        />
       </div>
     </template>
   </div>
@@ -232,6 +237,7 @@ const members = computed(() => {
 })
 
 const replyBody = ref('')
+const privateMessage = ref(false)
 
 const sortedMessages = computed(() => {
   if (props.thread !== null) {
@@ -276,6 +282,7 @@ async function sendReply(status = null) {
       body: {
         type: 'text',
         body: replyBody.value,
+        private: privateMessage.value,
       },
     }
 
@@ -292,6 +299,7 @@ async function sendReply(status = null) {
     })
 
     replyBody.value = ''
+    privateMessage.value = false
 
     await updateThreadLocal()
     if (status !== null) {
