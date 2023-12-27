@@ -27,6 +27,9 @@
           <NavStackItem v-if="true" link="/dashboard/organizations" label="Organizations">
             <OrganizationIcon />
           </NavStackItem>
+          <NavStackItem link="/dashboard/collections" label="Collections">
+            <LibraryIcon />
+          </NavStackItem>
           <NavStackItem link="/dashboard/revenue" label="Revenue">
             <CurrencyIcon />
           </NavStackItem>
@@ -39,7 +42,7 @@
   </div>
 </template>
 <script setup>
-import { ChartIcon } from 'omorphia'
+import { LibraryIcon, ChartIcon } from 'omorphia'
 import NavStack from '~/components/ui/NavStack.vue'
 import NavStackItem from '~/components/ui/NavStackItem.vue'
 

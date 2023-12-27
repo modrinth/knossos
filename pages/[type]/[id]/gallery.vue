@@ -296,10 +296,10 @@ import {
   ImageIcon,
   TransferIcon,
   ConfirmModal,
-  Modal,
   FileInput,
   DropArea,
 } from 'omorphia'
+import Modal from '~/components/ui/Modal.vue'
 
 import { isPermission } from '~/utils/permissions.ts'
 
