@@ -44,6 +44,8 @@
         :message="message"
         :members="members"
         :report="report"
+        :auth="auth"
+        @update-thread="() => updateThreadLocal()"
         raised
       />
     </div>
@@ -222,11 +224,6 @@ const props = defineProps({
     required: false,
     default: null,
   },
-  updateThread: {
-    type: Function,
-    required: false,
-    default: () => {},
-  },
   setStatus: {
     type: Function,
     required: false,
@@ -243,6 +240,9 @@ const props = defineProps({
     required: true,
   },
 })
+
+const emit = defineEmits(['update-thread'])
+
 const app = useNuxtApp()
 const cosmetics = useCosmetics()
 
@@ -278,7 +278,7 @@ async function updateThreadLocal() {
   if (threadId) {
     thread = await useBaseFetch(`thread/${threadId}`)
   }
-  props.updateThread(thread)
+  emit('update-thread', thread)
 }
 
 const imageIDs = ref([])
