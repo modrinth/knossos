@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$route.name.startsWith('type-id-settings')" class="normal-page">
+  <div v-if="route.name.startsWith('type-id-settings')" class="normal-page">
     <div class="normal-page__sidebar">
       <aside class="universal-card">
         <Breadcrumbs
@@ -75,6 +75,16 @@
           >
             <UsersIcon />
           </NavStackItem>
+          <h3>View</h3>
+          <NavStackItem
+            :link="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/settings/analytics`"
+            label="Analytics"
+            chevron
+          >
+            <ChartIcon />
+          </NavStackItem>
           <h3>Upload</h3>
           <NavStackItem
             :link="`/${project.project_type}/${project.slug ? project.slug : project.id}/gallery`"
@@ -99,8 +109,8 @@
         :project="project"
         :versions="versions"
         :current-member="currentMember"
-        :is-settings="$route.name.startsWith('type-id-settings')"
-        :route-name="$route.name"
+        :is-settings="route.name.startsWith('type-id-settings')"
+        :route-name="route.name"
         :set-processing="setProcessing"
         :collapsed="collapsedChecklist"
         :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
@@ -130,6 +140,7 @@
         <div class="markdown-body" v-html="renderString(licenseText)" />
       </div>
     </Modal>
+    <CollectionCreateModal ref="modal_collection" :project-ids="[project.id]" />
     <div
       :class="{
         'normal-page': true,
@@ -204,6 +215,7 @@
               />
             </Categories>
             <hr class="card-divider" />
+
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
@@ -213,6 +225,7 @@
                 download<span v-if="project.downloads !== 1">s</span>
               </div>
             </div>
+
             <div class="primary-stat">
               <HeartIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
@@ -252,13 +265,9 @@
             <hr class="card-divider" />
             <div class="input-group">
               <template v-if="auth.user">
-                <button class="iconified-button" @click="() => reportProject(project.id)">
-                  <ReportIcon aria-hidden="true" />
-                  Report
-                </button>
                 <button
                   v-if="!user.follows.find((x) => x.id === project.id)"
-                  class="iconified-button"
+                  class="btn"
                   @click="userFollowProject(project)"
                 >
                   <HeartIcon aria-hidden="true" />
@@ -266,12 +275,59 @@
                 </button>
                 <button
                   v-if="user.follows.find((x) => x.id === project.id)"
-                  class="iconified-button"
+                  class="btn"
                   @click="userUnfollowProject(project)"
                 >
                   <HeartIcon fill="currentColor" aria-hidden="true" />
                   Unfollow
                 </button>
+                <PopoutMenu class="btn" direction="right" position="bottom" from="top-right">
+                  <BookmarkIcon aria-hidden="true" />
+                  Save
+                  <template #menu>
+                    <input
+                      v-model="displayCollectionsSearch"
+                      type="text"
+                      placeholder="Search collections..."
+                      class="search-input menu-search"
+                    />
+                    <div v-if="collections.length > 0" class="collections-list">
+                      <Checkbox
+                        v-for="option in collections"
+                        :key="option.id"
+                        :model-value="option.projects.includes(project.id)"
+                        class="popout-checkbox"
+                        @update:model-value="userCollectProject(option, project.id)"
+                      >
+                        {{ option.name }}
+                      </Checkbox>
+                    </div>
+                    <div v-else class="menu-text">
+                      <p class="popout-text">No collections found.</p>
+                    </div>
+                    <button class="btn collection-button" @click="$refs.modal_collection.show()">
+                      <PlusIcon />
+                      Create new collection
+                    </button>
+                  </template>
+                </PopoutMenu>
+                <OverflowMenu
+                  class="btn icon-only"
+                  :options="[
+                    {
+                      id: 'report',
+                      action: () => reportProject(project.id),
+                      color: 'red',
+                      hoverOnly: true,
+                    },
+                    { id: 'copy-id', action: () => copyId() },
+                  ]"
+                  direction="right"
+                >
+                  <MoreHorizontalIcon />
+                  <template #report> <ReportIcon /> Report</template>
+                  <template #copy-id> <ClipboardCopyIcon /> Copy ID</template>
+                </OverflowMenu>
               </template>
               <template v-else>
                 <nuxt-link class="iconified-button" to="/auth/sign-in">
@@ -282,6 +338,24 @@
                   <HeartIcon aria-hidden="true" />
                   Follow
                 </nuxt-link>
+
+                <OverflowMenu
+                  class="btn icon-only"
+                  :options="[
+                    {
+                      id: 'report',
+                      action: () => navigateTo('/auth/sign-in'),
+                      color: 'red',
+                      hoverOnly: true,
+                    },
+                    { id: 'copy-id', action: () => copyId() },
+                  ]"
+                  direction="right"
+                >
+                  <MoreHorizontalIcon />
+                  <template #report> <ReportIcon /> Report</template>
+                  <template #copy-id> <ClipboardCopyIcon /> Copy ID</template>
+                </OverflowMenu>
               </template>
             </div>
           </div>
@@ -324,8 +398,8 @@
           :project="project"
           :versions="versions"
           :current-member="currentMember"
-          :is-settings="$route.name.startsWith('type-id-settings')"
-          :route-name="$route.name"
+          :is-settings="route.name.startsWith('type-id-settings')"
+          :route-name="route.name"
           :set-processing="setProcessing"
           :collapsed="collapsedChecklist"
           :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
@@ -490,7 +564,7 @@
           <div class="featured-header">
             <h2 class="card-header">Featured versions</h2>
             <nuxt-link
-              v-if="$route.name !== 'type-id-versions' && (versions.length > 0 || currentMember)"
+              v-if="route.name !== 'type-id-versions' && (versions.length > 0 || currentMember)"
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/versions#all-versions`"
@@ -658,7 +732,17 @@
   </div>
 </template>
 <script setup>
-import { Promotion } from 'omorphia'
+import {
+  Promotion,
+  OverflowMenu,
+  PopoutMenu,
+  BookmarkIcon,
+  MoreHorizontalIcon,
+  ClipboardCopyIcon,
+  PlusIcon,
+  Checkbox,
+  ChartIcon,
+} from 'omorphia'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import ClearIcon from '~/assets/images/utils/clear.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
@@ -701,6 +785,8 @@ import VersionIcon from '~/assets/images/utils/version.svg'
 import { renderString } from '~/helpers/parse.js'
 import { reportProject } from '~/utils/report-helpers.ts'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import { userCollectProject } from '~/composables/user.js'
+import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -710,6 +796,15 @@ const auth = await useAuth()
 const user = await useUser()
 const cosmetics = useCosmetics()
 const tags = useTags()
+
+const displayCollectionsSearch = ref('')
+const collections = computed(() =>
+  user.value && user.value.collections
+    ? user.value.collections.filter((x) =>
+        x.name.toLowerCase().includes(displayCollectionsSearch.value.toLowerCase())
+      )
+    : []
+)
 
 if (
   !route.params.id ||
@@ -1122,7 +1217,6 @@ const collapsedChecklist = ref(false)
 }
 
 .project__header {
-  overflow: hidden;
   .project__gallery {
     display: none;
   }
@@ -1131,11 +1225,12 @@ const collapsedChecklist = ref(false)
       display: inline-block;
       width: 100%;
       height: 10rem;
-      background-color: var(--color-button-bg-active);
       img {
         width: 100%;
         height: 10rem;
         object-fit: cover;
+        background-color: var(--color-button-bg-active);
+        border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
       }
     }
     .project__icon {
@@ -1149,6 +1244,9 @@ const collapsedChecklist = ref(false)
     margin: 0;
     background: none;
     border-radius: unset;
+  }
+  .input-group {
+    flex-wrap: nowrap;
   }
 }
 
@@ -1356,5 +1454,45 @@ const collapsedChecklist = ref(false)
 
 .normal-page__sidebar .mod-button {
   margin-top: var(--spacing-card-sm);
+}
+
+.popout-checkbox {
+  padding: var(--gap-sm) var(--gap-md);
+  white-space: nowrap;
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+
+.popout-heading {
+  padding: var(--gap-sm) var(--gap-md);
+  padding-bottom: 0;
+  font-size: var(--font-size-nm);
+  color: var(--color-secondary);
+}
+
+.collection-button {
+  margin: var(--gap-sm) var(--gap-md);
+  white-space: nowrap;
+}
+
+.menu-text {
+  padding: 0 var(--gap-md);
+  font-size: var(--font-size-nm);
+  color: var(--color-secondary);
+}
+
+.menu-search {
+  margin: var(--gap-sm) var(--gap-md);
+  width: calc(100% - var(--gap-md) * 2);
+}
+
+.collections-list {
+  max-height: 40rem;
+  overflow-y: auto;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  margin: var(--gap-sm) var(--gap-md);
+  padding: var(--gap-sm);
 }
 </style>
