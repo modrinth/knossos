@@ -23,6 +23,12 @@
   "collection.label.unlisted": {
     "message": "Unlisted"
   },
+  "collection.delete-modal.description": {
+    "message": "This will remove this collection forever. This action cannot be undone."
+  },
+  "collection.delete-modal.title": {
+    "message": "Are you sure you want to delete this collection?"
+  },
   "collection.title": {
     "message": "{name} - Collection"
   },

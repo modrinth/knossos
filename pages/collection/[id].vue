@@ -3,8 +3,8 @@
     <ModalConfirm
       v-if="auth.user && auth.user.id === creator.id"
       ref="deleteModal"
-      title="Are you sure you want to delete this collection?"
-      description="This will remove this collection forever. This action cannot be undone."
+      :title="formatMessage(messages.deleteModalTitle)"
+      :description="formatMessage(messages.deleteModalDescription)"
       :has-to-type="false"
       proceed-label="Delete"
       @proceed="deleteCollection()"
@@ -373,6 +373,17 @@ import ProjectCard from '~/components/ui/ProjectCard.vue'
 
 const vintl = useVIntl()
 const { formatMessage } = vintl
+
+const messages = defineMessages({
+  deleteModalDescription: {
+    id: 'collection.delete-modal.description',
+    defaultMessage: 'This will remove this collection forever. This action cannot be undone.',
+  },
+  deleteModalTitle: {
+    id: 'collection.delete-modal.title',
+    defaultMessage: 'Are you sure you want to delete this collection?',
+  },
+})
 
 const data = useNuxtApp()
 const route = useRoute()
