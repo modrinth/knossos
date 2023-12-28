@@ -72,7 +72,7 @@
     "message": "{count, plural,one {{count} دانلود} other {{count} دانلود}}"
   },
   "profile.stats.projects-followers": {
-    "message": "{count, plural, one {<stat>{count}</stat> follower} other {<stat>{count}</stat> followers}} of projects"
+    "message": "{count, plural, one {<stat>{count}</stat> دنبال کنندۀ} other {<stat>{count}</stat> دنبال کننده های}} پروژه ها"
   },
   "profile.user-id": {
     "message": "آیدی کاربر: {id}"
@@ -168,7 +168,7 @@
     "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
   },
   "settings.sessions.label.created-at": {
-    "message": "Created {ago}"
+    "message": "ساخته شده {ago}"
   },
   "settings.sessions.label.current-session": {
     "message": "Current session"
