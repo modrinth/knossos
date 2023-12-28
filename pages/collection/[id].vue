@@ -167,7 +167,12 @@
 
               <div class="metadata-item">
                 <div
-                  v-tooltip="$dayjs(collection.created).format('MMMM D, YYYY [at] h:mm A')"
+                  v-tooltip="
+                    formatMessage(commonMessages.dateAtTimeTooltip, {
+                      date: new Date(collection.created),
+                      time: new Date(collection.created),
+                    })
+                  "
                   class="date"
                 >
                   <CalendarIcon />
@@ -180,7 +185,12 @@
 
               <div v-if="collection.id !== 'following'" class="metadata-item">
                 <div
-                  v-tooltip="$dayjs(collection.created).format('MMMM D, YYYY [at] h:mm A')"
+                  v-tooltip="
+                    formatMessage(commonMessages.dateAtTimeTooltip, {
+                      date: new Date(collection.updated),
+                      time: new Date(collection.updated),
+                    })
+                  "
                   class="date"
                 >
                   <UpdatedIcon />
