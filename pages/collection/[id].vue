@@ -16,7 +16,7 @@
             <template v-if="canEdit && isEditing === false">
               <Button @click="isEditing = true">
                 <EditIcon />
-                Edit
+                {{ formatMessage(commonMessages.editButton) }}
               </Button>
               <Button id="delete-collection" @click="() => $refs.deleteModal.show()">
                 <TrashIcon />
@@ -100,11 +100,11 @@
             <div class="push-right input-group">
               <Button @click="isEditing = false">
                 <XIcon />
-                Cancel
+                {{ formatMessage(commonMessages.cancelButton) }}
               </Button>
               <Button color="primary" @click="saveChanges()">
                 <SaveIcon />
-                Save
+                {{ formatMessage(commonMessages.saveButton) }}
               </Button>
             </div>
           </template>

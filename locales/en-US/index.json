@@ -8,6 +8,24 @@
   "button.save": {
     "message": "Save"
   },
+  "collection.label.owner": {
+    "message": "Owner"
+  },
+  "collection.label.private": {
+    "message": "Private"
+  },
+  "collection.label.public": {
+    "message": "Public"
+  },
+  "collection.label.rejected": {
+    "message": "Rejected"
+  },
+  "collection.label.unlisted": {
+    "message": "Unlisted"
+  },
+  "collection.title": {
+    "message": "{name} - Collection"
+  },
   "frog": {
     "message": "You've been frogged! 🐸"
   },
