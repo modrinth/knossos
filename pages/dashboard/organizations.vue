@@ -38,14 +38,11 @@
             </div>
 
             <div>
-              <h3 class="project-title">
+              <span class="project-title">
                 <nuxt-link class="hover-link wrap-as-needed" :to="`/organization/${org.name}`">
                   {{ org.name }}
                 </nuxt-link>
-              </h3>
-              <div>
-                {{ org.description }}
-              </div>
+              </span>
             </div>
 
             <div>
@@ -55,7 +52,7 @@
             <div>{{ org.members?.length || 0 }}</div>
 
             <div>
-              <nuxt-link class="square-button" :to="`/organization/${org.id}/settings`">
+              <nuxt-link class="square-button" :to="`/organization/${org.name}/settings`">
                 <SettingsIcon />
               </nuxt-link>
             </div>
@@ -215,5 +212,9 @@ const openCreateOrgModal = () => {
       grid-template-columns: min-content minmax(min-content, 1fr);
     }
   }
+}
+
+.hover-link:hover {
+  text-decoration: underline;
 }
 </style>

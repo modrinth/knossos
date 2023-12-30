@@ -115,7 +115,7 @@ const onDeleteOrganization = useClientTry(async () => {
     <div class="universal-card">
       <div class="label">
         <h3>
-          <span class="label__title size-card-header">Organization details</span>
+          <span class="label__title size-card-header">Organization information</span>
         </h3>
       </div>
       <label for="project-icon">
@@ -188,8 +188,8 @@ const onDeleteOrganization = useClientTry(async () => {
         </h3>
       </div>
       <p>
-        Deleting your organization will remove all of your projects and collections. This action
-        cannot be undone.
+        Deleting your organization will transfer all of its projects to the organization owner. This
+        action cannot be undone.
       </p>
       <Button color="danger" @click="() => $refs.modal_deletion.show()">
         <TrashIcon />
@@ -199,4 +199,9 @@ const onDeleteOrganization = useClientTry(async () => {
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.summary-input {
+  min-height: 8rem;
+  max-width: 24rem;
+}
+</style>

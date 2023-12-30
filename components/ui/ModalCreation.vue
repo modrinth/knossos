@@ -77,17 +77,10 @@ export default {
     Modal,
   },
   props: {
-    itemType: {
+    organizationId: {
       type: String,
-      default: '',
-    },
-    itemId: {
-      type: String,
-      default: '',
-    },
-    projectCreateOverride: {
-      type: Function,
-      default: (p) => p,
+      required: false,
+      default: null,
     },
   },
   setup() {
@@ -148,7 +141,7 @@ export default {
 
       const auth = await useAuth()
 
-      let projectData = {
+      const projectData = {
         title: this.name.trim(),
         project_type: projectType.actual,
         slug: this.slug,
@@ -169,8 +162,8 @@ export default {
         is_draft: true,
       }
 
-      if (this.projectCreateOverride) {
-        projectData = this.projectCreateOverride(projectData)
+      if (this.organizationId) {
+        projectData.organization_id = this.organizationId
       }
 
       formData.append('data', JSON.stringify(projectData))

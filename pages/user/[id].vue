@@ -164,7 +164,7 @@
                     :key="org.id"
                     v-tooltip="org.name"
                     class="organization"
-                    :to="`/organization/${org.id}`"
+                    :to="`/organization/${org.name}`"
                   >
                     <Avatar :src="org.icon_url" :alt="'Icon for ' + org.name" size="xs" />
                   </nuxt-link>
@@ -440,7 +440,7 @@ const messages = defineMessages({
   },
   profileNoCollectionsLabel: {
     id: 'profile.label.no-collections',
-    defaultMessage: 'This user has no collection!',
+    defaultMessage: 'This user has no collections!',
   },
   profileNoCollectionsAuthLabel: {
     id: 'profile.label.no-collections-auth',
@@ -524,11 +524,17 @@ useSeoMeta({
 })
 
 const projectTypes = computed(() => {
-  const obj = { collection: true }
+  const obj = {}
+
+  if (collections.value.length > 0) {
+    obj.collection = true
+  }
 
   for (const project of projects.value) {
     obj[project.project_type] = true
   }
+
+  delete obj.project
 
   return Object.keys(obj)
 })

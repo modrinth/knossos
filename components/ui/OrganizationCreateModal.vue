@@ -72,8 +72,7 @@ async function createProject() {
 
     modal.value.hide()
 
-    console.log(result)
-    await router.push(`/organization/${result.id}`)
+    await router.push(`/organization/${result.name}`)
   } catch (err) {
     console.error(err)
     addNotification({

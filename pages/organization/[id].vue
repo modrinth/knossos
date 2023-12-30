@@ -7,7 +7,7 @@
           :link-stack="[
             { href: `/dashboard/organizations`, label: 'Organizations' },
             {
-              href: `/organization/${organization.id}`,
+              href: `/organization/${organization.name}`,
               label: organization.name,
               allowTrimming: true,
             },
@@ -17,105 +17,105 @@
         <div class="page-header__settings">
           <Avatar size="sm" :src="organization.icon_url" />
           <div class="title-section">
-            <h2 class="title">
-              <nuxt-link :to="`/organization/${organization.id}/settings`">
+            <h2 class="settings-title">
+              <nuxt-link :to="`/organization/${organization.name}/settings`">
                 {{ organization.name }}
               </nuxt-link>
             </h2>
+            <span>
+              <span>
+                {{ $formatNumber(acceptedMembers?.length || 0) }}
+              </span>
+              member
+              <span v-if="acceptedMembers?.length !== 1">s</span>
+            </span>
           </div>
         </div>
-
-        <!-- <hr class="card-divider" /> -->
 
         <h2>Organization settings</h2>
 
         <NavStack>
-          <NavStackItem :link="`/organization/${organization.id}/settings`" label="Overview">
+          <NavStackItem :link="`/organization/${organization.name}/settings`" label="Overview">
             <SettingsIcon />
           </NavStackItem>
-          <NavStackItem :link="`/organization/${organization.id}/settings/members`" label="Members">
+          <NavStackItem
+            :link="`/organization/${organization.name}/settings/members`"
+            label="Members"
+          >
             <UsersIcon />
           </NavStackItem>
           <NavStackItem
-            :link="`/organization/${organization.id}/settings/projects`"
+            :link="`/organization/${organization.name}/settings/projects`"
             label="Projects"
           >
             <BoxIcon />
           </NavStackItem>
+          <NavStackItem
+            :link="`/organization/${organization.name}/settings/analytics`"
+            label="Analytics"
+          >
+            <ChartIcon />
+          </NavStackItem>
         </NavStack>
       </div>
 
-      <div v-else class="universal-card">
-        <div class="card__overlay input-group">
-          <!-- If the user is able to edit org -->
-          <template v-if="hasPermission">
-            <nuxt-link :to="`/organization/${organization.id}/settings`" class="btn">
-              <EditIcon />
-              Edit
-            </nuxt-link>
-          </template>
-        </div>
+      <template v-else>
+        <div class="universal-card">
+          <div class="page-header__icon">
+            <Avatar size="md" :src="organization.icon_url" />
+          </div>
 
-        <div class="page-header__icon">
-          <Avatar size="md" :src="organization.icon_url" />
-        </div>
+          <div class="page-header__text">
+            <h1 class="title">{{ organization.name }}</h1>
 
-        <div class="page-header__text">
-          <h1 class="title">{{ organization.name }}</h1>
-
-          <div class="collection-info">
-            <div class="metadata-item markdown-body collection-description">
-              <p>{{ organization.description }}</p>
+            <div>
+              <span class="organization-label"><OrganizationIcon /> Organization</span>
             </div>
 
-            <hr class="card-divider" />
-
-            <div class="primary-stat">
-              <UserIcon class="primary-stat__icon" aria-hidden="true" />
-              <div class="primary-stat__text">
-                <span class="primary-stat__counter">
-                  {{ $formatNumber(acceptedMembers?.length || 0) }}
-                </span>
-                member<span v-if="acceptedMembers?.length !== 1">s</span>
+            <div class="organization-description">
+              <div class="metadata-item markdown-body collection-description">
+                <p>{{ organization.description }}</p>
               </div>
-            </div>
 
-            <div class="primary-stat">
-              <BoxIcon class="primary-stat__icon" aria-hidden="true" />
-              <div class="primary-stat__text">
-                <span class="primary-stat__counter">
-                  {{ $formatNumber(projects?.length || 0) }}
-                </span>
-                project<span v-if="organization.projects?.length !== 1">s</span>
+              <hr class="card-divider" />
+
+              <div class="primary-stat">
+                <UserIcon class="primary-stat__icon" aria-hidden="true" />
+                <div class="primary-stat__text">
+                  <span class="primary-stat__counter">
+                    {{ $formatNumber(acceptedMembers?.length || 0) }}
+                  </span>
+                  member<span v-if="acceptedMembers?.length !== 1">s</span>
+                </div>
               </div>
-            </div>
 
-            <hr class="card-divider" />
-
-            <div class="stats-block__item secondary-stat">
-              <OrganizationIcon class="secondary-stat__icon" aria-hidden="true" />
-              <span class="secondary-stat__text">
-                Org ID:
-                <CopyCode :text="organization.id" />
-              </span>
+              <div class="primary-stat no-margin">
+                <BoxIcon class="primary-stat__icon" aria-hidden="true" />
+                <div class="primary-stat__text">
+                  <span class="primary-stat__counter">
+                    {{ $formatNumber(projects?.length || 0) }}
+                  </span>
+                  project<span v-if="organization.projects?.length !== 1">s</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <Card class="creator-list">
-        <div class="title-and-link">
-          <h3>Members</h3>
+        <div class="creator-list universal-card">
+          <div class="title-and-link">
+            <h3>Members</h3>
+          </div>
+
+          <template v-for="member in acceptedMembers" :key="member.user.id">
+            <nuxt-link class="creator button-base" :to="`/user/${member.user.username}`">
+              <Avatar :src="member.user.avatar_url" circle />
+              <p class="name">{{ member.user.username }}</p>
+              <p class="role">{{ member.role }}</p>
+            </nuxt-link>
+          </template>
         </div>
-
-        <template v-for="member in acceptedMembers" :key="member.user.id">
-          <nuxt-link class="creator button-base" :to="`/user/${member.user.username}`">
-            <Avatar :src="member.user.avatar_url" circle />
-            <p class="name">{{ member.user.username }}</p>
-            <p class="role">{{ member.role }}</p>
-          </nuxt-link>
-        </template>
-      </Card>
+      </template>
     </div>
     <NuxtPage />
   </div>
@@ -126,14 +126,11 @@ import {
   Avatar,
   BoxIcon,
   Breadcrumbs,
-  Card,
-  CopyCode,
-  EditIcon,
   UserIcon,
   UsersIcon,
   SettingsIcon,
+  ChartIcon,
 } from 'omorphia'
-
 import NavStack from '~/components/ui/NavStack.vue'
 import NavStackItem from '~/components/ui/NavStackItem.vue'
 
@@ -253,6 +250,17 @@ provide('organizationContext', {
   deleteIcon,
   patchOrganization,
 })
+
+const title = `${organization.value.name} - Organization`
+const description = `${organization.value.description} - View the organization ${organization.value.name} on Modrinth`
+
+useSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: organization.value.description,
+  ogImage: organization.value.icon_url ?? 'https://cdn.modrinth.com/placeholder.png',
+})
 </script>
 
 <style scoped lang="scss">
@@ -269,7 +277,7 @@ provide('organizationContext', {
     gap: var(--gap-xs);
   }
 
-  .title {
+  .settings-title {
     margin: 0 !important;
     font-size: var(--font-size-md);
   }
@@ -280,13 +288,6 @@ provide('organizationContext', {
 }
 
 .universal-card {
-  overflow: hidden;
-
-  .card__overlay {
-    top: var(--spacing-card-lg);
-    right: var(--spacing-card-lg);
-  }
-
   h1 {
     margin-bottom: var(--gap-md);
   }
@@ -346,5 +347,23 @@ provide('organizationContext', {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.title {
+  margin: var(--gap-md) 0 var(--spacing-card-xs) 0;
+  font-size: var(--font-size-xl);
+  color: var(--color-text-dark);
+}
+
+.organization-label {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.organization-description {
+  margin-top: var(--spacing-card-sm);
+  margin-bottom: 0;
 }
 </style>

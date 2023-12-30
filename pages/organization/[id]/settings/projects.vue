@@ -157,8 +157,8 @@
         </div>
       </div>
     </Modal>
-    <ModalCreation ref="modal_creation" :organization="organization" />
-    <Card>
+    <ModalCreation ref="modal_creation" :organization-id="organization.id" />
+    <div class="universal-card">
       <h2>Projects</h2>
       <div class="input-group">
         <Button color="primary" @click="$refs.modal_creation.show()">
@@ -287,7 +287,7 @@
           </div>
         </div>
       </template>
-    </Card>
+    </div>
   </div>
 </template>
 
@@ -299,7 +299,6 @@ import {
   BoxIcon,
   Modal,
   Avatar,
-  Card,
   CopyCode,
   SettingsIcon,
   TrashIcon,

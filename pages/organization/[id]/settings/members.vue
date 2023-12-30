@@ -10,7 +10,7 @@
         <span class="label__title">Invite a member</span>
         <span class="label__description">
           Enter the Modrinth username of the person you'd like to invite to be a member of this
-          project.
+          organization.
         </span>
       </span>
       <div class="input-group">
@@ -44,19 +44,21 @@
       </div>
       <div class="adjacent-input">
         <span class="label">
-          <span class="label__title">Leave project</span>
-          <span class="label__description"> Remove yourself as a member of this project. </span>
+          <span class="label__title">Leave organization</span>
+          <span class="label__description">
+            Remove yourself as a member of this organization.
+          </span>
         </span>
         <Button color="danger" :disabled="currentMember.role === 'Owner'" @click="leaveProject()">
           <UserRemoveIcon />
-          Leave project
+          Leave organization
         </Button>
       </div>
     </div>
-    <Card
+    <div
       v-for="(member, index) in allTeamMembers"
       :key="member.user.id"
-      class="member"
+      class="member universal-card"
       :class="{ open: openTeamMembers.includes(member.user.id) }"
     >
       <div class="member-header">
@@ -91,7 +93,7 @@
           <label :for="`member-${member.user.id}-role`">
             <span class="label__title">Role</span>
             <span class="label__description">
-              The title of the role that this member plays for this project.
+              The title of the role that this member plays for this organization.
             </span>
           </label>
           <input
@@ -112,7 +114,7 @@
             <span class="label__title">Monetization weight</span>
             <span class="label__description">
               Relative to all other members' monetization weights, this determines what portion of
-              this project's revenue goes to this member.
+              the organization projects' revenue goes to this member.
             </span>
           </label>
           <input
@@ -128,8 +130,8 @@
           />
         </div>
         <p v-if="member.role === 'Owner' && member.oldRole !== 'Owner'" class="known-errors">
-          A project can only have one 'Owner'. Use the 'Transfer ownership' button below if you no
-          longer wish to be owner.
+          A organization can only have one 'Owner'. Use the 'Transfer ownership' button below if you
+          no longer wish to be owner.
         </p>
         <template v-if="member.oldRole !== 'Owner'">
           <span class="label">
@@ -212,7 +214,7 @@
           </Button>
         </div>
       </div>
-    </Card>
+    </div>
   </div>
 </template>
 
@@ -288,7 +290,7 @@ const permToLabel = (key) => {
 
 const leaveProject = async () => {
   await removeTeamMember(organization.value.team_id, auth.user.id)
-  await navigateTo(`/organization/${organization.value.title}`)
+  await navigateTo(`/organization/${organization.value.name}`)
 }
 
 const onInviteTeamMember = useClientTry(async (teamId, username) => {
@@ -305,7 +307,7 @@ const onInviteTeamMember = useClientTry(async (teamId, username) => {
   addNotification({
     group: 'main',
     title: 'Member invited',
-    text: `${user.username} has been invited to the project.`,
+    text: `${user.username} has been invited to the organization.`,
     type: 'success',
   })
 })
@@ -316,7 +318,7 @@ const onRemoveMember = useClientTry(async (teamId, member) => {
   addNotification({
     group: 'main',
     title: 'Member removed',
-    text: `${member.user.username} has been removed from the project.`,
+    text: `${member.user.username} has been removed from the organization.`,
     type: 'success',
   })
 })

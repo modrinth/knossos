@@ -118,7 +118,9 @@
         <div class="country-data">
           <Card
             v-if="
-              analytics.formattedData.value?.downloadsByCountry && selectedChart === 'downloads'
+              analytics.formattedData.value?.downloadsByCountry &&
+              selectedChart === 'downloads' &&
+              analytics.formattedData.value.downloadsByCountry.data.length > 0
             "
             class="country-downloads"
           >
@@ -169,7 +171,11 @@
             </div>
           </Card>
           <Card
-            v-if="analytics.formattedData.value?.viewsByCountry && selectedChart === 'views'"
+            v-if="
+              analytics.formattedData.value?.viewsByCountry &&
+              selectedChart === 'views' &&
+              analytics.formattedData.value.viewsByCountry.data.length > 0
+            "
             class="country-downloads"
           >
             <label>
@@ -183,14 +189,20 @@
               >
                 <div class="country-flag-container">
                   <img
-                    :src="`https://flagcdn.com/h240/${name.toLowerCase()}.png`"
-                    :alt="name"
+                    :src="
+                      name.toLowerCase() === 'xx' || !name
+                        ? 'https://cdn.modrinth.com/placeholder-banner.svg'
+                        : countryCodeToFlag(name)
+                    "
+                    alt="Hidden country"
                     class="country-flag"
                   />
                 </div>
-
                 <div class="country-text">
-                  <strong class="country-name">{{ countryCodeToName(name) }}</strong>
+                  <strong class="country-name">
+                    <template v-if="name.toLowerCase() === 'xx' || !name">Hidden</template>
+                    <template v-else>{{ countryCodeToName(name) }}</template>
+                  </strong>
                   <span class="data-point">{{ formatNumber(count) }}</span>
                 </div>
                 <div
