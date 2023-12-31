@@ -315,7 +315,7 @@
               "
             >
               <TrashIcon />
-              Remove project
+              {{ formatMessage(messages.removeProjectButton) }}
             </button>
             <button
               v-if="collection.id === 'following'"
@@ -323,7 +323,7 @@
               @click="userUnfollowProject(project)"
             >
               <TrashIcon />
-              Unfollow project
+              {{ formatMessage(messages.unfollowProjectButton) }}
             </button>
           </ProjectCard>
         </div>
@@ -424,6 +424,14 @@ const messages = defineMessages({
   rejectedLabel: {
     id: 'collection.label.rejected',
     defaultMessage: 'Rejected',
+  },
+  removeProjectButton: {
+    id: 'collection.button.remove-project',
+    defaultMessage: 'Remove project',
+  },
+  unfollowProjectButton: {
+    id: 'collection.button.unfollow-project',
+    defaultMessage: 'Unfollow project',
   },
   unlistedLabel: {
     id: 'collection.label.unlisted',
