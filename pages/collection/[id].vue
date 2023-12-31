@@ -39,7 +39,7 @@
                       @change="showPreviewImage"
                     >
                       <UploadIcon />
-                      Upload icon
+                      {{ formatMessage(messages.uploadIconButton) }}
                     </FileInput>
                     <Button
                       v-if="!deletedIcon && (previewImage || collection.icon_url)"
@@ -389,6 +389,10 @@ const messages = defineMessages({
     id: 'collection.label.created-at',
     defaultMessage: 'Created {ago}',
   },
+  collectionNotFoundError: {
+    id: 'collection.error.not-found',
+    defaultMessage: 'Collection not found',
+  },
   curatedByLabel: {
     id: 'collection.label.curated-by',
     defaultMessage: 'Curated by',
@@ -428,6 +432,10 @@ const messages = defineMessages({
   updatedAtLabel: {
     id: 'collection.label.updated-at',
     defaultMessage: 'Updated {ago}',
+  },
+  uploadIconButton: {
+    id: 'collection.button.upload-icon',
+    defaultMessage: 'Upload icon',
   },
 })
 
@@ -489,7 +497,7 @@ try {
   throw createError({
     fatal: true,
     statusCode: 404,
-    message: 'Collection not found',
+    message: formatMessage(messages.collectionNotFoundError),
   })
 }
 
@@ -497,7 +505,7 @@ if (!collection.value) {
   throw createError({
     fatal: true,
     statusCode: 404,
-    message: 'Collection not found',
+    message: formatMessage(messages.collectionNotFoundError),
   })
 }
 
@@ -591,7 +599,7 @@ async function saveChanges() {
   } catch (err) {
     addNotification({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err,
       type: 'error',
     })
@@ -611,7 +619,7 @@ async function deleteCollection() {
   } catch (err) {
     addNotification({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data.description,
       type: 'error',
     })

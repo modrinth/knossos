@@ -14,6 +14,12 @@
   "collection.button.edit-icon": {
     "message": "Edit icon"
   },
+  "collection.button.upload-icon": {
+    "message": "Upload icon"
+  },
+  "collection.error.not-found": {
+    "message": "Delete icon"
+  },
   "collection.label.created-at": {
     "message": "Created {ago}"
   },
