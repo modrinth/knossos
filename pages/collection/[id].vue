@@ -25,7 +25,7 @@
             </template>
             <template v-else-if="canEdit && isEditing === true">
               <PopoutMenu class="btn" position="bottom" direction="right">
-                <EditIcon /> Edit icon
+                <EditIcon /> {{ formatMessage(messages.editIconButton) }}
                 <template #menu>
                   <span class="icon-edit-menu">
                     <FileInput
@@ -53,7 +53,7 @@
                       "
                     >
                       <TrashIcon />
-                      Delete icon
+                      {{ formatMessage(messages.deleteIconButton) }}
                     </Button>
                   </span>
                 </template>
@@ -377,6 +377,14 @@ const { formatMessage } = vintl
 const formatRelativeTime = useRelativeTime()
 
 const messages = defineMessages({
+  editIconButton: {
+    id: 'collection.button.edit-icon',
+    defaultMessage: 'Edit icon',
+  },
+  deleteIconButton: {
+    id: 'collection.button.delete-icon',
+    defaultMessage: 'Delete icon',
+  },
   createdAtLabel: {
     id: 'collection.label.created-at',
     defaultMessage: 'Created {ago}',

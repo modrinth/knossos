@@ -8,6 +8,12 @@
   "button.save": {
     "message": "Save"
   },
+  "collection.button.delete-icon": {
+    "message": "Delete icon"
+  },
+  "collection.button.edit-icon": {
+    "message": "Edit icon"
+  },
   "collection.label.created-at": {
     "message": "Created {ago}"
   },
