@@ -90,8 +90,8 @@
                 :multiple="false"
                 :display-name="
                   (s) => {
-                    if (s === 'listed') return 'Public'
-                    return capitalizeString(s)
+                    if (s === 'listed') return formatMessage(messages.publicLabel)
+                    return formatMessage(messages[`${s}Label`])
                   }
                 "
                 :searchable="false"
@@ -131,25 +131,25 @@
                   <template v-if="collection.status === 'listed'">
                     <WorldIcon class="primary-stat__icon" aria-hidden="true" />
                     <div class="primary-stat__text">
-                      <strong> Public </strong>
+                      <strong> {{ formatMessage(messages.publicLabel) }} </strong>
                     </div>
                   </template>
                   <template v-else-if="collection.status === 'unlisted'">
                     <LinkIcon class="primary-stat__icon" aria-hidden="true" />
                     <div class="primary-stat__text">
-                      <strong> Unlisted </strong>
+                      <strong> {{ formatMessage(messages.unlistedLabel) }} </strong>
                     </div>
                   </template>
                   <template v-else-if="collection.status === 'private'">
                     <LockIcon class="primary-stat__icon" aria-hidden="true" />
                     <div class="primary-stat__text">
-                      <strong> Private </strong>
+                      <strong> {{ formatMessage(messages.privateLabel) }} </strong>
                     </div>
                   </template>
                   <template v-else-if="collection.status === 'rejected'">
                     <XIcon class="primary-stat__icon" aria-hidden="true" />
                     <div class="primary-stat__text">
-                      <strong> Rejected </strong>
+                      <strong> {{ formatMessage(messages.rejectedLabel) }} </strong>
                     </div>
                   </template>
                 </div>
@@ -177,8 +177,9 @@
                 >
                   <CalendarIcon />
                   <label>
-                    Created
-                    {{ fromNow(collection.created) }}
+                    {{
+                      formatMessage(messages.createdAtLabel, { ago: formatRelativeTime(collection.created) })
+                    }}
                   </label>
                 </div>
               </div>
@@ -195,8 +196,9 @@
                 >
                   <UpdatedIcon />
                   <label>
-                    Updated
-                    {{ fromNow(collection.updated) }}
+                    {{
+                      formatMessage(messages.updatedAtLabel, { ago: formatRelativeTime(collection.updated) })
+                    }}
                   </label>
                 </div>
               </div>
@@ -205,7 +207,7 @@
             <hr class="card-divider" />
 
             <div class="collection-info">
-              <h2 class="card-header">Curated by</h2>
+              <h2 class="card-header">{{ formatMessage(messages.curatedByLabel) }}</h2>
               <div class="metadata-item">
                 <nuxt-link
                   class="team-member columns button-transparent"
@@ -215,7 +217,7 @@
 
                   <div class="member-info">
                     <p class="name">{{ creator.username }}</p>
-                    <p class="role">Owner</p>
+                    <p class="role">{{ formatMessage(messages.ownerLabel) }}</p>
                   </div>
                 </nuxt-link>
               </div>
@@ -341,7 +343,6 @@
 
 <script setup>
 import {
-  capitalizeString,
   Avatar,
   Button,
   CalendarIcon,
@@ -373,8 +374,17 @@ import ProjectCard from '~/components/ui/ProjectCard.vue'
 
 const vintl = useVIntl()
 const { formatMessage } = vintl
+const formatRelativeTime = useRelativeTime()
 
 const messages = defineMessages({
+  createdAtLabel: {
+    id: 'collection.label.created-at',
+    defaultMessage: 'Created {ago}',
+  },
+  curatedByLabel: {
+    id: 'collection.label.curated-by',
+    defaultMessage: 'Curated by',
+  },
   deleteModalDescription: {
     id: 'collection.delete-modal.description',
     defaultMessage: 'This will remove this collection forever. This action cannot be undone.',
@@ -382,6 +392,30 @@ const messages = defineMessages({
   deleteModalTitle: {
     id: 'collection.delete-modal.title',
     defaultMessage: 'Are you sure you want to delete this collection?',
+  },
+  ownerLabel: {
+    id: 'collection.label.owner',
+    defaultMessage: 'Owner',
+  },
+  privateLabel: {
+    id: 'collection.label.private',
+    defaultMessage: 'Private',
+  },
+  publicLabel: {
+    id: 'collection.label.public',
+    defaultMessage: 'Public',
+  },
+  rejectedLabel: {
+    id: 'collection.label.rejected',
+    defaultMessage: 'Rejected',
+  },
+  unlistedLabel: {
+    id: 'collection.label.unlisted',
+    defaultMessage: 'Unlisted',
+  },
+  updatedAtLabel: {
+    id: 'collection.label.updated-at',
+    defaultMessage: 'Updated {ago}',
   },
 })
 

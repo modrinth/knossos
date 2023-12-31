@@ -8,6 +8,12 @@
   "button.save": {
     "message": "Save"
   },
+  "collection.label.created-at": {
+    "message": "Created {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Curated by"
+  },
   "collection.label.owner": {
     "message": "Owner"
   },
@@ -22,6 +28,9 @@
   },
   "collection.label.unlisted": {
     "message": "Unlisted"
+  },
+  "collection.label.updated-at": {
+    "message": "Updated {ago}"
   },
   "collection.delete-modal.description": {
     "message": "This will remove this collection forever. This action cannot be undone."
