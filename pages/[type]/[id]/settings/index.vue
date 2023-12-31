@@ -9,16 +9,6 @@
       proceed-label="Delete"
       @proceed="deleteProject"
     />
-    <ModalConfirm
-      ref="modal_remove"
-      title="Are you sure you want to remove this project from the organization?"
-      description="If you proceed, this project will no longer be managed by the organization."
-      :has-to-type="true"
-      :confirmation-text="project.title"
-      proceed-label="Remove"
-      :noblur="!(cosmetics?.advancedRendering ?? true)"
-      @proceed="onRemoveFromOrg"
-    />
     <section class="universal-card">
       <div class="label">
         <h3>
@@ -228,52 +218,6 @@
 
     <section class="universal-card">
       <div class="label">
-        <span class="label__title size-card-header">Organization</span>
-      </div>
-      <p>
-        <template v-if="props.project.organization">
-          This project is managed by an organization. The defaults for member permissions are set in
-          the
-          <nuxt-link :to="`/organization/${project.organization.id}/settings/members`">
-            organization settings</nuxt-link
-          >.
-        </template>
-        <template v-else>
-          This project is not managed by an organization. If you are the member of any
-          organizations, you can transfer management to one of them.
-        </template>
-      </p>
-      <div v-if="!props.project.organization" class="input-group">
-        <Multiselect
-          id="organization-picker"
-          v-model="selectedOrganization"
-          class="large-multiselect"
-          track-by="id"
-          label="name"
-          open-direction="bottom"
-          :close-on-select="true"
-          :show-labels="false"
-          :allow-empty="false"
-          :options="organizations || []"
-          :disabled="!hasPermission || organizations?.length === 0"
-        />
-        <Button :disabled="!selectedOrganization" @click="onAddToOrg">
-          <CheckIcon />
-          Transfer management
-        </Button>
-      </div>
-      <button
-        v-if="props.project.organization"
-        class="btn btn-danger"
-        @click="$refs.modal_remove.show()"
-      >
-        <OrganizationIcon />
-        Remove from organization
-      </button>
-    </section>
-
-    <section class="universal-card">
-      <div class="label">
         <h3>
           <span class="label__title size-card-header">Delete project</span>
         </h3>
@@ -296,7 +240,6 @@
 </template>
 
 <script setup>
-import { Button } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
 
 import Avatar from '~/components/ui/Avatar.vue'
@@ -309,7 +252,6 @@ import TrashIcon from '~/assets/images/utils/trash.svg'
 import ExitIcon from '~/assets/images/utils/x.svg'
 import IssuesIcon from '~/assets/images/utils/issues.svg'
 import CheckIcon from '~/assets/images/utils/check.svg'
-import OrganizationIcon from '~/assets/images/utils/organization.svg'
 
 const props = defineProps({
   project: {
@@ -332,16 +274,14 @@ const props = defineProps({
     required: true,
     default: () => {},
   },
-  updateIcon: {
+  resetProject: {
     type: Function,
     required: true,
     default: () => {},
   },
 })
 
-const cosmetics = useCosmetics()
 const tags = useTags()
-const auth = await useAuth()
 
 const name = ref(props.project.title)
 const slug = ref(props.project.slug)
@@ -356,8 +296,6 @@ const visibility = ref(
     ? props.project.status
     : props.project.requested_status
 )
-
-const selectedOrganization = ref(null)
 
 const hasPermission = computed(() => {
   const EDIT_DETAILS = 1 << 2
@@ -402,58 +340,6 @@ const patchData = computed(() => {
 
 const hasChanges = computed(() => {
   return Object.keys(patchData.value).length > 0 || deletedIcon.value || icon.value
-})
-
-const { data: organizations } = useAsyncData('organizations', () => {
-  return useBaseFetch('user/' + auth.value?.user.id + '/organizations', {
-    apiVersion: 3,
-  })
-})
-
-const onAddToOrg = useClientTry(async () => {
-  if (!selectedOrganization.value) return
-
-  await useBaseFetch(`organization/${selectedOrganization.value.id}/projects`, {
-    method: 'POST',
-    body: JSON.stringify({
-      project_id: props.project.id,
-    }),
-    apiVersion: 3,
-  })
-
-  // This is actually a bit of a hack, but it works
-  // updateIcon is just resetting the project icon
-  await props.updateIcon()
-
-  addNotification({
-    group: 'main',
-    title: 'Project transferred',
-    text: 'Your project has been transferred to the organization.',
-    type: 'success',
-  })
-})
-
-const onRemoveFromOrg = useClientTry(async () => {
-  if (!props.project.organization || !auth.value?.user?.id) return
-
-  await useBaseFetch(`organization/${props.project.organization}/projects/${props.project.id}`, {
-    method: 'DELETE',
-    body: JSON.stringify({
-      new_owner: auth.value.user.id,
-    }),
-    apiVersion: 3,
-  })
-
-  // This is actually a bit of a hack, but it works
-  // updateIcon is just resetting the project icon
-  await props.updateIcon()
-
-  addNotification({
-    group: 'main',
-    title: 'Project removed',
-    text: 'Your project has been removed from the organization.',
-    type: 'success',
-  })
 })
 
 const hasModifiedVisibility = () => {
@@ -512,7 +398,7 @@ const deleteIcon = async () => {
   await useBaseFetch(`project/${props.project.id}/icon`, {
     method: 'DELETE',
   })
-  await props.updateIcon()
+  await props.resetProject()
   addNotification({
     group: 'main',
     title: 'Project icon removed',
@@ -548,9 +434,5 @@ svg {
 
 .small-multiselect {
   max-width: 15rem;
-}
-
-.large-multiselect {
-  max-width: 24rem;
 }
 </style>

@@ -1,5 +1,13 @@
 <template>
   <div>
+    <ModalConfirm
+      ref="modal_remove"
+      title="Are you sure you want to remove this project from the organization?"
+      description="If you proceed, this project will no longer be managed by the organization."
+      proceed-label="Remove"
+      :noblur="!(cosmetics?.advancedRendering ?? true)"
+      @proceed="onRemoveFromOrg"
+    />
     <Card>
       <div class="label">
         <h3>
@@ -236,22 +244,226 @@
         </div>
       </div>
     </div>
+    <section class="universal-card">
+      <div class="label">
+        <span class="label__title size-card-header">Organization</span>
+      </div>
+      <p>
+        <template v-if="props.organization">
+          This project is managed by {{ organization.name }}. The defaults for member permissions
+          are set in the
+          <nuxt-link :to="`/organization/${organization.name}/settings/members`">
+            organization settings</nuxt-link
+          >. You may override them below.
+        </template>
+        <template v-else>
+          This project is not managed by an organization. If you are the member of any
+          organizations, you can transfer management to one of them.
+        </template>
+      </p>
+      <div v-if="!props.organization" class="input-group">
+        <Multiselect
+          id="organization-picker"
+          v-model="selectedOrganization"
+          class="large-multiselect"
+          track-by="id"
+          label="name"
+          open-direction="bottom"
+          :close-on-select="true"
+          :show-labels="false"
+          :allow-empty="false"
+          :options="organizations || []"
+          :disabled="
+            !currentMember || currentMember.role !== 'Owner' || organizations?.length === 0
+          "
+        />
+        <button class="btn btn-primary" :disabled="!selectedOrganization" @click="onAddToOrg">
+          <CheckIcon />
+          Transfer management
+        </button>
+      </div>
+      <button v-if="props.organization" class="btn" @click="$refs.modal_remove.show()">
+        <OrganizationIcon />
+        Remove from organization
+      </button>
+    </section>
+    <div
+      v-for="(member, index) in allOrgMembers"
+      :key="member.user.id"
+      class="universal-card member"
+      :class="{ open: openTeamMembers.includes(member.user.id) }"
+    >
+      <div class="member-header">
+        <div class="info">
+          <Avatar :src="member.user.avatar_url" :alt="member.user.username" size="sm" circle />
+          <div class="text">
+            <nuxt-link :to="'/user/' + member.user.username" class="name">
+              <p>{{ member.user.username }}</p>
+            </nuxt-link>
+            <p>{{ member.role }}</p>
+          </div>
+        </div>
+        <div class="side-buttons">
+          <Badge v-if="member.accepted" type="accepted" />
+          <Badge v-else type="pending" />
+          <button
+            class="square-button dropdown-icon"
+            @click="
+              openTeamMembers.indexOf(member.user.id) === -1
+                ? openTeamMembers.push(member.user.id)
+                : (openTeamMembers = openTeamMembers.filter((it) => it !== member.user.id))
+            "
+          >
+            <DropdownIcon />
+          </button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="adjacent-input">
+          <label :for="`member-${allOrgMembers[index].user.username}-monetization-weight`">
+            <span class="label__title">Monetization weight</span>
+            <span class="label__description">
+              Relative to all other members' monetization weights, this determines what portion of
+              this project's revenue goes to this member.
+            </span>
+          </label>
+          <input
+            :id="`member-${allOrgMembers[index].user.username}-monetization-weight`"
+            v-model="allOrgMembers[index].payouts_split"
+            type="number"
+            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+          />
+        </div>
+        <template v-if="!member.is_owner">
+          <span class="label">
+            <span class="label__title">Permissions</span>
+          </span>
+          <div class="permissions">
+            <Checkbox
+              :model-value="(member.permissions & UPLOAD_VERSION) === UPLOAD_VERSION"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
+              "
+              label="Upload version"
+              @update:model-value="allOrgMembers[index].permissions ^= UPLOAD_VERSION"
+            />
+            <Checkbox
+              :model-value="(member.permissions & DELETE_VERSION) === DELETE_VERSION"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION
+              "
+              label="Delete version"
+              @update:model-value="allOrgMembers[index].permissions ^= DELETE_VERSION"
+            />
+            <Checkbox
+              :model-value="(member.permissions & EDIT_DETAILS) === EDIT_DETAILS"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+              "
+              label="Edit details"
+              @update:model-value="allOrgMembers[index].permissions ^= EDIT_DETAILS"
+            />
+            <Checkbox
+              :model-value="(member.permissions & EDIT_BODY) === EDIT_BODY"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & EDIT_BODY) !== EDIT_BODY
+              "
+              label="Edit body"
+              @update:model-value="allOrgMembers[index].permissions ^= EDIT_BODY"
+            />
+            <Checkbox
+              :model-value="(member.permissions & MANAGE_INVITES) === MANAGE_INVITES"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES
+              "
+              label="Manage invites"
+              @update:model-value="allOrgMembers[index].permissions ^= MANAGE_INVITES"
+            />
+            <Checkbox
+              :model-value="(member.permissions & REMOVE_MEMBER) === REMOVE_MEMBER"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER
+              "
+              label="Remove member"
+              @update:model-value="allOrgMembers[index].permissions ^= REMOVE_MEMBER"
+            />
+            <Checkbox
+              :model-value="(member.permissions & EDIT_MEMBER) === EDIT_MEMBER"
+              :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+              label="Edit member"
+              @update:model-value="allOrgMembers[index].permissions ^= EDIT_MEMBER"
+            />
+            <Checkbox
+              :model-value="(member.permissions & DELETE_PROJECT) === DELETE_PROJECT"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
+              "
+              label="Delete project"
+              @update:model-value="allOrgMembers[index].permissions ^= DELETE_PROJECT"
+            />
+            <Checkbox
+              :model-value="(member.permissions & VIEW_ANALYTICS) === VIEW_ANALYTICS"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & VIEW_ANALYTICS) !== VIEW_ANALYTICS
+              "
+              label="View analytics"
+              @update:model-value="allOrgMembers[index].permissions ^= VIEW_ANALYTICS"
+            />
+            <Checkbox
+              :model-value="(member.permissions & VIEW_PAYOUTS) === VIEW_PAYOUTS"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (currentMember.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS
+              "
+              label="View revenue"
+              @update:model-value="allOrgMembers[index].permissions ^= VIEW_PAYOUTS"
+            />
+          </div>
+        </template>
+        <div class="input-group">
+          <button
+            class="iconified-button brand-button"
+            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+            @click="updateTeamMember(index)"
+          >
+            <SaveIcon />
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { Avatar, Badge, Card, Checkbox, TransferIcon } from 'omorphia'
-import { defineProps } from 'vue'
+import { Multiselect } from 'vue-multiselect'
+import { Avatar, Badge, Card, Checkbox, TransferIcon, CheckIcon } from 'omorphia'
 
+import ModalConfirm from '~/components/ui/ModalConfirm.vue'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg'
 import SaveIcon from '~/assets/images/utils/save.svg'
 import UserPlusIcon from '~/assets/images/utils/user-plus.svg'
 import UserRemoveIcon from '~/assets/images/utils/user-x.svg'
+import OrganizationIcon from '~/assets/images/utils/organization.svg'
 
 import { removeSelfFromTeam } from '~/helpers/teams.js'
 
 const props = defineProps({
   project: {
+    type: Object,
+    default() {
+      return {}
+    },
+  },
+  organization: {
     type: Object,
     default() {
       return {}
@@ -269,29 +481,37 @@ const props = defineProps({
       return null
     },
   },
+  resetProject: {
+    type: Function,
+    required: true,
+    default: () => {},
+  },
+  resetOrganization: {
+    type: Function,
+    required: true,
+    default: () => {},
+  },
+  resetMembers: {
+    type: Function,
+    required: true,
+    default: () => {},
+  },
 })
+
+const cosmetics = useCosmetics()
+const auth = await useAuth()
 
 const currentUsername = ref('')
 const openTeamMembers = ref([])
-const allTeamMembers = reactive(props.allMembers.map((x) => ({ ...x, oldRole: x.role })))
+const allTeamMembers = ref(props.allMembers.map((x) => ({ ...x, oldRole: x.role })))
+const allOrgMembers = ref(props.organization ? props.organization.members : [])
+const selectedOrganization = ref(null)
 
-const auth = await useAuth()
-// @ts-expect-error
-const uid = computed(() => auth.value.user?.id || null)
-
-const orgs = useAsyncData('organizations', () => {
-  if (!uid.value) return Promise.resolve(null)
-  return useBaseFetch('user/' + uid.value + '/organizations', {
+const { data: organizations } = useAsyncData('organizations', () => {
+  return useBaseFetch('user/' + auth.value?.user.id + '/organizations', {
     apiVersion: 3,
   })
 })
-
-if (orgs.error.value) {
-  createError({
-    statusCode: 500,
-    message: 'Failed to fetch organizations',
-  })
-}
 
 const UPLOAD_VERSION = 1 << 0
 const DELETE_VERSION = 1 << 1
@@ -303,6 +523,48 @@ const EDIT_MEMBER = 1 << 6
 const DELETE_PROJECT = 1 << 7
 const VIEW_ANALYTICS = 1 << 8
 const VIEW_PAYOUTS = 1 << 9
+
+const onAddToOrg = useClientTry(async () => {
+  if (!selectedOrganization.value) return
+
+  await useBaseFetch(`organization/${selectedOrganization.value.id}/projects`, {
+    method: 'POST',
+    body: JSON.stringify({
+      project_id: props.project.id,
+    }),
+    apiVersion: 3,
+  })
+
+  await updateMembers()
+
+  addNotification({
+    group: 'main',
+    title: 'Project transferred',
+    text: 'Your project has been transferred to the organization.',
+    type: 'success',
+  })
+})
+
+const onRemoveFromOrg = useClientTry(async () => {
+  if (!props.project.organization || !auth.value?.user?.id) return
+
+  await useBaseFetch(`organization/${props.project.organization}/projects/${props.project.id}`, {
+    method: 'DELETE',
+    body: JSON.stringify({
+      new_owner: auth.value.user.id,
+    }),
+    apiVersion: 3,
+  })
+
+  await updateMembers()
+
+  addNotification({
+    group: 'main',
+    title: 'Project removed',
+    text: 'Your project has been removed from the organization.',
+    type: 'success',
+  })
+})
 
 const leaveProject = async () => {
   await removeSelfFromTeam(props.project.team)
@@ -339,9 +601,12 @@ const removeTeamMember = async (index) => {
   startLoading()
 
   try {
-    await useBaseFetch(`team/${props.project.team}/members/${allTeamMembers[index].user.id}`, {
-      method: 'DELETE',
-    })
+    await useBaseFetch(
+      `team/${props.project.team}/members/${allTeamMembers.value[index].user.id}`,
+      {
+        method: 'DELETE',
+      }
+    )
     await updateMembers()
   } catch (err) {
     addNotification({
@@ -360,20 +625,23 @@ const updateTeamMember = async (index) => {
 
   try {
     const data =
-      allTeamMembers[index].oldRole !== 'Owner'
+      allTeamMembers.value[index].oldRole !== 'Owner'
         ? {
-            permissions: allTeamMembers[index].permissions,
-            role: allTeamMembers[index].role,
-            payouts_split: allTeamMembers[index].payouts_split,
+            permissions: allTeamMembers.value[index].permissions,
+            role: allTeamMembers.value[index].role,
+            payouts_split: allTeamMembers.value[index].payouts_split,
           }
         : {
-            payouts_split: allTeamMembers[index].payouts_split,
+            payouts_split: allTeamMembers.value[index].payouts_split,
           }
 
-    await useBaseFetch(`team/${props.project.team}/members/${allTeamMembers[index].user.id}`, {
-      method: 'PATCH',
-      body: data,
-    })
+    await useBaseFetch(
+      `team/${props.project.team}/members/${allTeamMembers.value[index].user.id}`,
+      {
+        method: 'PATCH',
+        body: data,
+      }
+    )
     await updateMembers()
     addNotification({
       group: 'main',
@@ -400,7 +668,7 @@ const transferOwnership = async (index) => {
     await useBaseFetch(`team/${props.project.team}/owner`, {
       method: 'PATCH',
       body: {
-        user_id: allTeamMembers[index].user.id,
+        user_id: allTeamMembers.value[index].user.id,
       },
     })
     await updateMembers()
@@ -417,16 +685,24 @@ const transferOwnership = async (index) => {
 }
 
 const updateMembers = async () => {
-  allTeamMembers.splice(
-    0,
-    allTeamMembers.length,
-    ...(await useBaseFetch(`team/${props.project.team}/members`)).map((it) => ({
-      avatar_url: it.user.avatar_url,
-      name: it.user.username,
-      oldRole: it.role,
-      ...it,
-    }))
-  )
+  await Promise.all([props.resetProject(), props.resetOrganization(), props.resetMembers()])
+
+  allTeamMembers.value = props.allMembers.map((x) => ({ ...x, oldRole: x.role }))
+  allOrgMembers.value = props.organization ? props.organization.members : []
+
+  const instance = getCurrentInstance()
+  instance?.proxy?.$forceUpdate()
+
+  // allTeamMembers.splice(
+  //   0,
+  //   allTeamMembers.length,
+  //   ...(await useBaseFetch(`team/${props.project.team}/members`)).map((it) => ({
+  //     avatar_url: it.user.avatar_url,
+  //     name: it.user.username,
+  //     oldRole: it.role,
+  //     ...it,
+  //   }))
+  // )
 }
 </script>
 
@@ -488,5 +764,9 @@ const updateMembers = async () => {
       display: flex;
     }
   }
+}
+
+.large-multiselect {
+  max-width: 24rem;
 }
 </style>

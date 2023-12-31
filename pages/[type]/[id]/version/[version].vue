@@ -735,6 +735,21 @@ export default defineNuxtComponent({
         return {}
       },
     },
+    resetVersions: {
+      type: Function,
+      required: true,
+      default: () => {},
+    },
+    resetFeaturedVersions: {
+      type: Function,
+      required: true,
+      default: () => {},
+    },
+    resetDependencies: {
+      type: Function,
+      required: true,
+      default: () => {},
+    },
   },
   async setup(props) {
     const data = useNuxtApp()
@@ -1135,13 +1150,13 @@ export default defineNuxtComponent({
           })
         }
 
-        const newEditedVersions = await this.resetProjectVersions()
+        await this.resetProjectVersions()
 
         await this.$router.replace(
           `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : this.project.id
           }/version/${encodeURI(
-            newEditedVersions.find((x) => x.id === this.version.id).displayUrlEnding
+            this.versions.find((x) => x.id === this.version.id).displayUrlEnding
           )}`
         )
       } catch (err) {
@@ -1312,22 +1327,11 @@ export default defineNuxtComponent({
       this.shouldPreventActions = false
     },
     async resetProjectVersions() {
-      const [versions, featuredVersions, dependencies] = await Promise.all([
-        useBaseFetch(`project/${this.version.project_id}/version`),
-        useBaseFetch(`project/${this.version.project_id}/version?featured=true`),
-        useBaseFetch(`project/${this.version.project_id}/dependencies`),
+      await Promise.all([
+        this.resetVersions(),
+        this.resetFeaturedVersions(),
+        this.resetDependencies(),
       ])
-
-      const newCreatedVersions = this.$computeVersions(versions, this.members)
-      const featuredIds = featuredVersions.map((x) => x.id)
-      this.$emit('update:versions', newCreatedVersions)
-      this.$emit(
-        'update:featuredVersions',
-        newCreatedVersions.filter((version) => featuredIds.includes(version.id))
-      )
-      this.$emit('update:dependencies', dependencies)
-
-      return newCreatedVersions
     },
   },
 })

@@ -316,6 +316,11 @@ const props = defineProps({
       return null
     },
   },
+  resetProject: {
+    type: Function,
+    required: true,
+    default: () => {},
+  },
 })
 
 const title = `${props.project.title} - Gallery`
@@ -440,7 +445,7 @@ export default defineNuxtComponent({
           method: 'POST',
           body: this.editFile,
         })
-        await this.updateProject()
+        await this.resetProject()
 
         this.$refs.modal_edit_item.hide()
       } catch (err) {
@@ -478,7 +483,7 @@ export default defineNuxtComponent({
           method: 'PATCH',
         })
 
-        await this.updateProject()
+        await this.resetProject()
         this.$refs.modal_edit_item.hide()
       } catch (err) {
         this.$notify({
@@ -505,7 +510,7 @@ export default defineNuxtComponent({
           }
         )
 
-        await this.updateProject()
+        await this.resetProject()
       } catch (err) {
         this.$notify({
           group: 'main',
@@ -516,16 +521,6 @@ export default defineNuxtComponent({
       }
 
       stopLoading()
-    },
-    async updateProject() {
-      const project = await useBaseFetch(`project/${this.project.id}`)
-
-      project.actualProjectType = JSON.parse(JSON.stringify(project.project_type))
-
-      project.project_type = this.$getProjectTypeForUrl(project.project_type, project.loaders)
-
-      this.$emit('update:project', project)
-      this.resetEdit()
     },
   },
 })

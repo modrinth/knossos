@@ -268,7 +268,9 @@
             <div class="table-cell">
               <BoxIcon />
               <span>{{
-                $formatProjectType($getProjectTypeForDisplay(project.project_type, project.loaders))
+                $formatProjectType(
+                  $getProjectTypeForDisplay(project.project_types[0] ?? 'project', project.loaders)
+                )
               }}</span>
             </div>
 
@@ -455,6 +457,7 @@ const onBulkEditLinks = useClientTry(async () => {
   .table-cell {
     display: flex;
     align-items: center;
+    gap: var(--gap-xs);
     padding: var(--gap-md);
     padding-left: 0;
   }

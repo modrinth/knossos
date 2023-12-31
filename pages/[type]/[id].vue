@@ -5,7 +5,12 @@
         <Breadcrumbs
           current-title="Settings"
           :link-stack="[
-            { href: `/dashboard/projects`, label: 'Projects' },
+            {
+              href: organization
+                ? `/organization/${organization.name}/settings/projects`
+                : `/dashboard/projects`,
+              label: 'Projects',
+            },
             {
               href: `/${project.project_type}/${project.slug ? project.slug : project.id}`,
               label: project.title,
@@ -126,10 +131,16 @@
         v-model:members="members"
         v-model:all-members="allMembers"
         v-model:dependencies="dependencies"
+        v-model:organization="organization"
         :current-member="currentMember"
         :patch-project="patchProject"
         :patch-icon="patchIcon"
-        :update-icon="resetProject"
+        :reset-project="resetProject"
+        :reset-organization="resetOrganization"
+        :reset-members="resetMembers"
+        :reset-dependencies="resetDependencies"
+        :reset-versions="resetVersions"
+        :reset-featured-versions="resetFeaturedVersions"
         :route="route"
       />
     </div>
@@ -478,7 +489,14 @@
           v-model:members="members"
           v-model:all-members="allMembers"
           v-model:dependencies="dependencies"
+          v-model:organization="organization"
           :current-member="currentMember"
+          :reset-project="resetProject"
+          :reset-organization="resetOrganization"
+          :reset-members="resetMembers"
+          :reset-dependencies="resetDependencies"
+          :reset-versions="resetVersions"
+          :reset-featured-versions="resetFeaturedVersions"
           :route="route"
         />
       </section>
@@ -618,6 +636,17 @@
           <hr class="card-divider" />
         </template>
         <h2 class="card-header">Project members</h2>
+        <nuxt-link
+          v-if="organization"
+          class="team-member columns button-transparent"
+          :to="`/organization/${organization.name}`"
+        >
+          <Avatar :src="organization.icon_url" :alt="organization.name" size="sm" />
+          <div class="member-info">
+            <p class="name">{{ organization.name }}</p>
+            <p class="role"><OrganizationIcon /> Organization</p>
+          </div>
+        </nuxt-link>
         <nuxt-link
           v-for="member in members"
           :key="member.user.id"
@@ -787,6 +816,7 @@ import { reportProject } from '~/utils/report-helpers.ts'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import { userCollectProject } from '~/composables/user.js'
 import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
+import OrganizationIcon from '~/assets/images/utils/organization.svg'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -820,14 +850,26 @@ if (
   })
 }
 
-let project, allMembers, dependencies, featuredVersions, versions
+let project,
+  resetProject,
+  allMembers,
+  resetMembers,
+  dependencies,
+  resetDependencies,
+  rawFeaturedVersions,
+  resetFeaturedVersions,
+  rawVersions,
+  resetVersions,
+  organization,
+  resetOrganization
 try {
   ;[
-    { data: project },
-    { data: allMembers },
-    { data: dependencies },
-    { data: featuredVersions },
-    { data: versions },
+    { data: project, refresh: resetProject },
+    { data: allMembers, refresh: resetMembers },
+    { data: dependencies, refresh: resetDependencies },
+    { data: rawFeaturedVersions, refresh: resetFeaturedVersions },
+    { data: rawVersions, refresh: resetVersions },
+    { data: organization, refresh: resetOrganization },
   ] = await Promise.all([
     useAsyncData(`project/${route.params.id}`, () => useBaseFetch(`project/${route.params.id}`), {
       transform: (project) => {
@@ -870,10 +912,13 @@ try {
     useAsyncData(`project/${route.params.id}/version`, () =>
       useBaseFetch(`project/${route.params.id}/version`)
     ),
+    useAsyncData(`project/${route.params.id}/organization`, () =>
+      useBaseFetch(`project/${route.params.id}/organization`, { apiVersion: 3 })
+    ),
   ])
 
-  versions = shallowRef(toRaw(versions))
-  featuredVersions = shallowRef(toRaw(featuredVersions))
+  rawVersions = shallowRef(toRaw(rawVersions))
+  rawFeaturedVersions = shallowRef(toRaw(rawFeaturedVersions))
 } catch (error) {
   throw createError({
     fatal: true,
@@ -918,45 +963,49 @@ const members = computed(() => {
     }
   })
 
-  return [owner, ...rest]
+  return owner ? [owner, ...rest] : rest
 })
 
-const currentMember = ref(
-  auth.value.user ? allMembers.value.find((x) => x.user.id === auth.value.user.id) : null
-)
+const currentMember = computed(() => {
+  let val = auth.value.user ? allMembers.value.find((x) => x.user.id === auth.value.user.id) : null
 
-if (
-  !currentMember.value &&
-  auth.value.user &&
-  tags.value.staffRoles.includes(auth.value.user.role)
-) {
-  currentMember.value = {
-    team_id: project.team_id,
-    user: auth.value.user,
-    role: auth.value.role,
-    permissions: auth.value.user.role === 'admin' ? 1023 : 12,
-    accepted: true,
-    payouts_split: 0,
-    avatar_url: auth.value.user.avatar_url,
-    name: auth.value.user.username,
+  if (!val && organization.value && organization.value.members) {
+    val = organization.value.members.find((x) => x.user.id === auth.value.user.id)
   }
-}
 
-versions.value = data.$computeVersions(versions.value, allMembers.value)
+  if (!val && auth.value.user && tags.value.staffRoles.includes(auth.value.user.role)) {
+    val = {
+      team_id: project.team_id,
+      user: auth.value.user,
+      role: auth.value.role,
+      permissions: auth.value.user.role === 'admin' ? 1023 : 12,
+      accepted: true,
+      payouts_split: 0,
+      avatar_url: auth.value.user.avatar_url,
+      name: auth.value.user.username,
+    }
+  }
+
+  return val
+})
+
+const versions = computed(() => data.$computeVersions(rawVersions.value, allMembers.value))
 
 // Q: Why do this instead of computing the versions of featuredVersions?
 // A: It will incorrectly generate the version slugs because it doesn't have the full context of
 //    all the versions. For example, if version 1.1.0 for Forge is featured but 1.1.0 for Fabric
 //    is not, but the Fabric one was uploaded first, the Forge version would link to the Fabric
 ///   version
-const featuredIds = featuredVersions.value.map((x) => x.id)
-featuredVersions.value = versions.value.filter((version) => featuredIds.includes(version.id))
+const featuredVersions = computed(() => {
+  const featuredIds = rawFeaturedVersions.value.map((x) => x.id)
+  rawFeaturedVersions.value = versions.value.filter((version) => featuredIds.includes(version.id))
 
-featuredVersions.value.sort((a, b) => {
-  const aLatest = a.game_versions[a.game_versions.length - 1]
-  const bLatest = b.game_versions[b.game_versions.length - 1]
-  const gameVersions = tags.value.gameVersions.map((e) => e.version)
-  return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
+  return rawFeaturedVersions.value.sort((a, b) => {
+    const aLatest = a.game_versions[a.game_versions.length - 1]
+    const bLatest = b.game_versions[b.game_versions.length - 1]
+    const gameVersions = tags.value.gameVersions.map((e) => e.version)
+    return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
+  })
 })
 
 const licenseIdDisplay = computed(() => {
@@ -972,36 +1021,34 @@ const licenseIdDisplay = computed(() => {
 })
 const featuredGalleryImage = computed(() => project.value.gallery.find((img) => img.featured))
 
-const projectTypeDisplay = data.$formatProjectType(
-  data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
+const projectTypeDisplay = computed(() =>
+  data.$formatProjectType(
+    data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
+  )
 )
-const title = `${project.value.title} - Minecraft ${projectTypeDisplay}`
-const description = `${project.value.description} - Download the Minecraft ${projectTypeDisplay} ${
-  project.value.title
-} by ${members.value.find((x) => x.role === 'Owner')?.user?.username || 'a Creator'} on Modrinth`
+
+const title = computed(() => `${project.value.title} - Minecraft ${projectTypeDisplay.value}`)
+const description = computed(
+  () =>
+    `${project.value.description} - Download the Minecraft ${projectTypeDisplay.value} ${
+      project.value.title
+    } by ${
+      members.value.find((x) => x.role === 'Owner')?.user?.username || 'a Creator'
+    } on Modrinth`
+)
 
 if (!route.name.startsWith('type-id-settings')) {
   useSeoMeta({
-    title,
-    description,
-    ogTitle: title,
-    ogDescription: project.value.description,
-    ogImage: project.value.icon_url ?? 'https://cdn.modrinth.com/placeholder.png',
-    robots:
+    title: () => title.value,
+    description: () => description.value,
+    ogTitle: () => title.value,
+    ogDescription: () => project.value.description,
+    ogImage: () => project.value.icon_url ?? 'https://cdn.modrinth.com/placeholder.png',
+    robots: () =>
       project.value.status === 'approved' || project.value.status === 'archived'
         ? 'all'
         : 'noindex',
   })
-}
-
-async function resetProject() {
-  const newProject = await useBaseFetch(`project/${project.value.id}`)
-
-  newProject.actualProjectType = JSON.parse(JSON.stringify(newProject.project_type))
-
-  newProject.project_type = data.$getProjectTypeForUrl(newProject.project_type, newProject.loaders)
-
-  project.value = newProject
 }
 
 async function clearMessage() {
@@ -1380,6 +1427,12 @@ const collapsedChecklist = ref(false)
     p {
       font-size: var(--font-size-sm);
       margin: 0.2rem 0;
+    }
+
+    .role {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
     }
   }
 }
