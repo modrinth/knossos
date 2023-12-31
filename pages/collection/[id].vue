@@ -334,7 +334,7 @@
             Would you like to
             <a class="link" @click.prevent="$router.push('/mods')"> add one</a>?
           </span>
-          <span v-else class="text">This collection has no projects!</span>
+          <span v-else class="text">{{ formatMessage(messages.noProjectsLabel) }}</span>
         </div>
       </div>
     </div>
@@ -400,6 +400,10 @@ const messages = defineMessages({
   deleteModalTitle: {
     id: 'collection.delete-modal.title',
     defaultMessage: 'Are you sure you want to delete this collection?',
+  },
+  noProjectsLabel: {
+    id: 'collection.label.no-projects',
+    defaultMessage: 'This collection has no projects!',
   },
   ownerLabel: {
     id: 'collection.label.owner',

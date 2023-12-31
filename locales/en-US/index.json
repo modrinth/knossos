@@ -20,6 +20,12 @@
   "collection.label.curated-by": {
     "message": "Curated by"
   },
+  "collection.label.no-projects": {
+    "message": "This collection has no projects!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+  },
   "collection.label.owner": {
     "message": "Owner"
   },
