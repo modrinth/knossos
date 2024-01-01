@@ -80,6 +80,9 @@
   "collection.title.following": {
     "message": "Followed projects"
   },
+  "dashboard.collections.button.create-new": {
+    "message": "Create new"
+  },
   "dashboard.collections.title": {
     "message": "Collections"
   },

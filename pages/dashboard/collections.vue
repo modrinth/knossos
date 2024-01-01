@@ -12,7 +12,7 @@
         </Button>
       </div>
       <Button color="primary" @click="$refs.modal_creation.show()">
-        <PlusIcon /> Create new
+        <PlusIcon /> {{ formatMessage(messages.createNewButton) }}
       </Button>
     </div>
     <div class="collections-grid">
@@ -79,6 +79,10 @@ import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
+  createNewButton: {
+    id: 'dashboard.collections.button.create-new',
+    defaultMessage: 'Create new',
+  },
   collectionsTitle: {
     id: 'dashboard.collections.title',
     defaultMessage: 'Collections',
