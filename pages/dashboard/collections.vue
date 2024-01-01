@@ -28,8 +28,17 @@
             {{ formatMessage(messages.followingCollectionDescription) }}
           </span>
           <div class="stat-bar">
-            <div class="stats"><BoxIcon /> {{ formatMessage(messages.projectsCountLabel, { count: formatCompactNumber(user.follows.length) }) }}</div>
-            <div class="stats"><LockIcon /> <span> {{ formatMessage(commonMessages.privateLabel) }} </span></div>
+            <div class="stats">
+              <BoxIcon />
+              {{
+                formatMessage(messages.projectsCountLabel, {
+                  count: formatCompactNumber(user.follows.length),
+                })
+              }}
+            </div>
+            <div class="stats">
+              <LockIcon /> <span> {{ formatMessage(commonMessages.privateLabel) }} </span>
+            </div>
           </div>
         </div>
       </nuxt-link>
@@ -46,7 +55,14 @@
             {{ collection.description }}
           </span>
           <div class="stat-bar">
-            <div class="stats"><BoxIcon /> {{ formatMessage(messages.projectsCountLabel, { count: formatCompactNumber(collection.projects?.length || 0) }) }}</div>
+            <div class="stats">
+              <BoxIcon />
+              {{
+                formatMessage(messages.projectsCountLabel, {
+                  count: formatCompactNumber(collection.projects?.length || 0),
+                })
+              }}
+            </div>
             <div class="stats">
               <template v-if="collection.status === 'listed'">
                 <WorldIcon />
@@ -102,8 +118,7 @@ const messages = defineMessages({
   },
   projectsCountLabel: {
     id: 'dashboard.collections.label.projects-count',
-    defaultMessage:
-      '{count, plural, one {{count} project} other {{count} projects}}',
+    defaultMessage: '{count, plural, one {{count} project} other {{count} projects}}',
   },
   searchInputLabel: {
     id: 'dashboard.collections.label.search-input',
