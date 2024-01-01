@@ -32,6 +32,9 @@
   "collection.description": {
     "message": "{description} - View the collection {name} by {username} on Modrinth"
   },
+  "collection.description.following": {
+    "message": "Auto-generated collection of all the projects you're following."
+  },
   "collection.error.not-found": {
     "message": "Delete icon"
   },
@@ -73,6 +76,9 @@
   },
   "collection.title": {
     "message": "{name} - Collection"
+  },
+  "collection.title.following": {
+    "message": "Followed projects"
   },
   "frog": {
     "message": "You've been frogged! 🐸"

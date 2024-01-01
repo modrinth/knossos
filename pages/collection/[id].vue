@@ -436,6 +436,14 @@ const messages = defineMessages({
     id: 'collection.delete-modal.title',
     defaultMessage: 'Are you sure you want to delete this collection?',
   },
+  followingCollectionDescription: {
+    id: 'collection.description.following',
+    defaultMessage: "Auto-generated collection of all the projects you're following.",
+  },
+  followingCollectionTitle: {
+    id: 'collection.title.following',
+    defaultMessage: 'Followed projects',
+  },
   noProjectsLabel: {
     id: 'collection.label.no-projects',
     defaultMessage: 'This collection has no projects!',
@@ -510,8 +518,8 @@ try {
     collection = ref({
       id: 'following',
       icon_url: 'https://cdn.modrinth.com/follow-collection.png',
-      name: 'Followed projects',
-      description: "Auto-generated collection of all the projects you're following.",
+      name: formatMessage(messages.followingCollectionTitle),
+      description: formatMessage(messages.followingCollectionDescription),
       status: 'private',
       user: auth.value.user.id,
       created: auth.value.user.created,
