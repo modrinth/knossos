@@ -56,20 +56,8 @@
   "collection.label.owner": {
     "message": "Owner"
   },
-  "collection.label.private": {
-    "message": "Private"
-  },
-  "collection.label.public": {
-    "message": "Public"
-  },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
-  },
-  "collection.label.rejected": {
-    "message": "Rejected"
-  },
-  "collection.label.unlisted": {
-    "message": "Unlisted"
   },
   "collection.label.updated-at": {
     "message": "Updated {ago}"
@@ -82,6 +70,9 @@
   },
   "dashboard.collections.button.create-new": {
     "message": "Create new"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} project} other {{count} projects}}"
   },
   "dashboard.collections.title": {
     "message": "Collections"
@@ -116,8 +107,20 @@
   "label.description": {
     "message": "Description"
   },
+  "label.private": {
+    "message": "Private"
+  },
+  "label.public": {
+    "message": "Public"
+  },
+  "label.rejected": {
+    "message": "Rejected"
+  },
   "label.title": {
     "message": "Title"
+  },
+  "label.unlisted": {
+    "message": "Unlisted"
   },
   "label.visibility": {
     "message": "Visibility"

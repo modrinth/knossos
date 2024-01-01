@@ -28,8 +28,8 @@
             Auto-generated collection of all the projects you're following.
           </span>
           <div class="stat-bar">
-            <div class="stats"><BoxIcon /> {{ user.follows.length }} projects</div>
-            <div class="stats"><LockIcon /> <span> Private </span></div>
+            <div class="stats"><BoxIcon /> {{ formatMessage(messages.projectsCountLabel, { count: formatCompactNumber(user.follows.length) }) }}</div>
+            <div class="stats"><LockIcon /> <span> {{ formatMessage(commonMessages.privateLabel) }} </span></div>
           </div>
         </div>
       </nuxt-link>
@@ -46,23 +46,23 @@
             {{ collection.description }}
           </span>
           <div class="stat-bar">
-            <div class="stats"><BoxIcon /> {{ collection.projects?.length || 0 }} projects</div>
+            <div class="stats"><BoxIcon /> {{ formatMessage(messages.projectsCountLabel, { count: formatCompactNumber(collection.projects?.length || 0) }) }}</div>
             <div class="stats">
               <template v-if="collection.status === 'listed'">
                 <WorldIcon />
-                <span> {{ formatMessage(messages.publicLabel) }} </span>
+                <span> {{ formatMessage(commonMessages.publicLabel) }} </span>
               </template>
               <template v-else-if="collection.status === 'unlisted'">
                 <LinkIcon />
-                <span> {{ formatMessage(messages.unlistedLabel) }} </span>
+                <span> {{ formatMessage(commonMessages.unlistedLabel) }} </span>
               </template>
               <template v-else-if="collection.status === 'private'">
                 <LockIcon />
-                <span> {{ formatMessage(messages.privateLabel) }} </span>
+                <span> {{ formatMessage(commonMessages.privateLabel) }} </span>
               </template>
               <template v-else-if="collection.status === 'rejected'">
                 <XIcon />
-                <span> {{ formatMessage(messages.rejectedLabel) }} </span>
+                <span> {{ formatMessage(commonMessages.rejectedLabel) }} </span>
               </template>
             </div>
           </div>
@@ -77,6 +77,7 @@ import WorldIcon from '~/assets/images/utils/world.svg'
 import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 
 const { formatMessage } = useVIntl()
+const formatCompactNumber = useCompactNumber()
 
 const messages = defineMessages({
   createNewButton: {
@@ -92,21 +93,9 @@ const messages = defineMessages({
     defaultMessage: 'Private',
   },
   projectsCountLabel: {
-    id: 'collection.label.projects-count',
+    id: 'dashboard.collections.label.projects-count',
     defaultMessage:
-      '{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}',
-  },
-  publicLabel: {
-    id: 'collection.label.public',
-    defaultMessage: 'Public',
-  },
-  rejectedLabel: {
-    id: 'collection.label.rejected',
-    defaultMessage: 'Rejected',
-  },
-  unlistedLabel: {
-    id: 'collection.label.unlisted',
-    defaultMessage: 'Unlisted',
+      '{count, plural, one {{count} project} other {{count} projects}}',
   },
 })
 

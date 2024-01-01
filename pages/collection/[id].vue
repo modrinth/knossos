@@ -94,8 +94,8 @@
                 :multiple="false"
                 :display-name="
                   (s) => {
-                    if (s === 'listed') return formatMessage(messages.publicLabel)
-                    return formatMessage(messages[`${s}Label`])
+                    if (s === 'listed') return formatMessage(commonMessages.publicLabel)
+                    return formatMessage(commonMessages[`${s}Label`])
                   }
                 "
                 :searchable="false"
@@ -137,25 +137,25 @@
                   <template v-if="collection.status === 'listed'">
                     <WorldIcon class="primary-stat__icon" aria-hidden="true" />
                     <div class="primary-stat__text">
-                      <strong> {{ formatMessage(messages.publicLabel) }} </strong>
+                      <strong> {{ formatMessage(commonMessages.publicLabel) }} </strong>
                     </div>
                   </template>
                   <template v-else-if="collection.status === 'unlisted'">
                     <LinkIcon class="primary-stat__icon" aria-hidden="true" />
                     <div class="primary-stat__text">
-                      <strong> {{ formatMessage(messages.unlistedLabel) }} </strong>
+                      <strong> {{ formatMessage(commonMessages.unlistedLabel) }} </strong>
                     </div>
                   </template>
                   <template v-else-if="collection.status === 'private'">
                     <LockIcon class="primary-stat__icon" aria-hidden="true" />
                     <div class="primary-stat__text">
-                      <strong> {{ formatMessage(messages.privateLabel) }} </strong>
+                      <strong> {{ formatMessage(commonMessages.privateLabel) }} </strong>
                     </div>
                   </template>
                   <template v-else-if="collection.status === 'rejected'">
                     <XIcon class="primary-stat__icon" aria-hidden="true" />
                     <div class="primary-stat__text">
-                      <strong> {{ formatMessage(messages.rejectedLabel) }} </strong>
+                      <strong> {{ formatMessage(commonMessages.rejectedLabel) }} </strong>
                     </div>
                   </template>
                 </div>
@@ -459,22 +459,10 @@ const messages = defineMessages({
     id: 'collection.label.owner',
     defaultMessage: 'Owner',
   },
-  privateLabel: {
-    id: 'collection.label.private',
-    defaultMessage: 'Private',
-  },
   projectsCountLabel: {
     id: 'collection.label.projects-count',
     defaultMessage:
       '{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}',
-  },
-  publicLabel: {
-    id: 'collection.label.public',
-    defaultMessage: 'Public',
-  },
-  rejectedLabel: {
-    id: 'collection.label.rejected',
-    defaultMessage: 'Rejected',
   },
   removeProjectButton: {
     id: 'collection.button.remove-project',
@@ -483,10 +471,6 @@ const messages = defineMessages({
   unfollowProjectButton: {
     id: 'collection.button.unfollow-project',
     defaultMessage: 'Unfollow project',
-  },
-  unlistedLabel: {
-    id: 'collection.label.unlisted',
-    defaultMessage: 'Unlisted',
   },
   updatedAtLabel: {
     id: 'collection.label.updated-at',

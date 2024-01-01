@@ -39,6 +39,18 @@ export const commonMessages = defineMessages({
     id: 'notification.error.title',
     defaultMessage: 'An error occurred',
   },
+  privateLabel: {
+    id: 'collection.label.private',
+    defaultMessage: 'Private',
+  },
+  publicLabel: {
+    id: 'label.public',
+    defaultMessage: 'Public',
+  },
+  rejectedLabel: {
+    id: 'label.rejected',
+    defaultMessage: 'Rejected',
+  },
   saveButton: {
     id: 'button.save',
     defaultMessage: 'Save',
@@ -46,6 +58,10 @@ export const commonMessages = defineMessages({
   titleLabel: {
     id: 'label.title',
     defaultMessage: 'Title',
+  },
+  unlistedLabel: {
+    id: 'label.unlisted',
+    defaultMessage: 'Unlisted',
   },
   visibilityLabel: {
     id: 'label.visibility',
