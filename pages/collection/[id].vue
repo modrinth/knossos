@@ -6,7 +6,7 @@
       :title="formatMessage(messages.deleteModalTitle)"
       :description="formatMessage(messages.deleteModalDescription)"
       :has-to-type="false"
-      proceed-label="Delete"
+      :proceed-label="formatMessage(commonMessages.deleteLabel)"
       @proceed="deleteCollection()"
     />
     <div class="normal-page">
@@ -20,7 +20,7 @@
               </Button>
               <Button id="delete-collection" @click="() => $refs.deleteModal.show()">
                 <TrashIcon />
-                Delete
+                {{ formatMessage(commonMessages.deleteLabel) }}
               </Button>
             </template>
             <template v-else-if="canEdit && isEditing === true">
@@ -178,7 +178,9 @@
                   <CalendarIcon />
                   <label>
                     {{
-                      formatMessage(messages.createdAtLabel, { ago: formatRelativeTime(collection.created) })
+                      formatMessage(messages.createdAtLabel, {
+                        ago: formatRelativeTime(collection.created),
+                      })
                     }}
                   </label>
                 </div>
@@ -197,7 +199,9 @@
                   <UpdatedIcon />
                   <label>
                     {{
-                      formatMessage(messages.updatedAtLabel, { ago: formatRelativeTime(collection.updated) })
+                      formatMessage(messages.updatedAtLabel, {
+                        ago: formatRelativeTime(collection.updated),
+                      })
                     }}
                   </label>
                 </div>
@@ -329,10 +333,14 @@
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
-          <span v-if="auth.user && auth.user.id === creator.id" class="text">
-            You don't have any projects.<br />
-            Would you like to
-            <a class="link" @click.prevent="$router.push('/mods')"> add one</a>?
+          <span v-if="auth.user && auth.user.id === creator.id" class="preserve-lines text">
+            <IntlFormatted :message-id="messages.noProjectsAuthLabel">
+              <template #create-link="{ children }">
+                <a class="link" @click.prevent="$router.push('/mods')">
+                  <component :is="() => children" />
+                </a>
+              </template>
+            </IntlFormatted>
           </span>
           <span v-else class="text">{{ formatMessage(messages.noProjectsLabel) }}</span>
         </div>
@@ -408,6 +416,10 @@ const messages = defineMessages({
   noProjectsLabel: {
     id: 'collection.label.no-projects',
     defaultMessage: 'This collection has no projects!',
+  },
+  noProjectsAuthLabel: {
+    id: 'collection.label.no-projects-auth',
+    defaultMessage: "You don't have any projects.\nWould you like to <create-link>add one</create-link>?",
   },
   ownerLabel: {
     id: 'collection.label.owner',
