@@ -70,17 +70,17 @@
                 />
               </div>
               <label for="collection-title">
-                <span class="label__title"> Title </span>
+                <span class="label__title"> {{ formatMessage(commonMessages.titleLabel) }} </span>
               </label>
               <input id="collection-title" v-model="name" maxlength="255" type="text" />
               <label for="collection-description">
-                <span class="label__title"> Description </span>
+                <span class="label__title"> {{ formatMessage(commonMessages.descriptionLabel) }} </span>
               </label>
               <div class="textarea-wrapper">
                 <textarea id="collection-description" v-model="summary" maxlength="255" />
               </div>
               <label for="visibility">
-                <span class="label__title"> Visibility </span>
+                <span class="label__title"> {{ formatMessage(commonMessages.visibilityLabel) }} </span>
               </label>
               <DropdownSelect
                 id="visibility"

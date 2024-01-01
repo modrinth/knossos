@@ -15,6 +15,10 @@ export const commonMessages = defineMessages({
     id: 'label.delete',
     defaultMessage: 'Delete',
   },
+  descriptionLabel: {
+    id: 'label.description',
+    defaultMessage: 'Description',
+  },
   editButton: {
     id: 'button.edit',
     defaultMessage: 'Edit',
@@ -38,5 +42,13 @@ export const commonMessages = defineMessages({
   saveButton: {
     id: 'button.save',
     defaultMessage: 'Save',
+  },
+  titleLabel: {
+    id: 'label.title',
+    defaultMessage: 'Title',
+  },
+  visibilityLabel: {
+    id: 'label.visibility',
+    defaultMessage: 'Visibility',
   },
 })

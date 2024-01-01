@@ -92,6 +92,15 @@
   "label.delete": {
     "message": "Delete"
   },
+  "label.description": {
+    "message": "Description"
+  },
+  "label.title": {
+    "message": "Title"
+  },
+  "label.visibility": {
+    "message": "Visibility"
+  },
   "notification.error.title": {
     "message": "An error occurred"
   },
