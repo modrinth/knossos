@@ -121,7 +121,9 @@
               <h1 class="title">{{ collection.name }}</h1>
 
               <div>
-                <span class="collection-label"><BoxIcon /> {{ formatMessage(messages.collectionLabel) }}</span>
+                <span class="collection-label">
+                  <BoxIcon /> {{ formatMessage(messages.collectionLabel) }}
+                </span>
               </div>
 
               <div class="collection-info">
@@ -463,7 +465,8 @@ const messages = defineMessages({
   },
   projectsCountLabel: {
     id: 'collection.label.projects-count',
-    defaultMessage: '{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}',
+    defaultMessage:
+      '{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}',
   },
   publicLabel: {
     id: 'collection.label.public',
@@ -566,7 +569,7 @@ if (!collection.value) {
 }
 
 const title = formatMessage(messages.collectionTitle, { name: collection.value.name })
-const description = formatMessage(messages.collectionDescription, { 
+const description = formatMessage(messages.collectionDescription, {
   name: collection.value.name,
   description: collection.value.description,
   username: creator.value.username,

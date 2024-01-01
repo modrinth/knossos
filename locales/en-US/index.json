@@ -80,6 +80,9 @@
   "collection.title.following": {
     "message": "Followed projects"
   },
+  "dashboard.collections.title": {
+    "message": "Collections"
+  },
   "frog": {
     "message": "You've been frogged! 🐸"
   },

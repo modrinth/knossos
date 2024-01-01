@@ -1,7 +1,7 @@
 <template>
   <div class="universal-card">
     <CollectionCreateModal ref="modal_creation" />
-    <h2>Collections</h2>
+    <h2>{{ formatMessage(messages.collectionsTitle) }}</h2>
     <div class="search-row">
       <div class="iconified-input">
         <label for="search-input" hidden>Search your collections</label>
@@ -50,19 +50,19 @@
             <div class="stats">
               <template v-if="collection.status === 'listed'">
                 <WorldIcon />
-                <span> Public </span>
+                <span> {{ formatMessage(messages.publicLabel) }} </span>
               </template>
               <template v-else-if="collection.status === 'unlisted'">
                 <LinkIcon />
-                <span> Unlisted </span>
+                <span> {{ formatMessage(messages.unlistedLabel) }} </span>
               </template>
               <template v-else-if="collection.status === 'private'">
                 <LockIcon />
-                <span> Private </span>
+                <span> {{ formatMessage(messages.privateLabel) }} </span>
               </template>
               <template v-else-if="collection.status === 'rejected'">
                 <XIcon />
-                <span> Rejected </span>
+                <span> {{ formatMessage(messages.rejectedLabel) }} </span>
               </template>
             </div>
           </div>
@@ -75,6 +75,36 @@
 import { Avatar, BoxIcon, SearchIcon, XIcon, Button, PlusIcon, LinkIcon, LockIcon } from 'omorphia'
 import WorldIcon from '~/assets/images/utils/world.svg'
 import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
+
+const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  collectionsTitle: {
+    id: 'dashboard.collections.title',
+    defaultMessage: 'Collections',
+  },
+  privateLabel: {
+    id: 'collection.label.private',
+    defaultMessage: 'Private',
+  },
+  projectsCountLabel: {
+    id: 'collection.label.projects-count',
+    defaultMessage:
+      '{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}',
+  },
+  publicLabel: {
+    id: 'collection.label.public',
+    defaultMessage: 'Public',
+  },
+  rejectedLabel: {
+    id: 'collection.label.rejected',
+    defaultMessage: 'Rejected',
+  },
+  unlistedLabel: {
+    id: 'collection.label.unlisted',
+    defaultMessage: 'Unlisted',
+  },
+})
 
 definePageMeta({
   middleware: 'auth',
