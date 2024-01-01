@@ -4,7 +4,7 @@
     <h2>{{ formatMessage(messages.collectionsTitle) }}</h2>
     <div class="search-row">
       <div class="iconified-input">
-        <label for="search-input" hidden>Search your collections</label>
+        <label for="search-input" hidden>{{ formatMessage(messages.searchInputLabel) }}</label>
         <SearchIcon />
         <input id="search-input" v-model="filterQuery" type="text" />
         <Button v-if="filterQuery" class="r-btn" @click="() => (filterQuery = '')">
@@ -23,9 +23,9 @@
       >
         <Avatar src="https://cdn.modrinth.com/follow-collection.png" class="icon" />
         <div class="details">
-          <span class="title">Followed projects</span>
+          <span class="title">{{ formatMessage(messages.followingCollectionTitle) }}</span>
           <span class="description">
-            Auto-generated collection of all the projects you're following.
+            {{ formatMessage(messages.followingCollectionDescription) }}
           </span>
           <div class="stat-bar">
             <div class="stats"><BoxIcon /> {{ formatMessage(messages.projectsCountLabel, { count: formatCompactNumber(user.follows.length) }) }}</div>
@@ -84,18 +84,30 @@ const messages = defineMessages({
     id: 'dashboard.collections.button.create-new',
     defaultMessage: 'Create new',
   },
+  collectionsLongTitle: {
+    id: 'dashboard.collections.title',
+    defaultMessage: 'Your collections',
+  },
   collectionsTitle: {
     id: 'dashboard.collections.title',
     defaultMessage: 'Collections',
   },
-  privateLabel: {
-    id: 'collection.label.private',
-    defaultMessage: 'Private',
+  followingCollectionDescription: {
+    id: 'collection.description.following',
+    defaultMessage: "Auto-generated collection of all the projects you're following.",
+  },
+  followingCollectionTitle: {
+    id: 'collection.title.following',
+    defaultMessage: 'Followed projects',
   },
   projectsCountLabel: {
     id: 'dashboard.collections.label.projects-count',
     defaultMessage:
       '{count, plural, one {{count} project} other {{count} projects}}',
+  },
+  searchInputLabel: {
+    id: 'dashboard.collections.label.search-input',
+    defaultMessage: 'Search your collections',
   },
 })
 
@@ -104,7 +116,7 @@ definePageMeta({
 })
 
 useHead({
-  title: 'Your collections - Modrinth',
+  title: () => `${formatMessage(messages.collectionsLongTitle)} - Modrinth`,
 })
 
 const user = await useUser()
