@@ -23,6 +23,10 @@ export const commonMessages = defineMessages({
     id: 'button.edit',
     defaultMessage: 'Edit',
   },
+  errorNotificationTitle: {
+    id: 'notification.error.title',
+    defaultMessage: 'An error occurred',
+  },
   galleryInputView: {
     id: 'input.view.gallery',
     defaultMessage: 'Gallery view',
@@ -34,10 +38,6 @@ export const commonMessages = defineMessages({
   listInputView: {
     id: 'input.view.list',
     defaultMessage: 'List view',
-  },
-  errorNotificationTitle: {
-    id: 'notification.error.title',
-    defaultMessage: 'An error occurred',
   },
   privateLabel: {
     id: 'collection.label.private',
