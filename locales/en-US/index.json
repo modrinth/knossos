@@ -23,8 +23,20 @@
   "collection.button.unfollow-project": {
     "message": "Unfollow project"
   },
+  "collection.delete-modal.description": {
+    "message": "This will remove this collection forever. This action cannot be undone."
+  },
+  "collection.delete-modal.title": {
+    "message": "Are you sure you want to delete this collection?"
+  },
+  "collection.description": {
+    "message": "{description} - View the collection {name} by {username} on Modrinth"
+  },
   "collection.error.not-found": {
     "message": "Delete icon"
+  },
+  "collection.label.collection": {
+    "message": "Collection"
   },
   "collection.label.created-at": {
     "message": "Created {ago}"
@@ -47,6 +59,9 @@
   "collection.label.public": {
     "message": "Public"
   },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+  },
   "collection.label.rejected": {
     "message": "Rejected"
   },
@@ -55,12 +70,6 @@
   },
   "collection.label.updated-at": {
     "message": "Updated {ago}"
-  },
-  "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
-  },
-  "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
   },
   "collection.title": {
     "message": "{name} - Collection"

@@ -74,13 +74,17 @@
               </label>
               <input id="collection-title" v-model="name" maxlength="255" type="text" />
               <label for="collection-description">
-                <span class="label__title"> {{ formatMessage(commonMessages.descriptionLabel) }} </span>
+                <span class="label__title">
+                  {{ formatMessage(commonMessages.descriptionLabel) }}
+                </span>
               </label>
               <div class="textarea-wrapper">
                 <textarea id="collection-description" v-model="summary" maxlength="255" />
               </div>
               <label for="visibility">
-                <span class="label__title"> {{ formatMessage(commonMessages.visibilityLabel) }} </span>
+                <span class="label__title">
+                  {{ formatMessage(commonMessages.visibilityLabel) }}
+                </span>
               </label>
               <DropdownSelect
                 id="visibility"
@@ -117,7 +121,7 @@
               <h1 class="title">{{ collection.name }}</h1>
 
               <div>
-                <span class="collection-label"><BoxIcon /> Collection</span>
+                <span class="collection-label"><BoxIcon /> {{ formatMessage(messages.collectionLabel) }}</span>
               </div>
 
               <div class="collection-info">
@@ -158,10 +162,16 @@
               <div class="primary-stat">
                 <LibraryIcon class="primary-stat__icon" aria-hidden="true" />
                 <div class="primary-stat__text">
-                  <span class="primary-stat__counter">
-                    {{ $formatNumber(projects.length || 0) }}
-                  </span>
-                  project<span v-if="projects.length !== 1">s</span>
+                  <IntlFormatted
+                    :message-id="messages.projectsCountLabel"
+                    :values="{ count: formatCompactNumber(projects.length || 0) }"
+                  >
+                    <template #stat="{ children }">
+                      <span class="primary-stat__counter">
+                        <component :is="() => normalizeChildren(children)" />
+                      </span>
+                    </template>
+                  </IntlFormatted>
                 </div>
               </div>
 
@@ -383,8 +393,21 @@ import ProjectCard from '~/components/ui/ProjectCard.vue'
 const vintl = useVIntl()
 const { formatMessage } = vintl
 const formatRelativeTime = useRelativeTime()
+const formatCompactNumber = useCompactNumber()
 
 const messages = defineMessages({
+  collectionDescription: {
+    id: 'collection.description',
+    defaultMessage: '{description} - View the collection {name} by {username} on Modrinth',
+  },
+  collectionLabel: {
+    id: 'collection.label.collection',
+    defaultMessage: 'Collection',
+  },
+  collectionTitle: {
+    id: 'collection.title',
+    defaultMessage: '{name} - Collection',
+  },
   editIconButton: {
     id: 'collection.button.edit-icon',
     defaultMessage: 'Edit icon',
@@ -419,7 +442,8 @@ const messages = defineMessages({
   },
   noProjectsAuthLabel: {
     id: 'collection.label.no-projects-auth',
-    defaultMessage: "You don't have any projects.\nWould you like to <create-link>add one</create-link>?",
+    defaultMessage:
+      "You don't have any projects.\nWould you like to <create-link>add one</create-link>?",
   },
   ownerLabel: {
     id: 'collection.label.owner',
@@ -428,6 +452,10 @@ const messages = defineMessages({
   privateLabel: {
     id: 'collection.label.private',
     defaultMessage: 'Private',
+  },
+  projectsCountLabel: {
+    id: 'collection.label.projects-count',
+    defaultMessage: '{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}',
   },
   publicLabel: {
     id: 'collection.label.public',
@@ -529,8 +557,12 @@ if (!collection.value) {
   })
 }
 
-const title = `${collection.value.name} - Collection`
-const description = `${collection.value.description} - View the collection ${collection.value.description} by ${creator.value.username} on Modrinth`
+const title = formatMessage(messages.collectionTitle, { name: collection.value.name })
+const description = formatMessage(messages.collectionDescription, { 
+  name: collection.value.name,
+  description: collection.value.description,
+  username: creator.value.username,
+})
 
 if (!route.name.startsWith('type-id-settings')) {
   useSeoMeta({
