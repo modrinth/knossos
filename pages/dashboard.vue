@@ -10,7 +10,7 @@
           <NavStackItem link="/dashboard/notifications" label="Notifications">
             <NotificationsIcon />
           </NavStackItem>
-          <NavStackItem link="/dashboard/follows" label="Followed projects">
+          <NavStackItem link="/dashboard/follows" :label="formatMessage(messages.followsTitle)">
             <HeartIcon />
           </NavStackItem>
           <NavStackItem link="/dashboard/reports" label="Active reports">
@@ -49,6 +49,15 @@ import ListIcon from '~/assets/images/utils/list.svg'
 import ReportIcon from '~/assets/images/utils/report.svg'
 import NotificationsIcon from '~/assets/images/utils/bell.svg'
 import HeartIcon from '~/assets/images/utils/heart.svg'
+
+const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  followsTitle: {
+    id: 'dashboard.follows.title',
+    defaultMessage: 'Followed projects',
+  },
+})
 
 definePageMeta({
   middleware: 'auth',

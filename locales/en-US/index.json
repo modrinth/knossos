@@ -8,6 +8,18 @@
   "button.save": {
     "message": "Save"
   },
+  "dashboard.follows.button.unfollow": {
+    "message": "Unfollow"
+  },
+  "dashboard.follows.label.no-projects": {
+    "message": "You don't have any followed projects.\nWhy don't you <search-link>search</search-link> for new ones?"
+  },
+  "dashboard.follows.long-title": {
+    "message": "Followed review"
+  },
+  "dashboard.follows.title": {
+    "message": "Followed projects"
+  },
   "frog": {
     "message": "You've been frogged! 🐸"
   },
