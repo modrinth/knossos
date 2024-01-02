@@ -319,6 +319,39 @@
         </div>
       </div>
       <div class="content">
+        <div v-if="!member.is_owner" class="adjacent-input">
+          <label :for="`member-${allOrgMembers[index].user.username}-override-perms`">
+            <span class="label__title">Override values</span>
+            <span class="label__description">
+              Override organization default values and assign custom permissions, roles, and
+              monetization weights to this user on the project.
+            </span>
+          </label>
+          <input
+            :id="`member-${allOrgMembers[index].user.username}-override-perms`"
+            v-model="allOrgMembers[index].override"
+            class="switch stylized-toggle"
+            type="checkbox"
+            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+          />
+        </div>
+        <div class="adjacent-input">
+          <label :for="`member-${allOrgMembers[index].user.username}-role`">
+            <span class="label__title">Role</span>
+            <span class="label__description">
+              The title of the role that this member plays for this project.
+            </span>
+          </label>
+          <input
+            :id="`member-${allOrgMembers[index].user.username}-role`"
+            v-model="allOrgMembers[index].role"
+            type="text"
+            :disabled="
+              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+              !allOrgMembers[index].override
+            "
+          />
+        </div>
         <div class="adjacent-input">
           <label :for="`member-${allOrgMembers[index].user.username}-monetization-weight`">
             <span class="label__title">Monetization weight</span>
@@ -331,7 +364,10 @@
             :id="`member-${allOrgMembers[index].user.username}-monetization-weight`"
             v-model="allOrgMembers[index].payouts_split"
             type="number"
-            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+            :disabled="
+              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+              !allOrgMembers[index].override
+            "
           />
         </div>
         <template v-if="!member.is_owner">
@@ -343,7 +379,8 @@
               :model-value="(member.permissions & UPLOAD_VERSION) === UPLOAD_VERSION"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
+                (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION ||
+                !allOrgMembers[index].override
               "
               label="Upload version"
               @update:model-value="allOrgMembers[index].permissions ^= UPLOAD_VERSION"
@@ -352,7 +389,8 @@
               :model-value="(member.permissions & DELETE_VERSION) === DELETE_VERSION"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION
+                (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION ||
+                !allOrgMembers[index].override
               "
               label="Delete version"
               @update:model-value="allOrgMembers[index].permissions ^= DELETE_VERSION"
@@ -361,7 +399,8 @@
               :model-value="(member.permissions & EDIT_DETAILS) === EDIT_DETAILS"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+                (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS ||
+                !allOrgMembers[index].override
               "
               label="Edit details"
               @update:model-value="allOrgMembers[index].permissions ^= EDIT_DETAILS"
@@ -370,7 +409,8 @@
               :model-value="(member.permissions & EDIT_BODY) === EDIT_BODY"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & EDIT_BODY) !== EDIT_BODY
+                (currentMember.permissions & EDIT_BODY) !== EDIT_BODY ||
+                !allOrgMembers[index].override
               "
               label="Edit body"
               @update:model-value="allOrgMembers[index].permissions ^= EDIT_BODY"
@@ -379,7 +419,8 @@
               :model-value="(member.permissions & MANAGE_INVITES) === MANAGE_INVITES"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES
+                (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES ||
+                !allOrgMembers[index].override
               "
               label="Manage invites"
               @update:model-value="allOrgMembers[index].permissions ^= MANAGE_INVITES"
@@ -388,14 +429,18 @@
               :model-value="(member.permissions & REMOVE_MEMBER) === REMOVE_MEMBER"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER
+                (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER ||
+                !allOrgMembers[index].override
               "
               label="Remove member"
               @update:model-value="allOrgMembers[index].permissions ^= REMOVE_MEMBER"
             />
             <Checkbox
               :model-value="(member.permissions & EDIT_MEMBER) === EDIT_MEMBER"
-              :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+              :disabled="
+                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                !allOrgMembers[index].override
+              "
               label="Edit member"
               @update:model-value="allOrgMembers[index].permissions ^= EDIT_MEMBER"
             />
@@ -403,7 +448,8 @@
               :model-value="(member.permissions & DELETE_PROJECT) === DELETE_PROJECT"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
+                (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT ||
+                !allOrgMembers[index].override
               "
               label="Delete project"
               @update:model-value="allOrgMembers[index].permissions ^= DELETE_PROJECT"
@@ -412,7 +458,8 @@
               :model-value="(member.permissions & VIEW_ANALYTICS) === VIEW_ANALYTICS"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & VIEW_ANALYTICS) !== VIEW_ANALYTICS
+                (currentMember.permissions & VIEW_ANALYTICS) !== VIEW_ANALYTICS ||
+                !allOrgMembers[index].override
               "
               label="View analytics"
               @update:model-value="allOrgMembers[index].permissions ^= VIEW_ANALYTICS"
@@ -421,7 +468,8 @@
               :model-value="(member.permissions & VIEW_PAYOUTS) === VIEW_PAYOUTS"
               :disabled="
                 (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS
+                (currentMember.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS ||
+                !allOrgMembers[index].override
               "
               label="View revenue"
               @update:model-value="allOrgMembers[index].permissions ^= VIEW_PAYOUTS"
@@ -431,8 +479,8 @@
         <div class="input-group">
           <button
             class="iconified-button brand-button"
-            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
-            @click="updateTeamMember(index)"
+            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER || member.is_owner"
+            @click="updateOrgMember(index)"
           >
             <SaveIcon />
             Save changes
@@ -501,10 +549,27 @@ const props = defineProps({
 const cosmetics = useCosmetics()
 const auth = await useAuth()
 
+const allTeamMembers = ref()
+const allOrgMembers = ref()
+
+function resetAllMembers() {
+  allOrgMembers.value = (props.organization ? props.organization.members : []).map((x) => {
+    const overrideMember = props.allMembers.find((y) => y.user.id === x.user.id)
+    const returnVal = overrideMember ?? x
+
+    returnVal.override = !!overrideMember
+    returnVal.oldOverride = !!overrideMember
+
+    return returnVal
+  })
+  allTeamMembers.value = props.allMembers
+    .map((x) => ({ ...x, oldRole: x.role }))
+    .filter((x) => !allOrgMembers.value.some((y) => y.user.id === x.user.id))
+}
+resetAllMembers()
+
 const currentUsername = ref('')
 const openTeamMembers = ref([])
-const allTeamMembers = ref(props.allMembers.map((x) => ({ ...x, oldRole: x.role })))
-const allOrgMembers = ref(props.organization ? props.organization.members : [])
 const selectedOrganization = ref(null)
 
 const { data: organizations } = useAsyncData('organizations', () => {
@@ -684,25 +749,57 @@ const transferOwnership = async (index) => {
   stopLoading()
 }
 
+async function updateOrgMember(index) {
+  startLoading()
+
+  try {
+    if (allOrgMembers.value[index].override && !allOrgMembers.value[index].oldOverride) {
+      await useBaseFetch(`team/${props.project.team}/members`, {
+        method: 'POST',
+        body: {
+          permissions: allOrgMembers.value[index].permissions,
+          role: allOrgMembers.value[index].role,
+          payouts_split: allOrgMembers.value[index].payouts_split,
+          user_id: allOrgMembers.value[index].user.id,
+        },
+      })
+    } else if (!allOrgMembers.value[index].override && allOrgMembers.value[index].oldOverride) {
+      await useBaseFetch(
+        `team/${props.project.team}/members/${allOrgMembers.value[index].user.id}`,
+        {
+          method: 'DELETE',
+        }
+      )
+    } else {
+      await useBaseFetch(
+        `team/${props.project.team}/members/${allOrgMembers.value[index].user.id}`,
+        {
+          method: 'PATCH',
+          body: {
+            permissions: allOrgMembers.value[index].permissions,
+            role: allOrgMembers.value[index].role,
+            payouts_split: allOrgMembers.value[index].payouts_split,
+          },
+        }
+      )
+    }
+    await updateMembers()
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err?.data?.description || err?.message || err || 'Unknown error',
+      type: 'error',
+    })
+  }
+
+  stopLoading()
+}
+
 const updateMembers = async () => {
   await Promise.all([props.resetProject(), props.resetOrganization(), props.resetMembers()])
 
-  allTeamMembers.value = props.allMembers.map((x) => ({ ...x, oldRole: x.role }))
-  allOrgMembers.value = props.organization ? props.organization.members : []
-
-  const instance = getCurrentInstance()
-  instance?.proxy?.$forceUpdate()
-
-  // allTeamMembers.splice(
-  //   0,
-  //   allTeamMembers.length,
-  //   ...(await useBaseFetch(`team/${props.project.team}/members`)).map((it) => ({
-  //     avatar_url: it.user.avatar_url,
-  //     name: it.user.username,
-  //     oldRole: it.role,
-  //     ...it,
-  //   }))
-  // )
+  resetAllMembers()
 }
 </script>
 

@@ -199,7 +199,7 @@
         :max-size="524288000"
         :accept="acceptFileTypes"
         prompt="Upload an image"
-        :class="`btn btn-primary`"
+        class="iconified-button brand-button"
         :disabled="!isPermission(currentMember?.permissions, 1 << 2)"
         @change="handleFiles"
       >
@@ -296,9 +296,9 @@ import {
   ImageIcon,
   TransferIcon,
   ConfirmModal,
-  FileInput,
-  DropArea,
 } from 'omorphia'
+import FileInput from '~/components/ui/FileInput.vue'
+import DropArea from '~/components/ui/DropArea.vue'
 import Modal from '~/components/ui/Modal.vue'
 
 import { isPermission } from '~/utils/permissions.ts'

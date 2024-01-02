@@ -194,9 +194,21 @@ const props = defineProps({
   },
 })
 
-const featuredGalleryImage = computed(() => project.gallery.find((img) => img.featured))
+const featuredGalleryImage = computed(() => props.project.gallery.find((img) => img.featured))
 
 const nags = computed(() => [
+  {
+    condition: props.versions.length < 1,
+    title: 'Upload a version',
+    id: 'upload-version',
+    description: 'At least one version is required for a project to be submitted for review.',
+    status: 'required',
+    link: {
+      path: 'versions',
+      title: 'Visit versions page',
+      hide: props.routeName === 'type-id-versions',
+    },
+  },
   {
     condition:
       props.project.body === '' || props.project.body.startsWith('# Placeholder description'),
@@ -225,7 +237,7 @@ const nags = computed(() => [
     },
   },
   {
-    condition: !featuredGalleryImage,
+    condition: props.project.gallery.length === 0 || !featuredGalleryImage,
     title: 'Feature a gallery image',
     id: 'feature-gallery-image',
     description: 'Featured gallery images may be the first impression of many users.',
@@ -234,18 +246,6 @@ const nags = computed(() => [
       path: 'gallery',
       title: 'Visit gallery page',
       hide: props.routeName === 'type-id-gallery',
-    },
-  },
-  {
-    condition: props.versions.length < 1,
-    title: 'Upload a version',
-    id: 'upload-version',
-    description: 'At least one version is required for a project to be submitted for review.',
-    status: 'required',
-    link: {
-      path: 'versions',
-      title: 'Visit versions page',
-      hide: props.routeName === 'type-id-versions',
     },
   },
   {
@@ -313,8 +313,7 @@ const nags = computed(() => [
     },
   },
   {
-    hide: props.project.status !== 'draft',
-    condition: true,
+    condition: props.project.status === 'draft',
     title: 'Submit for review',
     id: 'submit-for-review',
     description:
@@ -328,8 +327,7 @@ const nags = computed(() => [
     },
   },
   {
-    hide: !props.tags.rejectedStatuses.includes(props.project.status),
-    condition: true,
+    condition: props.tags.rejectedStatuses.includes(props.project.status),
     title: 'Resubmit for review',
     id: 'resubmit-for-review',
     description: `Your project has been ${props.project.status} by

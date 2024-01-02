@@ -735,6 +735,11 @@ export default defineNuxtComponent({
         return {}
       },
     },
+    resetProject: {
+      type: Function,
+      required: true,
+      default: () => {},
+    },
     resetVersions: {
       type: Function,
       required: true,
@@ -1328,6 +1333,7 @@ export default defineNuxtComponent({
     },
     async resetProjectVersions() {
       await Promise.all([
+        this.resetProject(),
         this.resetVersions(),
         this.resetFeaturedVersions(),
         this.resetDependencies(),

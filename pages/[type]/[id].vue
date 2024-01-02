@@ -880,10 +880,6 @@ try {
             project.loaders,
             tags.value
           )
-
-          if (process.client && history.state && history.state.overrideProjectType) {
-            project.project_type = history.state.overrideProjectType
-          }
         }
 
         return project
