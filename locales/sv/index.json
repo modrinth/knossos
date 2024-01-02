@@ -45,7 +45,7 @@
     "message": "Användaren kunde inte hittas"
   },
   "profile.input.upload-avatar": {
-    "message": "Ladda upp en profilbild"
+    "message": "Ladda upp profilbild"
   },
   "profile.joined-at": {
     "message": "Gick med {ago}"
