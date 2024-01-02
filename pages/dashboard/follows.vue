@@ -31,7 +31,7 @@
         <template #search-link="{ children }">
           <nuxt-link class="link" to="/mods">
             <component :is="() => children" />
-            </nuxt-link>
+          </nuxt-link>
         </template>
       </IntlFormatted>
     </span>
@@ -58,7 +58,8 @@ const messages = defineMessages({
   },
   noProjectsLabel: {
     id: 'dashboard.follows.label.no-projects',
-    defaultMessage: "You don't have any followed projects.\nWhy don't you <search-link>search</search-link> for new ones?",
+    defaultMessage:
+      "You don't have any followed projects.\nWhy don't you <search-link>search</search-link> for new ones?",
   },
   unfollowButton: {
     id: 'dashboard.follows.button.unfollow',
