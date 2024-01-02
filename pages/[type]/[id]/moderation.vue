@@ -111,8 +111,6 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['update:project'])
-
 const app = useNuxtApp()
 const auth = await useAuth()
 

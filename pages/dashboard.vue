@@ -48,7 +48,6 @@ import CurrencyIcon from '~/assets/images/utils/currency.svg'
 import ListIcon from '~/assets/images/utils/list.svg'
 import ReportIcon from '~/assets/images/utils/report.svg'
 import NotificationsIcon from '~/assets/images/utils/bell.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
 import OrganizationIcon from '~/assets/images/utils/organization.svg'
 
 definePageMeta({

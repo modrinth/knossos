@@ -228,7 +228,6 @@ import {
   UserPlusIcon,
   UserXIcon as UserRemoveIcon,
   DropdownIcon,
-  Card,
   Button,
 } from 'omorphia'
 
