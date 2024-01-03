@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Reset your password</h1>
+    <h1>{{ formatMessage(messages.resetPasswordLongTitle) }}</h1>
     <section class="auth-form">
       <template v-if="step === 'choose_method'">
         <p>
@@ -10,7 +10,7 @@
         </p>
 
         <div class="iconified-input">
-          <label for="email" hidden>Email or username</label>
+          <label for="email" hidden>{{ formatMessage(messages.emailUsernameLabel) }}</label>
           <MailIcon />
           <input
             id="email"
@@ -30,7 +30,7 @@
         <p>Enter your new password below to gain access to your account.</p>
 
         <div class="iconified-input">
-          <label for="password" hidden>Password</label>
+          <label for="password" hidden>{{ formatMessage(messages.passwordLabel) }}</label>
           <KeyIcon />
           <input
             id="password"
@@ -38,12 +38,12 @@
             type="password"
             autocomplete="new-password"
             class="auth-form__input"
-            placeholder="Password"
+            :placeholder="formatMessage(messages.passwordLabel)"
           />
         </div>
 
         <div class="iconified-input">
-          <label for="confirm-password" hidden>Password</label>
+          <label for="confirm-password" hidden>{{ formatMessage(messages.passwordLabel) }}</label>
           <KeyIcon />
           <input
             id="confirm-password"
@@ -51,12 +51,12 @@
             type="password"
             autocomplete="new-password"
             class="auth-form__input"
-            placeholder="Confirm password"
+            :placeholder="formatMessage(messages.confirmPasswordInputPlaceholder)"
           />
         </div>
 
         <button class="auth-form__input btn btn-primary continue-btn" @click="changePassword">
-          Reset password
+          {{ formatMessage(messages.resetPasswordButton) }}
         </button>
       </template>
     </section>
@@ -67,8 +67,37 @@ import { SendIcon } from 'omorphia'
 import MailIcon from 'assets/icons/auth/mail.svg'
 import KeyIcon from 'assets/icons/auth/key.svg'
 
+const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  confirmPasswordInputPlaceholder: {
+    id: 'auth.reset-password.input.confirm-password.placeholder',
+    defaultMessage: 'Confirm password',
+  },
+  emailUsernameLabel: {
+    id: 'auth.reset-password.label.email-username',
+    defaultMessage: 'Email or username',
+  },
+  passwordLabel: {
+    id: 'auth.reset-password.label.password',
+    defaultMessage: 'Password',
+  },
+  resetPasswordButton: {
+    id: 'auth.reset-password.button.reset-password',
+    defaultMessage: 'Reset password',
+  },
+  resetPasswordLongTitle: {
+    id: 'auth.reset-password.long-title',
+    defaultMessage: 'Reset your password',
+  },
+  resetPasswordTitle: {
+    id: 'auth.reset-password.title',
+    defaultMessage: 'Reset Password',
+  },
+})
+
 useHead({
-  title: 'Reset Password - Modrinth',
+  title: () => `${formatMessage(messages.resetPasswordTitle)} - Modrinth`,
 })
 
 const auth = await useAuth()
@@ -109,7 +138,7 @@ async function recovery() {
   } catch (err) {
     addNotification({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data ? err.data.description : err,
       type: 'error',
     })
@@ -142,7 +171,7 @@ async function changePassword() {
   } catch (err) {
     addNotification({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data ? err.data.description : err,
       type: 'error',
     })
