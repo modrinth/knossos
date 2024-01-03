@@ -53,8 +53,17 @@
 <script setup>
 import { SettingsIcon, RightArrowIcon } from 'omorphia'
 
+const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  verifyEmailTitle: {
+    id: 'auth.verify-email.title',
+    defaultMessage: 'Verify Email',
+  },
+})
+
 useHead({
-  title: 'Verify Email - Modrinth',
+  title: () => `${formatMessage(messages.verifyEmailTitle)} - Modrinth`,
 })
 
 const auth = await useAuth()
