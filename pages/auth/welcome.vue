@@ -19,9 +19,18 @@
       </button>
 
       <p>
-        By creating an account, you have agreed to Modrinth's
-        <NuxtLink to="/legal/terms" class="text-link">Terms</NuxtLink> and
-        <NuxtLink to="/legal/privacy" class="text-link">Privacy Policy</NuxtLink>.
+        <IntlFormatted :message-id="messages.tosLabel">
+          <template #terms-link="{ children }">
+            <NuxtLink to="/legal/terms" class="text-link">
+              <component :is="() => children" />
+              </NuxtLink>
+          </template>
+          <template #privacy-policy-link="{ children }">
+            <NuxtLink to="/legal/privacy" class="text-link">
+              <component :is="() => children" />
+              </NuxtLink>
+          </template>
+        </IntlFormatted>
       </p>
     </section>
   </div>
@@ -35,6 +44,10 @@ const messages = defineMessages({
   subscribeCheckbox: {
     id: 'auth.welcome.checkbox.subscribe',
     defaultMessage: 'Subscribe to updates about Modrinth',
+  },
+  tosLabel: {
+    id: 'auth.welcome.label.tos',
+    defaultMessage: "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>.",
   },
   welcomeDescription: {
     id: 'auth.welcome.description',
