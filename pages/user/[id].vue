@@ -419,7 +419,7 @@ const messages = defineMessages({
   },
   profileNoCollectionsLabel: {
     id: 'profile.label.no-collections',
-    defaultMessage: 'This user has no collection!',
+    defaultMessage: 'This user has no collections!',
   },
   profileNoCollectionsAuthLabel: {
     id: 'profile.label.no-collections-auth',
