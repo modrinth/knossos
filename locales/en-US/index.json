@@ -2,6 +2,9 @@
   "auth.welcome.checkbox.subscribe": {
     "message": "Subscribe to updates about Modrinth"
   },
+  "auth.welcome.description": {
+    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+  },
   "auth.welcome.title": {
     "message": "Welcome"
   },

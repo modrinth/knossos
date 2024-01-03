@@ -4,8 +4,7 @@
 
     <section class="auth-form">
       <p>
-        Thank you for creating an account. You can now follow and create projects, receive updates
-        about your favorite projects, and more!
+        {{ formatMessage(messages.welcomeDescription) }}
       </p>
 
       <Checkbox
@@ -38,6 +37,10 @@ const messages = defineMessages({
     id: 'auth.welcome.title',
     defaultMessage: 'Welcome',
   },
+  welcomeDescription: {
+    id: 'auth.welcome.description',
+    defaultMessage: 'Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!',
+  },
   subscribeCheckbox: {
     id: 'auth.welcome.checkbox.subscribe',
     defaultMessage: 'Subscribe to updates about Modrinth',
@@ -45,7 +48,7 @@ const messages = defineMessages({
 })
 
 useHead({
-  title: 'Welcome - Modrinth',
+  title: () => `${formatMessage(messages.welcomeTitle)} - Modrinth`,
 })
 
 const subscribe = ref(true)
