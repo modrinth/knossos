@@ -23,12 +23,12 @@
           <template #terms-link="{ children }">
             <NuxtLink to="/legal/terms" class="text-link">
               <component :is="() => children" />
-              </NuxtLink>
+            </NuxtLink>
           </template>
           <template #privacy-policy-link="{ children }">
             <NuxtLink to="/legal/privacy" class="text-link">
               <component :is="() => children" />
-              </NuxtLink>
+            </NuxtLink>
           </template>
         </IntlFormatted>
       </p>
@@ -47,11 +47,13 @@ const messages = defineMessages({
   },
   tosLabel: {
     id: 'auth.welcome.label.tos',
-    defaultMessage: "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>.",
+    defaultMessage:
+      "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>.",
   },
   welcomeDescription: {
     id: 'auth.welcome.description',
-    defaultMessage: 'Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!',
+    defaultMessage:
+      'Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!',
   },
   welcomeLongTitle: {
     id: 'auth.welcome.long-title',

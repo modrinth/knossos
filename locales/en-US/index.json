@@ -71,7 +71,7 @@
   "profile.label.edit-username": {
     "message": "Username"
   },
-    "profile.label.no-projects": {
+  "profile.label.no-projects": {
     "message": "This user has no projects!"
   },
   "profile.label.no-projects-auth": {
@@ -95,7 +95,7 @@
   "project-type.all": {
     "message": "All"
   },
-    "project-type.datapack.plural": {
+  "project-type.datapack.plural": {
     "message": "Data Packs"
   },
   "project-type.datapack.singular": {
@@ -119,7 +119,7 @@
   "project-type.plugin.singular": {
     "message": "Plugin"
   },
-    "project-type.resourcepack.plural": {
+  "project-type.resourcepack.plural": {
     "message": "Resource Packs"
   },
   "project-type.resourcepack.singular": {
