@@ -2,19 +2,41 @@
   <div class="card-container">
     <div class="header-container">
       <div>Logo</div>
-      <div>Meow</div>
+      <div>
+        <Button color="primary" outline>
+          <DownloadIcon />
+          Get Modrinth App
+        </Button>
+      </div>
     </div>
     <div class="card-margin">
       <Card>
         <h1>Invite</h1>
       </Card>
     </div>
-    <div>Bottom Row</div>
+    <div>
+      <div class="warning-section">
+        <div>
+          <strong class="warning-heading">
+            <WarningIcon />
+            Only install instances from people you trust!
+          </strong>
+          <p>
+            This instance has not been reviewed by Modrinth staff and may include inappropriate or
+            malicious content.
+          </p>
+        </div>
+        <Button transparent>
+          <ReportIcon />
+          Report Instance
+        </Button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Card } from 'omorphia'
+import { Button, Card, DownloadIcon, ReportIcon } from 'omorphia'
 
 definePageMeta({
   layout: false,
@@ -26,7 +48,7 @@ definePageMeta({
 @import 'omorphia/dist/style.css';
 
 * {
-  --max-w-sm: 32rem;
+  --max-w-sm: 36rem;
 }
 
 .card-container {
@@ -50,5 +72,31 @@ definePageMeta({
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.warning-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--gap-sm);
+}
+
+.warning-heading {
+  color: var(--color-special-red);
+}
+
+@media (max-width: 36rem) {
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-md);
+  }
+
+  .warning-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-md);
+  }
 }
 </style>
