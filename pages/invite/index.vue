@@ -12,6 +12,7 @@
     <div class="card-margin">
       <Card>
         <h1>Invite</h1>
+        TODO: Content
       </Card>
     </div>
     <div>
@@ -80,6 +81,7 @@ definePageMeta({
   align-items: center;
   justify-content: center;
   margin-top: var(--gap-sm);
+  text-align: center;
 }
 
 .warning-heading {
@@ -88,12 +90,6 @@ definePageMeta({
 
 @media (max-width: 36rem) {
   .header-container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--gap-md);
-  }
-
-  .warning-section {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--gap-md);
