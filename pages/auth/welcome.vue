@@ -11,8 +11,8 @@
       <Checkbox
         v-model="subscribe"
         class="subscribe-btn"
-        label="Subscribe to updates about Modrinth"
-        description="Subscribe to updates about Modrinth"
+        :label="formatMessage(messages.subscribeCheckbox)"
+        :description="formatMessage(messages.subscribeCheckbox)"
       />
 
       <button class="btn btn-primary continue-btn centered-btn" @click="continueSignUp">
@@ -29,6 +29,20 @@
 </template>
 <script setup>
 import { Checkbox, RightArrowIcon } from 'omorphia'
+
+const { formatMessage } = useVIntl()
+const formatRelativeTime = useRelativeTime()
+
+const messages = defineMessages({
+  welcomeTitle: {
+    id: 'auth.welcome.title',
+    defaultMessage: 'Welcome',
+  },
+  subscribeCheckbox: {
+    id: 'auth.welcome.checkbox.subscribe',
+    defaultMessage: 'Subscribe to updates about Modrinth',
+  },
+})
 
 useHead({
   title: 'Welcome - Modrinth',
