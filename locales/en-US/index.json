@@ -5,6 +5,9 @@
   "button.continue": {
     "message": "Continue"
   },
+  "button.decline": {
+    "message": "Decline"
+  },
   "button.edit": {
     "message": "Edit"
   },
@@ -35,9 +38,6 @@
   "frog.title": {
     "message": "Frog"
   },
-  "label.followed-projects": {
-    "message": "Followed projects"
-  },
   "input.view.gallery": {
     "message": "Gallery view"
   },
@@ -47,26 +47,17 @@
   "input.view.list": {
     "message": "List view"
   },
-  "label.code-source": {
-    "message": "Source code"
-  },
   "label.created-ago": {
     "message": "Created {ago}"
   },
-  "label.discord-invite": {
-    "message": "Discord invite"
+  "label.followed-projects": {
+    "message": "Followed projects"
   },
-  "label.issue-tracker": {
-    "message": "Issue tracker"
-  },
-  "label.messages": {
-    "message": "Messages"
+  "label.password": {
+    "message": "Password"
   },
   "label.settings": {
     "message": "Settings"
-  },
-  "label.wiki-page": {
-    "message": "Wiki page"
   },
   "notification.error.title": {
     "message": "An error occurred"
@@ -88,6 +79,12 @@
   },
   "profile.label.edit-username": {
     "message": "Username"
+  },
+  "profile.label.no-collections": {
+    "message": "This user has no collection!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "This user has no projects!"
@@ -113,6 +110,12 @@
   "project-type.all": {
     "message": "All"
   },
+  "project-type.collection.plural": {
+    "message": "Collections"
+  },
+  "project-type.collection.singular": {
+    "message": "Collection"
+  },
   "project-type.datapack.plural": {
     "message": "Data Packs"
   },
@@ -136,6 +139,12 @@
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projects"
+  },
+  "project-type.project.singular": {
+    "message": "Project"
   },
   "project-type.resourcepack.plural": {
     "message": "Resource Packs"

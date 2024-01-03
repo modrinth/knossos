@@ -19,9 +19,17 @@ export const commonMessages = defineMessages({
     id: 'tooltip.date-at-time',
     defaultMessage: '{date, date, long} at {time, time, short}',
   },
+  declineButton: {
+    id: 'button.decline',
+    defaultMessage: 'Decline',
+  },
   editButton: {
     id: 'button.edit',
     defaultMessage: 'Edit',
+  },
+  errorNotificationTitle: {
+    id: 'notification.error.title',
+    defaultMessage: 'An error occurred',
   },
   followedProjectsLabel: {
     id: 'label.followed-projects',
@@ -39,9 +47,9 @@ export const commonMessages = defineMessages({
     id: 'input.view.list',
     defaultMessage: 'List view',
   },
-  errorNotificationTitle: {
-    id: 'notification.error.title',
-    defaultMessage: 'An error occurred',
+  passwordLabel: {
+    id: 'label.password',
+    defaultMessage: 'Password',
   },
   reportButton: {
     id: 'button.report',
@@ -54,6 +62,10 @@ export const commonMessages = defineMessages({
   saveChangesButton: {
     id: 'button.save-changes',
     defaultMessage: 'Save changes',
+  },
+  settingsLabel: {
+    id: 'label.settings',
+    defaultMessage: 'Settings',
   },
   signInButton: {
     id: 'button.sign-in',
