@@ -5,6 +5,9 @@
   "auth.welcome.description": {
     "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
   },
+  "auth.welcome.long-title": {
+    "message": "Welcome to Modrinth!"
+  },
   "auth.welcome.title": {
     "message": "Welcome"
   },

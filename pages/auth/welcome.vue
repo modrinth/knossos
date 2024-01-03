@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Welcome to Modrinth!</h1>
+    <h1>{{ formatMessage(messages.welcomeLongTitle) }}</h1>
 
     <section class="auth-form">
       <p>
@@ -30,20 +30,23 @@
 import { Checkbox, RightArrowIcon } from 'omorphia'
 
 const { formatMessage } = useVIntl()
-const formatRelativeTime = useRelativeTime()
 
 const messages = defineMessages({
-  welcomeTitle: {
-    id: 'auth.welcome.title',
-    defaultMessage: 'Welcome',
+  subscribeCheckbox: {
+    id: 'auth.welcome.checkbox.subscribe',
+    defaultMessage: 'Subscribe to updates about Modrinth',
   },
   welcomeDescription: {
     id: 'auth.welcome.description',
     defaultMessage: 'Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!',
   },
-  subscribeCheckbox: {
-    id: 'auth.welcome.checkbox.subscribe',
-    defaultMessage: 'Subscribe to updates about Modrinth',
+  welcomeLongTitle: {
+    id: 'auth.welcome.long-title',
+    defaultMessage: 'Welcome to Modrinth!',
+  },
+  welcomeTitle: {
+    id: 'auth.welcome.title',
+    defaultMessage: 'Welcome',
   },
 })
 
