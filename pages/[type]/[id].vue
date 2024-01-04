@@ -138,9 +138,6 @@
         :reset-project="resetProject"
         :reset-organization="resetOrganization"
         :reset-members="resetMembers"
-        :reset-dependencies="resetDependencies"
-        :reset-versions="resetVersions"
-        :reset-featured-versions="resetFeaturedVersions"
         :route="route"
       />
     </div>
@@ -494,9 +491,6 @@
           :reset-project="resetProject"
           :reset-organization="resetOrganization"
           :reset-members="resetMembers"
-          :reset-dependencies="resetDependencies"
-          :reset-versions="resetVersions"
-          :reset-featured-versions="resetFeaturedVersions"
           :route="route"
         />
       </section>
@@ -855,20 +849,17 @@ let project,
   allMembers,
   resetMembers,
   dependencies,
-  resetDependencies,
-  rawFeaturedVersions,
-  resetFeaturedVersions,
-  rawVersions,
-  resetVersions,
+  featuredVersions,
+  versions,
   organization,
   resetOrganization
 try {
   ;[
     { data: project, refresh: resetProject },
     { data: allMembers, refresh: resetMembers },
-    { data: dependencies, refresh: resetDependencies },
-    { data: rawFeaturedVersions, refresh: resetFeaturedVersions },
-    { data: rawVersions, refresh: resetVersions },
+    { data: dependencies },
+    { data: featuredVersions },
+    { data: versions },
     { data: organization, refresh: resetOrganization },
   ] = await Promise.all([
     useAsyncData(`project/${route.params.id}`, () => useBaseFetch(`project/${route.params.id}`), {
@@ -913,8 +904,8 @@ try {
     ),
   ])
 
-  rawVersions = shallowRef(toRaw(rawVersions))
-  rawFeaturedVersions = shallowRef(toRaw(rawFeaturedVersions))
+  versions = shallowRef(toRaw(versions))
+  featuredVersions = shallowRef(toRaw(featuredVersions))
 } catch (error) {
   throw createError({
     fatal: true,
@@ -985,23 +976,21 @@ const currentMember = computed(() => {
   return val
 })
 
-const versions = computed(() => data.$computeVersions(rawVersions.value, allMembers.value))
+versions.value = data.$computeVersions(versions.value, allMembers.value)
 
 // Q: Why do this instead of computing the versions of featuredVersions?
 // A: It will incorrectly generate the version slugs because it doesn't have the full context of
 //    all the versions. For example, if version 1.1.0 for Forge is featured but 1.1.0 for Fabric
 //    is not, but the Fabric one was uploaded first, the Forge version would link to the Fabric
 ///   version
-const featuredVersions = computed(() => {
-  const featuredIds = rawFeaturedVersions.value.map((x) => x.id)
-  rawFeaturedVersions.value = versions.value.filter((version) => featuredIds.includes(version.id))
+const featuredIds = featuredVersions.value.map((x) => x.id)
+featuredVersions.value = versions.value.filter((version) => featuredIds.includes(version.id))
 
-  return rawFeaturedVersions.value.sort((a, b) => {
-    const aLatest = a.game_versions[a.game_versions.length - 1]
-    const bLatest = b.game_versions[b.game_versions.length - 1]
-    const gameVersions = tags.value.gameVersions.map((e) => e.version)
-    return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
-  })
+featuredVersions.value.sort((a, b) => {
+  const aLatest = a.game_versions[a.game_versions.length - 1]
+  const bLatest = b.game_versions[b.game_versions.length - 1]
+  const gameVersions = tags.value.gameVersions.map((e) => e.version)
+  return gameVersions.indexOf(aLatest) - gameVersions.indexOf(bLatest)
 })
 
 const licenseIdDisplay = computed(() => {

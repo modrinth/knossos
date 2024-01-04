@@ -541,7 +541,7 @@
             :custom-label="(value) => $formatCategory(value)"
             :loading="tags.loaders.length === 0"
             :multiple="true"
-            :searchable="false"
+            :searchable="true"
             :show-no-results="false"
             :close-on-select="false"
             :clear-on-select="false"
@@ -736,21 +736,6 @@ export default defineNuxtComponent({
       },
     },
     resetProject: {
-      type: Function,
-      required: true,
-      default: () => {},
-    },
-    resetVersions: {
-      type: Function,
-      required: true,
-      default: () => {},
-    },
-    resetFeaturedVersions: {
-      type: Function,
-      required: true,
-      default: () => {},
-    },
-    resetDependencies: {
       type: Function,
       required: true,
       default: () => {},
@@ -1332,12 +1317,23 @@ export default defineNuxtComponent({
       this.shouldPreventActions = false
     },
     async resetProjectVersions() {
-      await Promise.all([
+      const [versions, featuredVersions, dependencies] = await Promise.all([
+        useBaseFetch(`project/${this.version.project_id}/version`),
+        useBaseFetch(`project/${this.version.project_id}/version?featured=true`),
+        useBaseFetch(`project/${this.version.project_id}/dependencies`),
         this.resetProject(),
-        this.resetVersions(),
-        this.resetFeaturedVersions(),
-        this.resetDependencies(),
       ])
+
+      const newCreatedVersions = this.$computeVersions(versions, this.members)
+      const featuredIds = featuredVersions.map((x) => x.id)
+      this.$emit('update:versions', newCreatedVersions)
+      this.$emit(
+        'update:featuredVersions',
+        newCreatedVersions.filter((version) => featuredIds.includes(version.id))
+      )
+      this.$emit('update:dependencies', dependencies)
+
+      return newCreatedVersions
     },
   },
 })

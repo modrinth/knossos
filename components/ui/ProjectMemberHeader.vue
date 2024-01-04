@@ -54,7 +54,11 @@
       </div>
     </div>
     <div v-if="!collapsed" class="grid-display width-16">
-      <div v-for="nag in nags.filter((x) => x.condition)" :key="nag.id" class="grid-display__item">
+      <div
+        v-for="nag in nags.filter((x) => x.condition && !x.hide)"
+        :key="nag.id"
+        class="grid-display__item"
+      >
         <span class="label">
           <RequiredIcon
             v-if="nag.status === 'required'"
@@ -249,6 +253,7 @@ const nags = computed(() => [
     },
   },
   {
+    hide: props.project.versions.length === 0,
     condition: props.project.categories.length < 1,
     title: 'Select tags',
     id: 'select-tags',
@@ -281,11 +286,15 @@ const nags = computed(() => [
   },
   {
     hide:
+      props.project.versions.length === 0 ||
       props.project.project_type === 'resourcepack' ||
       props.project.project_type === 'plugin' ||
       props.project.project_type === 'shader' ||
       props.project.project_type === 'datapack',
-    condition: props.project.client_side === 'unknown' || props.project.server_side === 'unknown',
+    condition:
+      props.project.client_side === 'unknown' ||
+      props.project.server_side === 'unknown' ||
+      (props.project.client_side === 'unsupported' && props.project.server_side === 'unsupported'),
     title: 'Select supported environments',
     id: 'select-environments',
     description: `Select if the ${formatProjectType(

@@ -14,8 +14,7 @@
         </span>
       </div>
       <MarkdownEditor
-        :v-model="'aaa'"
-        :model-value="'aaa'"
+        v-model="description"
         :on-image-upload="onUploadHandler"
         :disabled="(currentMember.permissions & EDIT_BODY) !== EDIT_BODY"
       />
