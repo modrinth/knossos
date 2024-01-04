@@ -74,6 +74,14 @@ const messages = defineMessages({
     id: 'auth.reset-password.input.confirm-password.placeholder',
     defaultMessage: 'Confirm password',
   },
+  emailSentNotificationText: {
+    id: 'auth.reset-password.notification.email-sent.text',
+    defaultMessage: 'An email with instructions has been sent to you if the email was previously saved on your account.',
+  },
+  emailSentNotificationTitle: {
+    id: 'auth.reset-password.notification.email-sent.title',
+    defaultMessage: 'Email sent',
+  },
   emailUsernameLabel: {
     id: 'auth.reset-password.label.email-username',
     defaultMessage: 'Email or username',
@@ -131,8 +139,8 @@ async function recovery() {
 
     addNotification({
       group: 'main',
-      title: 'Email sent',
-      text: 'An email with instructions has been sent to you if the email was previously saved on your account.',
+      title: formatMessage(messages.emailSentNotificationTitle),
+      text: formatMessage(messages.emailSentNotificationText),
       type: 'success',
     })
   } catch (err) {

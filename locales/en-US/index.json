@@ -14,6 +14,12 @@
   "auth.reset-password.long-title": {
     "message": "Reset your password"
   },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "Email sent"
+  },
   "auth.reset-password.title": {
     "message": "Reset Password"
   },
