@@ -1,0 +1,209 @@
+{
+  "button.cancel": {
+    "message": "إلغاء"
+  },
+  "button.edit": {
+    "message": "تعديل"
+  },
+  "button.save": {
+    "message": "حفظ"
+  },
+  "frog": {
+    "message": "لقد تم ضفدعتك! 🐸"
+  },
+  "frog.altText": {
+    "message": "لوحة واقعية لمتاهة الضفدع"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural, one {{count} المزيد من الأشخاص} other {{count}المزيد من الناس}} تم ضفادعها أيضًا!"
+  },
+  "frog.sinceOpened": {
+    "message": "تم فتح هذه الصفحة {ago}"
+  },
+  "frog.title": {
+    "message": "ضفدع"
+  },
+  "input.view.gallery": {
+    "message": "عرض بنمط العارضة"
+  },
+  "input.view.grid": {
+    "message": "عرض بنمط الشبكة"
+  },
+  "input.view.list": {
+    "message": "عرض بنمط القائمة"
+  },
+  "notification.error.title": {
+    "message": "حدثَ خطأ ما"
+  },
+  "profile.button.manage-projects": {
+    "message": "إدارة المشاريع"
+  },
+  "profile.button.report": {
+    "message": "تبليغ"
+  },
+  "profile.error.not-found": {
+    "message": "لم يتم العثور على المُستخدم"
+  },
+  "profile.input.upload-avatar": {
+    "message": "تحميل صورة الحساب"
+  },
+  "profile.joined-at": {
+    "message": "انضممت {ago}"
+  },
+  "profile.label.edit-bio": {
+    "message": "السيرة الذاتية"
+  },
+  "profile.label.edit-username": {
+    "message": "اسم المستخدم"
+  },
+  "profile.label.no-collections": {
+    "message": "This user has no collection!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "ليس لدى هذا المستخدم أيّة مشاريع!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "ليست لديك أيّة مشاريع.\nهل تودّ <create-link>إنشاء مشروع</create-link>؟"
+  },
+  "profile.meta.description": {
+    "message": "تنزيل مشاريع {username} على Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio}-تنزيل المشروع الخاص بـ{username} على Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural,one {<stat>{count}</stat> تنزيل} other {<stat>{count}</stat>تنزيلات}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> متابع} other {<stat>{count}</stat> متابعًا}} للمشاريع"
+  },
+  "profile.user-id": {
+    "message": "مٌعرف المستخدم: {id}"
+  },
+  "project-type.all": {
+    "message": "الكل"
+  },
+  "project-type.collection.plural": {
+    "message": "Collections"
+  },
+  "project-type.collection.singular": {
+    "message": "Collection"
+  },
+  "project-type.datapack.plural": {
+    "message": "حُزمة البيانات"
+  },
+  "project-type.datapack.singular": {
+    "message": "حزمة البيانات"
+  },
+  "project-type.mod.plural": {
+    "message": "تعديلات"
+  },
+  "project-type.mod.singular": {
+    "message": "تعديل"
+  },
+  "project-type.modpack.plural": {
+    "message": "حزم التعديلات"
+  },
+  "project-type.modpack.singular": {
+    "message": "حزمة التعديلات"
+  },
+  "project-type.plugin.plural": {
+    "message": "الملحقات"
+  },
+  "project-type.plugin.singular": {
+    "message": "مُلحق"
+  },
+  "project-type.project.plural": {
+    "message": "Projects"
+  },
+  "project-type.project.singular": {
+    "message": "Project"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "حزم الموارد"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "حُزمة الموارد"
+  },
+  "project-type.shader.plural": {
+    "message": "المظلّلات"
+  },
+  "project-type.shader.singular": {
+    "message": "المظلل"
+  },
+  "settings.language.categories.auto": {
+    "message": "تلقائي"
+  },
+  "settings.language.categories.default": {
+    "message": "اللغات المعيارية"
+  },
+  "settings.language.categories.experimental": {
+    "message": "اللغات التجريبية"
+  },
+  "settings.language.categories.fun": {
+    "message": "لغات ممتعة"
+  },
+  "settings.language.categories.search-result": {
+    "message": "نتائج البحث"
+  },
+  "settings.language.description": {
+    "message": "أختر لُغتك المُفضلة للموقع. تمت الترجمات من قِبل المُتطوعين <crowdin-link> على مِنصة Crowdin </crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "مُطابقة مع لغة النظام"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. جارٍ التطبيق..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. خطأ"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "لا يمكن تحميل هذه اللغة. حاول مرة أخرى بعد قليل."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "أرسل للتركيز على نتائج البحث الأولى"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "أبحث عن لُغة..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {لا تطابق في اللغات} one {# تطابق اللغات} other {# تطابق اللغاتh}} في بحثك."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "ما من لغات تتطابق مع بحثك."
+  },
+  "settings.language.title": {
+    "message": "لُغة"
+  },
+  "settings.sessions.button.revoke-session": {
+    "message": "إنهاء الجلسة"
+  },
+  "settings.sessions.description": {
+    "message": "هُنا كل الأجهزة التي تمت تسجيل الدخول بحسابك في Modrinth حالياً. تستطيع تسجيل الخروج في كل جهاز بشكل فردي.\n\nأذا رأيت تسجيل لا تتذكره, سجل خروج من ذالِك الجهاز و غًير كلمة السر حسابك في Modrinth في الحال."
+  },
+  "settings.sessions.label.created-at": {
+    "message": "تم الإنشاء منذ {ago}"
+  },
+  "settings.sessions.label.current-session": {
+    "message": "الجلسة الحالية"
+  },
+  "settings.sessions.label.last-accessed-at": {
+    "message": "آخر وصول منذ {ago}"
+  },
+  "settings.sessions.label.unknown-os": {
+    "message": "نظام تشغيل غير معروف"
+  },
+  "settings.sessions.label.unknown-platform": {
+    "message": "مِنصة غير معروفة"
+  },
+  "settings.sessions.title": {
+    "message": "الجلسات"
+  },
+  "tooltip.date-at-time": {
+    "message": "يوم {date, date, long} على الساعة {time, time, short}"
+  }
+}
