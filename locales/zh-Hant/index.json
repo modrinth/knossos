@@ -56,11 +56,17 @@
   "profile.label.edit-username": {
     "message": "使用者名稱"
   },
+  "profile.label.no-collections": {
+    "message": "這個使用者沒有收藏！"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "你沒有任何專案。\n你想要 <create-link>建立一個</create-link> 嗎？"
+  },
   "profile.label.no-projects": {
     "message": "這個使用者沒有專案！"
   },
   "profile.label.no-projects-auth": {
-    "message": "您沒有任何專案。\n您想要 <create-link>建立一個</create-link> 嗎？"
+    "message": "你沒有任何專案。\n你想要 <create-link>建立一個</create-link> 嗎？"
   },
   "profile.meta.description": {
     "message": "前往 Modrinth 下載 {username} 的專案"
@@ -79,6 +85,12 @@
   },
   "project-type.all": {
     "message": "全部"
+  },
+  "project-type.collection.plural": {
+    "message": "收藏"
+  },
+  "project-type.collection.singular": {
+    "message": "收藏"
   },
   "project-type.datapack.plural": {
     "message": "資料包"
@@ -103,6 +115,12 @@
   },
   "project-type.plugin.singular": {
     "message": "插件"
+  },
+  "project-type.project.plural": {
+    "message": "專案"
+  },
+  "project-type.project.singular": {
+    "message": "專案"
   },
   "project-type.resourcepack.plural": {
     "message": "資源包"
@@ -165,7 +183,7 @@
     "message": "取消工作階段授權"
   },
   "settings.sessions.description": {
-    "message": "下列為您目前已登入 Modrinth 帳號的所有裝置。您可以分別從每台裝置登出。\n\n若您看到不認識的裝置，請立即登出該裝置並變更您的 Modrinth 帳號密碼。"
+    "message": "下列為你目前已登入 Modrinth 帳號的所有裝置。你可以分別從每台裝置登出。\n如果你看到不認識的裝置，請立即登出該裝置並變更你的 Modrinth 帳號密碼。"
   },
   "settings.sessions.label.created-at": {
     "message": "建立於 {ago}"
