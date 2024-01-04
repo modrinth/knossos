@@ -90,6 +90,14 @@ const messages = defineMessages({
     id: 'auth.reset-password.label.password',
     defaultMessage: 'Password',
   },
+  passwordResetNotificationText: {
+    id: 'auth.reset-password.notification.password-reset.text',
+    defaultMessage: 'You can now log-in into your account with your new password.',
+  },
+  passwordResetNotificationTitle: {
+    id: 'auth.reset-password.notification.password-reset.title',
+    defaultMessage: 'Password successfully reset',
+  },
   resetPasswordButton: {
     id: 'auth.reset-password.button.reset-password',
     defaultMessage: 'Reset password',
@@ -171,8 +179,8 @@ async function changePassword() {
 
     addNotification({
       group: 'main',
-      title: 'Password successfully reset',
-      text: 'You can now log-in into your account with your new password.',
+      title: formatMessage(messages.passwordResetNotificationTitle),
+      text: formatMessage(messages.passwordResetNotificationText),
       type: 'success',
     })
     await navigateTo('/auth/sign-in')

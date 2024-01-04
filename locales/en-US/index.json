@@ -20,6 +20,12 @@
   "auth.reset-password.notification.email-sent.title": {
     "message": "Email sent"
   },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "You can now log-in into your account with your new password."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Password successfully reset"
+  },
   "auth.reset-password.title": {
     "message": "Reset Password"
   },
