@@ -1,7 +1,4 @@
 {
-  "auth.welcome.button.continue": {
-    "message": "Continue"
-  },
   "auth.welcome.checkbox.subscribe": {
     "message": "Subscribe to updates about Modrinth"
   },
@@ -19,6 +16,9 @@
   },
   "button.cancel": {
     "message": "Cancel"
+  },
+  "button.continue": {
+    "message": "Continue"
   },
   "button.edit": {
     "message": "Edit"

@@ -15,7 +15,7 @@
       />
 
       <button class="btn btn-primary continue-btn centered-btn" @click="continueSignUp">
-        {{ formatMessage(messages.continueButton) }} <RightArrowIcon />
+        {{ formatMessage(commonMessages.continueButton) }} <RightArrowIcon />
       </button>
 
       <p>
@@ -41,10 +41,6 @@ import { Checkbox, RightArrowIcon } from 'omorphia'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
-  continueButton: {
-    id: 'auth.welcome.button.continue',
-    defaultMessage: 'Continue',
-  },
   subscribeCheckbox: {
     id: 'auth.welcome.checkbox.subscribe',
     defaultMessage: 'Subscribe to updates about Modrinth',
