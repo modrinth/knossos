@@ -7,7 +7,7 @@
           :link-stack="[
             { href: `/dashboard/organizations`, label: 'Organizations' },
             {
-              href: `/organization/${organization.name}`,
+              href: `/organization/${organization.slug}`,
               label: organization.name,
               allowTrimming: true,
             },
@@ -18,7 +18,7 @@
           <Avatar size="sm" :src="organization.icon_url" />
           <div class="title-section">
             <h2 class="settings-title">
-              <nuxt-link :to="`/organization/${organization.name}/settings`">
+              <nuxt-link :to="`/organization/${organization.slug}/settings`">
                 {{ organization.name }}
               </nuxt-link>
             </h2>
@@ -35,23 +35,23 @@
         <h2>Organization settings</h2>
 
         <NavStack>
-          <NavStackItem :link="`/organization/${organization.name}/settings`" label="Overview">
+          <NavStackItem :link="`/organization/${organization.slug}/settings`" label="Overview">
             <SettingsIcon />
           </NavStackItem>
           <NavStackItem
-            :link="`/organization/${organization.name}/settings/members`"
+            :link="`/organization/${organization.slug}/settings/members`"
             label="Members"
           >
             <UsersIcon />
           </NavStackItem>
           <NavStackItem
-            :link="`/organization/${organization.name}/settings/projects`"
+            :link="`/organization/${organization.slug}/settings/projects`"
             label="Projects"
           >
             <BoxIcon />
           </NavStackItem>
           <NavStackItem
-            :link="`/organization/${organization.name}/settings/analytics`"
+            :link="`/organization/${organization.slug}/settings/analytics`"
             label="Analytics"
           >
             <ChartIcon />
@@ -137,19 +137,19 @@
           :links="[
             {
               label: formatMessage(commonMessages.allProjectType),
-              href: `/organization/${organization.name}`,
+              href: `/organization/${organization.slug}`,
             },
             ...projectTypes.map((x) => {
               return {
                 label: formatMessage(getProjectTypeMessage(x, true)),
-                href: `/organization/${organization.name}/${x}s`,
+                href: `/organization/${organization.slug}/${x}s`,
               }
             }),
           ]"
         />
 
         <div v-if="auth.user && currentMember" class="input-group">
-          <nuxt-link :to="`/organization/${organization.name}/settings`" class="iconified-button">
+          <nuxt-link :to="`/organization/${organization.slug}/settings`" class="iconified-button">
             <SettingsIcon /> Settings
           </nuxt-link>
         </div>
@@ -355,8 +355,8 @@ const patchOrganization = async (id, newData) => {
     apiVersion: 3,
   })
 
-  if (newData.name) {
-    orgId = newData.name
+  if (newData.slug) {
+    orgId = newData.slug
   }
 }
 

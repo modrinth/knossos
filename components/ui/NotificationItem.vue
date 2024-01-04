@@ -22,7 +22,7 @@
         </nuxt-link>
         <nuxt-link
           v-else-if="organization"
-          :to="`/organization/${organization.name}`"
+          :to="`/organization/${organization.slug}`"
           tabindex="-1"
         >
           <Avatar size="xs" :src="organization.icon_url" :raised="raised" no-shadow />
@@ -73,7 +73,7 @@
         </nuxt-link>
         <span>
           has invited you to join
-          <nuxt-link :to="`/organization/${organization.name}`" class="title-link">
+          <nuxt-link :to="`/organization/${organization.slug}`" class="title-link">
             {{ organization.name }} </nuxt-link
           >.
         </span>

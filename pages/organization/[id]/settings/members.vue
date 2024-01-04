@@ -289,7 +289,7 @@ const permToLabel = (key) => {
 
 const leaveProject = async () => {
   await removeTeamMember(organization.value.team_id, auth.user.id)
-  await navigateTo(`/organization/${organization.value.name}`)
+  await navigateTo(`/organization/${organization.value.slug}`)
 }
 
 const onInviteTeamMember = useClientTry(async (teamId, username) => {

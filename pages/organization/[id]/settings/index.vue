@@ -15,14 +15,7 @@ const deletedIcon = ref(false)
 const previewImage = ref(null)
 
 const name = ref(organization.value.name)
-
-watch([() => name.value], () => {
-  // keep name url safe
-  name.value = name.value
-    .trim()
-    .replace(/ +/g, '')
-    .replace(/[^a-zA-Z0-9-_!@]/g, '')
-})
+const slug = ref(organization.value.slug)
 
 const summary = ref(organization.value.description)
 
@@ -30,6 +23,9 @@ const patchData = computed(() => {
   const data = {}
   if (name.value !== organization.value.name) {
     data.name = name.value
+  }
+  if (slug.value !== organization.value.slug) {
+    data.slug = slug.value
   }
   if (summary.value !== organization.value.description) {
     data.description = summary.value
@@ -162,6 +158,21 @@ const onDeleteOrganization = useClientTry(async () => {
         type="text"
         :disabled="!hasPermission"
       />
+
+      <label for="project-slug">
+        <span class="label__title">URL</span>
+      </label>
+      <div class="text-input-wrapper">
+        <div class="text-input-wrapper__before">https://modrinth.com/organization/</div>
+        <input
+          id="project-slug"
+          v-model="slug"
+          type="text"
+          maxlength="64"
+          autocomplete="off"
+          :disabled="!hasPermission"
+        />
+      </div>
 
       <label for="project-summary">
         <span class="label__title">Summary</span>

@@ -17,7 +17,22 @@
         maxlength="64"
         :placeholder="`Enter organization name...`"
         autocomplete="off"
+        @input="updateSlug()"
       />
+      <label for="slug">
+        <span class="label__title">URL<span class="required">*</span></span>
+      </label>
+      <div class="text-input-wrapper">
+        <div class="text-input-wrapper__before">https://modrinth.com/organization/</div>
+        <input
+          id="slug"
+          v-model="slug"
+          type="text"
+          maxlength="64"
+          autocomplete="off"
+          @input="manualSlug = true"
+        />
+      </div>
       <label for="additional-information">
         <span class="label__title">Summary<span class="required">*</span></span>
         <span class="label__description">This will appear on your organization's page.</span>
@@ -44,24 +59,19 @@ import { XIcon as CrossIcon, CheckIcon, Modal, Button } from 'omorphia'
 const router = useRouter()
 
 const name = ref('')
+const slug = ref('')
 const description = ref('')
+const manualSlug = ref(false)
 
 const modal = ref()
-
-watch([() => name.value], () => {
-  // keep name url safe
-  name.value = name.value
-    .trim()
-    .replace(/ +/g, '')
-    .replace(/[^a-zA-Z0-9-_!@]/g, '')
-})
 
 async function createProject() {
   startLoading()
   try {
     const value = {
-      name: name.value.trim().replace(/ +/g, ''),
+      name: name.value.trim(),
       description: description.value.trim(),
+      slug: slug.value.trim().replace(/ +/g, ''),
     }
 
     const result = await useBaseFetch('organization', {
@@ -72,7 +82,7 @@ async function createProject() {
 
     modal.value.hide()
 
-    await router.push(`/organization/${result.name}`)
+    await router.push(`/organization/${result.slug}`)
   } catch (err) {
     console.error(err)
     addNotification({
@@ -88,6 +98,17 @@ function show() {
   name.value = ''
   description.value = ''
   modal.value.show()
+}
+
+function updateSlug() {
+  if (!manualSlug.value) {
+    slug.value = name.value
+      .trim()
+      .toLowerCase()
+      .replaceAll(' ', '-')
+      .replaceAll(/[^a-zA-Z0-9!@$()`.+,_"-]/g, '')
+      .replaceAll(/--+/gm, '-')
+  }
 }
 
 defineExpose({

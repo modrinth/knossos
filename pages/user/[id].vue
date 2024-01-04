@@ -164,7 +164,7 @@
                     :key="org.id"
                     v-tooltip="org.name"
                     class="organization"
-                    :to="`/organization/${org.name}`"
+                    :to="`/organization/${org.slug}`"
                   >
                     <Avatar :src="org.icon_url" :alt="'Icon for ' + org.name" size="xs" />
                   </nuxt-link>
@@ -640,6 +640,11 @@ export default defineNuxtComponent({
 .collections-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+
+  @media screen and (max-width: 800px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
   gap: var(--gap-lg);
 
   .collection-item {

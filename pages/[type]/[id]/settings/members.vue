@@ -252,7 +252,7 @@
         <template v-if="props.organization">
           This project is managed by {{ organization.name }}. The defaults for member permissions
           are set in the
-          <nuxt-link :to="`/organization/${organization.name}/settings/members`">
+          <nuxt-link :to="`/organization/${organization.slug}/settings/members`">
             organization settings</nuxt-link
           >. You may override them below.
         </template>

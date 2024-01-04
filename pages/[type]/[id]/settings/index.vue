@@ -283,6 +283,7 @@ const props = defineProps({
 })
 
 const tags = useTags()
+const router = useRouter()
 
 const name = ref(props.project.title)
 const slug = ref(props.project.slug)
@@ -380,7 +381,7 @@ const deleteProject = async () => {
     method: 'DELETE',
   })
   await initUserProjects()
-  await $router.push('/dashboard/projects')
+  await router.push('/dashboard/projects')
   addNotification({
     group: 'main',
     title: 'Project deleted',

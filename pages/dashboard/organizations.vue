@@ -32,14 +32,14 @@
               />
             </div>
             <div>
-              <nuxt-link tabindex="-1" :to="`/organization/${org.name}`">
+              <nuxt-link tabindex="-1" :to="`/organization/${org.slug}`">
                 <Avatar :src="org.icon_url" aria-hidden="true" :alt="org.name" no-shadow />
               </nuxt-link>
             </div>
 
             <div>
               <span class="project-title">
-                <nuxt-link class="hover-link wrap-as-needed" :to="`/organization/${org.name}`">
+                <nuxt-link class="hover-link wrap-as-needed" :to="`/organization/${org.slug}`">
                   {{ org.name }}
                 </nuxt-link>
               </span>
@@ -52,7 +52,7 @@
             <div>{{ org.members?.length || 0 }}</div>
 
             <div>
-              <nuxt-link class="square-button" :to="`/organization/${org.name}/settings`">
+              <nuxt-link class="square-button" :to="`/organization/${org.slug}/settings`">
                 <SettingsIcon />
               </nuxt-link>
             </div>
@@ -148,68 +148,6 @@ const openCreateOrgModal = () => {
       color: var(--color-text-dark);
       padding-top: var(--spacing-card-bg);
       padding-bottom: var(--spacing-card-bg);
-    }
-  }
-
-  @media screen and (max-width: 750px) {
-    display: flex;
-    flex-direction: column;
-
-    .grid-table__row {
-      display: grid;
-      grid-template: 'checkbox icon name type settings' 'checkbox icon id status settings';
-      grid-template-columns:
-        min-content min-content minmax(min-content, 2fr)
-        minmax(min-content, 1fr) min-content;
-
-      :nth-child(1) {
-        grid-area: checkbox;
-      }
-
-      :nth-child(2) {
-        grid-area: icon;
-      }
-
-      :nth-child(3) {
-        grid-area: name;
-      }
-
-      :nth-child(4) {
-        grid-area: id;
-        padding-top: 0;
-      }
-
-      :nth-child(5) {
-        grid-area: settings;
-      }
-    }
-
-    .grid-table__header {
-      grid-template: 'checkbox settings';
-      grid-template-columns: min-content minmax(min-content, 1fr);
-
-      :nth-child(2),
-      :nth-child(3),
-      :nth-child(4) {
-        display: none;
-      }
-    }
-  }
-
-  @media screen and (max-width: 560px) {
-    .grid-table__row {
-      display: grid;
-      grid-template: 'checkbox icon name settings' 'checkbox icon id settings' 'checkbox icon type settings' 'checkbox icon status settings';
-      grid-template-columns: min-content min-content minmax(min-content, 1fr) min-content;
-
-      :nth-child(5) {
-        padding-top: 0;
-      }
-    }
-
-    .grid-table__header {
-      grid-template: 'checkbox settings';
-      grid-template-columns: min-content minmax(min-content, 1fr);
     }
   }
 }

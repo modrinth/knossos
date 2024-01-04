@@ -7,7 +7,7 @@
           :link-stack="[
             {
               href: organization
-                ? `/organization/${organization.name}/settings/projects`
+                ? `/organization/${organization.slug}/settings/projects`
                 : `/dashboard/projects`,
               label: 'Projects',
             },
@@ -633,7 +633,7 @@
         <nuxt-link
           v-if="organization"
           class="team-member columns button-transparent"
-          :to="`/organization/${organization.name}`"
+          :to="`/organization/${organization.slug}`"
         >
           <Avatar :src="organization.icon_url" :alt="organization.name" size="sm" />
           <div class="member-info">
