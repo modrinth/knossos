@@ -56,6 +56,12 @@
   "profile.label.edit-username": {
     "message": "Ім’я користувача"
   },
+  "profile.label.no-collections": {
+    "message": "У цього користувача немає добірок!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "У вас немає жодної добірки.\nБажаєте <create-link>створити її</create-link>?"
+  },
   "profile.label.no-projects": {
     "message": "У цього користувача немає проєктів!"
   },
@@ -80,6 +86,12 @@
   "project-type.all": {
     "message": "Усе"
   },
+  "project-type.collection.plural": {
+    "message": "Добірки"
+  },
+  "project-type.collection.singular": {
+    "message": "Добірка"
+  },
   "project-type.datapack.plural": {
     "message": "Пакети даних"
   },
@@ -87,7 +99,7 @@
     "message": "Пакет даних"
   },
   "project-type.mod.plural": {
-    "message": "Моди"
+    "message": "Модифікації"
   },
   "project-type.mod.singular": {
     "message": "Модифікація"
@@ -103,6 +115,12 @@
   },
   "project-type.plugin.singular": {
     "message": "Плаґін"
+  },
+  "project-type.project.plural": {
+    "message": "Проєкти"
+  },
+  "project-type.project.singular": {
+    "message": "Проєкт"
   },
   "project-type.resourcepack.plural": {
     "message": "Пакети ресурсів"
