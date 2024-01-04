@@ -56,6 +56,12 @@
   "profile.label.edit-username": {
     "message": "Uživatelské jméno"
   },
+  "profile.label.no-collections": {
+    "message": "Tento uživatel nemá žádnou kolekci!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Nemáte žádné kolekce.\nChcete <create-link>vytvořit</create-link>?"
+  },
   "profile.label.no-projects": {
     "message": "Tento uživatel nemá žádné projekty!"
   },
@@ -80,6 +86,12 @@
   "project-type.all": {
     "message": "Vše"
   },
+  "project-type.collection.plural": {
+    "message": "Kolekce"
+  },
+  "project-type.collection.singular": {
+    "message": "Kolekce"
+  },
   "project-type.datapack.plural": {
     "message": "Datapacky"
   },
@@ -103,6 +115,12 @@
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projekty"
+  },
+  "project-type.project.singular": {
+    "message": "Projekt"
   },
   "project-type.resourcepack.plural": {
     "message": "Resourcepacky"
