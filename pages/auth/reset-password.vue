@@ -76,7 +76,8 @@ const messages = defineMessages({
   },
   emailSentNotificationText: {
     id: 'auth.reset-password.notification.email-sent.text',
-    defaultMessage: 'An email with instructions has been sent to you if the email was previously saved on your account.',
+    defaultMessage:
+      'An email with instructions has been sent to you if the email was previously saved on your account.',
   },
   emailSentNotificationTitle: {
     id: 'auth.reset-password.notification.email-sent.title',
