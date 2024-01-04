@@ -56,6 +56,12 @@
   "profile.label.edit-username": {
     "message": "Kasutajanimi"
   },
+  "profile.label.no-collections": {
+    "message": "Sellel kasutajal pole kogumeid!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Sul pole ühtegi kogumit.\nKas soovid <create-link>ühe luua</create-link>?"
+  },
   "profile.label.no-projects": {
     "message": "Sellel kasutajal pole projekte!"
   },
@@ -80,6 +86,12 @@
   "project-type.all": {
     "message": "Kõik"
   },
+  "project-type.collection.plural": {
+    "message": "Kogumid"
+  },
+  "project-type.collection.singular": {
+    "message": "Kogum"
+  },
   "project-type.datapack.plural": {
     "message": "Andmepakid"
   },
@@ -103,6 +115,12 @@
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projektid"
+  },
+  "project-type.project.singular": {
+    "message": "Projekt"
   },
   "project-type.resourcepack.plural": {
     "message": "Ressursipakid"
