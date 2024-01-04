@@ -56,6 +56,12 @@
   "profile.label.edit-username": {
     "message": "Кликуха"
   },
+  "profile.label.no-collections": {
+    "message": "У этого пользователя нет коллекций."
+  },
+  "profile.label.no-collections-auth": {
+    "message": "У вас ещё нет коллекций.\nХотите <create-link>создать новую</create-link>?"
+  },
   "profile.label.no-projects": {
     "message": "У этого типа ни одного проекта!"
   },
@@ -80,6 +86,12 @@
   "project-type.all": {
     "message": "Всё"
   },
+  "project-type.collection.plural": {
+    "message": "Коллекции"
+  },
+  "project-type.collection.singular": {
+    "message": "Коллекция"
+  },
   "project-type.datapack.plural": {
     "message": "Пачки данных"
   },
@@ -103,6 +115,12 @@
   },
   "project-type.plugin.singular": {
     "message": "Плугин"
+  },
+  "project-type.project.plural": {
+    "message": "Проекты"
+  },
+  "project-type.project.singular": {
+    "message": "Проект"
   },
   "project-type.resourcepack.plural": {
     "message": "Фасончики"
