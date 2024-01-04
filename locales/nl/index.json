@@ -56,6 +56,12 @@
   "profile.label.edit-username": {
     "message": "Gebruikersnaam"
   },
+  "profile.label.no-collections": {
+    "message": "Deze gebruiker heeft geen collectie!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Je hebt geen collecties.\nWil je een <create-link>aanmaken</create-link>?"
+  },
   "profile.label.no-projects": {
     "message": "Deze gebruiker heeft geen projecten!"
   },
@@ -80,6 +86,12 @@
   "project-type.all": {
     "message": "Alles"
   },
+  "project-type.collection.plural": {
+    "message": "Collecties"
+  },
+  "project-type.collection.singular": {
+    "message": "Collectie"
+  },
   "project-type.datapack.plural": {
     "message": "Data Packs"
   },
@@ -103,6 +115,12 @@
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projecten"
+  },
+  "project-type.project.singular": {
+    "message": "Project"
   },
   "project-type.resourcepack.plural": {
     "message": "Resource Packs"
