@@ -29,7 +29,7 @@
         <p>{{ formatMessage(messages.passedChallengeDescription) }}</p>
 
         <div class="iconified-input">
-          <label for="password" hidden>{{ formatMessage(messages.passwordLabel) }}</label>
+          <label for="password" hidden>Password</label>
           <KeyIcon />
           <input
             id="password"
@@ -37,12 +37,12 @@
             type="password"
             autocomplete="new-password"
             class="auth-form__input"
-            :placeholder="formatMessage(messages.passwordLabel)"
+            placeholder="Password"
           />
         </div>
 
         <div class="iconified-input">
-          <label for="confirm-password" hidden>{{ formatMessage(messages.passwordLabel) }}</label>
+          <label for="confirm-password" hidden>Password</label>
           <KeyIcon />
           <input
             id="confirm-password"
@@ -97,10 +97,6 @@ const messages = defineMessages({
   passedChallengeDescription: {
     id: 'auth.reset-password.description.passed-challenge',
     defaultMessage: 'Enter your new password below to gain access to your account.',
-  },
-  passwordLabel: {
-    id: 'auth.reset-password.label.password',
-    defaultMessage: 'Password',
   },
   passwordResetNotificationText: {
     id: 'auth.reset-password.notification.password-reset.text',

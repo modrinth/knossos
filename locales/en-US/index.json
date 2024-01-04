@@ -20,9 +20,6 @@
   "auth.reset-password.label.email-username": {
     "message": "Email or username"
   },
-  "auth.reset-password.label.password": {
-    "message": "Password"
-  },
   "auth.reset-password.long-title": {
     "message": "Reset your password"
   },
