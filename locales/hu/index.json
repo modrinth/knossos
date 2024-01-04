@@ -56,6 +56,12 @@
   "profile.label.edit-username": {
     "message": "Felhasználónév"
   },
+  "profile.label.no-collections": {
+    "message": "Ennek a felhasználónak nincsenek gyűjteményei!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Nincsenek gyűjteményeid.\nSzeretnél <create-link>készíteni egyet</create-link>?"
+  },
   "profile.label.no-projects": {
     "message": "Ennek a felhasználónak nincsenek projektjei!"
   },
@@ -80,6 +86,12 @@
   "project-type.all": {
     "message": "Összes"
   },
+  "project-type.collection.plural": {
+    "message": "Gyűjtemények"
+  },
+  "project-type.collection.singular": {
+    "message": "Gyűjtemény"
+  },
   "project-type.datapack.plural": {
     "message": "Data Packek"
   },
@@ -103,6 +115,12 @@
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projektek"
+  },
+  "project-type.project.singular": {
+    "message": "Projekt"
   },
   "project-type.resourcepack.plural": {
     "message": "Forráscsomagok"
