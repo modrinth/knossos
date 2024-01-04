@@ -4,8 +4,7 @@
     <section class="auth-form">
       <template v-if="step === 'choose_method'">
         <p>
-          Enter your email below and we'll send a recovery link to allow you to recover your
-          account.
+          {{ formatMessage(messages.chooseMethodDescription) }}
           <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
         </p>
 
@@ -18,16 +17,16 @@
             type="text"
             autocomplete="username"
             class="auth-form__input"
-            placeholder="Email"
+            :placeholder="formatMessage(messages.emailInputPlaceholder)"
           />
         </div>
 
         <button class="btn btn-primary centered-btn" @click="recovery">
-          <SendIcon /> Send recovery email
+          <SendIcon /> {{ formatMessage(messages.sendRecoveryEmailButton) }}
         </button>
       </template>
       <template v-else-if="step === 'passed_challenge'">
-        <p>Enter your new password below to gain access to your account.</p>
+        <p>{{ formatMessage(messages.passedChallengeDescription) }}</p>
 
         <div class="iconified-input">
           <label for="password" hidden>{{ formatMessage(messages.passwordLabel) }}</label>
@@ -70,9 +69,17 @@ import KeyIcon from 'assets/icons/auth/key.svg'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
+  chooseMethodDescription: {
+    id: 'auth.reset-password.description.choose-method',
+    defaultMessage: "Enter your email below and we'll send a recovery link to allow you to recover your account.",
+  },
   confirmPasswordInputPlaceholder: {
     id: 'auth.reset-password.input.confirm-password.placeholder',
     defaultMessage: 'Confirm password',
+  },
+  emailInputPlaceholder: {
+    id: 'auth.reset-password.input.email.placeholder',
+    defaultMessage: 'Email',
   },
   emailSentNotificationText: {
     id: 'auth.reset-password.notification.email-sent.text',
@@ -86,6 +93,10 @@ const messages = defineMessages({
   emailUsernameLabel: {
     id: 'auth.reset-password.label.email-username',
     defaultMessage: 'Email or username',
+  },
+  passedChallengeDescription: {
+    id: 'auth.reset-password.description.passed-challenge',
+    defaultMessage: 'Enter your new password below to gain access to your account.',
   },
   passwordLabel: {
     id: 'auth.reset-password.label.password',
@@ -110,6 +121,10 @@ const messages = defineMessages({
   resetPasswordTitle: {
     id: 'auth.reset-password.title',
     defaultMessage: 'Reset Password',
+  },
+  sendRecoveryEmailButton: {
+    id: 'auth.reset-password.button.send-recovery-email',
+    defaultMessage: 'Send recovery email',
   },
 })
 

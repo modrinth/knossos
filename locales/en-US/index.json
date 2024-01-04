@@ -2,8 +2,20 @@
   "auth.reset-password.button.reset-password": {
     "message": "Reset password"
   },
+  "auth.reset-password.button.send-recovery-email": {
+    "message": "Send recovery email"
+  },
+  "auth.reset-password.description.choose-method": {
+    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+  },
+  "auth.reset-password.description.passed-challenge": {
+    "message": "Enter your new password below to gain access to your account."
+  },
   "auth.reset-password.input.confirm-password.placeholder": {
     "message": "Confirm password"
+  },
+  "auth.reset-password.input.email.placeholder": {
+    "message": "Email"
   },
   "auth.reset-password.label.email-username": {
     "message": "Email or username"
