@@ -56,6 +56,12 @@
   "profile.label.edit-username": {
     "message": "사용자명"
   },
+  "profile.label.no-collections": {
+    "message": "This user has no collection!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+  },
   "profile.label.no-projects": {
     "message": "이 사용자에게는 프로젝트가 없습니다!"
   },
@@ -80,6 +86,12 @@
   "project-type.all": {
     "message": "전체"
   },
+  "project-type.collection.plural": {
+    "message": "Collections"
+  },
+  "project-type.collection.singular": {
+    "message": "Collection"
+  },
   "project-type.datapack.plural": {
     "message": "데이터 팩"
   },
@@ -103,6 +115,12 @@
   },
   "project-type.plugin.singular": {
     "message": "플러그인"
+  },
+  "project-type.project.plural": {
+    "message": "Projects"
+  },
+  "project-type.project.singular": {
+    "message": "Project"
   },
   "project-type.resourcepack.plural": {
     "message": "리소스 팩"
