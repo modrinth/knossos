@@ -31,6 +31,10 @@ export const commonMessages = defineMessages({
     id: 'notification.error.title',
     defaultMessage: 'An error occurred',
   },
+  passwordLabel: {
+    id: 'label.password',
+    defaultMessage: 'Password',
+  },
   saveButton: {
     id: 'button.save',
     defaultMessage: 'Save',

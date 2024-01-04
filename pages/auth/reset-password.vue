@@ -29,7 +29,7 @@
         <p>{{ formatMessage(messages.passedChallengeDescription) }}</p>
 
         <div class="iconified-input">
-          <label for="password" hidden>Password</label>
+          <label for="password" hidden>{{ formatMessage(commonMessages.passwordLabel) }}</label>
           <KeyIcon />
           <input
             id="password"
@@ -37,12 +37,14 @@
             type="password"
             autocomplete="new-password"
             class="auth-form__input"
-            placeholder="Password"
+            :placeholder="formatMessage(commonMessages.passwordLabel)"
           />
         </div>
 
         <div class="iconified-input">
-          <label for="confirm-password" hidden>Password</label>
+          <label for="confirm-password" hidden>{{
+            formatMessage(commonMessages.passwordLabel)
+          }}</label>
           <KeyIcon />
           <input
             id="confirm-password"
@@ -71,7 +73,8 @@ const { formatMessage } = useVIntl()
 const messages = defineMessages({
   chooseMethodDescription: {
     id: 'auth.reset-password.description.choose-method',
-    defaultMessage: "Enter your email below and we'll send a recovery link to allow you to recover your account.",
+    defaultMessage:
+      "Enter your email below and we'll send a recovery link to allow you to recover your account.",
   },
   confirmPasswordInputPlaceholder: {
     id: 'auth.reset-password.input.confirm-password.placeholder',
