@@ -56,6 +56,12 @@
   "profile.label.edit-username": {
     "message": "Nom d'utilisateur"
   },
+  "profile.label.no-collections": {
+    "message": "Cet utilisateur n'a pas de collection !"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Vous n'avez aucune collection.\nVoulez-vous en <create-link>créer une</create-link> ?"
+  },
   "profile.label.no-projects": {
     "message": "Cet utilisateur n'a aucun projet !"
   },
@@ -80,6 +86,12 @@
   "project-type.all": {
     "message": "Tous"
   },
+  "project-type.collection.plural": {
+    "message": "Collections"
+  },
+  "project-type.collection.singular": {
+    "message": "Collection"
+  },
   "project-type.datapack.plural": {
     "message": "Datapacks"
   },
@@ -103,6 +115,12 @@
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projets"
+  },
+  "project-type.project.singular": {
+    "message": "Projet"
   },
   "project-type.resourcepack.plural": {
     "message": "Resource Packs"
