@@ -209,9 +209,9 @@
           </template>
           <template v-if="twoFactorStep === 2">
             <p>
-              Download and save these backVerify-up codes in a safe place. You can use these in-place of a
-              2FA code if you ever lose access to your device! You should protect these codes like
-              your password.
+              Download and save these backVerify-up codes in a safe place. You can use these
+              in-place of a 2FA code if you ever lose access to your device! You should protect
+              these codes like your password.
             </p>
             <p>Backup codes can only be used once.</p>
             <ul>
