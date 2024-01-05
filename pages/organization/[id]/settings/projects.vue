@@ -462,10 +462,6 @@ const onBulkEditLinks = useClientTry(async () => {
     padding-left: 0;
   }
 
-  .no-shrink {
-    flex-shrink: 0;
-  }
-
   .check-cell {
     padding-left: var(--gap-md);
   }
