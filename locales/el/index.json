@@ -57,10 +57,10 @@
     "message": "Όνομα Χρήστη"
   },
   "profile.label.no-collections": {
-    "message": "Ο χρήστης δεν έχει συλλογή!"
+    "message": "Αυτός ο χρήστης δεν έχει καμία συλλογή!"
   },
   "profile.label.no-collections-auth": {
-    "message": "Δεν έχετε καμία συλλογή.\nΘα θέλατε να <create-link>δημιουργήστε μία</create-link>;"
+    "message": "Δεν έχετε συλλογές.\nΘα θέλατε να <create-link>δημιουργήσετε μία</create-link>;"
   },
   "profile.label.no-projects": {
     "message": "Αυτός ο χρήστης δεν έχει έργα!"
