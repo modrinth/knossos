@@ -6,27 +6,27 @@
       <section class="auth-form">
         <p>Your email is already verified!</p>
 
-        <NuxtLink class="btn" to="/settings/account"> <SettingsIcon /> Account settings </NuxtLink>
+        <NuxtLink class="btn" to="/settings/account"> <SettingsIcon /> {{ formatMessage(messages.accountSettingsButton) }} </NuxtLink>
       </section>
     </template>
 
     <template v-else-if="success">
-      <h1>Email verification</h1>
+      <h1>{{ formatMessage(messages.successedVerificationTitle) }}</h1>
 
       <section class="auth-form">
-        <p>Your email address has been successfully verified!</p>
+        <p>{{ formatMessage(messages.successedVerificationDescription) }}</p>
 
         <NuxtLink v-if="auth.user" class="btn" link="/settings/account">
-          <SettingsIcon /> Account settings
+          <SettingsIcon /> {{ formatMessage(messages.accountSettingsButton) }}
         </NuxtLink>
         <NuxtLink v-else to="/auth/sign-in" class="btn btn-primary continue-btn centered-btn">
-          Sign in <RightArrowIcon />
+          {{ formatMessage(messages.signInButton) }} <RightArrowIcon />
         </NuxtLink>
       </section>
     </template>
 
     <template v-else>
-      <h1>Email verification failed</h1>
+      <h1>{{ formatMessage(messages.failedVerificationTitle) }}</h1>
 
       <section class="auth-form">
         <p>
@@ -40,11 +40,11 @@
         </p>
 
         <button v-if="auth.user" class="btn btn-primary continue-btn" @click="resendVerifyEmail">
-          Resend verification email <RightArrowIcon />
+          {{ formatMessage(messages.resendEmailButton) }} <RightArrowIcon />
         </button>
 
         <NuxtLink v-else to="/auth/sign-in" class="btn btn-primary continue-btn centered-btn">
-          Sign in <RightArrowIcon />
+          {{ formatMessage(messages.signInButton) }} <RightArrowIcon />
         </NuxtLink>
       </section>
     </template>
@@ -56,6 +56,30 @@ import { SettingsIcon, RightArrowIcon } from 'omorphia'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
+  accountSettingsButton: {
+    id: 'auth.verify-email.button.account-settings',
+    defaultMessage: 'Account settings',
+  },
+  failedVerificationTitle: {
+    id: 'auth.verify-email.title.failed-verification',
+    defaultMessage: 'Resend verification email',
+  },
+  resendEmailButton: {
+    id: 'auth.verify-email.button.resend-email',
+    defaultMessage: 'Resend verification email',
+  },
+  signInButton: {
+    id: 'auth.verify-email.button.sign-in',
+    defaultMessage: 'Sign in',
+  },
+  successedVerificationDescription: {
+    id: 'auth.verify-email.description.successed-verification',
+    defaultMessage: 'Your email address has been successfully verified!',
+  },
+  successedVerificationTitle: {
+    id: 'auth.verify-email.title.successed-verification',
+    defaultMessage: 'Email verification',
+  },
   verifyEmailTitle: {
     id: 'auth.verify-email.title',
     defaultMessage: 'Verify Email',

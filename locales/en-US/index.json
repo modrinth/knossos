@@ -1,4 +1,25 @@
 {
+  "auth.verify-email.button.account-settings": {
+    "message": "Account settings"
+  },
+  "auth.verify-email.button.resend-email": {
+    "message": "Resend verification email"
+  },
+  "auth.verify-email.button.sign-in": {
+    "message": "Sign in"
+  },
+  "auth.verify-email.description.successed-verification": {
+    "message": "Your email address has been successfully verified!"
+  },
+  "auth.verify-email.title": {
+    "message": "Verify Email"
+  },
+  "auth.verify-email.title.failed-verification": {
+    "message": "Resend verification email"
+  },
+  "auth.verify-email.title.successed-verification": {
+    "message": "Email verification"
+  },
   "button.cancel": {
     "message": "Cancel"
   },
@@ -56,6 +77,12 @@
   "profile.label.edit-username": {
     "message": "Username"
   },
+  "profile.label.no-collections": {
+    "message": "This user has no collection!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+  },
   "profile.label.no-projects": {
     "message": "This user has no projects!"
   },
@@ -80,6 +107,12 @@
   "project-type.all": {
     "message": "All"
   },
+  "project-type.collection.plural": {
+    "message": "Collections"
+  },
+  "project-type.collection.singular": {
+    "message": "Collection"
+  },
   "project-type.datapack.plural": {
     "message": "Data Packs"
   },
@@ -103,6 +136,12 @@
   },
   "project-type.plugin.singular": {
     "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projects"
+  },
+  "project-type.project.singular": {
+    "message": "Project"
   },
   "project-type.resourcepack.plural": {
     "message": "Resource Packs"
