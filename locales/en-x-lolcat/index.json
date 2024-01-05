@@ -57,10 +57,10 @@
     "message": "katnaym"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collection!"
+    "message": "kat haz no basket :("
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "U not hav basket wif kodes.\nWuud u liek 2 <create-link>maek oen</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "Dis Kat no kode :("
@@ -87,10 +87,10 @@
     "message": "Evryfin"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "baskets wif kodes"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "basket with kodes"
   },
   "project-type.datapack.plural": {
     "message": "Data Pakz"
@@ -117,10 +117,10 @@
     "message": "Plugin"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "pro jets"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "projet"
   },
   "project-type.resourcepack.plural": {
     "message": "Resauce Pakz"
