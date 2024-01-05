@@ -19,6 +19,7 @@
           maxlength="2048"
           type="email"
           :placeholder="`Enter your email address...`"
+          @keyup.enter="saveEmail()"
         />
         <div class="input-group push-right">
           <button class="iconified-button" @click="$refs.changeEmailModal.hide()">
