@@ -151,6 +151,7 @@
             maxlength="11"
             type="text"
             placeholder="Enter code..."
+            @keyup.enter="removeTwoFactor()"
           />
           <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
           <div class="input-group push-right">
@@ -202,12 +203,13 @@
               maxlength="6"
               type="text"
               placeholder="Enter code..."
+              @keyup.enter="verifyTwoFactorCode()"
             />
             <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
           </template>
           <template v-if="twoFactorStep === 2">
             <p>
-              Download and save these back-up codes in a safe place. You can use these in-place of a
+              Download and save these backVerify-up codes in a safe place. You can use these in-place of a
               2FA code if you ever lose access to your device! You should protect these codes like
               your password.
             </p>
