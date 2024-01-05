@@ -60,7 +60,7 @@
     "message": "This user has no collection!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Сезнең коллекцияләр юк.\nСез <create-link>коллекцияне ясарга</create-link> телисезме?"
   },
   "profile.label.no-projects": {
     "message": "Бу кулланучының проектлар юк!"
@@ -87,10 +87,10 @@
     "message": "Барлык"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "Коллекцияләр"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "Коллекция"
   },
   "project-type.datapack.plural": {
     "message": "Мәгълүмат җыелмалары"
@@ -117,10 +117,10 @@
     "message": "Кушылма"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "Проектлар"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "Проект"
   },
   "project-type.resourcepack.plural": {
     "message": "Ресурс җыелмалары"
