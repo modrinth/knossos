@@ -248,18 +248,36 @@
       <div class="label">
         <span class="label__title size-card-header">Organization</span>
       </div>
-      <p>
-        <template v-if="props.organization">
+      <template v-if="props.organization">
+        <p>
           This project is managed by {{ organization.name }}. The defaults for member permissions
           are set in the
           <nuxt-link :to="`/organization/${organization.slug}/settings/members`">
             organization settings</nuxt-link
           >. You may override them below.
-        </template>
-        <template v-else>
-          This project is not managed by an organization. If you are the member of any
-          organizations, you can transfer management to one of them.
-        </template>
+        </p>
+        <div class="universal-card recessed org">
+          <Avatar :src="props.organization.icon_url" :alt="props.organization.name" size="md" />
+          <div class="details">
+            <div class="title">
+              {{ props.organization.name }}
+            </div>
+            <div class="description">
+              {{ props.organization.description }}
+            </div>
+            <span class="stat-bar">
+              <div class="stats">
+                <UsersIcon />
+                {{ props.organization.members?.length || 0 }} member
+                <template v-if="props.organization.members?.length !== 1">s</template>
+              </div>
+            </span>
+          </div>
+        </div>
+      </template>
+      <p v-else>
+        This project is not managed by an organization. If you are the member of any organizations,
+        you can transfer management to one of them.
       </p>
       <div v-if="!props.organization" class="input-group">
         <Multiselect
@@ -493,7 +511,7 @@
 
 <script setup>
 import { Multiselect } from 'vue-multiselect'
-import { Avatar, Badge, Card, Checkbox, TransferIcon, CheckIcon } from 'omorphia'
+import { Avatar, Badge, Card, Checkbox, TransferIcon, CheckIcon, UsersIcon } from 'omorphia'
 
 import ModalConfirm from '~/components/ui/ModalConfirm.vue'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg'
@@ -804,6 +822,45 @@ const updateMembers = async () => {
 </script>
 
 <style lang="scss" scoped>
+.org {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--gap-md);
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+
+    .title {
+      color: var(--color-contrast);
+      font-weight: 600;
+      font-size: var(--font-size-lg);
+    }
+
+    .description {
+      color: var(--color-secondary);
+    }
+
+    .stat-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-md);
+      margin-top: auto;
+    }
+
+    .stats {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-xs);
+
+      svg {
+        color: var(--color-secondary);
+      }
+    }
+  }
+}
+
 .member {
   .member-header {
     display: flex;
