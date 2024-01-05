@@ -462,6 +462,10 @@ const onBulkEditLinks = useClientTry(async () => {
     padding-left: 0;
   }
 
+  .no-shrink {
+    flex-shrink: 0;
+  }
+
   .check-cell {
     padding-left: var(--gap-md);
   }
@@ -479,7 +483,6 @@ const onBulkEditLinks = useClientTry(async () => {
 
       :nth-child(1) {
         grid-area: checkbox;
-        padding-right: 0;
       }
 
       :nth-child(2) {
