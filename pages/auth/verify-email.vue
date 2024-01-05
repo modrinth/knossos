@@ -30,12 +30,11 @@
 
       <section class="auth-form">
         <p>
-          We were unable to verify your email.
           <template v-if="auth.user">
-            Try re-sending the verification email through the button below.
+            {{ formatMessage(messages.failedVerificationAuthDescription) }}
           </template>
           <template v-else>
-            Try re-sending the verification email through your dashboard by signing in.
+            {{ formatMessage(messages.failedVerificationDescription) }}
           </template>
         </p>
 
@@ -68,9 +67,17 @@ const messages = defineMessages({
     id: 'auth.verify-email.title.already-verified',
     defaultMessage: 'Email already verified',
   },
+  failedVerificationDescription: {
+    id: 'auth.verify-email.description.failed-verification',
+    defaultMessage: 'We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in.',
+  },
+  failedVerificationAuthDescription: {
+    id: 'auth.verify-email.description.failed-verification-auth',
+    defaultMessage: 'We were unable to verify your email. Try re-sending the verification email through the button below.',
+  },
   failedVerificationTitle: {
     id: 'auth.verify-email.title.failed-verification',
-    defaultMessage: 'Resend verification email',
+    defaultMessage: 'Email verification failed',
   },
   resendEmailButton: {
     id: 'auth.verify-email.button.resend-email',

@@ -11,6 +11,12 @@
   "auth.verify-email.description.already-verified": {
     "message": "Your email is already verified!"
   },
+  "auth.verify-email.description.failed-verification": {
+    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+  },
+  "auth.verify-email.description.failed-verification-auth": {
+    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+  },
   "auth.verify-email.description.successed-verification": {
     "message": "Your email address has been successfully verified!"
   },
@@ -21,7 +27,7 @@
     "message": "Email already verified"
   },
   "auth.verify-email.title.failed-verification": {
-    "message": "Resend verification email"
+    "message": "Email verification failed"
   },
   "auth.verify-email.title.successed-verification": {
     "message": "Email verification"
