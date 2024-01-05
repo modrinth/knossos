@@ -57,10 +57,10 @@
     "message": "Nama pengguna"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collection!"
+    "message": "Pengguna ini tidak memiliki sebarang koleksi!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Anda tidak memiliki sebarang koleksi.\nAdakah anda mahu <create-link>mencipta sebuah koleksi</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "Pengguna ini tidak memiliki sebarang projek!"
@@ -87,10 +87,10 @@
     "message": "Semua"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "Koleksi"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "Koleksi"
   },
   "project-type.datapack.plural": {
     "message": "Pek Data"
@@ -117,10 +117,10 @@
     "message": "Pemalam"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "Projek"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "Projek"
   },
   "project-type.resourcepack.plural": {
     "message": "Pek Sumber"
