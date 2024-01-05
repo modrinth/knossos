@@ -12,51 +12,31 @@
         </div>
       </div>
       <template v-if="orgs?.length > 0">
-        <div class="grid-table">
-          <div class="grid-table__row grid-table__header">
-            <div>
-              <Checkbox :model-value="undefined" @update:model-value="undefined" />
-            </div>
-            <div>Icon</div>
-            <div>Name</div>
-            <div>ID</div>
-            <div>Members</div>
-            <div />
-          </div>
-          <div v-for="org in orgs" :key="org.id" class="grid-table__row">
-            <div>
-              <Checkbox
-                :disabled="false"
-                :model-value="undefined"
-                @update:model-value="undefined"
-              />
-            </div>
-            <div>
-              <nuxt-link tabindex="-1" :to="`/organization/${org.slug}`">
-                <Avatar :src="org.icon_url" aria-hidden="true" :alt="org.name" no-shadow />
-              </nuxt-link>
-            </div>
-
-            <div>
-              <span class="project-title">
-                <nuxt-link class="hover-link wrap-as-needed" :to="`/organization/${org.slug}`">
-                  {{ org.name }}
-                </nuxt-link>
+        <div class="orgs-grid">
+          <nuxt-link
+            v-for="org in orgs"
+            :key="org.id"
+            :to="`/organization/${org.slug}`"
+            class="universal-card button-base recessed org"
+            :class="{ 'is-disabled': org.members?.length === 0 }"
+          >
+            <Avatar :src="org.icon_url" :alt="org.name" class="icon" />
+            <div class="details">
+              <div class="title">
+                {{ org.name }}
+              </div>
+              <div class="description">
+                {{ org.description }}
+              </div>
+              <span class="stat-bar">
+                <div class="stats">
+                  <UsersIcon />
+                  {{ org.members?.length || 0 }} member
+                  <template v-if="org.members?.length !== 1">s</template>
+                </div>
               </span>
             </div>
-
-            <div>
-              <CopyCode :text="org.id" />
-            </div>
-
-            <div>{{ org.members?.length || 0 }}</div>
-
-            <div>
-              <nuxt-link class="square-button" :to="`/organization/${org.slug}/settings`">
-                <SettingsIcon />
-              </nuxt-link>
-            </div>
-          </div>
+          </nuxt-link>
         </div>
       </template>
       <template v-else> Make an organization! </template>
@@ -65,7 +45,7 @@
 </template>
 
 <script setup>
-import { PlusIcon, SettingsIcon, Checkbox, CopyCode, Avatar } from 'omorphia'
+import { PlusIcon, Avatar, UsersIcon } from 'omorphia'
 
 import { useAuth } from '~/composables/auth.js'
 import OrganizationCreateModal from '~/components/ui/OrganizationCreateModal.vue'
@@ -73,7 +53,6 @@ import OrganizationCreateModal from '~/components/ui/OrganizationCreateModal.vue
 const createOrgModal = ref(null)
 
 const auth = await useAuth()
-// @ts-expect-error
 const uid = computed(() => auth.value.user?.id || null)
 
 const { data: orgs, error } = useAsyncData('organizations', () => {
@@ -100,11 +79,72 @@ const openCreateOrgModal = () => {
 .project-meta-item {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   padding: var(--spacing-card-sm);
 
   .project-title {
     margin-bottom: var(--spacing-card-sm);
+  }
+}
+
+.orgs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  @media screen and (max-width: 750px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  gap: var(--gap-md);
+
+  .org {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--gap-md);
+    margin-bottom: 0;
+
+    .icon {
+      width: 100% !important;
+      height: 6rem !important;
+      max-width: unset !important;
+      max-height: unset !important;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-sm);
+
+      .title {
+        color: var(--color-contrast);
+        font-weight: 600;
+        font-size: var(--font-size-md);
+      }
+
+      .description {
+        color: var(--color-secondary);
+        font-size: var(--font-size-sm);
+      }
+
+      .stat-bar {
+        display: flex;
+        align-items: center;
+        gap: var(--gap-md);
+        margin-top: auto;
+      }
+
+      .stats {
+        display: flex;
+        align-items: center;
+        gap: var(--gap-xs);
+
+        svg {
+          color: var(--color-secondary);
+        }
+      }
+    }
   }
 }
 
