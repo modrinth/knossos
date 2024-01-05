@@ -6,7 +6,9 @@
       <section class="auth-form">
         <p>{{ formatMessage(messages.alreadyVerifiedDescription) }}</p>
 
-        <NuxtLink class="btn" to="/settings/account"> <SettingsIcon /> {{ formatMessage(messages.accountSettingsButton) }} </NuxtLink>
+        <NuxtLink class="btn" to="/settings/account">
+          <SettingsIcon /> {{ formatMessage(messages.accountSettingsButton) }}
+        </NuxtLink>
       </section>
     </template>
 
@@ -69,11 +71,13 @@ const messages = defineMessages({
   },
   failedVerificationDescription: {
     id: 'auth.verify-email.description.failed-verification',
-    defaultMessage: 'We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in.',
+    defaultMessage:
+      'We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in.',
   },
   failedVerificationAuthDescription: {
     id: 'auth.verify-email.description.failed-verification-auth',
-    defaultMessage: 'We were unable to verify your email. Try re-sending the verification email through the button below.',
+    defaultMessage:
+      'We were unable to verify your email. Try re-sending the verification email through the button below.',
   },
   failedVerificationTitle: {
     id: 'auth.verify-email.title.failed-verification',
