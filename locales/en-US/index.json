@@ -8,11 +8,17 @@
   "auth.verify-email.button.sign-in": {
     "message": "Sign in"
   },
+  "auth.verify-email.description.already-verified": {
+    "message": "Your email is already verified!"
+  },
   "auth.verify-email.description.successed-verification": {
     "message": "Your email address has been successfully verified!"
   },
   "auth.verify-email.title": {
     "message": "Verify Email"
+  },
+  "auth.verify-email.title.already-verified": {
+    "message": "Email already verified"
   },
   "auth.verify-email.title.failed-verification": {
     "message": "Resend verification email"

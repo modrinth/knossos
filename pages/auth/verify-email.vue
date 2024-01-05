@@ -1,10 +1,10 @@
 <template>
   <div>
     <template v-if="auth.user && auth.user.email_verified && !success">
-      <h1>Email already verified</h1>
+      <h1>{{ formatMessage(messages.alreadyVerifiedTitle) }}</h1>
 
       <section class="auth-form">
-        <p>Your email is already verified!</p>
+        <p>{{ formatMessage(messages.alreadyVerifiedDescription) }}</p>
 
         <NuxtLink class="btn" to="/settings/account"> <SettingsIcon /> {{ formatMessage(messages.accountSettingsButton) }} </NuxtLink>
       </section>
@@ -59,6 +59,14 @@ const messages = defineMessages({
   accountSettingsButton: {
     id: 'auth.verify-email.button.account-settings',
     defaultMessage: 'Account settings',
+  },
+  alreadyVerifiedDescription: {
+    id: 'auth.verify-email.description.already-verified',
+    defaultMessage: 'Your email is already verified!',
+  },
+  alreadyVerifiedTitle: {
+    id: 'auth.verify-email.title.already-verified',
+    defaultMessage: 'Email already verified',
   },
   failedVerificationTitle: {
     id: 'auth.verify-email.title.failed-verification',
