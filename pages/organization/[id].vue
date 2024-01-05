@@ -150,7 +150,7 @@
 
         <div v-if="auth.user && currentMember" class="input-group">
           <nuxt-link :to="`/organization/${organization.slug}/settings`" class="iconified-button">
-            <SettingsIcon /> Settings
+            <SettingsIcon /> Manage
           </nuxt-link>
         </div>
       </nav>
