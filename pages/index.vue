@@ -1268,8 +1268,8 @@ const rows = shallowRef([
       font-size: 1.625rem;
     }
 
-    margin-top: -4rem;
-    padding: 11.25rem 1rem 12rem;
+    margin-top: -12.5rem;
+    padding: 19.75rem 1rem 12rem;
   }
 
   .users-section-outer {
