@@ -291,7 +291,7 @@
           class="large-multiselect"
           track-by="id"
           label="name"
-          open-direction="bottom"
+          open-direction="top"
           :close-on-select="true"
           :show-labels="false"
           :allow-empty="false"
