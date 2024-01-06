@@ -17,6 +17,21 @@
       </template>
     </div>
     <header class="site-header" role="presentation">
+      <div class="universal-card site-banner-card site-banner-card--warning">
+        <div class="site-banner-card__title">
+          <IssuesIcon />
+          <span>
+            Modrinth is undergoing scheduled maintenance and is in currently in read-only mode
+          </span>
+        </div>
+        <div>
+          You are able to browse and access all Modrinth content without interruption, but you will
+          not be able to make any changes until the maintenance is complete. We expect the
+          maintenance to last approximately 30 minutes starting at 5pm EST. Check our
+          <a href="https://twitter.com/modrinth" target="_blank">social media</a> for further
+          updates.
+        </div>
+      </div>
       <section class="navbar columns" role="navigation">
         <section class="logo column" role="presentation">
           <NuxtLink class="button-base" to="/" aria-label="Modrinth home page">
@@ -359,7 +374,7 @@
   </div>
 </template>
 <script setup>
-import { LogInIcon, DownloadIcon } from 'omorphia'
+import { IssuesIcon, LogInIcon, DownloadIcon } from 'omorphia'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'
@@ -1044,6 +1059,34 @@ export default defineNuxtComponent({
       justify-content: end;
       align-items: center;
       row-gap: 1rem;
+    }
+
+    .site-banner-card--warning {
+      background-color: var(--color-orange-bg);
+      border: 2px solid var(--color-orange);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+
+      .site-banner-card__title {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        font-weight: bold;
+        font-size: var(--font-size-md);
+        color: var(--color-contrast);
+
+        svg {
+          color: var(--color-orange);
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+      }
+
+      a {
+        color: var(--color-orange);
+      }
     }
 
     &.active {
