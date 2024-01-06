@@ -982,8 +982,8 @@ useSeoMeta({
   background: #0f1121 url('https://cdn-raw.modrinth.com/app-landing/cube-black.png') no-repeat
     center 4rem;
   background-size: cover;
-  padding: 14.5rem 1rem 12rem 1rem;
-  margin-top: -12.5rem;
+  padding: 6rem 1rem 12rem 1rem;
+  margin-top: -4rem;
   display: flex;
   justify-content: center;
   align-items: center;
