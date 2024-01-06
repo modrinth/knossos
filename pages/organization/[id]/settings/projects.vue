@@ -165,6 +165,10 @@
           <PlusIcon />
           Create a project
         </Button>
+        <OrganizationProjectTransferModal
+          :projects="userProjects || []"
+          @submit="onProjectTransferSubmit"
+        />
       </div>
       <p v-if="sortedProjects.length < 1">
         You don't have any projects yet. Click the green button above to begin.
@@ -315,8 +319,50 @@ import {
 } from 'omorphia'
 
 import ModalCreation from '~/components/ui/ModalCreation.vue'
+import OrganizationProjectTransferModal from '~/components/ui/OrganizationProjectTransferModal.vue'
 
-const { organization, projects } = inject('organizationContext')
+const { organization, projects, refresh } = inject('organizationContext')
+
+const auth = await useAuth()
+
+const { data: userProjects } = await useAsyncData(
+  `user/${auth.value.user.id}/projects`,
+  () => useBaseFetch(`user/${auth.value.user.id}/projects`),
+  {
+    watch: [auth],
+  }
+)
+
+const onProjectTransferSubmit = async (projects) => {
+  try {
+    for (const project of projects) {
+      await useBaseFetch(`organization/${organization.value.id}/projects`, {
+        method: 'POST',
+        body: JSON.stringify({
+          project_id: project.id,
+        }),
+        apiVersion: 3,
+      })
+    }
+
+    await refresh()
+
+    addNotification({
+      group: 'main',
+      title: 'Success',
+      text: 'Transferred selected projects to organization.',
+      type: 'success',
+    })
+  } catch (err) {
+    addNotification({
+      group: 'main',
+      title: 'An error occurred',
+      text: err?.data?.description || err?.message || err || 'Unknown error',
+      type: 'error',
+    })
+    console.error(err)
+  }
+}
 
 const EDIT_DETAILS = 1 << 2
 
@@ -366,6 +412,13 @@ const selectedProjects = ref([])
 const sortBy = ref('Name')
 const descending = ref(false)
 const editLinksModal = ref(null)
+
+watch(
+  () => projects.value,
+  (newVal) => {
+    sortedProjects.value = updateSort(newVal, sortBy.value, descending.value)
+  }
+)
 
 const emptyLinksData = {
   showAffected: false,

@@ -1,7 +1,12 @@
 <template>
   <div>
-    <div v-if="analytics.error.value">
-      {{ analytics.error.value }}
+    <div v-if="analytics.error.value" class="universal-card">
+      <h2>
+        <span class="label__title">Error</span>
+      </h2>
+      <div>
+        {{ analytics.error.value }}
+      </div>
     </div>
     <div v-else class="graphs">
       <div class="graphs__vertical-bar">
