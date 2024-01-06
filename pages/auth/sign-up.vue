@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Sign up with</h1>
+    <h1>{{ formatMessage(messages.signUpWithTitle) }}</h1>
 
     <section class="third-party">
       <a class="btn discord-btn" :href="getAuthUrl('discord', redirectTarget)">
@@ -100,7 +100,7 @@
       </p>
 
       <button class="btn btn-primary continue-btn centered-btn" @click="createAccount">
-        Create account <RightArrowIcon />
+        {{ formatMessage(messages.createAccountButton) }} <RightArrowIcon />
       </button>
 
       <div class="auth-form__additional-options">
@@ -122,8 +122,25 @@ import KeyIcon from 'assets/icons/auth/key.svg'
 import MailIcon from 'assets/icons/auth/mail.svg'
 import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
 
+const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  createAccountButton: {
+    id: 'auth.sign-up.button.create-account',
+    defaultMessage: 'Create account',
+  },
+  signUpWithTitle: {
+    id: 'auth.sign-up.title.sign-up-with',
+    defaultMessage: 'Sign up with',
+  },
+  signUpTitle: {
+    id: 'auth.sign-up.title',
+    defaultMessage: 'Sign Up',
+  },
+})
+
 useHead({
-  title: 'Sign Up - Modrinth',
+  title: () => `${formatMessage(messages.signUpTitle)} - Modrinth`,
 })
 
 const auth = await useAuth()

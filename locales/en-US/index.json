@@ -1,4 +1,13 @@
 {
+  "auth.sign-up.button.create-account": {
+    "message": "Create account"
+  },
+  "auth.sign-up.title": {
+    "message": "Sign Up"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Sign up with"
+  },
   "button.cancel": {
     "message": "Cancel"
   },
