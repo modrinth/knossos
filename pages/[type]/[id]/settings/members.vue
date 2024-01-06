@@ -27,13 +27,13 @@
           v-model="currentUsername"
           type="text"
           placeholder="Username"
-          :disabled="(currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES"
+          :disabled="(props.currentMember?.permissions & MANAGE_INVITES) !== MANAGE_INVITES"
           @keypress.enter="inviteTeamMember()"
         />
         <label for="username" class="hidden">Username</label>
         <button
           class="iconified-button brand-button"
-          :disabled="(currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES"
+          :disabled="(props.currentMember?.permissions & MANAGE_INVITES) !== MANAGE_INVITES"
           @click="inviteTeamMember()"
         >
           <UserPlusIcon />
@@ -47,7 +47,7 @@
         </span>
         <button
           class="iconified-button danger-button"
-          :disabled="currentMember.role === 'Owner'"
+          :disabled="props.currentMember?.role === 'Owner'"
           @click="leaveProject()"
         >
           <UserRemoveIcon />
@@ -99,7 +99,7 @@
             v-model="allTeamMembers[index].role"
             type="text"
             :class="{ 'known-error': member.role === 'Owner' }"
-            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+            :disabled="(props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
           />
         </div>
         <div class="adjacent-input">
@@ -114,7 +114,7 @@
             :id="`member-${allTeamMembers[index].user.username}-monetization-weight`"
             v-model="allTeamMembers[index].payouts_split"
             type="number"
-            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+            :disabled="(props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
           />
         </div>
         <p v-if="member.role === 'Owner' && member.oldRole !== 'Owner'" class="known-errors">
@@ -125,12 +125,12 @@
           <span class="label">
             <span class="label__title">Permissions</span>
           </span>
-          <div class="permissions">
+          <div v-if="allTeamMembers[index]" class="permissions">
             <Checkbox
               :model-value="(member.permissions & UPLOAD_VERSION) === UPLOAD_VERSION"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION
               "
               label="Upload version"
               @update:model-value="allTeamMembers[index].permissions ^= UPLOAD_VERSION"
@@ -138,8 +138,8 @@
             <Checkbox
               :model-value="(member.permissions & DELETE_VERSION) === DELETE_VERSION"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & DELETE_VERSION) !== DELETE_VERSION
               "
               label="Delete version"
               @update:model-value="allTeamMembers[index].permissions ^= DELETE_VERSION"
@@ -147,8 +147,8 @@
             <Checkbox
               :model-value="(member.permissions & EDIT_DETAILS) === EDIT_DETAILS"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & EDIT_DETAILS) !== EDIT_DETAILS
               "
               label="Edit details"
               @update:model-value="allTeamMembers[index].permissions ^= EDIT_DETAILS"
@@ -156,8 +156,8 @@
             <Checkbox
               :model-value="(member.permissions & EDIT_BODY) === EDIT_BODY"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & EDIT_BODY) !== EDIT_BODY
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & EDIT_BODY) !== EDIT_BODY
               "
               label="Edit body"
               @update:model-value="allTeamMembers[index].permissions ^= EDIT_BODY"
@@ -165,8 +165,8 @@
             <Checkbox
               :model-value="(member.permissions & MANAGE_INVITES) === MANAGE_INVITES"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & MANAGE_INVITES) !== MANAGE_INVITES
               "
               label="Manage invites"
               @update:model-value="allTeamMembers[index].permissions ^= MANAGE_INVITES"
@@ -174,23 +174,23 @@
             <Checkbox
               :model-value="(member.permissions & REMOVE_MEMBER) === REMOVE_MEMBER"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER
               "
               label="Remove member"
               @update:model-value="allTeamMembers[index].permissions ^= REMOVE_MEMBER"
             />
             <Checkbox
               :model-value="(member.permissions & EDIT_MEMBER) === EDIT_MEMBER"
-              :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+              :disabled="(props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
               label="Edit member"
               @update:model-value="allTeamMembers[index].permissions ^= EDIT_MEMBER"
             />
             <Checkbox
               :model-value="(member.permissions & DELETE_PROJECT) === DELETE_PROJECT"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & DELETE_PROJECT) !== DELETE_PROJECT
               "
               label="Delete project"
               @update:model-value="allTeamMembers[index].permissions ^= DELETE_PROJECT"
@@ -198,8 +198,8 @@
             <Checkbox
               :model-value="(member.permissions & VIEW_ANALYTICS) === VIEW_ANALYTICS"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & VIEW_ANALYTICS) !== VIEW_ANALYTICS
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & VIEW_ANALYTICS) !== VIEW_ANALYTICS
               "
               label="View analytics"
               @update:model-value="allTeamMembers[index].permissions ^= VIEW_ANALYTICS"
@@ -207,8 +207,8 @@
             <Checkbox
               :model-value="(member.permissions & VIEW_PAYOUTS) === VIEW_PAYOUTS"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS
               "
               label="View revenue"
               @update:model-value="allTeamMembers[index].permissions ^= VIEW_PAYOUTS"
@@ -218,7 +218,7 @@
         <div class="input-group">
           <button
             class="iconified-button brand-button"
-            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+            :disabled="(props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
             @click="updateTeamMember(index)"
           >
             <SaveIcon />
@@ -227,14 +227,16 @@
           <button
             v-if="member.oldRole !== 'Owner'"
             class="iconified-button danger-button"
-            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+            :disabled="(props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
             @click="removeTeamMember(index)"
           >
             <UserRemoveIcon />
             Remove member
           </button>
           <button
-            v-if="member.oldRole !== 'Owner' && currentMember.role === 'Owner' && member.accepted"
+            v-if="
+              member.oldRole !== 'Owner' && props.currentMember?.role === 'Owner' && member.accepted
+            "
             class="iconified-button"
             @click="transferOwnership(index)"
           >
@@ -248,15 +250,18 @@
       <div class="label">
         <span class="label__title size-card-header">Organization</span>
       </div>
-      <template v-if="props.organization">
+      <div v-if="props.organization">
         <p>
-          This project is managed by {{ organization.name }}. The defaults for member permissions
-          are set in the
-          <nuxt-link :to="`/organization/${organization.slug}/settings/members`">
+          This project is managed by {{ props.organization.name }}. The defaults for member
+          permissions are set in the
+          <nuxt-link :to="`/organization/${props.organization.slug}/settings/members`">
             organization settings</nuxt-link
           >. You may override them below.
         </p>
-        <div class="universal-card recessed org">
+        <nuxt-link
+          :to="`/organization/${props.organization.slug}`"
+          class="universal-card button-base recessed org"
+        >
           <Avatar :src="props.organization.icon_url" :alt="props.organization.name" size="md" />
           <div class="details">
             <div class="title">
@@ -273,8 +278,8 @@
               </div>
             </span>
           </div>
-        </div>
-      </template>
+        </nuxt-link>
+      </div>
       <p v-else>
         This project is not managed by an organization. If you are the member of any organizations,
         you can transfer management to one of them.
@@ -291,9 +296,7 @@
           :show-labels="false"
           :allow-empty="false"
           :options="organizations || []"
-          :disabled="
-            !currentMember || currentMember.role !== 'Owner' || organizations?.length === 0
-          "
+          :disabled="props.currentMember?.role !== 'Owner' || organizations?.length === 0"
         />
         <button class="btn btn-primary" :disabled="!selectedOrganization" @click="onAddToOrg">
           <CheckIcon />
@@ -350,7 +353,7 @@
             v-model="allOrgMembers[index].override"
             class="switch stylized-toggle"
             type="checkbox"
-            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
+            :disabled="(props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER"
           />
         </div>
         <div class="adjacent-input">
@@ -365,7 +368,7 @@
             v-model="allOrgMembers[index].role"
             type="text"
             :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+              (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               !allOrgMembers[index].override
             "
           />
@@ -383,7 +386,7 @@
             v-model="allOrgMembers[index].payouts_split"
             type="number"
             :disabled="
-              (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+              (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
               !allOrgMembers[index].override
             "
           />
@@ -396,8 +399,8 @@
             <Checkbox
               :model-value="(member.permissions & UPLOAD_VERSION) === UPLOAD_VERSION"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION ||
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & UPLOAD_VERSION) !== UPLOAD_VERSION ||
                 !allOrgMembers[index].override
               "
               label="Upload version"
@@ -406,8 +409,8 @@
             <Checkbox
               :model-value="(member.permissions & DELETE_VERSION) === DELETE_VERSION"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & DELETE_VERSION) !== DELETE_VERSION ||
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & DELETE_VERSION) !== DELETE_VERSION ||
                 !allOrgMembers[index].override
               "
               label="Delete version"
@@ -416,8 +419,8 @@
             <Checkbox
               :model-value="(member.permissions & EDIT_DETAILS) === EDIT_DETAILS"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & EDIT_DETAILS) !== EDIT_DETAILS ||
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & EDIT_DETAILS) !== EDIT_DETAILS ||
                 !allOrgMembers[index].override
               "
               label="Edit details"
@@ -426,8 +429,8 @@
             <Checkbox
               :model-value="(member.permissions & EDIT_BODY) === EDIT_BODY"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & EDIT_BODY) !== EDIT_BODY ||
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & EDIT_BODY) !== EDIT_BODY ||
                 !allOrgMembers[index].override
               "
               label="Edit body"
@@ -436,8 +439,8 @@
             <Checkbox
               :model-value="(member.permissions & MANAGE_INVITES) === MANAGE_INVITES"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & MANAGE_INVITES) !== MANAGE_INVITES ||
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & MANAGE_INVITES) !== MANAGE_INVITES ||
                 !allOrgMembers[index].override
               "
               label="Manage invites"
@@ -446,8 +449,8 @@
             <Checkbox
               :model-value="(member.permissions & REMOVE_MEMBER) === REMOVE_MEMBER"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER ||
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & REMOVE_MEMBER) !== REMOVE_MEMBER ||
                 !allOrgMembers[index].override
               "
               label="Remove member"
@@ -456,7 +459,7 @@
             <Checkbox
               :model-value="(member.permissions & EDIT_MEMBER) === EDIT_MEMBER"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
                 !allOrgMembers[index].override
               "
               label="Edit member"
@@ -465,8 +468,8 @@
             <Checkbox
               :model-value="(member.permissions & DELETE_PROJECT) === DELETE_PROJECT"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & DELETE_PROJECT) !== DELETE_PROJECT ||
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & DELETE_PROJECT) !== DELETE_PROJECT ||
                 !allOrgMembers[index].override
               "
               label="Delete project"
@@ -475,8 +478,8 @@
             <Checkbox
               :model-value="(member.permissions & VIEW_ANALYTICS) === VIEW_ANALYTICS"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & VIEW_ANALYTICS) !== VIEW_ANALYTICS ||
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & VIEW_ANALYTICS) !== VIEW_ANALYTICS ||
                 !allOrgMembers[index].override
               "
               label="View analytics"
@@ -485,8 +488,8 @@
             <Checkbox
               :model-value="(member.permissions & VIEW_PAYOUTS) === VIEW_PAYOUTS"
               :disabled="
-                (currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
-                (currentMember.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS ||
+                (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER ||
+                (props.currentMember?.permissions & VIEW_PAYOUTS) !== VIEW_PAYOUTS ||
                 !allOrgMembers[index].override
               "
               label="View revenue"
@@ -497,7 +500,9 @@
         <div class="input-group">
           <button
             class="iconified-button brand-button"
-            :disabled="(currentMember.permissions & EDIT_MEMBER) !== EDIT_MEMBER || member.is_owner"
+            :disabled="
+              (props.currentMember?.permissions & EDIT_MEMBER) !== EDIT_MEMBER || member.is_owner
+            "
             @click="updateOrgMember(index)"
           >
             <SaveIcon />
@@ -512,6 +517,7 @@
 <script setup>
 import { Multiselect } from 'vue-multiselect'
 import { Avatar, Badge, Card, Checkbox, TransferIcon, CheckIcon, UsersIcon } from 'omorphia'
+import { defineProps, ref, watch } from 'vue'
 
 import ModalConfirm from '~/components/ui/ModalConfirm.vue'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg'
@@ -567,24 +573,38 @@ const props = defineProps({
 const cosmetics = useCosmetics()
 const auth = await useAuth()
 
-const allTeamMembers = ref()
-const allOrgMembers = ref()
+const allTeamMembers = ref([])
+const allOrgMembers = ref([])
 
-function resetAllMembers() {
-  allOrgMembers.value = (props.organization ? props.organization.members : []).map((x) => {
-    const overrideMember = props.allMembers.find((y) => y.user.id === x.user.id)
-    const returnVal = overrideMember ?? x
+watch(
+  [
+    () => props.allMembers,
+    () => props.organization,
+    () => props.project,
+    () => props.currentMember,
+  ],
+  () => {
+    const orgMembers = props.organization?.members || []
 
-    returnVal.override = !!overrideMember
-    returnVal.oldOverride = !!overrideMember
+    const selectedMembersForOrg = orgMembers.map((partialOrgMember) => {
+      const foundMember = props.allMembers.find((tM) => tM.user.id === partialOrgMember.user.id)
+      const returnVal = foundMember ?? partialOrgMember
 
-    return returnVal
-  })
-  allTeamMembers.value = props.allMembers
-    .map((x) => ({ ...x, oldRole: x.role }))
-    .filter((x) => !allOrgMembers.value.some((y) => y.user.id === x.user.id))
-}
-resetAllMembers()
+      // If replacing a partial with a full member, we need to mark as such.
+      returnVal.override = !!foundMember
+      returnVal.oldOverride = !!foundMember
+
+      return returnVal
+    })
+
+    allOrgMembers.value = selectedMembersForOrg
+
+    allTeamMembers.value = props.allMembers
+      .map((x) => ({ ...x, oldRole: x.role }))
+      .filter((x) => !selectedMembersForOrg.some((y) => y.user.id === x.user.id))
+  },
+  { immediate: true, deep: true }
+)
 
 const currentUsername = ref('')
 const openTeamMembers = ref([])
@@ -816,8 +836,6 @@ async function updateOrgMember(index) {
 
 const updateMembers = async () => {
   await Promise.all([props.resetProject(), props.resetOrganization(), props.resetMembers()])
-
-  resetAllMembers()
 }
 </script>
 
