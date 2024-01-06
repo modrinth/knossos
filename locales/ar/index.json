@@ -57,10 +57,10 @@
     "message": "اسم المستخدم"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collection!"
+    "message": "هذا المستخدم ليس لديه مجموعه!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "ليس لديك أي مجموعه. هل تريد <create-link>صناعه مجموعه</create-link>؟"
   },
   "profile.label.no-projects": {
     "message": "ليس لدى هذا المستخدم أيّة مشاريع!"
@@ -87,10 +87,10 @@
     "message": "الكل"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "مجموعات"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "مجموعه"
   },
   "project-type.datapack.plural": {
     "message": "حُزمة البيانات"
@@ -117,10 +117,10 @@
     "message": "مُلحق"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "مشاريع"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "مشروع"
   },
   "project-type.resourcepack.plural": {
     "message": "حزم الموارد"
