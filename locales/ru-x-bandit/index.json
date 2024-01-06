@@ -57,10 +57,10 @@
     "message": "Кликуха"
   },
   "profile.label.no-collections": {
-    "message": "У этого пользователя нет коллекций."
+    "message": "У чела ни одной коллекции!"
   },
   "profile.label.no-collections-auth": {
-    "message": "У вас ещё нет коллекций.\nХотите <create-link>создать новую</create-link>?"
+    "message": "У ещё ни одной коллекции.\nПозыришь сделать <create-link>новую</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "У этого типа ни одного проекта!"
