@@ -29,7 +29,7 @@
       </a>
     </section>
 
-    <h1>Or create an account yourself</h1>
+    <h1>{{ formatMessage(messages.createAccountTitle) }}</h1>
 
     <section class="auth-form">
       <div class="iconified-input">
@@ -128,6 +128,10 @@ const messages = defineMessages({
   createAccountButton: {
     id: 'auth.sign-up.button.create-account',
     defaultMessage: 'Create account',
+  },
+  createAccountTitle: {
+    id: 'auth.sign-up.title.create-account',
+    defaultMessage: 'Or create an account yourself',
   },
   signUpWithTitle: {
     id: 'auth.sign-up.title.sign-up-with',
