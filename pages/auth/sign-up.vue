@@ -183,7 +183,7 @@ async function createAccount() {
     if (confirmPassword.value !== password.value) {
       addNotification({
         group: 'main',
-        title: 'An error occurred',
+        title: formatMessage(commonMessages.errorNotificationTitle),
         text: 'Passwords do not match!',
         type: 'error',
       })
@@ -212,7 +212,7 @@ async function createAccount() {
   } catch (err) {
     addNotification({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data ? err.data.description : err,
       type: 'error',
     })
