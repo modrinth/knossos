@@ -18,7 +18,7 @@
             :class="`clickable button-base ${
               selectedChart === 'downloads' ? 'button-base__selected' : ''
             }`"
-            :onclick="() => (selectedChart = 'downloads')"
+            :onclick="() => setSelectedChart('downloads')"
             role="button"
           />
         </client-only>
@@ -35,7 +35,7 @@
             :class="`clickable button-base ${
               selectedChart === 'views' ? 'button-base__selected' : ''
             }`"
-            :onclick="() => (selectedChart = 'views')"
+            :onclick="() => setSelectedChart('views')"
             role="button"
           />
         </client-only>
@@ -52,7 +52,7 @@
             :class="`clickable button-base ${
               selectedChart === 'revenue' ? 'button-base__selected' : ''
             }`"
-            :onclick="() => (selectedChart = 'revenue')"
+            :onclick="() => setSelectedChart('revenue')"
             role="button"
           />
         </client-only>
@@ -237,6 +237,8 @@ import dayjs from 'dayjs'
 import { defineProps, ref, computed } from 'vue'
 import { UiChartsCompactChart as CompactChart, UiChartsChart as Chart } from '#components'
 
+const router = useRouter()
+
 const props = withDefaults(
   defineProps<{
     projects?: any[]
@@ -259,7 +261,18 @@ const selectableRanges = Object.entries(props.ranges).map(([duration, extra]) =>
   res: typeof extra === 'string' ? Number(duration) : extra[1],
 }))
 
-const selectedChart = ref('downloads')
+// const selectedChart = ref('downloads')
+const selectedChart = computed(() => {
+  return (router.currentRoute.value.query?.chart as string | undefined) || 'downloads'
+})
+const setSelectedChart = (chart: string) => {
+  router.push({
+    query: {
+      ...router.currentRoute.value.query,
+      chart,
+    },
+  })
+}
 
 // Chart refs
 const downloadsChart = ref()
