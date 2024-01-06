@@ -80,7 +80,7 @@
           type="password"
           autocomplete="new-password"
           class="auth-form__input"
-          placeholder="Confirm password"
+          :placeholder="formatMessage(messages.confirmPasswordLabel)"
         />
       </div>
 
@@ -89,14 +89,23 @@
       <Checkbox
         v-model="subscribe"
         class="subscribe-btn"
-        label="Subscribe to updates about Modrinth"
-        description="Subscribe to updates about Modrinth"
+        :label="formatMessage(messages.subscribeCheckboxLabel)"
+        :description="formatMessage(messages.subscribeCheckboxLabel)"
       />
 
       <p>
-        By creating an account, you agree to Modrinth's
-        <NuxtLink to="/legal/terms" class="text-link">Terms</NuxtLink> and
-        <NuxtLink to="/legal/privacy" class="text-link">Privacy Policy</NuxtLink>.
+        <IntlFormatted :message-id="messages.tosLabel">
+          <template #terms-link="{ children }">
+            <NuxtLink to="/legal/terms" class="text-link">
+              <component :is="() => children" />
+            </NuxtLink>
+          </template>
+          <template #privacy-policy-link="{ children }">
+            <NuxtLink to="/legal/privacy" class="text-link">
+              <component :is="() => children" />
+            </NuxtLink>
+          </template>
+        </IntlFormatted>
       </p>
 
       <button class="btn btn-primary continue-btn centered-btn" @click="createAccount">
@@ -104,7 +113,7 @@
       </button>
 
       <div class="auth-form__additional-options">
-        Already have an account?
+        {{ formatMessage(messages.alreadyHaveAccountLabel) }}
         <NuxtLink class="text-link" :to="signInLink">{{ formatMessage(messages.signInLabel) }}</NuxtLink>
       </div>
     </section>
@@ -125,6 +134,14 @@ import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
+  alreadyHaveAccountLabel: {
+    id: 'auth.sign-up.label.already-have-account',
+    defaultMessage: 'Already have an account?',
+  },
+  confirmPasswordLabel: {
+    id: 'auth.sign-up.label.confirm-password',
+    defaultMessage: 'Confirm password',
+  },
   createAccountButton: {
     id: 'auth.sign-up.button.create-account',
     defaultMessage: 'Create account',
@@ -156,6 +173,15 @@ const messages = defineMessages({
   signUpTitle: {
     id: 'auth.sign-up.title',
     defaultMessage: 'Sign Up',
+  },
+  subscribeCheckboxLabel: {
+    id: 'auth.sign-up.checkbox.subscribe.label',
+    defaultMessage: 'Subscribe to updates about Modrinth',
+  },
+  tosLabel: {
+    id: 'auth.sign-up.label.tos',
+    defaultMessage:
+      "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>.",
   },
   usernameLabel: {
     id: 'auth.sign-up.label.username',

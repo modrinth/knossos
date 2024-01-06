@@ -2,6 +2,15 @@
   "auth.sign-up.button.create-account": {
     "message": "Create account"
   },
+  "auth.sign-up.checkbox.subscribe.label": {
+    "message": "Subscribe to updates about Modrinth"
+  },
+  "auth.sign-up.label.already-have-account": {
+    "message": "Already have an account?"
+  },
+  "auth.sign-up.label.confirm-password": {
+    "message": "Confirm password"
+  },
   "auth.sign-up.label.email": {
     "message": "Email"
   },
@@ -10,6 +19,9 @@
   },
   "auth.sign-up.label.sign-in": {
     "message": "Sign in"
+  },
+  "auth.sign-up.label.tos": {
+    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
   },
   "auth.sign-up.label.username": {
     "message": "Username"
