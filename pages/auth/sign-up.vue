@@ -33,7 +33,7 @@
 
     <section class="auth-form">
       <div class="iconified-input">
-        <label for="email" hidden>Email</label>
+        <label for="email" hidden>{{ formatMessage(messages.emailLabel) }}</label>
         <MailIcon />
         <input
           id="email"
@@ -41,12 +41,12 @@
           type="email"
           autocomplete="username"
           class="auth-form__input"
-          placeholder="Email"
+          :placeholder="formatMessage(messages.emailLabel)"
         />
       </div>
 
       <div class="iconified-input">
-        <label for="username" hidden>Username</label>
+        <label for="username" hidden>{{ formatMessage(messages.usernameLabel) }}</label>
         <UserIcon />
         <input
           id="username"
@@ -54,12 +54,12 @@
           type="text"
           autocomplete="username"
           class="auth-form__input"
-          placeholder="Username"
+          :placeholder="formatMessage(messages.usernameLabel)"
         />
       </div>
 
       <div class="iconified-input">
-        <label for="password" hidden>Password</label>
+        <label for="password" hidden>{{ formatMessage(messages.passwordLabel) }}</label>
         <KeyIcon />
         <input
           id="password"
@@ -67,12 +67,12 @@
           class="auth-form__input"
           type="password"
           autocomplete="new-password"
-          placeholder="Password"
+          :placeholder="formatMessage(messages.passwordLabel)"
         />
       </div>
 
       <div class="iconified-input">
-        <label for="confirm-password" hidden>Password</label>
+        <label for="confirm-password" hidden>{{ formatMessage(messages.passwordLabel) }}</label>
         <KeyIcon />
         <input
           id="confirm-password"
@@ -105,7 +105,7 @@
 
       <div class="auth-form__additional-options">
         Already have an account?
-        <NuxtLink class="text-link" :to="signInLink">Sign in</NuxtLink>
+        <NuxtLink class="text-link" :to="signInLink">{{ formatMessage(messages.signInLabel) }}</NuxtLink>
       </div>
     </section>
   </div>
@@ -133,6 +133,14 @@ const messages = defineMessages({
     id: 'auth.sign-up.title.create-account',
     defaultMessage: 'Or create an account yourself',
   },
+  emailLabel: {
+    id: 'auth.sign-up.label.email',
+    defaultMessage: 'Email',
+  },
+  passwordLabel: {
+    id: 'auth.sign-up.label.password',
+    defaultMessage: 'Password',
+  },
   passwordNotMatchNotificationText: {
     id: 'auth.sign-up.notification.password-not-match.text',
     defaultMessage: 'Passwords do not match!',
@@ -141,9 +149,17 @@ const messages = defineMessages({
     id: 'auth.sign-up.title.sign-up-with',
     defaultMessage: 'Sign up with',
   },
+  signInLabel: {
+    id: 'auth.sign-up.label.sign-in',
+    defaultMessage: 'Sign in',
+  },
   signUpTitle: {
     id: 'auth.sign-up.title',
     defaultMessage: 'Sign Up',
+  },
+  usernameLabel: {
+    id: 'auth.sign-up.label.username',
+    defaultMessage: 'Username',
   },
 })
 
