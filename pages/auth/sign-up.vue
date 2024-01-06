@@ -133,6 +133,10 @@ const messages = defineMessages({
     id: 'auth.sign-up.title.create-account',
     defaultMessage: 'Or create an account yourself',
   },
+  passwordNotMatchNotificationText: {
+    id: 'auth.sign-up.notification.password-not-match.text',
+    defaultMessage: 'Passwords do not match!',
+  },
   signUpWithTitle: {
     id: 'auth.sign-up.title.sign-up-with',
     defaultMessage: 'Sign up with',
@@ -184,7 +188,7 @@ async function createAccount() {
       addNotification({
         group: 'main',
         title: formatMessage(commonMessages.errorNotificationTitle),
-        text: 'Passwords do not match!',
+        text: formatMessage(messages.passwordNotMatchNotificationText),
         type: 'error',
       })
       turnstile.value?.reset()

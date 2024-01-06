@@ -2,6 +2,9 @@
   "auth.sign-up.button.create-account": {
     "message": "Create account"
   },
+  "auth.sign-up.notification.password-not-match.text": {
+    "message": "Passwords do not match!"
+  },
   "auth.sign-up.title": {
     "message": "Sign Up"
   },
