@@ -80,9 +80,6 @@
   "dashboard.collections.long-title": {
     "message": "Your collections"
   },
-  "dashboard.collections.title": {
-    "message": "Collections"
-  },
   "frog": {
     "message": "You've been frogged! 🐸"
   },
@@ -106,6 +103,9 @@
   },
   "input.view.list": {
     "message": "List view"
+  },
+  "label.collections": {
+    "message": "Collections"
   },
   "label.delete": {
     "message": "Delete"

@@ -1,7 +1,7 @@
 <template>
   <div class="universal-card">
     <CollectionCreateModal ref="modal_creation" />
-    <h2>{{ formatMessage(messages.collectionsTitle) }}</h2>
+    <h2>{{ formatMessage(commonMessages.collectionsLabel) }}</h2>
     <div class="search-row">
       <div class="iconified-input">
         <label for="search-input" hidden>{{ formatMessage(messages.searchInputLabel) }}</label>
@@ -103,10 +103,6 @@ const messages = defineMessages({
   collectionsLongTitle: {
     id: 'dashboard.collections.long-title',
     defaultMessage: 'Your collections',
-  },
-  collectionsTitle: {
-    id: 'dashboard.collections.title',
-    defaultMessage: 'Collections',
   },
   followingCollectionDescription: {
     id: 'collection.description.following',

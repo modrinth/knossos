@@ -26,7 +26,7 @@
           </NavStackItem>
           <NavStackItem
             link="/dashboard/collections"
-            :label="formatMessage(messages.collectionsTitle)"
+            :label="formatMessage(commonMessages.collectionsLabel)"
           >
             <LibraryIcon />
           </NavStackItem>
@@ -54,13 +54,6 @@ import NotificationsIcon from '~/assets/images/utils/bell.svg'
 import OrganizationIcon from '~/assets/images/utils/organization.svg'
 
 const { formatMessage } = useVIntl()
-
-const messages = defineMessages({
-  collectionsTitle: {
-    id: 'dashboard.collections.title',
-    defaultMessage: 'Collections',
-  },
-})
 
 definePageMeta({
   middleware: 'auth',
