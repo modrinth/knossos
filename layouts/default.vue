@@ -188,9 +188,9 @@
                 <PlusIcon aria-hidden="true" />
                 Create a project
               </button>
-              <NuxtLink class="iconified-button" to="/dashboard/follows">
-                <HeartIcon aria-hidden="true" />
-                Following
+              <NuxtLink class="iconified-button" to="/dashboard/collections">
+                <LibraryIcon class="icon" />
+                Collections
               </NuxtLink>
               <NuxtLink
                 v-if="auth.user.role === 'moderator' || auth.user.role === 'admin'"
