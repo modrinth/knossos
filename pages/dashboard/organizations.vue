@@ -102,13 +102,13 @@ const openCreateOrgModal = () => {
 
   .org {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: max-content 1fr;
     gap: var(--gap-md);
     margin-bottom: 0;
 
     .icon {
       width: 100% !important;
-      height: 6rem !important;
+      height: min(6rem, 20vw) !important;
       max-width: unset !important;
       max-height: unset !important;
       aspect-ratio: 1 / 1;
