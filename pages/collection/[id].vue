@@ -442,10 +442,6 @@ const messages = defineMessages({
     id: 'collection.description.following',
     defaultMessage: "Auto-generated collection of all the projects you're following.",
   },
-  followingCollectionTitle: {
-    id: 'collection.title.following',
-    defaultMessage: 'Followed projects',
-  },
   noProjectsLabel: {
     id: 'collection.label.no-projects',
     defaultMessage: 'This collection has no projects!',
@@ -505,7 +501,7 @@ try {
     collection = ref({
       id: 'following',
       icon_url: 'https://cdn.modrinth.com/follow-collection.png',
-      name: formatMessage(messages.followingCollectionTitle),
+      name: formatMessage(commonMessages.followedProjectsLabel),
       description: formatMessage(messages.followingCollectionDescription),
       status: 'private',
       user: auth.value.user.id,

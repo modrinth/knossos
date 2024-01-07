@@ -14,14 +14,14 @@
   "collection.button.edit-icon": {
     "message": "Edit icon"
   },
-  "collection.button.upload-icon": {
-    "message": "Upload icon"
-  },
   "collection.button.remove-project": {
     "message": "Remove project"
   },
   "collection.button.unfollow-project": {
     "message": "Unfollow project"
+  },
+  "collection.button.upload-icon": {
+    "message": "Upload icon"
   },
   "collection.delete-modal.description": {
     "message": "This will remove this collection forever. This action cannot be undone."
@@ -36,7 +36,7 @@
     "message": "Auto-generated collection of all the projects you're following."
   },
   "collection.error.not-found": {
-    "message": "Delete icon"
+    "message": "Collection not found"
   },
   "collection.label.collection": {
     "message": "Collection"
@@ -56,6 +56,9 @@
   "collection.label.owner": {
     "message": "Owner"
   },
+  "collection.label.private": {
+    "message": "Private"
+  },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
   },
@@ -64,9 +67,6 @@
   },
   "collection.title": {
     "message": "{name} - Collection"
-  },
-  "collection.title.following": {
-    "message": "Followed projects"
   },
   "dashboard.collections.button.create-new": {
     "message": "Create new"
@@ -113,8 +113,8 @@
   "label.description": {
     "message": "Description"
   },
-  "label.private": {
-    "message": "Private"
+  "label.followed-projects": {
+    "message": "Followed projects"
   },
   "label.public": {
     "message": "Public"
@@ -156,7 +156,7 @@
     "message": "Username"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collection!"
+    "message": "This user has no collections!"
   },
   "profile.label.no-collections-auth": {
     "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
@@ -166,6 +166,9 @@
   },
   "profile.label.no-projects-auth": {
     "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Organizations"
   },
   "profile.meta.description": {
     "message": "Download {username}'s projects on Modrinth"

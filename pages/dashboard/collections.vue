@@ -23,7 +23,7 @@
       >
         <Avatar src="https://cdn.modrinth.com/follow-collection.png" class="icon" />
         <div class="details">
-          <span class="title">{{ formatMessage(messages.followingCollectionTitle) }}</span>
+          <span class="title">{{ formatMessage(commonMessages.followedProjectsLabel) }}</span>
           <span class="description">
             {{ formatMessage(messages.followingCollectionDescription) }}
           </span>
@@ -101,7 +101,7 @@ const messages = defineMessages({
     defaultMessage: 'Create new',
   },
   collectionsLongTitle: {
-    id: 'dashboard.collections.title',
+    id: 'dashboard.collections.long-title',
     defaultMessage: 'Your collections',
   },
   collectionsTitle: {
@@ -111,10 +111,6 @@ const messages = defineMessages({
   followingCollectionDescription: {
     id: 'collection.description.following',
     defaultMessage: "Auto-generated collection of all the projects you're following.",
-  },
-  followingCollectionTitle: {
-    id: 'collection.title.following',
-    defaultMessage: 'Followed projects',
   },
   projectsCountLabel: {
     id: 'dashboard.collections.label.projects-count',

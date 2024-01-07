@@ -27,6 +27,10 @@ export const commonMessages = defineMessages({
     id: 'notification.error.title',
     defaultMessage: 'An error occurred',
   },
+  followedProjectsLabel: {
+    id: 'label.followed-projects',
+    defaultMessage: 'Followed projects',
+  },
   galleryInputView: {
     id: 'input.view.gallery',
     defaultMessage: 'Gallery view',
