@@ -200,7 +200,6 @@
               v-model="twoFactorCode"
               maxlength="6"
               type="text"
-              inputmode="numeric"
               autocomplete="one-time-code"
               placeholder="Enter code..."
             />

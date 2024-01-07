@@ -11,7 +11,6 @@
         maxlength="11"
         type="text"
         placeholder="Enter code..."
-        inputmode="numeric"
         autocomplete="one-time-code"
         autofocus
         @keyup.enter="begin2FASignIn"
