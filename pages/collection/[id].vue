@@ -1,7 +1,7 @@
 <template>
   <div>
     <ModalConfirm
-      v-if="auth.user && auth.user.id === creator.id"
+      v-if="auth?.user && auth?.user.id === creator.id"
       ref="deleteModal"
       title="Are you sure you want to delete this collection?"
       description="This will remove this collection forever. This action cannot be undone."
@@ -317,7 +317,7 @@
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
-          <span v-if="auth.user && auth.user.id === creator.id" class="text">
+          <span v-if="auth?.user && auth?.user?.id === creator.id" class="text">
             You don't have any projects.<br />
             Would you like to
             <a class="link" @click.prevent="$router.push('/mods')"> add one</a>?
@@ -380,51 +380,88 @@ function cycleSearchDisplayMode() {
   saveCosmetics()
 }
 
-let collection, refreshCollection, creator, projects, refreshProjects
+const isFollowing = computed(() => route.params.id === 'following')
 
-try {
-  if (route.params.id === 'following') {
-    collection = ref({
-      id: 'following',
-      icon_url: 'https://cdn.modrinth.com/follow-collection.png',
-      name: 'Followed projects',
-      description: "Auto-generated collection of all the projects you're following.",
-      status: 'private',
-      user: auth.value.user.id,
-      created: auth.value.user.created,
-      updated: auth.value.user.created,
-    })
-    const data = await useAsyncData(`user/${auth.value.user.id}/follows`, () =>
-      useBaseFetch(`user/${auth.value.user.id}/follows`)
-    )
-    projects = ref(data.data)
-
-    creator = ref(auth.value.user)
-    refreshProjects = async () => {}
-    refreshCollection = async () => {}
-  } else {
-    const val = await useAsyncData(`collection/${route.params.id}`, () =>
-      useBaseFetch(`collection/${route.params.id}`, { apiVersion: 3 })
-    )
-    collection = val.data
-    refreshCollection = val.refresh
-    ;[{ data: creator }, { data: projects, refresh: refreshProjects }] = await Promise.all([
-      await useAsyncData(`user/${collection.value.user}`, () =>
-        useBaseFetch(`user/${collection.value.user}`)
-      ),
-      await useAsyncData(`projects?ids=${JSON.stringify(collection.value.projects)}]`, () =>
-        useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
-      ),
-    ])
+const { data: collection, refresh: refreshCollection } = await useAsyncData(
+  `collection/${route.params.id}`,
+  () => {
+    if (isFollowing.value) {
+      if (!auth.value?.user) {
+        throw createError({
+          fatal: true,
+          statusCode: 401,
+          message: 'You must be logged in to view this page',
+        })
+      }
+      return {
+        id: 'following',
+        icon_url: 'https://cdn.modrinth.com/follow-collection.png',
+        name: 'Followed projects',
+        description: "Auto-generated collection of all the projects you're following.",
+        status: 'private',
+        user: auth.value?.user?.id,
+        created: auth.value?.user.created,
+        updated: auth.value?.user.created,
+      }
+    } else {
+      return useBaseFetch(`collection/${route.params.id}`, { apiVersion: 3 })
+    }
+  },
+  {
+    immediate: true,
+    watch: [() => isFollowing.value, () => route.params.id],
   }
-} catch (err) {
-  console.error(err)
-  throw createError({
-    fatal: true,
-    statusCode: 404,
-    message: 'Collection not found',
-  })
-}
+)
+
+const { data: creator } = await useAsyncData(
+  `user/${collection.value?.user}`,
+  () => {
+    if (collection.value && !isFollowing.value) {
+      return useBaseFetch(`user/${collection.value.user}`)
+    } else {
+      const user = auth.value.user
+      if (!user) {
+        throw createError({
+          fatal: true,
+          statusCode: 401,
+          message: 'You must be logged in to view this page',
+        })
+      }
+      // This is a fake user
+      user.local = true
+      return new Promise((resolve) => resolve(user))
+    }
+  },
+  {
+    immediate: true,
+    watch: [() => collection.value],
+  }
+)
+
+const { data: projects, refresh: refreshProjects } = await useAsyncData(
+  isFollowing.value
+    ? `user/${auth.value?.user?.id}/follows`
+    : `projects?ids=${JSON.stringify(collection.value?.projects || [])}]`,
+  () => {
+    if (isFollowing.value) {
+      if (!auth.value?.user) {
+        throw createError({
+          fatal: true,
+          statusCode: 401,
+          message: 'You must be logged in to view this page',
+        })
+      }
+      return useBaseFetch(`user/${auth.value?.user?.id}/follows`)
+    } else {
+      if (collection.value?.projects?.length === 0) return []
+      return useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
+    }
+  },
+  {
+    immediate: true,
+    watch: [() => isFollowing.value, () => auth.value?.user?.id, () => route.params.id],
+  }
+)
 
 if (!collection.value) {
   throw createError({
@@ -447,10 +484,7 @@ useSeoMeta({
 })
 
 const canEdit = computed(
-  () =>
-    auth.value.user &&
-    auth.value.user.id === collection.value.user &&
-    collection.value.id !== 'following'
+  () => auth.value?.user?.id === collection.value.user && collection.value?.id !== 'following'
 )
 
 const projectTypes = computed(() => {
@@ -490,7 +524,7 @@ async function saveChanges() {
 
     const projectsToRemove = removeProjects.value?.map((p) => p.id) ?? []
     const newProjects = projects.value
-      .filter((p) => !projectsToRemove.includes(p.id))
+      .filter((p) => !projectsToRemove.includes(p?.id))
       .map((p) => p.id)
     const newProjectIds = projectsToRemove.length > 0 ? newProjects : undefined
 
