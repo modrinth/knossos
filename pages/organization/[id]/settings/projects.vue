@@ -348,7 +348,6 @@ watch(
     const teams = await useBaseFetch(`teams?ids=${JSON.stringify(teamIds)}`, {
       apiVersion: 3,
     })
-    console.log(teams)
     // for each team id, figure out if the user is a member, and is_owner. Then filter the projects to only include those that are owned by the user
     const ownedTeamIds = teamIds.filter((_tid, i) => {
       const team = teams?.[i]
