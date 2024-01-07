@@ -18,7 +18,7 @@
             :key="org.id"
             :to="`/organization/${org.slug}`"
             class="universal-card button-base recessed org"
-            :class="{ 'is-disabled': org.members?.length === 0 }"
+            :class="{ 'is-disabled': onlyAcceptedMembers(org.members).length === 0 }"
           >
             <Avatar :src="org.icon_url" :alt="org.name" class="icon" />
             <div class="details">
@@ -32,7 +32,8 @@
                 <div class="stats">
                   <UsersIcon />
                   <span>
-                    {{ org.members?.length || 0 }} member<template v-if="org.members?.length !== 1"
+                    {{ onlyAcceptedMembers(org.members).length }} member<template
+                      v-if="onlyAcceptedMembers(org.members).length !== 1"
                       >s</template
                     >
                   </span>
@@ -65,6 +66,8 @@ const { data: orgs, error } = useAsyncData('organizations', () => {
     apiVersion: 3,
   })
 })
+
+const onlyAcceptedMembers = (members) => members.filter((member) => member?.accepted)
 
 if (error.value) {
   createError({
