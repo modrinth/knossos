@@ -25,7 +25,7 @@
               organizationPermissions.MANAGE_INVITES
             )
           "
-          @keypress.enter="() => onInviteTeamMember(organization.team, currentUsername)"
+          @keypress.enter="() => onInviteTeamMember(organization.team_id, currentUsername)"
         />
         <label for="username" class="hidden">Username</label>
         <Button
