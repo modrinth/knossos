@@ -1,7 +1,7 @@
 <template>
   <div>
     <ModalConfirm
-      v-if="auth?.user && auth?.user.id === creator.id"
+      v-if="auth?.user?.id === creator.id"
       ref="deleteModal"
       title="Are you sure you want to delete this collection?"
       description="This will remove this collection forever. This action cannot be undone."
@@ -317,7 +317,7 @@
         </div>
         <div v-else class="error">
           <UpToDate class="icon" /><br />
-          <span v-if="auth?.user && auth?.user?.id === creator.id" class="text">
+          <span v-if="auth?.user?.id === creator.id" class="text">
             You don't have any projects.<br />
             Would you like to
             <a class="link" @click.prevent="$router.push('/mods')"> add one</a>?
