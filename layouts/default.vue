@@ -79,7 +79,7 @@
                   <hr class="divider" />
                   <NuxtLink class="item button-transparent" to="/dashboard/collections">
                     <LibraryIcon class="icon" />
-                    <span class="title">Collections</span>
+                    <span class="title">{{ formatMessage(commonMessages.collectionsLabel) }}</span>
                   </NuxtLink>
                   <NuxtLink class="item button-transparent" to="/dashboard/notifications">
                     <NotificationIcon class="icon" />
@@ -378,6 +378,8 @@ import ChartIcon from '~/assets/images/utils/chart.svg'
 import NavRow from '~/components/ui/NavRow.vue'
 import ModalCreation from '~/components/ui/ModalCreation.vue'
 import Avatar from '~/components/ui/Avatar.vue'
+
+const { formatMessage } = useVIntl()
 
 const app = useNuxtApp()
 const auth = await useAuth()
