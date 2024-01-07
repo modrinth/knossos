@@ -58,9 +58,6 @@
           Leave organization
         </Button>
       </div>
-      <div>
-        <pre><code>{{ JSON.stringify(organization, null, 2) }}</code></pre>
-      </div>
     </div>
     <div
       v-for="(member, index) in allTeamMembers"
