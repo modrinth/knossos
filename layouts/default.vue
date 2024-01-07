@@ -372,7 +372,6 @@ import SunIcon from '~/assets/images/utils/sun.svg'
 import PlusIcon from '~/assets/images/utils/plus.svg'
 import DropdownIcon from '~/assets/images/utils/dropdown.svg'
 import LogOutIcon from '~/assets/images/utils/log-out.svg'
-import HeartIcon from '~/assets/images/utils/heart.svg'
 import ChartIcon from '~/assets/images/utils/chart.svg'
 
 import NavRow from '~/components/ui/NavRow.vue'
