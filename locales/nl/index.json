@@ -57,7 +57,7 @@
     "message": "Gebruikersnaam"
   },
   "profile.label.no-collections": {
-    "message": "Deze gebruiker heeft geen collectie!"
+    "message": "Deze gebruiker heeft geen collecties!"
   },
   "profile.label.no-collections-auth": {
     "message": "Je hebt geen collecties.\nWil je een <create-link>aanmaken</create-link>?"
