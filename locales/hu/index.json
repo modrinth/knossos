@@ -57,7 +57,7 @@
     "message": "Felhasználónév"
   },
   "profile.label.no-collections": {
-    "message": "Ennek a felhasználónak nincsenek gyűjteményei!"
+    "message": "This user has no collections!"
   },
   "profile.label.no-collections-auth": {
     "message": "Nincsenek gyűjteményeid.\nSzeretnél <create-link>készíteni egyet</create-link>?"
