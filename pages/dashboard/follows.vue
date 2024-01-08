@@ -67,7 +67,12 @@ const messages = defineMessages({
   },
 })
 
-useHead({ title: `${formatMessage(messages.followsLongTitle)} - Modrinth` })
+useHead({
+  title() {
+    return `${formatMessage(messages.followsLongTitle)} - Modrinth`
+  },
+})
+
 definePageMeta({
   middleware: 'auth',
 })
