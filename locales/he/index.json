@@ -9,16 +9,16 @@
     "message": "שמירה"
   },
   "frog": {
-    "message": "You've been frogged! 🐸"
+    "message": "קיבלת צפרדע! 🐸"
   },
   "frog.altText": {
-    "message": "A photorealistic painting of a frog labyrinth"
+    "message": "ציור פוטוריאליסטית של לבירינט׳"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} more person} other {{count} more people}} were also frogged!"
+    "message": "{count, plural, one {{count} עוד איש} other {{count} עוד אנשים}} גם קיבלו צפרדע!"
   },
   "frog.sinceOpened": {
-    "message": "This page was opened {ago}"
+    "message": "העמוד הזה נפתח {ago}"
   },
   "frog.title": {
     "message": "צפרדע"
@@ -57,10 +57,10 @@
     "message": "שם משתמש"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collection!"
+    "message": "This user has no collections!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "אין לך אוספים.\nהאם תרצה <create-link>ליצור אחד</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "למשתמש זה אין פרוייקטים!"
@@ -87,10 +87,10 @@
     "message": "הכל"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "אוספים"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "אוסף"
   },
   "project-type.datapack.plural": {
     "message": "ערכות מידע"
@@ -117,10 +117,10 @@
     "message": "תוסף"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "פרויקטים"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "פרויקט"
   },
   "project-type.resourcepack.plural": {
     "message": "ערכות משאבים"
@@ -165,7 +165,7 @@
     "message": "לא יכול לטעון שפה זאת. נסה שנית מאוחר יותר."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "תשלח כדי להיכנס לפוקוס על התוצאת חיפוש הראשונה"
   },
   "settings.language.languages.search-field.placeholder": {
     "message": "חפש שפה..."
