@@ -57,10 +57,10 @@
     "message": "Імя карыстальніка"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collection!"
+    "message": "У гэтага карыстальніка няма калекцый!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "У вас няма ніводнай калекцыі.\nЦі хаціце вы <create-link>стварыць адну</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "У гэтага карыстальніка няма праектаў!"
@@ -87,10 +87,10 @@
     "message": "Усе"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "Калекцыі"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "Калекцыя"
   },
   "project-type.datapack.plural": {
     "message": "Наборы даных"
@@ -117,10 +117,10 @@
     "message": "Плагін"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "Праекты"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "Праект"
   },
   "project-type.resourcepack.plural": {
     "message": "Пакеты рэсурсаў"
