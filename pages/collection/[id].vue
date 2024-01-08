@@ -326,9 +326,6 @@
         </div>
       </div>
     </div>
-    <div hidden>
-      <pre><code>{{  JSON.stringify(collection, null, 2) }}</code></pre>
-    </div>
   </div>
 </template>
 
