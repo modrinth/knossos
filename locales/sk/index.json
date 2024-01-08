@@ -57,10 +57,10 @@
     "message": "Používateľské meno"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collection!"
+    "message": "This user has no collections!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Nemáte žiadne kolekcie.\nChcete si jednu <create-link>vytvoriť</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "Tento používateľ nemá žiadne projekty!"
@@ -87,10 +87,10 @@
     "message": "Všetko"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "Kolekcie"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "Kolekcia"
   },
   "project-type.datapack.plural": {
     "message": "Datapacky"
@@ -117,10 +117,10 @@
     "message": "Plugin"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "Projekty"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "Projekt"
   },
   "project-type.resourcepack.plural": {
     "message": "Resourcepacky"
