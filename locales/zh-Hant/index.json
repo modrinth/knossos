@@ -57,10 +57,10 @@
     "message": "使用者名稱"
   },
   "profile.label.no-collections": {
-    "message": "這個使用者沒有收藏！"
+    "message": "這個使用者沒有收藏項目！"
   },
   "profile.label.no-collections-auth": {
-    "message": "你沒有任何專案。\n你想要 <create-link>建立一個</create-link> 嗎？"
+    "message": "你還沒有收藏夾。\n你想要 <create-link>建立一個</create-link> 嗎？"
   },
   "profile.label.no-projects": {
     "message": "這個使用者沒有專案！"
@@ -87,7 +87,7 @@
     "message": "全部"
   },
   "project-type.collection.plural": {
-    "message": "收藏"
+    "message": "收藏夾"
   },
   "project-type.collection.singular": {
     "message": "收藏"
