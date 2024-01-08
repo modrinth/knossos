@@ -326,6 +326,9 @@
         </div>
       </div>
     </div>
+    <div hidden>
+      <pre><code>{{  JSON.stringify(collection, null, 2) }}</code></pre>
+    </div>
   </div>
 </template>
 
@@ -451,7 +454,7 @@ const { data: projects, refresh: refreshProjects } = await useAsyncData(
           message: 'You must be logged in to view this page',
         })
       }
-      return useBaseFetch(`user/${auth.value?.user?.id}/follows`)
+      return useBaseFetch(`user/${auth.value.user.id}/follows`)
     } else {
       if (collection.value?.projects?.length === 0) return []
       return useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
