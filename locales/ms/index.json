@@ -57,7 +57,7 @@
     "message": "Nama pengguna"
   },
   "profile.label.no-collections": {
-    "message": "Pengguna ini tidak memiliki sebarang koleksi!"
+    "message": "This user has no collections!"
   },
   "profile.label.no-collections-auth": {
     "message": "Anda tidak memiliki sebarang koleksi.\nAdakah anda mahu <create-link>mencipta sebuah koleksi</create-link>?"
