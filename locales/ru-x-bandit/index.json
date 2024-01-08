@@ -57,7 +57,7 @@
     "message": "Кликуха"
   },
   "profile.label.no-collections": {
-    "message": "У чела ни одной коллекции!"
+    "message": "У этого пользователя нет коллекций."
   },
   "profile.label.no-collections-auth": {
     "message": "У ещё ни одной коллекции.\nПозыришь сделать <create-link>новую</create-link>?"
