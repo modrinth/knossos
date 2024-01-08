@@ -57,7 +57,7 @@
     "message": "Uživatelské jméno"
   },
   "profile.label.no-collections": {
-    "message": "Tento uživatel nemá žádnou kolekci!"
+    "message": "This user has no collections!"
   },
   "profile.label.no-collections-auth": {
     "message": "Nemáte žádné kolekce.\nChcete <create-link>vytvořit</create-link>?"
