@@ -57,7 +57,7 @@
     "message": "Кулланучы исеме"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collection!"
+    "message": "This user has no collections!"
   },
   "profile.label.no-collections-auth": {
     "message": "Сезнең коллекцияләр юк.\nСез <create-link>коллекцияне ясарга</create-link> телисезме?"
