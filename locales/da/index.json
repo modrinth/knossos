@@ -57,10 +57,10 @@
     "message": "Brugernavn"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collection!"
+    "message": "This user has no collections!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Du har ikke nogen samlinger.\nVil du gerne <create-link>oprette et</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "Denne bruger har ingen projekter!"
@@ -87,10 +87,10 @@
     "message": "Alle"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "Samlinger"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "Samling"
   },
   "project-type.datapack.plural": {
     "message": "Datapakker"
@@ -117,10 +117,10 @@
     "message": "Plugin"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "Projekter"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "Projekt"
   },
   "project-type.resourcepack.plural": {
     "message": "Ressourcepakker"
