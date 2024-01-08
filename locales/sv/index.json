@@ -57,7 +57,7 @@
     "message": "Användarnamn"
   },
   "profile.label.no-collections": {
-    "message": "Denna användare har inte en samling!"
+    "message": "Denna användare har inga samlingar!"
   },
   "profile.label.no-collections-auth": {
     "message": "Du har inte någon samling.\nVill du <create-link>skapa en</create-link>?"
