@@ -57,10 +57,10 @@
     "message": "Tên người dùng"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collection!"
+    "message": "This user has no collections!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Bạn không có bộ sưu tập nào cả.\nBạn có muốn <create-link>tạo một cái</create-link> không?"
   },
   "profile.label.no-projects": {
     "message": "Người dùng này không có dự án nào!"
@@ -87,10 +87,10 @@
     "message": "Tất cả"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "Bộ sưu tập"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "Bộ sưu tập"
   },
   "project-type.datapack.plural": {
     "message": "Gói dữ liệu"
@@ -117,10 +117,10 @@
     "message": "Trình cắm"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "Dự án"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "Dự án"
   },
   "project-type.resourcepack.plural": {
     "message": "Gói tài nguyên"
@@ -165,7 +165,7 @@
     "message": "Không thể nạp ngôn ngữ này. Hãy thử lại sau."
   },
   "settings.language.languages.search-field.description": {
-    "message": "Submit to focus the first search result"
+    "message": "Gửi đi để tập trung bào kết quả tìm kiếm đầu tiên"
   },
   "settings.language.languages.search-field.placeholder": {
     "message": "Tìm kiếm một ngôn ngữ..."
