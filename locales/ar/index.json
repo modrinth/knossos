@@ -57,7 +57,7 @@
     "message": "اسم المستخدم"
   },
   "profile.label.no-collections": {
-    "message": "هذا المستخدم ليس لديه مجموعه!"
+    "message": "This user has no collections!"
   },
   "profile.label.no-collections-auth": {
     "message": "ليس لديك أي مجموعه. هل تريد <create-link>صناعه مجموعه</create-link>؟"
