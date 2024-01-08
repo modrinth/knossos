@@ -57,10 +57,10 @@
     "message": "Nome de usuário"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collection!"
+    "message": "This user has no collections!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Você não tem nenhuma coleção.\nQue tal <create-link>criar uma</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "Este usuário não tem projetos!"
@@ -87,10 +87,10 @@
     "message": "Tudo"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "Coleções"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "Coleção"
   },
   "project-type.datapack.plural": {
     "message": "Pacotes de dados"
@@ -117,10 +117,10 @@
     "message": "Plugin"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "Projetos"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "Projeto"
   },
   "project-type.resourcepack.plural": {
     "message": "Pacotes de Recursos"
