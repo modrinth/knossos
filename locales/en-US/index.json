@@ -1,4 +1,7 @@
 {
+  "auth.sign-in.title": {
+    "message": "Sign In"
+  },
   "button.cancel": {
     "message": "Cancel"
   },
@@ -67,6 +70,9 @@
   },
   "profile.label.no-projects-auth": {
     "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Organizations"
   },
   "profile.meta.description": {
     "message": "Download {username}'s projects on Modrinth"

@@ -105,8 +105,19 @@ import KeyIcon from 'assets/icons/auth/key.svg'
 import MailIcon from 'assets/icons/auth/mail.svg'
 import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
 
+const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  signInTitle: {
+    id: 'auth.sign-in.title',
+    defaultMessage: 'Sign In',
+  },
+})
+
 useHead({
-  title: 'Sign In - Modrinth',
+  title() {
+    return `${formatMessage(messages.signInTitle)} - Modrinth`
+  },
 })
 
 const auth = await useAuth()
