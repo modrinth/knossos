@@ -1,4 +1,7 @@
 {
+  "auth.sign-in.button.sign-in": {
+    "message": "Sign in"
+  },
   "auth.sign-in.title": {
     "message": "Sign In"
   },

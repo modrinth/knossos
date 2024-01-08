@@ -16,7 +16,7 @@
       />
 
       <button class="btn btn-primary continue-btn" @click="begin2FASignIn">
-        Sign in <RightArrowIcon />
+        {{ formatMessage(messages.signInButton) }} <RightArrowIcon />
       </button>
     </template>
     <template v-else>
@@ -81,7 +81,7 @@
         <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
 
         <button class="btn btn-primary continue-btn centered-btn" @click="beginPasswordSignIn()">
-          Sign in <RightArrowIcon />
+          {{ formatMessage(message.signInButton) }} <RightArrowIcon />
         </button>
 
         <div class="auth-form__additional-options">
@@ -108,6 +108,10 @@ import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
+  signInButton: {
+    id: 'auth.sign-in.button.sign-in',
+    defaultMessage: 'Sign in',
+  },
   signInTitle: {
     id: 'auth.sign-in.title',
     defaultMessage: 'Sign In',
