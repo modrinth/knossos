@@ -42,7 +42,7 @@
     "message": "檢舉"
   },
   "profile.error.not-found": {
-    "message": "找不到使用者"
+    "message": "使用者不存在"
   },
   "profile.input.upload-avatar": {
     "message": "上傳頭像"
