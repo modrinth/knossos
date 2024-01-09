@@ -34,13 +34,33 @@ export const formatPercent = (value, sum) => {
   return `${((value / sum) * 100).toFixed(2)}%`
 }
 
-const colors = ['#ff496e', '#ffa347', '#1bd96a', '#4f9cff', '#c78aff']
+const hashProjectId = (projectId) => {
+  return projectId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 30
+}
+
+const defaultColors = ['#ff496e', '#ffa347', '#1bd96a', '#4f9cff', '#c78aff']
+
+/**
+ * @param {string | number} value
+ * @returns {string} color
+ */
+export const getDefaultColor = (value) => {
+  if (typeof value === 'string') {
+    value = hashProjectId(value)
+  }
+  return defaultColors[value % defaultColors.length]
+}
 
 export const intToRgba = (color, projectId = 'Unknown', theme) => {
-  const hash = projectId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 30
+  const hash = hashProjectId(projectId)
 
   if (!color || color === 0) {
-    return colors[hash % colors.length]
+    return getDefaultColor(hash)
+  }
+
+  // if color is a string, return that instead
+  if (typeof color === 'string') {
+    return color
   }
 
   // Extract RGB values
