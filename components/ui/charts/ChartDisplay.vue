@@ -73,10 +73,10 @@
               </span>
             </h2>
             <div class="chart-controls__buttons">
-              <Button icon-only @click="onDownloadSetAsCSV">
+              <Button v-tooltip="'Download this data as CSV'" icon-only @click="onDownloadSetAsCSV">
                 <DownloadIcon />
               </Button>
-              <Button icon-only @click="resetCharts">
+              <Button v-tooltip="'Refresh the chart'" icon-only @click="resetCharts">
                 <UpdatedIcon />
               </Button>
               <DropdownSelect
@@ -137,6 +137,7 @@
                 <template v-for="project in props.projects" :key="project.id">
                   <button
                     v-if="analytics.validProjectIds.value.includes(project.id)"
+                    v-tooltip="project.title"
                     :class="`legend__item button-base btn-transparent ${
                       !projectIsOnDisplay(project.id) ? 'btn-dimmed' : ''
                     }`"
@@ -480,38 +481,22 @@ const defaultRanges: Record<number, [string, number] | string> = {
   flex-direction: row;
   gap: var(--gap-md);
 
-  width: 100%;
   height: 100%;
 
   .chart {
     flex-grow: 1;
     flex-shrink: 1;
-    flex-basis: 0;
 
     display: flex;
     flex-direction: column;
     gap: var(--gap-md);
   }
 
-  // on mobile we want to stack the legend below the chart
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: var(--gap-md);
-
-    .chart {
-      flex-direction: column;
-      gap: var(--gap-md);
-    }
-
-    .legend {
-      margin-top: 0px;
-    }
-  }
-
   .legend {
     margin-top: 24px;
-    flex-shrink: 0;
     overflow: hidden;
+
+    max-width: calc(100% / 4);
 
     .legend__items {
       display: flex;
@@ -524,12 +509,22 @@ const defaultRanges: Record<number, [string, number] | string> = {
         align-items: center;
         gap: var(--gap-xs);
         font-size: var(--font-size-sm);
+        width: 100%;
+
+        .legend__item__text {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
 
         .legend__item__color {
           height: var(--font-size-xs);
           width: var(--font-size-xs);
           border-radius: var(--radius-sm);
           background-color: var(--color-brand);
+
+          flex-grow: 0;
+          flex-shrink: 0;
         }
       }
     }
@@ -577,47 +572,6 @@ const defaultRanges: Record<number, [string, number] | string> = {
     gap: 0.75rem;
     display: flex;
     margin-right: 0.1rem;
-  }
-
-  .graphs__main-graph {
-    // Take up the rest of the width
-    flex-grow: 1;
-
-    display: grid;
-    grid-template-columns: 1fr;
-
-    .graphs__main-graph-control {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-end;
-      justify-content: end;
-      margin-bottom: var(--gap-md);
-      gap: var(--gap-md);
-
-      .animated-dropdown {
-        width: auto;
-      }
-    }
-  }
-}
-
-// Mobile
-@media (max-width: 768px) {
-  .graphs {
-    flex-direction: column;
-    gap: var(--gap-md);
-
-    .graphs__vertical-bar {
-      display: block;
-
-      width: 100%;
-      max-width: none;
-    }
-
-    .graphs__main-graph {
-      display: block;
-      overflow: hidden;
-    }
   }
 }
 
@@ -698,6 +652,37 @@ const defaultRanges: Record<number, [string, number] | string> = {
 }
 
 @media (max-width: 768px) {
+  .chart-area {
+    flex-direction: column;
+    gap: var(--gap-md);
+  }
+
+  .chart-controls {
+    flex-direction: column;
+    gap: var(--gap-md);
+  }
+
+  .chart {
+    flex-direction: column;
+    gap: var(--gap-md);
+  }
+
+  .legend {
+    margin-top: 0px;
+    max-width: 100%;
+  }
+
+  .graphs {
+    margin-left: 0px;
+    margin-top: 0px;
+
+    .graphs__vertical-bar {
+      flex-direction: column;
+      gap: 0;
+      margin-right: 0px;
+    }
+  }
+
   .country-data {
     display: block;
   }

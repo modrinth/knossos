@@ -182,9 +182,7 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
         const theme = useTheme()
         const project = chartData[i]
 
-        return project.color
-          ? intToRgba(project.color, project.id, theme.value.value)
-          : '--color-brand'
+        return intToRgba(project.color, project.id, theme.value)
       }),
     },
   }
@@ -348,7 +346,12 @@ export const useFetchAllAnalytics = (onDataRefresh, projects) => {
     }
 
     if (revenueData.value) {
-      Object.keys(revenueData.value).forEach((id) => ids.add(id))
+      // revenue will always have all project ids, but the ids may have an empty object as value.
+      Object.entries(revenueData.value).forEach(([id, data]) => {
+        if (Object.keys(data).length) {
+          ids.add(id)
+        }
+      })
     }
 
     return Array.from(ids)
