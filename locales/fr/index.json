@@ -57,7 +57,7 @@
     "message": "Nom d'utilisateur"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "Cet utilisateur n'a aucune collection !"
   },
   "profile.label.no-collections-auth": {
     "message": "Vous n'avez aucune collection.\nVoulez-vous en <create-link>créer une</create-link> ?"
