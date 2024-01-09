@@ -117,7 +117,7 @@
               <h1 class="title">{{ collection.name }}</h1>
 
               <div>
-                <span class="collection-label"><BoxIcon /> Collection</span>
+                <span class="collection-label"> <BoxIcon /> Collection </span>
               </div>
 
               <div class="collection-info">
@@ -308,7 +308,7 @@
             <button
               v-if="collection.id === 'following'"
               class="iconified-button"
-              @click="userUnfollowProject(project)"
+              @click="unfollowProject(project)"
             >
               <TrashIcon />
               Unfollow project
@@ -380,6 +380,11 @@ function cycleSearchDisplayMode() {
   saveCosmetics()
 }
 
+async function unfollowProject(project) {
+  await userUnfollowProject(project)
+  await refreshProjects()
+}
+
 let collection, refreshCollection, creator, projects, refreshProjects
 
 try {
@@ -400,7 +405,14 @@ try {
     projects = ref(data.data)
 
     creator = ref(auth.value.user)
-    refreshProjects = async () => {}
+    refreshProjects = async () => {
+      const newData = await useAsyncData(`user/${auth.value.user.id}/follows`, () =>
+        useBaseFetch(`user/${auth.value.user.id}/follows`)
+      )
+      Vue.nextTick(() => {
+        projects = ref(newData.data)
+      })
+    }
     refreshCollection = async () => {}
   } else {
     const val = await useAsyncData(`collection/${route.params.id}`, () =>
