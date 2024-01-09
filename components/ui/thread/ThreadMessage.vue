@@ -78,7 +78,7 @@
         {{ timeSincePosted }}
       </span>
     </span>
-    <div class="message__actions" v-if="isStaff(auth.user) && message.author_id === auth.user.id">
+    <div v-if="isStaff(auth.user) && message.author_id === auth.user.id" class="message__actions">
       <OverflowMenu
         class="btn btn-transparent icon-only"
         :options="[
@@ -98,9 +98,6 @@
 </template>
 
 <script setup>
-import Avatar from '~/components/ui/Avatar.vue'
-import Badge from '~/components/ui/Badge.vue'
-import { renderString } from '~/helpers/parse.js'
 import {
   OverflowMenu,
   MoreHorizontalIcon,
@@ -111,6 +108,9 @@ import {
   ModrinthIcon,
   ScaleIcon,
 } from 'omorphia'
+import Avatar from '~/components/ui/Avatar.vue'
+import Badge from '~/components/ui/Badge.vue'
+import { renderString } from '~/helpers/parse.js'
 import { isStaff } from '~/helpers/users.js'
 
 const props = defineProps({

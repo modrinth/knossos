@@ -45,8 +45,8 @@
         :members="members"
         :report="report"
         :auth="auth"
-        @update-thread="() => updateThreadLocal()"
         raised
+        @update-thread="() => updateThreadLocal()"
       />
     </div>
     <span v-if="report && report.closed">
