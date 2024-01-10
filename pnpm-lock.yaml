@@ -17,7 +17,7 @@ dependencies:
     specifier: ^1.11.7
     version: 1.11.7
   floating-vue:
-    specifier: ^2.0.0-beta.20
+    specifier: 2.0.0-beta.20
     version: 2.0.0-beta.20(vue@3.4.8)
   fuse.js:
     specifier: ^6.6.2
@@ -47,7 +47,7 @@ dependencies:
     specifier: ^7.5.4
     version: 7.5.4
   vue-multiselect:
-    specifier: ^3.0.0-alpha.2
+    specifier: 3.0.0-alpha.2
     version: 3.0.0-alpha.2
   vue3-apexcharts:
     specifier: ^1.4.4
@@ -61,7 +61,7 @@ devDependencies:
     specifier: ^6.1.2
     version: 6.1.2
   '@nuxt/devtools':
-    specifier: '=0.7.0'
+    specifier: ^0.7.0
     version: 0.7.0(nuxt@3.5.3)(vite@5.0.11)
   '@nuxtjs/eslint-config-typescript':
     specifier: ^12.0.0
@@ -1287,7 +1287,7 @@ packages:
       fs-extra: 10.1.0
       json-stable-stringify: 1.0.2
       loud-rejection: 2.2.0
-      tslib: 2.6.0
+      tslib: 2.6.2
       typescript: 5.0.4
       vue: 3.4.8(typescript@5.0.4)
     transitivePeerDependencies:
@@ -1316,7 +1316,7 @@ packages:
     resolution: {integrity: sha512-PEVLoa3zBevWSCZzPIM/lvPCi8P5l4G+NXQMc/CjEiaCWgyHieUoo0nM7Bs0n/NbuQ6JpXEolivQ9pKSBHaDlA==}
     dependencies:
       '@formatjs/intl-localematcher': 0.5.2
-      tslib: 2.6.2
+      tslib: 2.6.0
     dev: true
 
   /@formatjs/fast-memoize@2.2.0:
@@ -1338,7 +1338,7 @@ packages:
     dependencies:
       '@formatjs/ecma402-abstract': 1.18.0
       '@formatjs/icu-skeleton-parser': 1.7.0
-      tslib: 2.6.2
+      tslib: 2.6.0
     dev: true
 
   /@formatjs/icu-skeleton-parser@1.6.2:
@@ -1352,14 +1352,6 @@ packages:
     resolution: {integrity: sha512-Cfdo/fgbZzpN/jlN/ptQVe0lRHora+8ezrEeg2RfrNjyp+YStwBy7cqDY8k5/z2LzXg6O0AdzAV91XS0zIWv+A==}
     dependencies:
       '@formatjs/ecma402-abstract': 1.18.0
-      tslib: 2.6.2
-    dev: true
-
-  /@formatjs/intl-displaynames@6.6.1:
-    resolution: {integrity: sha512-TIPaDu0SlwJUXlIyeSL9052jrUC4QviLnvUEJ53Ldc3Q4nZJnT2wD8NHIroTOYX9lgp5m3BeTlhpRcsnuExDkA==}
-    dependencies:
-      '@formatjs/ecma402-abstract': 1.17.2
-      '@formatjs/intl-localematcher': 0.4.2
       tslib: 2.6.0
     dev: true
 
@@ -1368,14 +1360,6 @@ packages:
     dependencies:
       '@formatjs/ecma402-abstract': 1.18.0
       '@formatjs/intl-localematcher': 0.5.2
-      tslib: 2.6.2
-    dev: true
-
-  /@formatjs/intl-listformat@7.5.0:
-    resolution: {integrity: sha512-n9FsXGl1T2ZbX6wSyrzCDJHrbJR0YJ9ZNsAqUvHXfbY3nsOmGnSTf5+bkuIp1Xiywu7m1X1Pfm/Ngp/yK1H84A==}
-    dependencies:
-      '@formatjs/ecma402-abstract': 1.17.2
-      '@formatjs/intl-localematcher': 0.4.2
       tslib: 2.6.0
     dev: true
 
@@ -1384,7 +1368,7 @@ packages:
     dependencies:
       '@formatjs/ecma402-abstract': 1.18.0
       '@formatjs/intl-localematcher': 0.5.2
-      tslib: 2.6.2
+      tslib: 2.6.0
     dev: true
 
   /@formatjs/intl-localematcher@0.4.2:
@@ -1396,25 +1380,7 @@ packages:
   /@formatjs/intl-localematcher@0.5.2:
     resolution: {integrity: sha512-txaaE2fiBMagLrR4jYhxzFO6wEdEG4TPMqrzBAcbr4HFUYzH/YC+lg6OIzKCHm8WgDdyQevxbAAV1OgcXctuGw==}
     dependencies:
-      tslib: 2.6.2
-    dev: true
-
-  /@formatjs/intl@2.9.5(typescript@5.0.4):
-    resolution: {integrity: sha512-WEdEv8Jf2nKBErTK4MJ2xCesUJVHH9iunXzfHzZo4tnn2NSj48g04FNH9w17XDpEbj9KEM39fLkwBz7ay/ErPQ==}
-    peerDependencies:
-      typescript: '5'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@formatjs/ecma402-abstract': 1.17.2
-      '@formatjs/fast-memoize': 2.2.0
-      '@formatjs/icu-messageformat-parser': 2.7.0
-      '@formatjs/intl-displaynames': 6.6.1
-      '@formatjs/intl-listformat': 7.5.0
-      intl-messageformat: 10.5.4
       tslib: 2.6.0
-      typescript: 5.0.4
     dev: true
 
   /@formatjs/intl@2.9.9(typescript@5.0.4):
@@ -1431,7 +1397,7 @@ packages:
       '@formatjs/intl-displaynames': 6.6.4
       '@formatjs/intl-listformat': 7.5.3
       intl-messageformat: 10.5.8
-      tslib: 2.6.2
+      tslib: 2.6.0
       typescript: 5.0.4
     dev: true
 
@@ -1448,7 +1414,7 @@ packages:
       '@types/node': 17.0.45
       chalk: 4.1.2
       json-stable-stringify: 1.0.2
-      tslib: 2.6.0
+      tslib: 2.6.2
       typescript: 5.0.4
     dev: true
 
@@ -2662,7 +2628,7 @@ packages:
   /@vintl/nuxt@1.8.0(typescript@5.0.4)(vite@5.0.11)(vue@3.4.8):
     resolution: {integrity: sha512-YSzUlRdlTTrw71LbTQAgJbI2/3eYe6gCFsfhh8VOHLFU1VKpmOjvKu9k6h4oOo3LjVLRf9PBX3vq8hyRabPkSw==}
     dependencies:
-      '@formatjs/intl': 2.9.5(typescript@5.0.4)
+      '@formatjs/intl': 2.9.9(typescript@5.0.4)
       '@formatjs/intl-localematcher': 0.4.2
       '@nuxt/kit': 3.8.0
       '@vintl/unplugin': 1.5.1(vite@5.0.11)(vue@3.4.8)
@@ -2723,7 +2689,7 @@ packages:
     dependencies:
       '@braw/async-computed': 5.0.2(vue@3.4.8)
       '@formatjs/icu-messageformat-parser': 2.7.0
-      '@formatjs/intl': 2.9.5(typescript@5.0.4)
+      '@formatjs/intl': 2.9.9(typescript@5.0.4)
       '@formatjs/intl-localematcher': 0.4.2
       intl-messageformat: 10.5.4
       vue: 3.4.8(typescript@5.0.4)
@@ -3259,7 +3225,7 @@ packages:
     resolution: {integrity: sha512-6t10qk83GOG8p0vKmaCr8eiilZwO171AvbROMtvvNiwrTly62t+7XkA8RdIIVbpMhCASAsxgAzdRSwh6nw/5Dg==}
     engines: {node: '>=4'}
     dependencies:
-      tslib: 2.6.0
+      tslib: 2.6.2
     dev: true
 
   /ast-walker-scope@0.4.2:
@@ -5776,7 +5742,7 @@ packages:
       '@formatjs/ecma402-abstract': 1.18.0
       '@formatjs/fast-memoize': 2.2.0
       '@formatjs/icu-messageformat-parser': 2.7.3
-      tslib: 2.6.2
+      tslib: 2.6.0
     dev: true
 
   /ioredis@5.3.2:
@@ -8047,7 +8013,7 @@ packages:
       ast-types: 0.16.1
       esprima: 4.0.1
       source-map: 0.6.1
-      tslib: 2.6.0
+      tslib: 2.6.2
     dev: true
 
   /redis-errors@1.2.0:
@@ -8215,7 +8181,7 @@ packages:
   /rxjs@7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
     dependencies:
-      tslib: 2.6.0
+      tslib: 2.6.2
     dev: true
 
   /safe-buffer@5.1.2:
