@@ -292,14 +292,10 @@ watch(country, async () => {
 })
 
 watch(selectedMethod, () => {
-  // if the method has a fixed interval, set the amount to the first value else clamp the existing amount
   if (selectedMethod.value.interval?.fixed) {
     amount.value = selectedMethod.value.interval.fixed.values[0]
   } else {
-    amount.value = Math.min(
-      Math.max(parsedAmount.value, minWithdrawAmount.value),
-      maxWithdrawAmount.value
-    )
+    amount.value = ''
   }
   agreedTransfer.value = false
   agreedFees.value = false
