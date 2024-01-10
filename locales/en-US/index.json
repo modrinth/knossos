@@ -2,6 +2,12 @@
   "auth.sign-in.button.sign-in": {
     "message": "Sign in"
   },
+  "auth.sign-in.input.two-factor-code.placeholder": {
+    "message": "Enter code..."
+  },
+  "auth.sign-in.label.email-username": {
+    "message": "Email or username"
+  },
   "auth.sign-in.label.password": {
     "message": "Password"
   },

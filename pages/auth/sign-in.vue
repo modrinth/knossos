@@ -10,7 +10,7 @@
         v-model="twoFactorCode"
         maxlength="11"
         type="text"
-        placeholder="Enter code..."
+        :placeholder="formatMessage(messages.twoFactorCodeInputPlaceholder)"
         autofocus
         @keyup.enter="begin2FASignIn"
       />
@@ -53,7 +53,7 @@
 
       <section class="auth-form">
         <div class="iconified-input">
-          <label for="email" hidden>Email or username</label>
+          <label for="email" hidden>{{ formatMessage(messages.emailUsernameLabel) }}</label>
           <MailIcon />
           <input
             id="email"
@@ -61,7 +61,7 @@
             type="text"
             autocomplete="username"
             class="auth-form__input"
-            placeholder="Email or username"
+            :placeholder="formatMessage(messages.emailUsernameLabel)"
           />
         </div>
 
@@ -108,6 +108,10 @@ import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
+  emailUsernameLabel: {
+    id: 'auth.sign-in.label.email-username',
+    defaultMessage: 'Email or username',
+  },
   passwordLabel: {
     id: 'auth.sign-in.label.password',
     defaultMessage: 'Password',
@@ -123,6 +127,10 @@ const messages = defineMessages({
   signInTitle: {
     id: 'auth.sign-in.title',
     defaultMessage: 'Sign In',
+  },
+  twoFactorCodeInputPlaceholder: {
+    id: 'auth.sign-in.input.two-factor-code.placeholder',
+    defaultMessage: 'Enter code...',
   },
   twoFactorCodeLabel: {
     id: 'auth.sign-in.label.two-factor-code',
