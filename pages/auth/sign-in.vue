@@ -2,8 +2,8 @@
   <div>
     <template v-if="flow">
       <label for="two-factor-code">
-        <span class="label__title">Enter two-factor code</span>
-        <span class="label__description">Please enter a two-factor code to proceed.</span>
+        <span class="label__title">{{ formatMessage(messages.twoFactorCodeLabel) }}</span>
+        <span class="label__description">{{ formatMessage(messages.twoFactorCodeLabelDescription) }}</span>
       </label>
       <input
         id="two-factor-code"
@@ -20,7 +20,7 @@
       </button>
     </template>
     <template v-else>
-      <h1>Sign in with</h1>
+      <h1>{{ formatMessage(messages.signInWithLabel) }}</h1>
 
       <section class="third-party">
         <a class="btn" :href="getAuthUrl('discord', redirectTarget)">
@@ -49,7 +49,7 @@
         </a>
       </section>
 
-      <h1>Or use a password</h1>
+      <h1>{{ formatMessage(messages.usePasswordLabel) }}</h1>
 
       <section class="auth-form">
         <div class="iconified-input">
@@ -66,7 +66,7 @@
         </div>
 
         <div class="iconified-input">
-          <label for="password" hidden>Password</label>
+          <label for="password" hidden>{{ formatMessage(messages.passwordLabel) }}</label>
           <KeyIcon />
           <input
             id="password"
@@ -74,7 +74,7 @@
             type="password"
             autocomplete="current-password"
             class="auth-form__input"
-            placeholder="Password"
+            :placeholder="formatMessage(messages.passwordLabel)"
           />
         </div>
 
@@ -108,13 +108,33 @@ import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
+  passwordLabel: {
+    id: 'auth.sign-in.label.password',
+    defaultMessage: 'Password',
+  },
   signInButton: {
     id: 'auth.sign-in.button.sign-in',
     defaultMessage: 'Sign in',
   },
+  signInWithLabel: {
+    id: 'auth.sign-in.label.sign-in-with',
+    defaultMessage: 'Sign in with',
+  },
   signInTitle: {
     id: 'auth.sign-in.title',
     defaultMessage: 'Sign In',
+  },
+  twoFactorCodeLabel: {
+    id: 'auth.sign-in.label.two-factor-code',
+    defaultMessage: 'Enter two-factor code',
+  },
+  twoFactorCodeLabelDescription: {
+    id: 'auth.sign-in.label.two-factor-code.description',
+    defaultMessage: 'Please enter a two-factor code to proceed.',
+  },
+  usePasswordLabel: {
+    id: 'auth.sign-in.label.use-password',
+    defaultMessage: 'Or use a password',
   },
 })
 
