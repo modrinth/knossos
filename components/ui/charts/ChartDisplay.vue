@@ -142,13 +142,13 @@
                           : addProjectToDisplay(project.id)
                     "
                   >
-                    <span
+                    <div
                       :style="{
                         '--color-brand': intToRgba(project.color, project.id, theme || 'dark'),
                       }"
                       class="legend__item__color"
-                    ></span>
-                    <span class="legend__item__text">{{ project.title }}</span>
+                    ></div>
+                    <div class="legend__item__text">{{ project.title }}</div>
                   </button>
                 </template>
               </div>
@@ -490,7 +490,8 @@ const defaultRanges: Record<number, [string, number] | string> = {
     margin-top: 24px;
     overflow: hidden;
 
-    max-width: calc(100% / 4);
+    max-width: 26ch;
+    width: fit-content;
 
     .legend__items {
       display: flex;
@@ -506,7 +507,6 @@ const defaultRanges: Record<number, [string, number] | string> = {
         width: 100%;
 
         .legend__item__text {
-          overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
         }
