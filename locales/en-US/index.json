@@ -5,6 +5,9 @@
   "auth.sign-in.input.two-factor-code.placeholder": {
     "message": "Enter code..."
   },
+  "auth.sign-in.label.additional-options": {
+    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+  },
   "auth.sign-in.label.email-username": {
     "message": "Email or username"
   },

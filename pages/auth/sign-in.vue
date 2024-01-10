@@ -81,13 +81,22 @@
         <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
 
         <button class="btn btn-primary continue-btn centered-btn" @click="beginPasswordSignIn()">
-          {{ formatMessage(message.signInButton) }} <RightArrowIcon />
+          {{ formatMessage(messages.signInButton) }} <RightArrowIcon />
         </button>
 
         <div class="auth-form__additional-options">
-          <NuxtLink class="text-link" to="/auth/reset-password">Forgot password?</NuxtLink>
-          <p>•</p>
-          <NuxtLink class="text-link" :to="signUpLink"> Create an account</NuxtLink>
+          <IntlFormatted :message-id="messages.additionalOptionsLabel">
+            <template #forgot-password-link="{ children }">
+              <NuxtLink class="text-link" to="/auth/reset-password">
+                <component :is="() => children" />
+              </NuxtLink>
+            </template>
+            <template #create-account-link="{ children }">
+              <NuxtLink class="text-link" :to="signUpLink">
+                <component :is="() => children" />
+              </NuxtLink>
+            </template>
+          </IntlFormatted>
         </div>
       </section>
     </template>
@@ -108,6 +117,10 @@ import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
+  additionalOptionsLabel: {
+    id: 'auth.sign-in.label.additional-options',
+    defaultMessage: '<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>',
+  },
   emailUsernameLabel: {
     id: 'auth.sign-in.label.email-username',
     defaultMessage: 'Email or username',
