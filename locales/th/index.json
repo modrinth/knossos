@@ -57,10 +57,10 @@
     "message": "ชื่อผู้ใช้"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "ผู้ใช้รายนี้ไม่มีสิ่งสะสม"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "คุณยังไม่มีสิ่งสะสม\nคุณอยากจะ<create-link>สร้างขึ้นมาสักอันนึงไหม</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "ผู้ใช้รายนี้ไม่มีโปรเจกต์"
@@ -87,10 +87,10 @@
     "message": "ทั้งหมด"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "คอลเลกชัน"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "คอลเลกชัน"
   },
   "project-type.datapack.plural": {
     "message": "ดาต้าแพ็ก"
@@ -117,10 +117,10 @@
     "message": "ปลั๊กอิน"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "โปรเจ็ค"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "โปรเจกต์"
   },
   "project-type.resourcepack.plural": {
     "message": "รีซอร์ซแพ็ก"
