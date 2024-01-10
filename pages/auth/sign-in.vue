@@ -203,7 +203,7 @@ async function beginPasswordSignIn() {
   } catch (err) {
     addNotification({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data ? err.data.description : err,
       type: 'error',
     })
@@ -228,7 +228,7 @@ async function begin2FASignIn() {
   } catch (err) {
     addNotification({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data ? err.data.description : err,
       type: 'error',
     })
