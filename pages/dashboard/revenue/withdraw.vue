@@ -47,12 +47,24 @@
           @click="() => (selectedMethodId = method.id)"
         >
           <div class="preview" :class="{ 'show-bg': !method.image_url || method.name === 'ACH' }">
-            <img
-              v-if="method.image_url && method.name !== 'ACH'"
-              class="preview-img"
-              :src="method.image_url"
-              :alt="method.name"
-            />
+            <template v-if="method.image_url && method.name !== 'ACH'">
+              <div class="preview-badges">
+                <span class="badge">
+                  {{
+                    getRangeOfMethod(method)
+                      .map($formatMoney)
+                      .map((i) => i.replace('.00', ''))
+                      .join('–')
+                  }}
+                </span>
+              </div>
+              <img
+                v-if="method.image_url && method.name !== 'ACH'"
+                class="preview-img"
+                :src="method.image_url"
+                :alt="method.name"
+              />
+            </template>
             <div v-else class="placeholder">
               <template v-if="method.type === 'venmo'">
                 <VenmoIcon class="enlarge" />
@@ -227,15 +239,33 @@ const fees = computed(() => {
   )
 })
 
+const getIntervalRange = (intervalType) => {
+  if (!intervalType) {
+    return []
+  }
+
+  const { min, max, values } = intervalType
+  if (values) {
+    const first = values[0]
+    const last = values.slice(-1)[0]
+    return first === last ? [first] : [first, last]
+  }
+
+  return min === max ? [min] : [min, max]
+}
+
+const getRangeOfMethod = (method) => {
+  return getIntervalRange(method.interval?.fixed || method.interval?.standard)
+}
+
 const maxWithdrawAmount = computed(() => {
-  return selectedMethod.value.interval?.standard
-    ? selectedMethod.value.interval.standard.max
-    : selectedMethod.value.interval?.fixed.values.slice(-1)[0] ?? 0
+  const interval = selectedMethod.value.interval
+  return interval?.standard ? interval.standard.max : interval?.fixed?.values.slice(-1)[0] ?? 0
 })
+
 const minWithdrawAmount = computed(() => {
-  return selectedMethod.value.interval?.standard
-    ? selectedMethod.value.interval.standard.min
-    : selectedMethod.value.interval?.fixed?.values?.[0] ?? fees.value
+  const interval = selectedMethod.value.interval
+  return interval?.standard ? interval.standard.min : interval?.fixed?.values?.[0] ?? fees.value
 })
 
 const withdrawAccount = computed(() => {
@@ -400,6 +430,22 @@ async function withdraw() {
     display: flex;
     justify-content: center;
     aspect-ratio: 30 / 19;
+    position: relative;
+
+    .preview-badges {
+      // These will float over the image in the bottom right corner
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      padding: var(--gap-sm) var(--gap-xs);
+
+      .badge {
+        background-color: var(--color-button-bg);
+        border-radius: var(--radius-xs);
+        padding: var(--gap-xs) var(--gap-sm);
+        font-size: var(--font-size-xs);
+      }
+    }
 
     &.show-bg {
       background-color: var(--color-bg);
