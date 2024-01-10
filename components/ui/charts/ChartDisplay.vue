@@ -663,6 +663,7 @@ const defaultRanges: Record<number, [string, number] | string> = {
 
   .legend {
     margin-top: 0px;
+    width: 100%;
     max-width: 100%;
   }
 
