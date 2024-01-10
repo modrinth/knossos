@@ -60,7 +60,7 @@
     "message": "Ten użytkownik nie ma żadnych kolekcji!"
   },
   "profile.label.no-collections-auth": {
-    "message": "Nie masz żadnych kolekcji.\nCzy chcesz <create-link>jedną stworzyć</create-link>?"
+    "message": "Nie masz żadnych kolekcji.\nCzy chcesz <create-link>utworzyć jedną</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "Ten użytkownik nie ma żadnych projektów!"
