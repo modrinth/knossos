@@ -89,7 +89,11 @@
       </template>
       <template v-else-if="minWithdrawAmount == maxWithdrawAmount">
         <div>
-          <p>This method has a fixed transfer amount of {{ $formatMoney(minWithdrawAmount) }}.</p>
+          <p>
+            This method has a fixed transfer amount of
+            <strong>{{ $formatMoney(minWithdrawAmount) }}</strong
+            >.
+          </p>
         </div>
       </template>
       <template v-else>
