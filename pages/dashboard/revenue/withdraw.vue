@@ -294,8 +294,9 @@ watch(country, async () => {
 watch(selectedMethod, () => {
   if (selectedMethod.value.interval?.fixed) {
     amount.value = selectedMethod.value.interval.fixed.values[0]
-  } else {
-    amount.value = ''
+  }
+  if (maxWithdrawAmount.value === minWithdrawAmount.value) {
+    amount.value = maxWithdrawAmount.value
   }
   agreedTransfer.value = false
   agreedFees.value = false
