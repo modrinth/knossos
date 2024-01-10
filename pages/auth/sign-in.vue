@@ -3,7 +3,9 @@
     <template v-if="flow">
       <label for="two-factor-code">
         <span class="label__title">{{ formatMessage(messages.twoFactorCodeLabel) }}</span>
-        <span class="label__description">{{ formatMessage(messages.twoFactorCodeLabelDescription) }}</span>
+        <span class="label__description">
+          {{ formatMessage(messages.twoFactorCodeLabelDescription) }}
+        </span>
       </label>
       <input
         id="two-factor-code"
@@ -119,7 +121,8 @@ const { formatMessage } = useVIntl()
 const messages = defineMessages({
   additionalOptionsLabel: {
     id: 'auth.sign-in.label.additional-options',
-    defaultMessage: '<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>',
+    defaultMessage:
+      '<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>',
   },
   emailUsernameLabel: {
     id: 'auth.sign-in.label.email-username',
