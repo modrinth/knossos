@@ -88,7 +88,7 @@ function formatTooltipValue(value, props) {
 }
 
 function generateListEntry(value, index, _, w, props) {
-  const color = props.colors[index % props.colors.length]
+  const color = w.globals.colors?.[index]
 
   return `<div class="list-entry">
     <span class="circle" style="background-color: ${color}"></span>
