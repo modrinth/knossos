@@ -406,12 +406,8 @@ try {
 
     creator = ref(auth.value.user)
     refreshProjects = async () => {
-      const newData = await useAsyncData(`user/${auth.value.user.id}/follows`, () =>
-        useBaseFetch(`user/${auth.value.user.id}/follows`)
-      )
-      Vue.nextTick(() => {
-        projects = ref(newData.data)
-      })
+      refreshNuxtData(`user/${auth.value.user.id}/follows`)
+      Vue.nextTick(() => (projects.value = data.data))
     }
     refreshCollection = async () => {}
   } else {
