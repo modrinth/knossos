@@ -286,7 +286,8 @@
             :follows="project.followers ? project.followers.toString() : '0'"
             :featured-image="
               project.gallery
-                .find((element) => element.featured === true).then((value) => {
+                .find((element) => element.featured === true)
+                .then((value) => {
                   return value === undefined ? null : value
                 })
             "
