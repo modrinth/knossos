@@ -284,6 +284,12 @@
             :description="project.description"
             :downloads="project.downloads ? project.downloads.toString() : '0'"
             :follows="project.followers ? project.followers.toString() : '0'"
+            :featured-image="
+              project.gallery
+                .slice()
+                .sort((a, b) => b.featured - a.featured)
+                .map((x) => x.url)[0]
+            "
             :icon-url="project.icon_url"
             :name="project.title"
             :client-side="project.client_side"
