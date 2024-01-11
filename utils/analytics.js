@@ -305,11 +305,8 @@ export const useFetchAllAnalytics = (onDataRefresh, projects) => {
 
   const fetchData = async (query) => {
     const normalQuery = new URLSearchParams(query)
-
-    const revQuery = new URLSearchParams(query)
-
+    normalQuery.delete('projects')
     const qs = normalQuery.toString()
-    const revQs = revQuery.toString()
 
     try {
       loading.value = true
@@ -318,14 +315,29 @@ export const useFetchAllAnalytics = (onDataRefresh, projects) => {
       const responses = await Promise.all([
         useFetchAnalytics(`analytics/downloads?${qs}`),
         useFetchAnalytics(`analytics/views?${qs}`),
-        useFetchAnalytics(`analytics/revenue?${revQs}`),
+        useFetchAnalytics(`analytics/revenue?${qs}`),
         useFetchAnalytics(`analytics/countries/downloads?${qs}`),
         useFetchAnalytics(`analytics/countries/views?${qs}`),
       ])
 
-      downloadData.value = responses[0] || {}
-      viewData.value = responses[1] || {}
-      revenueData.value = responses[2] || {}
+      // collect project ids from projects.value into a set
+      const projectIds = new Set()
+      projects.value.forEach((p) => projectIds.add(p.id))
+
+      const filterProjectIds = (data) => {
+        const filtered = {}
+        Object.entries(data).forEach(([id, values]) => {
+          if (projectIds.has(id)) {
+            filtered[id] = values
+          }
+        })
+        return filtered
+      }
+
+      downloadData.value = filterProjectIds(responses[0] || {})
+      viewData.value = filterProjectIds(responses[1] || {})
+      revenueData.value = filterProjectIds(responses[2] || {})
+
       downloadsByCountry.value = responses[3] || {}
       viewsByCountry.value = responses[4] || {}
     } catch (e) {
