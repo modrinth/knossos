@@ -38,7 +38,7 @@ const hashProjectId = (projectId) => {
   return projectId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 30
 }
 
-const defaultColors = ['#ff496e', '#ffa347', '#1bd96a', '#4f9cff', '#c78aff']
+export const defaultColors = ['#ff496e', '#ffa347', '#1bd96a', '#4f9cff', '#c78aff']
 
 /**
  * @param {string | number} value
@@ -51,7 +51,7 @@ export const getDefaultColor = (value) => {
   return defaultColors[value % defaultColors.length]
 }
 
-export const intToRgba = (color, projectId = 'Unknown', theme) => {
+export const intToRgba = (color, projectId = 'Unknown', theme = 'dark') => {
   const hash = hashProjectId(projectId)
 
   if (!color || color === 0) {
@@ -109,6 +109,7 @@ const emptyAnalytics = {
       },
     ],
     colors: [],
+    defaultColors: [],
   },
 }
 
@@ -203,6 +204,10 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
         const project = chartData[i]
 
         return intToRgba(project.color, project.id, theme.value)
+      }),
+      defaultColors: projectData.map((_, i) => {
+        const project = chartData[i]
+        return getDefaultColor(project.id)
       }),
     },
   }
