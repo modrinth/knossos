@@ -305,8 +305,10 @@ export const useFetchAllAnalytics = (onDataRefresh, projects) => {
 
   const fetchData = async (query) => {
     const normalQuery = new URLSearchParams(query)
-    normalQuery.delete('projects')
+    const revenueQuery = new URLSearchParams(query)
+    revenueQuery.delete('projects')
     const qs = normalQuery.toString()
+    const revenueQs = revenueQuery.toString()
 
     try {
       loading.value = true
@@ -315,7 +317,7 @@ export const useFetchAllAnalytics = (onDataRefresh, projects) => {
       const responses = await Promise.all([
         useFetchAnalytics(`analytics/downloads?${qs}`),
         useFetchAnalytics(`analytics/views?${qs}`),
-        useFetchAnalytics(`analytics/revenue?${qs}`),
+        useFetchAnalytics(`analytics/revenue?${revenueQs}`),
         useFetchAnalytics(`analytics/countries/downloads?${qs}`),
         useFetchAnalytics(`analytics/countries/views?${qs}`),
       ])
