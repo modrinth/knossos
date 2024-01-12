@@ -27,7 +27,6 @@ export const useCosmetics = () =>
           user: 'list',
           collection: 'list',
         },
-        hideStagingBanner: false,
       }
     }
 
