@@ -145,14 +145,14 @@
               <div class="legend__items">
                 <template v-for="project in props.projects" :key="project.id">
                   <button
-                    v-if="analytics.validProjectIds.value.includes(project.id)"
                     v-tooltip="project.title"
                     :class="`legend__item button-base btn-transparent ${
                       !projectIsOnDisplay(project.id) ? 'btn-dimmed' : ''
                     }`"
                     @click="
                       () =>
-                        projectIsOnDisplay(project.id)
+                        projectIsOnDisplay(project.id) &&
+                        analytics.validProjectIds.value.includes(project.id)
                           ? removeProjectFromDisplay(project.id)
                           : addProjectToDisplay(project.id)
                     "
@@ -318,11 +318,13 @@ const props = withDefaults(
      */
     resoloutions?: Record<string, number>
     ranges?: Record<number, [string, number] | string>
+    personal?: boolean
   }>(),
   {
     projects: undefined,
     resoloutions: () => defaultResoloutions,
     ranges: () => defaultRanges,
+    personal: false,
   }
 )
 
@@ -404,7 +406,7 @@ const isUsingProjectColors = computed({
   },
 })
 
-const analytics = useFetchAllAnalytics(resetCharts, selectedDisplayProjects)
+const analytics = useFetchAllAnalytics(resetCharts, selectedDisplayProjects, props.personal)
 
 const { startDate, endDate, timeRange, timeResolution } = analytics
 
