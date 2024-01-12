@@ -1,6 +1,6 @@
 <template>
   <div class="universal-card">
-    <ModalConfirm
+    <ConfirmModal
       ref="modal_confirm"
       title="Are you sure you want to delete this token?"
       description="This will remove this token forever (like really forever)."
@@ -23,17 +23,11 @@
         <label for="pat-scopes"><span class="label__title">Scopes</span> </label>
         <div id="pat-scopes" class="checkboxes">
           <Checkbox
-            v-for="(scope, index) in scopes"
+            v-for="scope in scopeList"
             :key="scope"
-            v-tooltip="
-              scope.startsWith('_')
-                ? 'This scope is not allowed to be used with personal access tokens.'
-                : null
-            "
-            :disabled="scope.startsWith('_')"
-            :label="scope.replace('_', '')"
-            :model-value="(scopesVal & (1 << index)) === 1 << index"
-            @update:model-value="scopesVal ^= 1 << index"
+            :label="getScopeLabel(scope)"
+            :model-value="hasScope(scopesVal, scope)"
+            @update:model-value="scopesVal = toggleScope(scopesVal, scope)"
           />
         </div>
         <label for="pat-name"><span class="label__title">Expires</span> </label>
@@ -155,17 +149,12 @@
   </div>
 </template>
 <script setup>
-import {
-  PlusIcon,
-  Modal,
-  XIcon,
-  Checkbox,
-  TrashIcon,
-  EditIcon,
-  SaveIcon,
-  ModalConfirm,
-} from 'omorphia'
+import { PlusIcon, XIcon, Checkbox, TrashIcon, EditIcon, SaveIcon, ConfirmModal } from 'omorphia'
+
+import { hasScope, scopeList, toggleScope, getScopeLabel } from '~/utils/auth/scopes.ts'
+
 import CopyCode from '~/components/ui/CopyCode.vue'
+import Modal from '~/components/ui/Modal.vue'
 
 definePageMeta({
   middleware: 'auth',
@@ -175,46 +164,13 @@ useHead({
   title: 'PATs - Modrinth',
 })
 
-const scopes = [
-  'Read user email',
-  'Read user data',
-  'Write user data',
-  '_Delete your account',
-  '_Write auth data',
-  'Read notifications',
-  'Write notifications',
-  'Read payouts',
-  'Write payouts',
-  'Read analytics',
-  'Create projects',
-  'Read projects',
-  'Write projects',
-  'Delete projects',
-  'Create versions',
-  'Read versions',
-  'Write versions',
-  'Delete versions',
-  'Create reports',
-  'Read reports',
-  'Write reports',
-  'Delete reports',
-  'Read threads',
-  'Write threads',
-  '_Create PATs',
-  '_Read PATs',
-  '_Write PATs',
-  '_Delete PATs',
-  '_Read sessions',
-  '_Delete sessions',
-]
-
 const data = useNuxtApp()
 const patModal = ref()
 
 const editPatIndex = ref(null)
 
 const name = ref(null)
-const scopesVal = ref(0)
+const scopesVal = ref(BigInt(0))
 const expires = ref(null)
 
 const deletePatIndex = ref(null)
@@ -231,7 +187,7 @@ async function createPat() {
       method: 'POST',
       body: {
         name: name.value,
-        scopes: scopesVal.value,
+        scopes: Number(scopesVal.value),
         expires: data.$dayjs(expires.value).toISOString(),
       },
     })
@@ -257,7 +213,7 @@ async function editPat() {
       method: 'PATCH',
       body: {
         name: name.value,
-        scopes: scopesVal.value,
+        scopes: Number(scopesVal.value),
         expires: data.$dayjs(expires.value).toISOString(),
       },
     })

@@ -14,7 +14,7 @@
           </strong>
         </div>
         <div>
-          <template v-if="session.city">{{ session.city }}, {{ session.country }} ⋅</template>
+          <template v-if="session.city">{{ session.city }}, {{ session.country }} ⋅ </template>
           <span
             v-tooltip="
               formatMessage(commonMessages.dateAtTimeTooltip, {
@@ -102,7 +102,7 @@ const messages = defineMessages({
 })
 
 useHead({
-  title: () => `${formatMessage(messages.sessionsTitle)} - Modrinth'`,
+  title: () => `${formatMessage(messages.sessionsTitle)} - Modrinth`,
 })
 
 const data = useNuxtApp()
@@ -129,7 +129,7 @@ async function revokeSession(id) {
   stopLoading()
 }
 </script>
-<style lang="scss">
+<style lang="scss" socped>
 .session {
   display: flex;
   flex-direction: column;

@@ -92,9 +92,38 @@ export const initAuth = async (oldToken = null) => {
   return auth
 }
 
-export const getAuthUrl = (provider) => {
+export const getAuthUrl = (provider, redirect = '') => {
   const config = useRuntimeConfig()
   const route = useRoute()
 
-  return `${config.public.apiBaseUrl}auth/init?url=${config.public.siteUrl}${route.path}&provider=${provider}`
+  if (redirect === '') {
+    redirect = route.path
+  }
+  const fullURL = `${config.public.siteUrl}${redirect}`
+
+  return `${config.public.apiBaseUrl}auth/init?url=${fullURL}&provider=${provider}`
+}
+
+export const removeAuthProvider = async (provider) => {
+  startLoading()
+  try {
+    const auth = await useAuth()
+
+    await useBaseFetch('auth/provider', {
+      method: 'DELETE',
+      body: {
+        provider,
+      },
+    })
+    await useAuth(auth.value.token)
+  } catch (err) {
+    const data = useNuxtApp()
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
 }

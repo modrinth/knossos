@@ -44,7 +44,10 @@
       } password`"
     >
       <div class="universal-modal">
-        <ul v-if="newPassword !== confirmNewPassword" class="known-errors">
+        <ul
+          v-if="newPassword !== confirmNewPassword && confirmNewPassword.length > 0"
+          class="known-errors"
+        >
           <li>Input passwords do not match!</li>
         </ul>
         <label v-if="removePasswordMode" for="old-password">
@@ -92,7 +95,12 @@
             Cancel
           </button>
           <template v-if="removePasswordMode">
-            <button type="button" class="iconified-button danger-button" @click="savePassword">
+            <button
+              type="button"
+              class="iconified-button danger-button"
+              :disabled="!oldPassword"
+              @click="savePassword"
+            >
               <TrashIcon />
               Remove password
             </button>
@@ -107,7 +115,16 @@
               <TrashIcon />
               Remove password
             </button>
-            <button type="button" class="iconified-button brand-button" @click="savePassword">
+            <button
+              type="button"
+              class="iconified-button brand-button"
+              :disabled="
+                newPassword.length == 0 ||
+                (auth.user.has_password && oldPassword.length == 0) ||
+                newPassword !== confirmNewPassword
+              "
+              @click="savePassword"
+            >
               <SaveIcon />
               Save password
             </button>
@@ -250,7 +267,11 @@
               >
                 <TrashIcon /> Remove
               </button>
-              <a v-else class="btn" :href="`${getAuthUrl(provider.id)}&token=${auth.token}`">
+              <a
+                v-else
+                class="btn"
+                :href="`${getAuthUrl(provider.id, '/settings/account')}&token=${auth.token}`"
+              >
                 <ExternalIcon /> Add
               </a>
             </div>
@@ -577,27 +598,6 @@ const authProviders = [
     icon: GoogleIcon,
   },
 ]
-
-async function removeAuthProvider(provider) {
-  startLoading()
-  try {
-    await useBaseFetch('auth/provider', {
-      method: 'DELETE',
-      body: {
-        provider,
-      },
-    })
-    await useAuth(auth.value.token)
-  } catch (err) {
-    data.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err.data.description,
-      type: 'error',
-    })
-  }
-  stopLoading()
-}
 
 async function deleteAccount() {
   startLoading()
