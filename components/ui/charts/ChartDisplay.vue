@@ -25,7 +25,7 @@
                 ? 'chart-button-base__selected button-base__selected'
                 : ''
             }`"
-            :onclick="() => setSelectedChart('downloads')"
+            :onclick="() => (selectedChart = 'downloads')"
             role="button"
           />
         </client-only>
@@ -42,7 +42,7 @@
             :class="`clickable chart-button-base button-base ${
               selectedChart === 'views' ? 'chart-button-base__selected button-base__selected' : ''
             }`"
-            :onclick="() => setSelectedChart('views')"
+            :onclick="() => (selectedChart = 'views')"
             role="button"
           />
         </client-only>
@@ -59,7 +59,7 @@
             :class="`clickable chart-button-base button-base ${
               selectedChart === 'revenue' ? 'chart-button-base__selected button-base__selected' : ''
             }`"
-            :onclick="() => setSelectedChart('revenue')"
+            :onclick="() => (selectedChart = 'revenue')"
             role="button"
           />
         </client-only>
@@ -102,7 +102,11 @@
                   :data="analytics.formattedData.value.downloads.chart.data"
                   :labels="analytics.formattedData.value.downloads.chart.labels"
                   suffix="<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' /></svg>"
-                  :colors="analytics.formattedData.value.downloads.chart.colors"
+                  :colors="
+                    isUsingProjectColors
+                      ? analytics.formattedData.value.downloads.chart.colors
+                      : analytics.formattedData.value.downloads.chart.defaultColors
+                  "
                 />
                 <Chart
                   v-if="analytics.formattedData.value.views && selectedChart === 'views'"
@@ -113,7 +117,11 @@
                   :data="analytics.formattedData.value.views.chart.data"
                   :labels="analytics.formattedData.value.views.chart.labels"
                   suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/><circle cx='12' cy='12' r='3'/></svg>"
-                  :colors="analytics.formattedData.value.views.chart.colors"
+                  :colors="
+                    isUsingProjectColors
+                      ? analytics.formattedData.value.views.chart.colors
+                      : analytics.formattedData.value.views.chart.defaultColors
+                  "
                 />
                 <Chart
                   v-if="analytics.formattedData.value.revenue && selectedChart === 'revenue'"
@@ -125,7 +133,11 @@
                   :labels="analytics.formattedData.value.revenue.chart.labels"
                   is-money
                   suffix="<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='12' y1='2' x2='12' y2='22'></line><path d='M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'></path></svg>"
-                  :colors="analytics.formattedData.value.revenue.chart.colors"
+                  :colors="
+                    isUsingProjectColors
+                      ? analytics.formattedData.value.revenue.chart.colors
+                      : analytics.formattedData.value.revenue.chart.defaultColors
+                  "
                 />
               </client-only>
             </div>
@@ -321,22 +333,24 @@ const selectableRanges = Object.entries(props.ranges).map(([duration, extra]) =>
 }))
 
 // const selectedChart = ref('downloads')
-const selectedChart = computed(() => {
-  const id = (router.currentRoute.value.query?.chart as string | undefined) || 'downloads'
-  // if the id is anything but the 3 charts we have or undefined, throw an error
-  if (!['downloads', 'views', 'revenue'].includes(id)) {
-    throw new Error(`Unknown chart ${id}`)
-  }
-  return id
+const selectedChart = computed({
+  get: () => {
+    const id = (router.currentRoute.value.query?.chart as string | undefined) || 'downloads'
+    // if the id is anything but the 3 charts we have or undefined, throw an error
+    if (!['downloads', 'views', 'revenue'].includes(id)) {
+      throw new Error(`Unknown chart ${id}`)
+    }
+    return id
+  },
+  set: (chart) => {
+    router.push({
+      query: {
+        ...router.currentRoute.value.query,
+        chart,
+      },
+    })
+  },
 })
-const setSelectedChart = (chart: string) => {
-  router.push({
-    query: {
-      ...router.currentRoute.value.query,
-      chart,
-    },
-  })
-}
 
 // Chart refs
 const downloadsChart = ref()
@@ -363,24 +377,6 @@ const projectIsOnDisplay = (id: string) => {
   return selectedDisplayProjects.value.some((p) => p.id === id)
 }
 
-const setChartColors = (updatedVal: Ref<boolean>) => {
-  downloadsChart.value?.updateColors(
-    updatedVal.value
-      ? analytics.formattedData.value.downloads.chart.colors
-      : analytics.formattedData.value.downloads.chart.defaultColors
-  )
-  viewsChart.value?.updateColors(
-    updatedVal.value
-      ? analytics.formattedData.value.views.chart.colors
-      : analytics.formattedData.value.views.chart.defaultColors
-  )
-  revenueChart.value?.updateColors(
-    updatedVal.value
-      ? analytics.formattedData.value.revenue.chart.colors
-      : analytics.formattedData.value.revenue.chart.defaultColors
-  )
-}
-
 const resetCharts = () => {
   downloadsChart.value?.resetChart()
   viewsChart.value?.resetChart()
@@ -389,13 +385,23 @@ const resetCharts = () => {
   tinyDownloadChart.value?.resetChart()
   tinyViewChart.value?.resetChart()
   tinyRevenueChart.value?.resetChart()
-
-  setChartColors(isUsingProjectColors)
 }
 
-const isUsingProjectColors = ref(true)
-watch(() => isUsingProjectColors, setChartColors, {
-  deep: true,
+const isUsingProjectColors = computed({
+  get: () => {
+    return (
+      router.currentRoute.value.query?.colors === 'true' ||
+      router.currentRoute.value.query?.colors === undefined
+    )
+  },
+  set: (newValue) => {
+    router.push({
+      query: {
+        ...router.currentRoute.value.query,
+        colors: newValue ? 'true' : 'false',
+      },
+    })
+  },
 })
 
 const analytics = useFetchAllAnalytics(resetCharts, selectedDisplayProjects)
