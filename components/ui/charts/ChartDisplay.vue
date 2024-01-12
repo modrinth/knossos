@@ -143,7 +143,7 @@
             </div>
             <div class="legend">
               <div class="legend__items">
-                <template v-for="project in props.projects" :key="project.id">
+                <template v-for="project in selectedDataSetProjects" :key="project">
                   <button
                     v-tooltip="project.title"
                     :class="`legend__item button-base btn-transparent ${
@@ -328,6 +328,8 @@ const props = withDefaults(
   }
 )
 
+const projects = ref(props.projects || [])
+
 const selectableRanges = Object.entries(props.ranges).map(([duration, extra]) => ({
   label: typeof extra === 'string' ? extra : extra[0],
   value: Number(duration),
@@ -376,7 +378,7 @@ const addProjectToDisplay = (id: string) => {
 }
 
 const projectIsOnDisplay = (id: string) => {
-  return selectedDisplayProjects.value.some((p) => p.id === id)
+  return selectedDisplayProjects.value?.some((p) => p.id === id) ?? false
 }
 
 const resetCharts = () => {
@@ -406,7 +408,12 @@ const isUsingProjectColors = computed({
   },
 })
 
-const analytics = useFetchAllAnalytics(resetCharts, selectedDisplayProjects, props.personal)
+const analytics = useFetchAllAnalytics(
+  resetCharts,
+  projects,
+  selectedDisplayProjects,
+  props.personal
+)
 
 const { startDate, endDate, timeRange, timeResolution } = analytics
 
@@ -430,26 +437,28 @@ const selectedRange = computed({
   },
 })
 
+const selectedDataSet = computed(() => {
+  switch (selectedChart.value) {
+    case 'downloads':
+      return analytics.totalData.value.downloads
+    case 'views':
+      return analytics.totalData.value.views
+    case 'revenue':
+      return analytics.totalData.value.revenue
+    default:
+      throw new Error(`Unknown chart ${selectedChart.value}`)
+  }
+})
+const selectedDataSetProjects = computed(() => {
+  return selectedDataSet.value.projectIds
+    .map((id) => props.projects?.find((p) => p?.id === id))
+    .filter(Boolean)
+})
+
 const downloadSelectedSetAsCSV = () => {
   const selectedChartName = selectedChart.value
 
-  let downloadsDataSet
-
-  switch (selectedChartName) {
-    case 'downloads':
-      downloadsDataSet = analytics.formattedData.value.downloads
-      break
-    case 'views':
-      downloadsDataSet = analytics.formattedData.value.views
-      break
-    case 'revenue':
-      downloadsDataSet = analytics.formattedData.value.revenue
-      break
-    default:
-      throw new Error(`Unknown chart ${selectedChartName}`)
-  }
-
-  const csv = analyticsSetToCSVString(downloadsDataSet)
+  const csv = analyticsSetToCSVString(selectedDataSet.value)
 
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
 

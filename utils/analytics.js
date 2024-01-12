@@ -126,6 +126,7 @@ const emptyAnalytics = {
     colors: [],
     defaultColors: [],
   },
+  projectIds: [],
 }
 
 export const analyticsSetToCSVString = (analytics) => {
@@ -165,7 +166,6 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
   const loadedProjectData = loadedProjectIds.map((id) => category[id])
 
   // Convert each project's data into a list of [unix_ts_str, number] pairs
-  // Sort, label&map
   const projectData = loadedProjectData
     .map((data) => Object.entries(data))
     .map((data) => data.sort(sortFn))
@@ -198,6 +198,8 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
         b.data.reduce((acc, cur) => acc + cur, 0) - a.data.reduce((acc, cur) => acc + cur, 0)
     )
 
+  const projectIdsSortedBySum = chartData.map((p) => p.id)
+
   return {
     // The total count of all the values across all projects
     sum: projectData.reduce((acc, cur) => acc + cur.reduce((a, c) => a + c[1], 0), 0),
@@ -225,6 +227,7 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
         return getDefaultColor(project.id)
       }),
     },
+    projectIds: projectIdsSortedBySum,
   }
 }
 
@@ -295,7 +298,12 @@ const useFetchAnalytics = (
  * @param {Ref<any[]>} projects
  * @param {undefined | () => any} onDataRefresh
  */
-export const useFetchAllAnalytics = (onDataRefresh, projects, personalRevenue = false) => {
+export const useFetchAllAnalytics = (
+  onDataRefresh,
+  projects,
+  selectedProjects,
+  personalRevenue = false
+) => {
   const timeResolution = ref(1440) // 1 day
   const timeRange = ref(43200) // 30 days
 
@@ -311,11 +319,17 @@ export const useFetchAllAnalytics = (onDataRefresh, projects, personalRevenue = 
   const error = ref(null)
 
   const formattedData = computed(() => ({
+    downloads: processNumberAnalytics(downloadData.value, selectedProjects.value),
+    views: processNumberAnalytics(viewData.value, selectedProjects.value),
+    revenue: processRevAnalytics(revenueData.value, selectedProjects.value),
+    downloadsByCountry: processCountryAnalytics(downloadsByCountry.value, selectedProjects.value),
+    viewsByCountry: processCountryAnalytics(viewsByCountry.value, selectedProjects.value),
+  }))
+
+  const totalData = computed(() => ({
     downloads: processNumberAnalytics(downloadData.value, projects.value),
     views: processNumberAnalytics(viewData.value, projects.value),
     revenue: processRevAnalytics(revenueData.value, projects.value),
-    downloadsByCountry: processCountryAnalytics(downloadsByCountry.value, projects.value),
-    viewsByCountry: processCountryAnalytics(viewsByCountry.value, projects.value),
   }))
 
   const fetchData = async (query) => {
@@ -409,10 +423,12 @@ export const useFetchAllAnalytics = (onDataRefresh, projects, personalRevenue = 
     }
 
     if (revenueData.value) {
-      // revenue will always have all project ids, but the ids may have an empty object as value.
+      // revenue will always have all project ids, but the ids may have an empty object or a ton of keys below a cent (0.00...) as values. We want to filter those out
       Object.entries(revenueData.value).forEach(([id, data]) => {
         if (Object.keys(data).length) {
-          ids.add(id)
+          if (Object.values(data).some((v) => v >= 0.01)) {
+            ids.add(id)
+          }
         }
       })
     }
@@ -438,6 +454,7 @@ export const useFetchAllAnalytics = (onDataRefresh, projects, personalRevenue = 
     // Computed state
     validProjectIds,
     formattedData,
+    totalData,
     loading,
     error,
   }
