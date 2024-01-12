@@ -38,7 +38,22 @@ const hashProjectId = (projectId) => {
   return projectId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 30
 }
 
-export const defaultColors = ['#ff496e', '#ffa347', '#1bd96a', '#4f9cff', '#c78aff']
+export const defaultColors = [
+  '#ff496e', // Original: Bright pink
+  '#ffa347', // Original: Bright orange
+  '#1bd96a', // Original: Bright green
+  '#4f9cff', // Original: Bright blue
+  '#c78aff', // Original: Bright purple
+  '#ffeb3b', // Added: Bright yellow
+  '#00bcd4', // Added: Bright cyan
+  '#ff5722', // Added: Bright red-orange
+  '#9c27b0', // Added: Bright deep purple
+  '#3f51b5', // Added: Bright indigo
+  '#009688', // Added: Bright teal
+  '#cddc39', // Added: Bright lime
+  '#795548', // Added: Bright brown
+  '#607d8b', // Added: Bright blue-grey
+]
 
 /**
  * @param {string | number} value
@@ -280,7 +295,7 @@ const useFetchAnalytics = (
  * @param {Ref<any[]>} projects
  * @param {undefined | () => any} onDataRefresh
  */
-export const useFetchAllAnalytics = (onDataRefresh, projects) => {
+export const useFetchAllAnalytics = (onDataRefresh, projects, personalRevenue = false) => {
   const timeResolution = ref(1440) // 1 day
   const timeRange = ref(43200) // 30 days
 
@@ -306,7 +321,11 @@ export const useFetchAllAnalytics = (onDataRefresh, projects) => {
   const fetchData = async (query) => {
     const normalQuery = new URLSearchParams(query)
     const revenueQuery = new URLSearchParams(query)
-    revenueQuery.delete('projects')
+
+    if (personalRevenue) {
+      revenueQuery.delete('project_ids')
+    }
+
     const qs = normalQuery.toString()
     const revenueQs = revenueQuery.toString()
 
@@ -324,7 +343,12 @@ export const useFetchAllAnalytics = (onDataRefresh, projects) => {
 
       // collect project ids from projects.value into a set
       const projectIds = new Set()
-      projects.value.forEach((p) => projectIds.add(p.id))
+      if (projects.value) {
+        projects.value.forEach((p) => projectIds.add(p.id))
+      } else {
+        // if projects.value is not set, we assume that we want all project ids
+        Object.keys(responses[0] || {}).forEach((id) => projectIds.add(id))
+      }
 
       const filterProjectIds = (data) => {
         const filtered = {}
@@ -358,7 +382,7 @@ export const useFetchAllAnalytics = (onDataRefresh, projects) => {
         resolution_minutes: timeResolution.value,
       }
 
-      if (projects?.length) {
+      if (projects.value?.length) {
         q.project_ids = JSON.stringify(projects.value.map((p) => p.id))
       }
 
