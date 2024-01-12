@@ -1,4 +1,4 @@
-const scopeIntlDefs = {
+export const scopeMessages = defineMessages({
   userReadEmailLabel: {
     id: 'scopes.userReadEmail.label',
     defaultMessage: 'Read user email',
@@ -319,9 +319,7 @@ const scopeIntlDefs = {
     id: 'scopes.sessionAccess.description',
     defaultMessage: 'Access modrinth-issued sessions',
   },
-}
-
-const scopeMessages = defineMessages(scopeIntlDefs)
+})
 
 const scopeDefinitions = [
   {
