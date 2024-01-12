@@ -74,7 +74,7 @@
             </h2>
             <div class="chart-controls__buttons">
               <Button v-tooltip="'Toggle project colors'" icon-only @click="onToggleColors">
-                <EyeIcon />
+                <PaletteIcon />
               </Button>
               <Button v-tooltip="'Download this data as CSV'" icon-only @click="onDownloadSetAsCSV">
                 <DownloadIcon />
@@ -298,7 +298,6 @@ import {
   formatNumber,
   DropdownSelect,
   formatCategoryHeader,
-  EyeIcon,
 } from 'omorphia'
 import dayjs from 'dayjs'
 import { defineProps, ref, computed } from 'vue'
@@ -306,6 +305,8 @@ import { defineProps, ref, computed } from 'vue'
 import { analyticsSetToCSVString, intToRgba } from '~/utils/analytics.js'
 
 import { UiChartsCompactChart as CompactChart, UiChartsChart as Chart } from '#components'
+
+import PaletteIcon from '~/assets/icons/palette.svg'
 
 const router = useRouter()
 const theme = useTheme()
