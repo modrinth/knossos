@@ -24,7 +24,6 @@
         <div id="pat-scopes" class="checkboxes">
           <Checkbox
             v-for="scope in scopeList"
-            v-for="scope in scopeList"
             :key="scope"
             :label="scopesToLabels(getScopeValue(scope)).join(', ')"
             :model-value="hasScope(scopesVal, scope)"
