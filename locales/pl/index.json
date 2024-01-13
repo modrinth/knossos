@@ -68,6 +68,9 @@
   "profile.label.no-projects-auth": {
     "message": "Nie masz żadnych projektów.\nCzy chcesz <create-link>utworzyć jeden</create-link>?"
   },
+  "profile.label.organizations": {
+    "message": "Organizacje"
+  },
   "profile.meta.description": {
     "message": "Pobieraj projekty {username} na Modrinth"
   },
@@ -133,6 +136,258 @@
   },
   "project-type.shader.singular": {
     "message": "Shader"
+  },
+  "revenue.transfers.total": {
+    "message": "Wypłaciłeś łącznie {amount}."
+  },
+  "revenue.transfers.total.method": {
+    "message": "Wypłaciłeś łącznie {amount} przez {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "Wypłaciłeś łącznie {amount} w {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "Wypłaciłeś łącznie {amount} w {year} przez {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "Dostęp do twoich danych analitycznych"
+  },
+  "scopes.analytics.label": {
+    "message": "Czytanie analiz"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Tworzenie kolekcji"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Tworzenie kolekcji"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Usuwanie kolekcji"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Usuwanie kolekcji"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Czytanie kolekcji"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Czytanie kolekcji"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Zapisywanie do kolekcji"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Zapisywanie kolekcji"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Czytanie twoich powiadomień"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Czytanie powiadomień"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Usuwanie/Wyświetlanie twoich powiadomień"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Zapisywanie powiadomień"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Tworzenie organizacji"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Tworzenie organizacji"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Usuwanie organizacji"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Usuwanie organizacji"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Czytanie organizacji"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Czytanie organizacji"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Zapisywanie do organizacji"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Zapisywanie organizacji"
+  },
+  "scopes.patCreate.description": {
+    "message": "Tworzenie osobistych tokenów API"
+  },
+  "scopes.patCreate.label": {
+    "message": "Tworzenie osobistych tokenów dostępu"
+  },
+  "scopes.patDelete.description": {
+    "message": "Usuwanie osobistych tokenów API"
+  },
+  "scopes.patDelete.label": {
+    "message": "Usuwanie osobistych tokenów dostępu"
+  },
+  "scopes.patRead.description": {
+    "message": "Wyświetlanie utworzonych tokenów API"
+  },
+  "scopes.patRead.label": {
+    "message": "Czytanie osobistych tokenów dostępu"
+  },
+  "scopes.patWrite.description": {
+    "message": "Edytowanie osobistych tokenów API"
+  },
+  "scopes.patWrite.label": {
+    "message": "Pisanie osobistych tokenów dostępu"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Czytanie danych twoich wypłat"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Czytanie wypłat"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Wypłacanie pieniędzy"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Pisanie wypłat"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Wykonywanie działań analitycznych"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Wykonywanie analityk"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Tworzenie nowych projektów"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Tworzenie projektów"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Usuwanie twoich projektów"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Usuwanie projektów"
+  },
+  "scopes.projectRead.description": {
+    "message": "Czytanie wszystkich twoich projektów"
+  },
+  "scopes.projectRead.label": {
+    "message": "Czytanie projektów"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Zapisywanie do danych projektu"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Zapisywanie projektów"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Tworzenie raportów"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Tworzenie raportów"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Usuwanie raportów"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Usuwanie raportów"
+  },
+  "scopes.reportRead.description": {
+    "message": "Czytanie raportów"
+  },
+  "scopes.reportRead.label": {
+    "message": "Czytanie raportów"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Edytowanie raportów"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Pisanie raportów"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Dostęp do sesji wydanych przez Modrinth"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Dostęp do sesji"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Usuwanie sesji"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Usuwanie sesji"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Czytanie aktywnych sesji"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Czytanie sesji"
+  },
+  "scopes.threadRead.description": {
+    "message": "Czytanie wątków"
+  },
+  "scopes.threadRead.label": {
+    "message": "Czytanie wątków"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Zapisywanie do wątków"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Zapisywanie do wątków"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Modyfikowanie twoich danych uwierzytelniania"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Zapisywanie danych uwierzytelniania"
+  },
+  "scopes.userDelete.description": {
+    "message": "Usuwanie twojego konta"
+  },
+  "scopes.userDelete.label": {
+    "message": "Usuwanie twojego konta"
+  },
+  "scopes.userRead.description": {
+    "message": "Dostęp do informacji w publicznym profilu"
+  },
+  "scopes.userRead.label": {
+    "message": "Czytanie danych użytkownika"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Czytanie twojego e-maila"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Czytanie e-maila użytkownika"
+  },
+  "scopes.userWrite.description": {
+    "message": "Zapisywanie do twojego profilu"
+  },
+  "scopes.userWrite.label": {
+    "message": "Czytanie danych użytkownika"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Tworzenie nowych wersji"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Tworzenie wersji"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Usuwanie wersji"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Usuwanie wersji"
+  },
+  "scopes.versionRead.description": {
+    "message": "Czytanie wszystkich wersji"
+  },
+  "scopes.versionRead.label": {
+    "message": "Czytanie wersji"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Zapisywanie do danych wersji"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Zapisywanie wersji"
   },
   "settings.language.categories.auto": {
     "message": "Automatyczny"
