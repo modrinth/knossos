@@ -68,6 +68,9 @@
   "profile.label.no-projects-auth": {
     "message": "您没有任何项目。\n您想要<create-link>创建一个</create-link>吗？"
   },
+  "profile.label.organizations": {
+    "message": "组织"
+  },
   "profile.meta.description": {
     "message": "前往 Modrinth 下载 {username} 的项目"
   },
@@ -133,6 +136,258 @@
   },
   "project-type.shader.singular": {
     "message": "光影包"
+  },
+  "revenue.transfers.total": {
+    "message": "您总共提现了{amount}。"
+  },
+  "revenue.transfers.total.method": {
+    "message": "您通过{method}提现了{amount}。"
+  },
+  "revenue.transfers.total.year": {
+    "message": "您在{year}年提现了{amount}。"
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "您通过{method}在{year}年提现了{amount}。"
+  },
+  "scopes.analytics.description": {
+    "message": "访问您的分析数据"
+  },
+  "scopes.analytics.label": {
+    "message": "阅读分析"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "创建收藏夹"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "创建收藏夹"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "删除收藏夹"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "删除收藏夹"
+  },
+  "scopes.collectionRead.description": {
+    "message": "读取收藏夹"
+  },
+  "scopes.collectionRead.label": {
+    "message": "读取收藏夹"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Write to collections"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Write collections"
+  },
+  "scopes.notificationRead.description": {
+    "message": "查看您的通知"
+  },
+  "scopes.notificationRead.label": {
+    "message": "读取通知"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "删除/查看您的通知"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Write notifications"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "创建组织"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "创建组织"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "删除组织"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "删除组织"
+  },
+  "scopes.organizationRead.description": {
+    "message": "查看组织"
+  },
+  "scopes.organizationRead.label": {
+    "message": "读取组织"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Write to organizations"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Write organizations"
+  },
+  "scopes.patCreate.description": {
+    "message": "创建个人API令牌"
+  },
+  "scopes.patCreate.label": {
+    "message": "Create PATs"
+  },
+  "scopes.patDelete.description": {
+    "message": "删除您的个人API令牌"
+  },
+  "scopes.patDelete.label": {
+    "message": "Delete PATs"
+  },
+  "scopes.patRead.description": {
+    "message": "查看已创建的API令牌"
+  },
+  "scopes.patRead.label": {
+    "message": "Read PATs"
+  },
+  "scopes.patWrite.description": {
+    "message": "编辑个人API令牌"
+  },
+  "scopes.patWrite.label": {
+    "message": "Write PATs"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "查看您的付款数据"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "查看付款"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "提现"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Write payouts"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "进行分析操作"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "进行分析"
+  },
+  "scopes.projectCreate.description": {
+    "message": "创建新项目"
+  },
+  "scopes.projectCreate.label": {
+    "message": "创建项目"
+  },
+  "scopes.projectDelete.description": {
+    "message": "删除您的项目"
+  },
+  "scopes.projectDelete.label": {
+    "message": "删除项目"
+  },
+  "scopes.projectRead.description": {
+    "message": "查看您的所有项目"
+  },
+  "scopes.projectRead.label": {
+    "message": "查看项目"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Write to project data"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Write projects"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Create reports"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Create reports"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Delete reports"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Delete reports"
+  },
+  "scopes.reportRead.description": {
+    "message": "Read reports"
+  },
+  "scopes.reportRead.label": {
+    "message": "Read reports"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Edit reports"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Write reports"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Access modrinth-issued sessions"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Access sessions"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Delete sessions"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Delete sessions"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Read active sessions"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Read sessions"
+  },
+  "scopes.threadRead.description": {
+    "message": "Read threads"
+  },
+  "scopes.threadRead.label": {
+    "message": "Read threads"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Write to threads"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Write threads"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "修改您的身份验证数据"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Write auth data"
+  },
+  "scopes.userDelete.description": {
+    "message": "删除当前帐户"
+  },
+  "scopes.userDelete.label": {
+    "message": "删除当前帐户"
+  },
+  "scopes.userRead.description": {
+    "message": "访问您的公开资料信息"
+  },
+  "scopes.userRead.label": {
+    "message": "Read user data"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Read your email"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Read user email"
+  },
+  "scopes.userWrite.description": {
+    "message": "Write to your profile"
+  },
+  "scopes.userWrite.label": {
+    "message": "Write user data"
+  },
+  "scopes.versionCreate.description": {
+    "message": "创建新版本"
+  },
+  "scopes.versionCreate.label": {
+    "message": "创建版本"
+  },
+  "scopes.versionDelete.description": {
+    "message": "删除一个版本"
+  },
+  "scopes.versionDelete.label": {
+    "message": "删除版本"
+  },
+  "scopes.versionRead.description": {
+    "message": "查看所有版本"
+  },
+  "scopes.versionRead.label": {
+    "message": "查看版本"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Write to version data"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Write versions"
   },
   "settings.language.categories.auto": {
     "message": "自动"
