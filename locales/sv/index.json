@@ -9,13 +9,13 @@
     "message": "Spara"
   },
   "frog": {
-    "message": "Du har blivit frogged! 🐸"
+    "message": "Du har blivit grodad! 🐸"
   },
   "frog.altText": {
     "message": "En fotorealistisk målning av en grodlabyrint"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} person} other {{count} personer}} har blivit frogged!"
+    "message": "{count, plural, one {{count} person} other {{count} personer}} har blivit grodad!"
   },
   "frog.sinceOpened": {
     "message": "Sidan öppnades {ago}"
@@ -67,6 +67,9 @@
   },
   "profile.label.no-projects-auth": {
     "message": "Du har inga projekt.\nVill du <create-link>skapa ett</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Organisationer"
   },
   "profile.meta.description": {
     "message": "Ladda ner {username}s projekt på Modrinth"
@@ -133,6 +136,258 @@
   },
   "project-type.shader.singular": {
     "message": "Shader"
+  },
+  "revenue.transfers.total": {
+    "message": "Du har dragit ut totalt {amount}."
+  },
+  "revenue.transfers.total.method": {
+    "message": "Du har dragit ut {amount} via {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "Du har dragit ut {amount} under {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "Du har dragit ut {amount} under {year} via {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "Få tillgång till din analysdata"
+  },
+  "scopes.analytics.label": {
+    "message": "Läsa analyser"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Skapa samlingar"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Skapa samlingar"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Radera samlingar"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Radera samlingar"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Läsa samlingar"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Läsa samlingar"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Skriva till samlingar"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Skriva samlingar"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Läsa dina notiser"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Läsa notiser"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Visa/Radera dina notiser"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Skriva notiser"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Skapa organisationer"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Skapa organisationer"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Radera organisationer"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Radera organisationer"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Läsa organisationer"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Läsa organisationer"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Skriva till organisationer"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Skriva organisationer"
+  },
+  "scopes.patCreate.description": {
+    "message": "Skapa personliga API-tokens"
+  },
+  "scopes.patCreate.label": {
+    "message": "Skapa PATs"
+  },
+  "scopes.patDelete.description": {
+    "message": "Radera dina personliga API-tokens"
+  },
+  "scopes.patDelete.label": {
+    "message": "Radera PATs"
+  },
+  "scopes.patRead.description": {
+    "message": "Visa skapade API-tokens"
+  },
+  "scopes.patRead.label": {
+    "message": "Läsa PATs"
+  },
+  "scopes.patWrite.description": {
+    "message": "Redigera personliga API-tokens"
+  },
+  "scopes.patWrite.label": {
+    "message": "Skriva PATs"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Läsa din data för utdragningar"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Läsa utdragningar"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Dra ut pengar"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Skriva utdragningar"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Utföra analysåtgärder"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Utföra analyser"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Skapa nya projekt"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Skapa projekt"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Radera dina projekt"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Radera projekt"
+  },
+  "scopes.projectRead.description": {
+    "message": "Läsa alla dina projekt"
+  },
+  "scopes.projectRead.label": {
+    "message": "Läsa projekt"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Skriva till projektdata"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Skriva projekt"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Skapa rapporteringar"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Rapportera"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Radera rapporteringar"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Radera rapporteringar"
+  },
+  "scopes.reportRead.description": {
+    "message": "Läsa rapporteringar"
+  },
+  "scopes.reportRead.label": {
+    "message": "Läsa rapporteringar"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Redigera rapporteringar"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Skriva rapporteringar"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Få tillgång till modrinth-utfärdarde sessioner"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Komma åt sessioner"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Radera sessioner"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Radera sesioner"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Läsa aktiva sessioner"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Läsa sessioner"
+  },
+  "scopes.threadRead.description": {
+    "message": "Läsa trådar"
+  },
+  "scopes.threadRead.label": {
+    "message": "Läsa trådar"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Skriva till trådar"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Skriva trådar"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Ändra din autentiseringsdata"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Skriva autentiseringsdata"
+  },
+  "scopes.userDelete.description": {
+    "message": "Radera ditt konto"
+  },
+  "scopes.userDelete.label": {
+    "message": "Radera ditt konto"
+  },
+  "scopes.userRead.description": {
+    "message": "Få tillgång till din offentliga profilinformation"
+  },
+  "scopes.userRead.label": {
+    "message": "Läsa användardata"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Läsa din e-post"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Läsa användar e-post"
+  },
+  "scopes.userWrite.description": {
+    "message": "Skriva till din profil"
+  },
+  "scopes.userWrite.label": {
+    "message": "Skriva användardata"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Skapa nya versioner"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Skapa versioner"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Radera versioner"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Radera versioner"
+  },
+  "scopes.versionRead.description": {
+    "message": "Läsa alla versioner"
+  },
+  "scopes.versionRead.label": {
+    "message": "Läsa versioner"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Skriva till versionsdata"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Skriva versioner"
   },
   "settings.language.categories.auto": {
     "message": "Automatisk"
