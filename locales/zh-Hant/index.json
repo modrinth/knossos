@@ -68,6 +68,9 @@
   "profile.label.no-projects-auth": {
     "message": "你沒有任何專案。\n你想要 <create-link>建立一個</create-link> 嗎？"
   },
+  "profile.label.organizations": {
+    "message": "組織"
+  },
   "profile.meta.description": {
     "message": "前往 Modrinth 下載 {username} 的專案"
   },
@@ -133,6 +136,258 @@
   },
   "project-type.shader.singular": {
     "message": "光影包"
+  },
+  "revenue.transfers.total": {
+    "message": "您總共提款了 {amount} 元。"
+  },
+  "revenue.transfers.total.method": {
+    "message": "你透過 {method} 提款了 {amount} 元。"
+  },
+  "revenue.transfers.total.year": {
+    "message": "您在 {year} 年提款了 {amount} 元。"
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "您透過 {method} 在 {year} 年提款了 {amount} 元。"
+  },
+  "scopes.analytics.description": {
+    "message": "存取您的分析數據"
+  },
+  "scopes.analytics.label": {
+    "message": "閱讀分析"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "建立收藏夾"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "建立收藏夾"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "刪除收藏夾"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "刪除收藏夾"
+  },
+  "scopes.collectionRead.description": {
+    "message": "讀取收藏夾"
+  },
+  "scopes.collectionRead.label": {
+    "message": "讀取收藏夾"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "寫入收藏夾"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "寫入收藏夾"
+  },
+  "scopes.notificationRead.description": {
+    "message": "查看您的通知"
+  },
+  "scopes.notificationRead.label": {
+    "message": "讀取通知"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "刪除／查看您的通知"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "寫入通知"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "建立組織"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "建立組織"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "刪除組織"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "刪除組織"
+  },
+  "scopes.organizationRead.description": {
+    "message": "查看組織"
+  },
+  "scopes.organizationRead.label": {
+    "message": "讀取組織"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "寫入組織"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "寫入組織"
+  },
+  "scopes.patCreate.description": {
+    "message": "建立個人 API 權杖"
+  },
+  "scopes.patCreate.label": {
+    "message": "建立 PAT"
+  },
+  "scopes.patDelete.description": {
+    "message": "刪除您的個人 API 權杖"
+  },
+  "scopes.patDelete.label": {
+    "message": "刪除 PAT"
+  },
+  "scopes.patRead.description": {
+    "message": "查看已建立的 API 權杖"
+  },
+  "scopes.patRead.label": {
+    "message": "讀取 PAT"
+  },
+  "scopes.patWrite.description": {
+    "message": "編輯個人 API 權杖"
+  },
+  "scopes.patWrite.label": {
+    "message": "寫入 PAT"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "查看您的付款資料"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "讀取付款"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "提款"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "寫入支出"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "進行分析操作"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "進行分析"
+  },
+  "scopes.projectCreate.description": {
+    "message": "建立新專案"
+  },
+  "scopes.projectCreate.label": {
+    "message": "建立專案"
+  },
+  "scopes.projectDelete.description": {
+    "message": "刪除您的專案"
+  },
+  "scopes.projectDelete.label": {
+    "message": "刪除專案"
+  },
+  "scopes.projectRead.description": {
+    "message": "查看您的所有專案"
+  },
+  "scopes.projectRead.label": {
+    "message": "讀取專案"
+  },
+  "scopes.projectWrite.description": {
+    "message": "寫入專案資料"
+  },
+  "scopes.projectWrite.label": {
+    "message": "寫入專案"
+  },
+  "scopes.reportCreate.description": {
+    "message": "建立檢舉"
+  },
+  "scopes.reportCreate.label": {
+    "message": "建立檢舉"
+  },
+  "scopes.reportDelete.description": {
+    "message": "刪除檢舉"
+  },
+  "scopes.reportDelete.label": {
+    "message": "刪除檢舉"
+  },
+  "scopes.reportRead.description": {
+    "message": "讀取檢舉"
+  },
+  "scopes.reportRead.label": {
+    "message": "讀取檢舉"
+  },
+  "scopes.reportWrite.description": {
+    "message": "編輯檢舉"
+  },
+  "scopes.reportWrite.label": {
+    "message": "寫入檢舉"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Access modrinth-issued sessions"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "存取工作階段"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "刪除工作階段"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "刪除工作階段"
+  },
+  "scopes.sessionRead.description": {
+    "message": "刪除活躍的工作階段"
+  },
+  "scopes.sessionRead.label": {
+    "message": "讀取工作階段"
+  },
+  "scopes.threadRead.description": {
+    "message": "Read threads"
+  },
+  "scopes.threadRead.label": {
+    "message": "Read threads"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Write to threads"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Write threads"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "修改您的驗證資料"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "寫入驗證資料"
+  },
+  "scopes.userDelete.description": {
+    "message": "刪除您的帳號"
+  },
+  "scopes.userDelete.label": {
+    "message": "刪除您的帳號"
+  },
+  "scopes.userRead.description": {
+    "message": "存取您的個人檔案公開資訊"
+  },
+  "scopes.userRead.label": {
+    "message": "讀取使用者資料"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "讀取您的電子郵件"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "讀取使用者電子郵件"
+  },
+  "scopes.userWrite.description": {
+    "message": "寫入您的個人檔案"
+  },
+  "scopes.userWrite.label": {
+    "message": "寫入使用者資料"
+  },
+  "scopes.versionCreate.description": {
+    "message": "建立新版本"
+  },
+  "scopes.versionCreate.label": {
+    "message": "建立版本"
+  },
+  "scopes.versionDelete.description": {
+    "message": "刪除一個版本"
+  },
+  "scopes.versionDelete.label": {
+    "message": "刪除版本"
+  },
+  "scopes.versionRead.description": {
+    "message": "查看所有版本"
+  },
+  "scopes.versionRead.label": {
+    "message": "讀取版本"
+  },
+  "scopes.versionWrite.description": {
+    "message": "寫入版本資料"
+  },
+  "scopes.versionWrite.label": {
+    "message": "寫入版本"
   },
   "settings.language.categories.auto": {
     "message": "自動切換"
