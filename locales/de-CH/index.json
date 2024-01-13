@@ -68,6 +68,9 @@
   "profile.label.no-projects-auth": {
     "message": "Du hast keine Projekte.\nMöchtest du gerne <create-link>eines erstellen</create-link>?"
   },
+  "profile.label.organizations": {
+    "message": "Organisationen"
+  },
   "profile.meta.description": {
     "message": "Lade {username}'s Projekte auf Modrinth herunter"
   },
@@ -133,6 +136,258 @@
   },
   "project-type.shader.singular": {
     "message": "Shader"
+  },
+  "revenue.transfers.total": {
+    "message": "Du hast insgesamt {amount} abgehoben."
+  },
+  "revenue.transfers.total.method": {
+    "message": "Du hast {amount} über {method} abgehoben."
+  },
+  "revenue.transfers.total.year": {
+    "message": "Du hast {amount} im Jahr {year} abgehoben."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "Du hast {amount} über {method} im Jahr {year} abgehoben."
+  },
+  "scopes.analytics.description": {
+    "message": "Greife auf deine Analysedaten zu"
+  },
+  "scopes.analytics.label": {
+    "message": "Analytiks lesen"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Sammlungen erstellen"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Sammlungen erstellen"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Sammlungen löschen"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Sammlungen löschen"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Sammlungen lesen"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Sammlungen lesen"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "In Sammlungen schreiben"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Sammlungen schreiben"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Deine Benachrichtigungen lesen"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Benachrichtigungen lesen"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Benachrichtigungen löschen/ansehen"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Benachrichtigungen schreiben"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Organisationen erstellen"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Organisationen erstellen"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Organisationen löschen"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Organisationen löschen"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Organisationen lesen"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Organisationen lesen"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "In Organisationen schrieben"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "In Organisationen schreiben"
+  },
+  "scopes.patCreate.description": {
+    "message": "Persöhnlichen API-Token erstellen"
+  },
+  "scopes.patCreate.label": {
+    "message": "PATs erstellen"
+  },
+  "scopes.patDelete.description": {
+    "message": "Deine persöhnlichen API-Tokens löschen"
+  },
+  "scopes.patDelete.label": {
+    "message": "PATs löschen"
+  },
+  "scopes.patRead.description": {
+    "message": "Erstellte API-Tokens anzeigen"
+  },
+  "scopes.patRead.label": {
+    "message": "PATs lesen"
+  },
+  "scopes.patWrite.description": {
+    "message": "Persöhnliche PATs bearbeiten"
+  },
+  "scopes.patWrite.label": {
+    "message": "PATs schreiben"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Deine Auszahlungsdaten lesen"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Auszahlungen lesen"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Geld auszahlen"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Auszahlungen schreiben"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Analytikaktionen ausführen"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Analysen ausführen"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Neue Projekte erstellen"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Projekte erstellen"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Deine Projekte löschen"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Projekte löschen"
+  },
+  "scopes.projectRead.description": {
+    "message": "Alle deine Projekte lesen"
+  },
+  "scopes.projectRead.label": {
+    "message": "Projekte lesen"
+  },
+  "scopes.projectWrite.description": {
+    "message": "In Projektdaten schreiben"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Projekte schreiben"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Meldungen erstellen"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Meldungen erstellen"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Meldungen löschen"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Meldungen löschen"
+  },
+  "scopes.reportRead.description": {
+    "message": "Meldungen lesen"
+  },
+  "scopes.reportRead.label": {
+    "message": "Meldungen lesen"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Meldungen bearbeiten"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Meldungen schreiben"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Auf Modrinth-erstelle Sitzungen zugreifen"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Zugriff auf Sitzungen"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Sitzungen löschen"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Sitzungen löschen"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Aktive Sitzungen lesen"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Sitzungen lesen"
+  },
+  "scopes.threadRead.description": {
+    "message": "Beiträge lesen"
+  },
+  "scopes.threadRead.label": {
+    "message": "Beiträge lesen"
+  },
+  "scopes.threadWrite.description": {
+    "message": "In Beiträge schreiben"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Beiträge schreiben"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Deine Authentifizierungsdaten ändern"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Authentifizierungsdaten schreiben"
+  },
+  "scopes.userDelete.description": {
+    "message": "Dein Konto löschen"
+  },
+  "scopes.userDelete.label": {
+    "message": "Dein Konto löschen"
+  },
+  "scopes.userRead.description": {
+    "message": "Zugriff auf deine öffentlichen Profilinformationen"
+  },
+  "scopes.userRead.label": {
+    "message": "Benutzerdaten lesen"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Deine E-Mail Adresse lesen"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Benutzer E-Mail lesen"
+  },
+  "scopes.userWrite.description": {
+    "message": "Auf dein Profil schreiben"
+  },
+  "scopes.userWrite.label": {
+    "message": "Benutzerdaten schreiben"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Neue Versionen erstellen"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Versionen erstellen"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Eine Version löschen"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Versionen löschen"
+  },
+  "scopes.versionRead.description": {
+    "message": "Alle Versionen lesen"
+  },
+  "scopes.versionRead.label": {
+    "message": "Versionen lesen"
+  },
+  "scopes.versionWrite.description": {
+    "message": "In Versionsdaten schreiben"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Versionen schreiben"
   },
   "settings.language.categories.auto": {
     "message": "Automatisch"
