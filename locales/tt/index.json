@@ -69,7 +69,7 @@
     "message": "Сезнең проектлар юк.\nСез <create-link>проектны ясарга</create-link> телисезме?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Оешмалар"
   },
   "profile.meta.description": {
     "message": "{username} кулланучының проектларын Modrinth-та йөкләнегез"
@@ -219,13 +219,13 @@
     "message": "Create personal API tokens"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "PAT'ларны ясау"
   },
   "scopes.patDelete.description": {
     "message": "Delete your personal API tokens"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "PAT'ларны бетерү"
   },
   "scopes.patRead.description": {
     "message": "View created API tokens"
