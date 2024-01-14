@@ -69,7 +69,7 @@
     "message": "U heeft geen projecten.\nWilt u er <create-link>een maken</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Organisaties"
   },
   "profile.meta.description": {
     "message": "Download projecten van {username} op Modrinth"
