@@ -287,9 +287,6 @@
             :featured-image="
               project.gallery
                 .find((element) => element.featured === true)
-                .then((value) => {
-                  return value === undefined ? null : value
-                })
             "
             :icon-url="project.icon_url"
             :name="project.title"
