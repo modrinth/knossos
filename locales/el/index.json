@@ -57,7 +57,7 @@
     "message": "Όνομα Χρήστη"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "Αυτός ο χρήστης δεν έχει συλλογές!"
   },
   "profile.label.no-collections-auth": {
     "message": "Δεν έχετε συλλογές.\nΘα θέλατε να <create-link>δημιουργήσετε μία</create-link>;"
