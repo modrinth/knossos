@@ -286,7 +286,7 @@
             :follows="project.followers ? project.followers.toString() : '0'"
             :featured-image="
               project.gallery
-                .find((element) => element.featured === true)
+                .find((element) => element.featured)?.url
             "
             :icon-url="project.icon_url"
             :name="project.title"
