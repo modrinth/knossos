@@ -57,10 +57,10 @@
     "message": "nimi"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "jan ni li jo ala e kulupu lipu!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "sina jo ala e kulupu.\nsina wile ala wile <create-link>pali e kulupu</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "ona li pali e ala!"
@@ -69,7 +69,7 @@
     "message": "sina pali e ala.\nsina wile ala wile <create-link>pali e ijo?</create-link>"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "kulupu jan"
   },
   "profile.meta.description": {
     "message": "o kama jo e pali tan {username} lon lipu Modrinth"
@@ -90,10 +90,10 @@
     "message": "ale"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "kulupu lipu"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "kulupu lipu"
   },
   "project-type.datapack.plural": {
     "message": "toki wawa"
@@ -120,10 +120,10 @@
     "message": "ilo kulupu"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "kulupu pi pali musi"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "kulupu pi pali musi"
   },
   "project-type.resourcepack.plural": {
     "message": "poki sitelen"
@@ -138,118 +138,118 @@
     "message": "ilo lukin"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "sina lanpan e mani pi mute nanpa {amount} lon tenpo ale."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "sina lanpan e mani pi mute nanpa {amount} kepken nasin {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "sina lanpan e mani pi mute nanpa {amount} lon tenpo sike nanpa {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "sina lanpan e mani pi mute nanpa {amount} lon tenpo sike nanpa {year} kepeken nasin {method}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "lukin e sona sina"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "lukin e sona sina"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "pali e kulupu lipu"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "pali e kulupu lipu"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "weka e kulupu lipu"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "weka e kulupu lipu"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "lukin e kulupu lipu"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "lukin e kulupu lipu"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "pana tawa kulupu lipu"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "pana tawa kulupu lipu"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "lukin e sona sin sina"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "lukin e sona sin sina"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "weka/lukin e sona sin sina"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "pali e sona sin sina"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "pali e kulupu jan"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "pali e kulupu jan"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "weka e kulupu jan"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "weka e kulupu jan"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "lukin e kulupu jan"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "lukin e kulupu jan"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "pana tawa kulupu jan"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "pana tawa kulupu jan"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "pali e nanpa API sina"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "pali e nanpa API sina"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "weka e nanpa API sina"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "weka e nanpa API sina"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "lukin e nanpa API sina"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "lukin e nanpa API sina"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "ante e nanpa API sina"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "ante e nanpa API sina"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "sona e mani tawa sina"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "sona e mani tawa sina"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "lanpan e mani sina"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "lanpan e mani sina"
   },
   "scopes.performAnalytics.description": {
     "message": "Perform analytics actions"
@@ -258,70 +258,70 @@
     "message": "Perform analytics"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "pali e kulupu musi sin"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "pali e kulupu musi"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "weka e kulupu musi"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "weka e kulupu musi"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "lukin e kulupu musi"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "lukin e kulupu musi"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "pana tawa kulupu musi"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "pana tawa kulupu musi"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "pali e sona ike"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "pali e sona ike"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "weka e sona ike"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "weka e sona ike"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "lukin e sona ike"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "lukin e sona ike"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "ante e sona ike"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "pali e sona ike"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "lukin e lon tan kulupu Modrinth"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "lukin e lon"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "weka e lon"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "weka e lon"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "lukin e lon lon tenpo ni"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "lukin e lon"
   },
   "scopes.threadRead.description": {
     "message": "Read threads"
@@ -342,52 +342,52 @@
     "message": "Write auth data"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "weka e sijelo sina"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "weka e sijelo sina"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "lukin e sona pi sijelo sina pi ken lukin"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "lukin e sona pi sijelo sina"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "lukin e nimi sina pi toki lipu"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "lukin e nimi sina pi toki lipu"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "pana tawa sijelo sina"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "pana tawa sijelo sina"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "pali e ante sin"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "pali e ante sin"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "weka e ante sin"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "weka e ante sin"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "lukin e ante sin ale"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "lukin e ante sin"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "pana tawa ante sin"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "pana tawa ante sin"
   },
   "settings.language.categories.auto": {
     "message": "toki tan ilo"
@@ -435,7 +435,7 @@
     "message": "toki"
   },
   "settings.sessions.button.revoke-session": {
-    "message": "Revoke session"
+    "message": "lanpan e lon"
   },
   "settings.sessions.description": {
     "message": "ni li ilo nanpa ale pi sijelo Modrinth sina lon tenpo ni. sina ken weka e ona.\n\nsina sona ala e ijo wan la, o weka e ona li ante e nimi ken pi sijelo Modrinth sina."
@@ -444,10 +444,10 @@
     "message": "ni li open sin lon tenpo {ago}"
   },
   "settings.sessions.label.current-session": {
-    "message": "Current session"
+    "message": "lon pi tenpo ni"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "Last accessed {ago}"
+    "message": "tenpo pini pi tenpo poka li lon tenpo {ago}"
   },
   "settings.sessions.label.unknown-os": {
     "message": "ilo pi sona ala"
@@ -456,7 +456,7 @@
     "message": "nasin pi sona ala"
   },
   "settings.sessions.title": {
-    "message": "Sessions"
+    "message": "lon pi sijelo sina"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long}, {time, time, short}"
