@@ -69,7 +69,7 @@
     "message": "אין לך פרוייקטים.\nהאם תרצה <create-link>ליצור אחד</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "ארגונים"
   },
   "profile.meta.description": {
     "message": "הורידו את הפרוייקטים של {username} ב-Modrinth"
@@ -138,16 +138,16 @@
     "message": "שיידר"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "הוצאת {amount} בסך הכול."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "הוצאת {amount} דרך {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "הוצאת {amount} ב-{year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "הוצאת {amount} ב-{year} דרך {method}."
   },
   "scopes.analytics.description": {
     "message": "Access your analytics data"
@@ -156,16 +156,16 @@
     "message": "Read analytics"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "צור אוספים"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "ליצור אוספים"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "מחק אוספים"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "למחוק אוספים"
   },
   "scopes.collectionRead.description": {
     "message": "Read collections"
