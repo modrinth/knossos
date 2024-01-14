@@ -141,19 +141,19 @@
     "message": "Wypłaciłeś łącznie {amount}."
   },
   "revenue.transfers.total.method": {
-    "message": "Wypłaciłeś łącznie {amount} przez {method}."
+    "message": "Wypłaciłeś {amount} przez {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "Wypłaciłeś łącznie {amount} w {year}."
+    "message": "Wypłaciłeś {amount} w {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "Wypłaciłeś łącznie {amount} w {year} przez {method}."
+    "message": "Wypłaciłeś {amount} w {year} przez {method}."
   },
   "scopes.analytics.description": {
     "message": "Dostęp do twoich danych analitycznych"
   },
   "scopes.analytics.label": {
-    "message": "Czytanie analiz"
+    "message": "Odczyt analityk"
   },
   "scopes.collectionCreate.description": {
     "message": "Tworzenie kolekcji"
@@ -168,16 +168,16 @@
     "message": "Usuwanie kolekcji"
   },
   "scopes.collectionRead.description": {
-    "message": "Czytanie kolekcji"
+    "message": "Odczyt kolekcji"
   },
   "scopes.collectionRead.label": {
-    "message": "Czytanie kolekcji"
+    "message": "Odczyt kolekcji"
   },
   "scopes.collectionWrite.description": {
     "message": "Zapisywanie do kolekcji"
   },
   "scopes.collectionWrite.label": {
-    "message": "Zapisywanie kolekcji"
+    "message": "Zapis kolekcji"
   },
   "scopes.notificationRead.description": {
     "message": "Czytanie twoich powiadomień"
@@ -189,7 +189,7 @@
     "message": "Usuwanie/Wyświetlanie twoich powiadomień"
   },
   "scopes.notificationWrite.label": {
-    "message": "Zapisywanie powiadomień"
+    "message": "Zapis powiadomień"
   },
   "scopes.organizationCreate.description": {
     "message": "Tworzenie organizacji"
@@ -204,52 +204,52 @@
     "message": "Usuwanie organizacji"
   },
   "scopes.organizationRead.description": {
-    "message": "Czytanie organizacji"
+    "message": "Odczyt organizacji"
   },
   "scopes.organizationRead.label": {
-    "message": "Czytanie organizacji"
+    "message": "Odczyt organizacji"
   },
   "scopes.organizationWrite.description": {
     "message": "Zapisywanie do organizacji"
   },
   "scopes.organizationWrite.label": {
-    "message": "Zapisywanie organizacji"
+    "message": "Zapis organizacji"
   },
   "scopes.patCreate.description": {
     "message": "Tworzenie osobistych tokenów API"
   },
   "scopes.patCreate.label": {
-    "message": "Tworzenie osobistych tokenów dostępu"
+    "message": "Tworzenie PAT-ów"
   },
   "scopes.patDelete.description": {
     "message": "Usuwanie osobistych tokenów API"
   },
   "scopes.patDelete.label": {
-    "message": "Usuwanie osobistych tokenów dostępu"
+    "message": "Usuwanie PAT-ów"
   },
   "scopes.patRead.description": {
     "message": "Wyświetlanie utworzonych tokenów API"
   },
   "scopes.patRead.label": {
-    "message": "Czytanie osobistych tokenów dostępu"
+    "message": "Odczyt PAT-ów"
   },
   "scopes.patWrite.description": {
     "message": "Edytowanie osobistych tokenów API"
   },
   "scopes.patWrite.label": {
-    "message": "Pisanie osobistych tokenów dostępu"
+    "message": "Zapis PAT-ów"
   },
   "scopes.payoutsRead.description": {
     "message": "Czytanie danych twoich wypłat"
   },
   "scopes.payoutsRead.label": {
-    "message": "Czytanie wypłat"
+    "message": "Odczyt wypłat"
   },
   "scopes.payoutsWrite.description": {
     "message": "Wypłacanie pieniędzy"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Pisanie wypłat"
+    "message": "Zapis wypłat"
   },
   "scopes.performAnalytics.description": {
     "message": "Wykonywanie działań analitycznych"
@@ -270,16 +270,16 @@
     "message": "Usuwanie projektów"
   },
   "scopes.projectRead.description": {
-    "message": "Czytanie wszystkich twoich projektów"
+    "message": "Odczyt wszystkich twoich projektów"
   },
   "scopes.projectRead.label": {
-    "message": "Czytanie projektów"
+    "message": "Odczyt projektów"
   },
   "scopes.projectWrite.description": {
     "message": "Zapisywanie do danych projektu"
   },
   "scopes.projectWrite.label": {
-    "message": "Zapisywanie projektów"
+    "message": "Zapis projektów"
   },
   "scopes.reportCreate.description": {
     "message": "Tworzenie raportów"
@@ -294,16 +294,16 @@
     "message": "Usuwanie raportów"
   },
   "scopes.reportRead.description": {
-    "message": "Czytanie raportów"
+    "message": "Odczyt raportów"
   },
   "scopes.reportRead.label": {
-    "message": "Czytanie raportów"
+    "message": "Odczyt raportów"
   },
   "scopes.reportWrite.description": {
     "message": "Edytowanie raportów"
   },
   "scopes.reportWrite.label": {
-    "message": "Pisanie raportów"
+    "message": "Zapis raportów"
   },
   "scopes.sessionAccess.description": {
     "message": "Dostęp do sesji wydanych przez Modrinth"
@@ -318,28 +318,28 @@
     "message": "Usuwanie sesji"
   },
   "scopes.sessionRead.description": {
-    "message": "Czytanie aktywnych sesji"
+    "message": "Odczyt aktywnych sesji"
   },
   "scopes.sessionRead.label": {
-    "message": "Czytanie sesji"
+    "message": "Odczyt sesji"
   },
   "scopes.threadRead.description": {
-    "message": "Czytanie wątków"
+    "message": "Odczyt wątków"
   },
   "scopes.threadRead.label": {
-    "message": "Czytanie wątków"
+    "message": "Odczyt wątków"
   },
   "scopes.threadWrite.description": {
     "message": "Zapisywanie do wątków"
   },
   "scopes.threadWrite.label": {
-    "message": "Zapisywanie do wątków"
+    "message": "Zapis wątków"
   },
   "scopes.userAuthWrite.description": {
     "message": "Modyfikowanie twoich danych uwierzytelniania"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Zapisywanie danych uwierzytelniania"
+    "message": "Zapis danych uwierzytelniania"
   },
   "scopes.userDelete.description": {
     "message": "Usuwanie twojego konta"
@@ -351,19 +351,19 @@
     "message": "Dostęp do informacji w publicznym profilu"
   },
   "scopes.userRead.label": {
-    "message": "Czytanie danych użytkownika"
+    "message": "Odczyt danych użytkownika"
   },
   "scopes.userReadEmail.description": {
-    "message": "Czytanie twojego e-maila"
+    "message": "Odczyt twojego e-maila"
   },
   "scopes.userReadEmail.label": {
-    "message": "Czytanie e-maila użytkownika"
+    "message": "Odczyt e-maila użytkownika"
   },
   "scopes.userWrite.description": {
     "message": "Zapisywanie do twojego profilu"
   },
   "scopes.userWrite.label": {
-    "message": "Czytanie danych użytkownika"
+    "message": "Zapis danych użytkownika"
   },
   "scopes.versionCreate.description": {
     "message": "Tworzenie nowych wersji"
@@ -378,16 +378,16 @@
     "message": "Usuwanie wersji"
   },
   "scopes.versionRead.description": {
-    "message": "Czytanie wszystkich wersji"
+    "message": "Odczyt wszystkich wersji"
   },
   "scopes.versionRead.label": {
-    "message": "Czytanie wersji"
+    "message": "Odczyt wersji"
   },
   "scopes.versionWrite.description": {
     "message": "Zapisywanie do danych wersji"
   },
   "scopes.versionWrite.label": {
-    "message": "Zapisywanie wersji"
+    "message": "Zapis wersji"
   },
   "settings.language.categories.auto": {
     "message": "Automatyczny"
