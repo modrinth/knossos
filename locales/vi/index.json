@@ -69,7 +69,7 @@
     "message": "Bạn không có dự án nào cả.\nBạn có muốn <create-link>tạo một dự án</create-link> không?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Tổ chức"
   },
   "profile.meta.description": {
     "message": "Tải xuống các dự án của {username} trên Modrinth"
@@ -156,52 +156,52 @@
     "message": "Read analytics"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Tạo bộ sưu tập"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "Tạo bộ sưu tập"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Xoá bộ sưu tập"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "Xoá bộ sưu tập"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Đọc bộ sưu tập"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Đọc bộ sưu tập"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Ghi vào bộ sưu tập"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Ghi bộ sưu tập"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Đọc thông báo của bạn"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "Đọc thông báo"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Xem/Xoá thông báo của bạn"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Ghi thông báo"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Tạo tổ chức"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Tạo tổ chức"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Xoá tổ chức"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Xoá tổ chức"
   },
   "scopes.organizationRead.description": {
     "message": "Read organizations"
