@@ -153,241 +153,241 @@
     "message": "Доступ до ваших аналітичних даних"
   },
   "scopes.analytics.label": {
-    "message": "Проглянути аналітику"
+    "message": "Дивитися аналітику"
   },
   "scopes.collectionCreate.description": {
     "message": "Створення добірок"
   },
   "scopes.collectionCreate.label": {
-    "message": "Створити добірки"
+    "message": "Створювати добірки"
   },
   "scopes.collectionDelete.description": {
     "message": "Видалення добірок"
   },
   "scopes.collectionDelete.label": {
-    "message": "Видалити добірки"
+    "message": "Видаляти добірки"
   },
   "scopes.collectionRead.description": {
-    "message": "Проглядання добірок"
+    "message": "Переглядання добірок"
   },
   "scopes.collectionRead.label": {
-    "message": "Проглянути добірки"
+    "message": "Дивитися добірки"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Редагування добірок"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Редагувати добірки"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Переглядання ваших сповіщень"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "Дивитися сповіщення"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Переглядання та видалення ваших сповіщень"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Редагувати сповіщення"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Створення організацій"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Створювати організації"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Видалення організацій"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Видаляти організації"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Переглядання організацій"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Дивитися організації"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Редагування організацій"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Редагувати організації"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Створення персональних токенів API"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "Створювати токени доступу"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Видалення персональних токенів API"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "Видаляти токени доступу"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Переглядання створених токенів API"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "Дивитися токени доступу"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Змінення персональних токенів API"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Редагувати токени доступу"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Переглядання даних про ваші виплати"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Дивитися виплати"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Виведення коштів"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Редагувати виплати"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Виконання дій з аналітикою"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Виконувати аналітику"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Створення нових проєктів"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Створювати проєкти"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Видалення ваших проєктів"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Видаляти проєкти"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Переглядання всіх ваших проєктів"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Дивитися проєкти"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Редагування даних проєкта"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Редагувати проєкти"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Створення скарг"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Створювати скарги"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Видалення скарг"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Видаляти скарги"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Переглядання скарг"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Дивитися скарги"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Редагування скарг"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Редагувати скарги"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Доступ до сесій, створених Modrinth"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Доступ до сесій"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Видалення сесій"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Видаляти сесії"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Переглядання активних сесій"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Дивитися сесії"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Переглядання гілок"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Дивитися гілки"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Редагування гілок"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Редагувати гілки"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Змінювати ваші дані автентифікації"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Редагувати дані входу"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Видалення вашого облікового запису"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Видаляти обліковий запис"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Доступ до публічної інформації вашого профілю"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Дивитися дані користувача"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Переглядання вашої електронної адреси"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "Дивитися електонну адресу користувача"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Редагування вашого профілю"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Редагувати дані користувача"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Створення нових версій"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "Створювати версії"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Видалення версій"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Видаляти версії"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Переглядання усіх версій"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "Дивитися версії"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Редагування даних версії"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "Редагувати версії"
   },
   "settings.language.categories.auto": {
     "message": "Автоматично"
