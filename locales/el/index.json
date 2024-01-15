@@ -69,7 +69,7 @@
     "message": "Δεν έχετε κανένα έργο.\nΘα θέλατε να <create-link>δημιουργήστε ένα</create-link>;"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Οργανισμοί"
   },
   "profile.meta.description": {
     "message": "Κατεβάστε τα έργα του {username} στο Modrinth"
@@ -138,52 +138,52 @@
     "message": "Shader"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "Έχετε αποσύρει {amount} συνολικά."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "Έχετε αποσύρει {amount} μέσω του {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "Έχετε αποσύρει {amount} το {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "Έχετε αποσύρει {amount} το {year} μέσω του {method}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "Πρόσβαση στα αναλυτικά δεδομένα"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Ανάγνωση αναλυτικών στοιχείων"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Δημιουργία συλλογών"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "Δημιουργία συλλογών"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Διαγραφή συλλογών"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "Διαγραφή συλλογών"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Ανάγνωση συλλογών"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Ανάγνωση συλλογών"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Επεξεργασία συλλογών"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Επεξεργασία συλλογών"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Ανάγνωση των ειδοποιήσεων σας"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "Πρόσβαση στις ειδοποιήσεις"
   },
   "scopes.notificationWrite.description": {
     "message": "Delete/View your notifications"
