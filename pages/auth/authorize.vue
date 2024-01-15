@@ -68,6 +68,15 @@ import { useAuth } from '@/composables/auth.js'
 
 import { useScopes } from '@/composables/auth/scopes.ts'
 
+const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  noLocationFoundError: {
+    id: 'auth.authorize.error.not-location-found',
+    defaultMessage: 'No redirect location found in response',
+  },
+})
+
 const data = useNuxtApp()
 
 const router = useRoute()
@@ -143,11 +152,11 @@ const onAuthorize = async () => {
       return
     }
 
-    throw new Error('No redirect location found in response')
+    throw new Error(formatMessage(messages.noLocationFoundError))
   } catch (error) {
     data.$notify({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data ? err.data.description : err,
       type: 'error',
     })
@@ -170,11 +179,11 @@ const onReject = async () => {
       return
     }
 
-    throw new Error('No redirect location found in response')
+    throw new Error(formatMessage(messages.noLocationFoundError))
   } catch (error) {
     data.$notify({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data ? err.data.description : err,
       type: 'error',
     })
