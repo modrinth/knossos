@@ -2,7 +2,7 @@
   <div>
     <div v-if="error" class="oauth-items">
       <div>
-        <h1>Error</h1>
+        <h1>{{ formatMessage(commonMessages.errorLabel) }}</h1>
       </div>
       <p>
         <span>{{ error.data.error }}: </span>

@@ -15,6 +15,10 @@ export const commonMessages = defineMessages({
     id: 'button.edit',
     defaultMessage: 'Edit',
   },
+  errorLabel: {
+    id: 'label.error',
+    defaultMessage: 'Error',
+  },
   galleryInputView: {
     id: 'input.view.gallery',
     defaultMessage: 'Gallery view',
