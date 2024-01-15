@@ -57,10 +57,10 @@
     "message": "نام ڤڠݢونا"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "ڤڠݢونا اين تيدق مميليقي سبارڠ کوليکسي!"
   },
   "profile.label.no-collections-auth": {
-    "message": "Anda tidak memiliki sebarang koleksi.\nAdakah anda mahu <create-link>mencipta sebuah koleksi</create-link>?"
+    "message": "اندا تيدق مميليقي سبارڠ کوليکسي.\nاداکه اندا ماهو <create-link>منچيڤتا سبواه کوليکسي</create-link>؟"
   },
   "profile.label.no-projects": {
     "message": "ڤڠݢونا اين تيدق مميليقي سبارڠ ڤروجک!"
@@ -69,7 +69,7 @@
     "message": "اندا تيدق مميليقي سبارڠ ڤروجيک.\nاداکه اندا ماهو <create-link>منچيڤتا سبواه ڤروجک</create-link>؟"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "ڤرتوبوهن"
   },
   "profile.meta.description": {
     "message": "موات تورون ڤروجيک ميليق {username} دمودرين‌ث"
@@ -90,10 +90,10 @@
     "message": "سموا"
   },
   "project-type.collection.plural": {
-    "message": "Koleksi"
+    "message": "کوليکسي"
   },
   "project-type.collection.singular": {
-    "message": "Koleksi"
+    "message": "کوليکسي"
   },
   "project-type.datapack.plural": {
     "message": "ڤيک داتا"
@@ -120,10 +120,10 @@
     "message": "ڤمالم"
   },
   "project-type.project.plural": {
-    "message": "Projek"
+    "message": "ڤروجيک"
   },
   "project-type.project.singular": {
-    "message": "Projek"
+    "message": "ڤروجيک"
   },
   "project-type.resourcepack.plural": {
     "message": "ڤيک سومبر"
@@ -138,256 +138,256 @@
     "message": "ڤمبايڠ"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "اندا تله مڠلوارکن {amount} سچارا کسلوروهن."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "اندا تله مڠلوارکن {amount} ملالوٴي {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "اندا تله مڠلوارکن {amount} ڤد تاهون {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "اندا تله مڠلوارکن {amount} ڤد تاهون {year} ملالوٴي {method}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "اکسيس داتا اناليتيس اندا"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "باچ اناليسيس"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "چيڤتا کوليکسي"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "چيڤتا کوليکسي"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "هاڤوس کوليکسي"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "هاڤوس کوليکسي"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "باچ کوليکسي"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "باچ کوليکسي"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "توليس ککوليکسي"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "توليس کوليکسي"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "باچ ڤمبريتاهوان اندا"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "باچ ڤمبريتاهوان"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "هاڤوس/ليهت ڤمبريتاهوان اندا"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "توليس ڤمبريتاهوان"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "چيڤتا ڤرتوبوهن"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "چيڤتا ڤرتوبوهن"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "هاڤوس ڤرتوبوهن"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "هاڤوس ڤرتوبوهن"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "باچ ڤرتوبوهن"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "باچ ڤرتوبوهن"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "توليس کڤرتوبوهن"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "توليس ڤرتوبوهن"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "چيڤتا توکن API ڤريبادي"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "چيڤتا PAT"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "هاڤوس توکن API ڤريبادي اندا"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "هاڤوس PAT"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "ليهت توکن API يڠ دچيڤتا"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "باچ PAT"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "سونتيڠ توکن API ڤريبادي"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "توليس PAT"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "باچ داتا ڤمبايرن اندا"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "باچ ڤمبايرن"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "کلوارکن واڠ"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "توليس ڤمبايرن"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "لاکوکن تيندقن اناليسيس"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "لاکوکن اناليسيس"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "چيڤتا ڤروجيک بهارو"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "چيڤتا ڤروجيک"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "هاڤوس ڤروجيک اندا"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "هاڤوس ڤروجيک"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "باچ سموا ڤروجيک اندا"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "باچ ڤروجيک"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "توليس کداتا ڤروجيک"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "توليس ڤروجيک"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "چيڤتا لاڤورن"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "چيڤتا لاڤورن"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "هاڤوس لاڤورن"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "هاڤوس لاڤورن"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "باچ لاڤورن"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "باچ لاڤورن"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "سونتيڠ لاڤورن"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "توليس لاڤورن"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "اکسيس سيسي کلوارن مودرين‌ث"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "اکسيس سيسي"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "هاڤوس سيسي"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "هاڤوس سيسي"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "باچ سيسي اکتيف"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "باچ سيسي"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "باچ ببنڠ"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "باچ ببنڠ"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "توليس کببنڠ"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "توليس ببنڠ"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "اوبه سواي داتا ڤڠصحن اندا"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "توليس داتا ڤڠصحن"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "هاڤوس اکاٴون اندا"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "هاڤوس اکاٴون اندا"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "اکسيس معلومت ڤروفيل عوام اندا"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "باچ داتا ڤڠݢونا"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "باچ اي-ميل اندا"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "باچ اي-ميل ڤڠݢونا"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "توليس کڤروفيل اندا"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "توليس داتا ڤڠݢونا"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "چيڤتا ۏرسي بهارو"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "چيڤتا ۏرسي"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "هاڤوس سبواه ۏرسي"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "هاڤوس ۏرسي"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "باچ سموا ۏرسي"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "باچ ۏرسي"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "توليس کداتا ۏرسي"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "توليس ۏرسي"
   },
   "settings.language.categories.auto": {
     "message": "اءوتوماتيک"
