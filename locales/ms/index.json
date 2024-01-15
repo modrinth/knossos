@@ -57,7 +57,7 @@
     "message": "Nama pengguna"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "Pengguna ini tidak memiliki sebarang koleksi!"
   },
   "profile.label.no-collections-auth": {
     "message": "Anda tidak memiliki sebarang koleksi.\nAdakah anda mahu <create-link>mencipta sebuah koleksi</create-link>?"
@@ -69,7 +69,7 @@
     "message": "Anda tidak memiliki sebarang projek.\nAdakah anda mahu <create-link>mencipta sebuah projek</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Pertubuhan"
   },
   "profile.meta.description": {
     "message": "Muat turun projek milik {username} di Modrinth"
@@ -138,256 +138,256 @@
     "message": "Pembayang"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "Anda telah mengeluarkan {amount} secara keseluruhan."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "Anda telah mengeluarkan {amount} melalui {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "Anda telah mengeluarkan {amount} pada tahun {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "Anda telah mengeluarkan {amount} pada tahun {year} melalui {method}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "Akses data analitis anda"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Baca analisis"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Cipta koleksi"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "Cipta koleksi"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Hapus koleksi"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "Hapus koleksi"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Baca koleksi"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Baca koleksi"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Tulis ke koleksi"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Tulis koleksi"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Baca pemberitahuan anda"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "Baca pemberitahuan"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Hapus/Lihat pemberitahuan anda"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Tulis pemberitahuan"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Cipta pertubuhan"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Cipta pertubuhan"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Hapus pertubuhan"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Hapus pertubuhan"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Baca pertubuhan"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Baca pertubuhan"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Tulis ke pertubuhan"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Tulis pertubuhan"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Cipta token API peribadi"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "Cipta PAT"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Hapus token API peribadi anda"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "Hapus PAT"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Lihat token API yang dicipta"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "Baca PAT"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Sunting token API peribadi"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Tulis PAT"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Baca data pembayaran anda"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Baca pembayaran"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Keluarkan wang"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Tulis pembayaran"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Lakukan tindakan analisis"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Lakukan analisis"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Cipta projek baharu"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Cipta projek"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Hapus projek anda"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Hapus projek"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Baca semua projek anda"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Baca projek"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Tulis ke data projek"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Tulis projek"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Cipta laporan"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Cipta laporan"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Hapus laporan"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Hapus laporan"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Baca laporan"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Baca laporan"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Sunting laporan"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Tulis laporan"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Akses sesi keluaran modrinth"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Akses sesi"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Hapus sesi"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Hapus sesi"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Baca sesi aktif"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Baca sesi"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Baca bebenang"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Baca bebenang"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Tulis ke bebenang"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Tulis bebenang"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Ubah suai data pengesahan anda"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Tulis data pengesahan"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Hapus akaun anda"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Hapus akaun anda"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Akses maklumat profil awam anda"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Baca data pengguna"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Baca e-mel anda"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "Baca e-mel pengguna"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Tulis ke profil anda"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Tulis data pengguna"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Cipta versi baharu"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "Cipta versi"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Hapus sebuah versi"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Hapus versi"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Baca semua versi"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "Baca versi"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Tulis ke data versi"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "Tulis versi"
   },
   "settings.language.categories.auto": {
     "message": "Automatik"
