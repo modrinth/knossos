@@ -92,7 +92,7 @@
                   <span class="primary-stat__counter">
                     {{ $formatNumber(projects?.length || 0) }}
                   </span>
-                  project<span v-if="organization.projects?.length !== 1">s</span>
+                  project<span v-if="projects?.length !== 1">s</span>
                 </div>
               </div>
 
