@@ -312,10 +312,10 @@
     "message": "Access sessions"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Сессияләрне бетерү"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Сессияләрне бетерү"
   },
   "scopes.sessionRead.description": {
     "message": "Read active sessions"
