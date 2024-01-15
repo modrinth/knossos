@@ -228,7 +228,7 @@
     "message": "删除 PAT"
   },
   "scopes.patRead.description": {
-    "message": "查看已创建的API令牌"
+    "message": "查看已创建的 API 令牌"
   },
   "scopes.patRead.label": {
     "message": "读取 PAT"
@@ -282,28 +282,28 @@
     "message": "写入项目"
   },
   "scopes.reportCreate.description": {
-    "message": "创建反馈"
+    "message": "创建举报"
   },
   "scopes.reportCreate.label": {
-    "message": "创建反馈"
+    "message": "创建举报"
   },
   "scopes.reportDelete.description": {
-    "message": "删除反馈"
+    "message": "删除举报"
   },
   "scopes.reportDelete.label": {
-    "message": "删除反馈"
+    "message": "删除举报"
   },
   "scopes.reportRead.description": {
-    "message": "读取反馈"
+    "message": "读取举报"
   },
   "scopes.reportRead.label": {
-    "message": "读取反馈"
+    "message": "读取举报"
   },
   "scopes.reportWrite.description": {
-    "message": "编辑反馈"
+    "message": "编辑举报"
   },
   "scopes.reportWrite.label": {
-    "message": "写入反馈"
+    "message": "写入举报"
   },
   "scopes.sessionAccess.description": {
     "message": "访问 modrinth-issued 会话"
