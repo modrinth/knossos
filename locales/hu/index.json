@@ -15,7 +15,7 @@
     "message": "Egy fotórealisztikus festmény egy béka labirintusról"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} ember lett még} other {{count} ember lett még}} meg békázott!"
+    "message": "{count, plural, one {{count} ember lett még} other {{count} ember lett még}} békázott!"
   },
   "frog.sinceOpened": {
     "message": "Ez az oldal {ago} lett megnyitva"
@@ -57,7 +57,7 @@
     "message": "Felhasználónév"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "Ennek a felhasználónak nincsen gyűjteménye!"
   },
   "profile.label.no-collections-auth": {
     "message": "Nincsenek gyűjteményeid.\nSzeretnél <create-link>készíteni egyet</create-link>?"
@@ -69,7 +69,7 @@
     "message": "Nincsenek projektjeid.\nSzeretnél <create-link>készíteni egyet</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Szervezetek"
   },
   "profile.meta.description": {
     "message": "Töltsd le {username} projektjeit a Modrinth-on"
@@ -138,13 +138,13 @@
     "message": "Shader"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "Felvettél összesen {amount}."
   },
   "revenue.transfers.total.method": {
     "message": "You have withdrawn {amount} through {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "{amount}-at/et vettél fel {year}-ban/ben."
   },
   "revenue.transfers.total.year_method": {
     "message": "You have withdrawn {amount} in {year} through {method}."
