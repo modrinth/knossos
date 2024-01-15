@@ -42,7 +42,7 @@
     "message": "檢舉"
   },
   "profile.error.not-found": {
-    "message": "使用者不存在"
+    "message": "這個使用者不存在"
   },
   "profile.input.upload-avatar": {
     "message": "上傳頭像"
@@ -153,7 +153,7 @@
     "message": "存取您的分析數據"
   },
   "scopes.analytics.label": {
-    "message": "閱讀分析"
+    "message": "讀取分析"
   },
   "scopes.collectionCreate.description": {
     "message": "建立收藏夾"
@@ -180,7 +180,7 @@
     "message": "寫入收藏夾"
   },
   "scopes.notificationRead.description": {
-    "message": "查看您的通知"
+    "message": "讀取您的通知"
   },
   "scopes.notificationRead.label": {
     "message": "讀取通知"
@@ -204,7 +204,7 @@
     "message": "刪除組織"
   },
   "scopes.organizationRead.description": {
-    "message": "查看組織"
+    "message": "讀取組織"
   },
   "scopes.organizationRead.label": {
     "message": "讀取組織"
@@ -240,7 +240,7 @@
     "message": "寫入 PAT"
   },
   "scopes.payoutsRead.description": {
-    "message": "查看您的付款資料"
+    "message": "讀取您的付款資料"
   },
   "scopes.payoutsRead.label": {
     "message": "讀取付款"
@@ -270,7 +270,7 @@
     "message": "刪除專案"
   },
   "scopes.projectRead.description": {
-    "message": "查看您的所有專案"
+    "message": "讀取您的所有專案"
   },
   "scopes.projectRead.label": {
     "message": "讀取專案"
@@ -294,7 +294,7 @@
     "message": "刪除檢舉"
   },
   "scopes.reportRead.description": {
-    "message": "查看檢舉"
+    "message": "讀取檢舉"
   },
   "scopes.reportRead.label": {
     "message": "讀取檢舉"
@@ -318,22 +318,22 @@
     "message": "刪除工作階段"
   },
   "scopes.sessionRead.description": {
-    "message": "刪除活躍的工作階段"
+    "message": "讀取活躍的工作階段"
   },
   "scopes.sessionRead.label": {
     "message": "讀取工作階段"
   },
   "scopes.threadRead.description": {
-    "message": "查看討論串"
+    "message": "讀取討論串"
   },
   "scopes.threadRead.label": {
     "message": "讀取討論串"
   },
   "scopes.threadWrite.description": {
-    "message": "查看討論串"
+    "message": "寫入討論串"
   },
   "scopes.threadWrite.label": {
-    "message": "讀取討論串"
+    "message": "寫入討論串"
   },
   "scopes.userAuthWrite.description": {
     "message": "修改您的驗證資料"
@@ -354,7 +354,7 @@
     "message": "讀取使用者資料"
   },
   "scopes.userReadEmail.description": {
-    "message": "查看您的電子郵件"
+    "message": "讀取您的電子郵件"
   },
   "scopes.userReadEmail.label": {
     "message": "讀取使用者電子郵件"
@@ -378,7 +378,7 @@
     "message": "刪除版本"
   },
   "scopes.versionRead.description": {
-    "message": "查看所有版本"
+    "message": "讀取所有版本"
   },
   "scopes.versionRead.label": {
     "message": "讀取版本"
