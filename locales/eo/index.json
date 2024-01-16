@@ -57,10 +57,10 @@
     "message": "Uzantnomo"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "Tiu ĉi uzanto ne havas kolektojn!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Vi ne havas kolektojn.\nĈu vi volas <create-link>krei unu</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "Tiu ĉi uzanto ne havas projektojn!"
@@ -69,7 +69,7 @@
     "message": "Vi ne havas projektojn.\nĈu vi volas <create-link>krei unu</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Organizoj"
   },
   "profile.meta.description": {
     "message": "Elŝuti la projektojn de {username} per Modrinth"
@@ -90,10 +90,10 @@
     "message": "Ĉiuj"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "Kolektoj"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "Kolekto"
   },
   "project-type.datapack.plural": {
     "message": "Datumpakaĵoj"
@@ -120,10 +120,10 @@
     "message": "Kromaĵo"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "Projektoj"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "Projekto"
   },
   "project-type.resourcepack.plural": {
     "message": "Resurspakaĵoj"
@@ -138,256 +138,256 @@
     "message": "Nuancilo"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "Vi eltiris {amount} tute."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "Vi eltiris {amount} per {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "Vi eltiris {amount} en {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "Vi eltiris {amount} en {year} per {method}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "Atingi vian datumon de analitiko"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Legi analitikaĵon"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Krei kolektojn"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "Krei kolektojn"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Forigi kolektojn"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "Forigi kolektojn"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Legi kolektojn"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Legi kolektojn"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Skribi en kolektojn"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Skribi kolektojn"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Legi viajn sciigojn"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "Legi sciigojn"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Farigi/Vidi viajn sciigojn"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Skribi sciigojn"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Krei organizojn"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Krei organizojn"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Forigi organizojn"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Forigi organizojn"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Legi organizojn"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Legi organizojn"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Skribi en organizojn"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Skribi organizojn"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Krei proprajn pruvojn de API"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "Krei PAP-ojn"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Forigi viajn proprajn pruvojn de API"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "Forigi PAP-ojn"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Vidi kreitajn pruvojn de API"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "Legi PAP-ojn"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Redakti proprajn pruvojn de API"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Skribi PAP-ojn"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Legi vian datumon de elpagoj"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Legi elpagojn"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Eltiri monon"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Skribi elpagon"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Plenumi agojn de analitiko"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Plenumi analitikaĵon"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Krei novajn projektojn"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Krei projektojn"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Forigi viajn projektojn"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Forigi projektojn"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Legi ĉiun projekton vian"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Legi projektojn"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Skribi en datumon de projektoj"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Skribi projektojn"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Krei raportojn"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Krei raportojn"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Forigi raportojn"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Forigi raportojn"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Legi raportojn"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Legi raportojn"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Redakti raportojn"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Skribi raportojn"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Atingi sesiojn eldonitajn de Modrinth"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Atingi sesiojn"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Forigi sesiojn"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Forigi sesiojn"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Legi aktivajn sesiojn"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Legi sesiojn"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Legi fadenojn"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Legi fadenojn"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Skribi en fadenojn"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Skribi fadenojn"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Modifi vian datumon de aŭtentigo"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Skribi aŭtentdatumon"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Forstreki vian konton"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Forstreki vian konton"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Atingi informon de via publika profilo"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Legi datumon de uzanto"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Legi vian retpoŝtadreson"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "Legi retpoŝtadreson de uzanto"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Skribi en vian profilon"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Skribi datumon de uzanto"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Krei novajn versiojn"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "Krei versiojn"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Forigi version"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Forigi versiojn"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Legi ĉiun version"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "Legi versiojn"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Skribi en datumon de versio"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "Skribi versiojn"
   },
   "settings.language.categories.auto": {
     "message": "Aŭtomate"
