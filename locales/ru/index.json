@@ -282,10 +282,10 @@
     "message": "Запись проектов"
   },
   "scopes.reportCreate.description": {
-    "message": "Возможность создания жалоб"
+    "message": "Возможность отправки жалоб"
   },
   "scopes.reportCreate.label": {
-    "message": "Отправка жалоб"
+    "message": "Создание жалоб"
   },
   "scopes.reportDelete.description": {
     "message": "Возможность удаления отравленных жалоб"
