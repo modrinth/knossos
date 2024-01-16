@@ -53,8 +53,16 @@
       </div>
       <div class="redirection-notice">
         <p class="redirect-instructions">
-          You will be redirected to
-          <span class="redirect-url">{{ redirectUri }}</span>
+          <IntlFormatted
+            :message-id="messages.redirectUrlLabel"
+            :values="{ url: redirectUri }"
+          >
+            <template #redirect-url="{ children }">
+              <span class="redirect-url">
+                <component :is="() => normalizeChildren(children)" />
+              </span>
+            </template>
+          </IntlFormatted>
         </p>
       </div>
     </div>
@@ -82,6 +90,10 @@ const messages = defineMessages({
   noLocationFoundError: {
     id: 'auth.authorize.error.not-location-found',
     defaultMessage: 'No redirect location found in response',
+  },
+  redirectUrlLabel: {
+    id: 'auth.authorize.label.redirect-url',
+    defaultMessage: 'You will be redirected to <redirect-url>{url}</redirect-url>',
   },
 })
 

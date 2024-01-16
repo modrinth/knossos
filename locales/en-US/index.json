@@ -8,6 +8,9 @@
   "auth.authorize.label.authorize-app-name": {
     "message": "Authorize {app_name}"
   },
+  "auth.authorize.label.redirect-url": {
+    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+  },
   "button.cancel": {
     "message": "Cancel"
   },
