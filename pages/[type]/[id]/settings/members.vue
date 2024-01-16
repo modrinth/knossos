@@ -41,7 +41,7 @@
           class="iconified-button danger-button"
           :disabled="currentMember.role === 'Owner'"
           :title="
-            currentMember.role === 'Owner'
+            props.currentMember?.is_owner
               ? 'You can\'t leave if you are the owner of the project!'
               : ''
           "
