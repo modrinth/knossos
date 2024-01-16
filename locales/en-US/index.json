@@ -1,4 +1,7 @@
 {
+  "auth.authorize.button.authorize": {
+    "message": "Authorize"
+  },
   "auth.authorize.error.not-location-found": {
     "message": "No redirect location found in response"
   },

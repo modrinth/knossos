@@ -48,7 +48,7 @@
         </Button>
         <Button class="wide-button" color="primary" large :action="onAuthorize" :disabled="pending">
           <CheckIcon />
-          Authorize
+          {{ formatMessage(messages.authorizeButton) }}
         </Button>
       </div>
       <div class="redirection-notice">
@@ -71,6 +71,10 @@ import { useScopes } from '@/composables/auth/scopes.ts'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
+  authorizeButton: {
+    id: 'auth.authorize.button.authorize',
+    defaultMessage: 'Authorize',
+  },
   noLocationFoundError: {
     id: 'auth.authorize.error.not-location-found',
     defaultMessage: 'No redirect location found in response',
