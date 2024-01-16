@@ -69,7 +69,7 @@
     "message": "Vous n'avez aucun projet.\nVoulez-vous en <create-link>créer un</create-link> ?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Organisations"
   },
   "profile.meta.description": {
     "message": "Téléchargez les projets de {username} sur Modrinth"
@@ -138,13 +138,13 @@
     "message": "Shader"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "Vous avez retiré {amount} au total."
   },
   "revenue.transfers.total.method": {
     "message": "You have withdrawn {amount} through {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "Vous avez retiré {amount} en {year}."
   },
   "revenue.transfers.total.year_method": {
     "message": "You have withdrawn {amount} in {year} through {method}."
