@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="title">
-        <h1>Authorize {{ app.name }}</h1>
+        <h1>{{ formatMessage(messages.authorizeAppNameLabel, { app_name: app.name }) }}</h1>
       </div>
       <div class="auth-info">
         <div class="scope-heading">
@@ -44,7 +44,7 @@
       <div class="button-row">
         <Button class="wide-button" large :action="onReject" :disabled="pending">
           <XIcon />
-          Decline
+          {{ formatMessage(commonMessages.declineButton) }}
         </Button>
         <Button class="wide-button" color="primary" large :action="onAuthorize" :disabled="pending">
           <CheckIcon />
@@ -71,6 +71,10 @@ import { useScopes } from '@/composables/auth/scopes.ts'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
+  authorizeAppNameLabel: {
+    id: 'auth.authorize.label.authorize-app-name',
+    defaultMessage: 'Authorize {app_name}',
+  },
   authorizeButton: {
     id: 'auth.authorize.button.authorize',
     defaultMessage: 'Authorize',

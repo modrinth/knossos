@@ -5,8 +5,14 @@
   "auth.authorize.error.not-location-found": {
     "message": "No redirect location found in response"
   },
+  "auth.authorize.label.authorize-app-name": {
+    "message": "Authorize {app_name}"
+  },
   "button.cancel": {
     "message": "Cancel"
+  },
+  "button.decline": {
+    "message": "Decline"
   },
   "button.edit": {
     "message": "Edit"
