@@ -69,7 +69,7 @@
     "message": "Você não tem nenhum projeto.\nGostaria de <create-link>criar um</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Organizações"
   },
   "profile.meta.description": {
     "message": "Baixe os projetos de {username} no Modrinth"
@@ -138,256 +138,256 @@
     "message": "Shader"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "Você sacou {amount} no total."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "Você sacou {amount} através de {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "Você sacou {amount} em {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "Você sacou {amount} em {year} através de {method}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "Acessas suas estatísticas"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Ler estatísticas"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Criar coleções"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "Criar coleções"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Excluir coleções"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "Excluir coleções"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Acessar coleções"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Acessar coleções"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Modificar suas coleções"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Modificar coleções"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Acessar suas notificações"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "Acessar notificações"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Excluir/Ver suas notificações"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Modificar notificações"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Criar organizações"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Criar organizações"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Excluir organizações"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Excluir organizações"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Acessar organizações"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Acessar organizações"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Modificar organizações"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Modificar organizações"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Criar tokens de API pessoais (PATs, em inglês)"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "Criar PATs"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Excluir seus tokens de API pessoais"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "Excluir PATs"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Ver tokens de API criados"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "Acessar PATs"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Modificar tokens de API pessoais"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Modificar PATs"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Acessar dados de pagamentos"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Acessar pagamentos"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Sacar dinheiro"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Modificar pagamentos"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Acesso à página de estatísticas e seus dados"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Realizar análises de estatísticas"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Criar novos projetos"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Criar projetos"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Excluir seus projetos"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Excluir projetos"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Acesso a todos os seus projetos"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Acessar projetos"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Modificar dados de projetos"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Modificar projetos"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Criar denúncias"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Criar denúncias"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Excluir denúncias"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Excluir denúncias"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Acessar denúncias"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Acessar denúncias"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Modificar denúncias"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Modificar denúncias"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Acessar sessões criadas pelo modrinth"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Acessar sessões"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Excluir sessões"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Excluir sessões"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Acessar sessões ativas"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Acessar sessões"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Acessar tópicos"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Acessar tópicos"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Escrever em tópicos"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Modificar tópicos"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Modificar dados de autenticação"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Modificar dados de autenticação"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Excluir sua conta"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Excluir sua conta"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Acesso às informações públicas de seu perfil"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Acessar dados de usuário"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Acesso ao seu email"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "Acessar email de usuário"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Modificar seu perfil"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Modificar dados de usuário"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Criar novas versões"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "Criar versões"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Excluir uma versão"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Excluir versões"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Modificar todas as versões"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "Modificar versões"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Modificar dados de versão"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "Modificar versões"
   },
   "settings.language.categories.auto": {
     "message": "Automático"
