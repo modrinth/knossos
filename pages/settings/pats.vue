@@ -131,7 +131,7 @@
             }
           "
         >
-          <EditIcon /> Edit token
+          <EditIcon /> {{ formatMessage(messages.editTokenButton) }}
         </button>
         <button
           class="iconified-button raised-button"
@@ -142,7 +142,7 @@
             }
           "
         >
-          <TrashIcon /> Revoke token
+          <TrashIcon /> {{ formatMessage(messages.revokeTokenButton) }}
         </button>
       </div>
     </div>
@@ -159,6 +159,23 @@ import {
   getScopeValue,
 } from '~/composables/auth/scopes.ts'
 
+const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  editTokenButton: {
+    id: 'settings.pats.button.edit-token',
+    defaultMessage: 'Edit token',
+  },
+  patsTitle: {
+    id: 'settings.pats.title',
+    defaultMessage: 'PATs',
+  },
+  revokeTokenButton: {
+    id: 'settings.pats.button.revoke-token',
+    defaultMessage: 'Revoke token',
+  },
+})
+
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Modal from '~/components/ui/Modal.vue'
 
@@ -167,7 +184,7 @@ definePageMeta({
 })
 
 useHead({
-  title: 'PATs - Modrinth',
+  title: `${formatMessage(messages.patsTitle)} - Modrinth`,
 })
 
 const data = useNuxtApp()

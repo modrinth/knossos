@@ -434,6 +434,15 @@
   "settings.language.title": {
     "message": "Language"
   },
+  "settings.pats.button.edit-token": {
+    "message": "Edit token"
+  },
+  "settings.pats.button.revoke-token": {
+    "message": "Revoke token"
+  },
+  "settings.pats.title": {
+    "message": "PATs"
+  },
   "settings.sessions.button.revoke-session": {
     "message": "Revoke session"
   },
