@@ -138,7 +138,7 @@
     "message": "Shader"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "U heeft in totaal {amount} ingetrokken."
   },
   "revenue.transfers.total.method": {
     "message": "You have withdrawn {amount} through {method}."
