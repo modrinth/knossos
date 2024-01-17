@@ -186,22 +186,22 @@
     "message": "Πρόσβαση στις ειδοποιήσεις"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Διαγραφή/Προβολή των ειδοποιήσεων σας"
   },
   "scopes.notificationWrite.label": {
     "message": "Write notifications"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Δημιουργία οργανισμών"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Δημιουργία οργανισμών"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Διαγραφή οργανισμών"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Διαγραφή οργανισμών"
   },
   "scopes.organizationRead.description": {
     "message": "Read organizations"
@@ -243,10 +243,10 @@
     "message": "Read your payouts data"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Ανάγνωση πληρωμών"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Ανάληψη χρημάτων"
   },
   "scopes.payoutsWrite.label": {
     "message": "Write payouts"
