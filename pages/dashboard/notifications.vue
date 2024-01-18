@@ -106,13 +106,15 @@ const { data, pending, error, refresh } = await useAsyncData(
     const pages = Math.ceil(filteredNotifications.length / perPage.value)
 
     return fetchExtraNotificationData(
-      filteredNotifications.slice(pageNum * perPage.value, perPage.value + pageNum * perPage.value),
-      {
+      filteredNotifications.slice(pageNum * perPage.value, perPage.value + pageNum * perPage.value)
+    ).then((notifications) => {
+      return {
+        notifications,
         types: types.length > 1 ? ['all', ...types] : types,
         pages,
         hasRead,
       }
-    )
+    })
   },
   { watch: [page, history, selectedType] }
 )

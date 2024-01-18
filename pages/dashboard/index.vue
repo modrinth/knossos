@@ -113,7 +113,7 @@ import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 import HistoryIcon from '~/assets/images/utils/history.svg'
 import Avatar from '~/components/ui/Avatar.vue'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
-import { fetchExtraNotificationData } from '~/helpers/notifications.js'
+import { fetchExtraNotificationData, groupNotifications } from '~/helpers/notifications.js'
 
 useHead({
   title: 'Dashboard - Modrinth',
@@ -140,10 +140,11 @@ const { data, refresh } = await useAsyncData(async () => {
   const notifications = await useBaseFetch(`user/${auth.value.user.id}/notifications`)
 
   const filteredNotifications = notifications.filter((notif) => !notif.read)
-  const slice = filteredNotifications.slice(0, 3)
+  const slice = filteredNotifications.slice(0, 30) // send first 30 notifs to be grouped before trimming to 3
 
-  return fetchExtraNotificationData(slice, {
-    extraNotifs: filteredNotifications.length - slice.length,
+  return fetchExtraNotificationData(slice).then((notifications) => {
+    notifications = groupNotifications(notifications).slice(0, 3)
+    return { notifications, extraNotifs: filteredNotifications.length - slice.length }
   })
 })
 

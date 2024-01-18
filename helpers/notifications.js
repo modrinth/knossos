@@ -9,7 +9,7 @@ async function getBulk(type, ids, apiVersion = 2) {
   return await useBaseFetch(url, { apiVersion })
 }
 
-export async function fetchExtraNotificationData(notifications, passThrough) {
+export async function fetchExtraNotificationData(notifications) {
   const bulk = {
     projects: [],
     reports: [],
@@ -111,7 +111,7 @@ export async function fetchExtraNotificationData(notifications, passThrough) {
       }
     }
   }
-  return { notifications, ...passThrough }
+  return notifications
 }
 
 export function groupNotifications(notifications) {
