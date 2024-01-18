@@ -141,8 +141,7 @@ function switchPage(page) {
 
 <style lang="scss">
 .changelog-wrapper {
-  padding: var(--spacing-card-md) var(--spacing-card-lg) calc(var(--spacing-card-md) + 0.5rem)
-    var(--spacing-card-lg);
+  padding-bottom: calc(var(--spacing-card-md) + 0.5rem);
 }
 
 .changelog-item {
