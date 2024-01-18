@@ -219,25 +219,25 @@
     "message": "Tworzenie osobistych tokenów API"
   },
   "scopes.patCreate.label": {
-    "message": "Tworzenie PAT-ów"
+    "message": "Tworzenie tokenów dostępu"
   },
   "scopes.patDelete.description": {
     "message": "Usuwanie osobistych tokenów API"
   },
   "scopes.patDelete.label": {
-    "message": "Usuwanie PAT-ów"
+    "message": "Usuwanie tokenów dostępu"
   },
   "scopes.patRead.description": {
     "message": "Wyświetlanie utworzonych tokenów API"
   },
   "scopes.patRead.label": {
-    "message": "Odczyt PAT-ów"
+    "message": "Czytanie tokenów dostępu"
   },
   "scopes.patWrite.description": {
     "message": "Edytowanie osobistych tokenów API"
   },
   "scopes.patWrite.label": {
-    "message": "Zapis PAT-ów"
+    "message": "Zapisywanie tokenów dostępu"
   },
   "scopes.payoutsRead.description": {
     "message": "Czytanie danych twoich wypłat"
@@ -426,7 +426,7 @@
     "message": "Wyszukaj język..."
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural, =0 {Żadne języki nie pasują} one {# język pasuje} few {# języki pasują} other {# języków pasuje}} do Twojego wyszukiwania."
+    "message": "{matches, plural, =0 {Żaden język nie pasuje} one {# język pasuje} few {# języki pasują} other {# języków pasuje}} do Twojego wyszukiwania."
   },
   "settings.language.languages.search.no-results": {
     "message": "Żaden język nie pasuje do Twojego wyszukiwania."
