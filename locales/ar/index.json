@@ -159,7 +159,7 @@
     "message": "إنشاء مجموعات"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "إنشاء مجموعات"
   },
   "scopes.collectionDelete.description": {
     "message": "حذف مجموعات"
@@ -177,61 +177,61 @@
     "message": "كتابة إلى مجموعات"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "كتابة مجموعات"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "قراءة إشعاراتك"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "قراءة إشعارات"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "حذف\\عرض إشعاراتك"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "كتابة إشعارات"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "إنشاء مُنظمات"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "إنشاء منظمات"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "حذف مُنظمات"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "حذف مُنظمات"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "قراءة مُنظمات"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "قراءة مُنظمات"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "كتابة إلى المُنظمات"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "كتابة إلى المُنظمات"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "إنشاء رموز API شخصية"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "إنشاء رموز وصول الشخصية"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "حذف رموز API الخاصة بك"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "حذف رموز وصول الشخصية"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "عرض رموز وصول الشخصية التي تم إنشاؤها"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "قراءة رموز الوصول الشخصية"
   },
   "scopes.patWrite.description": {
     "message": "Edit personal API tokens"
@@ -324,7 +324,7 @@
     "message": "Read sessions"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "قراءة مواضيع"
   },
   "scopes.threadRead.label": {
     "message": "كتابة مواضيع"
