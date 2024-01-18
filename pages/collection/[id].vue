@@ -548,16 +548,18 @@ if (!collection.value) {
   })
 }
 
-const title = formatMessage(messages.collectionTitle, { name: collection.value.name })
-const description = formatMessage(messages.collectionDescription, {
-  name: collection.value.name,
-  description: collection.value.description,
-  username: creator.value.username,
-})
+const title = computed(() =>
+  formatMessage(messages.collectionTitle, { name: collection.value.name })
+)
 
 useSeoMeta({
   title,
-  description,
+  description: () =>
+    formatMessage(messages.collectionDescription, {
+      name: collection.value.name,
+      description: collection.value.description,
+      username: creator.value.username,
+    }),
   ogTitle: title,
   ogDescription: collection.value.description,
   ogImage: collection.value.icon_url ?? 'https://cdn.modrinth.com/placeholder.png',
