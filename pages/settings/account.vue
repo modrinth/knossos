@@ -19,6 +19,7 @@
           maxlength="2048"
           type="email"
           :placeholder="`Enter your email address...`"
+          @keyup.enter="saveEmail()"
         />
         <div class="input-group push-right">
           <button class="iconified-button" @click="$refs.changeEmailModal.hide()">
@@ -150,6 +151,7 @@
             maxlength="11"
             type="text"
             placeholder="Enter code..."
+            @keyup.enter="removeTwoFactor()"
           />
           <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
           <div class="input-group push-right">
@@ -200,7 +202,9 @@
               v-model="twoFactorCode"
               maxlength="6"
               type="text"
+              autocomplete="one-time-code"
               placeholder="Enter code..."
+              @keyup.enter="verifyTwoFactorCode()"
             />
             <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
           </template>

@@ -180,7 +180,7 @@
 
               <div v-if="collection.id !== 'following'" class="metadata-item">
                 <div
-                  v-tooltip="$dayjs(collection.created).format('MMMM D, YYYY [at] h:mm A')"
+                  v-tooltip="$dayjs(collection.updated).format('MMMM D, YYYY [at] h:mm A')"
                   class="date"
                 >
                   <UpdatedIcon />
@@ -284,6 +284,7 @@
             :description="project.description"
             :downloads="project.downloads ? project.downloads.toString() : '0'"
             :follows="project.followers ? project.followers.toString() : '0'"
+            :featured-image="project.gallery.find((element) => element.featured)?.url"
             :icon-url="project.icon_url"
             :name="project.title"
             :client-side="project.client_side"
