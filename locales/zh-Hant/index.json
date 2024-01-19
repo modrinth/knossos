@@ -1,6 +1,24 @@
 {
+  "auth.welcome.checkbox.subscribe": {
+    "message": "訂閱以獲得 Modrinth 的新聞"
+  },
+  "auth.welcome.description": {
+    "message": "感謝您建立帳號。您現在可以追蹤和建立專案，接收有關您喜愛專案的更新，以及更多功能！"
+  },
+  "auth.welcome.label.tos": {
+    "message": "建立帳號即表示您同意 Modrinth 的 <terms-link>服務條款</terms-link> 和 <privacy-policy-link>隱私權政策</privacy-policy-link>。"
+  },
+  "auth.welcome.long-title": {
+    "message": "歡迎來到 Modrinth！"
+  },
+  "auth.welcome.title": {
+    "message": "歡迎"
+  },
   "button.cancel": {
     "message": "取消"
+  },
+  "button.continue": {
+    "message": "繼續"
   },
   "button.edit": {
     "message": "編輯"
