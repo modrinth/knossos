@@ -440,6 +440,9 @@
   "settings.pats.button.revoke-token": {
     "message": "Revoke token"
   },
+  "settings.pats.modal.pat.button.create-pat": {
+    "message": "Create PAT"
+  },
   "settings.pats.title": {
     "message": "PATs"
   },

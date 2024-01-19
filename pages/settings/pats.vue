@@ -36,7 +36,7 @@
         <div class="input-group push-right">
           <button class="iconified-button" @click="$refs.patModal.hide()">
             <XIcon />
-            Cancel
+            {{ formatMessage(commonMessages.cancelButton) }}
           </button>
           <button
             v-if="editPatIndex !== null"
@@ -56,7 +56,7 @@
             @click="createPat"
           >
             <PlusIcon />
-            Create PAT
+            {{ formatMessage(messages.createPatButton) }}
           </button>
         </div>
       </div>
@@ -98,21 +98,40 @@
           <template v-else>
             <span
               v-tooltip="
-                pat.last_used ? $dayjs(pat.last_login).format('MMMM D, YYYY [at] h:mm A') : null
+                pat.last_used ? 
+                formatMessage(commonMessages.dateAtTimeTooltip, {
+                  date: new Date(pat.last_login),
+                  time: new Date(pat.last_login),
+                }) 
+                : null
               "
             >
               <template v-if="pat.last_used">Last used {{ fromNow(pat.last_used) }}</template>
               <template v-else>Never used</template>
             </span>
             ⋅
-            <span v-tooltip="$dayjs(pat.expires).format('MMMM D, YYYY [at] h:mm A')">
+            <span 
+              v-tooltip="
+                formatMessage(commonMessages.dateAtTimeTooltip, {
+                  date: new Date(pat.expires),
+                  time: new Date(pat.expires),
+                })
+              "
+            >
               <template v-if="new Date(pat.expires) > new Date()">
                 Expires {{ fromNow(pat.expires) }}
               </template>
               <template v-else> Expired {{ fromNow(pat.expires) }} </template>
             </span>
             ⋅
-            <span v-tooltip="$dayjs(pat.created).format('MMMM D, YYYY [at] h:mm A')">
+            <span 
+              v-tooltip="
+                formatMessage(commonMessages.dateAtTimeTooltip, {
+                  date: new Date(pat.created),
+                  time: new Date(pat.created),
+                })
+              "
+            >
               Created {{ fromNow(pat.created) }}
             </span>
           </template>
@@ -162,6 +181,10 @@ import {
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
+  createPatButton: {
+    id: 'settings.pats.modal.pat.button.create-pat',
+    defaultMessage: 'Create PAT',
+  },
   editTokenButton: {
     id: 'settings.pats.button.edit-token',
     defaultMessage: 'Edit token',
@@ -220,7 +243,7 @@ async function createPat() {
   } catch (err) {
     data.$notify({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data ? err.data.description : err,
       type: 'error',
     })
@@ -246,7 +269,7 @@ async function editPat() {
   } catch (err) {
     data.$notify({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data ? err.data.description : err,
       type: 'error',
     })
@@ -266,7 +289,7 @@ async function removePat(id) {
   } catch (err) {
     data.$notify({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err.data ? err.data.description : err,
       type: 'error',
     })
