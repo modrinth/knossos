@@ -98,19 +98,19 @@
           <template v-else>
             <span
               v-tooltip="
-                pat.last_used ? 
-                formatMessage(commonMessages.dateAtTimeTooltip, {
-                  date: new Date(pat.last_login),
-                  time: new Date(pat.last_login),
-                }) 
-                : null
+                pat.last_used
+                  ? formatMessage(commonMessages.dateAtTimeTooltip, {
+                      date: new Date(pat.last_login),
+                      time: new Date(pat.last_login),
+                    })
+                  : null
               "
             >
               <template v-if="pat.last_used">Last used {{ fromNow(pat.last_used) }}</template>
               <template v-else>Never used</template>
             </span>
             ⋅
-            <span 
+            <span
               v-tooltip="
                 formatMessage(commonMessages.dateAtTimeTooltip, {
                   date: new Date(pat.expires),
@@ -124,7 +124,7 @@
               <template v-else> Expired {{ fromNow(pat.expires) }} </template>
             </span>
             ⋅
-            <span 
+            <span
               v-tooltip="
                 formatMessage(commonMessages.dateAtTimeTooltip, {
                   date: new Date(pat.created),
@@ -178,6 +178,9 @@ import {
   getScopeValue,
 } from '~/composables/auth/scopes.ts'
 
+import CopyCode from '~/components/ui/CopyCode.vue'
+import Modal from '~/components/ui/Modal.vue'
+
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
@@ -198,9 +201,6 @@ const messages = defineMessages({
     defaultMessage: 'Revoke token',
   },
 })
-
-import CopyCode from '~/components/ui/CopyCode.vue'
-import Modal from '~/components/ui/Modal.vue'
 
 definePageMeta({
   middleware: 'auth',
