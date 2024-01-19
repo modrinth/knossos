@@ -1,6 +1,24 @@
 {
+  "auth.welcome.checkbox.subscribe": {
+    "message": "订阅有关 Modrinth 的更新"
+  },
+  "auth.welcome.description": {
+    "message": "感谢您创建一个帐户。您现在可以关注和创建项目，接收有关您最喜欢的项目的更新，等等。"
+  },
+  "auth.welcome.label.tos": {
+    "message": "通过创建账户，说明您已同意 Modrinth 的 <terms-link>条款</terms-link> 和 <privacy-policy-link>隐私政策</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "欢迎使用 Modrinth！"
+  },
+  "auth.welcome.title": {
+    "message": "欢迎"
+  },
   "button.cancel": {
     "message": "取消"
+  },
+  "button.continue": {
+    "message": "下一步"
   },
   "button.edit": {
     "message": "编辑"
