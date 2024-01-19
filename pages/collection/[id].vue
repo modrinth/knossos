@@ -180,7 +180,7 @@
 
               <div v-if="collection.id !== 'following'" class="metadata-item">
                 <div
-                  v-tooltip="$dayjs(collection.created).format('MMMM D, YYYY [at] h:mm A')"
+                  v-tooltip="$dayjs(collection.updated).format('MMMM D, YYYY [at] h:mm A')"
                   class="date"
                 >
                   <UpdatedIcon />
@@ -284,6 +284,7 @@
             :description="project.description"
             :downloads="project.downloads ? project.downloads.toString() : '0'"
             :follows="project.followers ? project.followers.toString() : '0'"
+            :featured-image="project.gallery.find((element) => element.featured)?.url"
             :icon-url="project.icon_url"
             :name="project.title"
             :client-side="project.client_side"
@@ -308,7 +309,7 @@
             <button
               v-if="collection.id === 'following'"
               class="iconified-button"
-              @click="userUnfollowProject(project)"
+              @click="unfollowProject(project)"
             >
               <TrashIcon />
               Unfollow project
@@ -394,13 +395,12 @@ try {
       created: auth.value.user.created,
       updated: auth.value.user.created,
     })
-    const data = await useAsyncData(`user/${auth.value.user.id}/follows`, () =>
-      useBaseFetch(`user/${auth.value.user.id}/follows`)
-    )
-    projects = ref(data.data)
-
+    ;[{ data: projects, refresh: refreshProjects }] = await Promise.all([
+      useAsyncData(`user/${auth.value.user.id}/follows`, () =>
+        useBaseFetch(`user/${auth.value.user.id}/follows`)
+      ),
+    ])
     creator = ref(auth.value.user)
-    refreshProjects = async () => {}
     refreshCollection = async () => {}
   } else {
     const val = await useAsyncData(`collection/${route.params.id}`, () =>
@@ -473,6 +473,11 @@ const name = ref(collection.value.name)
 const summary = ref(collection.value.description)
 const visibility = ref(collection.value.status)
 const removeProjects = ref([])
+
+async function unfollowProject(project) {
+  await userUnfollowProject(project)
+  projects.value = projects.value.filter((x) => x.id !== project.id)
+}
 
 async function saveChanges() {
   startLoading()

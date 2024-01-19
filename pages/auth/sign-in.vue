@@ -13,6 +13,7 @@
         maxlength="11"
         type="text"
         :placeholder="formatMessage(messages.twoFactorCodeInputPlaceholder)"
+        autocomplete="one-time-code"
         autofocus
         @keyup.enter="begin2FASignIn"
       />
