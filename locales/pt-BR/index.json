@@ -1,6 +1,24 @@
 {
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Inscreva-se para receber atualizações do Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Obrigado por criar uma conta. Agora você pode seguir e criar projetos, receber atualizações sobre seus projetos favoritos, e mais!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Ao criar uma conta, você concorda com os <terms-link>Termos</terms-link> e <privacy-policy-link>Política de Privacidade</privacy-policy-link> do Modrinth."
+  },
+  "auth.welcome.long-title": {
+    "message": "Bem-vindo(a) ao Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Bem-vindo(a)"
+  },
   "button.cancel": {
     "message": "Cancelar"
+  },
+  "button.continue": {
+    "message": "Continuar"
   },
   "button.edit": {
     "message": "Editar"
