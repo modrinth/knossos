@@ -100,8 +100,8 @@
               v-tooltip="
                 pat.last_used
                   ? formatMessage(commonMessages.dateAtTimeTooltip, {
-                      date: new Date(pat.last_login),
-                      time: new Date(pat.last_login),
+                      date: new Date(pat.last_used),
+                      time: new Date(pat.last_used),
                     })
                   : null
               "
