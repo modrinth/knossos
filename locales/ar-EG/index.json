@@ -1,6 +1,24 @@
 {
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Subscribe to updates about Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Welcome to Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Welcome"
+  },
   "button.cancel": {
     "message": "إلغاء"
+  },
+  "button.continue": {
+    "message": "Continue"
   },
   "button.edit": {
     "message": "تعديل"
@@ -57,7 +75,7 @@
     "message": "اسم المستخدم"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "هذا المستخدم ليس لديه مجموعات!"
   },
   "profile.label.no-collections-auth": {
     "message": "ليس لديك أي مجموعه. هل تريد <create-link>صناعه مجموعه</create-link>؟"
@@ -69,7 +87,7 @@
     "message": "ليست لديك أيّة مشاريع.\nهل تودّ <create-link>إنشاء مشروع</create-link>؟"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "مُنظمات"
   },
   "profile.meta.description": {
     "message": "تنزيل مشاريع {username} على Modrinth"
@@ -138,100 +156,100 @@
     "message": "المظلل"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "لقد سحبت {amount} إجمالاً."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "لقد سحبت {amount} بواسطة {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "لقد سحبت {amount} في {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "لقد سحبت {amount} في {year} بواسطة {method}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "الوصول إلى بياناتك التحليلية"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "قراءة التحليلات"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "إنشاء مجموعات"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "إنشاء مجموعات"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "حذف مجموعات"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "حذف مجموعات"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "قراءة مجموعات"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "قراءة مجموعات"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "كتابة إلى مجموعات"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "كتابة مجموعات"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "قراءة إشعاراتك"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "قراءة إشعارات"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "حذف\\عرض إشعاراتك"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "كتابة إشعارات"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "إنشاء مُنظمات"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "إنشاء منظمات"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "حذف مُنظمات"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "حذف مُنظمات"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "قراءة مُنظمات"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "قراءة مُنظمات"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "كتابة إلى المُنظمات"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "كتابة إلى المُنظمات"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "إنشاء رموز API شخصية"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "إنشاء رموز وصول الشخصية"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "حذف رموز API الخاصة بك"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "حذف رموز وصول الشخصية"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "عرض رموز وصول الشخصية التي تم إنشاؤها"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "قراءة رموز الوصول الشخصية"
   },
   "scopes.patWrite.description": {
     "message": "Edit personal API tokens"
@@ -279,7 +297,7 @@
     "message": "Write to project data"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "كتابة مشاريع"
   },
   "scopes.reportCreate.description": {
     "message": "Create reports"
@@ -324,70 +342,70 @@
     "message": "Read sessions"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "قراءة مواضيع"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "كتابة مواضيع"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "كتابة إلى مواضيع"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "كتابة مواضيع"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "تعديل بياناتك المُصادقة"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "كتابة بيانات المصادقة"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "حذف حسابك"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "حذف حسابك"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "الوصول إلى معلومات ملفك الشخصي العام"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "قراءة بيانات المستخدم"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "قراءة بريدك الإلكتروني"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "قراءة البريد الإلكتروني للمستخدم"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "كتابة إلى ملفك الشخصي"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "كتابة بيانات مستخدم"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "إنشاء مصادر جديدة"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "إنشاء مصادر"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "أحذف مصدر"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "حذف مصادر"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "قراءة كل المصادر"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "قراءة مصادر"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "كتابة إلى بيانات الإصدار"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "كتابة أصدارات"
   },
   "settings.language.categories.auto": {
     "message": "تلقائي"
