@@ -1,6 +1,24 @@
 {
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Subscribe to updates about Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Welcome to Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Welcome"
+  },
   "button.cancel": {
     "message": "Annuler"
+  },
+  "button.continue": {
+    "message": "Continuer"
   },
   "button.edit": {
     "message": "Modifier"
@@ -69,7 +87,7 @@
     "message": "Vous n'avez aucun projet.\nVoulez-vous en <create-link>créer un</create-link> ?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Organisations"
   },
   "profile.meta.description": {
     "message": "Téléchargez les projets de {username} sur Modrinth"
@@ -138,34 +156,34 @@
     "message": "Shader"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "Vous avez retiré {amount} au total."
   },
   "revenue.transfers.total.method": {
     "message": "You have withdrawn {amount} through {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "Vous avez retiré {amount} en {year}."
   },
   "revenue.transfers.total.year_method": {
     "message": "You have withdrawn {amount} in {year} through {method}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "Accéder à vos données analytiques"
   },
   "scopes.analytics.label": {
     "message": "Read analytics"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Créer des collections"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "Créer des collections"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Supprimer des collections"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "Supprimer des collections"
   },
   "scopes.collectionRead.description": {
     "message": "Read collections"
@@ -186,22 +204,22 @@
     "message": "Read notifications"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Supprimer/visualiser vos notifications"
   },
   "scopes.notificationWrite.label": {
     "message": "Write notifications"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Créer des organisations"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Créer des organisations"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Supprimer des organisations"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Supprimer des organisations"
   },
   "scopes.organizationRead.description": {
     "message": "Read organizations"
@@ -258,22 +276,22 @@
     "message": "Perform analytics"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Créer de nouveaux projets"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Créer des projets"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Supprimer vos projets"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Supprimer des projets"
   },
   "scopes.projectRead.description": {
     "message": "Read all your projects"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Lire des projets"
   },
   "scopes.projectWrite.description": {
     "message": "Write to project data"
@@ -282,25 +300,25 @@
     "message": "Write projects"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Créer des rapports"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Créer des rapports"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Supprimer des rapports"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Supprimer des rapports"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Lire des rapports"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Lire des rapports"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Modifier des rapports"
   },
   "scopes.reportWrite.label": {
     "message": "Write reports"
@@ -309,13 +327,13 @@
     "message": "Access modrinth-issued sessions"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Accéder aux sessions"
   },
   "scopes.sessionDelete.description": {
     "message": "Delete sessions"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Supprimer des sessions"
   },
   "scopes.sessionRead.description": {
     "message": "Read active sessions"
@@ -336,19 +354,19 @@
     "message": "Write threads"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Modifier vos données d'authentification"
   },
   "scopes.userAuthWrite.label": {
     "message": "Write auth data"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Supprimer votre compte"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Supprimer votre compte"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Accéder aux informations de votre profil public"
   },
   "scopes.userRead.label": {
     "message": "Read user data"
@@ -366,19 +384,19 @@
     "message": "Write user data"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Créer de nouvelles versions"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "Créer des versions"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Supprimer une version"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Supprimer des versions"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Voir toutes les versions"
   },
   "scopes.versionRead.label": {
     "message": "Read versions"
