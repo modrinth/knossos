@@ -4,7 +4,8 @@
       <h2>Project status</h2>
       <Badge :type="project.status" />
       <p v-if="isApproved(project)">
-        Your project been approved by the moderators and you may freely change project visibility in
+        Your project has been approved by the moderators and you may freely change project
+        visibility in
         <router-link :to="`${getProjectLink(project)}/settings`" class="text-link"
           >your project's settings</router-link
         >.
@@ -70,11 +71,11 @@
       <ConversationThread
         v-if="thread"
         :thread="thread"
-        :update-thread="(newThread) => (thread = newThread)"
         :project="project"
         :set-status="setStatus"
         :current-member="currentMember"
         :auth="auth"
+        @update-thread="(newThread) => (thread = newThread)"
       />
     </section>
   </div>

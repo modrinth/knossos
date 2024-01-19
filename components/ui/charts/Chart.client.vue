@@ -1,12 +1,7 @@
 <script setup>
 import dayjs from 'dayjs'
-import { Button, DownloadIcon, UpdatedIcon, formatNumber, formatMoney } from 'omorphia'
+import { formatNumber, formatMoney } from 'omorphia'
 import VueApexCharts from 'vue3-apexcharts'
-
-// let VueApexCharts
-// if (process.client) {
-//   VueApexCharts = defineAsyncComponent(() => import('vue3-apexcharts'))
-// }
 
 const props = defineProps({
   name: {
@@ -88,7 +83,7 @@ function formatTooltipValue(value, props) {
 }
 
 function generateListEntry(value, index, _, w, props) {
-  const color = props.colors[index % props.colors.length]
+  const color = w.globals.colors?.[index]
 
   return `<div class="list-entry">
     <span class="circle" style="background-color: ${color}"></span>
@@ -102,7 +97,7 @@ function generateListEntry(value, index, _, w, props) {
 }
 
 function generateTooltip({ series, seriesIndex, dataPointIndex, w }, props) {
-  const label = w.globals.lastXAxis.categories[dataPointIndex]
+  const label = w.globals.lastXAxis.categories?.[dataPointIndex]
 
   const formattedLabel = props.formatLabels(label)
 
@@ -138,6 +133,8 @@ function generateTooltip({ series, seriesIndex, dataPointIndex, w }, props) {
       props
     )
   } else {
+    const returnTopN = 5
+
     const listEntries = series
       .map((value, index) => [
         value[dataPointIndex],
@@ -145,6 +142,7 @@ function generateTooltip({ series, seriesIndex, dataPointIndex, w }, props) {
       ])
       .filter((value) => value[0] > 0)
       .sort((a, b) => b[0] - a[0])
+      .slice(0, returnTopN) // Return only the top X entries
       .map((value) => value[1])
       .join('')
 
@@ -155,120 +153,124 @@ function generateTooltip({ series, seriesIndex, dataPointIndex, w }, props) {
   return tooltip
 }
 
-const chartOptions = ref({
-  chart: {
-    id: props.name,
-    fontFamily:
-      'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
-    foreColor: 'var(--color-base)',
-    selection: {
-      enabled: true,
-      fill: {
-        color: 'var(--color-brand)',
+const chartOptions = computed(() => {
+  return {
+    chart: {
+      id: props.name,
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+      foreColor: 'var(--color-base)',
+      selection: {
+        enabled: true,
+        fill: {
+          color: 'var(--color-brand)',
+        },
+      },
+      toolbar: {
+        show: false,
+      },
+      stacked: props.stacked,
+      stackType: props.percentStacked ? '100%' : 'normal',
+      zoom: {
+        autoScaleYaxis: true,
+      },
+      animations: {
+        enabled: props.disableAnimations,
       },
     },
-    toolbar: {
-      show: false,
-    },
-    stacked: props.stacked,
-    stackType: props.percentStacked ? '100%' : 'normal',
-    zoom: {
-      autoScaleYaxis: true,
-    },
-    animations: {
-      enabled: props.disableAnimations,
-    },
-  },
-  xaxis: {
-    type: props.xAxisType,
-    categories: props.labels,
-    labels: {
-      style: {
-        borderRadius: 'var(--radius-sm)',
+    xaxis: {
+      type: props.xAxisType,
+      categories: props.labels,
+      labels: {
+        style: {
+          borderRadius: 'var(--radius-sm)',
+        },
+      },
+      axisTicks: {
+        show: false,
+      },
+      tooltip: {
+        enabled: false,
       },
     },
-    axisTicks: {
-      show: false,
+    yaxis: {
+      tooltip: {
+        enabled: false,
+      },
+    },
+    colors: props.colors,
+    dataLabels: {
+      enabled: false,
+      background: {
+        enabled: true,
+        borderRadius: 20,
+      },
+    },
+    grid: {
+      borderColor: 'var(--color-button-bg)',
+      tickColor: 'var(--color-button-bg)',
+    },
+    legend: {
+      show: !props.hideLegend,
+      position: props.legendPosition,
+      showForZeroSeries: false,
+      showForSingleSeries: false,
+      showForNullSeries: false,
+      fontSize: 'var(--font-size-nm)',
+      fontFamily:
+        'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+      onItemClick: {
+        toggleDataSeries: true,
+      },
+    },
+    markers: {
+      size: 0,
+      strokeColor: 'var(--color-contrast)',
+      strokeWidth: 3,
+      strokeOpacity: 1,
+      fillOpacity: 1,
+      hover: {
+        size: 6,
+      },
+    },
+    plotOptions: {
+      bar: {
+        horizontal: props.horizontalBar,
+        columnWidth: '80%',
+        endingShape: 'rounded',
+        borderRadius: 5,
+        borderRadiusApplication: 'end',
+        borderRadiusWhenStacked: 'last',
+      },
+    },
+    stroke: {
+      curve: 'smooth',
+      width: 2,
     },
     tooltip: {
-      enabled: false,
+      custom: (d) => generateTooltip(d, props),
     },
-  },
-  yaxis: {
-    tooltip: {
-      enabled: false,
-    },
-  },
-  colors: props.colors,
-  dataLabels: {
-    enabled: false,
-    background: {
-      enabled: true,
-      borderRadius: 20,
-    },
-  },
-  grid: {
-    borderColor: 'var(--color-button-bg)',
-    tickColor: 'var(--color-button-bg)',
-  },
-  legend: {
-    show: !props.hideLegend,
-    position: props.legendPosition,
-    showForZeroSeries: false,
-    showForSingleSeries: false,
-    showForNullSeries: false,
-    fontSize: 'var(--font-size-nm)',
-    fontFamily:
-      'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Roboto, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
-    onItemClick: {
-      toggleDataSeries: true,
-    },
-  },
-  markers: {
-    size: 0,
-    strokeColor: 'var(--color-contrast)',
-    strokeWidth: 3,
-    strokeOpacity: 1,
-    fillOpacity: 1,
-    hover: {
-      size: 6,
-    },
-  },
-  plotOptions: {
-    bar: {
-      horizontal: props.horizontalBar,
-      columnWidth: '80%',
-      endingShape: 'rounded',
-      borderRadius: 5,
-      borderRadiusApplication: 'end',
-      borderRadiusWhenStacked: 'last',
-    },
-  },
-  stroke: {
-    curve: 'smooth',
-    width: 2,
-  },
-  tooltip: {
-    custom: (d) => generateTooltip(d, props),
-  },
+    fill:
+      props.type === 'area'
+        ? {
+            colors: props.colors,
+            type: 'gradient',
+            opacity: 1,
+            gradient: {
+              shade: 'light',
+              type: 'vertical',
+              shadeIntensity: 0,
+              gradientToColors: props.colors,
+              inverseColors: true,
+              opacityFrom: 0.5,
+              opacityTo: 0,
+              stops: [0, 100],
+              colorStops: [],
+            },
+          }
+        : {},
+  }
 })
-
-const fillOptions = {
-  colors: props.colors,
-  type: 'gradient',
-  opacity: 1,
-  gradient: {
-    shade: 'light',
-    type: 'vertical',
-    shadeIntensity: 0,
-    gradientToColors: props.colors,
-    inverseColors: true,
-    opacityFrom: 0.5,
-    opacityTo: 0,
-    stops: [0, 100],
-    colorStops: [],
-  },
-}
 
 const chart = ref(null)
 
@@ -283,32 +285,13 @@ const flipLegend = (legend, newVal) => {
   chart.value.toggleSeries(legend.name)
 }
 
-const downloadCSV = () => {
-  const csvContent =
-    'data:text/csv;charset=utf-8,' +
-    'Date,' +
-    props.labels.join(',') +
-    '\n' +
-    props.data
-      .map((project) => project.name.replace(',', '-') + ',' + project.data.join(','))
-      .reduce((a, b) => a + '\n' + b)
-
-  const encodedUri = encodeURI(csvContent)
-  const link = document.createElement('a')
-  link.setAttribute('href', encodedUri)
-  link.setAttribute('download', `${props.name}.csv`)
-  document.body.appendChild(link) // Required for FF
-
-  link.click()
-}
-
 const resetChart = () => {
+  if (!chart.value) return
   chart.value.updateSeries([...props.data])
   chart.value.updateOptions({
     xaxis: {
       categories: props.labels,
     },
-    colors: props.colors,
   })
   chart.value.resetSeries()
   legendValues.value.forEach((legend) => {
@@ -318,36 +301,12 @@ const resetChart = () => {
 
 defineExpose({
   resetChart,
-  downloadCSV,
   flipLegend,
 })
 </script>
 
 <template>
-  <div class="bar-chart">
-    <div class="title-bar">
-      <slot />
-      <div v-if="!hideToolbar" class="toolbar">
-        <Button v-tooltip="'Download data as CSV'" icon-only @click="downloadCSV">
-          <DownloadIcon />
-        </Button>
-        <Button v-tooltip="'Reset chart'" icon-only @click="resetChart">
-          <UpdatedIcon />
-        </Button>
-        <slot name="toolbar" />
-      </div>
-    </div>
-    <VueApexCharts
-      ref="chart"
-      :type="type"
-      :options="{
-        ...chartOptions,
-        fill: type === 'area' ? fillOptions : {},
-      }"
-      :series="data"
-      class="chart"
-    />
-  </div>
+  <VueApexCharts ref="chart" :type="type" :options="chartOptions" :series="data" class="chart" />
 </template>
 
 <style scoped lang="scss">

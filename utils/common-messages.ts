@@ -11,6 +11,10 @@ export const commonMessages = defineMessages({
     id: 'label.collections',
     defaultMessage: 'Collections',
   },
+  continueButton: {
+    id: 'button.continue',
+    defaultMessage: 'Continue',
+  },
   dateAtTimeTooltip: {
     id: 'tooltip.date-at-time',
     defaultMessage: '{date, date, long} at {time, time, short}',
