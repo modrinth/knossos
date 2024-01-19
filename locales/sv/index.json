@@ -1,6 +1,24 @@
 {
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Jag vill få uppdateringar om Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Tack för att du skapar ett konto. Du kan nu följa och skapa projekt, få uppdateringar om projekten du älskar och mer!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "När du skapar ett konto godkänner du Modrinths <terms-link>villkor</terms-link> och <privacy-policy-link>sekretesspolicy</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Välkommen till Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Välkommen"
+  },
   "button.cancel": {
     "message": "Avbryt"
+  },
+  "button.continue": {
+    "message": "Fortsätt"
   },
   "button.edit": {
     "message": "Redigera"
