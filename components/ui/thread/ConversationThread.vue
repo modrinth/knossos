@@ -44,12 +44,17 @@
         :message="message"
         :members="members"
         :report="report"
+        :auth="auth"
         raised
+        @update-thread="() => updateThreadLocal()"
       />
     </div>
-    <span v-if="report && report.closed">
-      This thread is closed and new messages cannot be sent to it.
-    </span>
+    <template v-if="report && report.closed">
+      <p>This thread is closed and new messages cannot be sent to it.</p>
+      <button v-if="isStaff(auth.user)" class="iconified-button" @click="reopenReport()">
+        <CloseIcon /> Reopen thread
+      </button>
+    </template>
     <template v-else-if="!report || !report.closed">
       <div class="markdown-editor-spacing">
         <MarkdownEditor
@@ -61,19 +66,22 @@
       <div class="input-group">
         <button
           v-if="sortedMessages.length > 0"
-          class="iconified-button brand-button"
+          class="btn btn-primary"
           :disabled="!replyBody"
           @click="sendReply()"
         >
           <ReplyIcon /> Reply
         </button>
-        <button
-          v-else
-          class="iconified-button brand-button"
-          :disabled="!replyBody"
-          @click="sendReply()"
-        >
+        <button v-else class="btn btn-primary" :disabled="!replyBody" @click="sendReply()">
           <SendIcon /> Send
+        </button>
+        <button
+          v-if="isStaff(auth.user)"
+          class="btn"
+          :disabled="!replyBody"
+          @click="sendReply(null, true)"
+        >
+          <ModerationIcon /> Add private note
         </button>
         <template v-if="currentMember && !isStaff(auth.user)">
           <template v-if="isRejected(project)">
@@ -113,7 +121,7 @@
             <template v-if="isStaff(auth.user)">
               <button
                 v-if="replyBody"
-                class="iconified-button brand-button"
+                class="btn btn-green"
                 :disabled="isApproved(project)"
                 @click="sendReply(requestedStatus)"
               >
@@ -121,44 +129,64 @@
               </button>
               <button
                 v-else
-                class="iconified-button brand-button"
+                class="btn btn-green"
                 :disabled="isApproved(project)"
                 @click="setStatus(requestedStatus)"
               >
-                <CheckIcon /> Approve project
+                <CheckIcon /> Approve
               </button>
-              <button
-                v-if="replyBody"
-                class="iconified-button moderation-button"
-                :disabled="project.status === 'withheld'"
-                @click="sendReply('withheld')"
-              >
-                <EyeOffIcon /> Withhold with reply
-              </button>
-              <button
-                v-else
-                class="iconified-button moderation-button"
-                :disabled="project.status === 'withheld'"
-                @click="setStatus('withheld')"
-              >
-                <EyeOffIcon /> Withhold project
-              </button>
-              <button
-                v-if="replyBody"
-                class="iconified-button danger-button"
-                :disabled="project.status === 'rejected'"
-                @click="sendReply('rejected')"
-              >
-                <CrossIcon /> Reject with reply
-              </button>
-              <button
-                v-else
-                class="iconified-button danger-button"
-                :disabled="project.status === 'rejected'"
-                @click="setStatus('rejected')"
-              >
-                <CrossIcon /> Reject project
-              </button>
+              <div class="joined-buttons">
+                <button
+                  v-if="replyBody"
+                  class="btn btn-danger"
+                  :disabled="project.status === 'rejected'"
+                  @click="sendReply('rejected')"
+                >
+                  <CrossIcon /> Reject with reply
+                </button>
+                <button
+                  v-else
+                  class="btn btn-danger"
+                  :disabled="project.status === 'rejected'"
+                  @click="setStatus('rejected')"
+                >
+                  <CrossIcon /> Reject
+                </button>
+                <OverflowMenu
+                  class="btn btn-danger btn-dropdown-animation icon-only"
+                  position="top"
+                  direction="left"
+                  :options="
+                    replyBody
+                      ? [
+                          {
+                            id: 'withhold-reply',
+                            color: 'danger',
+                            action: () => {
+                              sendReply('withheld')
+                            },
+                            hoverFilled: true,
+                            disabled: project.status === 'withheld',
+                          },
+                        ]
+                      : [
+                          {
+                            id: 'withhold',
+                            color: 'danger',
+                            action: () => {
+                              setStatus('withheld')
+                            },
+                            hoverFilled: true,
+                            disabled: project.status === 'withheld',
+                          },
+                        ]
+                  "
+                >
+                  <DropdownIcon style="rotate: 180deg" />
+                  <template #withhold-reply> <EyeOffIcon /> Withhold with reply </template>
+                  <template #withhold> <EyeOffIcon /> Withhold </template>
+                </OverflowMenu>
+              </div>
             </template>
           </template>
         </div>
@@ -168,7 +196,7 @@
 </template>
 
 <script setup>
-import { MarkdownEditor } from 'omorphia'
+import { OverflowMenu, MarkdownEditor, DropdownIcon } from 'omorphia'
 import { useImageUpload } from '~/composables/image-upload.ts'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import ReplyIcon from '~/assets/images/utils/reply.svg'
@@ -199,11 +227,6 @@ const props = defineProps({
     required: false,
     default: null,
   },
-  updateThread: {
-    type: Function,
-    required: false,
-    default: () => {},
-  },
   setStatus: {
     type: Function,
     required: false,
@@ -220,6 +243,9 @@ const props = defineProps({
     required: true,
   },
 })
+
+const emit = defineEmits(['update-thread'])
+
 const app = useNuxtApp()
 const cosmetics = useCosmetics()
 
@@ -255,7 +281,7 @@ async function updateThreadLocal() {
   if (threadId) {
     thread = await useBaseFetch(`thread/${threadId}`)
   }
-  props.updateThread(thread)
+  emit('update-thread', thread)
 }
 
 const imageIDs = ref([])
@@ -270,12 +296,13 @@ async function onUploadImage(file) {
   return response.url
 }
 
-async function sendReply(status = null) {
+async function sendReply(status = null, privateMessage = false) {
   try {
     const body = {
       body: {
         type: 'text',
         body: replyBody.value,
+        private: privateMessage,
       },
     }
 
@@ -324,6 +351,25 @@ async function closeReport(reply) {
     app.$notify({
       group: 'main',
       title: 'Error closing report',
+      text: err.data ? err.data.description : err,
+      type: 'error',
+    })
+  }
+}
+
+async function reopenReport() {
+  try {
+    await useBaseFetch(`report/${props.report.id}`, {
+      method: 'PATCH',
+      body: {
+        closed: false,
+      },
+    })
+    await updateThreadLocal()
+  } catch (err) {
+    app.$notify({
+      group: 'main',
+      title: 'Error reopening report',
       text: err.data ? err.data.description : err,
       type: 'error',
     })
