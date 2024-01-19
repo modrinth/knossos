@@ -106,8 +106,14 @@
                   : null
               "
             >
-              <template v-if="pat.last_used">Last used {{ fromNow(pat.last_used) }}</template>
-              <template v-else>Never used</template>
+              <template v-if="pat.last_used">
+                {{
+                  formatMessage(messages.lastUsedAgoLabel, {
+                    ago: formatRelativeTime(pat.last_used),
+                  })
+                }}
+              </template>
+              <template v-else>{{ formatMessage(messages.neverUsedLabel) }}</template>
             </span>
             ⋅
             <span
@@ -183,6 +189,8 @@ import Modal from '~/components/ui/Modal.vue'
 
 const { formatMessage } = useVIntl()
 
+const formatRelativeTime = useRelativeTime()
+
 const messages = defineMessages({
   createPatButton: {
     id: 'settings.pats.modal.pat.button.create-pat',
@@ -191,6 +199,14 @@ const messages = defineMessages({
   editTokenButton: {
     id: 'settings.pats.button.edit-token',
     defaultMessage: 'Edit token',
+  },
+  lastUsedAgoLabel: {
+    id: 'settings.pats.label.last-used-ago',
+    defaultMessage: 'Last used {ago}',
+  },
+  neverUsedLabel: {
+    id: 'settings.pats.label.never-used',
+    defaultMessage: 'Never used',
   },
   patsTitle: {
     id: 'settings.pats.title',
