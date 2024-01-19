@@ -1,6 +1,24 @@
 {
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Подписаться на обновления"
+  },
+  "auth.welcome.description": {
+    "message": "Поздравляем с регистрацией! Теперь вы можете следить за проектами и создавать свои, получать уведомления от подписок и многое другое!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Создавая учётную запись, вы соглашаетесь с нашими <terms-link>условиями</terms-link> и <privacy-policy-link>политикой конфиденциальности</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Добро пожаловать в Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Welcome"
+  },
   "button.cancel": {
     "message": "Отмена"
+  },
+  "button.continue": {
+    "message": "Продолжить"
   },
   "button.edit": {
     "message": "Редактировать"
@@ -240,7 +258,7 @@
     "message": "Запись токенов доступа"
   },
   "scopes.payoutsRead.description": {
-    "message": "Чтение данных о выплатах"
+    "message": "Доступ к данным выплат"
   },
   "scopes.payoutsRead.label": {
     "message": "Чтение выплат"
@@ -264,7 +282,7 @@
     "message": "Создание проектов"
   },
   "scopes.projectDelete.description": {
-    "message": "Удаление ваших проектов"
+    "message": "Возможность удаления проектов"
   },
   "scopes.projectDelete.label": {
     "message": "Удаление проектов"
@@ -342,10 +360,10 @@
     "message": "Запись данных авторизации"
   },
   "scopes.userDelete.description": {
-    "message": "Удаление вашего аккаунта"
+    "message": "Возможность удаления вашей учётной записи"
   },
   "scopes.userDelete.label": {
-    "message": "Удаление аккаунта"
+    "message": "Удаление учётной записи"
   },
   "scopes.userRead.description": {
     "message": "Доступ к публичной информации вашего профиля"
