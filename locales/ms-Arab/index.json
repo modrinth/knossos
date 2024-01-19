@@ -1,6 +1,24 @@
 {
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Langgan untuk kemas kini tentang Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Terima kasih kerana mencipta akaun. Anda kini boleh mengikuti dan mencipta projek, menerima kemas kini tentang projek kegemaran anda dan banyak lagi!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Dengan mencipta akaun, anda telah bersetuju dengan <terms-link>Terma</terms-link> dan <privacy-policy-link>Dasar Privasi</privacy-policy-link> Modrinth."
+  },
+  "auth.welcome.long-title": {
+    "message": "Selamat Datang ke Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Selamat Datang"
+  },
   "button.cancel": {
     "message": "بطل"
+  },
+  "button.continue": {
+    "message": "Teruskan"
   },
   "button.edit": {
     "message": "سونتيڠ"
