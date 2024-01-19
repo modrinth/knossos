@@ -1,6 +1,24 @@
 {
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Подписаться на обновления"
+  },
+  "auth.welcome.description": {
+    "message": "Поздравляем с регистрацией! Теперь вы можете следить за проектами и создавать свои, получать уведомления от подписок и многое другое!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Создавая учётную запись, вы соглашаетесь с нашими <terms-link>условиями</terms-link> и <privacy-policy-link>политикой конфиденциальности</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Добро пожаловать в Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Welcome"
+  },
   "button.cancel": {
     "message": "Нафиг"
+  },
+  "button.continue": {
+    "message": "Продолжить"
   },
   "button.edit": {
     "message": "Редачить"
@@ -69,7 +87,7 @@
     "message": "Тут пока ничо не наворочено.\nПошёл бы чё-нить <create-link>намутить</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Организации"
   },
   "profile.meta.description": {
     "message": "Закачайте плюхи от {username} на Modrinth"
@@ -138,256 +156,256 @@
     "message": "По красоте"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "Общая сумма вывода: {amount}."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "Общая сумма вывода через {method}: {amount}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "Общая сумма вывода за {year}: {amount}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "Общая сумма вывода за {year} через {method}: {amount}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "Доступ к данным аналитики"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Чтение аналитики"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Возможность создавать коллекции"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "Создание коллекций"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Возможность удалять коллекции"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "Удаление коллекций"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Возможность считывать данные коллекций"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Чтение коллекций"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Возможность изменять данные коллекций"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Запись коллекций"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Доступ к данным уведомлений"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "Чтение уведомлений"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Возможность чтения/удаления уведомлений"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Запись уведомлений"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Возможность создавать организации"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Создание организаций"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Возможность удалять организации"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Удаление организаций"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Доступ к данным организаций"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Чтение организаций"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Возможность изменять данные организаций"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Запись организаций"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Возможность создания персональных токенов доступа к API"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "Создание токенов доступа"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Возможность удаления персональных токенов доступа к API"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "Удаление токенов доступа"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Доступ к данным персональных токенов доступа к API"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "Чтение токенов доступа"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Возможность изменять данные персональных токенов доступа к API"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Запись токенов доступа"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Доступ к данным выплат"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Чтение выплат"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Возможность вывода средств"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Запись выплат"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Выполнение действий аналитики"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Аналитика"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Возможность создания новых проектов"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Создание проектов"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Возможность удаления проектов"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Удаление проектов"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Доступ к данным всех ваших проектов"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Чтение проектов"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Возможность изменять данные проектов"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Запись проектов"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Возможность отправки жалоб"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Создание жалоб"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Возможность удаления отравленных жалоб"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Удаление жалоб"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Доступ к данным жалоб"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Чтение жалоб"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Возможность изменять данные жалоб"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Запись жалоб"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Просмотр сеансов, созданных Modrinth"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Доступ к сеансам"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Возможность прерывания сеансов"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Удаление сеансов"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Доступ к данным активных сеансов"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Чтение сеансов"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Просмотр сообщений"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Чтение сообщений"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Отправка сообщений"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Запись сообщений"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Редактирование данных авторизации"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Запись данных авторизации"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Возможность удаления вашей учётной записи"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Удаление учётной записи"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Доступ к публичной информации вашего профиля"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Чтение данных пользователя"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Получение вашей электронной почты"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "Чтение электронной почты"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Редактирование вашего профиля"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Запись данных пользователя"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Создание новых версий проектов"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "Создание версий"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Удаление версий проектов"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Удаление версий"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Чтение всех версий проектов"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "Чтение версий"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Редактирование данных версий проектов"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "Запись версий"
   },
   "settings.language.categories.auto": {
     "message": "На автомате"
