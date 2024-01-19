@@ -1,6 +1,24 @@
 {
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Telli Modrinthi uudiskiri"
+  },
+  "auth.welcome.description": {
+    "message": "Täname konto loomise eest. Sa saad nüüd projekte jälgida ja luua, hankida lemmikprojektide uuendusi ja muudki!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Konto loomisega oled nõustunud Modrinthi <terms-link>teenusetingimuste</terms-link> ja <privacy-policy-link>privaatsuspoliitikaga</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Tere tulemast Modrinthi!"
+  },
+  "auth.welcome.title": {
+    "message": "Tere tulemast"
+  },
   "button.cancel": {
     "message": "Tühista"
+  },
+  "button.continue": {
+    "message": "Jätka"
   },
   "button.edit": {
     "message": "Muuda"
@@ -69,7 +87,7 @@
     "message": "Sul pole ühtegi projekti.\nKas sooviksid <create-link>ühe luua</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Organisatsioonid"
   },
   "profile.meta.description": {
     "message": "Laadi Modrinthis {username} projektid alla"
@@ -153,31 +171,31 @@
     "message": "Access your analytics data"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Analüütika lugemine"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Kogumite loomine"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "Kogumite loomine"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Kogumite kustutamine"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "Kogumite kustutamine"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Kogumite lugemine"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Kogumite lugemine"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Kogumite muutmine"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Kogumite muutmine"
   },
   "scopes.notificationRead.description": {
     "message": "Read your notifications"
@@ -192,28 +210,28 @@
     "message": "Write notifications"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Organisatsioonide loomine"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Organisatsioonide loomine"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Organisatsioonide kustutamine"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Organisatsioonide kustutamine"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Organisatsioonide lugemine"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Organisatsioonide lugemine"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Organisatsioonide muutmine"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Organisatsioonide muutmine"
   },
   "scopes.patCreate.description": {
     "message": "Create personal API tokens"
@@ -279,67 +297,67 @@
     "message": "Write to project data"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Projektide muutmine"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Raportite loomine"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Raportite loomine"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Raportite kustutamine"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Raportite kustutamine"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Raportite lugemine"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Raportite lugemine"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Raportite muutmine"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Raportite muutmine"
   },
   "scopes.sessionAccess.description": {
     "message": "Access modrinth-issued sessions"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Seansside ligipääs"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Seansside kustutamine"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Seansside kustutamine"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Aktiivsete seansside lugemine"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Seansside lugemine"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Lõimede lugemine"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Lõimede lugemine"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Lõimedesse kirjutamine"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Lõimedesse kirjutamine"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Autentimisandmete muutmine"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Autentimisandmete kirjutamine"
   },
   "scopes.userDelete.description": {
     "message": "Delete your account"
