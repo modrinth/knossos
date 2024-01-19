@@ -157,11 +157,11 @@
 
               <div class="primary-stat">
                 <LibraryIcon class="primary-stat__icon" aria-hidden="true" />
-                <div class="primary-stat__text">
+                <div v-if="projects" class="primary-stat__text">
                   <span class="primary-stat__counter">
-                    {{ $formatNumber(projects.length || 0) }}
+                    {{ $formatNumber(projects?.length || 0) }}
                   </span>
-                  project<span v-if="projects.length !== 1">s</span>
+                  project<span v-if="projects?.length !== 1">s</span>
                 </div>
               </div>
 
@@ -180,7 +180,7 @@
 
               <div v-if="collection.id !== 'following'" class="metadata-item">
                 <div
-                  v-tooltip="$dayjs(collection.created).format('MMMM D, YYYY [at] h:mm A')"
+                  v-tooltip="$dayjs(collection.updated).format('MMMM D, YYYY [at] h:mm A')"
                   class="date"
                 >
                   <UpdatedIcon />
@@ -259,7 +259,7 @@
         </nav>
 
         <div
-          v-if="projects && projects.length > 0"
+          v-if="projects && projects?.length > 0"
           :class="
             'project-list display-mode--' + (cosmetics.searchDisplayMode.collection || 'list')
           "
@@ -283,7 +283,8 @@
             :updated-at="project.updated"
             :description="project.description"
             :downloads="project.downloads ? project.downloads.toString() : '0'"
-            :follows="project.follows ? project.follows.toString() : '0'"
+            :follows="project.followers ? project.followers.toString() : '0'"
+            :featured-image="project.gallery.find((element) => element.featured)?.url"
             :icon-url="project.icon_url"
             :name="project.title"
             :client-side="project.client_side"
@@ -308,7 +309,7 @@
             <button
               v-if="collection.id === 'following'"
               class="iconified-button"
-              @click="userUnfollowProject(project)"
+              @click="unfollowProject(project)"
             >
               <TrashIcon />
               Unfollow project
@@ -394,13 +395,12 @@ try {
       created: auth.value.user.created,
       updated: auth.value.user.created,
     })
-    const data = await useAsyncData(`user/${auth.value.user.id}/follows`, () =>
-      useBaseFetch(`user/${auth.value.user.id}/follows`)
-    )
-    projects = ref(data.data)
-
+    ;[{ data: projects, refresh: refreshProjects }] = await Promise.all([
+      useAsyncData(`user/${auth.value.user.id}/follows`, () =>
+        useBaseFetch(`user/${auth.value.user.id}/follows`)
+      ),
+    ])
     creator = ref(auth.value.user)
-    refreshProjects = async () => {}
     refreshCollection = async () => {}
   } else {
     const val = await useAsyncData(`collection/${route.params.id}`, () =>
@@ -412,8 +412,12 @@ try {
       await useAsyncData(`user/${collection.value.user}`, () =>
         useBaseFetch(`user/${collection.value.user}`)
       ),
-      await useAsyncData(`projects?ids=${JSON.stringify(collection.value.projects)}]`, () =>
-        useBaseFetch(`projects?ids=${JSON.stringify(collection.value.projects)}`)
+      await useAsyncData(
+        `projects?ids=${encodeURIComponent(JSON.stringify(collection.value.projects))}]`,
+        () =>
+          useBaseFetch(
+            `projects?ids=${encodeURIComponent(JSON.stringify(collection.value.projects))}`
+          )
       ),
     ])
   }
@@ -454,15 +458,11 @@ const canEdit = computed(
 )
 
 const projectTypes = computed(() => {
-  const obj = {}
-
-  for (const project of projects.value) {
-    obj[project.project_type] = true
-  }
-
-  delete obj.project
-
-  return Object.keys(obj)
+  const projectSet = new Set(
+    projects.value?.map((project) => project?.project_type).filter((x) => x !== undefined) || []
+  )
+  projectSet.delete('project')
+  return Array.from(projectSet)
 })
 
 const icon = ref(null)
@@ -474,6 +474,11 @@ const summary = ref(collection.value.description)
 const visibility = ref(collection.value.status)
 const removeProjects = ref([])
 
+async function unfollowProject(project) {
+  await userUnfollowProject(project)
+  projects.value = projects.value.filter((x) => x.id !== project.id)
+}
+
 async function saveChanges() {
   startLoading()
   try {
@@ -483,19 +488,16 @@ async function saveChanges() {
         apiVersion: 3,
       })
     } else if (icon.value) {
-      await useBaseFetch(
-        `collection/${collection.value.id}/icon?ext=${
-          icon.value.type.split('/')[icon.value.type.split('/').length - 1]
-        }`,
-        {
-          method: 'PATCH',
-          body: icon.value,
-          apiVersion: 3,
-        }
-      )
+      const ext = icon.value?.type?.split('/').pop()
+      if (!ext) throw new Error('Invalid file type')
+      await useBaseFetch(`collection/${collection.value.id}/icon?ext=${ext}`, {
+        method: 'PATCH',
+        body: icon.value,
+        apiVersion: 3,
+      })
     }
 
-    const projectsToRemove = removeProjects.value.map((p) => p.id)
+    const projectsToRemove = removeProjects.value?.map((p) => p.id) ?? []
     const newProjects = projects.value
       .filter((p) => !projectsToRemove.includes(p.id))
       .map((p) => p.id)

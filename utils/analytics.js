@@ -34,14 +34,56 @@ export const formatPercent = (value, sum) => {
   return `${((value / sum) * 100).toFixed(2)}%`
 }
 
-const intToRgba = (color, projectId = 'Unknown', theme) => {
+const hashProjectId = (projectId) => {
+  return projectId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 30
+}
+
+export const defaultColors = [
+  '#ff496e', // Original: Bright pink
+  '#ffa347', // Original: Bright orange
+  '#1bd96a', // Original: Bright green
+  '#4f9cff', // Original: Bright blue
+  '#c78aff', // Original: Bright purple
+  '#ffeb3b', // Added: Bright yellow
+  '#00bcd4', // Added: Bright cyan
+  '#ff5722', // Added: Bright red-orange
+  '#9c27b0', // Added: Bright deep purple
+  '#3f51b5', // Added: Bright indigo
+  '#009688', // Added: Bright teal
+  '#cddc39', // Added: Bright lime
+  '#795548', // Added: Bright brown
+  '#607d8b', // Added: Bright blue-grey
+]
+
+/**
+ * @param {string | number} value
+ * @returns {string} color
+ */
+export const getDefaultColor = (value) => {
+  if (typeof value === 'string') {
+    value = hashProjectId(value)
+  }
+  return defaultColors[value % defaultColors.length]
+}
+
+export const intToRgba = (color, projectId = 'Unknown', theme = 'dark') => {
+  const hash = hashProjectId(projectId)
+
+  if (!color || color === 0) {
+    return getDefaultColor(hash)
+  }
+
+  // if color is a string, return that instead
+  if (typeof color === 'string') {
+    return color
+  }
+
   // Extract RGB values
   let r = (color >> 16) & 255
   let g = (color >> 8) & 255
   let b = color & 255
 
   // Hash function to alter color slightly based on project_id
-  const hash = projectId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 30
   r = (r + hash) % 256
   g = (g + hash) % 256
   b = (b + hash) % 256
@@ -82,7 +124,30 @@ const emptyAnalytics = {
       },
     ],
     colors: [],
+    defaultColors: [],
   },
+  projectIds: [],
+}
+
+export const analyticsSetToCSVString = (analytics) => {
+  if (!analytics) {
+    return ''
+  }
+
+  const newline = '\n'
+  const labels = analytics.chart.labels
+  const projects = analytics.chart.data
+
+  const projectNames = projects.map((p) => p.name)
+
+  const header = ['Date', ...projectNames].join(',')
+
+  const data = labels.map((label, i) => {
+    const values = projects.map((p) => p.data?.[i] || '')
+    return [label, ...values].join(',')
+  })
+
+  return [header, ...data].join(newline)
 }
 
 export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, chartName) => {
@@ -101,7 +166,6 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
   const loadedProjectData = loadedProjectIds.map((id) => category[id])
 
   // Convert each project's data into a list of [unix_ts_str, number] pairs
-  // Sort, label&map
   const projectData = loadedProjectData
     .map((data) => Object.entries(data))
     .map((data) => data.sort(sortFn))
@@ -134,6 +198,8 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
         b.data.reduce((acc, cur) => acc + cur, 0) - a.data.reduce((acc, cur) => acc + cur, 0)
     )
 
+  const projectIdsSortedBySum = chartData.map((p) => p.id)
+
   return {
     // The total count of all the values across all projects
     sum: projectData.reduce((acc, cur) => acc + cur.reduce((a, c) => a + c[1], 0), 0),
@@ -154,11 +220,14 @@ export const processAnalytics = (category, projects, labelFn, sortFn, mapFn, cha
         const theme = useTheme()
         const project = chartData[i]
 
-        return project.color
-          ? intToRgba(project.color, project.id, theme.value.value)
-          : '--color-brand'
+        return intToRgba(project.color, project.id, theme.value)
+      }),
+      defaultColors: projectData.map((_, i) => {
+        const project = chartData[i]
+        return getDefaultColor(project.id)
       }),
     },
+    projectIds: projectIdsSortedBySum,
   }
 }
 
@@ -226,10 +295,15 @@ const useFetchAnalytics = (
 }
 
 /**
- * @param {any} projects
+ * @param {Ref<any[]>} projects
  * @param {undefined | () => any} onDataRefresh
  */
-export const useFetchAllAnalytics = (onDataRefresh, projects = undefined) => {
+export const useFetchAllAnalytics = (
+  onDataRefresh,
+  projects,
+  selectedProjects,
+  personalRevenue = false
+) => {
   const timeResolution = ref(1440) // 1 day
   const timeRange = ref(43200) // 30 days
 
@@ -245,20 +319,29 @@ export const useFetchAllAnalytics = (onDataRefresh, projects = undefined) => {
   const error = ref(null)
 
   const formattedData = computed(() => ({
-    downloads: processNumberAnalytics(downloadData.value, projects),
-    views: processNumberAnalytics(viewData.value, projects),
-    revenue: processRevAnalytics(revenueData.value, projects),
-    downloadsByCountry: processCountryAnalytics(downloadsByCountry.value, projects),
-    viewsByCountry: processCountryAnalytics(viewsByCountry.value, projects),
+    downloads: processNumberAnalytics(downloadData.value, selectedProjects.value),
+    views: processNumberAnalytics(viewData.value, selectedProjects.value),
+    revenue: processRevAnalytics(revenueData.value, selectedProjects.value),
+    downloadsByCountry: processCountryAnalytics(downloadsByCountry.value, selectedProjects.value),
+    viewsByCountry: processCountryAnalytics(viewsByCountry.value, selectedProjects.value),
+  }))
+
+  const totalData = computed(() => ({
+    downloads: processNumberAnalytics(downloadData.value, projects.value),
+    views: processNumberAnalytics(viewData.value, projects.value),
+    revenue: processRevAnalytics(revenueData.value, projects.value),
   }))
 
   const fetchData = async (query) => {
     const normalQuery = new URLSearchParams(query)
+    const revenueQuery = new URLSearchParams(query)
 
-    const revQuery = new URLSearchParams(query)
+    if (personalRevenue) {
+      revenueQuery.delete('project_ids')
+    }
 
     const qs = normalQuery.toString()
-    const revQs = revQuery.toString()
+    const revenueQs = revenueQuery.toString()
 
     try {
       loading.value = true
@@ -267,14 +350,34 @@ export const useFetchAllAnalytics = (onDataRefresh, projects = undefined) => {
       const responses = await Promise.all([
         useFetchAnalytics(`analytics/downloads?${qs}`),
         useFetchAnalytics(`analytics/views?${qs}`),
-        useFetchAnalytics(`analytics/revenue?${revQs}`),
+        useFetchAnalytics(`analytics/revenue?${revenueQs}`),
         useFetchAnalytics(`analytics/countries/downloads?${qs}`),
         useFetchAnalytics(`analytics/countries/views?${qs}`),
       ])
 
-      downloadData.value = responses[0] || {}
-      viewData.value = responses[1] || {}
-      revenueData.value = responses[2] || {}
+      // collect project ids from projects.value into a set
+      const projectIds = new Set()
+      if (projects.value) {
+        projects.value.forEach((p) => projectIds.add(p.id))
+      } else {
+        // if projects.value is not set, we assume that we want all project ids
+        Object.keys(responses[0] || {}).forEach((id) => projectIds.add(id))
+      }
+
+      const filterProjectIds = (data) => {
+        const filtered = {}
+        Object.entries(data).forEach(([id, values]) => {
+          if (projectIds.has(id)) {
+            filtered[id] = values
+          }
+        })
+        return filtered
+      }
+
+      downloadData.value = filterProjectIds(responses[0] || {})
+      viewData.value = filterProjectIds(responses[1] || {})
+      revenueData.value = filterProjectIds(responses[2] || {})
+
       downloadsByCountry.value = responses[3] || {}
       viewsByCountry.value = responses[4] || {}
     } catch (e) {
@@ -285,7 +388,7 @@ export const useFetchAllAnalytics = (onDataRefresh, projects = undefined) => {
   }
 
   watch(
-    [() => startDate.value, () => endDate.value, () => timeResolution.value, () => projects],
+    [() => startDate.value, () => endDate.value, () => timeResolution.value, () => projects.value],
     async () => {
       const q = {
         start_date: dayjs(startDate.value).toISOString(),
@@ -293,8 +396,8 @@ export const useFetchAllAnalytics = (onDataRefresh, projects = undefined) => {
         resolution_minutes: timeResolution.value,
       }
 
-      if (projects?.length) {
-        q.project_ids = JSON.stringify(projects.map((p) => p.id))
+      if (projects.value?.length) {
+        q.project_ids = JSON.stringify(projects.value.map((p) => p.id))
       }
 
       await fetchData(q)
@@ -307,6 +410,31 @@ export const useFetchAllAnalytics = (onDataRefresh, projects = undefined) => {
       immediate: true,
     }
   )
+
+  const validProjectIds = computed(() => {
+    const ids = new Set()
+
+    if (downloadData.value) {
+      Object.keys(downloadData.value).forEach((id) => ids.add(id))
+    }
+
+    if (viewData.value) {
+      Object.keys(viewData.value).forEach((id) => ids.add(id))
+    }
+
+    if (revenueData.value) {
+      // revenue will always have all project ids, but the ids may have an empty object or a ton of keys below a cent (0.00...) as values. We want to filter those out
+      Object.entries(revenueData.value).forEach(([id, data]) => {
+        if (Object.keys(data).length) {
+          if (Object.values(data).some((v) => v >= 0.01)) {
+            ids.add(id)
+          }
+        }
+      })
+    }
+
+    return Array.from(ids)
+  })
 
   return {
     // Configuration
@@ -324,7 +452,9 @@ export const useFetchAllAnalytics = (onDataRefresh, projects = undefined) => {
     viewsByCountry,
 
     // Computed state
+    validProjectIds,
     formattedData,
+    totalData,
     loading,
     error,
   }
