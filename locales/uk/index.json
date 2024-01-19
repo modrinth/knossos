@@ -1,6 +1,24 @@
 {
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Підписатись на оновлення Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Дякуємо за створення облікового запису. Тепер ви можете стежити за проєктами, створювати їх, отримувати оновлення про улюблені проєкти та багато іншого!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Створивши обліковий запис, ви погоджуєтеся з <terms-link>Умовами користування</terms-link> та <privacy-policy-link>Політикою конфіденційності</privacy-policy-link> Modrinth."
+  },
+  "auth.welcome.long-title": {
+    "message": "Вітаємо в Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Вітаємо"
+  },
   "button.cancel": {
     "message": "Скасувати"
+  },
+  "button.continue": {
+    "message": "Продовжити"
   },
   "button.edit": {
     "message": "Редагувати"
