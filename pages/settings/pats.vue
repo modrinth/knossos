@@ -2,9 +2,9 @@
   <div class="universal-card">
     <ConfirmModal
       ref="modal_confirm"
-      title="Are you sure you want to delete this token?"
-      description="This will remove this token forever (like really forever)."
-      proceed-label="Delete this token"
+      :title="formatMessage(messages.deletePatModalTitle)"
+      :description="formatMessage(messages.deletePatModalDescription)"
+      :proceed-label="formatMessage(messages.deletePatModalProceedLabel)"
       @proceed="removePat(deletePatIndex)"
     />
     <Modal
@@ -195,6 +195,18 @@ const messages = defineMessages({
   createPatButton: {
     id: 'settings.pats.modal.pat.button.create-pat',
     defaultMessage: 'Create PAT',
+  },
+  deletePatModalDescription: {
+    id: 'settings.pats.modal.delete-pat.description',
+    defaultMessage: 'This will remove this token forever (like really forever).',
+  },
+  deletePatModalProceedLabel: {
+    id: 'settings.pats.modal.delete-pat.proceed-label',
+    defaultMessage: 'Delete this token',
+  },
+  deletePatModalTitle: {
+    id: 'settings.pats.modal.delete-pat.title',
+    defaultMessage: 'Are you sure you want to delete this token?',
   },
   editTokenButton: {
     id: 'settings.pats.button.edit-token',

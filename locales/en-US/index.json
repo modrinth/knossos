@@ -440,6 +440,21 @@
   "settings.pats.button.revoke-token": {
     "message": "Revoke token"
   },
+  "settings.pats.label.last-used-ago": {
+    "message": "Last used {ago}"
+  },
+  "settings.pats.label.never-used": {
+    "message": "Never used"
+  },
+  "settings.pats.modal.delete-pat.description": {
+    "message": "This will remove this token forever (like really forever)."
+  },
+  "settings.pats.modal.delete-pat.proceed-label": {
+    "message": "Delete this token"
+  },
+  "settings.pats.modal.delete-pat.title": {
+    "message": "Are you sure you want to delete this token?"
+  },
   "settings.pats.modal.pat.button.create-pat": {
     "message": "Create PAT"
   },
