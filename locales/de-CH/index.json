@@ -1,6 +1,24 @@
 {
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Updates über Modrinth abonnieren"
+  },
+  "auth.welcome.description": {
+    "message": "Vielen Dank für das erstellen eines Accounts. Du kannst nun Projekten folgen und auch welche erstellen, Updates über deine favorisierten Projekte erhalten, und mehr!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Durch das erstellen eines Accounts stimmst du den <terms-link>Nutzungsbedingungen</terms-link> und <privacy-policy-link>Datenschutzbestimmungen</privacy-policy-link> von Modrinth zu."
+  },
+  "auth.welcome.long-title": {
+    "message": "Willkommen bei Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Willkommen"
+  },
   "button.cancel": {
     "message": "Abbrechen"
+  },
+  "button.continue": {
+    "message": "Weiter"
   },
   "button.edit": {
     "message": "Bearbeiten"
