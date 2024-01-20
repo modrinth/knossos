@@ -5,6 +5,9 @@
   "auth.authorize.error.not-location-found": {
     "message": "No redirect location found in response"
   },
+  "auth.authorize.label.app-info": {
+    "message": "<strong>{app_name}</strong> by <creator-link>{creator_username}</creator-link> will be able to:"
+  },
   "auth.authorize.label.authorize-app-name": {
     "message": "Authorize {app_name}"
   },

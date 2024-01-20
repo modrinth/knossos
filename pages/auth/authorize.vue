@@ -24,11 +24,24 @@
       </div>
       <div class="auth-info">
         <div class="scope-heading">
-          <strong>{{ app.name }}</strong> by
-          <nuxt-link class="text-link" :to="'/user/' + createdBy.id">{{
-            createdBy.username
-          }}</nuxt-link>
-          will be able to:
+          <IntlFormatted 
+            :message-id="messages.appInfoLabel"
+            :values="{ 
+              app_name: app.name,
+              creator_username: createdBy.username,
+            }"
+          >
+            <template #strong="{ children }">
+              <strong>
+                <component :is="() => normalizeChildren(children)" />
+                </strong>
+            </template>
+            <template #creator-link="{ children }">
+              <nuxt-link class="text-link" :to="'/user/' + createdBy.id">
+                <component :is="() => normalizeChildren(children)" />
+              </nuxt-link>
+            </template>
+          </IntlFormatted>
         </div>
         <div class="scope-items">
           <div v-for="scopeItem in scopeDefinitions" :key="scopeItem">
@@ -79,6 +92,10 @@ import { useScopes } from '@/composables/auth/scopes.ts'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
+  appInfoLabel: {
+    id: 'auth.authorize.label.app-info',
+    defaultMessage: '<strong>{app_name}</strong> by <creator-link>{creator_username}</creator-link> will be able to:',
+  },
   authorizeAppNameLabel: {
     id: 'auth.authorize.label.authorize-app-name',
     defaultMessage: 'Authorize {app_name}',
