@@ -7,6 +7,10 @@ export const commonMessages = defineMessages({
     id: 'button.cancel',
     defaultMessage: 'Cancel',
   },
+  continueButton: {
+    id: 'button.continue',
+    defaultMessage: 'Continue',
+  },
   createdAgoLabel: {
     id: 'label.created-ago',
     defaultMessage: 'Created {ago}',
