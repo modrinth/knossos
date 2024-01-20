@@ -1,6 +1,6 @@
 {
   "auth.welcome.checkbox.subscribe": {
-    "message": "Подписаться на обновления"
+    "message": "Подписаться на новости Modrinth"
   },
   "auth.welcome.description": {
     "message": "Поздравляем с регистрацией! Теперь вы можете следить за проектами и создавать свои, получать уведомления от подписок и многое другое!"
@@ -9,10 +9,10 @@
     "message": "Создавая учётную запись, вы соглашаетесь с нашими <terms-link>условиями</terms-link> и <privacy-policy-link>политикой конфиденциальности</privacy-policy-link>."
   },
   "auth.welcome.long-title": {
-    "message": "Добро пожаловать в Modrinth!"
+    "message": "Добро пожаловать на Modrinth!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "Добро пожаловать"
   },
   "button.cancel": {
     "message": "Отмена"
