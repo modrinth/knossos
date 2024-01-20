@@ -9,7 +9,11 @@
     />
     <Modal
       ref="patModal"
-      :header="editPatIndex !== null ? formatMessage(messages.editPatModalTitle) : formatMessage(messages.createPatModalTitle)"
+      :header="
+        editPatIndex !== null
+          ? formatMessage(messages.editPatModalTitle)
+          : formatMessage(messages.createPatModalTitle)
+      "
     >
       <div class="universal-modal">
         <label for="pat-name">
@@ -34,7 +38,9 @@
             @update:model-value="scopesVal = toggleScope(scopesVal, scope)"
           />
         </div>
-        <label for="pat-name"><span class="label__title">{{ formatMessage(messages.experiesLabel) }}</span> </label>
+        <label for="pat-name">
+          <span class="label__title">{{ formatMessage(messages.experiesLabel) }}</span>
+        </label>
         <input id="pat-name" v-model="expires" type="date" />
         <p></p>
         <div class="input-group push-right">
@@ -272,7 +278,7 @@ const messages = defineMessages({
   },
   patsDescription: {
     id: 'settings.pats.description',
-    defaultMessage: 
+    defaultMessage:
       "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time.",
   },
   patsLongTitle: {
