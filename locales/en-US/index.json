@@ -485,8 +485,17 @@
   "settings.pats.modal.pat.button.create-pat": {
     "message": "Create PAT"
   },
+  "settings.pats.modal.pat.create-title": {
+    "message": "Create personal access token"
+  },
+  "settings.pats.modal.pat.edit-title": {
+    "message": "Edit personal access token"
+  },
   "settings.pats.modal.pat.input.pat-name.placeholder": {
     "message": "Enter the PAT's name..."
+  },
+  "settings.pats.modal.pat.label.expires": {
+    "message": "Expires"
   },
   "settings.pats.title": {
     "message": "PATs"
