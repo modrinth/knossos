@@ -1,24 +1,24 @@
 {
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Abonneer op updates over Modrinth"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "Bedankt voor het aanmaken van een account. Je kunt nu projecten volgen en aanmaken, updates ontvangen over je favoriete projecten en meer!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Door het aanmaken van een account, ga je akkoord met Modrinth's <terms-link>Voorwaarden</terms-link> en <privacy-policy-link>Privacybeleid</privacy-policy-link>."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "Welkom bij Modrinth!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "Welkom"
   },
   "button.cancel": {
     "message": "Annuleren"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "Doorgaan"
   },
   "button.edit": {
     "message": "Bewerk"
