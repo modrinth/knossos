@@ -1,6 +1,6 @@
 {
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "S'abonner aux mises à jour de Modrinth"
   },
   "auth.welcome.description": {
     "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
@@ -9,10 +9,10 @@
     "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "Bienvenue sur Modrinth !"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "Bienvenue"
   },
   "button.cancel": {
     "message": "Annuler"
@@ -159,13 +159,13 @@
     "message": "Vous avez retiré {amount} au total."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "Vous avez retiré {amount} via {method}."
   },
   "revenue.transfers.total.year": {
     "message": "Vous avez retiré {amount} en {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "Vous avez retiré {amount} en {year} via {method}."
   },
   "scopes.analytics.description": {
     "message": "Accéder à vos données analytiques"
