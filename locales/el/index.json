@@ -1,24 +1,24 @@
 {
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Εγγραφή σε ενημερώσεις σχετικά με το Modrinth"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "Ευχαριστούμε για τη δημιουργία λογαριασμού. Τώρα μπορείς να ακολουθείς και να δημιουργείς έργα, να λαμβάνεις ενημερώσεις για τα αγαπημένα σου έργα και πολλά άλλα!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Με τη δημιουργία λογαριασμού, συμφωνείς με τους <terms-link>Όρους</terms-link> και την <privacy-policy-link>Πολιτική απορρήτου</privacy-policy-link> του Modrinth."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "Καλώς ήρθες στο Modrinth!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "Καλώς όρισες"
   },
   "button.cancel": {
     "message": "Ακύρωση"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "Συνέχεια"
   },
   "button.edit": {
     "message": "Επεξεργασία"
