@@ -578,7 +578,7 @@
               v-if="route.name !== 'type-id-versions' && (versions.length > 0 || currentMember)"
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
-              }/versions#all-versions`"
+              }/versions`"
               class="goto-link"
             >
               See all
