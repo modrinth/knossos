@@ -12,7 +12,9 @@
       :header="`${editPatIndex !== null ? 'Edit' : 'Create'} personal access token`"
     >
       <div class="universal-modal">
-        <label for="pat-name"><span class="label__title">{{ formatMessage(commonMessages.nameLabel) }}</span> </label>
+        <label for="pat-name">
+          <span class="label__title">{{ formatMessage(commonMessages.nameLabel) }}</span>
+        </label>
         <input
           id="pat-name"
           v-model="name"
@@ -20,7 +22,9 @@
           type="email"
           placeholder="Enter the PAT's name..."
         />
-        <label for="pat-scopes"><span class="label__title">{{ formatMessage(commonMessages.scopesLabel) }}</span> </label>
+        <label for="pat-scopes">
+          <span class="label__title">{{ formatMessage(commonMessages.scopesLabel) }}</span>
+        </label>
         <div id="pat-scopes" class="checkboxes">
           <Checkbox
             v-for="scope in scopeList"
@@ -131,7 +135,7 @@
                   })
                 }}
               </template>
-              <template v-else> 
+              <template v-else>
                 {{
                   formatMessage(messages.experiedAgoLabel, {
                     ago: formatRelativeTime(pat.expires),
