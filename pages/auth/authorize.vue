@@ -24,9 +24,9 @@
       </div>
       <div class="auth-info">
         <div class="scope-heading">
-          <IntlFormatted 
+          <IntlFormatted
             :message-id="messages.appInfoLabel"
-            :values="{ 
+            :values="{
               app_name: app.name,
               creator_username: createdBy.username,
             }"
@@ -34,7 +34,7 @@
             <template #strong="{ children }">
               <strong>
                 <component :is="() => normalizeChildren(children)" />
-                </strong>
+              </strong>
             </template>
             <template #creator-link="{ children }">
               <nuxt-link class="text-link" :to="'/user/' + createdBy.id">
@@ -66,10 +66,7 @@
       </div>
       <div class="redirection-notice">
         <p class="redirect-instructions">
-          <IntlFormatted
-            :message-id="messages.redirectUrlLabel"
-            :values="{ url: redirectUri }"
-          >
+          <IntlFormatted :message-id="messages.redirectUrlLabel" :values="{ url: redirectUri }">
             <template #redirect-url="{ children }">
               <span class="redirect-url">
                 <component :is="() => normalizeChildren(children)" />
@@ -94,7 +91,8 @@ const { formatMessage } = useVIntl()
 const messages = defineMessages({
   appInfoLabel: {
     id: 'auth.authorize.label.app-info',
-    defaultMessage: '<strong>{app_name}</strong> by <creator-link>{creator_username}</creator-link> will be able to:',
+    defaultMessage:
+      '<strong>{app_name}</strong> by <creator-link>{creator_username}</creator-link> will be able to:',
   },
   authorizeAppNameLabel: {
     id: 'auth.authorize.label.authorize-app-name',
