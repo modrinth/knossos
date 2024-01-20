@@ -471,7 +471,7 @@ try {
             projects = projects.filter(
               (project) => (auth.user && auth.user.id === user.id) || project.status !== 'unlisted'
             )
-            
+
             return projects
           },
         }
