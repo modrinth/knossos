@@ -1,24 +1,24 @@
 {
   "auth.welcome.checkbox.subscribe": {
-    "message": "Langgan untuk kemas kini tentang Modrinth"
+    "message": "لڠݢن اونتوق کمس کيني تنتڠ مودرين‌ث"
   },
   "auth.welcome.description": {
-    "message": "Terima kasih kerana mencipta akaun. Anda kini boleh mengikuti dan mencipta projek, menerima kemas kini tentang projek kegemaran anda dan banyak lagi!"
+    "message": "تريما کاسيه کران منچيڤتا اکاءون. اندا کيني بوليه مڠيکوتي دان منچيڤتا ڤروجيک، منريما کمس کيني تنتڠ ڤروجيک کݢمرن اندا دان باپق لاݢي!"
   },
   "auth.welcome.label.tos": {
-    "message": "Dengan mencipta akaun, anda telah bersetuju dengan <terms-link>Terma</terms-link> dan <privacy-policy-link>Dasar Privasi</privacy-policy-link> Modrinth."
+    "message": "دڠن منچيڤتا اکاءون، اندا تله برستوجو دڠن <terms-link>ترما</terms-link> دان <privacy-policy-link>داسر ڤريۏاسي</privacy-policy-link> مودرين‌ث."
   },
   "auth.welcome.long-title": {
-    "message": "Selamat Datang ke Modrinth!"
+    "message": "سلامت داتڠ کمودرين‌ث!"
   },
   "auth.welcome.title": {
-    "message": "Selamat Datang"
+    "message": "سلامت داتڠ"
   },
   "button.cancel": {
     "message": "بطل"
   },
   "button.continue": {
-    "message": "Teruskan"
+    "message": "تروسکن"
   },
   "button.edit": {
     "message": "سونتيڠ"
