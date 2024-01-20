@@ -467,7 +467,9 @@ try {
                 tags.value
               )
             }
-            projects = projects.filter((project) => (auth.user && auth.user.id === user.id) || project.status !== 'unlisted')
+            projects = projects.filter(
+              (project) => (auth.user && auth.user.id === user.id) || project.status !== 'unlisted'
+            )
             return projects
           },
         }
