@@ -1,24 +1,24 @@
 {
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Đăng kí để nhận cập nhật về Modrinth"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "Cảm ơn vì đã tạo tài khoản. Giờ bạn có thể theo dõi và tạo các dự án, nhận cập nhật về dự án yêu thích, và hơn thế nữa!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Với việc tạo tài khoản, bạn đồng ý với <terms-link>Điều khoản sử dụng</terms-link> và <privacy-policy-link>Chính sách quyền riêng tư</privacy-policy-link> của Modrinth."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "Chào mừng đến với Modrinth!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "Chào mừng"
   },
   "button.cancel": {
     "message": "Huỷ"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "Tiếp"
   },
   "button.edit": {
     "message": "Sửa"
@@ -234,16 +234,16 @@
     "message": "Write organizations"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Đọc khoá API cá nhân"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "Tạo PAT"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Xoá khoá API cá nhân của bạn"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "Xoá PAT"
   },
   "scopes.patRead.description": {
     "message": "View created API tokens"
@@ -264,7 +264,7 @@
     "message": "Read payouts"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Rút tiền"
   },
   "scopes.payoutsWrite.label": {
     "message": "Write payouts"
@@ -276,70 +276,70 @@
     "message": "Perform analytics"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Tạo dự án mới"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Tạo dự án"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Xoá các dự án của bạn"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Xoá dự án"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Đọc tất cả dự án của bạn"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Đọc dự án"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Ghi vào dữ liệu dự án"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Ghi dự án"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Tạo báo cáo"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Tạo báo cáo"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Xoá báo cáo"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Xoá báo cáo"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Đọc báo cáo"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Đọc báo cáo"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Sửa báo cáo"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Viết báo cáo"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Truy cập vào các phiên từ modrinth"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Truy cập vào phiên"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Xoá phiên"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Xoá phiên"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Đọc phiên hiện hành"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Đọc phiên"
   },
   "scopes.threadRead.description": {
     "message": "Read threads"
