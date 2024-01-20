@@ -12,7 +12,7 @@
       :header="`${editPatIndex !== null ? 'Edit' : 'Create'} personal access token`"
     >
       <div class="universal-modal">
-        <label for="pat-name"><span class="label__title">Name</span> </label>
+        <label for="pat-name"><span class="label__title">{{ formatMessage(commonMessages.nameLabel) }}</span> </label>
         <input
           id="pat-name"
           v-model="name"
@@ -20,7 +20,7 @@
           type="email"
           placeholder="Enter the PAT's name..."
         />
-        <label for="pat-scopes"><span class="label__title">Scopes</span> </label>
+        <label for="pat-scopes"><span class="label__title">{{ formatMessage(commonMessages.scopesLabel) }}</span> </label>
         <div id="pat-scopes" class="checkboxes">
           <Checkbox
             v-for="scope in scopeList"
@@ -64,7 +64,7 @@
 
     <div class="header__row">
       <div class="header__title">
-        <h2>Personal Access Tokens</h2>
+        <h2>{{ formatMessage(messages.patsLongTitle) }}</h2>
       </div>
       <button
         class="btn btn-primary"
@@ -148,7 +148,11 @@
                 })
               "
             >
-              Created {{ fromNow(pat.created) }}
+              {{
+                formatMessage(commonMessages.createdAgoLabel, {
+                  ago: formatRelativeTime(pat.created),
+                })
+              }}
             </span>
           </template>
         </div>
@@ -237,6 +241,10 @@ const messages = defineMessages({
   neverUsedLabel: {
     id: 'settings.pats.label.never-used',
     defaultMessage: 'Never used',
+  },
+  patsLongTitle: {
+    id: 'settings.pats.long-title',
+    defaultMessage: 'Personal Access Tokens',
   },
   patsTitle: {
     id: 'settings.pats.title',
