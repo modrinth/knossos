@@ -35,6 +35,15 @@
   "input.view.list": {
     "message": "List view"
   },
+  "label.created-ago": {
+    "message": "Created {ago}"
+  },
+  "label.name": {
+    "message": "Name"
+  },
+  "label.scopes": {
+    "message": "Scopes"
+  },
   "notification.error.title": {
     "message": "An error occurred"
   },
@@ -437,11 +446,17 @@
   "settings.language.title": {
     "message": "Language"
   },
+  "settings.pats.button.create-a-pat": {
+    "message": "Create a PAT"
+  },
   "settings.pats.button.edit-token": {
     "message": "Edit token"
   },
   "settings.pats.button.revoke-token": {
     "message": "Revoke token"
+  },
+  "settings.pats.description": {
+    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
   },
   "settings.pats.label.experied-ago": {
     "message": "Expired {ago}"
@@ -454,6 +469,9 @@
   },
   "settings.pats.label.never-used": {
     "message": "Never used"
+  },
+  "settings.pats.long-title": {
+    "message": "Personal Access Tokens"
   },
   "settings.pats.modal.delete-pat.description": {
     "message": "This will remove this token forever (like really forever)."

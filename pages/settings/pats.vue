@@ -82,13 +82,17 @@
           }
         "
       >
-        <PlusIcon /> Create a PAT
+        <PlusIcon /> {{ formatMessage(messages.createAPatButton) }}
       </button>
     </div>
     <p>
-      PATs can be used to access Modrinth's API. For more information, see
-      <a class="text-link" href="https://docs.modrinth.com">Modrinth's API documentation</a>. They
-      can be created and revoked at any time.
+      <IntlFormatted :message-id="messages.patsDescription">
+        <template #doc-link="{ children }">
+          <a class="text-link" href="https://docs.modrinth.com">
+            <component :is="() => children" />
+          </a>
+        </template>
+      </IntlFormatted>
     </p>
     <div v-for="(pat, index) in pats" :key="pat.id" class="universal-card recessed token">
       <div>
@@ -214,6 +218,10 @@ const messages = defineMessages({
     id: 'settings.pats.modal.pat.button.create-pat',
     defaultMessage: 'Create PAT',
   },
+  createAPatButton: {
+    id: 'settings.pats.button.create-a-pat',
+    defaultMessage: 'Create a PAT',
+  },
   deletePatModalDescription: {
     id: 'settings.pats.modal.delete-pat.description',
     defaultMessage: 'This will remove this token forever (like really forever).',
@@ -245,6 +253,11 @@ const messages = defineMessages({
   neverUsedLabel: {
     id: 'settings.pats.label.never-used',
     defaultMessage: 'Never used',
+  },
+  patsDescription: {
+    id: 'settings.pats.description',
+    defaultMessage: 
+      "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time.",
   },
   patsLongTitle: {
     id: 'settings.pats.long-title',
