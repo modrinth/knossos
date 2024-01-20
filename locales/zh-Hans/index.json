@@ -3,10 +3,10 @@
     "message": "订阅有关 Modrinth 的更新"
   },
   "auth.welcome.description": {
-    "message": "感谢您创建一个帐户。您现在可以关注和创建项目，接收有关您最喜欢的项目的更新，等等。"
+    "message": "感谢您创建帐户。您现在可以关注和创建项目，接收有关您最喜爱的项目的更新，等等！"
   },
   "auth.welcome.label.tos": {
-    "message": "通过创建账户，说明您已同意 Modrinth 的 <terms-link>条款</terms-link> 和 <privacy-policy-link>隐私政策</privacy-policy-link>."
+    "message": "注册账户即代表你同意 Modrinth <terms-link>《服务条款》</terms-link>和<privacy-policy-link>《隐私政策》</privacy-policy-link>。"
   },
   "auth.welcome.long-title": {
     "message": "欢迎使用 Modrinth！"
@@ -18,7 +18,7 @@
     "message": "取消"
   },
   "button.continue": {
-    "message": "下一步"
+    "message": "继续"
   },
   "button.edit": {
     "message": "编辑"
