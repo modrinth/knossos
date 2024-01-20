@@ -485,6 +485,9 @@
   "settings.pats.modal.pat.button.create-pat": {
     "message": "Create PAT"
   },
+  "settings.pats.modal.pat.input.pat-name.placeholder": {
+    "message": "Enter the PAT's name..."
+  },
   "settings.pats.title": {
     "message": "PATs"
   },

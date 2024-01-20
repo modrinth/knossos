@@ -9,7 +9,7 @@
     />
     <Modal
       ref="patModal"
-      :header="`${editPatIndex !== null ? 'Edit' : 'Create'} personal access token`"
+      :header="editPatIndex !== null ? formatMessage(messages.editPatModalTitle) : formatMessage(messages.createPatModalTitle)"
     >
       <div class="universal-modal">
         <label for="pat-name">
@@ -20,7 +20,7 @@
           v-model="name"
           maxlength="2048"
           type="email"
-          placeholder="Enter the PAT's name..."
+          :placeholder="formatMessage(messages.patNameInputPlaceholder)"
         />
         <label for="pat-scopes">
           <span class="label__title">{{ formatMessage(commonMessages.scopesLabel) }}</span>
@@ -34,7 +34,7 @@
             @update:model-value="scopesVal = toggleScope(scopesVal, scope)"
           />
         </div>
-        <label for="pat-name"><span class="label__title">Expires</span> </label>
+        <label for="pat-name"><span class="label__title">{{ formatMessage(messages.experiesLabel) }}</span> </label>
         <input id="pat-name" v-model="expires" type="date" />
         <p></p>
         <div class="input-group push-right">
@@ -222,6 +222,10 @@ const messages = defineMessages({
     id: 'settings.pats.button.create-a-pat',
     defaultMessage: 'Create a PAT',
   },
+  createPatModalTitle: {
+    id: 'settings.pats.modal.pat.create-title',
+    defaultMessage: 'Create personal access token',
+  },
   deletePatModalDescription: {
     id: 'settings.pats.modal.delete-pat.description',
     defaultMessage: 'This will remove this token forever (like really forever).',
@@ -233,6 +237,10 @@ const messages = defineMessages({
   deletePatModalTitle: {
     id: 'settings.pats.modal.delete-pat.title',
     defaultMessage: 'Are you sure you want to delete this token?',
+  },
+  editPatModalTitle: {
+    id: 'settings.pats.modal.pat.edit-title',
+    defaultMessage: 'Edit personal access token',
   },
   editTokenButton: {
     id: 'settings.pats.button.edit-token',
@@ -246,6 +254,10 @@ const messages = defineMessages({
     id: 'settings.pats.label.experies-ago',
     defaultMessage: 'Expires {ago}',
   },
+  experiesLabel: {
+    id: 'settings.pats.modal.pat.label.expires',
+    defaultMessage: 'Expires',
+  },
   lastUsedAgoLabel: {
     id: 'settings.pats.label.last-used-ago',
     defaultMessage: 'Last used {ago}',
@@ -253,6 +265,10 @@ const messages = defineMessages({
   neverUsedLabel: {
     id: 'settings.pats.label.never-used',
     defaultMessage: 'Never used',
+  },
+  patNameInputPlaceholder: {
+    id: 'settings.pats.modal.pat.input.pat-name.placeholder',
+    defaultMessage: "Enter the PAT's name...",
   },
   patsDescription: {
     id: 'settings.pats.description',
