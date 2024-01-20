@@ -46,7 +46,7 @@
             @click="editPat"
           >
             <SaveIcon />
-            Save changes
+            {{ formatMessage(commonMessages.saveChangesButton) }}
           </button>
           <button
             v-else
@@ -125,9 +125,19 @@
               "
             >
               <template v-if="new Date(pat.expires) > new Date()">
-                Expires {{ fromNow(pat.expires) }}
+                {{
+                  formatMessage(messages.experiesAgoLabel, {
+                    ago: formatRelativeTime(pat.expires),
+                  })
+                }}
               </template>
-              <template v-else> Expired {{ fromNow(pat.expires) }} </template>
+              <template v-else> 
+                {{
+                  formatMessage(messages.experiedAgoLabel, {
+                    ago: formatRelativeTime(pat.expires),
+                  })
+                }}
+              </template>
             </span>
             ⋅
             <span
@@ -211,6 +221,14 @@ const messages = defineMessages({
   editTokenButton: {
     id: 'settings.pats.button.edit-token',
     defaultMessage: 'Edit token',
+  },
+  experiedAgoLabel: {
+    id: 'settings.pats.label.experied-ago',
+    defaultMessage: 'Expired {ago}',
+  },
+  experiesAgoLabel: {
+    id: 'settings.pats.label.experies-ago',
+    defaultMessage: 'Expires {ago}',
   },
   lastUsedAgoLabel: {
     id: 'settings.pats.label.last-used-ago',

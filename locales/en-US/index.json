@@ -8,6 +8,9 @@
   "button.save": {
     "message": "Save"
   },
+  "button.save-changes": {
+    "message": "Save changes"
+  },
   "frog": {
     "message": "You've been frogged! 🐸"
   },
@@ -439,6 +442,12 @@
   },
   "settings.pats.button.revoke-token": {
     "message": "Revoke token"
+  },
+  "settings.pats.label.experied-ago": {
+    "message": "Expired {ago}"
+  },
+  "settings.pats.label.experies-ago": {
+    "message": "Expires {ago}"
   },
   "settings.pats.label.last-used-ago": {
     "message": "Last used {ago}"

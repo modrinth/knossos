@@ -35,4 +35,8 @@ export const commonMessages = defineMessages({
     id: 'button.save',
     defaultMessage: 'Save',
   },
+  saveChangesButton: {
+    id: 'button.save-changes',
+    defaultMessage: 'Save changes',
+  },
 })
