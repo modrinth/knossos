@@ -9,7 +9,7 @@
     "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "مرحبًا بك في Modrinth!"
   },
   "auth.welcome.title": {
     "message": "Welcome"
@@ -18,7 +18,7 @@
     "message": "إلغاء"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "الاستمرار"
   },
   "button.edit": {
     "message": "تعديل"
