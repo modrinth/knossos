@@ -3,7 +3,7 @@
     "message": "Subskrybuj aktualności o Modrinth"
   },
   "auth.welcome.description": {
-    "message": "Dziękujemy za utworzenie konta. Możesz teraz obserwować i tworzyć projekty, otrzymywać aktualności o swoich ulubionych projektach i nie tylko!"
+    "message": "Dziękujemy za utworzenie konta. Możesz teraz obserwować i tworzyć projekty, otrzymywać aktualności o ulubionych projektach i nie tylko!"
   },
   "auth.welcome.label.tos": {
     "message": "Tworząc konto, wyrażasz zgodę na <terms-link>warunki</terms-link> i <privacy-policy-link>politykę prywatności</privacy-policy-link> Modrinth."
