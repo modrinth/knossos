@@ -27,8 +27,8 @@
           <IntlFormatted
             :message-id="messages.appInfoLabel"
             :values="{
-              app_name: app.name,
-              creator_username: createdBy.username,
+              appName: app.name,
+              creatorUsername: createdBy.username,
             }"
           >
             <template #strong="{ children }">
@@ -92,7 +92,7 @@ const messages = defineMessages({
   appInfoLabel: {
     id: 'auth.authorize.label.app-info',
     defaultMessage:
-      '<strong>{app_name}</strong> by <creator-link>{creator_username}</creator-link> will be able to:',
+      '<strong>{appName}</strong> by <creator-link>{creatorUsername}</creator-link> will be able to:',
   },
   authorizeAppNameLabel: {
     id: 'auth.authorize.label.authorize-app-name',
