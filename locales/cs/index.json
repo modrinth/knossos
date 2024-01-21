@@ -1,9 +1,9 @@
 {
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Přihlásit se k odběru informací o Modrintu"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "Děkujeme za vytvoření účtu. Nyní můžete sledovat a vytvářet projekty, přijímat aktualizace o vašich oblíbených projektech a dalších!"
   },
   "auth.welcome.label.tos": {
     "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
