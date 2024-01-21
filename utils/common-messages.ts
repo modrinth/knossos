@@ -35,10 +35,6 @@ export const commonMessages = defineMessages({
     id: 'input.view.list',
     defaultMessage: 'List view',
   },
-  nameLabel: {
-    id: 'label.name',
-    defaultMessage: 'Name',
-  },
   errorNotificationTitle: {
     id: 'notification.error.title',
     defaultMessage: 'An error occurred',

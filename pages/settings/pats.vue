@@ -17,7 +17,7 @@
     >
       <div class="universal-modal">
         <label for="pat-name">
-          <span class="label__title">{{ formatMessage(commonMessages.nameLabel) }}</span>
+          <span class="label__title">{{ formatMessage(messages.nameLabel) }}</span>
         </label>
         <input
           id="pat-name"
@@ -267,6 +267,10 @@ const messages = defineMessages({
   lastUsedAgoLabel: {
     id: 'settings.pats.label.last-used-ago',
     defaultMessage: 'Last used {ago}',
+  },
+  nameLabel: {
+    id: 'settings.pats.label.name',
+    defaultMessage: 'Name',
   },
   neverUsedLabel: {
     id: 'settings.pats.label.never-used',

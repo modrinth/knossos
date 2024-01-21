@@ -56,9 +56,6 @@
   "label.created-ago": {
     "message": "Created {ago}"
   },
-  "label.name": {
-    "message": "Name"
-  },
   "label.scopes": {
     "message": "Scopes"
   },
@@ -484,6 +481,9 @@
   },
   "settings.pats.label.last-used-ago": {
     "message": "Last used {ago}"
+  },
+  "settings.pats.label.name": {
+    "message": "Name"
   },
   "settings.pats.label.never-used": {
     "message": "Never used"
