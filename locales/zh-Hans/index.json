@@ -6,7 +6,7 @@
     "message": "感谢您创建帐户。您现在可以关注和创建项目，接收有关您最喜爱的项目的更新，等等！"
   },
   "auth.welcome.label.tos": {
-    "message": "注册账户即代表你同意 Modrinth <terms-link>《服务条款》</terms-link>和<privacy-policy-link>《隐私政策》</privacy-policy-link>。"
+    "message": "注册账户即代表你同意 Modrinth《<terms-link>条款</terms-link>》和《<privacy-policy-link>隐私政策</privacy-policy-link>》。"
   },
   "auth.welcome.long-title": {
     "message": "欢迎使用 Modrinth！"
@@ -156,16 +156,16 @@
     "message": "光影包"
   },
   "revenue.transfers.total": {
-    "message": "您总共提现了{amount}。"
+    "message": "您总共提现了 {amount} 元。"
   },
   "revenue.transfers.total.method": {
-    "message": "您通过{method}提现了{amount}。"
+    "message": "您通过 {method} 提现了 {amount} 元。"
   },
   "revenue.transfers.total.year": {
-    "message": "您在{year}年提现了{amount}。"
+    "message": "您在 {year} 年提现了 {amount} 元。"
   },
   "revenue.transfers.total.year_method": {
-    "message": "您通过{method}在{year}年提现了{amount}。"
+    "message": "您通过 {method} 在 {year} 年提现了 {amount} 元。"
   },
   "scopes.analytics.description": {
     "message": "访问您的分析数据"
@@ -234,13 +234,13 @@
     "message": "写入组织"
   },
   "scopes.patCreate.description": {
-    "message": "创建个人API令牌"
+    "message": "创建个人 API 令牌"
   },
   "scopes.patCreate.label": {
     "message": "创建 PAT"
   },
   "scopes.patDelete.description": {
-    "message": "删除您的个人API令牌"
+    "message": "删除您的个人 API 令牌"
   },
   "scopes.patDelete.label": {
     "message": "删除 PAT"
@@ -252,7 +252,7 @@
     "message": "读取 PAT"
   },
   "scopes.patWrite.description": {
-    "message": "编辑个人API令牌"
+    "message": "编辑个人 API 令牌"
   },
   "scopes.patWrite.label": {
     "message": "写入 PAT"
@@ -360,10 +360,10 @@
     "message": "写入身份验证数据"
   },
   "scopes.userDelete.description": {
-    "message": "删除当前帐户"
+    "message": "删除您的账户"
   },
   "scopes.userDelete.label": {
-    "message": "删除当前帐户"
+    "message": "删除您的账户"
   },
   "scopes.userRead.description": {
     "message": "访问您的公开资料信息"
@@ -441,7 +441,7 @@
     "message": "提交以聚焦第一个搜索结果"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "搜索语言……"
+    "message": "搜索语言..."
   },
   "settings.language.languages.search-results-announcement": {
     "message": "{matches, plural,=0 {没有语言}other {有 # 种语言}}匹配您的搜索。"
