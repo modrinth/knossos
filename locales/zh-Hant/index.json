@@ -6,7 +6,7 @@
     "message": "感謝您建立帳號。您現在可以追蹤和建立專案，接收有關您喜愛專案的更新，以及更多功能！"
   },
   "auth.welcome.label.tos": {
-    "message": "建立帳號即表示您同意 Modrinth 的<terms-link>《條款》</terms-link>和<privacy-policy-link>《隱私權政策》</privacy-policy-link>。"
+    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
   },
   "auth.welcome.long-title": {
     "message": "歡迎使用 Modrinth！"
@@ -324,7 +324,7 @@
     "message": "寫入檢舉"
   },
   "scopes.sessionAccess.description": {
-    "message": "存取由 Modrinth 提供的工作階段"
+    "message": "存取 modrinth-issued 工作階段"
   },
   "scopes.sessionAccess.label": {
     "message": "存取工作階段"
@@ -456,7 +456,7 @@
     "message": "撤銷工作階段授權"
   },
   "settings.sessions.description": {
-    "message": "下列為你目前已登入 Modrinth 帳號的所有裝置。你可以分別從每個裝置登出。\n如果你看到不認識的裝置，請立即登出該裝置並變更你的 Modrinth 帳號密碼。"
+    "message": "下列為你目前已登入 Modrinth 帳號的所有裝置。你可以分別登出任何一項裝置。\n\n如果你看到不認識的裝置，請立即登出該裝置並變更你的 Modrinth 帳號密碼。"
   },
   "settings.sessions.label.created-at": {
     "message": "建立於 {ago}"
@@ -465,7 +465,7 @@
     "message": "目前的工作階段"
   },
   "settings.sessions.label.last-accessed-at": {
-    "message": "上次訪問於 {ago}"
+    "message": "上次存取於 {ago}"
   },
   "settings.sessions.label.unknown-os": {
     "message": "未知的作業系統"
