@@ -246,25 +246,25 @@
     "message": "Apagar TAPs"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Ver tokens API criados"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "Ler PATs"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Criar tokens de API pessoais"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Criar TAPs"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Ler dados de pagamentos"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Ler pagamentos"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Retirar dinheiro"
   },
   "scopes.payoutsWrite.label": {
     "message": "Write payouts"
@@ -285,10 +285,10 @@
     "message": "Delete your projects"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Eliminar Projetos"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Ler todos os projetos"
   },
   "scopes.projectRead.label": {
     "message": "Read projects"
