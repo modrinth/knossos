@@ -1,24 +1,24 @@
 {
   "auth.welcome.checkbox.subscribe": {
-    "message": "Přihlásit se k odběru informací o Modrintu"
+    "message": "Přihlásit se k odběru informací o Modrinthu"
   },
   "auth.welcome.description": {
     "message": "Děkujeme za vytvoření účtu. Nyní můžete sledovat a vytvářet projekty, přijímat aktualizace o vašich oblíbených projektech a dalších!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Vytvořením účtu souhlasíte se <terms-link>Podmínkami</terms-link> a <privacy-policy-link>Zásadami ochrany osobních údajů</privacy-policy-link> Modrinthu."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "Vítejte v Modrinthu!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "Vítejte"
   },
   "button.cancel": {
     "message": "Zrušit"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "Pokračovat"
   },
   "button.edit": {
     "message": "Upravit"
@@ -174,235 +174,235 @@
     "message": "Číst analýzy"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Tvořit kolekce"
   },
   "scopes.collectionCreate.label": {
     "message": "Tvořit kolekce"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Mazat kolekce"
   },
   "scopes.collectionDelete.label": {
     "message": "Mazat kolekce"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Číst kolekce"
   },
   "scopes.collectionRead.label": {
     "message": "Číst kolekce"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Psát do kolekcí"
   },
   "scopes.collectionWrite.label": {
     "message": "Psát kolekce"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Číst vaše oznámení"
   },
   "scopes.notificationRead.label": {
     "message": "Číst oznámení"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Mazat/Zobrazit vaše oznámení"
   },
   "scopes.notificationWrite.label": {
     "message": "Psát oznámení"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Tvořit organizace"
   },
   "scopes.organizationCreate.label": {
     "message": "Tvořit organizace"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Mazat organizace"
   },
   "scopes.organizationDelete.label": {
     "message": "Mazat organizace"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Číst organizace"
   },
   "scopes.organizationRead.label": {
     "message": "Číst organizace"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Psát do organizací"
   },
   "scopes.organizationWrite.label": {
     "message": "Psát organizace"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Tvořit osobní API tokeny (PAT)"
   },
   "scopes.patCreate.label": {
     "message": "Tvořit PATy"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Mazat osobní API tokeny (PAT)"
   },
   "scopes.patDelete.label": {
     "message": "Mazat PATy"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Zobrazit vytvořené API tokeny (PAT)"
   },
   "scopes.patRead.label": {
     "message": "Číst PATy"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Upravovat osobní API tokeny (PAT)"
   },
   "scopes.patWrite.label": {
     "message": "Psát PATy"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Číst vaše data o výplatách"
   },
   "scopes.payoutsRead.label": {
     "message": "Číst výplaty"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Vybírat peníze"
   },
   "scopes.payoutsWrite.label": {
     "message": "Psát výplaty"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Provádět analytické akce"
   },
   "scopes.performAnalytics.label": {
     "message": "Provádět analýzy"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Tvořit nové projekty"
   },
   "scopes.projectCreate.label": {
     "message": "Tvořit projekty"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Mazat vaše projekty"
   },
   "scopes.projectDelete.label": {
     "message": "Mazat projekty"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Číst všechny vaše projekty"
   },
   "scopes.projectRead.label": {
     "message": "Číst projekty"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Psát do projektových dat"
   },
   "scopes.projectWrite.label": {
     "message": "Psát projekty"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Tvořit reporty"
   },
   "scopes.reportCreate.label": {
     "message": "Tvořit reporty"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Mazat reporty"
   },
   "scopes.reportDelete.label": {
     "message": "Mazat reporty"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Číst reporty"
   },
   "scopes.reportRead.label": {
     "message": "Číst reporty"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Upravovat reporty"
   },
   "scopes.reportWrite.label": {
     "message": "Psát reporty"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Přístup k relacím vydaným modrinthem"
   },
   "scopes.sessionAccess.label": {
     "message": "Přistupovat k relacím"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Mazat relace"
   },
   "scopes.sessionDelete.label": {
     "message": "Mazat relace"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Číst aktivní relace"
   },
   "scopes.sessionRead.label": {
     "message": "Číst relace"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Číst vlákna"
   },
   "scopes.threadRead.label": {
     "message": "Číst vlákna"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Psát do vláken"
   },
   "scopes.threadWrite.label": {
     "message": "Psát vlákna"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Upravovat vaše autentizační data"
   },
   "scopes.userAuthWrite.label": {
     "message": "Psát autentizační data"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Smazat váš účet"
   },
   "scopes.userDelete.label": {
     "message": "Smazat váš účet"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Přístupovat k informacím o vašem veřejném profilu"
   },
   "scopes.userRead.label": {
     "message": "Číst uživatelská data"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Číst vaše e-mail"
   },
   "scopes.userReadEmail.label": {
-    "message": "Číst uživatelské e-maily"
+    "message": "Číst uživatelské e-mail"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Psát do vašeho profilu"
   },
   "scopes.userWrite.label": {
     "message": "Psát uživatelská data"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Tvořit nové verze"
   },
   "scopes.versionCreate.label": {
     "message": "Tvořit verze"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Smazat verzi"
   },
   "scopes.versionDelete.label": {
     "message": "Mazat verze"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Číst všechny verze"
   },
   "scopes.versionRead.label": {
     "message": "Číst verze"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Psát do dat verzí"
   },
   "scopes.versionWrite.label": {
     "message": "Psát verze"
