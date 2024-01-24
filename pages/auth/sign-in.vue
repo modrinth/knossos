@@ -121,24 +121,24 @@ const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
   additionalOptionsLabel: {
-    id: 'auth.sign-in.label.additional-options',
+    id: 'auth.sign-in.additional-options',
     defaultMessage:
       '<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>',
   },
   emailUsernameLabel: {
-    id: 'auth.sign-in.label.email-username',
+    id: 'auth.sign-in.email-username.label',
     defaultMessage: 'Email or username',
   },
   passwordLabel: {
-    id: 'auth.sign-in.label.password',
+    id: 'auth.sign-in.password.label',
     defaultMessage: 'Password',
   },
   signInButton: {
-    id: 'auth.sign-in.button.sign-in',
+    id: 'auth.sign-in.action.sign-in',
     defaultMessage: 'Sign in',
   },
   signInWithLabel: {
-    id: 'auth.sign-in.label.sign-in-with',
+    id: 'auth.sign-in.sign-in-with',
     defaultMessage: 'Sign in with',
   },
   signInTitle: {
@@ -146,19 +146,19 @@ const messages = defineMessages({
     defaultMessage: 'Sign In',
   },
   twoFactorCodeInputPlaceholder: {
-    id: 'auth.sign-in.input.two-factor-code.placeholder',
+    id: 'auth.sign-in.2fa.placeholder',
     defaultMessage: 'Enter code...',
   },
   twoFactorCodeLabel: {
-    id: 'auth.sign-in.label.two-factor-code',
+    id: 'auth.sign-in.2fa.label',
     defaultMessage: 'Enter two-factor code',
   },
   twoFactorCodeLabelDescription: {
-    id: 'auth.sign-in.label.two-factor-code.description',
+    id: 'auth.sign-in.2fa.description',
     defaultMessage: 'Please enter a two-factor code to proceed.',
   },
   usePasswordLabel: {
-    id: 'auth.sign-in.label.use-password',
+    id: 'auth.sign-in.use-password',
     defaultMessage: 'Or use a password',
   },
 })

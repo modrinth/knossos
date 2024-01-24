@@ -1,33 +1,33 @@
 {
-  "auth.sign-in.button.sign-in": {
-    "message": "Sign in"
-  },
-  "auth.sign-in.input.two-factor-code.placeholder": {
-    "message": "Enter code..."
-  },
-  "auth.sign-in.label.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
-  },
-  "auth.sign-in.label.email-username": {
-    "message": "Email or username"
-  },
-  "auth.sign-in.label.password": {
-    "message": "Password"
-  },
-  "auth.sign-in.label.sign-in-with": {
-    "message": "Sign in with"
-  },
-  "auth.sign-in.label.two-factor-code": {
-    "message": "Enter two-factor code"
-  },
-  "auth.sign-in.label.two-factor-code.description": {
+  "auth.sign-in.2fa.description": {
     "message": "Please enter a two-factor code to proceed."
   },
-  "auth.sign-in.label.use-password": {
-    "message": "Or use a password"
+  "auth.sign-in.2fa.label": {
+    "message": "Enter two-factor code"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Enter code..."
+  },
+  "auth.sign-in.action.sign-in": {
+    "message": "Sign in"
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "Email or username"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Password"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Sign in with"
   },
   "auth.sign-in.title": {
     "message": "Sign In"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Or use a password"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "Subscribe to updates about Modrinth"
