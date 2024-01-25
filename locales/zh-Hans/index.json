@@ -6,7 +6,7 @@
     "message": "感谢您创建帐户。您现在可以关注和创建项目，接收有关您最喜爱的项目的更新，等等！"
   },
   "auth.welcome.label.tos": {
-    "message": "注册账户即代表你同意 Modrinth《<terms-link>条款</terms-link>》和《<privacy-policy-link>隐私政策</privacy-policy-link>》。"
+    "message": "注册账户即代表你同意 Modrinth 的《<terms-link>条款</terms-link>》和《<privacy-policy-link>隐私政策</privacy-policy-link>》。"
   },
   "auth.welcome.long-title": {
     "message": "欢迎使用 Modrinth！"
@@ -156,16 +156,16 @@
     "message": "光影包"
   },
   "revenue.transfers.total": {
-    "message": "您总共提现了 {amount} 元。"
+    "message": "您总共提现了{amount}。"
   },
   "revenue.transfers.total.method": {
-    "message": "您通过 {method} 提现了 {amount} 元。"
+    "message": "您通过{method}提现了{amount}。"
   },
   "revenue.transfers.total.year": {
-    "message": "您在 {year} 年提现了 {amount} 元。"
+    "message": "您在{year}年提现了{amount}。"
   },
   "revenue.transfers.total.year_method": {
-    "message": "您通过 {method} 在 {year} 年提现了 {amount} 元。"
+    "message": "您通过{method}在{year}年提现了{amount}。"
   },
   "scopes.analytics.description": {
     "message": "访问您的分析数据"
