@@ -461,35 +461,38 @@
   "settings.language.title": {
     "message": "Language"
   },
-  "settings.pats.button.create-a-pat": {
+  "settings.pats.action.create-a-pat": {
     "message": "Create a PAT"
   },
-  "settings.pats.button.edit-token": {
+  "settings.pats.action.edit-token": {
     "message": "Edit token"
   },
-  "settings.pats.button.revoke-token": {
+  "settings.pats.action.revoke-token": {
     "message": "Revoke token"
   },
   "settings.pats.description": {
     "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
   },
-  "settings.pats.label.experied-ago": {
+  "settings.pats.experied-ago": {
     "message": "Expired {ago}"
   },
-  "settings.pats.label.experies-ago": {
+  "settings.pats.experies-ago": {
     "message": "Expires {ago}"
   },
-  "settings.pats.label.last-used-ago": {
+  "settings.pats.last-used-ago": {
     "message": "Last used {ago}"
-  },
-  "settings.pats.label.name": {
-    "message": "Name"
-  },
-  "settings.pats.label.never-used": {
-    "message": "Never used"
   },
   "settings.pats.long-title": {
     "message": "Personal Access Tokens"
+  },
+  "settings.pats.modal.create-pat.action.create-pat": {
+    "message": "Create PAT"
+  },
+  "settings.pats.modal.create-pat.expires": {
+    "message": "Expires"
+  },
+  "settings.pats.modal.create-pat.name.placeholder": {
+    "message": "Enter the PAT's name..."
   },
   "settings.pats.modal.delete-pat.description": {
     "message": "This will remove this token forever (like really forever)."
@@ -500,20 +503,17 @@
   "settings.pats.modal.delete-pat.title": {
     "message": "Are you sure you want to delete this token?"
   },
-  "settings.pats.modal.pat.button.create-pat": {
-    "message": "Create PAT"
+  "settings.pats.modal.edit-pat.title": {
+    "message": "Edit personal access token"
   },
   "settings.pats.modal.pat.create-title": {
     "message": "Create personal access token"
   },
-  "settings.pats.modal.pat.edit-title": {
-    "message": "Edit personal access token"
+  "settings.pats.name": {
+    "message": "Name"
   },
-  "settings.pats.modal.pat.input.pat-name.placeholder": {
-    "message": "Enter the PAT's name..."
-  },
-  "settings.pats.modal.pat.label.expires": {
-    "message": "Expires"
+  "settings.pats.never-used": {
+    "message": "Never used"
   },
   "settings.pats.title": {
     "message": "PATs"

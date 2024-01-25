@@ -221,11 +221,11 @@ const formatRelativeTime = useRelativeTime()
 
 const messages = defineMessages({
   createPatButton: {
-    id: 'settings.pats.modal.pat.button.create-pat',
+    id: 'settings.pats.modal.create-pat.action.create-pat',
     defaultMessage: 'Create PAT',
   },
   createAPatButton: {
-    id: 'settings.pats.button.create-a-pat',
+    id: 'settings.pats.action.create-a-pat',
     defaultMessage: 'Create a PAT',
   },
   createPatModalTitle: {
@@ -245,39 +245,39 @@ const messages = defineMessages({
     defaultMessage: 'Are you sure you want to delete this token?',
   },
   editPatModalTitle: {
-    id: 'settings.pats.modal.pat.edit-title',
+    id: 'settings.pats.modal.edit-pat.title',
     defaultMessage: 'Edit personal access token',
   },
   editTokenButton: {
-    id: 'settings.pats.button.edit-token',
+    id: 'settings.pats.action.edit-token',
     defaultMessage: 'Edit token',
   },
   experiedAgoLabel: {
-    id: 'settings.pats.label.experied-ago',
+    id: 'settings.pats.experied-ago',
     defaultMessage: 'Expired {ago}',
   },
   experiesAgoLabel: {
-    id: 'settings.pats.label.experies-ago',
+    id: 'settings.pats.experies-ago',
     defaultMessage: 'Expires {ago}',
   },
   experiesLabel: {
-    id: 'settings.pats.modal.pat.label.expires',
+    id: 'settings.pats.modal.create-pat.expires',
     defaultMessage: 'Expires',
   },
   lastUsedAgoLabel: {
-    id: 'settings.pats.label.last-used-ago',
+    id: 'settings.pats.last-used-ago',
     defaultMessage: 'Last used {ago}',
   },
   nameLabel: {
-    id: 'settings.pats.label.name',
+    id: 'settings.pats.name',
     defaultMessage: 'Name',
   },
   neverUsedLabel: {
-    id: 'settings.pats.label.never-used',
+    id: 'settings.pats.never-used',
     defaultMessage: 'Never used',
   },
   patNameInputPlaceholder: {
-    id: 'settings.pats.modal.pat.input.pat-name.placeholder',
+    id: 'settings.pats.modal.create-pat.name.placeholder',
     defaultMessage: "Enter the PAT's name...",
   },
   patsDescription: {
@@ -294,7 +294,7 @@ const messages = defineMessages({
     defaultMessage: 'PATs',
   },
   revokeTokenButton: {
-    id: 'settings.pats.button.revoke-token',
+    id: 'settings.pats.action.revoke-token',
     defaultMessage: 'Revoke token',
   },
 })
