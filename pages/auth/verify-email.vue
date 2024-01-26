@@ -1,51 +1,51 @@
 <template>
   <div>
     <template v-if="auth.user && auth.user.email_verified && !success">
-      <h1>{{ formatMessage(messages.alreadyVerifiedTitle) }}</h1>
+      <h1>{{ formatMessage(alreadyVerifiedMessages.title) }}</h1>
 
       <section class="auth-form">
-        <p>{{ formatMessage(messages.alreadyVerifiedDescription) }}</p>
+        <p>{{ formatMessage(alreadyVerifiedMessages.description) }}</p>
 
         <NuxtLink class="btn" to="/settings/account">
-          <SettingsIcon /> {{ formatMessage(messages.accountSettingsButton) }}
+          <SettingsIcon /> {{ formatMessage(messages.accountSettings) }}
         </NuxtLink>
       </section>
     </template>
 
     <template v-else-if="success">
-      <h1>{{ formatMessage(messages.successedVerificationTitle) }}</h1>
+      <h1>{{ formatMessage(postVerificationMessages.title) }}</h1>
 
       <section class="auth-form">
-        <p>{{ formatMessage(messages.successedVerificationDescription) }}</p>
+        <p>{{ formatMessage(postVerificationMessages.description) }}</p>
 
         <NuxtLink v-if="auth.user" class="btn" link="/settings/account">
-          <SettingsIcon /> {{ formatMessage(messages.accountSettingsButton) }}
+          <SettingsIcon /> {{ formatMessage(messages.accountSettings) }}
         </NuxtLink>
         <NuxtLink v-else to="/auth/sign-in" class="btn btn-primary continue-btn centered-btn">
-          {{ formatMessage(messages.signInButton) }} <RightArrowIcon />
+          {{ formatMessage(messages.signIn) }} <RightArrowIcon />
         </NuxtLink>
       </section>
     </template>
 
     <template v-else>
-      <h1>{{ formatMessage(messages.failedVerificationTitle) }}</h1>
+      <h1>{{ formatMessage(failedVerificationMessages.title) }}</h1>
 
       <section class="auth-form">
         <p>
           <template v-if="auth.user">
-            {{ formatMessage(messages.failedVerificationAuthDescription) }}
+            {{ formatMessage(failedVerificationMessages.loggedInDescription) }}
           </template>
           <template v-else>
-            {{ formatMessage(messages.failedVerificationDescription) }}
+            {{ formatMessage(failedVerificationMessages.description) }}
           </template>
         </p>
 
         <button v-if="auth.user" class="btn btn-primary continue-btn" @click="resendVerifyEmail">
-          {{ formatMessage(messages.resendEmailButton) }} <RightArrowIcon />
+          {{ formatMessage(failedVerificationMessages.action) }} <RightArrowIcon />
         </button>
 
         <NuxtLink v-else to="/auth/sign-in" class="btn btn-primary continue-btn centered-btn">
-          {{ formatMessage(messages.signInButton) }} <RightArrowIcon />
+          {{ formatMessage(messages.signIn) }} <RightArrowIcon />
         </NuxtLink>
       </section>
     </template>
@@ -57,56 +57,65 @@ import { SettingsIcon, RightArrowIcon } from 'omorphia'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
-  accountSettingsButton: {
-    id: 'auth.verify-email.button.account-settings',
+  title: {
+    id: 'auth.verify-email.title',
+    defaultMessage: 'Verify Email',
+  },
+  accountSettings: {
+    id: 'auth.verify-email.action.account-settings',
     defaultMessage: 'Account settings',
   },
-  alreadyVerifiedDescription: {
-    id: 'auth.verify-email.description.already-verified',
-    defaultMessage: 'Your email is already verified!',
+  signIn: {
+    id: 'auth.verify-email.action.sign-in',
+    defaultMessage: 'Sign in',
   },
-  alreadyVerifiedTitle: {
-    id: 'auth.verify-email.title.already-verified',
+})
+
+const alreadyVerifiedMessages = defineMessages({
+  title: {
+    id: 'auth.verify-email.already-verified.title',
     defaultMessage: 'Email already verified',
   },
-  failedVerificationDescription: {
-    id: 'auth.verify-email.description.failed-verification',
+  description: {
+    id: 'auth.verify-email.already-verified.description',
+    defaultMessage: 'Your email is already verified!',
+  },
+})
+
+const postVerificationMessages = defineMessages({
+  title: {
+    id: 'auth.verify-email.post-verification.title',
+    defaultMessage: 'Email verification',
+  },
+  description: {
+    id: 'auth.verify-email.post-verification.description',
+    defaultMessage: 'Your email address has been successfully verified!',
+  },
+})
+
+const failedVerificationMessages = defineMessages({
+  title: {
+    id: 'auth.verify-email.failed-verification.title',
+    defaultMessage: 'Email verification failed',
+  },
+  description: {
+    id: 'auth.verify-email.failed-verification.description',
     defaultMessage:
       'We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in.',
   },
-  failedVerificationAuthDescription: {
-    id: 'auth.verify-email.description.failed-verification-auth',
+  loggedInDescription: {
+    id: 'auth.verify-email.failed-verification.description.logged-in',
     defaultMessage:
       'We were unable to verify your email. Try re-sending the verification email through the button below.',
   },
-  failedVerificationTitle: {
-    id: 'auth.verify-email.title.failed-verification',
-    defaultMessage: 'Email verification failed',
-  },
-  resendEmailButton: {
-    id: 'auth.verify-email.button.resend-email',
+  action: {
+    id: 'auth.verify-email.failed-verification.action',
     defaultMessage: 'Resend verification email',
-  },
-  signInButton: {
-    id: 'auth.verify-email.button.sign-in',
-    defaultMessage: 'Sign in',
-  },
-  successedVerificationDescription: {
-    id: 'auth.verify-email.description.successed-verification',
-    defaultMessage: 'Your email address has been successfully verified!',
-  },
-  successedVerificationTitle: {
-    id: 'auth.verify-email.title.successed-verification',
-    defaultMessage: 'Email verification',
-  },
-  verifyEmailTitle: {
-    id: 'auth.verify-email.title',
-    defaultMessage: 'Verify Email',
   },
 })
 
 useHead({
-  title: () => `${formatMessage(messages.verifyEmailTitle)} - Modrinth`,
+  title: () => `${formatMessage(messages.title)} - Modrinth`,
 })
 
 const auth = await useAuth()
