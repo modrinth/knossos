@@ -1,15 +1,17 @@
 <template>
   <div>
-    <h1>{{ formatMessage(messages.resetPasswordLongTitle) }}</h1>
+    <h1>{{ formatMessage(messages.longTitle) }}</h1>
     <section class="auth-form">
       <template v-if="step === 'choose_method'">
         <p>
-          {{ formatMessage(messages.chooseMethodDescription) }}
+          {{ formatMessage(methodChoiceMessages.description) }}
           <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
         </p>
 
         <div class="iconified-input">
-          <label for="email" hidden>{{ formatMessage(messages.emailUsernameLabel) }}</label>
+          <label for="email" hidden>
+            {{ formatMessage(methodChoiceMessages.emailUsernameLabel) }}
+          </label>
           <MailIcon />
           <input
             id="email"
@@ -17,16 +19,16 @@
             type="text"
             autocomplete="username"
             class="auth-form__input"
-            :placeholder="formatMessage(messages.emailInputPlaceholder)"
+            :placeholder="formatMessage(methodChoiceMessages.emailUsernamePlaceholder)"
           />
         </div>
 
         <button class="btn btn-primary centered-btn" @click="recovery">
-          <SendIcon /> {{ formatMessage(messages.sendRecoveryEmailButton) }}
+          <SendIcon /> {{ formatMessage(methodChoiceMessages.action) }}
         </button>
       </template>
       <template v-else-if="step === 'passed_challenge'">
-        <p>{{ formatMessage(messages.passedChallengeDescription) }}</p>
+        <p>{{ formatMessage(postChallengeMessages.description) }}</p>
 
         <div class="iconified-input">
           <label for="password" hidden>{{ formatMessage(commonMessages.passwordLabel) }}</label>
@@ -42,9 +44,9 @@
         </div>
 
         <div class="iconified-input">
-          <label for="confirm-password" hidden>{{
-            formatMessage(commonMessages.passwordLabel)
-          }}</label>
+          <label for="confirm-password" hidden>
+            {{ formatMessage(commonMessages.passwordLabel) }}
+          </label>
           <KeyIcon />
           <input
             id="confirm-password"
@@ -52,12 +54,12 @@
             type="password"
             autocomplete="new-password"
             class="auth-form__input"
-            :placeholder="formatMessage(messages.confirmPasswordInputPlaceholder)"
+            :placeholder="formatMessage(postChallengeMessages.confirmPasswordLabel)"
           />
         </div>
 
         <button class="auth-form__input btn btn-primary continue-btn" @click="changePassword">
-          {{ formatMessage(messages.resetPasswordButton) }}
+          {{ formatMessage(postChallengeMessages.action) }}
         </button>
       </template>
     </section>
@@ -70,65 +72,80 @@ import KeyIcon from 'assets/icons/auth/key.svg'
 
 const { formatMessage } = useVIntl()
 
-const messages = defineMessages({
-  chooseMethodDescription: {
-    id: 'auth.reset-password.description.choose-method',
+const methodChoiceMessages = defineMessages({
+  description: {
+    id: 'auth.reset-password.method-choice.description',
     defaultMessage:
       "Enter your email below and we'll send a recovery link to allow you to recover your account.",
   },
-  confirmPasswordInputPlaceholder: {
-    id: 'auth.reset-password.input.confirm-password.placeholder',
-    defaultMessage: 'Confirm password',
-  },
-  emailInputPlaceholder: {
-    id: 'auth.reset-password.input.email.placeholder',
-    defaultMessage: 'Email',
-  },
-  emailSentNotificationText: {
-    id: 'auth.reset-password.notification.email-sent.text',
-    defaultMessage:
-      'An email with instructions has been sent to you if the email was previously saved on your account.',
-  },
-  emailSentNotificationTitle: {
-    id: 'auth.reset-password.notification.email-sent.title',
-    defaultMessage: 'Email sent',
-  },
   emailUsernameLabel: {
-    id: 'auth.reset-password.label.email-username',
+    id: 'auth.reset-password.method-choice.email-username.label',
     defaultMessage: 'Email or username',
   },
-  passedChallengeDescription: {
-    id: 'auth.reset-password.description.passed-challenge',
-    defaultMessage: 'Enter your new password below to gain access to your account.',
+  emailUsernamePlaceholder: {
+    id: 'auth.reset-password.method-choice.email-username.placeholder',
+    defaultMessage: 'Email',
   },
-  passwordResetNotificationText: {
-    id: 'auth.reset-password.notification.password-reset.text',
-    defaultMessage: 'You can now log-in into your account with your new password.',
-  },
-  passwordResetNotificationTitle: {
-    id: 'auth.reset-password.notification.password-reset.title',
-    defaultMessage: 'Password successfully reset',
-  },
-  resetPasswordButton: {
-    id: 'auth.reset-password.button.reset-password',
-    defaultMessage: 'Reset password',
-  },
-  resetPasswordLongTitle: {
-    id: 'auth.reset-password.long-title',
-    defaultMessage: 'Reset your password',
-  },
-  resetPasswordTitle: {
-    id: 'auth.reset-password.title',
-    defaultMessage: 'Reset Password',
-  },
-  sendRecoveryEmailButton: {
-    id: 'auth.reset-password.button.send-recovery-email',
+  action: {
+    id: 'auth.reset-password.method-choice.action',
     defaultMessage: 'Send recovery email',
   },
 })
 
+const postChallengeMessages = defineMessages({
+  description: {
+    id: 'auth.reset-password.post-challenge.description',
+    defaultMessage: 'Enter your new password below to gain access to your account.',
+  },
+  confirmPasswordLabel: {
+    id: 'auth.reset-password.post-challenge.confirm-password.label',
+    defaultMessage: 'Confirm password',
+  },
+  action: {
+    id: 'auth.reset-password.post-challenge.action',
+    defaultMessage: 'Reset password',
+  },
+})
+
+// NOTE(Brawaru): Vite uses esbuild for minification so can't combine these
+// because it'll keep the original prop names compared to consts, which names
+// will be mangled.
+const emailSentNotificationMessages = defineMessages({
+  title: {
+    id: 'auth.reset-password.notification.email-sent.title',
+    defaultMessage: 'Email sent',
+  },
+  text: {
+    id: 'auth.reset-password.notification.email-sent.text',
+    defaultMessage:
+      'An email with instructions has been sent to you if the email was previously saved on your account.',
+  },
+})
+
+const passwordResetNotificationMessages = defineMessages({
+  title: {
+    id: 'auth.reset-password.notification.password-reset.title',
+    defaultMessage: 'Password successfully reset',
+  },
+  text: {
+    id: 'auth.reset-password.notification.password-reset.text',
+    defaultMessage: 'You can now log-in into your account with your new password.',
+  },
+})
+
+const messages = defineMessages({
+  title: {
+    id: 'auth.reset-password.title',
+    defaultMessage: 'Reset Password',
+  },
+  longTitle: {
+    id: 'auth.reset-password.title.long',
+    defaultMessage: 'Reset your password',
+  },
+})
+
 useHead({
-  title: () => `${formatMessage(messages.resetPasswordTitle)} - Modrinth`,
+  title: () => `${formatMessage(messages.title)} - Modrinth`,
 })
 
 const auth = await useAuth()
@@ -162,8 +179,8 @@ async function recovery() {
 
     addNotification({
       group: 'main',
-      title: formatMessage(messages.emailSentNotificationTitle),
-      text: formatMessage(messages.emailSentNotificationText),
+      title: formatMessage(emailSentNotificationMessages.title),
+      text: formatMessage(emailSentNotificationMessages.text),
       type: 'success',
     })
   } catch (err) {
@@ -194,8 +211,8 @@ async function changePassword() {
 
     addNotification({
       group: 'main',
-      title: formatMessage(messages.passwordResetNotificationTitle),
-      text: formatMessage(messages.passwordResetNotificationText),
+      title: formatMessage(passwordResetNotificationMessages.title),
+      text: formatMessage(passwordResetNotificationMessages.text),
       type: 'success',
     })
     await navigateTo('/auth/sign-in')
