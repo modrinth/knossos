@@ -2,29 +2,29 @@
   <div class="universal-card">
     <ConfirmModal
       ref="modal_confirm"
-      :title="formatMessage(messages.deletePatModalTitle)"
-      :description="formatMessage(messages.deletePatModalDescription)"
-      :proceed-label="formatMessage(messages.deletePatModalProceedLabel)"
+      :title="formatMessage(deleteModalMessages.title)"
+      :description="formatMessage(deleteModalMessages.description)"
+      :proceed-label="formatMessage(deleteModalMessages.action)"
       @proceed="removePat(deletePatIndex)"
     />
     <Modal
       ref="patModal"
       :header="
         editPatIndex !== null
-          ? formatMessage(messages.editPatModalTitle)
-          : formatMessage(messages.createPatModalTitle)
+          ? formatMessage(createModalMessages.editTitle)
+          : formatMessage(createModalMessages.createTitle)
       "
     >
       <div class="universal-modal">
         <label for="pat-name">
-          <span class="label__title">{{ formatMessage(messages.nameLabel) }}</span>
+          <span class="label__title">{{ formatMessage(createModalMessages.nameLabel) }}</span>
         </label>
         <input
           id="pat-name"
           v-model="name"
           maxlength="2048"
           type="email"
-          :placeholder="formatMessage(messages.patNameInputPlaceholder)"
+          :placeholder="formatMessage(createModalMessages.namePlaceholder)"
         />
         <label for="pat-scopes">
           <span class="label__title">{{ formatMessage(commonMessages.scopesLabel) }}</span>
@@ -39,7 +39,7 @@
           />
         </div>
         <label for="pat-name">
-          <span class="label__title">{{ formatMessage(messages.experiesLabel) }}</span>
+          <span class="label__title">{{ formatMessage(createModalMessages.expiresLabel) }}</span>
         </label>
         <input id="pat-name" v-model="expires" type="date" />
         <p></p>
@@ -66,7 +66,7 @@
             @click="createPat"
           >
             <PlusIcon />
-            {{ formatMessage(messages.createPatButton) }}
+            {{ formatMessage(createModalMessages.action) }}
           </button>
         </div>
       </div>
@@ -74,7 +74,7 @@
 
     <div class="header__row">
       <div class="header__title">
-        <h2>{{ formatMessage(messages.patsLongTitle) }}</h2>
+        <h2>{{ formatMessage(messages.longTitle) }}</h2>
       </div>
       <button
         class="btn btn-primary"
@@ -88,11 +88,11 @@
           }
         "
       >
-        <PlusIcon /> {{ formatMessage(messages.createAPatButton) }}
+        <PlusIcon /> {{ formatMessage(messages.create) }}
       </button>
     </div>
     <p>
-      <IntlFormatted :message-id="messages.patsDescription">
+      <IntlFormatted :message-id="messages.description">
         <template #doc-link="{ children }">
           <a class="text-link" href="https://docs.modrinth.com">
             <component :is="() => children" />
@@ -122,12 +122,12 @@
             >
               <template v-if="pat.last_used">
                 {{
-                  formatMessage(messages.lastUsedAgoLabel, {
+                  formatMessage(tokenMessages.lastUsed, {
                     ago: formatRelativeTime(pat.last_used),
                   })
                 }}
               </template>
-              <template v-else>{{ formatMessage(messages.neverUsedLabel) }}</template>
+              <template v-else>{{ formatMessage(tokenMessages.neverUsed) }}</template>
             </span>
             ⋅
             <span
@@ -140,14 +140,14 @@
             >
               <template v-if="new Date(pat.expires) > new Date()">
                 {{
-                  formatMessage(messages.experiesAgoLabel, {
-                    ago: formatRelativeTime(pat.expires),
+                  formatMessage(tokenMessages.expiresIn, {
+                    inTime: formatRelativeTime(pat.expires),
                   })
                 }}
               </template>
               <template v-else>
                 {{
-                  formatMessage(messages.experiedAgoLabel, {
+                  formatMessage(tokenMessages.expiredAgo, {
                     ago: formatRelativeTime(pat.expires),
                   })
                 }}
@@ -184,7 +184,7 @@
             }
           "
         >
-          <EditIcon /> {{ formatMessage(messages.editTokenButton) }}
+          <EditIcon /> {{ formatMessage(tokenMessages.edit) }}
         </button>
         <button
           class="iconified-button raised-button"
@@ -195,7 +195,7 @@
             }
           "
         >
-          <TrashIcon /> {{ formatMessage(messages.revokeTokenButton) }}
+          <TrashIcon /> {{ formatMessage(tokenMessages.revoke) }}
         </button>
       </div>
     </div>
@@ -219,83 +219,92 @@ const { formatMessage } = useVIntl()
 
 const formatRelativeTime = useRelativeTime()
 
-const messages = defineMessages({
-  createPatButton: {
-    id: 'settings.pats.modal.create-pat.action.create-pat',
-    defaultMessage: 'Create PAT',
-  },
-  createAPatButton: {
-    id: 'settings.pats.action.create-a-pat',
-    defaultMessage: 'Create a PAT',
-  },
-  createPatModalTitle: {
-    id: 'settings.pats.modal.pat.create-title',
+const createModalMessages = defineMessages({
+  createTitle: {
+    id: 'settings.pats.modal.create.title',
     defaultMessage: 'Create personal access token',
   },
-  deletePatModalDescription: {
-    id: 'settings.pats.modal.delete-pat.description',
-    defaultMessage: 'This will remove this token forever (like really forever).',
-  },
-  deletePatModalProceedLabel: {
-    id: 'settings.pats.modal.delete-pat.proceed-label',
-    defaultMessage: 'Delete this token',
-  },
-  deletePatModalTitle: {
-    id: 'settings.pats.modal.delete-pat.title',
-    defaultMessage: 'Are you sure you want to delete this token?',
-  },
-  editPatModalTitle: {
-    id: 'settings.pats.modal.edit-pat.title',
+  editTitle: {
+    id: 'settings.pats.modal.edit.title',
     defaultMessage: 'Edit personal access token',
   },
-  editTokenButton: {
-    id: 'settings.pats.action.edit-token',
-    defaultMessage: 'Edit token',
-  },
-  experiedAgoLabel: {
-    id: 'settings.pats.experied-ago',
-    defaultMessage: 'Expired {ago}',
-  },
-  experiesAgoLabel: {
-    id: 'settings.pats.experies-ago',
-    defaultMessage: 'Expires {ago}',
-  },
-  experiesLabel: {
-    id: 'settings.pats.modal.create-pat.expires',
-    defaultMessage: 'Expires',
-  },
-  lastUsedAgoLabel: {
-    id: 'settings.pats.last-used-ago',
-    defaultMessage: 'Last used {ago}',
-  },
   nameLabel: {
-    id: 'settings.pats.name',
+    id: 'settings.pats.modal.create.name.label',
     defaultMessage: 'Name',
   },
-  neverUsedLabel: {
-    id: 'settings.pats.never-used',
-    defaultMessage: 'Never used',
-  },
-  patNameInputPlaceholder: {
-    id: 'settings.pats.modal.create-pat.name.placeholder',
+  namePlaceholder: {
+    id: 'settings.pats.modal.create.name.placeholder',
     defaultMessage: "Enter the PAT's name...",
   },
-  patsDescription: {
+  expiresLabel: {
+    id: 'settings.pats.modal.create.expires.label',
+    defaultMessage: 'Expires',
+  },
+  action: {
+    id: 'settings.pats.modal.create.action',
+    defaultMessage: 'Create PAT',
+  },
+})
+
+const deleteModalMessages = defineMessages({
+  title: {
+    id: 'settings.pats.modal.delete.title',
+    defaultMessage: 'Are you sure you want to delete this token?',
+  },
+  description: {
+    id: 'settings.pats.modal.delete.description',
+    defaultMessage: 'This will remove this token forever (like really forever).',
+  },
+  action: {
+    id: 'settings.pats.modal.delete.action',
+    defaultMessage: 'Delete this token',
+  },
+})
+
+const messages = defineMessages({
+  title: {
+    id: 'settings.pats.title',
+    defaultMessage: 'PATs',
+  },
+  longTitle: {
+    id: 'settings.pats.title.long',
+    defaultMessage: 'Personal Access Tokens',
+  },
+  description: {
     id: 'settings.pats.description',
     defaultMessage:
       "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time.",
   },
-  patsLongTitle: {
-    id: 'settings.pats.long-title',
-    defaultMessage: 'Personal Access Tokens',
+  create: {
+    id: 'settings.pats.action.create',
+    defaultMessage: 'Create a PAT',
   },
-  patsTitle: {
-    id: 'settings.pats.title',
-    defaultMessage: 'PATs',
+})
+
+const tokenMessages = defineMessages({
+  edit: {
+    id: 'settings.pats.token.action.edit',
+    defaultMessage: 'Edit token',
   },
-  revokeTokenButton: {
-    id: 'settings.pats.action.revoke-token',
+  revoke: {
+    id: 'settings.pats.token.action.revoke',
     defaultMessage: 'Revoke token',
+  },
+  lastUsed: {
+    id: 'settings.pats.token.last-used',
+    defaultMessage: 'Last used {ago}',
+  },
+  neverUsed: {
+    id: 'settings.pats.token.never-used',
+    defaultMessage: 'Never used',
+  },
+  expiresIn: {
+    id: 'settings.pats.token.expires-in',
+    defaultMessage: 'Expires {inTime}',
+  },
+  expiredAgo: {
+    id: 'settings.pats.token.expired-ago',
+    defaultMessage: 'Expired {ago}',
   },
 })
 
@@ -304,7 +313,7 @@ definePageMeta({
 })
 
 useHead({
-  title: `${formatMessage(messages.patsTitle)} - Modrinth`,
+  title: `${formatMessage(messages.title)} - Modrinth`,
 })
 
 const data = useNuxtApp()

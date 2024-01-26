@@ -461,62 +461,62 @@
   "settings.language.title": {
     "message": "Language"
   },
-  "settings.pats.action.create-a-pat": {
+  "settings.pats.action.create": {
     "message": "Create a PAT"
-  },
-  "settings.pats.action.edit-token": {
-    "message": "Edit token"
-  },
-  "settings.pats.action.revoke-token": {
-    "message": "Revoke token"
   },
   "settings.pats.description": {
     "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
   },
-  "settings.pats.experied-ago": {
-    "message": "Expired {ago}"
-  },
-  "settings.pats.experies-ago": {
-    "message": "Expires {ago}"
-  },
-  "settings.pats.last-used-ago": {
-    "message": "Last used {ago}"
-  },
-  "settings.pats.long-title": {
-    "message": "Personal Access Tokens"
-  },
-  "settings.pats.modal.create-pat.action.create-pat": {
+  "settings.pats.modal.create.action": {
     "message": "Create PAT"
   },
-  "settings.pats.modal.create-pat.expires": {
+  "settings.pats.modal.create.expires.label": {
     "message": "Expires"
   },
-  "settings.pats.modal.create-pat.name.placeholder": {
-    "message": "Enter the PAT's name..."
-  },
-  "settings.pats.modal.delete-pat.description": {
-    "message": "This will remove this token forever (like really forever)."
-  },
-  "settings.pats.modal.delete-pat.proceed-label": {
-    "message": "Delete this token"
-  },
-  "settings.pats.modal.delete-pat.title": {
-    "message": "Are you sure you want to delete this token?"
-  },
-  "settings.pats.modal.edit-pat.title": {
-    "message": "Edit personal access token"
-  },
-  "settings.pats.modal.pat.create-title": {
-    "message": "Create personal access token"
-  },
-  "settings.pats.name": {
+  "settings.pats.modal.create.name.label": {
     "message": "Name"
   },
-  "settings.pats.never-used": {
-    "message": "Never used"
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Enter the PAT's name..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Create personal access token"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Delete this token"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "This will remove this token forever (like really forever)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Are you sure you want to delete this token?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Edit personal access token"
   },
   "settings.pats.title": {
     "message": "PATs"
+  },
+  "settings.pats.title.long": {
+    "message": "Personal Access Tokens"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Edit token"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Revoke token"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Expired {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Expires {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Last used {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Never used"
   },
   "settings.sessions.button.revoke-session": {
     "message": "Revoke session"
