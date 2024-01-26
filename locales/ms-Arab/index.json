@@ -1,15 +1,15 @@
 {
   "auth.welcome.checkbox.subscribe": {
-    "message": "لڠݢن اونتوق کمس کيني تنتڠ مودرين‌ث"
+    "message": "لڠݢن اونتوق کمس کيني تنتڠ مودرين‌ث (Modrinth)"
   },
   "auth.welcome.description": {
     "message": "تريما کاسيه کران منچيڤتا اکاءون. اندا کيني بوليه مڠيکوتي دان منچيڤتا ڤروجيک، منريما کمس کيني تنتڠ ڤروجيک کݢمرن اندا دان باپق لاݢي!"
   },
   "auth.welcome.label.tos": {
-    "message": "دڠن منچيڤتا اکاءون، اندا تله برستوجو دڠن <terms-link>ترما</terms-link> دان <privacy-policy-link>داسر ڤريۏاسي</privacy-policy-link> مودرين‌ث."
+    "message": "دڠن منچيڤتا اکاءون، اندا تله برستوجو دڠن <terms-link>ترما</terms-link> دان <privacy-policy-link>داسر ڤريۏاسي</privacy-policy-link> مودرين‌ث (Modrinth)."
   },
   "auth.welcome.long-title": {
-    "message": "سلامت داتڠ کمودرين‌ث!"
+    "message": "سلامت داتڠ کمودرين‌ث (Modrinth)!"
   },
   "auth.welcome.title": {
     "message": "سلامت داتڠ"
@@ -90,10 +90,10 @@
     "message": "ڤرتوبوهن"
   },
   "profile.meta.description": {
-    "message": "موات تورون ڤروجيک ميليق {username} دمودرين‌ث"
+    "message": "موات تورون ڤروجيک ميليق {username} دمودرين‌ث (Modrinth)"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - موات تورون ڤروجيک ميليق {username} دمودرين‌ث"
+    "message": "{bio} - موات تورون ڤروجيک ميليق {username} دمودرين‌ث (Modrinth)"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, other {<stat>{count}</stat> موات تورون}}"
@@ -324,7 +324,7 @@
     "message": "توليس لاڤورن"
   },
   "scopes.sessionAccess.description": {
-    "message": "اکسيس سيسي کلوارن مودرين‌ث"
+    "message": "اکسيس سيسي کلوارن مودرين‌ث (Modrinth)"
   },
   "scopes.sessionAccess.label": {
     "message": "اکسيس سيسي"
@@ -456,7 +456,7 @@
     "message": "تاريق باليق سيسي"
   },
   "settings.sessions.description": {
-    "message": "برايکوت اياله سموا ڤرنتي يڠ سدڠ دلوݢ ماسوق دڠن اکاءون مودرين‌ث اندا. اندا بوليه لوݢ کلوار درڤد ستياڤ ساتو ڤرنتي سچارا اينديۏيدو.\n\nجک اندا مليهت اينتري يڠ اندا تيدق كنالي⹁ لوݢ کلوار درڤد ڤرنتي ايت دان/دن توكر کات لالوان اکاءون مودرين‌ث اندا دڠن سݢرا."
+    "message": "برايکوت اياله سموا ڤرنتي يڠ سدڠ دلوݢ ماسوق دڠن اکاءون مودرين‌ث (Modrinth) اندا. اندا بوليه لوݢ کلوار درڤد ستياڤ ساتو ڤرنتي سچارا اينديۏيدو.\n\nجک اندا مليهت اينتري يڠ اندا تيدق كنالي⹁ لوݢ کلوار درڤد ڤرنتي ايت دان/دن توكر کات لالوان اکاءون مودرين‌ث (Modrinth) اندا دڠن سݢرا."
   },
   "settings.sessions.label.created-at": {
     "message": "دچيڤتا {ago}"
