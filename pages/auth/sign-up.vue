@@ -89,12 +89,12 @@
       <Checkbox
         v-model="subscribe"
         class="subscribe-btn"
-        :label="formatMessage(messages.subscribeCheckboxLabel)"
-        :description="formatMessage(messages.subscribeCheckboxLabel)"
+        :label="formatMessage(messages.subscribeLabel)"
+        :description="formatMessage(messages.subscribeLabel)"
       />
 
       <p>
-        <IntlFormatted :message-id="messages.tosLabel">
+        <IntlFormatted :message-id="messages.legalDisclaimer">
           <template #terms-link="{ children }">
             <NuxtLink to="/legal/terms" class="text-link">
               <component :is="() => children" />
@@ -136,63 +136,59 @@ import GitLabIcon from 'assets/icons/auth/sso-gitlab.svg'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
-  alreadyHaveAccountLabel: {
-    id: 'auth.sign-up.label.already-have-account',
-    defaultMessage: 'Already have an account?',
+  title: {
+    id: 'auth.sign-up.title',
+    defaultMessage: 'Sign Up',
   },
-  confirmPasswordLabel: {
-    id: 'auth.sign-up.label.confirm-password',
-    defaultMessage: 'Confirm password',
-  },
-  createAccountButton: {
-    id: 'auth.sign-up.button.create-account',
-    defaultMessage: 'Create account',
+  signUpWithTitle: {
+    id: 'auth.sign-up.title.sign-up-with',
+    defaultMessage: 'Sign up with',
   },
   createAccountTitle: {
     id: 'auth.sign-up.title.create-account',
     defaultMessage: 'Or create an account yourself',
   },
   emailLabel: {
-    id: 'auth.sign-up.label.email',
+    id: 'auth.sign-up.email.label',
     defaultMessage: 'Email',
-  },
-  passwordLabel: {
-    id: 'auth.sign-up.label.password',
-    defaultMessage: 'Password',
-  },
-  passwordNotMatchNotificationText: {
-    id: 'auth.sign-up.notification.password-not-match.text',
-    defaultMessage: 'Passwords do not match!',
-  },
-  signUpWithTitle: {
-    id: 'auth.sign-up.title.sign-up-with',
-    defaultMessage: 'Sign up with',
-  },
-  signInLabel: {
-    id: 'auth.sign-up.label.sign-in',
-    defaultMessage: 'Sign in',
-  },
-  signUpTitle: {
-    id: 'auth.sign-up.title',
-    defaultMessage: 'Sign Up',
-  },
-  subscribeCheckboxLabel: {
-    id: 'auth.sign-up.checkbox.subscribe.label',
-    defaultMessage: 'Subscribe to updates about Modrinth',
-  },
-  tosLabel: {
-    id: 'auth.sign-up.label.tos',
-    defaultMessage:
-      "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>.",
   },
   usernameLabel: {
     id: 'auth.sign-up.label.username',
     defaultMessage: 'Username',
   },
+  passwordLabel: {
+    id: 'auth.sign-up.password.label',
+    defaultMessage: 'Password',
+  },
+  confirmPasswordLabel: {
+    id: 'auth.sign-up.confirm-password.label',
+    defaultMessage: 'Confirm password',
+  },
+  subscribeLabel: {
+    id: 'auth.sign-up.subscribe.label',
+    defaultMessage: 'Subscribe to updates about Modrinth',
+  },
+  legalDisclaimer: {
+    id: 'auth.sign-up.legal-dislaimer',
+    defaultMessage:
+      "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>.",
+  },
+  createAccountButton: {
+    id: 'auth.sign-up.action.create-account',
+    defaultMessage: 'Create account',
+  },
+  alreadyHaveAccountLabel: {
+    id: 'auth.sign-up.sign-in-option.title',
+    defaultMessage: 'Already have an account?',
+  },
+  signInLabel: {
+    id: 'auth.sign-up.sign-in-option.action',
+    defaultMessage: 'Sign in',
+  },
 })
 
 useHead({
-  title: () => `${formatMessage(messages.signUpTitle)} - Modrinth`,
+  title: () => `${formatMessage(messages.title)} - Modrinth`,
 })
 
 const auth = await useAuth()
@@ -232,7 +228,10 @@ async function createAccount() {
       addNotification({
         group: 'main',
         title: formatMessage(commonMessages.errorNotificationTitle),
-        text: formatMessage(messages.passwordNotMatchNotificationText),
+        text: formatMessage({
+          id: 'auth.sign-up.notification.password-mismatch.text',
+          defaultMessage: 'Passwords do not match!',
+        }),
         type: 'error',
       })
       turnstile.value?.reset()

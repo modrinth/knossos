@@ -1,33 +1,33 @@
 {
-  "auth.sign-up.button.create-account": {
+  "auth.sign-up.action.create-account": {
     "message": "Create account"
   },
-  "auth.sign-up.checkbox.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
-  },
-  "auth.sign-up.label.already-have-account": {
-    "message": "Already have an account?"
-  },
-  "auth.sign-up.label.confirm-password": {
+  "auth.sign-up.confirm-password.label": {
     "message": "Confirm password"
   },
-  "auth.sign-up.label.email": {
+  "auth.sign-up.email.label": {
     "message": "Email"
-  },
-  "auth.sign-up.label.password": {
-    "message": "Password"
-  },
-  "auth.sign-up.label.sign-in": {
-    "message": "Sign in"
-  },
-  "auth.sign-up.label.tos": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
   },
   "auth.sign-up.label.username": {
     "message": "Username"
   },
-  "auth.sign-up.notification.password-not-match.text": {
+  "auth.sign-up.legal-dislaimer": {
+    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
     "message": "Passwords do not match!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Password"
+  },
+  "auth.sign-up.sign-in-option.action": {
+    "message": "Sign in"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Already have an account?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Subscribe to updates about Modrinth"
   },
   "auth.sign-up.title": {
     "message": "Sign Up"
