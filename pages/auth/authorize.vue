@@ -28,7 +28,7 @@
             :message-id="messages.appInfo"
             :values="{
               appName: app.name,
-              creatorUsername: createdBy.username,
+              creator: createdBy.username,
             }"
           >
             <template #strong="{ children }">
