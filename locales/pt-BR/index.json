@@ -1,0 +1,725 @@
+{
+  "auth.reset-password.method-choice.action": {
+    "message": "Send recovery email"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "Email or username"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "Email"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "Email sent"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "You can now log-in into your account with your new password."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Password successfully reset"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Reset password"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Confirm password"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Enter your new password below to gain access to your account."
+  },
+  "auth.reset-password.title": {
+    "message": "Reset Password"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Reset your password"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Please enter a two-factor code to proceed."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Enter two-factor code"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Enter code..."
+  },
+  "auth.sign-in.action.sign-in": {
+    "message": "Sign in"
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "Email or username"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Password"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Sign in with"
+  },
+  "auth.sign-in.title": {
+    "message": "Sign In"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Or use a password"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Create account"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Confirm password"
+  },
+  "auth.sign-up.email.label": {
+    "message": "Email"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Username"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Passwords do not match!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Password"
+  },
+  "auth.sign-up.sign-in-option.action": {
+    "message": "Sign in"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Already have an account?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Subscribe to updates about Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Sign Up"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Or create an account yourself"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Sign up with"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Account settings"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Sign in"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "Your email is already verified!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "Email already verified"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Resend verification email"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "Email verification failed"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "Your email address has been successfully verified!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "Email verification"
+  },
+  "auth.verify-email.title": {
+    "message": "Verify Email"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Inscreva-se para receber atualizações do Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Obrigado por criar uma conta. Agora você pode seguir e criar projetos, receber atualizações sobre seus projetos favoritos, e mais!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Ao criar uma conta, você concorda com os <terms-link>Termos</terms-link> e <privacy-policy-link>Política de Privacidade</privacy-policy-link> do Modrinth."
+  },
+  "auth.welcome.long-title": {
+    "message": "Bem-vindo(a) ao Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Bem-vindo(a)"
+  },
+  "button.cancel": {
+    "message": "Cancelar"
+  },
+  "button.continue": {
+    "message": "Continuar"
+  },
+  "button.edit": {
+    "message": "Editar"
+  },
+  "button.save": {
+    "message": "Salvar"
+  },
+  "collection.button.delete-icon": {
+    "message": "Delete icon"
+  },
+  "collection.button.edit-icon": {
+    "message": "Edit icon"
+  },
+  "collection.button.remove-project": {
+    "message": "Remove project"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Unfollow project"
+  },
+  "collection.button.upload-icon": {
+    "message": "Upload icon"
+  },
+  "collection.delete-modal.description": {
+    "message": "This will remove this collection forever. This action cannot be undone."
+  },
+  "collection.delete-modal.title": {
+    "message": "Are you sure you want to delete this collection?"
+  },
+  "collection.description": {
+    "message": "{description} - View the collection {name} by {username} on Modrinth"
+  },
+  "collection.description.following": {
+    "message": "Auto-generated collection of all the projects you're following."
+  },
+  "collection.error.not-found": {
+    "message": "Collection not found"
+  },
+  "collection.label.collection": {
+    "message": "Collection"
+  },
+  "collection.label.created-at": {
+    "message": "Created {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Curated by"
+  },
+  "collection.label.no-projects": {
+    "message": "This collection has no projects!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Owner"
+  },
+  "collection.label.private": {
+    "message": "Private"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Updated {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - Collection"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Create new"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Search your collections"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Your collections"
+  },
+  "frog": {
+    "message": "Você foi sapado! 🐸"
+  },
+  "frog.altText": {
+    "message": "Uma pintura foto realística de um sapo em formato de labirinto"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural, one {{count} outra pessoa também foi ensapada} other {Outras {count} pessoas também foram ensapadas}}!"
+  },
+  "frog.sinceOpened": {
+    "message": "Essa página foi aberta há {ago}"
+  },
+  "frog.title": {
+    "message": "Sapo"
+  },
+  "input.view.gallery": {
+    "message": "Exibição em galeria"
+  },
+  "input.view.grid": {
+    "message": "Exibição em grade"
+  },
+  "input.view.list": {
+    "message": "Exibição em lista"
+  },
+  "label.collections": {
+    "message": "Collections"
+  },
+  "label.delete": {
+    "message": "Delete"
+  },
+  "label.description": {
+    "message": "Description"
+  },
+  "label.followed-projects": {
+    "message": "Followed projects"
+  },
+  "label.password": {
+    "message": "Password"
+  },
+  "label.public": {
+    "message": "Public"
+  },
+  "label.rejected": {
+    "message": "Rejected"
+  },
+  "label.title": {
+    "message": "Title"
+  },
+  "label.unlisted": {
+    "message": "Unlisted"
+  },
+  "label.visibility": {
+    "message": "Visibility"
+  },
+  "notification.error.title": {
+    "message": "Ocorreu um erro"
+  },
+  "profile.button.manage-projects": {
+    "message": "Gerenciar projetos"
+  },
+  "profile.button.report": {
+    "message": "Denunciar"
+  },
+  "profile.error.not-found": {
+    "message": "Usuário não encontrado"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Carregar avatar"
+  },
+  "profile.joined-at": {
+    "message": "Entrou {ago}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Bio"
+  },
+  "profile.label.edit-username": {
+    "message": "Nome de usuário"
+  },
+  "profile.label.no-collections": {
+    "message": "Este usuário não tem coleções!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Você não tem nenhuma coleção.\nQue tal <create-link>criar uma</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "Este usuário não tem projetos!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "Você não tem nenhum projeto.\nGostaria de <create-link>criar um</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Organizações"
+  },
+  "profile.meta.description": {
+    "message": "Baixe os projetos de {username} no Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} — Baixe os projetos de {username} no Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> seguidor} other {<stat>{count}</stat> seguidores}} de projetos"
+  },
+  "profile.user-id": {
+    "message": "ID de usuário: {id}"
+  },
+  "project-type.all": {
+    "message": "Tudo"
+  },
+  "project-type.collection.plural": {
+    "message": "Coleções"
+  },
+  "project-type.collection.singular": {
+    "message": "Coleção"
+  },
+  "project-type.datapack.plural": {
+    "message": "Pacotes de dados"
+  },
+  "project-type.datapack.singular": {
+    "message": "Pacote de dados"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projetos"
+  },
+  "project-type.project.singular": {
+    "message": "Projeto"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Pacotes de Recursos"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Pacote de Recursos"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
+  },
+  "revenue.transfers.total": {
+    "message": "Você sacou {amount} no total."
+  },
+  "revenue.transfers.total.method": {
+    "message": "Você sacou {amount} através de {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "Você sacou {amount} em {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "Você sacou {amount} em {year} através de {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "Acessas suas estatísticas"
+  },
+  "scopes.analytics.label": {
+    "message": "Ler estatísticas"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Criar coleções"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Criar coleções"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Excluir coleções"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Excluir coleções"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Acessar coleções"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Acessar coleções"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Modificar suas coleções"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Modificar coleções"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Acessar suas notificações"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Acessar notificações"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Excluir/Ver suas notificações"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Modificar notificações"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Criar organizações"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Criar organizações"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Excluir organizações"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Excluir organizações"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Acessar organizações"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Acessar organizações"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Modificar organizações"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Modificar organizações"
+  },
+  "scopes.patCreate.description": {
+    "message": "Criar tokens de API pessoais (PATs, em inglês)"
+  },
+  "scopes.patCreate.label": {
+    "message": "Criar PATs"
+  },
+  "scopes.patDelete.description": {
+    "message": "Excluir seus tokens de API pessoais"
+  },
+  "scopes.patDelete.label": {
+    "message": "Excluir PATs"
+  },
+  "scopes.patRead.description": {
+    "message": "Ver tokens de API criados"
+  },
+  "scopes.patRead.label": {
+    "message": "Acessar PATs"
+  },
+  "scopes.patWrite.description": {
+    "message": "Modificar tokens de API pessoais"
+  },
+  "scopes.patWrite.label": {
+    "message": "Modificar PATs"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Acessar dados de pagamentos"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Acessar pagamentos"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Sacar dinheiro"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Modificar pagamentos"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Acesso à página de estatísticas e seus dados"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Realizar análises de estatísticas"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Criar novos projetos"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Criar projetos"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Excluir seus projetos"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Excluir projetos"
+  },
+  "scopes.projectRead.description": {
+    "message": "Acesso a todos os seus projetos"
+  },
+  "scopes.projectRead.label": {
+    "message": "Acessar projetos"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Modificar dados de projetos"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Modificar projetos"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Criar denúncias"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Criar denúncias"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Excluir denúncias"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Excluir denúncias"
+  },
+  "scopes.reportRead.description": {
+    "message": "Acessar denúncias"
+  },
+  "scopes.reportRead.label": {
+    "message": "Acessar denúncias"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Modificar denúncias"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Modificar denúncias"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Acessar sessões criadas pelo modrinth"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Acessar sessões"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Excluir sessões"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Excluir sessões"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Acessar sessões ativas"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Acessar sessões"
+  },
+  "scopes.threadRead.description": {
+    "message": "Acessar tópicos"
+  },
+  "scopes.threadRead.label": {
+    "message": "Acessar tópicos"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Escrever em tópicos"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Modificar tópicos"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Modificar dados de autenticação"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Modificar dados de autenticação"
+  },
+  "scopes.userDelete.description": {
+    "message": "Excluir sua conta"
+  },
+  "scopes.userDelete.label": {
+    "message": "Excluir sua conta"
+  },
+  "scopes.userRead.description": {
+    "message": "Acesso às informações públicas de seu perfil"
+  },
+  "scopes.userRead.label": {
+    "message": "Acessar dados de usuário"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Acesso ao seu email"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Acessar email de usuário"
+  },
+  "scopes.userWrite.description": {
+    "message": "Modificar seu perfil"
+  },
+  "scopes.userWrite.label": {
+    "message": "Modificar dados de usuário"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Criar novas versões"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Criar versões"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Excluir uma versão"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Excluir versões"
+  },
+  "scopes.versionRead.description": {
+    "message": "Modificar todas as versões"
+  },
+  "scopes.versionRead.label": {
+    "message": "Modificar versões"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Modificar dados de versão"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Modificar versões"
+  },
+  "settings.language.categories.auto": {
+    "message": "Automático"
+  },
+  "settings.language.categories.default": {
+    "message": "Idiomas padrões"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Idiomas experimentais"
+  },
+  "settings.language.categories.fun": {
+    "message": "Idiomas divertidos"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Resultados da busca"
+  },
+  "settings.language.description": {
+    "message": "Escolha o seu idioma para o site. As traduções são realizadas por voluntários <crowdin-link>no Crowdin</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Sincronizar com o idioma do sistema"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Aplicando..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Erro"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Não foi possível carregar este idioma. Tente novamente em instantes."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Pressione enter para escolher o primeiro resultado"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Buscar idioma..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {Nenhum idioma corresponde} one {# idioma corresponde} other {# idiomas correspondem}} à sua pesquisa."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "Nenhum idioma bate com a sua busca."
+  },
+  "settings.language.title": {
+    "message": "Idioma"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Revoke session"
+  },
+  "settings.sessions.created-ago": {
+    "message": "Created {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "Current session"
+  },
+  "settings.sessions.description": {
+    "message": "Aqui estão todos os dispositivos que estão logados em sua conta Modrinth no momento. Você pode sair de cada um individualmente.\n\nSe você não reconhece algo nesta lista, revogue a sessão e mude a senha da sua conta Modrinth imediatamente."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "Last accessed {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "Sessões"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "Unknown OS"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Unknown platform"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} às {time, time, short}"
+  }
+}
