@@ -142,6 +142,46 @@ export const md = (options = {}) => {
     return defaultLinkOpenRenderer(tokens, idx, options, env, self)
   }
 
+
+  const slugify_header = function(str, used_headers) {
+    let slug = str.trim().toLowerCase()
+      .normalize("NFKD") // Splits graphemes and diacritics (so é → e and  ̀)
+      .replace(/[./_,:;]/g, '-')
+      .replace(/[^a-z0-9 -]/g, '') // Removes invalid chars
+      .replace(/\s+/g, '-') // collapse whitespace and replace with -
+      .replace(/-+/g, '-') // collapse dashes
+    if( used_headers[slug] ) {
+      used_headers[slug]++
+      slug += used_headers[slug]
+    } else {
+      used_headers[slug] += '-' + 1
+    }
+    return slug;
+  };
+
+  // Mostly Based on:
+  // https://github.com/leff/markdown-it-named-headers
+  // https://gist.github.com/codeguy/6684588
+  const originalHeadingOpen = md.renderer.rules.heading_open
+  if (originalHeadingOpen) {
+    console.log("TRUE")
+  }
+  console.log(originalHeadingOpen)
+  md.renderer.rules.heading_open = function (tokens, idx, something, somethingelse, self) {
+    const used_headers = {}
+
+    tokens[idx].attrs = tokens[idx].attrs || []
+
+    const header = tokens[idx + 1].children.reduce(function (acc, t) {
+      return acc + t.content
+    }, '');
+
+    const slug = slugify_header(header, used_headers)
+    tokens[idx].attrs.push(['id', slug])
+
+    return self.renderToken.apply(self, arguments)
+  };
+
   return md
 }
 
