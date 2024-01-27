@@ -2,11 +2,14 @@
   "auth.authorize.action.authorize": {
     "message": "Authorize"
   },
+  "auth.authorize.action.decline": {
+    "message": "Decline"
+  },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creatorUsername}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {app_name}"
+    "message": "Authorize {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
     "message": "No redirect location found in response"
@@ -34,9 +37,6 @@
   },
   "button.continue": {
     "message": "Continue"
-  },
-  "button.decline": {
-    "message": "Decline"
   },
   "button.edit": {
     "message": "Edit"

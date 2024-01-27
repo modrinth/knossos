@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="title">
-        <h1>{{ formatMessage(messages.authorizeAppName, { app_name: app.name }) }}</h1>
+        <h1>{{ formatMessage(messages.title, { appName: app.name }) }}</h1>
       </div>
       <div class="auth-info">
         <div class="scope-heading">
@@ -57,7 +57,7 @@
       <div class="button-row">
         <Button class="wide-button" large :action="onReject" :disabled="pending">
           <XIcon />
-          {{ formatMessage(commonMessages.declineButton) }}
+          {{ formatMessage(messages.decline) }}
         </Button>
         <Button class="wide-button" color="primary" large :action="onAuthorize" :disabled="pending">
           <CheckIcon />
@@ -92,15 +92,15 @@ const messages = defineMessages({
   appInfo: {
     id: 'auth.authorize.app-info',
     defaultMessage:
-      '<strong>{appName}</strong> by <creator-link>{creatorUsername}</creator-link> will be able to:',
-  },
-  authorizeAppName: {
-    id: 'auth.authorize.authorize-app-name',
-    defaultMessage: 'Authorize {app_name}',
+      '<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:',
   },
   authorize: {
     id: 'auth.authorize.action.authorize',
     defaultMessage: 'Authorize',
+  },
+  decline: {
+    id: 'auth.authorize.action.decline',
+    defaultMessage: 'Decline',
   },
   noRedirectUrlError: {
     id: 'auth.authorize.error.no-redirect-url',
@@ -109,6 +109,10 @@ const messages = defineMessages({
   redirectUrl: {
     id: 'auth.authorize.redirect-url',
     defaultMessage: 'You will be redirected to <redirect-url>{url}</redirect-url>',
+  },
+  title: {
+    id: 'auth.authorize.authorize-app-name',
+    defaultMessage: 'Authorize {appName}',
   },
 })
 
