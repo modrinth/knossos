@@ -1,17 +1,17 @@
 {
-  "auth.authorize.button.authorize": {
+  "auth.authorize.action.authorize": {
     "message": "Authorize"
   },
-  "auth.authorize.error.not-location-found": {
-    "message": "No redirect location found in response"
-  },
-  "auth.authorize.label.app-info": {
+  "auth.authorize.app-info": {
     "message": "<strong>{appName}</strong> by <creator-link>{creatorUsername}</creator-link> will be able to:"
   },
-  "auth.authorize.label.authorize-app-name": {
+  "auth.authorize.authorize-app-name": {
     "message": "Authorize {app_name}"
   },
-  "auth.authorize.label.redirect-url": {
+  "auth.authorize.error.no-redirect-url": {
+    "message": "No redirect location found in response"
+  },
+  "auth.authorize.redirect-url": {
     "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
   },
   "auth.welcome.checkbox.subscribe": {

@@ -20,12 +20,12 @@
         </div>
       </div>
       <div class="title">
-        <h1>{{ formatMessage(messages.authorizeAppNameLabel, { app_name: app.name }) }}</h1>
+        <h1>{{ formatMessage(messages.authorizeAppName, { app_name: app.name }) }}</h1>
       </div>
       <div class="auth-info">
         <div class="scope-heading">
           <IntlFormatted
-            :message-id="messages.appInfoLabel"
+            :message-id="messages.appInfo"
             :values="{
               appName: app.name,
               creatorUsername: createdBy.username,
@@ -61,12 +61,12 @@
         </Button>
         <Button class="wide-button" color="primary" large :action="onAuthorize" :disabled="pending">
           <CheckIcon />
-          {{ formatMessage(messages.authorizeButton) }}
+          {{ formatMessage(messages.authorize) }}
         </Button>
       </div>
       <div class="redirection-notice">
         <p class="redirect-instructions">
-          <IntlFormatted :message-id="messages.redirectUrlLabel" :values="{ url: redirectUri }">
+          <IntlFormatted :message-id="messages.redirectUrl" :values="{ url: redirectUri }">
             <template #redirect-url="{ children }">
               <span class="redirect-url">
                 <component :is="() => normalizeChildren(children)" />
@@ -89,25 +89,25 @@ import { useScopes } from '@/composables/auth/scopes.ts'
 const { formatMessage } = useVIntl()
 
 const messages = defineMessages({
-  appInfoLabel: {
-    id: 'auth.authorize.label.app-info',
+  appInfo: {
+    id: 'auth.authorize.app-info',
     defaultMessage:
       '<strong>{appName}</strong> by <creator-link>{creatorUsername}</creator-link> will be able to:',
   },
-  authorizeAppNameLabel: {
-    id: 'auth.authorize.label.authorize-app-name',
+  authorizeAppName: {
+    id: 'auth.authorize.authorize-app-name',
     defaultMessage: 'Authorize {app_name}',
   },
-  authorizeButton: {
-    id: 'auth.authorize.button.authorize',
+  authorize: {
+    id: 'auth.authorize.action.authorize',
     defaultMessage: 'Authorize',
   },
-  noLocationFoundError: {
-    id: 'auth.authorize.error.not-location-found',
+  noRedirectUrlError: {
+    id: 'auth.authorize.error.no-redirect-url',
     defaultMessage: 'No redirect location found in response',
   },
-  redirectUrlLabel: {
-    id: 'auth.authorize.label.redirect-url',
+  redirectUrl: {
+    id: 'auth.authorize.redirect-url',
     defaultMessage: 'You will be redirected to <redirect-url>{url}</redirect-url>',
   },
 })
@@ -187,7 +187,7 @@ const onAuthorize = async () => {
       return
     }
 
-    throw new Error(formatMessage(messages.noLocationFoundError))
+    throw new Error(formatMessage(messages.noRedirectUrlError))
   } catch (error) {
     data.$notify({
       group: 'main',
@@ -214,7 +214,7 @@ const onReject = async () => {
       return
     }
 
-    throw new Error(formatMessage(messages.noLocationFoundError))
+    throw new Error(formatMessage(messages.noRedirectUrlError))
   } catch (error) {
     data.$notify({
       group: 'main',
