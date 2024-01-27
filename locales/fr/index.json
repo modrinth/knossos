@@ -3,10 +3,10 @@
     "message": "S'abonner aux mises à jour de Modrinth"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "Merci d'avoir créé un compte. Vous pouvez maintenant suivre et créer des projets, recevoir des mises à jour sur vos projets préférés, et plus encore !"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "En créant un compte, vous acceptez les <terms-link>Conditions d'utilisation</terms-link> et la <privacy-policy-link>Politique de confidentialité</privacy-policy-link> de Modrinth."
   },
   "auth.welcome.long-title": {
     "message": "Bienvenue sur Modrinth !"
@@ -297,7 +297,7 @@
     "message": "Write to project data"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Créer des projets"
   },
   "scopes.reportCreate.description": {
     "message": "Créer des rapports"
@@ -321,7 +321,7 @@
     "message": "Modifier des rapports"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Créer des rapports"
   },
   "scopes.sessionAccess.description": {
     "message": "Access modrinth-issued sessions"
@@ -405,7 +405,7 @@
     "message": "Write to version data"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "Créer des versions"
   },
   "settings.language.categories.auto": {
     "message": "Automatique"
