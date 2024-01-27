@@ -199,11 +199,6 @@ export default defineNuxtComponent({
       }
 
       const donationLinks = this.donationLinks.filter((link) => link.url && link.platform)
-      donationLinks.forEach((link) => {
-        link.id = this.tags.donationPlatforms.find(
-          (platform) => platform.name === link.platform
-        ).short
-      })
       if (
         donationLinks !== this.project.donation_urls &&
         !(
@@ -213,6 +208,12 @@ export default defineNuxtComponent({
         )
       ) {
         data.donation_urls = donationLinks
+      }
+
+      if (data.donation_urls) {
+        data.donation_urls.forEach((link) => {
+          link.id = link.platform.toLowerCase()
+        })
       }
 
       return data

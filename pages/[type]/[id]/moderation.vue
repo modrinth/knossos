@@ -4,7 +4,8 @@
       <h2>Project status</h2>
       <Badge :type="project.status" />
       <p v-if="isApproved(project)">
-        Your project been approved by the moderators and you may freely change project visibility in
+        Your project has been approved by the moderators and you may freely change project
+        visibility in
         <router-link :to="`${getProjectLink(project)}/settings`" class="text-link"
           >your project's settings</router-link
         >.
@@ -63,18 +64,18 @@
     <section id="messages" class="universal-card">
       <h2>Messages</h2>
       <p>
-        This is a private conversation thread with the Modrinth moderators. They will message you
-        for issues concerning your project on Modrinth, and you are welcome to message them about
-        things concerning your project.
+        This is a private conversation thread with the Modrinth moderators. They may message you
+        with issues concerning this project. Additionally, you are welcome to start a discussion
+        here regarding this project and its status.
       </p>
       <ConversationThread
         v-if="thread"
         :thread="thread"
-        :update-thread="(newThread) => (thread = newThread)"
         :project="project"
         :set-status="setStatus"
         :current-member="currentMember"
         :auth="auth"
+        @update-thread="(newThread) => (thread = newThread)"
       />
     </section>
   </div>
@@ -104,9 +105,12 @@ const props = defineProps({
       return null
     },
   },
+  resetProject: {
+    type: Function,
+    required: true,
+    default: () => {},
+  },
 })
-
-const emit = defineEmits(['update:project'])
 
 const app = useNuxtApp()
 const auth = await useAuth()
@@ -130,7 +134,7 @@ async function setStatus(status) {
     })
     const project = props.project
     project.status = status
-    emit('update:project', project)
+    await props.resetProject()
     thread.value = await useBaseFetch(`thread/${thread.value.id}`)
   } catch (err) {
     app.$notify({

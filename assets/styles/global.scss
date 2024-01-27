@@ -49,6 +49,8 @@ html {
 
   --color-ad: #d6e6f9;
   --color-ad-raised: #b1c8e4;
+  --color-ad-contrast: var(--color-text);
+  --color-ad-highlight: #088cdb;
 
   --color-grey-link: var(--color-text);
   --color-grey-link-hover: var(--color-heading);
@@ -63,6 +65,8 @@ html {
   --color-special-blue: #1f68c0;
   --color-special-purple: #8e32f3;
   --color-special-gray: #595b61;
+
+  --color-red-bg: rgba(204, 35, 69, 0.1);
 
   --color-warning-bg: hsl(355, 70%, 88%);
   --color-warning-text: hsl(342, 70%, 35%);
@@ -157,6 +161,8 @@ html {
   --color-special-purple: #c78aff;
   --color-special-gray: #9fa4b3;
 
+  --color-red-bg: rgba(255, 74, 110, 0.2);
+
   --color-brand-green: #1bd96a;
   --color-brand: var(--color-brand-green);
   --color-brand-highlight: rgba(27, 217, 106, 0.25);
@@ -187,6 +193,8 @@ html {
 
   --color-ad: #1f324a;
   --color-ad-raised: #2e4057;
+  --color-ad-contrast: var(--color-text);
+  --color-ad-highlight: #088cdb;
 
   --color-link: #74b6f3;
   --color-link-hover: #92c0f5;
@@ -439,12 +447,9 @@ kbd {
   font-size: 0.85em !important;
 }
 
-@import '~/assets/styles/highlightjs.scss';
 @import '~/assets/styles/layout.scss';
 @import '~/assets/styles/utils.scss';
 @import '~/assets/styles/components.scss';
-@import '~/assets/styles/normalize.scss';
-@import '~/assets/styles/inter.scss';
 
 button:focus-visible,
 a:focus-visible,
