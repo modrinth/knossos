@@ -1,0 +1,725 @@
+{
+  "auth.reset-password.method-choice.action": {
+    "message": "Отправить письмо для восстановления"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Укажите адрес своей электронной почты, чтобы получить ссылку для восстановления доступа к учётной записи."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "Почта или имя пользователя"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "Почта"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "На вашу электронную почту было отправлено письмо с инструкциями, если ранее вы добавляли её к своей учётной записи."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "Письмо отправлено"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "Теперь вы можете войти в свою учётную запись, используя новый пароль."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Пароль успешно сброшен"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Сбросить пароль"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Подтвердите пароль"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Введите новый пароль ниже, чтобы получить доступ к учётной записи."
+  },
+  "auth.reset-password.title": {
+    "message": "Сброс пароля"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Reset your password"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Please enter a two-factor code to proceed."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Enter two-factor code"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Enter code..."
+  },
+  "auth.sign-in.action.sign-in": {
+    "message": "Регистрация"
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Забыли пароль?</forgot-password-link> • <create-account-link>Создать учётную запись</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "Email or username"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Password"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Sign in with"
+  },
+  "auth.sign-in.title": {
+    "message": "Регистрация"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Or use a password"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Create account"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Confirm password"
+  },
+  "auth.sign-up.email.label": {
+    "message": "Email"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Username"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Passwords do not match!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Password"
+  },
+  "auth.sign-up.sign-in-option.action": {
+    "message": "Sign in"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Already have an account?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Subscribe to updates about Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Вход"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Or create an account yourself"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Вход через"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Account settings"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Sign in"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "Your email is already verified!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "Email already verified"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Resend verification email"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "Email verification failed"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "Your email address has been successfully verified!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "Email verification"
+  },
+  "auth.verify-email.title": {
+    "message": "Verify Email"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Подписаться на новости Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Поздравляем с регистрацией! Теперь вы можете следить за проектами и создавать свои, получать уведомления от подписок и многое другое!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Создавая учётную запись, вы соглашаетесь с нашими <terms-link>условиями</terms-link> и <privacy-policy-link>политикой конфиденциальности</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Добро пожаловать на Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Добро пожаловать"
+  },
+  "button.cancel": {
+    "message": "Нафиг"
+  },
+  "button.continue": {
+    "message": "Продолжить"
+  },
+  "button.edit": {
+    "message": "Редачить"
+  },
+  "button.save": {
+    "message": "Запилить"
+  },
+  "collection.button.delete-icon": {
+    "message": "Delete icon"
+  },
+  "collection.button.edit-icon": {
+    "message": "Edit icon"
+  },
+  "collection.button.remove-project": {
+    "message": "Remove project"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Unfollow project"
+  },
+  "collection.button.upload-icon": {
+    "message": "Upload icon"
+  },
+  "collection.delete-modal.description": {
+    "message": "This will remove this collection forever. This action cannot be undone."
+  },
+  "collection.delete-modal.title": {
+    "message": "Are you sure you want to delete this collection?"
+  },
+  "collection.description": {
+    "message": "{description} - View the collection {name} by {username} on Modrinth"
+  },
+  "collection.description.following": {
+    "message": "Auto-generated collection of all the projects you're following."
+  },
+  "collection.error.not-found": {
+    "message": "Collection not found"
+  },
+  "collection.label.collection": {
+    "message": "Collection"
+  },
+  "collection.label.created-at": {
+    "message": "Created {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Curated by"
+  },
+  "collection.label.no-projects": {
+    "message": "This collection has no projects!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Owner"
+  },
+  "collection.label.private": {
+    "message": "Приватная"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> проект} few {<stat>{count}</stat> проекта} many {<stat>{count}</stat> проектов} other {<stat>{count}</stat> проекта}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Обновлена {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - Collection"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Создать"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} проект} few {{count} проекта} many {{count} проектов} other {{count} проекта}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Поиск среди коллекций"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Ваши коллекции"
+  },
+  "frog": {
+    "message": "Тя жабанули! 🐸"
+  },
+  "frog.altText": {
+    "message": "Жаберинт, прям как в жизни накалякан"
+  },
+  "frog.froggedPeople": {
+    "message": "Кроме тебя жабнули ещё {count, plural, one {{count} кента} other {{count} кентов}}!"
+  },
+  "frog.sinceOpened": {
+    "message": "Станица открылась где-т {ago}"
+  },
+  "frog.title": {
+    "message": "Жабень"
+  },
+  "input.view.gallery": {
+    "message": "Как в Эрмитаже"
+  },
+  "input.view.grid": {
+    "message": "По сетке"
+  },
+  "input.view.list": {
+    "message": "По пунктикам"
+  },
+  "label.collections": {
+    "message": "Коллекции"
+  },
+  "label.delete": {
+    "message": "Удалить"
+  },
+  "label.description": {
+    "message": "Описание"
+  },
+  "label.followed-projects": {
+    "message": "Отслеживаемые проекты"
+  },
+  "label.password": {
+    "message": "Пароль"
+  },
+  "label.public": {
+    "message": "Опубликован"
+  },
+  "label.rejected": {
+    "message": "Отклонён"
+  },
+  "label.title": {
+    "message": "Заголовок"
+  },
+  "label.unlisted": {
+    "message": "Скрыт"
+  },
+  "label.visibility": {
+    "message": "Видимость"
+  },
+  "notification.error.title": {
+    "message": "Чёт глюкануло"
+  },
+  "profile.button.manage-projects": {
+    "message": "Рулим проектиками"
+  },
+  "profile.button.report": {
+    "message": "Освистать"
+  },
+  "profile.error.not-found": {
+    "message": "Не нашёл такого чела"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Засунуть другое рыло"
+  },
+  "profile.joined-at": {
+    "message": "Приплыл сюда {ago}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Чё по жизни"
+  },
+  "profile.label.edit-username": {
+    "message": "Кликуха"
+  },
+  "profile.label.no-collections": {
+    "message": "У чела ни одной коллекции!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "У ещё ни одной коллекции.\nПозыришь сделать <create-link>новую</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "У этого типа ни одного проекта!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "Тут пока ничо не наворочено.\nПошёл бы чё-нить <create-link>намутить</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Организации"
+  },
+  "profile.meta.description": {
+    "message": "Закачайте плюхи от {username} на Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Закачайте плюхи от {username} на Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> загрузка} other {<stat>{count}</stat> загрузок}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> подписончик} other {<stat>{count}</stat> подписончиков}} проектов"
+  },
+  "profile.user-id": {
+    "message": "Шифруха чела: {id}"
+  },
+  "project-type.all": {
+    "message": "Всё"
+  },
+  "project-type.collection.plural": {
+    "message": "Коллекции"
+  },
+  "project-type.collection.singular": {
+    "message": "Коллекция"
+  },
+  "project-type.datapack.plural": {
+    "message": "Пачки данных"
+  },
+  "project-type.datapack.singular": {
+    "message": "Пачка данных"
+  },
+  "project-type.mod.plural": {
+    "message": "Замутки"
+  },
+  "project-type.mod.singular": {
+    "message": "Замутка"
+  },
+  "project-type.modpack.plural": {
+    "message": "Сборки замуток"
+  },
+  "project-type.modpack.singular": {
+    "message": "Сборка замуток"
+  },
+  "project-type.plugin.plural": {
+    "message": "Плугинсы"
+  },
+  "project-type.plugin.singular": {
+    "message": "Плугин"
+  },
+  "project-type.project.plural": {
+    "message": "Проекты"
+  },
+  "project-type.project.singular": {
+    "message": "Проект"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Фасончики"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Фасон"
+  },
+  "project-type.shader.plural": {
+    "message": "По красоте"
+  },
+  "project-type.shader.singular": {
+    "message": "По красоте"
+  },
+  "revenue.transfers.total": {
+    "message": "Общая сумма вывода: {amount}."
+  },
+  "revenue.transfers.total.method": {
+    "message": "Общая сумма вывода через {method}: {amount}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "Общая сумма вывода за {year}: {amount}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "Общая сумма вывода за {year} через {method}: {amount}."
+  },
+  "scopes.analytics.description": {
+    "message": "Доступ к данным аналитики"
+  },
+  "scopes.analytics.label": {
+    "message": "Чтение аналитики"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Возможность создавать коллекции"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Создание коллекций"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Возможность удалять коллекции"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Удаление коллекций"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Возможность считывать данные коллекций"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Чтение коллекций"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Возможность изменять данные коллекций"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Запись коллекций"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Доступ к данным уведомлений"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Чтение уведомлений"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Возможность чтения/удаления уведомлений"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Запись уведомлений"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Возможность создавать организации"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Создание организаций"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Возможность удалять организации"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Удаление организаций"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Доступ к данным организаций"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Чтение организаций"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Возможность изменять данные организаций"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Запись организаций"
+  },
+  "scopes.patCreate.description": {
+    "message": "Возможность создания персональных токенов доступа к API"
+  },
+  "scopes.patCreate.label": {
+    "message": "Создание токенов доступа"
+  },
+  "scopes.patDelete.description": {
+    "message": "Возможность удаления персональных токенов доступа к API"
+  },
+  "scopes.patDelete.label": {
+    "message": "Удаление токенов доступа"
+  },
+  "scopes.patRead.description": {
+    "message": "Доступ к данным персональных токенов доступа к API"
+  },
+  "scopes.patRead.label": {
+    "message": "Чтение токенов доступа"
+  },
+  "scopes.patWrite.description": {
+    "message": "Возможность изменять данные персональных токенов доступа к API"
+  },
+  "scopes.patWrite.label": {
+    "message": "Запись токенов доступа"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Доступ к данным выплат"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Чтение выплат"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Возможность вывода средств"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Запись выплат"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Выполнение действий аналитики"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Аналитика"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Возможность создания новых проектов"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Создание проектов"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Возможность удаления проектов"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Удаление проектов"
+  },
+  "scopes.projectRead.description": {
+    "message": "Доступ к данным всех ваших проектов"
+  },
+  "scopes.projectRead.label": {
+    "message": "Чтение проектов"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Возможность изменять данные проектов"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Запись проектов"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Возможность отправки жалоб"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Создание жалоб"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Возможность удаления отравленных жалоб"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Удаление жалоб"
+  },
+  "scopes.reportRead.description": {
+    "message": "Доступ к данным жалоб"
+  },
+  "scopes.reportRead.label": {
+    "message": "Чтение жалоб"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Возможность изменять данные жалоб"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Запись жалоб"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Просмотр сеансов, созданных Modrinth"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Доступ к сеансам"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Возможность прерывания сеансов"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Удаление сеансов"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Доступ к данным активных сеансов"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Чтение сеансов"
+  },
+  "scopes.threadRead.description": {
+    "message": "Просмотр сообщений"
+  },
+  "scopes.threadRead.label": {
+    "message": "Чтение сообщений"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Отправка сообщений"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Запись сообщений"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Редактирование данных авторизации"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Запись данных авторизации"
+  },
+  "scopes.userDelete.description": {
+    "message": "Возможность удаления вашей учётной записи"
+  },
+  "scopes.userDelete.label": {
+    "message": "Удаление учётной записи"
+  },
+  "scopes.userRead.description": {
+    "message": "Доступ к публичной информации вашего профиля"
+  },
+  "scopes.userRead.label": {
+    "message": "Чтение данных пользователя"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Получение вашей электронной почты"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Чтение электронной почты"
+  },
+  "scopes.userWrite.description": {
+    "message": "Редактирование вашего профиля"
+  },
+  "scopes.userWrite.label": {
+    "message": "Запись данных пользователя"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Создание новых версий проектов"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Создание версий"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Удаление версий проектов"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Удаление версий"
+  },
+  "scopes.versionRead.description": {
+    "message": "Чтение всех версий проектов"
+  },
+  "scopes.versionRead.label": {
+    "message": "Чтение версий"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Редактирование данных версий проектов"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Запись версий"
+  },
+  "settings.language.categories.auto": {
+    "message": "На автомате"
+  },
+  "settings.language.categories.default": {
+    "message": "Обычные жаргончики"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Фриковые жаргонки"
+  },
+  "settings.language.categories.fun": {
+    "message": "Прикалывательные жаргоночки"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Что выдры тут нарыли"
+  },
+  "settings.language.description": {
+    "message": "Выбирай жаргончик, какой те ваще заходит. Переводы мутятся добровольцами, <crowdin-link>на Краудине</crowdin-link> гоняют."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Подстроить под твой системный жаргон"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Ща намутим..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Попадалово"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Чет не взлетело, братишка. Подожди, может потом фишку подкинем."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Подтверди, чтоб лупа села на первом результате"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Ищем этот жаргон..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "По твоей теме {matches, plural, =0 {ничего не дрыхло} one {нарыл # жаргон} other {жаргонов штук # надыбал}}."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "По твоей теме ничего не дрыхло."
+  },
+  "settings.language.title": {
+    "message": "Жаргончик"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Revoke session"
+  },
+  "settings.sessions.created-ago": {
+    "message": "Created {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "Current session"
+  },
+  "settings.sessions.description": {
+    "message": "Здесь все компуктеры, прикрученные к твоему акку на Modrinth. Можешь вытыкать их лапки по отдельности.\n\nЕсли заметишь какую-то дубину, сразу же обруби ей ноги и переколеси пароль своего акка."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "Last accessed {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "Сиделки"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "Unknown OS"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Unknown platform"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} в {time, time, medium}"
+  }
+}
