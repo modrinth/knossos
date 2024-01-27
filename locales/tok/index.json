@@ -1,0 +1,725 @@
+{
+  "auth.reset-password.method-choice.action": {
+    "message": "Send recovery email"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "Email or username"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "Email"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "Email sent"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "You can now log-in into your account with your new password."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Password successfully reset"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Reset password"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Confirm password"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Enter your new password below to gain access to your account."
+  },
+  "auth.reset-password.title": {
+    "message": "Reset Password"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Reset your password"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Please enter a two-factor code to proceed."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Enter two-factor code"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Enter code..."
+  },
+  "auth.sign-in.action.sign-in": {
+    "message": "Sign in"
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "Email or username"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Password"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Sign in with"
+  },
+  "auth.sign-in.title": {
+    "message": "Sign In"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Or use a password"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Create account"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Confirm password"
+  },
+  "auth.sign-up.email.label": {
+    "message": "Email"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Username"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Passwords do not match!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Password"
+  },
+  "auth.sign-up.sign-in-option.action": {
+    "message": "Sign in"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Already have an account?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Subscribe to updates about Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Sign Up"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Or create an account yourself"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Sign up with"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Account settings"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Sign in"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "Your email is already verified!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "Email already verified"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Resend verification email"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "Email verification failed"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "Your email address has been successfully verified!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "Email verification"
+  },
+  "auth.verify-email.title": {
+    "message": "Verify Email"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Subscribe to updates about Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Welcome to Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Welcome"
+  },
+  "button.cancel": {
+    "message": "o ala"
+  },
+  "button.continue": {
+    "message": "Continue"
+  },
+  "button.edit": {
+    "message": "o ante"
+  },
+  "button.save": {
+    "message": "awen"
+  },
+  "collection.button.delete-icon": {
+    "message": "Delete icon"
+  },
+  "collection.button.edit-icon": {
+    "message": "Edit icon"
+  },
+  "collection.button.remove-project": {
+    "message": "Remove project"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Unfollow project"
+  },
+  "collection.button.upload-icon": {
+    "message": "Upload icon"
+  },
+  "collection.delete-modal.description": {
+    "message": "This will remove this collection forever. This action cannot be undone."
+  },
+  "collection.delete-modal.title": {
+    "message": "Are you sure you want to delete this collection?"
+  },
+  "collection.description": {
+    "message": "{description} - View the collection {name} by {username} on Modrinth"
+  },
+  "collection.description.following": {
+    "message": "Auto-generated collection of all the projects you're following."
+  },
+  "collection.error.not-found": {
+    "message": "Collection not found"
+  },
+  "collection.label.collection": {
+    "message": "Collection"
+  },
+  "collection.label.created-at": {
+    "message": "Created {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Curated by"
+  },
+  "collection.label.no-projects": {
+    "message": "This collection has no projects!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Owner"
+  },
+  "collection.label.private": {
+    "message": "Private"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Updated {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - Collection"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Create new"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Search your collections"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Your collections"
+  },
+  "frog": {
+    "message": "mi akesi e sina a! 🐸"
+  },
+  "frog.altText": {
+    "message": "sitelen ni la akesi li lon tomo pi nasin nasa. nasin sitelen li sama lon"
+  },
+  "frog.froggedPeople": {
+    "message": "mi akesi e jan {count, plural, other {{count}}} kin a!"
+  },
+  "frog.sinceOpened": {
+    "message": "lipu ni li open lon tenpo {ago}"
+  },
+  "frog.title": {
+    "message": "akesi"
+  },
+  "input.view.gallery": {
+    "message": "suli lukin"
+  },
+  "input.view.grid": {
+    "message": "leko lukin"
+  },
+  "input.view.list": {
+    "message": "lipu lukin"
+  },
+  "label.collections": {
+    "message": "Collections"
+  },
+  "label.delete": {
+    "message": "Delete"
+  },
+  "label.description": {
+    "message": "Description"
+  },
+  "label.followed-projects": {
+    "message": "Followed projects"
+  },
+  "label.password": {
+    "message": "Password"
+  },
+  "label.public": {
+    "message": "Public"
+  },
+  "label.rejected": {
+    "message": "Rejected"
+  },
+  "label.title": {
+    "message": "Title"
+  },
+  "label.unlisted": {
+    "message": "Unlisted"
+  },
+  "label.visibility": {
+    "message": "Visibility"
+  },
+  "notification.error.title": {
+    "message": "pakala a!"
+  },
+  "profile.button.manage-projects": {
+    "message": "o ante e pali sina"
+  },
+  "profile.button.report": {
+    "message": "o pana e sona ike"
+  },
+  "profile.error.not-found": {
+    "message": "mi ken alasa e ni"
+  },
+  "profile.input.upload-avatar": {
+    "message": "o pana e sitelen"
+  },
+  "profile.joined-at": {
+    "message": "ona li kama lon tenpo {ago}"
+  },
+  "profile.label.edit-bio": {
+    "message": "sona"
+  },
+  "profile.label.edit-username": {
+    "message": "nimi"
+  },
+  "profile.label.no-collections": {
+    "message": "jan ni li jo ala e kulupu lipu!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "sina jo ala e kulupu.\nsina wile ala wile <create-link>pali e kulupu</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "ona li pali e ala!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "sina pali e ala.\nsina wile ala wile <create-link>pali e ijo?</create-link>"
+  },
+  "profile.label.organizations": {
+    "message": "kulupu jan"
+  },
+  "profile.meta.description": {
+    "message": "o kama jo e pali tan {username} lon lipu Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - o kama jo e pali tan {username} lon lipu Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "jan {count, plural, other {<stat>{count}</stat>}} li jo e pali tan ona"
+  },
+  "profile.stats.projects-followers": {
+    "message": "jan {count, plural, other {<stat>{count}</stat>}} li lukin e pali tan ona"
+  },
+  "profile.user-id": {
+    "message": "nanpa jan: {id}"
+  },
+  "project-type.all": {
+    "message": "ale"
+  },
+  "project-type.collection.plural": {
+    "message": "kulupu lipu"
+  },
+  "project-type.collection.singular": {
+    "message": "kulupu lipu"
+  },
+  "project-type.datapack.plural": {
+    "message": "toki wawa"
+  },
+  "project-type.datapack.singular": {
+    "message": "toki wawa"
+  },
+  "project-type.mod.plural": {
+    "message": "namako"
+  },
+  "project-type.mod.singular": {
+    "message": "namako"
+  },
+  "project-type.modpack.plural": {
+    "message": "poki namako"
+  },
+  "project-type.modpack.singular": {
+    "message": "poki namako"
+  },
+  "project-type.plugin.plural": {
+    "message": "ilo kulupu"
+  },
+  "project-type.plugin.singular": {
+    "message": "ilo kulupu"
+  },
+  "project-type.project.plural": {
+    "message": "kulupu pi pali musi"
+  },
+  "project-type.project.singular": {
+    "message": "kulupu pi pali musi"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "poki sitelen"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "poki sitelen"
+  },
+  "project-type.shader.plural": {
+    "message": "ilo lukin"
+  },
+  "project-type.shader.singular": {
+    "message": "ilo lukin"
+  },
+  "revenue.transfers.total": {
+    "message": "sina lanpan e mani pi mute nanpa {amount} lon tenpo ale."
+  },
+  "revenue.transfers.total.method": {
+    "message": "sina lanpan e mani pi mute nanpa {amount} kepken nasin {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "sina lanpan e mani pi mute nanpa {amount} lon tenpo sike nanpa {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "sina lanpan e mani pi mute nanpa {amount} lon tenpo sike nanpa {year} kepeken nasin {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "lukin e sona sina"
+  },
+  "scopes.analytics.label": {
+    "message": "lukin e sona sina"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "pali e kulupu lipu"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "pali e kulupu lipu"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "weka e kulupu lipu"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "weka e kulupu lipu"
+  },
+  "scopes.collectionRead.description": {
+    "message": "lukin e kulupu lipu"
+  },
+  "scopes.collectionRead.label": {
+    "message": "lukin e kulupu lipu"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "pana tawa kulupu lipu"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "pana tawa kulupu lipu"
+  },
+  "scopes.notificationRead.description": {
+    "message": "lukin e sona sin sina"
+  },
+  "scopes.notificationRead.label": {
+    "message": "lukin e sona sin sina"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "weka/lukin e sona sin sina"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "pali e sona sin sina"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "pali e kulupu jan"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "pali e kulupu jan"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "weka e kulupu jan"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "weka e kulupu jan"
+  },
+  "scopes.organizationRead.description": {
+    "message": "lukin e kulupu jan"
+  },
+  "scopes.organizationRead.label": {
+    "message": "lukin e kulupu jan"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "pana tawa kulupu jan"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "pana tawa kulupu jan"
+  },
+  "scopes.patCreate.description": {
+    "message": "pali e nanpa API sina"
+  },
+  "scopes.patCreate.label": {
+    "message": "pali e nanpa API sina"
+  },
+  "scopes.patDelete.description": {
+    "message": "weka e nanpa API sina"
+  },
+  "scopes.patDelete.label": {
+    "message": "weka e nanpa API sina"
+  },
+  "scopes.patRead.description": {
+    "message": "lukin e nanpa API sina"
+  },
+  "scopes.patRead.label": {
+    "message": "lukin e nanpa API sina"
+  },
+  "scopes.patWrite.description": {
+    "message": "ante e nanpa API sina"
+  },
+  "scopes.patWrite.label": {
+    "message": "ante e nanpa API sina"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "sona e mani tawa sina"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "sona e mani tawa sina"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "lanpan e mani sina"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "lanpan e mani sina"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Perform analytics actions"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Perform analytics"
+  },
+  "scopes.projectCreate.description": {
+    "message": "pali e kulupu musi sin"
+  },
+  "scopes.projectCreate.label": {
+    "message": "pali e kulupu musi"
+  },
+  "scopes.projectDelete.description": {
+    "message": "weka e kulupu musi"
+  },
+  "scopes.projectDelete.label": {
+    "message": "weka e kulupu musi"
+  },
+  "scopes.projectRead.description": {
+    "message": "lukin e kulupu musi"
+  },
+  "scopes.projectRead.label": {
+    "message": "lukin e kulupu musi"
+  },
+  "scopes.projectWrite.description": {
+    "message": "pana tawa kulupu musi"
+  },
+  "scopes.projectWrite.label": {
+    "message": "pana tawa kulupu musi"
+  },
+  "scopes.reportCreate.description": {
+    "message": "pali e sona ike"
+  },
+  "scopes.reportCreate.label": {
+    "message": "pali e sona ike"
+  },
+  "scopes.reportDelete.description": {
+    "message": "weka e sona ike"
+  },
+  "scopes.reportDelete.label": {
+    "message": "weka e sona ike"
+  },
+  "scopes.reportRead.description": {
+    "message": "lukin e sona ike"
+  },
+  "scopes.reportRead.label": {
+    "message": "lukin e sona ike"
+  },
+  "scopes.reportWrite.description": {
+    "message": "ante e sona ike"
+  },
+  "scopes.reportWrite.label": {
+    "message": "pali e sona ike"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "lukin e lon tan kulupu Modrinth"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "lukin e lon"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "weka e lon"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "weka e lon"
+  },
+  "scopes.sessionRead.description": {
+    "message": "lukin e lon lon tenpo ni"
+  },
+  "scopes.sessionRead.label": {
+    "message": "lukin e lon"
+  },
+  "scopes.threadRead.description": {
+    "message": "Read threads"
+  },
+  "scopes.threadRead.label": {
+    "message": "Read threads"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Write to threads"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Write threads"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Modify your authentication data"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Write auth data"
+  },
+  "scopes.userDelete.description": {
+    "message": "weka e sijelo sina"
+  },
+  "scopes.userDelete.label": {
+    "message": "weka e sijelo sina"
+  },
+  "scopes.userRead.description": {
+    "message": "lukin e sona pi sijelo sina pi ken lukin"
+  },
+  "scopes.userRead.label": {
+    "message": "lukin e sona pi sijelo sina"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "lukin e nimi sina pi toki lipu"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "lukin e nimi sina pi toki lipu"
+  },
+  "scopes.userWrite.description": {
+    "message": "pana tawa sijelo sina"
+  },
+  "scopes.userWrite.label": {
+    "message": "pana tawa sijelo sina"
+  },
+  "scopes.versionCreate.description": {
+    "message": "pali e ante sin"
+  },
+  "scopes.versionCreate.label": {
+    "message": "pali e ante sin"
+  },
+  "scopes.versionDelete.description": {
+    "message": "weka e ante sin"
+  },
+  "scopes.versionDelete.label": {
+    "message": "weka e ante sin"
+  },
+  "scopes.versionRead.description": {
+    "message": "lukin e ante sin ale"
+  },
+  "scopes.versionRead.label": {
+    "message": "lukin e ante sin"
+  },
+  "scopes.versionWrite.description": {
+    "message": "pana tawa ante sin"
+  },
+  "scopes.versionWrite.label": {
+    "message": "pana tawa ante sin"
+  },
+  "settings.language.categories.auto": {
+    "message": "toki tan ilo"
+  },
+  "settings.language.categories.default": {
+    "message": "toki pi jan mute"
+  },
+  "settings.language.categories.experimental": {
+    "message": "toki nasa"
+  },
+  "settings.language.categories.fun": {
+    "message": "toki musi"
+  },
+  "settings.language.categories.search-result": {
+    "message": "ijo pi alasa sina"
+  },
+  "settings.language.description": {
+    "message": "o kepeken toki pi wile sina lon lipu ni. ante toki li tan kulupu <crowdin-link>lon ilo Crowdin</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "toki li sama toki pi ilo sina"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. mi kepeken ni..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. pakala"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "pakala - mi ken ala kepeken toki ni. o alasa sin lon tenpo ante."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "sina wile kepeken toki nanpa wan la o pana"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "o alasa e toki..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {toki li lon ala alasa} one {toki wan li lon alasa} other {toki # li lon alasa}}."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "toki pi alasa sina li lon ala."
+  },
+  "settings.language.title": {
+    "message": "toki"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Revoke session"
+  },
+  "settings.sessions.created-ago": {
+    "message": "Created {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "Current session"
+  },
+  "settings.sessions.description": {
+    "message": "ni li ilo nanpa ale pi sijelo Modrinth sina lon tenpo ni. sina ken weka e ona.\n\nsina sona ala e ijo wan la, o weka e ona li ante e nimi ken pi sijelo Modrinth sina."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "Last accessed {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "lon pi sijelo sina"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "Unknown OS"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Unknown platform"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long}, {time, time, short}"
+  }
+}
