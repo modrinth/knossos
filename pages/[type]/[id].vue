@@ -768,6 +768,7 @@ import {
   PlusIcon,
   Checkbox,
   ChartIcon,
+  renderString,
 } from 'omorphia'
 import CrownIcon from '~/assets/images/utils/crown.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
@@ -809,7 +810,6 @@ import LinksIcon from '~/assets/images/utils/link.svg'
 import LicenseIcon from '~/assets/images/utils/copyright.svg'
 import GalleryIcon from '~/assets/images/utils/image.svg'
 import VersionIcon from '~/assets/images/utils/version.svg'
-import { renderString } from '~/helpers/parse.js'
 import { reportProject } from '~/utils/report-helpers.ts'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import { userCollectProject } from '~/composables/user.js'
@@ -1200,6 +1200,10 @@ async function updateMembers() {
       },
     }
   )
+}
+
+async function copyId() {
+  await navigator.clipboard.writeText(project.value.id)
 }
 
 const collapsedChecklist = ref(false)
