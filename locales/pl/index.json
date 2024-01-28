@@ -1,4 +1,22 @@
 {
+  "auth.authorize.action.authorize": {
+    "message": "Autoryzuj"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Odrzuć"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> autorstwa <creator-link>{creator}</creator-link> będzie mogła:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Autoryzuj {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "Brak lokalizacji przekierowania w odpowiedzi"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "Zostaniesz przekierowany do <redirect-url>{url}</redirect-url>"
+  },
   "auth.reset-password.method-choice.action": {
     "message": "Wyślij e-mail do odzyskania konta"
   },
@@ -21,16 +39,16 @@
     "message": "Możesz teraz zalogować się na swoje konto używając nowego hasła."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Hasło zostało pomyślnie zresetowane"
+    "message": "Hasło zostało zresetowane pomyślnie"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Resetowanie Hasła"
+    "message": "Zresetuj hasło"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
     "message": "Potwierdź hasło"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Wpisz swoje nowe hasło poniżej, aby otrzymać ponowny dostęp do swojego konta."
+    "message": "Wprowadź swoje nowe hasło poniżej, aby otrzymać dostęp do swojego konta."
   },
   "auth.reset-password.title": {
     "message": "Zresetuj hasło"
@@ -42,10 +60,10 @@
     "message": "Wprowadź kod weryfikacji dwuetapowej, aby kontynuować."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Wpisz kod weryfikacji dwuetapowe"
+    "message": "Wprowadź kod weryfikacji dwuetapowej"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Wpisz kod..."
+    "message": "Wprowadź kod..."
   },
   "auth.sign-in.action.sign-in": {
     "message": "Zaloguj się"
@@ -69,7 +87,7 @@
     "message": "Lub użyj hasła"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Stwórz konto"
+    "message": "Utwórz konto"
   },
   "auth.sign-up.confirm-password.label": {
     "message": "Potwierdź hasło"
@@ -114,7 +132,7 @@
     "message": "Zaloguj się"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Twój adres e-mail jest już zweryfikowany!"
+    "message": "Twój e-mail jest już zweryfikowany!"
   },
   "auth.verify-email.already-verified.title": {
     "message": "E-mail został już zweryfikowany"
@@ -126,19 +144,19 @@
     "message": "Nie mogliśmy zweryfikować Twojego adresu e-mail. Spróbuj ponownie wysłać e-mail weryfikacyjny za pomocą panelu, logując się."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "Nie mogliśmy zweryfikować Twojego adresu e-mail. Spróbuj ponownie wysłać e-mail weryfikacyjny za pomocą poniższego przycisku."
+    "message": "Nie mogliśmy zweryfikować Twojego e-maila. Spróbuj ponownie wysłać e-mail weryfikacyjny za pomocą przycisku poniżej."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Weryfikacja adresu e-mail nie powiodła się"
+    "message": "Weryfikacja e-maila nie powiodła się"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Twój adres e-mail został pomyślnie zweryfikowany!"
+    "message": "Twój e-mail został pomyślnie zweryfikowany!"
   },
   "auth.verify-email.post-verification.title": {
     "message": "Weryfikacja adresu e-mail"
   },
   "auth.verify-email.title": {
-    "message": "Zweryfikuj adres e-mail"
+    "message": "Zweryfikuj e-mail"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "Subskrybuj aktualności o Modrinth"
@@ -166,6 +184,9 @@
   },
   "button.save": {
     "message": "Zapisz"
+  },
+  "button.save-changes": {
+    "message": "Zapisz zmiany"
   },
   "collection.button.delete-icon": {
     "message": "Usuń ikonę"
@@ -266,11 +287,17 @@
   "label.collections": {
     "message": "Kolekcje"
   },
+  "label.created-ago": {
+    "message": "Utworzony {ago}"
+  },
   "label.delete": {
     "message": "Usuń"
   },
   "label.description": {
     "message": "Opis"
+  },
+  "label.error": {
+    "message": "Błąd"
   },
   "label.followed-projects": {
     "message": "Obserwowane projekty"
@@ -283,6 +310,9 @@
   },
   "label.rejected": {
     "message": "Odrzucony"
+  },
+  "label.scopes": {
+    "message": "Zakresy"
   },
   "label.title": {
     "message": "Tytuł"
@@ -694,6 +724,63 @@
   },
   "settings.language.title": {
     "message": "Język"
+  },
+  "settings.pats.action.create": {
+    "message": "Utwórz token dostępu"
+  },
+  "settings.pats.description": {
+    "message": "Tokeny dostępu mogą być używane do korzystania z API Modrinth. Aby uzyskać więcej informacji, zobacz <doc-link>dokumentację API Modrinth</doc-link>. Mogą one być tworzone i unieważniane w dowolnym momencie."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Tworzenie tokenów dostępu"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Wygasa"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Nazwa"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Wprowadź nazwę tokenu dostępu..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Utwórz osobisty token dostępu"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Usuń ten token"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "Spowoduje to usunięcie tego tokena na zawsze (tak naprawdę na zawsze)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Czy na pewno chcesz usunąć ten token?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Edytuj osobisty token dostępu"
+  },
+  "settings.pats.title": {
+    "message": "Tokeny dostępu"
+  },
+  "settings.pats.title.long": {
+    "message": "Osobiste tokeny dostępu"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Edytuj token"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Unieważnij token"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Wygasł {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Wygasa {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Ostatnio używany {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Nigdy nie używany"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Unieważnij sesję"
