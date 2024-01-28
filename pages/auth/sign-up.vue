@@ -115,7 +115,7 @@
       <div class="auth-form__additional-options">
         {{ formatMessage(messages.alreadyHaveAccountLabel) }}
         <NuxtLink class="text-link" :to="signInLink">
-          {{ formatMessage(messages.signInLabel) }}
+          {{ formatMessage(commonMessages) }}
         </NuxtLink>
       </div>
     </section>
