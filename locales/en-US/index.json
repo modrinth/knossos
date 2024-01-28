@@ -266,14 +266,11 @@
   "input.view.list": {
     "message": "List view"
   },
-  "label.created-ago": {
-    "message": "Created {ago}"
-  },
-  "label.scopes": {
-    "message": "Scopes"
-  },
   "label.collections": {
     "message": "Collections"
+  },
+  "label.created-ago": {
+    "message": "Created {ago}"
   },
   "label.delete": {
     "message": "Delete"
@@ -292,6 +289,9 @@
   },
   "label.rejected": {
     "message": "Rejected"
+  },
+  "label.scopes": {
+    "message": "Scopes"
   },
   "label.title": {
     "message": "Title"
