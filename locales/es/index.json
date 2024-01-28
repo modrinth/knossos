@@ -1,42 +1,60 @@
 {
+  "auth.authorize.action.authorize": {
+    "message": "Authorize"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Decline"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Authorize {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "No redirect location found in response"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+  },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Enviar correo de recuperación"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Introduce tu correo electrónico a continuación y te enviaremos un enlace para que puedas recuperar tu cuenta."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "Correo electrónico o nombre de usuario"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "Correo electrónico"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "Se le ha enviado un correo electrónico con instrucciones si el correo electrónico ha sido guardado previamente en su cuenta."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "Correo electrónico enviado"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Ahora puede iniciar sesión en su cuenta con su nueva contraseña."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Contraseña restablecida correctamente"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Restablecer contraseña"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Confirmar contraseña"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Introduzca su nueva contraseña para acceder a su cuenta."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Restablecer contraseña"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Reiniciar su contraseña"
   },
   "auth.sign-in.2fa.description": {
     "message": "Please enter a two-factor code to proceed."
@@ -57,7 +75,7 @@
     "message": "Email or username"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Contraseña"
   },
   "auth.sign-in.sign-in-with": {
     "message": "Sign in with"
@@ -78,7 +96,7 @@
     "message": "Email"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Nombre de Usuario"
   },
   "auth.sign-up.legal-dislaimer": {
     "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
@@ -87,7 +105,7 @@
     "message": "Passwords do not match!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "Contraseña"
   },
   "auth.sign-up.sign-in-option.action": {
     "message": "Sign in"
@@ -166,6 +184,9 @@
   },
   "button.save": {
     "message": "Guardar"
+  },
+  "button.save-changes": {
+    "message": "Save changes"
   },
   "collection.button.delete-icon": {
     "message": "Delete icon"
@@ -266,11 +287,17 @@
   "label.collections": {
     "message": "Collections"
   },
+  "label.created-ago": {
+    "message": "Created {ago}"
+  },
   "label.delete": {
     "message": "Delete"
   },
   "label.description": {
     "message": "Description"
+  },
+  "label.error": {
+    "message": "Error"
   },
   "label.followed-projects": {
     "message": "Followed projects"
@@ -283,6 +310,9 @@
   },
   "label.rejected": {
     "message": "Rejected"
+  },
+  "label.scopes": {
+    "message": "Scopes"
   },
   "label.title": {
     "message": "Title"
@@ -694,6 +724,63 @@
   },
   "settings.language.title": {
     "message": "Idioma"
+  },
+  "settings.pats.action.create": {
+    "message": "Create a PAT"
+  },
+  "settings.pats.description": {
+    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Create PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Expires"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Name"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Enter the PAT's name..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Create personal access token"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Delete this token"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "This will remove this token forever (like really forever)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Are you sure you want to delete this token?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Edit personal access token"
+  },
+  "settings.pats.title": {
+    "message": "PATs"
+  },
+  "settings.pats.title.long": {
+    "message": "Personal Access Tokens"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Edit token"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Revoke token"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Expired {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Expires {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Last used {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Never used"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Revoke session"
