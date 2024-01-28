@@ -1,144 +1,162 @@
 {
+  "auth.authorize.action.authorize": {
+    "message": "Authorize"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Decline"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Authorize {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "No redirect location found in response"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+  },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "发送恢复电子邮件"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "在下面输入您的电子邮箱，我们将发送恢复链接以允许您恢复帐户。"
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "电子邮件或用户名"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "电子邮件"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "如果该电子邮箱之前已保存在您的帐户中，则已向您发送一封包含说明的电子邮件。"
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "电子邮件已发送"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "现在您可以使用新密码登录您的账户。"
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "密码重置成功"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "重置密码"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "确认密码"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "在下面输入您的新密码以访问您的帐户。"
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "重置密码"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "重置您的密码"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "请输入双因素验证代码以继续。"
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "输入双因素验证代码"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "输入代码..."
   },
   "auth.sign-in.action.sign-in": {
-    "message": "Sign in"
+    "message": "登录"
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>忘记密码？</forgot-password-link> • <create-account-link>创建一个账户</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "电子邮件或用户名"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "密码"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "登录方式"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "登录"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "或使用密码"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "创建帐户"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "确认密码"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "电子邮箱"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "用户名"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "创建帐户即表示您同意 Modrinth 的<terms-link>条款</terms-link>和<privacy-policy-link>隐私政策</privacy-policy-link>。"
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "密码不匹配！"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "密码"
   },
   "auth.sign-up.sign-in-option.action": {
-    "message": "Sign in"
+    "message": "登录"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "已有帐户？"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "订阅有关 Modrinth 的更新"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "注册"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "或自己创建一个帐户"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "注册方式"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "账户设置"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "登录"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "您的电子邮件已验证！"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "电子邮件已验证"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "重新发送验证邮件"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "我们无法验证您的电子邮箱。尝试登录后通过仪表板重新发送验证电子邮件。"
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "我们无法验证您的电子邮箱。尝试通过下面的按钮重新发送验证电子邮件。"
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "电子邮箱验证失败"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "您的电子邮件地址已成功验证！"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "电子邮箱验证"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "验证邮件"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "订阅有关 Modrinth 的更新"
@@ -167,77 +185,80 @@
   "button.save": {
     "message": "保存"
   },
+  "button.save-changes": {
+    "message": "Save changes"
+  },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "删除图标"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "编辑图标"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "移除项目"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "取消关注项目"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "上传图标"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "这将永久删除该收藏夹。此操作无法撤消。"
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "您确定要删除该收藏夹吗？"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} - 在 Modrinth 上查看 {username} 的收藏夹 {name}"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "自动生成您关注的所有项目的收藏夹。"
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "未找到收藏夹"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "收藏"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "于 {ago} 创建"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "策展人"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "该收藏夹没有项目！"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "您没有任何项目。\n您想<create-link>添加一个</create-link>吗？"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "所有者"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "私有"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, other {<stat>{count}</stat> 个项目}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "于 {ago} 更新"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "{name} - 收藏夹"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "新建"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, other {{count} 个项目}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "搜索您的收藏夹"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "您的收藏夹"
   },
   "frog": {
     "message": "你被耍了！🐸"
@@ -264,34 +285,43 @@
     "message": "列表视图"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "收藏夹"
+  },
+  "label.created-ago": {
+    "message": "Created {ago}"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "删除"
   },
   "label.description": {
-    "message": "Description"
+    "message": "描述"
+  },
+  "label.error": {
+    "message": "Error"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "已关注的项目"
   },
   "label.password": {
-    "message": "Password"
+    "message": "密码"
   },
   "label.public": {
-    "message": "Public"
+    "message": "公开"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "已拒绝"
+  },
+  "label.scopes": {
+    "message": "Scopes"
   },
   "label.title": {
-    "message": "Title"
+    "message": "标题"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "未列出"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "可见性"
   },
   "notification.error.title": {
     "message": "出现错误"
@@ -695,29 +725,86 @@
   "settings.language.title": {
     "message": "语言"
   },
+  "settings.pats.action.create": {
+    "message": "Create a PAT"
+  },
+  "settings.pats.description": {
+    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Create PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Expires"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Name"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Enter the PAT's name..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Create personal access token"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Delete this token"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "This will remove this token forever (like really forever)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Are you sure you want to delete this token?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Edit personal access token"
+  },
+  "settings.pats.title": {
+    "message": "PATs"
+  },
+  "settings.pats.title.long": {
+    "message": "Personal Access Tokens"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Edit token"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Revoke token"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Expired {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Expires {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Last used {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Never used"
+  },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "撤销会话"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "于 {ago} 创建"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "当前会话"
   },
   "settings.sessions.description": {
     "message": "以下是你目前已登录 Modrinth 账号的所有设备。你可以单独登出任意一项。\n\n如果你看到一条无法辨认的记录，请立即登出该设备并更改你的 Modrinth 账号密码。"
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "上次访问于 {ago}"
   },
   "settings.sessions.title": {
     "message": "会话"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "未知操作系统"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "未知平台"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} {time, time, short}"
