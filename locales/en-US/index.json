@@ -104,9 +104,6 @@
   "auth.sign-up.password.label": {
     "message": "Password"
   },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Sign in"
-  },
   "auth.sign-up.sign-in-option.title": {
     "message": "Already have an account?"
   },
