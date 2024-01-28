@@ -1,4 +1,22 @@
 {
+  "auth.authorize.action.authorize": {
+    "message": "Авторизуватись"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Відхилити"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>«{appName}»</strong> від <creator-link>{creator}</creator-link> зможе робити наступне:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Авторизація «{appName}»"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "У відповіді не знайдено посилання для перенаправлення"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "Ви будете перенаправлені на <redirect-url>{url}</redirect-url>"
+  },
   "auth.reset-password.method-choice.action": {
     "message": "Надіслати лист для відновлення"
   },
@@ -167,6 +185,9 @@
   "button.save": {
     "message": "Зберегти"
   },
+  "button.save-changes": {
+    "message": "Зберегти зміни"
+  },
   "collection.button.delete-icon": {
     "message": "Видалити значок"
   },
@@ -266,11 +287,17 @@
   "label.collections": {
     "message": "Добірки"
   },
+  "label.created-ago": {
+    "message": "Створено {ago}"
+  },
   "label.delete": {
     "message": "Видалити"
   },
   "label.description": {
     "message": "Опис"
+  },
+  "label.error": {
+    "message": "Помилка"
   },
   "label.followed-projects": {
     "message": "Підписки"
@@ -283,6 +310,9 @@
   },
   "label.rejected": {
     "message": "Відхилено"
+  },
+  "label.scopes": {
+    "message": "Цілі"
   },
   "label.title": {
     "message": "Назва"
@@ -694,6 +724,63 @@
   },
   "settings.language.title": {
     "message": "Мова"
+  },
+  "settings.pats.action.create": {
+    "message": "Створити токен доступу"
+  },
+  "settings.pats.description": {
+    "message": "Для доступу до API Modrinth вам знадобиться токен. Для детальної інформації перегляньте <doc-link>документацію Modrinth API</doc-link>. Вони можуть бути створені та відкликані в будь-який час."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Створити токен доступу"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Сплине"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Назва"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Введіть назву токена доступу..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Створити персональний токен доступу"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Видалити цей токен"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "Це видалить токен назавжди (дійсно назавжди)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Ви дійсно бажаєте видалити цей токен?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Редагувати персональний токен"
+  },
+  "settings.pats.title": {
+    "message": "Токени доступу"
+  },
+  "settings.pats.title.long": {
+    "message": "Персональний токен доступу"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Редагувати токен"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Відкликати токен"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Сплив {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Сплине {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Використовувася {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Ніколи не використовувався"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Завершити сеанс"
