@@ -1,4 +1,22 @@
 {
+  "auth.authorize.action.authorize": {
+    "message": "Autorisieren"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Ablehnen"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> von <creator-link>{creator}</creator-link> wird in der Lage sein:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "{appName} autorisieren"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "Keine Weiterleitungsposition in der Rückmeldung gefunden"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "Du wirst weitergeleited zu <redirect-url>{url}</redirect-url>"
+  },
   "auth.reset-password.method-choice.action": {
     "message": "Wiederherstellungs-E-Mail senden"
   },
@@ -167,6 +185,9 @@
   "button.save": {
     "message": "Speichern"
   },
+  "button.save-changes": {
+    "message": "Änderungen speichern"
+  },
   "collection.button.delete-icon": {
     "message": "Symbol löschen"
   },
@@ -266,11 +287,17 @@
   "label.collections": {
     "message": "Sammlungen"
   },
+  "label.created-ago": {
+    "message": "Erstellt {ago}"
+  },
   "label.delete": {
     "message": "Löschen"
   },
   "label.description": {
     "message": "Beschreibung"
+  },
+  "label.error": {
+    "message": "Fehler"
   },
   "label.followed-projects": {
     "message": "Gefolgte Projekte"
@@ -283,6 +310,9 @@
   },
   "label.rejected": {
     "message": "Abgelehnt"
+  },
+  "label.scopes": {
+    "message": "Berechtigungen"
   },
   "label.title": {
     "message": "Titel"
@@ -694,6 +724,63 @@
   },
   "settings.language.title": {
     "message": "Sprache"
+  },
+  "settings.pats.action.create": {
+    "message": "Einen PAT erstellen"
+  },
+  "settings.pats.description": {
+    "message": "PATs können dazu verwendet werden, auf Modrinth's API zugreifen zu können. Für weitere Informationen siehe <doc-link>Modrinth's API Dokumentation</doc-link>. Diese können jederzeit erstellt und widerrufen werden."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "PAT erstellen"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Gültig bis"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Name"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Gib dem PAT einen namen..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Persöhnlichen Zugangs-Token erstellen"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Diesen Token löschen"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "Dies wird den Token für immer entfernen (Also, für immer immer)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Bist du sicher, dass du diesen Token löschen willst?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Persöhnlichen Zugangs-Token bearbeiten"
+  },
+  "settings.pats.title": {
+    "message": "PATs"
+  },
+  "settings.pats.title.long": {
+    "message": "Persöhnliche Zugangs-Token"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Token bearbeiten"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Token widerrufen"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Abgelaufen {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Läuft ab {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Zuletzt verwendet {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Nie verwendet"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Sitzung widerrufen"
