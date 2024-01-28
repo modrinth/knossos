@@ -1,4 +1,22 @@
 {
+  "auth.authorize.action.authorize": {
+    "message": "Authorize"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Decline"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Authorize {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "No redirect location found in response"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+  },
   "auth.reset-password.method-choice.action": {
     "message": "Отправить письмо для восстановления"
   },
@@ -6,10 +24,10 @@
     "message": "Укажите адрес своей электронной почты, чтобы получить ссылку для восстановления доступа к учётной записи."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Почта или имя пользователя"
+    "message": "Электронная почта или имя пользователя"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Почта"
+    "message": "Электронная почта"
   },
   "auth.reset-password.notification.email-sent.text": {
     "message": "На вашу электронную почту было отправлено письмо с инструкциями, если ранее вы добавляли её к своей учётной записи."
@@ -81,13 +99,13 @@
     "message": "Username"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Создавая учётную запись, вы соглашаетесь с нашими <terms-link>условиями</terms-link> и <privacy-policy-link>политикой конфиденциальности</privacy-policy-link>."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "Пароль не совпадает"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "Пароль"
   },
   "auth.sign-up.sign-in-option.action": {
     "message": "Sign in"
@@ -96,7 +114,7 @@
     "message": "Already have an account?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Подписаться на новости Modrinth"
   },
   "auth.sign-up.title": {
     "message": "Вход"
@@ -108,7 +126,7 @@
     "message": "Вход через"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Настройки учётной записи"
   },
   "auth.verify-email.action.sign-in": {
     "message": "Sign in"
@@ -126,19 +144,19 @@
     "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "Не удалось подтвердить электронную почту. Попробуйте запросить письмо с подтверждением ещё раз при помощи кнопки ниже."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "Ошибка подтверждения электронной почты"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "Адрес электронной почты успешно подтверждён"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Подтверждение электронной почты"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Подтверждение электронной почты"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "Подписаться на новости Modrinth"
@@ -167,53 +185,56 @@
   "button.save": {
     "message": "Сохранить"
   },
+  "button.save-changes": {
+    "message": "Save changes"
+  },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Удалить значок"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Изменить значок"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Удалить проект"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Отписаться от проекта"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Загрузить значок"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "Коллекция будет удалена навсегда. Это действие необратимо."
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "Вы действительно хотите удалить эту коллекцию?"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} - Загляните на страничку {name}, коллекцию {username} на Modrinth"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "Создана автоматически на основе всех отслеживаемых проектов."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "Коллекция не найдена"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "Коллекция"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Создана {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "Курирует"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "В этой коллекции нет проектов."
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "В коллекции пока нет проектов.\nХотите <create-link>добавить их</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Владелец"
   },
   "collection.label.private": {
     "message": "Приватная"
@@ -225,7 +246,7 @@
     "message": "Обновлена {ago}"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "Коллекция «{name}»"
   },
   "dashboard.collections.button.create-new": {
     "message": "Создать"
@@ -266,11 +287,17 @@
   "label.collections": {
     "message": "Коллекции"
   },
+  "label.created-ago": {
+    "message": "Created {ago}"
+  },
   "label.delete": {
     "message": "Удалить"
   },
   "label.description": {
     "message": "Описание"
+  },
+  "label.error": {
+    "message": "Error"
   },
   "label.followed-projects": {
     "message": "Отслеживаемые проекты"
@@ -283,6 +310,9 @@
   },
   "label.rejected": {
     "message": "Отклонён"
+  },
+  "label.scopes": {
+    "message": "Scopes"
   },
   "label.title": {
     "message": "Заголовок"
@@ -695,29 +725,86 @@
   "settings.language.title": {
     "message": "Язык"
   },
+  "settings.pats.action.create": {
+    "message": "Create a PAT"
+  },
+  "settings.pats.description": {
+    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Create PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Expires"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Name"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Enter the PAT's name..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Create personal access token"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Delete this token"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "This will remove this token forever (like really forever)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Are you sure you want to delete this token?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Edit personal access token"
+  },
+  "settings.pats.title": {
+    "message": "PATs"
+  },
+  "settings.pats.title.long": {
+    "message": "Personal Access Tokens"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Edit token"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Revoke token"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Expired {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Expires {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Last used {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Never used"
+  },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "Прервать сеанс"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "Запущен {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "Текущая сессия"
   },
   "settings.sessions.description": {
     "message": "Ниже представлены все устройства, с которых осуществлён вход в вашу учётную запись Modrinth. Вы можете управлять сеансом каждого из них по отдельности.\n\nЕсли среди них присутствует незнакомое устройство, незамедлительно завершите его сеанс и смените пароль своей учётной записи."
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "Активность: {ago}"
   },
   "settings.sessions.title": {
     "message": "Сеансы"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Неизвестная ОС"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Неизвестная платформа"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} в {time, time, short}"
