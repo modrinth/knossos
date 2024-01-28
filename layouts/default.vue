@@ -198,7 +198,7 @@
                 circle
               />
               <div class="account-text">
-                <div>{{ formatMessage(atUserLabel, { user: auth.user.username }) }}</div>
+                <div>{{ formatMessage(messages.atUserLabel, { user: auth.user.username }) }}</div>
                 <div>{{ formatMessage(messages.visitYourProfileLabel) }}</div>
               </div>
             </NuxtLink>
