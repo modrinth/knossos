@@ -300,7 +300,11 @@
     </main>
     <footer>
       <div class="logo-info" role="region" aria-label="Modrinth information">
-        <BrandTextLogo aria-hidden="true" class="text-logo" @click="developerModeIncrement()" />
+        <BrandTextLogo
+          aria-hidden="true"
+          class="text-logo button-base"
+          @click="developerModeIncrement()"
+        />
         <p>
           Modrinth is
           <a
@@ -441,12 +445,69 @@ useSeoMeta({
   twitterSite: '@modrinth',
 })
 
-let developerModeCounter = 0
+const developerModeCounter = ref(0)
+
+const isDropdownOpen = ref(false)
+const isMobileMenuOpen = ref(false)
+const isBrowseMenuOpen = ref(false)
+const registeredSkipLink = ref(null)
+const hideDropdown = ref(false)
+const navRoutes = ref([
+  {
+    label: 'Mods',
+    href: '/mods',
+  },
+  {
+    label: 'Plugins',
+    href: '/plugins',
+  },
+  {
+    label: 'Data Packs',
+    href: '/datapacks',
+  },
+  {
+    label: 'Shaders',
+    href: '/shaders',
+  },
+  {
+    label: 'Resource Packs',
+    href: '/resourcepacks',
+  },
+  {
+    label: 'Modpacks',
+    href: '/modpacks',
+  },
+])
+
+onMounted(() => {
+  if (window && process.client) {
+    window.history.scrollRestoration = 'auto'
+  }
+
+  runAnalytics()
+})
+
+watch(
+  () => route.path,
+  () => {
+    isMobileMenuOpen.value = false
+    isBrowseMenuOpen.value = false
+
+    if (process.client) {
+      document.body.style.overflowY = 'scroll'
+      document.body.setAttribute('tabindex', '-1')
+      document.body.removeAttribute('tabindex')
+    }
+
+    updateCurrentDate()
+    runAnalytics()
+  }
+)
 
 function developerModeIncrement() {
-  if (developerModeCounter >= 5) {
+  if (developerModeCounter.value >= 5) {
     cosmetics.value.developerMode = !cosmetics.value.developerMode
-    developerModeCounter = 0
+    developerModeCounter.value = 0
     if (cosmetics.value.developerMode) {
       app.$notify({
         group: 'main',
@@ -463,7 +524,7 @@ function developerModeIncrement() {
       })
     }
   } else {
-    developerModeCounter++
+    developerModeCounter.value++
   }
 }
 
@@ -471,109 +532,42 @@ async function logoutUser() {
   await logout()
 }
 
+function runAnalytics() {
+  const config = useRuntimeConfig()
+  const replacedUrl = config.public.apiBaseUrl.replace('v2/', '')
+
+  setTimeout(() => {
+    $fetch(`${replacedUrl}analytics/view`, {
+      method: 'POST',
+      body: {
+        url: window.location.href,
+      },
+    })
+      .then(() => {})
+      .catch(() => {})
+  })
+}
+function toggleMobileMenu() {
+  this.isMobileMenuOpen = !this.isMobileMenuOpen
+  if (this.isMobileMenuOpen) {
+    this.isBrowseMenuOpen = false
+  }
+}
+function toggleBrowseMenu() {
+  this.isBrowseMenuOpen = !this.isBrowseMenuOpen
+
+  if (this.isBrowseMenuOpen) {
+    this.isMobileMenuOpen = false
+  }
+}
+function changeTheme() {
+  updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
+}
+
 function hideStagingBanner() {
   cosmetics.value.hideStagingBanner = true
   saveCosmetics()
 }
-</script>
-<script>
-export default defineNuxtComponent({
-  data() {
-    return {
-      isDropdownOpen: false,
-      isMobileMenuOpen: false,
-      isBrowseMenuOpen: false,
-      registeredSkipLink: null,
-      hideDropdown: false,
-      navRoutes: [
-        {
-          label: 'Mods',
-          href: '/mods',
-        },
-        {
-          label: 'Plugins',
-          href: '/plugins',
-        },
-        {
-          label: 'Data Packs',
-          href: '/datapacks',
-        },
-        {
-          label: 'Shaders',
-          href: '/shaders',
-        },
-        {
-          label: 'Resource Packs',
-          href: '/resourcepacks',
-        },
-        {
-          label: 'Modpacks',
-          href: '/modpacks',
-        },
-      ],
-    }
-  },
-  computed: {
-    isOnSearchPage() {
-      return this.navRoutes.some((route) => this.$route.path.startsWith(route.href))
-    },
-  },
-  watch: {
-    '$route.path'() {
-      this.isMobileMenuOpen = false
-      this.isBrowseMenuOpen = false
-
-      if (process.client) {
-        document.body.style.overflowY = 'scroll'
-        document.body.setAttribute('tabindex', '-1')
-        document.body.removeAttribute('tabindex')
-      }
-
-      updateCurrentDate()
-      this.runAnalytics()
-    },
-  },
-  mounted() {
-    if (process.client && window) {
-      window.history.scrollRestoration = 'auto'
-    }
-
-    this.runAnalytics()
-  },
-  methods: {
-    runAnalytics() {
-      const config = useRuntimeConfig()
-      const replacedUrl = config.public.apiBaseUrl.replace('v2/', '')
-
-      setTimeout(() => {
-        $fetch(`${replacedUrl}analytics/view`, {
-          method: 'POST',
-          body: {
-            url: window.location.href,
-          },
-        })
-          .then(() => {})
-          .catch(() => {})
-      })
-    },
-    toggleMobileMenu() {
-      this.isMobileMenuOpen = !this.isMobileMenuOpen
-      if (this.isMobileMenuOpen) {
-        this.isBrowseMenuOpen = false
-      }
-    },
-    toggleBrowseMenu() {
-      this.isBrowseMenuOpen = !this.isBrowseMenuOpen
-
-      if (this.isBrowseMenuOpen) {
-        this.isMobileMenuOpen = false
-      }
-    },
-    changeTheme() {
-      updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
-    },
-  },
-})
 </script>
 
 <style lang="scss">
