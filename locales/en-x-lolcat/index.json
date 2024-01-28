@@ -1,6 +1,24 @@
 {
+  "auth.authorize.action.authorize": {
+    "message": "Authorize"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Decline"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Authorize {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "No redirect location found in response"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+  },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Send a magic letter"
   },
   "auth.reset-password.method-choice.description": {
     "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
@@ -15,7 +33,7 @@
     "message": "An email with instructions has been sent to you if the email was previously saved on your account."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "Sent a magic letter"
   },
   "auth.reset-password.notification.password-reset.text": {
     "message": "You can now log-in into your account with your new password."
@@ -51,13 +69,13 @@
     "message": "Sign in"
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>I forgot.</forgot-password-link> • <create-account-link>Count me in!</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
     "message": "Email or username"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Secret code"
   },
   "auth.sign-in.sign-in-with": {
     "message": "Sign in with"
@@ -72,28 +90,28 @@
     "message": "Create account"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Same code. But again."
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "My magic internet address is"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "My fake internet name is"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and, YAWN, <privacy-policy-link>Privacy Policy</privacy-policy-link>."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "Secret codes are different!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "Secret code"
   },
   "auth.sign-up.sign-in-option.action": {
-    "message": "Sign in"
+    "message": "Let me in"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Been here already?"
   },
   "auth.sign-up.subscribe.label": {
     "message": "Subscribe to updates about Modrinth"
@@ -108,16 +126,16 @@
     "message": "Sign up with"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Knobs and dials"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Let me in"
   },
   "auth.verify-email.already-verified.description": {
     "message": "Your email is already verified!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "You already vererifili... ensured the accuracy, of your magic internet address."
   },
   "auth.verify-email.failed-verification.action": {
     "message": "Resend verification email"
@@ -129,13 +147,13 @@
     "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "OW NO! Couldn't veferifilify your magic internet address"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "YASSS! Magic internet address got veferifilificated!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Verarifilificate magic internet address"
   },
   "auth.verify-email.title": {
     "message": "Verify Email"
@@ -147,19 +165,19 @@
     "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and, YAWN, <privacy-policy-link>Privacy Policy</privacy-policy-link>."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "Yay! You're here!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "get out."
   },
   "button.cancel": {
     "message": "stop it!"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "more please!"
   },
   "button.edit": {
     "message": "Chaenj"
@@ -167,26 +185,29 @@
   "button.save": {
     "message": "make stay"
   },
+  "button.save-changes": {
+    "message": "Save changes"
+  },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Kill it."
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Change it"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Just cancel the whole thing"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "No more. Go away."
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "New one"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "But it'll go away FOREVER!!! C'mon, pweeeeeease?"
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "You're not like 100% sure though, right?"
   },
   "collection.description": {
     "message": "{description} - View the collection {name} by {username} on Modrinth"
@@ -195,10 +216,10 @@
     "message": "Auto-generated collection of all the projects you're following."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "Look at the top of the pile and didn't see anything. So yeah, it's not there."
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "Kol-ek-shun"
   },
   "collection.label.created-at": {
     "message": "Created {ago}"
@@ -216,7 +237,7 @@
     "message": "Owner"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "Eyes closed"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
@@ -228,16 +249,16 @@
     "message": "{name} - Collection"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "New one! New one!"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, one {{count} project} other {{count} project}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "Look inside"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "These are yours"
   },
   "frog": {
     "message": "you been toaded 🐸"
@@ -264,34 +285,43 @@
     "message": "boring vew"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "Kol-ek-shuns"
+  },
+  "label.created-ago": {
+    "message": "Created {ago}"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "Burn with fire"
   },
   "label.description": {
-    "message": "Description"
+    "message": "Little text"
+  },
+  "label.error": {
+    "message": "Error"
   },
   "label.followed-projects": {
     "message": "Followed projects"
   },
   "label.password": {
-    "message": "Password"
+    "message": "Secret code"
   },
   "label.public": {
-    "message": "Public"
+    "message": "Eyes open"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "Nope. Sorry."
+  },
+  "label.scopes": {
+    "message": "Scopes"
   },
   "label.title": {
-    "message": "Title"
+    "message": "Big text"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "Disapeard"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "Can see"
   },
   "notification.error.title": {
     "message": "ow no! kudnt catch tasty flying thingy!"
@@ -694,6 +724,63 @@
   },
   "settings.language.title": {
     "message": "Speaky thingy"
+  },
+  "settings.pats.action.create": {
+    "message": "Create a PAT"
+  },
+  "settings.pats.description": {
+    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Create PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Expires"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Name"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Enter the PAT's name..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Create personal access token"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Delete this token"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "This will remove this token forever (like really forever)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Are you sure you want to delete this token?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Edit personal access token"
+  },
+  "settings.pats.title": {
+    "message": "PATs"
+  },
+  "settings.pats.title.long": {
+    "message": "Personal Access Tokens"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Edit token"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Revoke token"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Expired {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Expires {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Last used {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Never used"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Revoke session"
