@@ -1,4 +1,22 @@
 {
+  "auth.authorize.action.authorize": {
+    "message": "Authorize"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Decline"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Authorize {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "No redirect location found in response"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+  },
   "auth.reset-password.method-choice.action": {
     "message": "Send recovery email"
   },
@@ -167,6 +185,9 @@
   "button.save": {
     "message": "Salvați"
   },
+  "button.save-changes": {
+    "message": "Save changes"
+  },
   "collection.button.delete-icon": {
     "message": "Delete icon"
   },
@@ -266,11 +287,17 @@
   "label.collections": {
     "message": "Collections"
   },
+  "label.created-ago": {
+    "message": "Created {ago}"
+  },
   "label.delete": {
     "message": "Delete"
   },
   "label.description": {
     "message": "Description"
+  },
+  "label.error": {
+    "message": "Error"
   },
   "label.followed-projects": {
     "message": "Followed projects"
@@ -283,6 +310,9 @@
   },
   "label.rejected": {
     "message": "Rejected"
+  },
+  "label.scopes": {
+    "message": "Scopes"
   },
   "label.title": {
     "message": "Title"
@@ -694,6 +724,63 @@
   },
   "settings.language.title": {
     "message": "Limbă"
+  },
+  "settings.pats.action.create": {
+    "message": "Create a PAT"
+  },
+  "settings.pats.description": {
+    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Create PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Expires"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Name"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Enter the PAT's name..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Create personal access token"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Delete this token"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "This will remove this token forever (like really forever)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Are you sure you want to delete this token?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Edit personal access token"
+  },
+  "settings.pats.title": {
+    "message": "PATs"
+  },
+  "settings.pats.title.long": {
+    "message": "Personal Access Tokens"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Edit token"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Revoke token"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Expired {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Expires {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Last used {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Never used"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Revoke session"
