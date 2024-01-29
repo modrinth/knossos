@@ -410,6 +410,12 @@
   "layout.menu-toggle.action": {
     "message": "Toggle menu"
   },
+  "layout.meta.description": {
+    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+  },
+  "layout.meta.og-description": {
+    "message": "Discover and publish Minecraft content!"
+  },
   "layout.nav.home": {
     "message": "Home"
   },

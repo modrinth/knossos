@@ -577,14 +577,15 @@ useHead({
     },
   ],
 })
-
-const description =
-  'Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. ' +
-  'Discover and publish projects on Modrinth with a modern, easy to use interface and API.'
-
 useSeoMeta({
   title: 'Modrinth',
-  description,
+  description: () =>
+    formatMessage({
+      id: 'layout.meta.description',
+      defaultMessage:
+        'Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. ' +
+        'Discover and publish projects on Modrinth with a modern, easy to use interface and API.',
+    }),
   publisher: 'Modrinth',
   themeColor: '#1bd96a',
   colorScheme: 'dark light',
@@ -592,7 +593,11 @@ useSeoMeta({
   // OpenGraph
   ogTitle: 'Modrinth',
   ogSiteName: 'Modrinth',
-  ogDescription: 'Discover and publish Minecraft content!',
+  ogDescription: () =>
+    formatMessage({
+      id: 'layout.meta.og-description',
+      defaultMessage: 'Discover and publish Minecraft content!',
+    }),
   ogType: 'website',
   ogImage: 'https://cdn.modrinth.com/modrinth-new.png',
   ogUrl: link,
