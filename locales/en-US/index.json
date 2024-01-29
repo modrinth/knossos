@@ -383,6 +383,9 @@
   "layout.footer.interact.title": {
     "message": "Interact"
   },
+  "layout.footer.legal-disclaimer": {
+    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+  },
   "layout.footer.open-source": {
     "message": "Modrinth is <github-link>open source</github-link>."
   },
