@@ -202,7 +202,17 @@
   </div>
 </template>
 <script setup>
-import { PlusIcon, XIcon, Checkbox, TrashIcon, EditIcon, SaveIcon, ConfirmModal } from 'omorphia'
+import {
+  PlusIcon,
+  XIcon,
+  Checkbox,
+  TrashIcon,
+  EditIcon,
+  SaveIcon,
+  ConfirmModal,
+  CopyCode,
+  Modal,
+} from 'omorphia'
 
 import {
   hasScope,
@@ -211,9 +221,6 @@ import {
   useScopes,
   getScopeValue,
 } from '~/composables/auth/scopes.ts'
-
-import CopyCode from '~/components/ui/CopyCode.vue'
-import Modal from '~/components/ui/Modal.vue'
 
 const { formatMessage } = useVIntl()
 
