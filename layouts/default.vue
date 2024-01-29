@@ -600,7 +600,7 @@ const developerModeCounter = ref(0)
 const isDropdownOpen = ref(false)
 const isMobileMenuOpen = ref(false)
 const isBrowseMenuOpen = ref(false)
-const navRoutes = ref([
+const navRoutes = computed(() => [
   {
     label: formatMessage(getProjectTypeMessage('mod', true)),
     href: '/mods',
