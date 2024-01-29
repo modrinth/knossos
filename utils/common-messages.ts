@@ -15,6 +15,10 @@ export const commonMessages = defineMessages({
     id: 'button.continue',
     defaultMessage: 'Continue',
   },
+  createdAgoLabel: {
+    id: 'label.created-ago',
+    defaultMessage: 'Created {ago}',
+  },
   dateAtTimeTooltip: {
     id: 'tooltip.date-at-time',
     defaultMessage: '{date, date, long} at {time, time, short}',
@@ -30,6 +34,10 @@ export const commonMessages = defineMessages({
   editButton: {
     id: 'button.edit',
     defaultMessage: 'Edit',
+  },
+  errorLabel: {
+    id: 'label.error',
+    defaultMessage: 'Error',
   },
   errorNotificationTitle: {
     id: 'notification.error.title',
@@ -70,6 +78,14 @@ export const commonMessages = defineMessages({
   saveButton: {
     id: 'button.save',
     defaultMessage: 'Save',
+  },
+  saveChangesButton: {
+    id: 'button.save-changes',
+    defaultMessage: 'Save changes',
+  },
+  scopesLabel: {
+    id: 'label.scopes',
+    defaultMessage: 'Scopes',
   },
   titleLabel: {
     id: 'label.title',
