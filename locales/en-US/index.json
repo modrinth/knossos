@@ -338,7 +338,13 @@
   "label.visibility": {
     "message": "Visibility"
   },
-  "layout.alt-your-avatar": {
+  "layout.action.change-theme": {
+    "message": "Change theme"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Get Modrinth App"
+  },
+  "layout.avatar.alt": {
     "message": "Your avatar"
   },
   "layout.banner.add-email.button": {
@@ -353,68 +359,59 @@
   "layout.banner.staging.title": {
     "message": "You’re viewing Modrinth’s staging environment."
   },
-  "layout.banner.verify-email.button": {
+  "layout.banner.verify-email.action": {
     "message": "Re-send verification email"
   },
   "layout.banner.verify-email.title": {
     "message": "For security purposes, please verify your email address on Modrinth."
   },
-  "layout.button.change-theme": {
-    "message": "Change theme"
-  },
-  "layout.button.get-modrinth-app": {
-    "message": "Get Modrinth App"
-  },
-  "layout.button.home": {
-    "message": "Home"
-  },
-  "layout.button.search": {
-    "message": "Search"
-  },
-  "layout.button.toggle-menu": {
-    "message": "Toggle menu"
-  },
-  "layout.footer.label.Blog": {
-    "message": "Blog"
-  },
-  "layout.footer.label.Docs": {
-    "message": "Docs"
-  },
-  "layout.footer.label.careers": {
+  "layout.footer.company.careers": {
     "message": "Careers"
   },
-  "layout.footer.label.company": {
-    "message": "Company"
-  },
-  "layout.footer.label.interact": {
-    "message": "Interact"
-  },
-  "layout.footer.label.privacy": {
+  "layout.footer.company.privacy": {
     "message": "Privacy"
   },
-  "layout.footer.label.resources": {
-    "message": "Resources"
-  },
-  "layout.footer.label.rules": {
+  "layout.footer.company.rules": {
     "message": "Rules"
   },
-  "layout.footer.label.status": {
-    "message": "Status"
-  },
-  "layout.footer.label.support": {
-    "message": "Support"
-  },
-  "layout.footer.label.terms": {
+  "layout.footer.company.terms": {
     "message": "Terms"
   },
-  "layout.label.at-user": {
-    "message": "@{user}"
+  "layout.footer.company.title": {
+    "message": "Company"
   },
-  "layout.label.modrinth-open-source": {
+  "layout.footer.interact.title": {
+    "message": "Interact"
+  },
+  "layout.footer.open-source": {
     "message": "Modrinth is <github-link>open source</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Docs"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Support"
+  },
+  "layout.footer.resources.title": {
+    "message": "Resources"
   },
   "layout.label.visit-your-profile": {
     "message": "Visit your profile"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Toggle menu"
+  },
+  "layout.nav.home": {
+    "message": "Home"
+  },
+  "layout.nav.search": {
+    "message": "Search"
   },
   "notification.error.title": {
     "message": "An error occurred"
