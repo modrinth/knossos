@@ -683,20 +683,20 @@ function runAnalytics() {
   })
 }
 function toggleMobileMenu() {
-  this.isMobileMenuOpen = !this.isMobileMenuOpen
-  if (this.isMobileMenuOpen) {
-    this.isBrowseMenuOpen = false
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+  if (isMobileMenuOpen.value) {
+    isBrowseMenuOpen.value = false
   }
 }
 function toggleBrowseMenu() {
-  this.isBrowseMenuOpen = !this.isBrowseMenuOpen
+  isBrowseMenuOpen.value = !isBrowseMenuOpen.value
 
-  if (this.isBrowseMenuOpen) {
-    this.isMobileMenuOpen = false
+  if (isBrowseMenuOpen.value) {
+    isMobileMenuOpen.value = false
   }
 }
 function changeTheme() {
-  updateTheme(this.$colorMode.value === 'dark' ? 'light' : 'dark', true)
+  updateTheme(app.$colorMode.value === 'dark' ? 'light' : 'dark', true)
 }
 
 function hideStagingBanner() {
