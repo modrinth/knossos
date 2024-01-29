@@ -720,7 +720,7 @@
               >
                 <CheckIcon v-if="environments.client_only" />
                 <XIcon v-else />
-                <span>Client-only</span>
+                <span>Client-side</span>
               </div>
               <div
                 v-if="environments.server_only != null"
@@ -729,7 +729,7 @@
               >
                 <CheckIcon v-if="environments.server_only" />
                 <XIcon v-else />
-                <span>Server-only</span>
+                <span>Dedicated server</span>
               </div>
               <div
                 v-if="environments.singleplayer != null"
