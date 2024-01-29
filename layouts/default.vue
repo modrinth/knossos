@@ -405,7 +405,7 @@
         </nuxt-link>
       </div>
       <div class="not-affiliated-notice">
-        NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.
+        {{ formatMessage(footerMessages.legalDisclaimer) }}
       </div>
     </footer>
   </div>
@@ -561,6 +561,11 @@ const footerMessages = defineMessages({
   interactTitle: {
     id: 'layout.footer.interact.title',
     defaultMessage: 'Interact',
+  },
+  legalDisclaimer: {
+    id: 'layout.footer.legal-disclaimer',
+    defaultMessage:
+      'NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.',
   },
 })
 
