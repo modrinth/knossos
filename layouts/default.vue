@@ -131,7 +131,9 @@
                     to="/app"
                   >
                     <DownloadIcon class="icon" />
-                    <span class="title">Get Modrinth App</span>
+                    <span class="title">
+                      {{ formatMessage(messages.getModrinthApp) }}
+                    </span>
                   </NuxtLink>
                   <hr class="divider" />
                   <button class="item button-transparent" @click="logoutUser()">
@@ -151,7 +153,7 @@
                   class="btn btn-outline btn-primary app-btn"
                   to="/app"
                 >
-                  <DownloadIcon /> Get Modrinth App
+                  <DownloadIcon /> {{ formatMessage(messages.getModrinthApp) }}
                 </nuxt-link>
               </section>
             </section>
