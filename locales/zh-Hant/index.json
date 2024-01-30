@@ -1,27 +1,27 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "授權"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "拒絕"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "由 <creator-link>{creator}</creator-link> 建立的 <strong>{appName}</strong> 將能夠："
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "授權 {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "回應中找不到重新導向位置"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "您將被重新導向至 <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "傳送恢復電子郵件"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "請在下方輸入您的電子郵件，我們會傳送回覆連結，讓你能夠恢復您的帳號。"
+    "message": "請在下方輸入您的電子郵件，我們將傳送恢復連結，讓你恢復您的帳號。"
   },
   "auth.reset-password.method-choice.email-username.label": {
     "message": "電子郵件或使用者名稱"
@@ -30,7 +30,7 @@
     "message": "電子郵件"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "如果電子郵件以前儲存到您的帳號，已經向您傳送了一封包含說明的電子郵件。"
+    "message": "如果電子郵件以前已儲存在您的帳號中，則已向您傳送了一封包含說明的電子郵件。"
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "電子郵件已傳送"
@@ -111,7 +111,7 @@
     "message": "登入"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "已經有帳號了？"
+    "message": "已有帳號？"
   },
   "auth.sign-up.subscribe.label": {
     "message": "訂閱有關 Modrinth 的更新"
@@ -141,7 +141,7 @@
     "message": "重新傳送驗證電子郵件"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "我們無法驗證您的電子郵件。請嘗試透過登入儀表板重新傳送驗證電子郵件。"
+    "message": "我們無法驗證您的電子郵件。請嘗試登入後透過儀表板重新傳送驗證電子郵件。"
   },
   "auth.verify-email.failed-verification.description.logged-in": {
     "message": "我們無法驗證您的電子郵件。請嘗試透過下方按鈕重新傳送驗證電子郵件。"
@@ -186,7 +186,7 @@
     "message": "儲存"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "儲存變更"
   },
   "collection.button.delete-icon": {
     "message": "刪除圖示"
@@ -204,19 +204,19 @@
     "message": "上傳圖示"
   },
   "collection.delete-modal.description": {
-    "message": "這將永久刪除此收藏。此操作無法取消。"
+    "message": "這將永久刪除這個收藏夾。此操作無法取消。"
   },
   "collection.delete-modal.title": {
-    "message": "你確定要刪除此收藏嗎？"
+    "message": "你確定要刪除這個收藏夾嗎？"
   },
   "collection.description": {
-    "message": "{description} - 在 Modrinth 上查看由 {username} 建立的收藏 {name}"
+    "message": "{description} — 在 Modrinth 上查看 {username} 的收藏夾 {name}"
   },
   "collection.description.following": {
-    "message": "自動產生的收藏，包含您正在追蹤的所有專案。"
+    "message": "自動產生您所有追蹤專案的收藏夾。"
   },
   "collection.error.not-found": {
-    "message": "找不到收藏"
+    "message": "找不到收藏夾"
   },
   "collection.label.collection": {
     "message": "收藏"
@@ -288,7 +288,7 @@
     "message": "收藏夾"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "建立於 {ago}"
   },
   "label.delete": {
     "message": "刪除"
@@ -297,7 +297,7 @@
     "message": "描述"
   },
   "label.error": {
-    "message": "Error"
+    "message": "錯誤"
   },
   "label.followed-projects": {
     "message": "已追蹤的專案"
@@ -312,7 +312,7 @@
     "message": "已拒絕"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "範圍"
   },
   "label.title": {
     "message": "標題"
@@ -510,25 +510,25 @@
     "message": "建立個人 API 權杖"
   },
   "scopes.patCreate.label": {
-    "message": "建立 PAT"
+    "message": "建立個人存取權杖"
   },
   "scopes.patDelete.description": {
     "message": "刪除您的個人 API 權杖"
   },
   "scopes.patDelete.label": {
-    "message": "刪除 PAT"
+    "message": "刪除個人存取權杖"
   },
   "scopes.patRead.description": {
     "message": "查看已建立的 API 權杖"
   },
   "scopes.patRead.label": {
-    "message": "讀取 PAT"
+    "message": "讀取個人存取權杖"
   },
   "scopes.patWrite.description": {
     "message": "編輯個人 API 權杖"
   },
   "scopes.patWrite.label": {
-    "message": "寫入 PAT"
+    "message": "寫入個人存取權杖"
   },
   "scopes.payoutsRead.description": {
     "message": "讀取您的付款資料"
@@ -726,61 +726,61 @@
     "message": "語言"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "建立個人存取權杖"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "個人存取權杖可用於存取 Modrinth 的 API。有關更多資訊，請參閱 <doc-link>Modrinth 的 API 文件</doc-link>。它們可以隨時建立和撤銷這些令牌。"
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "建立個人存取權杖"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "到期"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "名稱"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "輸入個人存取權杖的名稱..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "建立個人存取權杖"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "刪除這個權杖"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "這將永遠刪除這個權杖（真的是永遠）。"
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "您確定要刪除這個權杖嗎？"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "編輯個人存取權杖"
   },
   "settings.pats.title": {
-    "message": "PATs"
+    "message": "個人存取權杖"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "個人存取權杖"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "編輯權杖"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "撤銷權杖"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "過期於 {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "過期於 {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "上次使用於 {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "從不使用"
   },
   "settings.sessions.action.revoke-session": {
     "message": "撤銷工作階段授權"
