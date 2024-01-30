@@ -1,21 +1,21 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Autoriser"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Rejeter"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> par <creator-link>{creator}</creator-link> pourra :"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Autoriser {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Aucun lieu de redirection trouvé dans la réponse"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Vous allez être redirigé vers <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Envoyer l'e-mail de réinitialisation"
@@ -186,7 +186,7 @@
     "message": "Enregistrer"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Enregistrer les modifications"
   },
   "collection.button.delete-icon": {
     "message": "Delete icon"
@@ -288,7 +288,7 @@
     "message": "Collections"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Créé {ago}"
   },
   "label.delete": {
     "message": "Delete"
@@ -297,7 +297,7 @@
     "message": "Description"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Erreur"
   },
   "label.followed-projects": {
     "message": "Followed projects"
@@ -726,61 +726,61 @@
     "message": "Langue"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Créer un PAT"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "Les PATs peuvent être utilisés pour accéder à l'API de Modrinth. Pour plus d'informations, consultez la documentation de l'API <doc-link>Modrinth's</doc-link>. Elles peuvent être créées et révoquées à tout moment."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "Créer le PAT"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Expire"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Nom"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Entrez le nom du PAT..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Créer un jeton d'accès personnel"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Supprimer ce jeton"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Cela supprimera définitivement ce jeton (vraiment toujours)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Êtes-vous sûr(e) de vouloir supprimer ce jeton ?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Modifier le jeton d'accès personnel"
   },
   "settings.pats.title": {
     "message": "PATs"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Jetons d'accès personnel"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Modifier le jeton"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Révoquer le jeton"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "A expiré {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Expire {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Dernière utilisation {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Jamais utilisé"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Revoke session"
