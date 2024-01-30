@@ -1,162 +1,162 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Autorizar"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Negar"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> por <creator-link>{creator}</creator-link> será capaz de:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Autorizar {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Nenhuma localização de redirecionamento encontrada na resposta"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Serás redirecionado para <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Enviar email de recuperação"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Insere o teu email abaixo para te enviarmos um link de recuperação para permitir que recuperes a tua conta."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "Email ou nome de utilizador"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
     "message": "Email"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "Será-te enviado um email com instruções caso o teu email tenha sido definido anteriomente na tua conta."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "Email enviado"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Agora podes iniciar sessão na tua conta com a nova palavra-passe."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Palavra-passe redefinida com sucesso"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Redefinir a palavra-passe"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Confirmar palavra-passe"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Insere a tua nova palavra-passe abaixo para acessares a tua conta."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Redefinir palavra-passe"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Redefine a tua palavra-passe"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Por favor, insere um código de dois fatores para proceder."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Insere um código de dois fatores"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Inserir código..."
   },
   "auth.sign-in.action.sign-in": {
-    "message": "Sign in"
+    "message": "Iniciar sessão"
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Esqueceste a palavra-passe?</forgot-password-link> • <create-account-link>Cria uma conta</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Email ou nome de utilizador"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Palavra-passe"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Iniciar sessão com"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Iniciar sessão"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "Ou usa uma palavra-passe"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Criar conta"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Confirmar palavra-passe"
   },
   "auth.sign-up.email.label": {
     "message": "Email"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Nome de utilizador"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Ao criares uma conta, concordas com os <terms-link>Termos</terms-link> do Modrinth e com a <privacy-policy-link>Política de Privacidade</privacy-policy-link>."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "As palavras-passe não coincidem!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "Palavra-passe"
   },
   "auth.sign-up.sign-in-option.action": {
-    "message": "Sign in"
+    "message": "Iniciar sessão"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Já tens uma conta?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Subscreve para receberes novidades sobre o Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Registar-se"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Ou cria a tua própria conta"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Registar-se com"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Definições da conta"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Iniciar sessão"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "O teu email já foi verificado!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "Email já verificado"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Reenviar email de verificação"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Não foi possível verificar o teu email. Tenta reenviar o email de verificação no teu painel de controlo ao iniciar sessão."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "Não foi possível verificar o teu email. Tenta reenviar o email de verificação através do botão abaixo."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "A verificação de email falhou"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "O teu endereço de email já foi verificado com sucesso!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Verificação de email"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Verificar Email"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "Inscrever-me para receber atualizações sobre Modrinth"
@@ -186,79 +186,79 @@
     "message": "Guardar"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Guardar alterações"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Eliminar ícone"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Editar ícone"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Remover projeto"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Deixar de seguir projeto"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Upload de ícone"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "Isto vai remover esta coleção para sempre. Esta ação não pode ser desfeita."
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "Tens a certeza que queres eliminar esta coleção?"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} - Ver a coleção {name} de {username} no Modrinth"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "Coleção gerada automaticamente de todos os projetos que segues."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "Coleção não encontrada"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "Coleção"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Criada {ago}"
   },
   "collection.label.curated-by": {
     "message": "Curated by"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "Esta coleção não tem projetos!"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "Não tens nenhum projeto.\nGostarias de <create-link>criar um</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Dono"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "Privada"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, one {<stat>{count}</stat> projeto} other {<stat>{count}</stat> projetos}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "Atualizado {ago}"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "{name} - Coleção"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "Criar nova"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, one {{count} projeto} other {{count} projetos}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "Pesquisar as tuas coleções"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "As tuas coleções"
   },
   "frog": {
     "message": "Foste arrãsado! 🐸"
@@ -285,43 +285,43 @@
     "message": "Vista de lista"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "Coleções"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Criado {ago}"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "Eliminar"
   },
   "label.description": {
-    "message": "Description"
+    "message": "Descrição"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Erro"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "Projetos seguidos"
   },
   "label.password": {
-    "message": "Password"
+    "message": "Palavra-passe"
   },
   "label.public": {
-    "message": "Public"
+    "message": "Público"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "Rejeitado"
   },
   "label.scopes": {
     "message": "Scopes"
   },
   "label.title": {
-    "message": "Title"
+    "message": "Título"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "Não listado"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "Visibilidade"
   },
   "notification.error.title": {
     "message": "Ocorreu um erro"
