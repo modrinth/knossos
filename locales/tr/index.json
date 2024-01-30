@@ -1,21 +1,21 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Yetkilendir"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Reddet"
   },
   "auth.authorize.app-info": {
     "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "{appName} uygulamasını yetkilendir"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Yanıtta yönlendirme konumu bulunamadı"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "<redirect-url>{url}</redirect-url> adresine yönlendirileceksiniz"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Kurtarma emaili gönder"
@@ -186,7 +186,7 @@
     "message": "Kaydet"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Değişiklikleri kaydet"
   },
   "collection.button.delete-icon": {
     "message": "Simge sil"
@@ -288,7 +288,7 @@
     "message": "Koleksiyonlar"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "{ago} oluşturuldu"
   },
   "label.delete": {
     "message": "Sil"
@@ -297,7 +297,7 @@
     "message": "Açıklama"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Hata"
   },
   "label.followed-projects": {
     "message": "Takip edilen projeler"
@@ -312,7 +312,7 @@
     "message": "Reddedilmiş"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Kapsamlar"
   },
   "label.title": {
     "message": "Başlık"
@@ -726,61 +726,61 @@
     "message": "Dil"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Bir PAT yarat"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "PAT'lar Modrinth'in API'sine erişmekte kullanılabilir. Daha fazla bilgi için, <doc-link>Modrinth API dokümantasyonununa</doc-link>na bakın. Bunlar her zaman oluşturulabilir veya iptal edilebilir."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "PAT oluştur"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Son kullanma tarihi"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Ad"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "PAT'ın adını girin..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Kişisel erişim token'i (PAT) oluştur"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Bu tokeni sil"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Bu işlem, bu tokeni sonsuza dek (gerçekten de sonsuza dek) kaldıracak."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Bu tokeni silmek istediğinizden emin misiniz?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Kişisel erişim tokenini (PAT'ı) düzenle"
   },
   "settings.pats.title": {
-    "message": "PATs"
+    "message": "PAT'lar"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Kişisel Erişim Tokenleri (PAT'lar)"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Token düzenle"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Token iptal et"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "{ago} son kullanma tarihi geçti"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "{inTime} son kullanma tarihi geçecek"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "En son {ago} kullanıldı"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Hiç kullanılmadı"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Oturumu iptal et"
