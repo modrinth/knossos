@@ -24,7 +24,7 @@
     "message": "Укажіть вашу електронну пошту нижче, щоб ми надіслали вам посилання для відновлення вашого облікового запису."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Ел. пошта або ім'я користувача"
+    "message": "Ел. пошта або ім’я користувача"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
     "message": "Електронна пошта"
@@ -72,7 +72,7 @@
     "message": "<forgot-password-link>Забули пароль?</forgot-password-link> • <create-account-link>Створити обліковий запис</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Ел. пошта або ім'я користувача"
+    "message": "Ел. пошта або ім’я користувача"
   },
   "auth.sign-in.password.label": {
     "message": "Пароль"
