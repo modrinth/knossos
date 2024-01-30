@@ -1,21 +1,21 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Авторизировать"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Отклонить"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> от <creator-link>{creator}</creator-link> получит возможность:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Авторизовать {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Адрес перенаправления не найден"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Перенаправление на <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Отправить письмо для восстановления"
@@ -69,7 +69,7 @@
     "message": "Регистрация"
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Забыли пароль?</forgot-password-link> • <create-account-link>Создать учётную запись</create-account-link>"
+    "message": "<forgot-password-link>Забыли пароль?</forgot-password-link> • <create-account-link>Регистрация</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
     "message": "Email or username"
@@ -78,19 +78,19 @@
     "message": "Password"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Авторизуйтесь через"
   },
   "auth.sign-in.title": {
     "message": "Регистрация"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "... или через почту/пароль"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Создать учётную запись"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Подтвердите пароль"
   },
   "auth.sign-up.email.label": {
     "message": "Email"
@@ -186,7 +186,7 @@
     "message": "Сохранить"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Сохранить изменения"
   },
   "collection.button.delete-icon": {
     "message": "Удалить значок"
@@ -288,7 +288,7 @@
     "message": "Коллекции"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Создан {ago}"
   },
   "label.delete": {
     "message": "Удалить"
@@ -297,7 +297,7 @@
     "message": "Описание"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Ошибка"
   },
   "label.followed-projects": {
     "message": "Отслеживаемые проекты"
@@ -312,7 +312,7 @@
     "message": "Отклонён"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Разрешения"
   },
   "label.title": {
     "message": "Заголовок"
@@ -726,61 +726,61 @@
     "message": "Язык"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Создать токен доступа"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "Токены доступа можно использовать для обращения к API Modrinth. Смотрите <doc-link>документацию к нему</doc-link>. Токены доступа можно создавать и удалять в любое время."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "Создать токен доступа"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Истекает"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Название"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Введите название ключа..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Создать персональный токен доступа"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Удалить токен"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Токен будет удалён навсегда (буквально навсегда)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Вы действительно хотите удалить этот токен?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Изменить персональный токен доступа"
   },
   "settings.pats.title": {
-    "message": "PATs"
+    "message": "Токены личного доступа"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Токены личного доступа к API"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Изменить"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Отозвать токен"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Истёк {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Срок действия: {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Активность: {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Не использовался"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Прервать сеанс"
