@@ -1,21 +1,21 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Auktorisera"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Neka"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> av <creator-link>{creator}</creator-link> kommer kunna:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Auktorisera {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Ingen omdirigeringsplats hittades i svar"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Du kommer att omdirigeras till <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Skicka återställningsmejl"
@@ -65,9 +65,6 @@
   "auth.sign-in.2fa.placeholder": {
     "message": "Ange kod..."
   },
-  "auth.sign-in.action.sign-in": {
-    "message": "Logga in"
-  },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Glömt lösenordet?</forgot-password-link> • <create-account-link>Skapa ett konto</create-account-link>"
   },
@@ -106,9 +103,6 @@
   },
   "auth.sign-up.password.label": {
     "message": "Lösenord"
-  },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Logga in"
   },
   "auth.sign-up.sign-in-option.title": {
     "message": "Har du redan ett konto?"
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "Fortsätt"
   },
+  "button.create-a-project": {
+    "message": "Skapa ett projekt"
+  },
   "button.edit": {
     "message": "Redigera"
   },
@@ -186,7 +183,13 @@
     "message": "Spara"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Spara ändringar"
+  },
+  "button.sign-in": {
+    "message": "Logga in"
+  },
+  "button.sign-out": {
+    "message": "Logga ut"
   },
   "collection.button.delete-icon": {
     "message": "Ta bort ikon"
@@ -288,7 +291,10 @@
     "message": "Samlingar"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Skapades {ago}"
+  },
+  "label.dashboard": {
+    "message": "Kontrollpanel"
   },
   "label.delete": {
     "message": "Radera"
@@ -297,10 +303,16 @@
     "message": "Beskrivning"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Fel"
   },
   "label.followed-projects": {
     "message": "Följda projekt"
+  },
+  "label.moderation": {
+    "message": "Moderering"
+  },
+  "label.notifications": {
+    "message": "Notifikationer"
   },
   "label.password": {
     "message": "Lösenord"
@@ -312,7 +324,10 @@
     "message": "Nekad"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Omfattning"
+  },
+  "label.settings": {
+    "message": "Inställningar"
   },
   "label.title": {
     "message": "Titel"
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "Synlighet"
+  },
+  "layout.action.change-theme": {
+    "message": "Ändra temat"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Skaffa Modrinth appen"
+  },
+  "layout.avatar.alt": {
+    "message": "Din avatar"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Gå till kontoinställningar"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Av säkerhetsskäl behöver du ange din e-postadress på Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "Staging miljön kör en kopia av Modrinths databas. Detta används för test och felsökning och kan köra experimentella versioner av Modrinth som inte släppts än."
+  },
+  "layout.banner.staging.title": {
+    "message": "Du använder Modrinths staging miljö."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Skicka nytt bekräftelsemejl"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "Av säkerhetsskäl behöver du verifiera din e-postadress på Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Karriärer"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Integritet"
+  },
+  "layout.footer.company.rules": {
+    "message": "Regler"
+  },
+  "layout.footer.company.terms": {
+    "message": "Villkor"
+  },
+  "layout.footer.company.title": {
+    "message": "Företag"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interagera"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "INTE EN OFFICIEL MINECRAFT TJÄNST. VARKEN GODKÄND AV ELLER ASSOCIERAD MED MOJANG ELLER MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth har <github-link>öppen källkod</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blogg"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Dokumentation"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Support"
+  },
+  "layout.footer.resources.title": {
+    "message": "Resurser"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Visa din profil"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Växla meny"
+  },
+  "layout.meta.description": {
+    "message": "Ladda ned Minecraft moddar, plugins, datapaket, shaders, resurspaket och modpaket på Modrinth. Upptäck och lägg upp projekt på Modrinth med ett modernt, enkelt att använda gränssnitt och API."
+  },
+  "layout.meta.og-description": {
+    "message": "Upptäck och lägg upp Minecraft innehåll!"
+  },
+  "layout.nav.home": {
+    "message": "Hem"
+  },
+  "layout.nav.search": {
+    "message": "Sök"
   },
   "notification.error.title": {
     "message": "Ett fel inträffade"
@@ -726,7 +825,7 @@
     "message": "Språk"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Skapa en PAT"
   },
   "settings.pats.description": {
     "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
