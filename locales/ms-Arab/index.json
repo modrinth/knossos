@@ -1,162 +1,156 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Sahkan"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Tolak"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> oleh <creator-link>{creator}</creator-link> akan dapat:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Sahkan {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Tiada lokasi ubah hala ditemui sebagai balasan"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Anda akan diubah hala ke <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Hantar e-mel pemulihan"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Masukkan e-mel anda di bawah dan kami akan menghantar pautan pemulihan untuk membolehkan anda memulihkan akaun anda."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "E-mel atau nama pengguna"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "E-mel"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "E-mel dengan arahan telah dihantar kepada anda jika e-mel tersebut telah disimpan pada akaun anda sebelum ini."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "E-mel telah dihantar"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Anda kini boleh log masuk ke akaun anda dengan kata laluan baharu anda."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Kata laluan berjaya ditetapkan semula"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Tetap semula kata laluan"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Sahkan kata laluan"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Masukkan kata laluan baharu anda di bawah untuk mendapatkan akses ke akaun anda."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Tetap Semula Kata Laluan"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Tetap semula kata laluan"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Sila masukkan kod dua faktor untuk meneruskan."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Masukkan kod dua faktor"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
-  },
-  "auth.sign-in.action.sign-in": {
-    "message": "Sign in"
+    "message": "Masukkan kod..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Lupa kata laluan?</forgot-password-link> • <create-account-link>Cipta akaun</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "E-mel atau nama pengguna"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Kata Laluan"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Log masuk dengan"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Log Masuk"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "Atau gunakan kata laluan"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Cipta akaun"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Sahkan kata laluan"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "E-mel"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Nama pengguna"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Dengan mencipta akaun, anda bersetuju dengan <terms-link>Terma</terms-link> dan <privacy-policy-link>Dasar Privasi</privacy-policy-link> Modrinth."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "Kata laluan tidak sepadan!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
-  },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Sign in"
+    "message": "Kata Laluan"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Sudah mempunyai akaun?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Langgan untuk kemas kini tentang Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Daftar"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Atau cipta akaun anda sendiri"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Daftar dengan"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Tetapan akaun"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Log masuk"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "E-mel anda sudah pun disahkan!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "E-mel sudah pun disahkan"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Hantar semula e-mel pengesahan"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Kami tidak dapat mengesahkan e-mel anda. Cuba hantar semula e-mel pengesahan melalui papan pemuka anda dengan melog masuk."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "Kami tidak dapat mengesahkan e-mel anda. Cuba hantar semula e-mel pengesahan melalui butang di bawah."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "Pengesahan e-mel gagal"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "Alamat e-mel anda telah berjaya disahkan!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Pengesahan e-mel"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Sahkan E-mel"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "لڠݢن اونتوق کمس کيني تنتڠ مودرين‌ث (Modrinth)"
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "تروسکن"
   },
+  "button.create-a-project": {
+    "message": "Cipta projek"
+  },
   "button.edit": {
     "message": "سونتيڠ"
   },
@@ -186,79 +183,85 @@
     "message": "سيمڤن"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Simpan perubahan"
+  },
+  "button.sign-in": {
+    "message": "Log masuk"
+  },
+  "button.sign-out": {
+    "message": "Log keluar"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Padam ikon"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Sunting ikon"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Alih keluar projek"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Nyahikut projek"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Muat naik ikon"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "Ini akan mengalih keluar koleksi ini selama-lamanya. Tindakan ini tidak boleh dibuat asal."
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "Adakah anda pasti mahu memadamkan koleksi ini?"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} - Lihat koleksi {name} oleh {username} di Modrinth"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "Koleksi semua projek yang anda ikuti yang dijana secara automatik."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "Koleksi tidak dijumpai"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "Koleksi"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Dicipta {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "Diurus oleh"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "Koleksi ini tidak memiliki sebarang projek!"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "Anda tidak memiliki sebarang projek.\nAdakah anda mahu <create-link>menambah sebuah projek</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Pemilik"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "Peribadi"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, other {<stat>{count}</stat> projek}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "Dikemas kini {ago}"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "{name} - Koleksi"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "Cipta baharu"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, other {{count} projek}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "Cari koleksi anda"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "Koleksi anda"
   },
   "frog": {
     "message": "اندا تله دکاتق! 🐸"
@@ -285,43 +288,139 @@
     "message": "بنتوق سناراي"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "Koleksi"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Dicipta {ago}"
+  },
+  "label.dashboard": {
+    "message": "Papan Pemuka"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "Padam"
   },
   "label.description": {
-    "message": "Description"
+    "message": "Keterangan"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Ralat"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "Projek yang diikuti"
+  },
+  "label.moderation": {
+    "message": "Penyederhanaan"
+  },
+  "label.notifications": {
+    "message": "Pemberitahuan"
   },
   "label.password": {
-    "message": "Password"
+    "message": "Kata Laluan"
   },
   "label.public": {
-    "message": "Public"
+    "message": "Awam"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "Ditolak"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Skop"
+  },
+  "label.settings": {
+    "message": "Tetapan"
   },
   "label.title": {
-    "message": "Title"
+    "message": "Tajuk"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "Tidak disenaraikan"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "Keterlihatan"
+  },
+  "layout.action.change-theme": {
+    "message": "Tukar tema"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Dapatkan Modrinth App"
+  },
+  "layout.avatar.alt": {
+    "message": "Avatar anda"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Lawat tetapan akaun"
+  },
+  "layout.banner.add-email.title": {
+    "message": "اونتوق توجوان کسلامتن⹁ سيلا ماسوقکن إي-ميل اندا دمودرين‌ث (Modrinth)."
+  },
+  "layout.banner.staging.description": {
+    "message": "Persekitaran pementasan berjalan pada salinan pangkalan data produksi Modrinth. Ini digunakan untuk tujuan ujian dan penyahpepijatan, dan mungkin menjalankan versi dalam pembangunan bahagian belakang atau hadapan Modrinth yang lebih baharu daripada instance pengeluaran."
+  },
+  "layout.banner.staging.title": {
+    "message": "اندا سدڠ مليهت ڤرسکيترن ڤمنتسن مودرين‌ث (Modrinth)."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "هنتر سمولا إي-ميل ڤڠصحن"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "اونتوق توجوان کسلامتن⹁ سيلا صحکن علامت إي-ميل اندا دمودرين‌ث (Modrinth)."
+  },
+  "layout.footer.company.careers": {
+    "message": "کرجاي"
+  },
+  "layout.footer.company.privacy": {
+    "message": "ڤريۏاسي"
+  },
+  "layout.footer.company.rules": {
+    "message": "ڤراتورن"
+  },
+  "layout.footer.company.terms": {
+    "message": "ترما"
+  },
+  "layout.footer.company.title": {
+    "message": "شريکت"
+  },
+  "layout.footer.interact.title": {
+    "message": "اينترکسي"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "بوکن ڤرخدمتن راسمي ماءينکرف‌ت (Minecraft). تيدق دلولوسکن اوليه اتاو برکاءيتن دڠن موجڠ (Mojang) اتاو ماءيکروسوف‌ت (Microsoft)."
+  },
+  "layout.footer.open-source": {
+    "message": "مودرين‌ث (Modrinth) اداله <github-link>سومبر تربوک</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "بلوݢ"
+  },
+  "layout.footer.resources.docs": {
+    "message": "دوکومنتاسي"
+  },
+  "layout.footer.resources.status": {
+    "message": "ستاتوس"
+  },
+  "layout.footer.resources.support": {
+    "message": "سوکوڠن"
+  },
+  "layout.footer.resources.title": {
+    "message": "سومبر"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "لاوت ڤروفيل اندا"
+  },
+  "layout.menu-toggle.action": {
+    "message": "توݢول مينو"
+  },
+  "layout.meta.description": {
+    "message": "Muat turun mod, pemalam, pek data, pek pembayang, pek sumber dan pek mod Minecraft di Modrinth. Temui dan terbitkan projek di Modrinth dengan antara muka dan API yang moden dan mudah digunakan."
+  },
+  "layout.meta.og-description": {
+    "message": "Temui dan terbitkan kandungan Minecraft!"
+  },
+  "layout.nav.home": {
+    "message": "Laman Utama"
+  },
+  "layout.nav.search": {
+    "message": "Cari"
   },
   "notification.error.title": {
     "message": "سبواه رالت تله برلاکو"
@@ -726,85 +825,85 @@
     "message": "بهاس"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Cipta PAT"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "PAT boleh digunakan untuk mengakses API Modrinth. Untuk mendapatkan maklumat lanjut, lihat <doc-link>Dokumentasi API Modrinth</doc-link>. Ia boleh dibuat dan dibatalkan pada bila-bila masa."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "Cipta PAT"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Luput"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Nama"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Masukkan nama PAT..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "چيڤتا توکن اکسيس ڤريبادي (PAT)"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "ڤادم توکن اين"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "اين اکن مڠاليه کلوار توکن اين سلاما-لاماڽ (يڠ بنر٢ سلاماڽ)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Adakah anda pasti mahu memadamkan token ini?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Sunting token akses peribadi (PAT)"
   },
   "settings.pats.title": {
-    "message": "PATs"
+    "message": "PAT"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Token Akses Peribadi (PAT)"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Sunting token"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Tarik balik token"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Telah luput {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Akan luput dalam {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Kali terakhir digunakan {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "تيدق ڤرنه دݢوناکن"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "تاريق باليق سيسي"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "دچيڤتا {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "سيسي سماس"
   },
   "settings.sessions.description": {
     "message": "برايکوت اياله سموا ڤرنتي يڠ سدڠ دلوݢ ماسوق دڠن اکاءون مودرين‌ث (Modrinth) اندا. اندا بوليه لوݢ کلوار درڤد ستياڤ ساتو ڤرنتي سچارا اينديۏيدو.\n\nجک اندا مليهت اينتري يڠ اندا تيدق كنالي⹁ لوݢ کلوار درڤد ڤرنتي ايت دان/دن توكر کات لالوان اکاءون مودرين‌ث (Modrinth) اندا دڠن سݢرا."
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "کالي تراخير دأکسيس {ago}"
   },
   "settings.sessions.title": {
     "message": "سيسي"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "OS تيدق دکتاهوءي"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "ڤلتفورم تيدق دکتاهوءي"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} ڤد جم {time, time, short}"
