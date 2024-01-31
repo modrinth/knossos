@@ -65,9 +65,6 @@
   "auth.sign-in.2fa.placeholder": {
     "message": "Code eingeben..."
   },
-  "auth.sign-in.action.sign-in": {
-    "message": "Anmelden"
-  },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Password vergessen?</forgot-password-link> • <create-account-link>Konto erstellen</create-account-link>"
   },
@@ -106,9 +103,6 @@
   },
   "auth.sign-up.password.label": {
     "message": "Passwort"
-  },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Anmelden"
   },
   "auth.sign-up.sign-in-option.title": {
     "message": "Schon ein Konto vorhanden?"
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "Weiter"
   },
+  "button.create-a-project": {
+    "message": "Projekt erstellen"
+  },
   "button.edit": {
     "message": "Bearbeiten"
   },
@@ -187,6 +184,12 @@
   },
   "button.save-changes": {
     "message": "Änderungen speichern"
+  },
+  "button.sign-in": {
+    "message": "Anmelden"
+  },
+  "button.sign-out": {
+    "message": "Abmelden"
   },
   "collection.button.delete-icon": {
     "message": "Symbol löschen"
@@ -290,6 +293,9 @@
   "label.created-ago": {
     "message": "Erstellt {ago}"
   },
+  "label.dashboard": {
+    "message": "Dashboard"
+  },
   "label.delete": {
     "message": "Löschen"
   },
@@ -301,6 +307,12 @@
   },
   "label.followed-projects": {
     "message": "Gefolgte Projekte"
+  },
+  "label.moderation": {
+    "message": "Moderation"
+  },
+  "label.notifications": {
+    "message": "Benachrichtigungen"
   },
   "label.password": {
     "message": "Passwort"
@@ -314,6 +326,9 @@
   "label.scopes": {
     "message": "Berechtigungen"
   },
+  "label.settings": {
+    "message": "Einstellungen"
+  },
   "label.title": {
     "message": "Titel"
   },
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "Sichtbarkeit"
+  },
+  "layout.action.change-theme": {
+    "message": "Farbschema ändern"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Modrinth App herunterladen"
+  },
+  "layout.avatar.alt": {
+    "message": "Dein Avatar"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Kontoeinstellungen anzeigen"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Aus sicherheitsgründen, gib bitte deine E-Mail auf Modrinth ein."
+  },
+  "layout.banner.staging.description": {
+    "message": "Die Staging-Version läuft auf einer Kopie der Prouktions-Datenbank von Modrinth. Sie wird zu Test- und Debuggingzwecken verwendet und kann eventuel in der Entwicklung befindliche Versionen des Modrinth Backends oder Frontends der Produktionsinstanz verwenden."
+  },
+  "layout.banner.staging.title": {
+    "message": "Du siehst dir Modrinth's Staging-Umgebung an."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Bestätigungs-E-Mail erneut senden"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "Aus sicherheitsgründen bestätige bitte deine E-Mail auf Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Karrieren"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Privatsphäre"
+  },
+  "layout.footer.company.rules": {
+    "message": "Regeln"
+  },
+  "layout.footer.company.terms": {
+    "message": "AGB"
+  },
+  "layout.footer.company.title": {
+    "message": "Firma"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interagieren"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "KEIN OFFIZIELLER SERVICE VON MINECRAFT. NICHT UNTERSTÜTZT VON ODER ASSOZIIERT MIT MOJANG ODER MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth ist <github-link>Quelloffen</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Doks"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Support"
+  },
+  "layout.footer.resources.title": {
+    "message": "Resourcen"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Dein Profil ansehen"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Menü umschalten"
+  },
+  "layout.meta.description": {
+    "message": "Lade Minecraft Mods, Plugins, Datenpackete, Shader, Resourcenpackete und Modpackete auf Modrinth herunter. Finder und veröffentliche Projekte auf Modrinth mit einer modernen, einfach zu verwenden Benutzeroberfläche und API."
+  },
+  "layout.meta.og-description": {
+    "message": "Finde und veröffenliche Minecraft-Inhalte!"
+  },
+  "layout.nav.home": {
+    "message": "Startseite"
+  },
+  "layout.nav.search": {
+    "message": "Suche"
   },
   "notification.error.title": {
     "message": "Ein Fehler ist aufgetreten"
