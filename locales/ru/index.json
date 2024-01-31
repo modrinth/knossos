@@ -54,28 +54,25 @@
     "message": "Сброс пароля"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Восстановление пароля"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Для продолжения введите код проверки двухфакторной аутентификации."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Код двухфакторной аутентификации"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
-  },
-  "auth.sign-in.action.sign-in": {
-    "message": "Регистрация"
+    "message": "Введите код..."
   },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Забыли пароль?</forgot-password-link> • <create-account-link>Регистрация</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Электронная почта или имя пользователя"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Пароль"
   },
   "auth.sign-in.sign-in-with": {
     "message": "Авторизуйтесь через"
@@ -93,10 +90,10 @@
     "message": "Подтвердите пароль"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "Электронная почта"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Имя пользователя"
   },
   "auth.sign-up.legal-dislaimer": {
     "message": "Создавая учётную запись, вы соглашаетесь с нашими <terms-link>условиями</terms-link> и <privacy-policy-link>политикой конфиденциальности</privacy-policy-link>."
@@ -107,11 +104,8 @@
   "auth.sign-up.password.label": {
     "message": "Пароль"
   },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Sign in"
-  },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Уже зарегистрированы?"
   },
   "auth.sign-up.subscribe.label": {
     "message": "Подписаться на новости Modrinth"
@@ -120,7 +114,7 @@
     "message": "Вход"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Или зарегистрируйтесь"
   },
   "auth.sign-up.title.sign-up-with": {
     "message": "Вход через"
@@ -132,13 +126,13 @@
     "message": "Sign in"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "Адрес вашей электронной почты уже подтверждён."
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "Адрес уже подтверждён"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Отправить письмо ещё раз"
   },
   "auth.verify-email.failed-verification.description": {
     "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "Продолжить"
   },
+  "button.create-a-project": {
+    "message": "Создать проект"
+  },
   "button.edit": {
     "message": "Редактировать"
   },
@@ -187,6 +184,12 @@
   },
   "button.save-changes": {
     "message": "Сохранить изменения"
+  },
+  "button.sign-in": {
+    "message": "Регистрация"
+  },
+  "button.sign-out": {
+    "message": "Выйти"
   },
   "collection.button.delete-icon": {
     "message": "Удалить значок"
@@ -290,6 +293,9 @@
   "label.created-ago": {
     "message": "Создан {ago}"
   },
+  "label.dashboard": {
+    "message": "Аналитика"
+  },
   "label.delete": {
     "message": "Удалить"
   },
@@ -301,6 +307,12 @@
   },
   "label.followed-projects": {
     "message": "Отслеживаемые проекты"
+  },
+  "label.moderation": {
+    "message": "Модерация"
+  },
+  "label.notifications": {
+    "message": "Уведомления"
   },
   "label.password": {
     "message": "Пароль"
@@ -314,6 +326,9 @@
   "label.scopes": {
     "message": "Разрешения"
   },
+  "label.settings": {
+    "message": "Настройки"
+  },
   "label.title": {
     "message": "Заголовок"
   },
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "Видимость"
+  },
+  "layout.action.change-theme": {
+    "message": "Изменить тему"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Загрузить Modrinth App"
+  },
+  "layout.avatar.alt": {
+    "message": "Аватар"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Открыть настройки учётной записи"
+  },
+  "layout.banner.add-email.title": {
+    "message": "В целях безопасности требуется указать ваш электронный адрес."
+  },
+  "layout.banner.staging.description": {
+    "message": "Страница тестирования – это копия основного сайта Modrinth. Она нужна в целях тестирования и поиска ошибок в более новых по сравнению с обычной версиях бэкенда или фронтэнда Modrinth."
+  },
+  "layout.banner.staging.title": {
+    "message": "Вы находитесь на странице тестирования Modrinth."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Отправить письмо с подтверждением ещё раз"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "В целях безопасности требуется подтвердить ваш электронный адрес."
+  },
+  "layout.footer.company.careers": {
+    "message": "Вакансии"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Конфиденциальность"
+  },
+  "layout.footer.company.rules": {
+    "message": "Правила"
+  },
+  "layout.footer.company.terms": {
+    "message": "Условия"
+  },
+  "layout.footer.company.title": {
+    "message": "Компания"
+  },
+  "layout.footer.interact.title": {
+    "message": "Сообщество"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "НЕ ЯВЛЯЕТСЯ ОФИЦИАЛЬНОЙ УСЛУГОЙ MINECRAFT. НЕ ОДОБРЕНО И НЕ СВЯЗАНО С КОМПАНИЕЙ MOJANG ИЛИ MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth – <github-link>проект с открытым исходным кодом</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Блог"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Документация"
+  },
+  "layout.footer.resources.status": {
+    "message": "Статус"
+  },
+  "layout.footer.resources.support": {
+    "message": "Поддержка"
+  },
+  "layout.footer.resources.title": {
+    "message": "Ресурсы"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Открыть профиль"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Меню"
+  },
+  "layout.meta.description": {
+    "message": "Загружайте моды, плагины, наборы шейдеров, ресурсов, данных и сборки для Minecraft. Современный и удобный дизайн и API помогут вам в поиске и публикации проектов на Modrinth."
+  },
+  "layout.meta.og-description": {
+    "message": "Исследуйте и делитесь контентом для Minecraft!"
+  },
+  "layout.nav.home": {
+    "message": "Главная"
+  },
+  "layout.nav.search": {
+    "message": "Поиск"
   },
   "notification.error.title": {
     "message": "Произошла ошибка"
@@ -579,7 +678,7 @@
     "message": "Создание жалоб"
   },
   "scopes.reportDelete.description": {
-    "message": "Возможность удаления отравленных жалоб"
+    "message": "Возможность удаления отправленных жалоб"
   },
   "scopes.reportDelete.label": {
     "message": "Удаление жалоб"
@@ -714,7 +813,7 @@
     "message": "Подтвердите для фокусировки на первом результате поиска"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "Поиск языков..."
+    "message": "Поиск языка..."
   },
   "settings.language.languages.search-results-announcement": {
     "message": "По вашему запросу {matches, plural, =0 {не нашлось ни одного языка} one {нашёлся # язык} few {нашлось # языка} many {нашлось # языков} other {нашлось # языка}}."
