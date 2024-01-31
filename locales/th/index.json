@@ -1,99 +1,96 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "อนุญาต"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "ปฏิเสธ"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> โดย <creator-link>{creator}</creator-link> จะสามารถ:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "อนุญาตให้ {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
     "message": "No redirect location found in response"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "คุณจะถูกส่งไปยัง <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "ส่งอีเมลสำหรับกู้คืน"
   },
   "auth.reset-password.method-choice.description": {
     "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "อีเมล หรือ ชื่อผู้ใช้งาน"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "อีเมล"
   },
   "auth.reset-password.notification.email-sent.text": {
     "message": "An email with instructions has been sent to you if the email was previously saved on your account."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "ส่งอีเมลแล้ว"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "ตอนนี้คุณสามารถเข้าบัญชีของคุณด้วยรหัสผ่านใหม่ได้แล้ว"
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "รีเซ็ตรหัสผ่านเรียบร้อยแล้ว"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "ตั้งรหัสผ่านใหม่"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "ยืนยันรหัสผ่าน"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "ป้อนรหัสผ่านใหม่ของคุณด้านล่างเพื่อเข้าถึงบัญชีของคุณ"
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "ตั้งรหัสผ่านใหม่"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "ตั้งรหัสผ่านของคุณใหม่"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "โปรดป้อนรหัสสองปัจจัยเพื่อดำเนินการต่อ"
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "ป้อนรหัสสองปัจจัย"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
-  },
-  "auth.sign-in.action.sign-in": {
-    "message": "Sign in"
+    "message": "ป้อนโค้ด"
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>ลืมรหัสผ่าน?</forgot-password-link> • <create-account-link>สร้างบัญชีใหม่</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "อีเมล หรือ ชื่อผู้ใช้งาน"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "รหัสผ่าน"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "ลงชื่อเข้าใช้ด้วย"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "ลงชื่อเข้าใช้"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "หรือใช้รหัสผ่าน"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "สร้างบัญชี"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "ยืนยันรหัสผ่าน"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "อีเมล"
   },
   "auth.sign-up.label.username": {
     "message": "Username"
@@ -106,9 +103,6 @@
   },
   "auth.sign-up.password.label": {
     "message": "Password"
-  },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Sign in"
   },
   "auth.sign-up.sign-in-option.title": {
     "message": "Already have an account?"
@@ -156,7 +150,7 @@
     "message": "Email verification"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "ยืนยันอีเมล"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "Subscribe to updates about Modrinth"
@@ -171,13 +165,16 @@
     "message": "Welcome to Modrinth!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "ยินดีต้อนรับ"
   },
   "button.cancel": {
     "message": "ยกเลิก"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "ดำเนินการต่อ"
+  },
+  "button.create-a-project": {
+    "message": "Create a project"
   },
   "button.edit": {
     "message": "แก้ไข"
@@ -187,6 +184,12 @@
   },
   "button.save-changes": {
     "message": "Save changes"
+  },
+  "button.sign-in": {
+    "message": "Sign in"
+  },
+  "button.sign-out": {
+    "message": "Sign out"
   },
   "collection.button.delete-icon": {
     "message": "Delete icon"
@@ -290,6 +293,9 @@
   "label.created-ago": {
     "message": "Created {ago}"
   },
+  "label.dashboard": {
+    "message": "Dashboard"
+  },
   "label.delete": {
     "message": "Delete"
   },
@@ -301,6 +307,12 @@
   },
   "label.followed-projects": {
     "message": "Followed projects"
+  },
+  "label.moderation": {
+    "message": "Moderation"
+  },
+  "label.notifications": {
+    "message": "Notifications"
   },
   "label.password": {
     "message": "Password"
@@ -314,6 +326,9 @@
   "label.scopes": {
     "message": "Scopes"
   },
+  "label.settings": {
+    "message": "Settings"
+  },
   "label.title": {
     "message": "Title"
   },
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "Visibility"
+  },
+  "layout.action.change-theme": {
+    "message": "Change theme"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Get Modrinth App"
+  },
+  "layout.avatar.alt": {
+    "message": "Your avatar"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Visit account settings"
+  },
+  "layout.banner.add-email.title": {
+    "message": "For security purposes, please enter your email on Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+  },
+  "layout.banner.staging.title": {
+    "message": "You’re viewing Modrinth’s staging environment."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Re-send verification email"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "For security purposes, please verify your email address on Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Careers"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Privacy"
+  },
+  "layout.footer.company.rules": {
+    "message": "Rules"
+  },
+  "layout.footer.company.terms": {
+    "message": "Terms"
+  },
+  "layout.footer.company.title": {
+    "message": "Company"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interact"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth is <github-link>open source</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Docs"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Support"
+  },
+  "layout.footer.resources.title": {
+    "message": "Resources"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Visit your profile"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Toggle menu"
+  },
+  "layout.meta.description": {
+    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+  },
+  "layout.meta.og-description": {
+    "message": "Discover and publish Minecraft content!"
+  },
+  "layout.nav.home": {
+    "message": "Home"
+  },
+  "layout.nav.search": {
+    "message": "Search"
   },
   "notification.error.title": {
     "message": "เกิดข้อผิดพลาด"
