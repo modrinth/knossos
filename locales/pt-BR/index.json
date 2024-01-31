@@ -12,7 +12,7 @@
     "message": "Autorizar {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Nenhuma localização de redirecionamento encontrada na resposta"
   },
   "auth.authorize.redirect-url": {
     "message": "Você será redirecionado(a) para <redirect-url>{url}</redirect-url>"
@@ -57,22 +57,19 @@
     "message": "Redefina sua senha"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Digite um código de dois fatores para continuar."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Digite código de dois fatores"
   },
   "auth.sign-in.2fa.placeholder": {
     "message": "Insira o código..."
-  },
-  "auth.sign-in.action.sign-in": {
-    "message": "Entrar"
   },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Esqueceu sua senha?</forgot-password-link> • <create-account-link>Crie uma conta</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Email ou nome de usuário"
   },
   "auth.sign-in.password.label": {
     "message": "Senha"
@@ -81,7 +78,7 @@
     "message": "Entrar com"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Entrar"
   },
   "auth.sign-in.use-password": {
     "message": "Ou use sua senha"
@@ -107,9 +104,6 @@
   "auth.sign-up.password.label": {
     "message": "Senha"
   },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Entrar"
-  },
   "auth.sign-up.sign-in-option.title": {
     "message": "Já tem uma conta?"
   },
@@ -117,10 +111,10 @@
     "message": "Inscreva-se para receber atualizações do Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Cadastro"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Ou crie uma conta você mesmo"
   },
   "auth.sign-up.title.sign-up-with": {
     "message": "Entre com"
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "Continuar"
   },
+  "button.create-a-project": {
+    "message": "Create a project"
+  },
   "button.edit": {
     "message": "Editar"
   },
@@ -187,6 +184,12 @@
   },
   "button.save-changes": {
     "message": "Salvar mudanças"
+  },
+  "button.sign-in": {
+    "message": "Sign in"
+  },
+  "button.sign-out": {
+    "message": "Sign out"
   },
   "collection.button.delete-icon": {
     "message": "Excluir ícone"
@@ -201,7 +204,7 @@
     "message": "Deixar de seguir projeto"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Carregar ícone"
   },
   "collection.delete-modal.description": {
     "message": "Isso irá remover esta coleção para sempre. Essa ação não pode ser desfeita."
@@ -213,10 +216,10 @@
     "message": "{description} - Veja a coleção {name} por {username} no Modrinth"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "Coleção gerada automaticamente de todos os projetos que você está seguindo."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "Coleção não encontrada"
   },
   "collection.label.collection": {
     "message": "Coleção"
@@ -225,7 +228,7 @@
     "message": "Criado {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "Curado por"
   },
   "collection.label.no-projects": {
     "message": "Esta coleção não tem projetos!"
@@ -234,7 +237,7 @@
     "message": "Você não tem nenhum projeto.\nGostaria de <create-link>adicionar um</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Dono(a)"
   },
   "collection.label.private": {
     "message": "Privado"
@@ -255,7 +258,7 @@
     "message": "{count, plural, one {{count} projeto} other {{count} projetos}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "Pesquisar suas coleções"
   },
   "dashboard.collections.long-title": {
     "message": "Suas coleções"
@@ -290,6 +293,9 @@
   "label.created-ago": {
     "message": "Criado {ago}"
   },
+  "label.dashboard": {
+    "message": "Dashboard"
+  },
   "label.delete": {
     "message": "Excluir"
   },
@@ -302,6 +308,12 @@
   "label.followed-projects": {
     "message": "Projetos seguidos"
   },
+  "label.moderation": {
+    "message": "Moderation"
+  },
+  "label.notifications": {
+    "message": "Notifications"
+  },
   "label.password": {
     "message": "Senha"
   },
@@ -312,7 +324,10 @@
     "message": "Rejeitado"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Escopos"
+  },
+  "label.settings": {
+    "message": "Settings"
   },
   "label.title": {
     "message": "Título"
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "Visibilidade"
+  },
+  "layout.action.change-theme": {
+    "message": "Change theme"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Get Modrinth App"
+  },
+  "layout.avatar.alt": {
+    "message": "Your avatar"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Visit account settings"
+  },
+  "layout.banner.add-email.title": {
+    "message": "For security purposes, please enter your email on Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+  },
+  "layout.banner.staging.title": {
+    "message": "You’re viewing Modrinth’s staging environment."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Re-send verification email"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "For security purposes, please verify your email address on Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Careers"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Privacy"
+  },
+  "layout.footer.company.rules": {
+    "message": "Rules"
+  },
+  "layout.footer.company.terms": {
+    "message": "Terms"
+  },
+  "layout.footer.company.title": {
+    "message": "Company"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interact"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth is <github-link>open source</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Docs"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Support"
+  },
+  "layout.footer.resources.title": {
+    "message": "Resources"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Visit your profile"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Toggle menu"
+  },
+  "layout.meta.description": {
+    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+  },
+  "layout.meta.og-description": {
+    "message": "Discover and publish Minecraft content!"
+  },
+  "layout.nav.home": {
+    "message": "Home"
+  },
+  "layout.nav.search": {
+    "message": "Search"
   },
   "notification.error.title": {
     "message": "Ocorreu um erro"
@@ -507,28 +606,28 @@
     "message": "Modificar organizações"
   },
   "scopes.patCreate.description": {
-    "message": "Criar tokens de API pessoais (PATs, em inglês)"
+    "message": "Criar tokens pessoas da API"
   },
   "scopes.patCreate.label": {
-    "message": "Criar PATs"
+    "message": "Criar TPAs"
   },
   "scopes.patDelete.description": {
-    "message": "Excluir seus tokens de API pessoais"
+    "message": "Excluir seus tokens pessoas da API"
   },
   "scopes.patDelete.label": {
-    "message": "Excluir PATs"
+    "message": "Excluir TPAs"
   },
   "scopes.patRead.description": {
-    "message": "Ver tokens de API criados"
+    "message": "Ver tokens pessoas da API criados"
   },
   "scopes.patRead.label": {
-    "message": "Acessar PATs"
+    "message": "Acessar TPAs"
   },
   "scopes.patWrite.description": {
-    "message": "Modificar tokens de API pessoais"
+    "message": "Modificar tokens pessoas da API"
   },
   "scopes.patWrite.label": {
-    "message": "Modificar PATs"
+    "message": "Modificar TPAs"
   },
   "scopes.payoutsRead.description": {
     "message": "Acessar dados de pagamentos"
@@ -726,13 +825,13 @@
     "message": "Idioma"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Criar um TPA"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "TPAs podem ser usados para acessar a API do Modrinth. Para mais informações, confira a <doc-link>documentação da API do Modrinth</doc-link>. Eles podem ser criados e revogados a qualquer momento."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "Criar TPA"
   },
   "settings.pats.modal.create.expires.label": {
     "message": "Expira em"
@@ -741,40 +840,40 @@
     "message": "Nome"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Digite o nome do TPA..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Criar token pessoal de acesso"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Excluir este token"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Isso vai remover este token para sempre (tipo, pra valer mesmo)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Tem certeza de que deseja excluir este token?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Editar token pessoal de acesso"
   },
   "settings.pats.title": {
-    "message": "PATs"
+    "message": "TPAs"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Tokens Pessoais de Acesso (TPA)"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Editar token"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Revogar token"
   },
   "settings.pats.token.expired-ago": {
     "message": "Expirou {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Expira {inTime}"
   },
   "settings.pats.token.last-used": {
     "message": "Usado pela última vez {ago}"
