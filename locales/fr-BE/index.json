@@ -1,21 +1,21 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Autoriser"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Rejeter"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> par <creator-link>{creator}</creator-link> pourra :"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Autoriser {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Aucun lieu de redirection trouvé dans la réponse"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Vous allez être redirigé vers <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Envoyer l'e-mail de réinitialisation"
@@ -65,9 +65,6 @@
   "auth.sign-in.2fa.placeholder": {
     "message": "Enter code..."
   },
-  "auth.sign-in.action.sign-in": {
-    "message": "Sign in"
-  },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
   },
@@ -106,9 +103,6 @@
   },
   "auth.sign-up.password.label": {
     "message": "Password"
-  },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Sign in"
   },
   "auth.sign-up.sign-in-option.title": {
     "message": "Already have an account?"
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "Continuer"
   },
+  "button.create-a-project": {
+    "message": "Créer un projet"
+  },
   "button.edit": {
     "message": "Modifier"
   },
@@ -186,7 +183,13 @@
     "message": "Enregistrer"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Enregistrer les modifications"
+  },
+  "button.sign-in": {
+    "message": "Se connecter"
+  },
+  "button.sign-out": {
+    "message": "Se déconnecter"
   },
   "collection.button.delete-icon": {
     "message": "Delete icon"
@@ -237,7 +240,7 @@
     "message": "Owner"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "Privé"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
@@ -249,7 +252,7 @@
     "message": "{name} - Collection"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "Créer une nouvelle"
   },
   "dashboard.collections.label.projects-count": {
     "message": "{count, plural, one {{count} project} other {{count} projects}}"
@@ -288,7 +291,10 @@
     "message": "Collections"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Créé {ago}"
+  },
+  "label.dashboard": {
+    "message": "Tableau de bord"
   },
   "label.delete": {
     "message": "Delete"
@@ -297,10 +303,16 @@
     "message": "Description"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Erreur"
   },
   "label.followed-projects": {
     "message": "Followed projects"
+  },
+  "label.moderation": {
+    "message": "Modération"
+  },
+  "label.notifications": {
+    "message": "Notifications"
   },
   "label.password": {
     "message": "Password"
@@ -314,6 +326,9 @@
   "label.scopes": {
     "message": "Scopes"
   },
+  "label.settings": {
+    "message": "Paramètres"
+  },
   "label.title": {
     "message": "Title"
   },
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "Visibility"
+  },
+  "layout.action.change-theme": {
+    "message": "Change theme"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Get Modrinth App"
+  },
+  "layout.avatar.alt": {
+    "message": "Votre avatar"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Visit account settings"
+  },
+  "layout.banner.add-email.title": {
+    "message": "For security purposes, please enter your email on Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+  },
+  "layout.banner.staging.title": {
+    "message": "You’re viewing Modrinth’s staging environment."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Re-send verification email"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "For security purposes, please verify your email address on Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Careers"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Privacy"
+  },
+  "layout.footer.company.rules": {
+    "message": "Règles"
+  },
+  "layout.footer.company.terms": {
+    "message": "Terms"
+  },
+  "layout.footer.company.title": {
+    "message": "Company"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interact"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth is <github-link>open source</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Documentation"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Support"
+  },
+  "layout.footer.resources.title": {
+    "message": "Ressources"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Visit your profile"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Toggle menu"
+  },
+  "layout.meta.description": {
+    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+  },
+  "layout.meta.og-description": {
+    "message": "Discover and publish Minecraft content!"
+  },
+  "layout.nav.home": {
+    "message": "Home"
+  },
+  "layout.nav.search": {
+    "message": "Rechercher"
   },
   "notification.error.title": {
     "message": "Une erreur est survenue"
@@ -726,61 +825,61 @@
     "message": "Langue"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Créer un PAT"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "Les PATs peuvent être utilisés pour accéder à l'API de Modrinth. Pour plus d'informations, consultez la documentation de l'API <doc-link>Modrinth's</doc-link>. Elles peuvent être créées et révoquées à tout moment."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "Créer le PAT"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Expire"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Nom"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Entrez le nom du PAT..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Créer un jeton d'accès personnel"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Supprimer ce jeton"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Cela supprimera définitivement ce jeton (vraiment toujours)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Êtes-vous sûr(e) de vouloir supprimer ce jeton ?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Modifier le jeton d'accès personnel"
   },
   "settings.pats.title": {
     "message": "PATs"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Jetons d'accès personnel"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Modifier le jeton"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Révoquer le jeton"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "A expiré {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Expire {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Dernière utilisation {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Jamais utilisé"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Revoke session"
@@ -804,7 +903,7 @@
     "message": "Unknown OS"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Plateforme inconnue"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} à {time, time, short}"
