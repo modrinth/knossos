@@ -6,13 +6,13 @@
     "message": "拒絕"
   },
   "auth.authorize.app-info": {
-    "message": "由 <creator-link>{creator}</creator-link> 建立的 <strong>{appName}</strong> 將能夠："
+    "message": "<strong>{appName}</strong> 的 <creator-link>{creator}</creator-link> 將能夠："
   },
   "auth.authorize.authorize-app-name": {
     "message": "授權 {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "回應中找不到重新導向位置"
+    "message": "在回應中找不到重新導向位置"
   },
   "auth.authorize.redirect-url": {
     "message": "您將被重新導向至 <redirect-url>{url}</redirect-url>"
@@ -65,9 +65,6 @@
   "auth.sign-in.2fa.placeholder": {
     "message": "輸入代碼..."
   },
-  "auth.sign-in.action.sign-in": {
-    "message": "登入"
-  },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>忘記密碼？</forgot-password-link> • <create-account-link>建立帳號</create-account-link>"
   },
@@ -99,16 +96,13 @@
     "message": "使用者名稱"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
+    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
   },
   "auth.sign-up.notification.password-mismatch.text": {
     "message": "密碼不正確！"
   },
   "auth.sign-up.password.label": {
     "message": "密碼"
-  },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "登入"
   },
   "auth.sign-up.sign-in-option.title": {
     "message": "已有帳號？"
@@ -165,7 +159,7 @@
     "message": "感謝您建立帳號。您現在可以追蹤和建立專案，接收有關您喜愛專案的更新，以及更多功能！"
   },
   "auth.welcome.label.tos": {
-    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
+    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
   },
   "auth.welcome.long-title": {
     "message": "歡迎使用 Modrinth！"
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "下一步"
   },
+  "button.create-a-project": {
+    "message": "建立專案"
+  },
   "button.edit": {
     "message": "編輯"
   },
@@ -187,6 +184,12 @@
   },
   "button.save-changes": {
     "message": "儲存變更"
+  },
+  "button.sign-in": {
+    "message": "登入"
+  },
+  "button.sign-out": {
+    "message": "登出"
   },
   "collection.button.delete-icon": {
     "message": "刪除圖示"
@@ -246,7 +249,7 @@
     "message": "更新於 {ago}"
   },
   "collection.title": {
-    "message": "{name} - 收藏"
+    "message": "{name} - 收藏夾"
   },
   "dashboard.collections.button.create-new": {
     "message": "新增"
@@ -290,6 +293,9 @@
   "label.created-ago": {
     "message": "建立於 {ago}"
   },
+  "label.dashboard": {
+    "message": "儀表板"
+  },
   "label.delete": {
     "message": "刪除"
   },
@@ -301,6 +307,12 @@
   },
   "label.followed-projects": {
     "message": "已追蹤的專案"
+  },
+  "label.moderation": {
+    "message": "管理"
+  },
+  "label.notifications": {
+    "message": "通知"
   },
   "label.password": {
     "message": "密碼"
@@ -314,6 +326,9 @@
   "label.scopes": {
     "message": "範圍"
   },
+  "label.settings": {
+    "message": "設定"
+  },
   "label.title": {
     "message": "標題"
   },
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "可見度"
+  },
+  "layout.action.change-theme": {
+    "message": "變更主題"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "取得 Modrinth App"
+  },
+  "layout.avatar.alt": {
+    "message": "您的頭像"
+  },
+  "layout.banner.add-email.button": {
+    "message": "查看帳號設定"
+  },
+  "layout.banner.add-email.title": {
+    "message": "出於安全考量，請在 Modrinth 上輸入您的電子郵件。"
+  },
+  "layout.banner.staging.description": {
+    "message": "臨時環境在生產 Modrinth 資料庫的副本上執行。這用於測試和除錯目的，並且可能執行比生產實例更新的 Modrinth 後端或前端的開發版本。"
+  },
+  "layout.banner.staging.title": {
+    "message": "你正在查看 Modrinth 的臨時環境。"
+  },
+  "layout.banner.verify-email.action": {
+    "message": "重新傳送驗證電子郵件"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "出於安全考量，請在 Modrinth 上驗證您的電子郵件地址。"
+  },
+  "layout.footer.company.careers": {
+    "message": "職業生涯"
+  },
+  "layout.footer.company.privacy": {
+    "message": "隱私權條款"
+  },
+  "layout.footer.company.rules": {
+    "message": "社群規範"
+  },
+  "layout.footer.company.terms": {
+    "message": "服務條款"
+  },
+  "layout.footer.company.title": {
+    "message": "公司"
+  },
+  "layout.footer.interact.title": {
+    "message": "互動"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "非官方 MINECRAFT 服務。未經 MOJANG 或 MICROSOFT 核准或與之關聯。"
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth 是 <github-link>開源</github-link> 的。"
+  },
+  "layout.footer.resources.blog": {
+    "message": "部落格"
+  },
+  "layout.footer.resources.docs": {
+    "message": "文件"
+  },
+  "layout.footer.resources.status": {
+    "message": "狀態"
+  },
+  "layout.footer.resources.support": {
+    "message": "支援"
+  },
+  "layout.footer.resources.title": {
+    "message": "資源"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "查看您的個人檔案"
+  },
+  "layout.menu-toggle.action": {
+    "message": "切換選單"
+  },
+  "layout.meta.description": {
+    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。 透過現代化、易於使用的介面和 API 在 Modrinth 上探索並發布專案。"
+  },
+  "layout.meta.og-description": {
+    "message": "探索並發布 Minecraft 內容！"
+  },
+  "layout.nav.home": {
+    "message": "首頁"
+  },
+  "layout.nav.search": {
+    "message": "搜尋"
   },
   "notification.error.title": {
     "message": "發生錯誤"
@@ -729,7 +828,7 @@
     "message": "建立個人存取權杖"
   },
   "settings.pats.description": {
-    "message": "個人存取權杖可用於存取 Modrinth 的 API。有關更多資訊，請參閱 <doc-link>Modrinth 的 API 文件</doc-link>。它們可以隨時建立和撤銷這些令牌。"
+    "message": "個人存取權杖可用於存取 Modrinth 的 API。請參閱 <doc-link>Modrinth 的 API 文件</doc-link>，以取得更多相關資訊。您可以隨時建立和撤銷這些令牌。"
   },
   "settings.pats.modal.create.action": {
     "message": "建立個人存取權杖"
@@ -780,7 +879,7 @@
     "message": "上次使用於 {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "從不使用"
+    "message": "從未使用"
   },
   "settings.sessions.action.revoke-session": {
     "message": "撤銷工作階段授權"
