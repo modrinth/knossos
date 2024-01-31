@@ -65,9 +65,6 @@
   "auth.sign-in.2fa.placeholder": {
     "message": "Кодны кертегез..."
   },
-  "auth.sign-in.action.sign-in": {
-    "message": "Теркәлү"
-  },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
   },
@@ -78,13 +75,13 @@
     "message": "Серсүз"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Аларны ярдәмендә керегез"
   },
   "auth.sign-in.title": {
-    "message": "Теркәлү"
+    "message": "Керү"
   },
   "auth.sign-in.use-password": {
-    "message": "Яки серсүзне куллану"
+    "message": "Яки серсүзне кулланыгыз"
   },
   "auth.sign-up.action.create-account": {
     "message": "Аккаунтны ясау"
@@ -107,29 +104,26 @@
   "auth.sign-up.password.label": {
     "message": "Серсүз"
   },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Теркәлү"
-  },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Аккаунтыгыз бар инде?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Modrinth яңалыкларына язылу"
   },
   "auth.sign-up.title": {
     "message": "Керү"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Яки аккаунтны үзегез ясагыз"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Аларны ярдәмендә теркәлү"
   },
   "auth.verify-email.action.account-settings": {
     "message": "Аккаунт көйләүләре"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Теркәлү"
+    "message": "Керү"
   },
   "auth.verify-email.already-verified.description": {
     "message": "Your email is already verified!"
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "Дәвам итү"
   },
+  "button.create-a-project": {
+    "message": "Проектны ясау"
+  },
   "button.edit": {
     "message": "Үзгәртү"
   },
@@ -187,6 +184,12 @@
   },
   "button.save-changes": {
     "message": "Үзгәрешләрне саклау"
+  },
+  "button.sign-in": {
+    "message": "Керү"
+  },
+  "button.sign-out": {
+    "message": "Чыгу"
   },
   "collection.button.delete-icon": {
     "message": "Тамгачыкны бетерү"
@@ -225,10 +228,10 @@
     "message": "{ago} ясалды"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "Багавыл (куратор)"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "Бу коллекциядә проектлар юк!"
   },
   "collection.label.no-projects-auth": {
     "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
@@ -240,7 +243,7 @@
     "message": "Чикләнгән"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, other {{count} проект}}"
   },
   "collection.label.updated-at": {
     "message": "{ago} яңартылды"
@@ -258,7 +261,7 @@
     "message": "Search your collections"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "Сезнең коллекцияләр"
   },
   "frog": {
     "message": "Сез бакаланды! 🐸"
@@ -285,10 +288,13 @@
     "message": "Исемлек"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "Коллекцияләр"
   },
   "label.created-ago": {
     "message": "{ago} ясалды"
+  },
+  "label.dashboard": {
+    "message": "Аналитика"
   },
   "label.delete": {
     "message": "Бетерү"
@@ -302,6 +308,12 @@
   "label.followed-projects": {
     "message": "Followed projects"
   },
+  "label.moderation": {
+    "message": "Модерация"
+  },
+  "label.notifications": {
+    "message": "Хәбәрләр"
+  },
   "label.password": {
     "message": "Серсүз"
   },
@@ -312,7 +324,10 @@
     "message": "Кире кагылган"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Хокуклар"
+  },
+  "label.settings": {
+    "message": "Көйләүләр"
   },
   "label.title": {
     "message": "Исем"
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "Күренүчәнлек"
+  },
+  "layout.action.change-theme": {
+    "message": "Теманы үзгәртү"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Modrinth App йөкләнү"
+  },
+  "layout.avatar.alt": {
+    "message": "Your avatar"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Аккаунт көйләүләрен ачу"
+  },
+  "layout.banner.add-email.title": {
+    "message": "For security purposes, please enter your email on Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+  },
+  "layout.banner.staging.title": {
+    "message": "You’re viewing Modrinth’s staging environment."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Re-send verification email"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "For security purposes, please verify your email address on Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Careers"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Хосусыйлык"
+  },
+  "layout.footer.company.rules": {
+    "message": "Кагыйдәләр"
+  },
+  "layout.footer.company.terms": {
+    "message": "Шартлар"
+  },
+  "layout.footer.company.title": {
+    "message": "Ширкәт"
+  },
+  "layout.footer.interact.title": {
+    "message": "Берләшмә"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "РӘСМИ MINECRAFT ХЕЗМӘТЕ ТҮГЕЛ. MOJANG ЯКИ MICROSOFT ТАРАФЫННАН ХУПЛАНМАДЫ ЯКИ АЛАРНЫҢ БЕЛӘН БӘЙЛӘНМӘДЕ."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth – <github-link>ачык чыгыш кодлы проект</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Документлар"
+  },
+  "layout.footer.resources.status": {
+    "message": "Халәт"
+  },
+  "layout.footer.resources.support": {
+    "message": "Ярдәм"
+  },
+  "layout.footer.resources.title": {
+    "message": "Ресурслар"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Visit your profile"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Меню"
+  },
+  "layout.meta.description": {
+    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+  },
+  "layout.meta.og-description": {
+    "message": "Discover and publish Minecraft content!"
+  },
+  "layout.nav.home": {
+    "message": "Home"
+  },
+  "layout.nav.search": {
+    "message": "Эзләү"
   },
   "notification.error.title": {
     "message": "Хата булды"
@@ -447,13 +546,13 @@
     "message": "Read analytics"
   },
   "scopes.collectionCreate.description": {
-    "message": "Коллекцияләрне ясау"
+    "message": "Коллекцияләрне ясау хокукы"
   },
   "scopes.collectionCreate.label": {
     "message": "Коллекцияләрне ясау"
   },
   "scopes.collectionDelete.description": {
-    "message": "Коллекцияләрне бетерү"
+    "message": "Коллекцияләрне бетерү хокукы"
   },
   "scopes.collectionDelete.label": {
     "message": "Коллекцияләрне бетерү"
@@ -510,13 +609,13 @@
     "message": "Create personal API tokens"
   },
   "scopes.patCreate.label": {
-    "message": "PAT'ларны ясау"
+    "message": "Рөхсәт токеннарын ясау"
   },
   "scopes.patDelete.description": {
     "message": "Delete your personal API tokens"
   },
   "scopes.patDelete.label": {
-    "message": "PAT'ларны бетерү"
+    "message": "Рөхсәт токеннарын бетерү"
   },
   "scopes.patRead.description": {
     "message": "View created API tokens"
@@ -579,7 +678,7 @@
     "message": "Шикаять итү"
   },
   "scopes.reportDelete.description": {
-    "message": "Шикаять бетерү"
+    "message": "Шикаять бетерү хокукы"
   },
   "scopes.reportDelete.label": {
     "message": "Шикаять бетерү"
@@ -603,7 +702,7 @@
     "message": "Access sessions"
   },
   "scopes.sessionDelete.description": {
-    "message": "Сессияләрне бетерү"
+    "message": "Сессияләрне бетерү хокукы"
   },
   "scopes.sessionDelete.label": {
     "message": "Сессияләрне бетерү"
@@ -663,7 +762,7 @@
     "message": "Create versions"
   },
   "scopes.versionDelete.description": {
-    "message": "Версияне бетерү"
+    "message": "Версияне бетерү хокукы"
   },
   "scopes.versionDelete.label": {
     "message": "Версияләрне бетерү"
@@ -726,13 +825,13 @@
     "message": "Тел"
   },
   "settings.pats.action.create": {
-    "message": "PAT-нарны ясау"
+    "message": "Рөхсәт токенын ясау"
   },
   "settings.pats.description": {
     "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
   },
   "settings.pats.modal.create.action": {
-    "message": "PAT-нарны ясау"
+    "message": "Рөхсәт токенын ясау"
   },
   "settings.pats.modal.create.expires.label": {
     "message": "Expires"
@@ -744,31 +843,31 @@
     "message": "Enter the PAT's name..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Шәхси рөхсәт токенын ясау"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Бу токенны бетерү"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Токен бөтенләйгә бетәчәк (чыннан да мәңгегә)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Сез чыннан да бу токенны бетерергә телисезме?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Шәхси рөхсәт токенын үзгәртү"
   },
   "settings.pats.title": {
-    "message": "PATs"
+    "message": "Шәхси рөхсәт токеннары"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Шәхси рөхсәт токеннары"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Токенны үзгәртү"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Токенны кире кайтару"
   },
   "settings.pats.token.expired-ago": {
     "message": "{ago} үтте"
@@ -780,7 +879,7 @@
     "message": "{ago} кулланды"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Беркайчан да кулланмады"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Revoke session"
@@ -789,7 +888,7 @@
     "message": "{ago} ясалды"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "Хәзерге сессия"
   },
   "settings.sessions.description": {
     "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
