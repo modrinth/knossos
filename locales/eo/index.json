@@ -1,21 +1,21 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Rajtigi"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Rifuzi"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> de <creator-link>{creator}</creator-link> povus:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Rajtigi {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Neniu redirekta loko trovita en respondo"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Vi estos redirektata al <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Sendi riparan retpoŝton"
@@ -65,9 +65,6 @@
   "auth.sign-in.2fa.placeholder": {
     "message": "Tajpi kodon..."
   },
-  "auth.sign-in.action.sign-in": {
-    "message": "Ensaluti"
-  },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Ĉu forgesis pasvorton?</forgot-password-link> • <create-account-link>Krei konton</create-account-link>"
   },
@@ -106,9 +103,6 @@
   },
   "auth.sign-up.password.label": {
     "message": "Pasvorto"
-  },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Ensaluti"
   },
   "auth.sign-up.sign-in-option.title": {
     "message": "Ĉu jam havas konton?"
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "Daŭrigi"
   },
+  "button.create-a-project": {
+    "message": "Krei projekton"
+  },
   "button.edit": {
     "message": "Redakti"
   },
@@ -186,7 +183,13 @@
     "message": "Konservi"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Konservi ŝanĝojn"
+  },
+  "button.sign-in": {
+    "message": "Ensaluti"
+  },
+  "button.sign-out": {
+    "message": "Elsaluti"
   },
   "collection.button.delete-icon": {
     "message": "Forigi bildeton"
@@ -288,7 +291,10 @@
     "message": "Kolektoj"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Kreita antaŭ {ago}"
+  },
+  "label.dashboard": {
+    "message": "Panelo"
   },
   "label.delete": {
     "message": "Forigi"
@@ -297,10 +303,16 @@
     "message": "Priskribo"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Eraro"
   },
   "label.followed-projects": {
     "message": "Sekvitaj projektoj"
+  },
+  "label.moderation": {
+    "message": "Kontrolado"
+  },
+  "label.notifications": {
+    "message": "Sciigoj"
   },
   "label.password": {
     "message": "Pasvorto"
@@ -312,7 +324,10 @@
     "message": "Malakceptita"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Ampleksoj"
+  },
+  "label.settings": {
+    "message": "Agordoj"
   },
   "label.title": {
     "message": "Titolo"
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "Videbleco"
+  },
+  "layout.action.change-theme": {
+    "message": "Ŝanĝi temon"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Akiri Modrinth-an Apon"
+  },
+  "layout.avatar.alt": {
+    "message": "Via uzantobildo"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Viziti agordojn de konto"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Por sekureco, bonvolu tajpi vian rotpoŝtadreson sur Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "La sceneja medio funkcias per kopio de la produktada datumbazo Modrinth. Ĉi tio estas uzata por testi kaj elpurigi celojn, kaj eble funkciigas evoluantajn versiojn de la Modrinth malantaŭa aŭ antaŭa fino pli novaj ol la produktada ekzemplo."
+  },
+  "layout.banner.staging.title": {
+    "message": "Vi vidas la scenejan medion de Modrinth."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Resendi konfirman retpoŝton"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "Por sekureco, bonvolu validigi vian rotpoŝtadreson sur Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Karieroj"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Privateco"
+  },
+  "layout.footer.company.rules": {
+    "message": "Reguloj"
+  },
+  "layout.footer.company.terms": {
+    "message": "Kondiĉoj"
+  },
+  "layout.footer.company.title": {
+    "message": "Firmao"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interagi"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "NE OFICIALA SERIVICO DE MINECRAFT. NE APROBATA DE AŬ ASOCIATA KUN MOJANG AŬ MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth estas <github-link>malfermitkoda</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blogo"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Dokumentoj"
+  },
+  "layout.footer.resources.status": {
+    "message": "Stato"
+  },
+  "layout.footer.resources.support": {
+    "message": "Subteno"
+  },
+  "layout.footer.resources.title": {
+    "message": "Rimedoj"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Viziti vian profilon"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Baskuli menuon"
+  },
+  "layout.meta.description": {
+    "message": "Elŝuti modifojn, kromaĵojn, datumpakaĵojn, nuancilojn, resurspakaĵojn, kaj modifarojn de Minecraft per Modrinth. Trovi kaj publikigi projektojn sur Modrinth per moderna, facila interfaco kaj API."
+  },
+  "layout.meta.og-description": {
+    "message": "Trovi kaj publikigi aĵon de Minecraft!"
+  },
+  "layout.nav.home": {
+    "message": "Hejmo"
+  },
+  "layout.nav.search": {
+    "message": "Serĉi"
   },
   "notification.error.title": {
     "message": "Okazis eraro"
@@ -726,61 +825,61 @@
     "message": "Lingvo"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Krei PAP-on"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "PAP-oj povas esti uzata por atingi la API-n de Modrinth. Por pli da informo, vidu <doc-link>dokumentoj de API de Modrinth</doc-link>. Ili povas esti kreataj kaj revokitaj iam ajn."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "Krei PAP-on"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Eksiĝos"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Nomo"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Tajpi la nomon de la PAP..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Krei propran API-an pruvon"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Forigi ĉi tiun pruvon"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Ĉi tio forigi tiun ĉi pruvon eterne (vere, la tutan eternon)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Ĉu vi certe volas forigi tiun ĉi pruvon?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Redakti propran atingan pruvon"
   },
   "settings.pats.title": {
-    "message": "PATs"
+    "message": "PAP-oj"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Propraj Atingaj Pruvoj"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Redakti pruvon"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Fortiri pruvon"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Eksiĝis antaŭ {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Eksiĝis antaŭ {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Laste uzita antaŭ {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Neniam uzita"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Nuligi sesion"
