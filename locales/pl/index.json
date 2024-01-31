@@ -6,7 +6,7 @@
     "message": "Odrzuć"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> autorstwa <creator-link>{creator}</creator-link> będzie mogła:"
+    "message": "<strong>{appName}</strong> przez <creator-link>{creator}</creator-link> będzie mogła:"
   },
   "auth.authorize.authorize-app-name": {
     "message": "Autoryzuj {appName}"
@@ -27,19 +27,19 @@
     "message": "E-mail lub nazwa użytkownika"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "E-mail"
+    "message": "Email"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "Wiadomość e-mail z instrukcjami została wysłana jeśli e-mail był wcześniej zapisany na Twoim koncie."
+    "message": "Wiadomość e-mail z instrukcjami została wysłana, jeśli e-mail był wcześniej zapisany na Twoim koncie."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Wysłano e-mail"
+    "message": "Wiadomość e-mail wysłana"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "Możesz teraz zalogować się na swoje konto używając nowego hasła."
+    "message": "Możesz teraz zalogować się na swoje konto, używając nowego hasła."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Hasło zostało zresetowane pomyślnie"
+    "message": "Hasło zresetowane pomyślnie"
   },
   "auth.reset-password.post-challenge.action": {
     "message": "Zresetuj hasło"
@@ -57,16 +57,13 @@
     "message": "Zresetuj swoje hasło"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Wprowadź kod weryfikacji dwuetapowej, aby kontynuować."
+    "message": "Wprowadź kod dwuskładnikowy, aby kontynuować."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Wprowadź kod weryfikacji dwuetapowej"
+    "message": "Wprowadź kod dwuskładnikowy"
   },
   "auth.sign-in.2fa.placeholder": {
     "message": "Wprowadź kod..."
-  },
-  "auth.sign-in.action.sign-in": {
-    "message": "Zaloguj się"
   },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Zapomniałeś hasła?</forgot-password-link> • <create-account-link>Utwórz konto</create-account-link>"
@@ -78,10 +75,10 @@
     "message": "Hasło"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Zaloguj się za pomocą"
+    "message": "Zaloguj się przez"
   },
   "auth.sign-in.title": {
-    "message": "Logowanie"
+    "message": "Zaloguj się"
   },
   "auth.sign-in.use-password": {
     "message": "Lub użyj hasła"
@@ -93,25 +90,22 @@
     "message": "Potwierdź hasło"
   },
   "auth.sign-up.email.label": {
-    "message": "E-mail"
+    "message": "Email"
   },
   "auth.sign-up.label.username": {
     "message": "Nazwa użytkownika"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "Tworząc konto, wyrażasz zgodę na <terms-link>warunki</terms-link> i <privacy-policy-link>politykę prywatności</privacy-policy-link> Modrinth."
+    "message": "Tworząc konto, wyrażasz zgodę na <terms-link>Warunki</terms-link> i <privacy-policy-link>Politykę Prywatności</privacy-policy-link> Modrinth."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Hasła są różne!"
+    "message": "Hasła nie są zgodne!"
   },
   "auth.sign-up.password.label": {
     "message": "Hasło"
   },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Zaloguj się"
-  },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Posiadasz już konto?"
+    "message": "Masz już konto?"
   },
   "auth.sign-up.subscribe.label": {
     "message": "Subskrybuj aktualności o Modrinth"
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "Kontynuuj"
   },
+  "button.create-a-project": {
+    "message": "Utwórz projekt"
+  },
   "button.edit": {
     "message": "Edytuj"
   },
@@ -187,6 +184,12 @@
   },
   "button.save-changes": {
     "message": "Zapisz zmiany"
+  },
+  "button.sign-in": {
+    "message": "Zaloguj się"
+  },
+  "button.sign-out": {
+    "message": "Wyloguj się"
   },
   "collection.button.delete-icon": {
     "message": "Usuń ikonę"
@@ -290,6 +293,9 @@
   "label.created-ago": {
     "message": "Utworzony {ago}"
   },
+  "label.dashboard": {
+    "message": "Kokpit"
+  },
   "label.delete": {
     "message": "Usuń"
   },
@@ -301,6 +307,12 @@
   },
   "label.followed-projects": {
     "message": "Obserwowane projekty"
+  },
+  "label.moderation": {
+    "message": "Moderacja"
+  },
+  "label.notifications": {
+    "message": "Powiadomienia"
   },
   "label.password": {
     "message": "Hasło"
@@ -314,6 +326,9 @@
   "label.scopes": {
     "message": "Zakresy"
   },
+  "label.settings": {
+    "message": "Ustawienia"
+  },
   "label.title": {
     "message": "Tytuł"
   },
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "Widoczność"
+  },
+  "layout.action.change-theme": {
+    "message": "Zmień motyw"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Pobierz aplikację Modrinth"
+  },
+  "layout.avatar.alt": {
+    "message": "Twój awatar"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Odwiedź ustawienia konta"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Ze względów bezpieczeństwa podaj swój adres e-mail na Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "Środowisko testowe działa na kopii produkcyjnej bazy danych Modrinth. Jest ona używana do testowania i debugowania i może być uruchomiona w rozwoju wersji backendu lub frontendu modrinth nowszej niż instancja produkcji."
+  },
+  "layout.banner.staging.title": {
+    "message": "Przeglądasz środowisko testowe Modrinth."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Wyślij ponownie e-mail weryfikacyjny"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "Ze względów bezpieczeństwa, zweryfikuj swój adres e-mail na Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Kariery"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Prywatność"
+  },
+  "layout.footer.company.rules": {
+    "message": "Zasady"
+  },
+  "layout.footer.company.terms": {
+    "message": "Warunki"
+  },
+  "layout.footer.company.title": {
+    "message": "Firma"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interakcja"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "NIE JEST TO OFICJALNA USŁUGA MINECRAFT. NIE JEST ZATWIERDZONA ANI POWIĄZANA Z MOJANG LUB MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth to <github-link>otwarte oprogramowanie</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Dokumentacja"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Wsparcie"
+  },
+  "layout.footer.resources.title": {
+    "message": "Zasoby"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Odwiedź swój profil"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Przełącz menu"
+  },
+  "layout.meta.description": {
+    "message": "Pobieraj mody, wtyczki, datapacki, shadery, resourcepacki i modpacki do Minecrafta na Modrinth. Odkrywaj i publikuj projekty na Modrinth dzięki nowoczesnemu, łatwemu w użyciu interfejsowi i API."
+  },
+  "layout.meta.og-description": {
+    "message": "Odkrywaj i publikuj zawartość Minecraft!"
+  },
+  "layout.nav.home": {
+    "message": "Strona główna"
+  },
+  "layout.nav.search": {
+    "message": "Szukaj"
   },
   "notification.error.title": {
     "message": "Wystąpił błąd"
@@ -777,7 +876,7 @@
     "message": "Wygasa {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Ostatnio używany {ago}"
+    "message": "Ostatnio użyty {ago}"
   },
   "settings.pats.token.never-used": {
     "message": "Nigdy nie używany"
