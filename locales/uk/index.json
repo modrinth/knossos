@@ -1,6 +1,6 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Авторизуватись"
+    "message": "Авторизувати"
   },
   "auth.authorize.action.decline": {
     "message": "Відхилити"
@@ -65,9 +65,6 @@
   "auth.sign-in.2fa.placeholder": {
     "message": "Укажіть код..."
   },
-  "auth.sign-in.action.sign-in": {
-    "message": "Увійти"
-  },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Забули пароль?</forgot-password-link> • <create-account-link>Створити обліковий запис</create-account-link>"
   },
@@ -106,9 +103,6 @@
   },
   "auth.sign-up.password.label": {
     "message": "Пароль"
-  },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Увійдіть"
   },
   "auth.sign-up.sign-in-option.title": {
     "message": "Уже маєте обліковий запис?"
@@ -150,7 +144,7 @@
     "message": "Не вдалося перевірити електронну пошту"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Вашу електронну адресу успішно підтверджено!"
+    "message": "Вашу електронну пошту успішно підтверджено!"
   },
   "auth.verify-email.post-verification.title": {
     "message": "Підтвердження електронної пошти"
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "Продовжити"
   },
+  "button.create-a-project": {
+    "message": "Створити проєкт"
+  },
   "button.edit": {
     "message": "Редагувати"
   },
@@ -187,6 +184,12 @@
   },
   "button.save-changes": {
     "message": "Зберегти зміни"
+  },
+  "button.sign-in": {
+    "message": "Увійти"
+  },
+  "button.sign-out": {
+    "message": "Вийти"
   },
   "collection.button.delete-icon": {
     "message": "Видалити значок"
@@ -290,6 +293,9 @@
   "label.created-ago": {
     "message": "Створено {ago}"
   },
+  "label.dashboard": {
+    "message": "Панель керування"
+  },
   "label.delete": {
     "message": "Видалити"
   },
@@ -301,6 +307,12 @@
   },
   "label.followed-projects": {
     "message": "Підписки"
+  },
+  "label.moderation": {
+    "message": "Модерація"
+  },
+  "label.notifications": {
+    "message": "Сповіщення"
   },
   "label.password": {
     "message": "Пароль"
@@ -314,6 +326,9 @@
   "label.scopes": {
     "message": "Цілі"
   },
+  "label.settings": {
+    "message": "Налаштування"
+  },
   "label.title": {
     "message": "Назва"
   },
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "Видимість"
+  },
+  "layout.action.change-theme": {
+    "message": "Змінити тему"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Одержати Modrinth App"
+  },
+  "layout.avatar.alt": {
+    "message": "Ваш аватар"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Відвідати налаштування"
+  },
+  "layout.banner.add-email.title": {
+    "message": "З міркувань безпеки, будь ласка, укажіть вашу електронну пошту на Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "Середовище тестування працює на копії виробничої бази даних Modrinth. Воно використовується для перевірки й налагодження та може містити новіші версії бекенду або фронтенду Modrinth, які все ще перебувають у стадії розробки."
+  },
+  "layout.banner.staging.title": {
+    "message": "Ви перебуваєте у середовищі тестування Modrinth."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Повторно надіслати лист з підтвердженням"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "З міркувань безпеки, будь ласка, підтвердьте вашу електронну пошту на Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Вакансії"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Конфіденційність"
+  },
+  "layout.footer.company.rules": {
+    "message": "Правила"
+  },
+  "layout.footer.company.terms": {
+    "message": "Умови використання"
+  },
+  "layout.footer.company.title": {
+    "message": "Компанія"
+  },
+  "layout.footer.interact.title": {
+    "message": "Взаємодія"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "НЕ Є ОФІЦІЙНИМ ПРОДУКТОМ MINECRAFT. НЕ СХВАЛЕНО І НЕ ПОВ’ЯЗАНО З MOJANG ЧИ MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth має <github-link>відкритий код</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Блоґ"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Документація"
+  },
+  "layout.footer.resources.status": {
+    "message": "Стасус"
+  },
+  "layout.footer.resources.support": {
+    "message": "Підтримка"
+  },
+  "layout.footer.resources.title": {
+    "message": "Інформація"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Відвідати профіль"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Перемкнути меню"
+  },
+  "layout.meta.description": {
+    "message": "Завантажуйте модифікації, плаґіни, пакети даних, шейдери, пакети ресурсів та збірки для Minecraft на Modrinth. Досліджуйте чужі та публікуйте свої проєкти на Modrinth за допомогою сучасного, простого у використанні інтерфейсу та API."
+  },
+  "layout.meta.og-description": {
+    "message": "Досліджуйте чужий та публікуйте свій уміст для Minecraft!"
+  },
+  "layout.nav.home": {
+    "message": "Головна"
+  },
+  "layout.nav.search": {
+    "message": "Пошук"
   },
   "notification.error.title": {
     "message": "Виникла помилка"
