@@ -6,7 +6,7 @@
     "message": "Reddet"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> (<creator-link>{creator}</creator-link>) şunu yapabilecek:"
   },
   "auth.authorize.authorize-app-name": {
     "message": "{appName} uygulamasını yetkilendir"
@@ -65,9 +65,6 @@
   "auth.sign-in.2fa.placeholder": {
     "message": "Kod gir..."
   },
-  "auth.sign-in.action.sign-in": {
-    "message": "Giriş Yap"
-  },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Şifremi Unuttum</forgot-password-link> • <create-account-link>Bir hesap oluştur</create-account-link>"
   },
@@ -106,9 +103,6 @@
   },
   "auth.sign-up.password.label": {
     "message": "Parola"
-  },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Giriş yap"
   },
   "auth.sign-up.sign-in-option.title": {
     "message": "Zaten bir hesabınız var mı?"
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "Devam"
   },
+  "button.create-a-project": {
+    "message": "Bir proje oluştur"
+  },
   "button.edit": {
     "message": "Düzenle"
   },
@@ -187,6 +184,12 @@
   },
   "button.save-changes": {
     "message": "Değişiklikleri kaydet"
+  },
+  "button.sign-in": {
+    "message": "Giriş yap"
+  },
+  "button.sign-out": {
+    "message": "Çıkış yap"
   },
   "collection.button.delete-icon": {
     "message": "Simge sil"
@@ -290,6 +293,9 @@
   "label.created-ago": {
     "message": "{ago} oluşturuldu"
   },
+  "label.dashboard": {
+    "message": "Panel"
+  },
   "label.delete": {
     "message": "Sil"
   },
@@ -301,6 +307,12 @@
   },
   "label.followed-projects": {
     "message": "Takip edilen projeler"
+  },
+  "label.moderation": {
+    "message": "Moderasyon"
+  },
+  "label.notifications": {
+    "message": "Bildirimler"
   },
   "label.password": {
     "message": "Parola"
@@ -314,6 +326,9 @@
   "label.scopes": {
     "message": "Kapsamlar"
   },
+  "label.settings": {
+    "message": "Ayarlar"
+  },
   "label.title": {
     "message": "Başlık"
   },
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "Görünürlük"
+  },
+  "layout.action.change-theme": {
+    "message": "Tema değiştir"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Modrinth uygulaması edin"
+  },
+  "layout.avatar.alt": {
+    "message": "Avatarın"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Hesap ayarlarını ziyaret et"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Güvenlik amacıyla, lütfen Modrinth'te emailinizi girin."
+  },
+  "layout.banner.staging.description": {
+    "message": "Hazırlama ortamı, üretim Modrinth veri tabanının bir kopyası üzerinde çalışır. Bu, test ve hata ayıklama amacıyla kullanılır ve Modrinth arka ucunun veya ön ucunun üretim örneğinden daha yeni geliştirme sürümlerini çalıştırıyor olabilir."
+  },
+  "layout.banner.staging.title": {
+    "message": "Modrinth'in hazırlama ortamını görüntülüyorsunuz."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Doğrulama emailini yeniden gönder"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "Güvenlik amacıyla, lütfen Modrinth'te email adresinizi doğrulayın."
+  },
+  "layout.footer.company.careers": {
+    "message": "Kariyerler"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Gizlilik"
+  },
+  "layout.footer.company.rules": {
+    "message": "Kurallar"
+  },
+  "layout.footer.company.terms": {
+    "message": "Koşullar"
+  },
+  "layout.footer.company.title": {
+    "message": "Şirket"
+  },
+  "layout.footer.interact.title": {
+    "message": "Etkileşim"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "RESMİ BİR MINECRAFT HİZMETİ DEĞİLDİR. MOJANG VEYA MICROSOFT TARAFINDAN ONAYLANMAMIŞTIR VEYA BUNLARLA İLİŞKİLİ DEĞİLDİR."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth <github-link>açık kaynaktır</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Dokümantasyon"
+  },
+  "layout.footer.resources.status": {
+    "message": "Durum"
+  },
+  "layout.footer.resources.support": {
+    "message": "Destek"
+  },
+  "layout.footer.resources.title": {
+    "message": "Kaynaklar"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Profilini ziyaret et"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Menü aç/kapa"
+  },
+  "layout.meta.description": {
+    "message": "Modrinth üzerinden Minecraft modları, eklentileri, veri paketleri, shaderları, kaynak paketleri ve mod paketleri indir. Modern ve kullanımı kolay bir arayüz ve API ile Modrinth üzerinden projeler keşfet ve yayınla."
+  },
+  "layout.meta.og-description": {
+    "message": "Minecraft içeriği keşfet ve yayınla!"
+  },
+  "layout.nav.home": {
+    "message": "Anasayfa"
+  },
+  "layout.nav.search": {
+    "message": "Arama"
   },
   "notification.error.title": {
     "message": "Bir hata oluştu"
