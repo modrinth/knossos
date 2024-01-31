@@ -65,9 +65,6 @@
   "auth.sign-in.2fa.placeholder": {
     "message": "Masukkan kod..."
   },
-  "auth.sign-in.action.sign-in": {
-    "message": "Log masuk"
-  },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Lupa kata laluan?</forgot-password-link> • <create-account-link>Cipta akaun</create-account-link>"
   },
@@ -106,9 +103,6 @@
   },
   "auth.sign-up.password.label": {
     "message": "Kata Laluan"
-  },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Log masuk"
   },
   "auth.sign-up.sign-in-option.title": {
     "message": "Sudah mempunyai akaun?"
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "Teruskan"
   },
+  "button.create-a-project": {
+    "message": "Cipta projek"
+  },
   "button.edit": {
     "message": "Sunting"
   },
@@ -187,6 +184,12 @@
   },
   "button.save-changes": {
     "message": "Simpan perubahan"
+  },
+  "button.sign-in": {
+    "message": "Log masuk"
+  },
+  "button.sign-out": {
+    "message": "Log keluar"
   },
   "collection.button.delete-icon": {
     "message": "Padam ikon"
@@ -290,6 +293,9 @@
   "label.created-ago": {
     "message": "Dicipta {ago}"
   },
+  "label.dashboard": {
+    "message": "Papan Pemuka"
+  },
   "label.delete": {
     "message": "Padam"
   },
@@ -301,6 +307,12 @@
   },
   "label.followed-projects": {
     "message": "Projek yang diikuti"
+  },
+  "label.moderation": {
+    "message": "Penyederhanaan"
+  },
+  "label.notifications": {
+    "message": "Pemberitahuan"
   },
   "label.password": {
     "message": "Kata Laluan"
@@ -314,6 +326,9 @@
   "label.scopes": {
     "message": "Skop"
   },
+  "label.settings": {
+    "message": "Tetapan"
+  },
   "label.title": {
     "message": "Tajuk"
   },
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "Keterlihatan"
+  },
+  "layout.action.change-theme": {
+    "message": "Tukar tema"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Dapatkan Modrinth App"
+  },
+  "layout.avatar.alt": {
+    "message": "Avatar anda"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Lawat tetapan akaun"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Untuk tujuan keselamatan, sila masukkan e-mel anda di Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "Persekitaran pementasan berjalan pada salinan pangkalan data produksi Modrinth. Ini digunakan untuk tujuan ujian dan penyahpepijatan, dan mungkin menjalankan versi dalam pembangunan bahagian belakang atau hadapan Modrinth yang lebih baharu daripada instance pengeluaran."
+  },
+  "layout.banner.staging.title": {
+    "message": "Anda sedang melihat persekitaran pementasan Modrinth."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Hantar semula e-mel pengesahan"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "Untuk tujuan keselamatan, sila sahkan alamat e-mel anda di Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Kerjaya"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Privasi"
+  },
+  "layout.footer.company.rules": {
+    "message": "Peraturan"
+  },
+  "layout.footer.company.terms": {
+    "message": "Terma"
+  },
+  "layout.footer.company.title": {
+    "message": "Syarikat"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interaksi"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "BUKAN PERKHIDMATAN RASMI MINECRAFT. TIDAK DILULUSKAN OLEH ATAU BERKAITAN DENGAN MOJANG ATAU MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth adalah <github-link>sumber terbuka</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Dokumentasi"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Sokongan"
+  },
+  "layout.footer.resources.title": {
+    "message": "Sumber"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Lawat profil anda"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Togol menu"
+  },
+  "layout.meta.description": {
+    "message": "Muat turun mod, pemalam, pek data, pek pembayang, pek sumber dan pek mod Minecraft di Modrinth. Temui dan terbitkan projek di Modrinth dengan antara muka dan API yang moden dan mudah digunakan."
+  },
+  "layout.meta.og-description": {
+    "message": "Temui dan terbitkan kandungan Minecraft!"
+  },
+  "layout.nav.home": {
+    "message": "Laman Utama"
+  },
+  "layout.nav.search": {
+    "message": "Cari"
   },
   "notification.error.title": {
     "message": "Sebuah ralat telah berlaku"
