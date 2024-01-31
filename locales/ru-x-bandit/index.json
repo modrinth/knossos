@@ -1,21 +1,21 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Авторизировать"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Отклонить"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> от <creator-link>{creator}</creator-link> получит возможность:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Авторизовать {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Адрес перенаправления не найден"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Перенаправление на <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Отправить письмо для восстановления"
@@ -54,49 +54,46 @@
     "message": "Сброс пароля"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Восстановление пароля"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Для продолжения введите код проверки двухфакторной аутентификации."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Код двухфакторной аутентификации"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
-  },
-  "auth.sign-in.action.sign-in": {
-    "message": "Регистрация"
+    "message": "Введите код..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Забыли пароль?</forgot-password-link> • <create-account-link>Создать учётную запись</create-account-link>"
+    "message": "<forgot-password-link>Забыли пароль?</forgot-password-link> • <create-account-link>Регистрация</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Электронная почта или имя пользователя"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Пароль"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Авторизуйтесь через"
   },
   "auth.sign-in.title": {
     "message": "Регистрация"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "... или через почту/пароль"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Создать учётную запись"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Подтвердите пароль"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "Электронная почта"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Имя пользователя"
   },
   "auth.sign-up.legal-dislaimer": {
     "message": "Создавая учётную запись, вы соглашаетесь с нашими <terms-link>условиями</terms-link> и <privacy-policy-link>политикой конфиденциальности</privacy-policy-link>."
@@ -107,11 +104,8 @@
   "auth.sign-up.password.label": {
     "message": "Пароль"
   },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "Sign in"
-  },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Уже зарегистрированы?"
   },
   "auth.sign-up.subscribe.label": {
     "message": "Подписаться на новости Modrinth"
@@ -120,7 +114,7 @@
     "message": "Вход"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Или зарегистрируйтесь"
   },
   "auth.sign-up.title.sign-up-with": {
     "message": "Вход через"
@@ -132,13 +126,13 @@
     "message": "Sign in"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "Адрес вашей электронной почты уже подтверждён."
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "Адрес уже подтверждён"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Отправить письмо ещё раз"
   },
   "auth.verify-email.failed-verification.description": {
     "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "Продолжить"
   },
+  "button.create-a-project": {
+    "message": "Создать проект"
+  },
   "button.edit": {
     "message": "Редачить"
   },
@@ -186,7 +183,13 @@
     "message": "Сойдёт"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Сохранить изменения"
+  },
+  "button.sign-in": {
+    "message": "Регистрация"
+  },
+  "button.sign-out": {
+    "message": "Выйти"
   },
   "collection.button.delete-icon": {
     "message": "Удалить значок"
@@ -288,7 +291,10 @@
     "message": "Коллекции"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Создан {ago}"
+  },
+  "label.dashboard": {
+    "message": "Аналитика"
   },
   "label.delete": {
     "message": "Удалить"
@@ -297,10 +303,16 @@
     "message": "Описание"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Ошибка"
   },
   "label.followed-projects": {
     "message": "Отслеживаемые проекты"
+  },
+  "label.moderation": {
+    "message": "Модерация"
+  },
+  "label.notifications": {
+    "message": "Уведомления"
   },
   "label.password": {
     "message": "Пароль"
@@ -312,7 +324,10 @@
     "message": "Отклонён"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Разрешения"
+  },
+  "label.settings": {
+    "message": "Настройки"
   },
   "label.title": {
     "message": "Заголовок"
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "Видимость"
+  },
+  "layout.action.change-theme": {
+    "message": "Изменить тему"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Загрузить Modrinth App"
+  },
+  "layout.avatar.alt": {
+    "message": "Аватар"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Открыть настройки учётной записи"
+  },
+  "layout.banner.add-email.title": {
+    "message": "В целях безопасности требуется указать ваш электронный адрес."
+  },
+  "layout.banner.staging.description": {
+    "message": "Страница тестирования – это копия основного сайта Modrinth. Она нужна в целях тестирования и поиска ошибок в более новых по сравнению с обычной версиях бэкенда или фронтэнда Modrinth."
+  },
+  "layout.banner.staging.title": {
+    "message": "Вы находитесь на странице тестирования Modrinth."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Отправить письмо с подтверждением ещё раз"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "В целях безопасности требуется подтвердить ваш электронный адрес."
+  },
+  "layout.footer.company.careers": {
+    "message": "Вакансии"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Конфиденциальность"
+  },
+  "layout.footer.company.rules": {
+    "message": "Правила"
+  },
+  "layout.footer.company.terms": {
+    "message": "Условия"
+  },
+  "layout.footer.company.title": {
+    "message": "Компания"
+  },
+  "layout.footer.interact.title": {
+    "message": "Сообщество"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "НЕ ЯВЛЯЕТСЯ ОФИЦИАЛЬНОЙ УСЛУГОЙ MINECRAFT. НЕ ОДОБРЕНО И НЕ СВЯЗАНО С КОМПАНИЕЙ MOJANG ИЛИ MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth – <github-link>проект с открытым исходным кодом</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Блог"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Документация"
+  },
+  "layout.footer.resources.status": {
+    "message": "Статус"
+  },
+  "layout.footer.resources.support": {
+    "message": "Поддержка"
+  },
+  "layout.footer.resources.title": {
+    "message": "Ресурсы"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Открыть профиль"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Меню"
+  },
+  "layout.meta.description": {
+    "message": "Загружайте моды, плагины, наборы шейдеров, ресурсов, данных и сборки для Minecraft. Современный и удобный дизайн и API помогут вам в поиске и публикации проектов на Modrinth."
+  },
+  "layout.meta.og-description": {
+    "message": "Исследуйте и делитесь контентом для Minecraft!"
+  },
+  "layout.nav.home": {
+    "message": "Главная"
+  },
+  "layout.nav.search": {
+    "message": "Поиск"
   },
   "notification.error.title": {
     "message": "Чёт глюкануло"
@@ -579,7 +678,7 @@
     "message": "Создание жалоб"
   },
   "scopes.reportDelete.description": {
-    "message": "Возможность удаления отравленных жалоб"
+    "message": "Возможность удаления отправленных жалоб"
   },
   "scopes.reportDelete.label": {
     "message": "Удаление жалоб"
@@ -726,61 +825,61 @@
     "message": "Жаргончик"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Создать токен доступа"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "Токены доступа можно использовать для обращения к API Modrinth. Смотрите <doc-link>документацию к нему</doc-link>. Токены доступа можно создавать и удалять в любое время."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "Создать токен доступа"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Истекает"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Название"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Введите название ключа..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Создать персональный токен доступа"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Удалить токен"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Токен будет удалён навсегда (буквально навсегда)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Вы действительно хотите удалить этот токен?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Изменить персональный токен доступа"
   },
   "settings.pats.title": {
-    "message": "PATs"
+    "message": "Токены личного доступа"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Токены личного доступа к API"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Изменить"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Отозвать токен"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Истёк {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Срок действия: {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Активность: {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Не использовался"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Прервать сеанс"
