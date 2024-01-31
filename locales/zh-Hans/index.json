@@ -6,13 +6,13 @@
     "message": "拒绝"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<creator-link>{creator}</creator-link> 的 <strong>{appName}</strong> 将能够："
   },
   "auth.authorize.authorize-app-name": {
     "message": "授权 {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "在响应中找不到重定向位置"
   },
   "auth.authorize.redirect-url": {
     "message": "您将被重定向至<redirect-url>{url}</redirect-url>"
@@ -65,11 +65,8 @@
   "auth.sign-in.2fa.placeholder": {
     "message": "输入代码..."
   },
-  "auth.sign-in.action.sign-in": {
-    "message": "登录"
-  },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>忘记密码？</forgot-password-link> • <create-account-link>创建一个账户</create-account-link>"
+    "message": "<forgot-password-link>忘记密码？</forgot-password-link> • <create-account-link>注册账户</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
     "message": "电子邮件或用户名"
@@ -107,9 +104,6 @@
   "auth.sign-up.password.label": {
     "message": "密码"
   },
-  "auth.sign-up.sign-in-option.action": {
-    "message": "登录"
-  },
   "auth.sign-up.sign-in-option.title": {
     "message": "已有帐户？"
   },
@@ -120,10 +114,10 @@
     "message": "注册"
   },
   "auth.sign-up.title.create-account": {
-    "message": "或自己创建一个帐户"
+    "message": "或自己创建帐户"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "注册方式"
+    "message": "通过以下方式注册"
   },
   "auth.verify-email.action.account-settings": {
     "message": "账户设置"
@@ -179,6 +173,9 @@
   "button.continue": {
     "message": "继续"
   },
+  "button.create-a-project": {
+    "message": "创建项目"
+  },
   "button.edit": {
     "message": "编辑"
   },
@@ -187,6 +184,12 @@
   },
   "button.save-changes": {
     "message": "保存更改"
+  },
+  "button.sign-in": {
+    "message": "登录"
+  },
+  "button.sign-out": {
+    "message": "登出"
   },
   "collection.button.delete-icon": {
     "message": "删除图标"
@@ -243,7 +246,7 @@
     "message": "{count, plural, other {<stat>{count}</stat> 个项目}}"
   },
   "collection.label.updated-at": {
-    "message": "于 {ago} 更新"
+    "message": "更新于 {ago}"
   },
   "collection.title": {
     "message": "{name} - 收藏夹"
@@ -290,6 +293,9 @@
   "label.created-ago": {
     "message": "创建于 {ago}"
   },
+  "label.dashboard": {
+    "message": "仪表板"
+  },
   "label.delete": {
     "message": "删除"
   },
@@ -301,6 +307,12 @@
   },
   "label.followed-projects": {
     "message": "已关注的项目"
+  },
+  "label.moderation": {
+    "message": "管理"
+  },
+  "label.notifications": {
+    "message": "通知"
   },
   "label.password": {
     "message": "密码"
@@ -314,6 +326,9 @@
   "label.scopes": {
     "message": "范围"
   },
+  "label.settings": {
+    "message": "设置"
+  },
   "label.title": {
     "message": "标题"
   },
@@ -322,6 +337,90 @@
   },
   "label.visibility": {
     "message": "可见性"
+  },
+  "layout.action.change-theme": {
+    "message": "更改主题"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "获取 Modrinth 应用"
+  },
+  "layout.avatar.alt": {
+    "message": "您的头像"
+  },
+  "layout.banner.add-email.button": {
+    "message": "访问帐户设置"
+  },
+  "layout.banner.add-email.title": {
+    "message": "为了安全起见，请在 Modrinth 上输入您的电子邮件。"
+  },
+  "layout.banner.staging.description": {
+    "message": "暂存环境在生产 Modrinth 数据库的副本上运行。这用于测试和调试目的，并且可能运行比生产实例更新的 Modrinth 后端或前端的开发版本。"
+  },
+  "layout.banner.staging.title": {
+    "message": "您正在查看 Modrinth 的暂存环境。"
+  },
+  "layout.banner.verify-email.action": {
+    "message": "重新发送验证邮件"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "为了安全起见，请在 Modrinth 上验证您的电子邮件地址。"
+  },
+  "layout.footer.company.careers": {
+    "message": "招贤纳士"
+  },
+  "layout.footer.company.privacy": {
+    "message": "隐私政策"
+  },
+  "layout.footer.company.rules": {
+    "message": "社区守则"
+  },
+  "layout.footer.company.terms": {
+    "message": "服务条款"
+  },
+  "layout.footer.company.title": {
+    "message": "公司"
+  },
+  "layout.footer.interact.title": {
+    "message": "交互"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "非官方 MINECRAFT 服务。未经 MOJANG 或 MICROSOFT 批准并且与之无关。"
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth 是<github-link>开源</github-link>的。"
+  },
+  "layout.footer.resources.blog": {
+    "message": "博客"
+  },
+  "layout.footer.resources.docs": {
+    "message": "文档"
+  },
+  "layout.footer.resources.status": {
+    "message": "状态"
+  },
+  "layout.footer.resources.support": {
+    "message": "支持"
+  },
+  "layout.footer.resources.title": {
+    "message": "资源"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "访问您的个人资料"
+  },
+  "layout.menu-toggle.action": {
+    "message": "切换菜单"
+  },
+  "layout.meta.description": {
+    "message": "在 Modrinth 上下载 Minecraft 模组、插件、数据包、光影、资源包和整合包。通过现代化、易于使用的界面和 API 在 Modrinth 上发现和发布项目。"
+  },
+  "layout.meta.og-description": {
+    "message": "发现并发布 Minecraft 内容！"
+  },
+  "layout.nav.home": {
+    "message": "首页"
+  },
+  "layout.nav.search": {
+    "message": "搜索"
   },
   "notification.error.title": {
     "message": "出现错误"
@@ -663,7 +762,7 @@
     "message": "创建版本"
   },
   "scopes.versionDelete.description": {
-    "message": "删除版本"
+    "message": "删除一个版本"
   },
   "scopes.versionDelete.label": {
     "message": "删除版本"
@@ -750,7 +849,7 @@
     "message": "删除该令牌"
   },
   "settings.pats.modal.delete.description": {
-    "message": "这将永久删除此令牌(真的永久删除)。"
+    "message": "这将永久删除此令牌（真的永久删除）。"
   },
   "settings.pats.modal.delete.title": {
     "message": "您确定要删除这个令牌吗？"
@@ -771,10 +870,10 @@
     "message": "撤销令牌"
   },
   "settings.pats.token.expired-ago": {
-    "message": "{ago} 前过期"
+    "message": "过期于 {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "{inTime} 后过期"
+    "message": "过期于 {inTime}"
   },
   "settings.pats.token.last-used": {
     "message": "上次使用于 {ago}"
@@ -786,7 +885,7 @@
     "message": "撤销会话"
   },
   "settings.sessions.created-ago": {
-    "message": "于 {ago} 创建"
+    "message": "创建于 {ago}"
   },
   "settings.sessions.current-session": {
     "message": "当前会话"
