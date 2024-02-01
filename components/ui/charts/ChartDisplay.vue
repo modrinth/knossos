@@ -190,7 +190,13 @@
                 :key="name"
                 class="country-value"
               >
-                <div class="country-flag-container">
+                <div
+                  :class="
+                    name.toLowerCase() === 'switzerland'
+                      ? 'country-flag-container switzerland-flag-container'
+                      : 'country-flag-container'
+                  "
+                >
                   <img
                     :src="
                       name.toLowerCase() === 'xx' || !name
@@ -244,7 +250,13 @@
                 :key="name"
                 class="country-value"
               >
-                <div class="country-flag-container">
+                <div
+                  :class="
+                    name.toLowerCase() === 'switzerland'
+                      ? 'country-flag-container switzerland-flag-container'
+                      : 'country-flag-container'
+                  "
+                >
                   <img
                     :src="
                       name.toLowerCase() === 'xx' || !name
@@ -633,6 +645,13 @@ const defaultRanges: Record<number, [string, number] | string> = {
 
   border: 1px solid var(--color-divider);
   border-radius: var(--radius-xs);
+}
+
+.switzerland-flag-container {
+  width: 29px;
+  height: 27px;
+  margin-left: 5px;
+  margin-right: 6px;
 }
 
 .country-flag {
