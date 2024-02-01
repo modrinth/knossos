@@ -200,6 +200,10 @@ function updatedName() {
       .replaceAll(/--+/gm, '-')
   }
 }
+
+defineExpose({
+  show,
+})
 </script>
 
 <style scoped lang="scss">
