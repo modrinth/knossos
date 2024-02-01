@@ -182,7 +182,6 @@ async function createProject() {
 }
 
 function show() {
-  projectType.value = tags.value.projectTypes[0].display
   name.value = ''
   slug.value = ''
   description.value = ''
