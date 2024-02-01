@@ -72,7 +72,7 @@
   </Modal>
 </template>
 
-<script>
+<script setup>
 import { Multiselect } from 'vue-multiselect'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import CheckIcon from '~/assets/images/utils/right-arrow.svg'
