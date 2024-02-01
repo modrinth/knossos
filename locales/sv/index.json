@@ -828,58 +828,58 @@
     "message": "Skapa en PAT"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "PAT:s kan användas för att komma åt Modrinths API. Se <doc-link>Modrinths API dokumentation</doc-link> för mer information. De kan skapas och återkallas när som helst."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "Skapa PAT"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Går ut"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Namn"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Skriv in ett namn..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Skapa personlig åtkomstnyckel"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Radera denna nyckel"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Detta kommer radera nyckeln förevigt (asså förevigt)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Är du saker på att du vill radera nyckeln?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Redigera personliga åtkomstnyckeln"
   },
   "settings.pats.title": {
-    "message": "PATs"
+    "message": "PAT:s"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Personliga åtkomstnycklar"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Redigera nyckel"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Återkalla nyckel"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Gick ut {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Går ut {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Användes senast {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Har aldrig använts"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Återkalla session"
