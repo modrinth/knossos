@@ -243,7 +243,7 @@
     "message": "Súkromné"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, one {<stat>{count}</stat> projekt} few {<stat>{count}</stat> projekty} many {<stat>{count}</stat> projektov} other {<stat>{count}</stat> projektov}}"
   },
   "collection.label.updated-at": {
     "message": "Aktualizované {ago}"
@@ -255,7 +255,7 @@
     "message": "Vytvoriť novú"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, one {{count} projekt} few {{count} projekty} many {{count} projektov} other {{count} projektov}}"
   },
   "dashboard.collections.label.search-input": {
     "message": "Hľadať vo vašich kolekciách"
@@ -603,181 +603,181 @@
     "message": "Upravovať organizácie"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Upravovať organizácie"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Vytvárať osobné API tokeny"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "Vytvárať PAT"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Mazať osobné API tokeny"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "Mazať PAT"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Vidieť vytvorené API tokeny"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "Čítať PAT"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Upravovať osobné API tokeny"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Upraviť PAT"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Čítať dáta vašich výplat"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Čítať výplaty"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Vybrať peniaze"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Upraviť výplaty"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Vykonávať analytických akcií"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Vykonať analytiku"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Vytvárať nové projekty"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Vytvárať projekty"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Vymazávať vaše projekty"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Vymazávať projekty"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Čítať všetky vaše projekty"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Čítať projekty"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Zapisovať do dát projektu"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Zapisovať projekty"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Vytvárať hlásenia"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Vytvárať hlásenia"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Vymazávať hlásenia"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Vymazávať hlásenia"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Čítať hlásenia"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Čítať hlásenia"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Upravovať hlásenia"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Zapisovať hlásenia"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Pristupovať ku modrinth-vytvoreným reláciam"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Prístup k reláciam"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Vymazávať relácie"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Vymazávať relácie"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Čítať aktívne relácie"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Čítať relácie"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Čítať vlákna"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Čítať vlákna"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Zapisovať do vlákien"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Zapisovať vlákna"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Modifikovať vaše autentikačné údaje"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Zapisovať auth údaje"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Vymazať váš účet"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Vymazať váš účet"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Prístup k informáciám o vašom verejnom profile"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Čítať používateľské údaje"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Čítať váš email"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "Čítať používateľský email"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Zapisovať do vášho profilu"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Zapisovať používateľské dáta"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Vytvárať nové verzie"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "Vytvárať verzie"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Vymazať verziu"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Vymazať verzie"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Čítať všetky verzie"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "Čítať verzie"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Zapisovať do údajov o verziách"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "Zapisovať verzie"
   },
   "settings.language.categories.auto": {
     "message": "Automaticky"
@@ -825,85 +825,85 @@
     "message": "Jazyk"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Vytvoriť PAT"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "PATy môžu byť použité na prístup do Modrinth API. Pre viac informácií, pozrite si <doc-link>Modrinth API dokumentáciu</doc-link>. Môžu byť hocikedy vytvorené a zrušené."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "Vytvoriť PAT"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Vyprší"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Názov"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Zadajte názov PATu..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Vytvoriť osobný token prístupu (PAT)"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Vymazať tento token"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Toto navždy vymaže tento token (akože fakt navždy)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Ste si istí, že chcete vymazať tento token?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Upraviť osobný token prístupu"
   },
   "settings.pats.title": {
-    "message": "PATs"
+    "message": "PATy"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Osobné Tokeny Prístupu"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Upraviť token"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Zrušiť token"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Vypršal {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Vyprší {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Naposledy použitý {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Nikdy nepoužitý"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "Zrušiť reláciu"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "Vytvorená {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "Súčasná relácia"
   },
   "settings.sessions.description": {
     "message": "Tu sú všetky zariadenia na ktorých ste momentálne prihlásený s vaším Modrinth účtom. Z každého sa môžete osobitne odhlásiť.\n\nAk vidíte zariadenie, ktoré nespoznávate, odhláste sa z neho a okamžite zmeňte svoje heslo od svojho Modrinth účtu."
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "Naposledy použitá {ago}"
   },
   "settings.sessions.title": {
     "message": "Relácie"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Neznámy OS"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Neznáma platforma"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} o {time, time, short}"
