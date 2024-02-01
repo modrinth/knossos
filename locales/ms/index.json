@@ -384,7 +384,7 @@
     "message": "Interaksi"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "BUKAN PERKHIDMATAN RASMI MINECRAFT. TIDAK DILULUSKAN OLEH ATAU BERKAITAN DENGAN MOJANG ATAU MICROSOFT."
+    "message": "BUKAN PERKHIDMATAN RASMI MINECRAFT. TIDAK DILULUSKAN ATAU BERKAITAN DENGAN MOJANG ATAU MICROSOFT."
   },
   "layout.footer.open-source": {
     "message": "Modrinth adalah <github-link>sumber terbuka</github-link>."
