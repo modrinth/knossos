@@ -18,28 +18,28 @@
     "message": "<redirect-url>{url}</redirect-url> adresine yönlendirileceksiniz"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Kurtarma emaili gönder"
+    "message": "Kurtarma e-postası gönder"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Aşağıya emailinizi girin ve hesabınızı kurtarabilmeniz için bir kurtarma bağlantısı göndereceğiz."
+    "message": "Kurtarma bağlantısının gönderileceği e-posta adresini aşağıya girin."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email ya da kullanıcı adı"
+    "message": "E-posta veya kullanıcı adı"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "E-posta"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "Eğer emailiniz hesabınızda daha önce kayıtlıysa, talimatın bulunduğu bir email yollandı."
+    "message": "Girilen e-posta adresi geçerli bir hesaba kayıtlıysa parola sıfırlama talimatların bulunduğu bir e-posta gönderilecektir."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email yollandı"
+    "message": "E-posta yollandı"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "Yeni parolanızla artık hesabınızla giriş yapabilirsiniz."
+    "message": "Yeni parolanızla artık hesabınıza giriş yapabilirsiniz."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Parola başarılı bir şekilde sıfırlandı"
+    "message": "Parola sıfırlandı"
   },
   "auth.reset-password.post-challenge.action": {
     "message": "Parolayı sıfırla"
@@ -54,7 +54,7 @@
     "message": "Parolayı Sıfırla"
   },
   "auth.reset-password.title.long": {
-    "message": "Parolanızı Sıfırlayın"
+    "message": "Parolanızı sıfırlayın"
   },
   "auth.sign-in.2fa.description": {
     "message": "Lütfen devam etmek için bir çift aşamalı kod girin."
@@ -63,25 +63,25 @@
     "message": "Çift aşamalı kod gir"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Kod gir..."
+    "message": "Kodu girin..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Şifremi Unuttum</forgot-password-link> • <create-account-link>Bir hesap oluştur</create-account-link>"
+    "message": "<forgot-password-link>Parolanızı mı unuttunuz?</forgot-password-link> • <create-account-link>Yeni hesap oluştur</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email veya kullanıcı adı"
+    "message": "E-posta veya kullanıcı adı"
   },
   "auth.sign-in.password.label": {
     "message": "Parola"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Şununla giriş yap"
+    "message": "Giriş yapmak için şunları kullanabilirsiniz"
   },
   "auth.sign-in.title": {
     "message": "Giriş Yap"
   },
   "auth.sign-in.use-password": {
-    "message": "Veya bir parola kullan"
+    "message": "Veya parola kullanın"
   },
   "auth.sign-up.action.create-account": {
     "message": "Hesap oluştur"
@@ -90,7 +90,7 @@
     "message": "Parolayı onayla"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "E-posta"
   },
   "auth.sign-up.label.username": {
     "message": "Kullanıcı adı"
@@ -114,7 +114,7 @@
     "message": "Kaydol"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Veya kendin bir hesap oluştur"
+    "message": "Veya kendiniz oluşturun"
   },
   "auth.sign-up.title.sign-up-with": {
     "message": "Şununla kaydol"
@@ -126,31 +126,31 @@
     "message": "Giriş yap"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Emailin zaten doğrulanmış!"
+    "message": "E-postan zaten doğrulanmış!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email zaten doğrulanmış"
+    "message": "E-posta zaten doğrulanmış"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Doğrulama emailini yeniden yolla"
+    "message": "Doğrulama e-postasını yeniden yolla"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "Emailini doğrulayamadık. Doğrulama emailini, pano üzerinden giriş yaparak yeniden yollamayı dene."
+    "message": "E-postanızı doğrulayamadık. Doğrulama e-postasını panelinizin üzerinden yeniden yollamayı deneyin."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "Emailini doğrulayamadık. Doğrulama emailini, aşağıdaki tuşla yeniden yollamayı dene."
+    "message": "E-postanı doğrulayamadık. Doğrulama e-postasını, aşağıdaki tuşla yeniden yollamayı dene."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email doğrulaması başarısız"
+    "message": "E-posta doğrulaması başarısız"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Email adresiniz başarıyla doğrulandı!"
+    "message": "E-posta adresiniz başarıyla doğrulandı!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email doğrulaması"
+    "message": "E-posta doğrulaması"
   },
   "auth.verify-email.title": {
-    "message": "Email Doğrula"
+    "message": "E-posta Doğrula"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "Modrinth'le ilgili güncellemelere abone ol"
@@ -351,7 +351,7 @@
     "message": "Hesap ayarlarını ziyaret et"
   },
   "layout.banner.add-email.title": {
-    "message": "Güvenlik amacıyla, lütfen Modrinth'te emailinizi girin."
+    "message": "Güvenlik amacıyla, lütfen Modrinth'te e-postanızı girin."
   },
   "layout.banner.staging.description": {
     "message": "Hazırlama ortamı, üretim Modrinth veri tabanının bir kopyası üzerinde çalışır. Bu, test ve hata ayıklama amacıyla kullanılır ve Modrinth arka ucunun veya ön ucunun üretim örneğinden daha yeni geliştirme sürümlerini çalıştırıyor olabilir."
@@ -360,10 +360,10 @@
     "message": "Modrinth'in hazırlama ortamını görüntülüyorsunuz."
   },
   "layout.banner.verify-email.action": {
-    "message": "Doğrulama emailini yeniden gönder"
+    "message": "Doğrulama e-postasını yeniden gönder"
   },
   "layout.banner.verify-email.title": {
-    "message": "Güvenlik amacıyla, lütfen Modrinth'te email adresinizi doğrulayın."
+    "message": "Güvenlik amacıyla, lütfen Modrinth'te e-posta adresinizi doğrulayın."
   },
   "layout.footer.company.careers": {
     "message": "Kariyerler"
@@ -744,10 +744,10 @@
     "message": "Kullanıcı verisi oku"
   },
   "scopes.userReadEmail.description": {
-    "message": "Emailinizi okuyun"
+    "message": "E-postanızı okuyun"
   },
   "scopes.userReadEmail.label": {
-    "message": "Kullanıcı emaili oku"
+    "message": "Kullanıcı e-postasını oku"
   },
   "scopes.userWrite.description": {
     "message": "Profilinize yazın"
@@ -906,6 +906,6 @@
     "message": "Bilinmeyen platform"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} {time, time, short}"
+    "message": "{date, date, long}, {time, time, short}"
   }
 }
