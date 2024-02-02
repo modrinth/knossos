@@ -30,13 +30,13 @@
     "message": "E-Mail"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "Eine E-Mail mit Anweisungen wurde dir gesendet, falls dein Account mit der E-Mail verbunden ist."
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "E-Mail wurde gesendet"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Du kannst jetzt in dein Konto mit dem neuen Password einloggen."
   },
   "auth.reset-password.notification.password-reset.title": {
     "message": "Passwort erfolgreich zurückgesetzt"
@@ -45,7 +45,7 @@
     "message": "Passwort zurücksetzen"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Passwort bestätigen"
   },
   "auth.reset-password.post-challenge.description": {
     "message": "Gib unten dein neues Passwort ein, um Zugriff auf deinen Account zu erhalten."
@@ -57,25 +57,25 @@
     "message": "Passwort zurücksetzen"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Bitte gib den Zwei-Faktor-Code ein, um fortzufahren."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Zwei-Faktor-Code eingeben"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Code eingeben..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Passwort vergessen?</forgot-password-link> • <create-account-link>Erstelle ein Konto</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "E-Mail oder Benutzername"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Passwort"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Anmelden mit"
   },
   "auth.sign-in.title": {
     "message": "Anmelden"
@@ -84,25 +84,25 @@
     "message": "Oder Passwort verwenden"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Konto erstellen"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Passwort bestätigen"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "E-Mail"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Benutzername"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Durch das Erstellen eines Kontos stimmst du den <terms-link>Nutzungsbedingungen</terms-link> und der <privacy-policy-link>Datenschutzrichtlinie</privacy-policy-link> von Modrinth zu."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "Passwörter stimmen nicht überein."
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "Passwort"
   },
   "auth.sign-up.sign-in-option.title": {
     "message": "Already have an account?"
@@ -111,31 +111,31 @@
     "message": "Subscribe to updates about Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Registrieren"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Oder erstelle ein Konto selbst"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Registrieren mit"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Kontoeinstellungen"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Anmelden"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "Deine E-Mail wurde bereits bestätigt!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "E-Mail schon bestätigt"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Bestätigungs-E-Mail erneut senden"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Wir konnten deine E-Mail nicht verifizieren. Versuche die Bestätigungs-E-Mail erneut über dein Dashboard zu senden, indem du dich anmeldest."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
     "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
@@ -150,7 +150,7 @@
     "message": "Email verification"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "E-Mail verifizieren"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "Abonniere Updates zu Modrinth"
@@ -174,7 +174,7 @@
     "message": "Weiter"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "Projekt erstellen"
   },
   "button.edit": {
     "message": "Bearbeiten"
@@ -183,28 +183,28 @@
     "message": "Speichern"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Änderungen speichern"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "Anmelden"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "Abmelden"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Profilbild löschen"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Profilbild bearbeiten"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Projekt entfernen"
   },
   "collection.button.unfollow-project": {
     "message": "Unfollow project"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Profilbild hochladen"
   },
   "collection.delete-modal.description": {
     "message": "This will remove this collection forever. This action cannot be undone."
@@ -882,28 +882,28 @@
     "message": "Never used"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "Sitzung widerrufen"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "Erstellt {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "Aktuelle Sitzung"
   },
   "settings.sessions.description": {
     "message": "Hier sind alle Geräte, die derzeit mit Ihrem Modrinth-Konto angemeldet sind. Sie können sich von jedem einzelnen separat ausloggen.\n\nWenn du einen Eintrag siehst, den du nicht kennst, logge dich von diesem Gerät aus und ändere umgehend das Passwort deines Modrinth-Kontos."
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "Letzter Zugriff {ago}"
   },
   "settings.sessions.title": {
     "message": "Sitzungen"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Unbekanntes Betriebssystem"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Unbekannte Plattform"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} um {time, time, short}"
