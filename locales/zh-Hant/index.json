@@ -6,7 +6,7 @@
     "message": "拒絕"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> 的 <creator-link>{creator}</creator-link> 將能夠："
+    "message": "<creator-link>{creator}</creator-link> 的 <strong>{appName}</strong> 將能夠："
   },
   "auth.authorize.authorize-app-name": {
     "message": "授權 {appName}"
