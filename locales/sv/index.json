@@ -465,7 +465,7 @@
     "message": "Ladda ner {username}s projekt på Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Ladda ner {username}s projekt på Modrinth"
+    "message": "{bio} - Ladda ned {username}s projekt på Modrinth"
   },
   "profile.stats.downloads": {
     "message": "{count, plural, one {<stat>{count}</stat> nedladdning} other {<stat>{count}</stat> nedladdningar}}"
@@ -780,7 +780,7 @@
     "message": "Skriva versioner"
   },
   "settings.language.categories.auto": {
-    "message": "Automatisk"
+    "message": "Automatiskt"
   },
   "settings.language.categories.default": {
     "message": "Standardspråk"
@@ -807,7 +807,7 @@
     "message": "{label}. Fel"
   },
   "settings.language.languages.load-failed": {
-    "message": "Kunde inte ladda språket, försök igen senare."
+    "message": "Kunde inte ladda språket. Försök igen senare."
   },
   "settings.language.languages.search-field.description": {
     "message": "Tryck på enter för att fokusera på det första sökresultatet"
