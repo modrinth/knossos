@@ -3,9 +3,11 @@
     <div class="universal-modal modal-creation universal-labels">
       <div class="markdown-body">
         <p>
-          Your new collection will be created as a public collection with
-          {{ projectIds.length > 0 ? projectIds.length : 'no' }}
-          {{ projectIds.length !== 1 ? 'projects' : 'project' }}.
+          {{
+            formatMessage(messages.description, {
+              count: formatCompactNumber(projectIds.length),
+            })
+          }}
         </p>
       </div>
       <label for="name">
@@ -20,8 +22,8 @@
         autocomplete="off"
       />
       <label for="additional-information">
-        <span class="label__title">Summary<span class="required">*</span></span>
-        <span class="label__description">This appears on your collection's page.</span>
+        <span class="label__title">{{ formatMessage(messages.additionalInformationLabel) }}<span class="required">*</span></span>
+        <span class="label__description">{{ formatMessage(messages.additionalInformationDescription) }}</span>
       </label>
       <div class="textarea-wrapper">
         <textarea id="additional-information" v-model="description" maxlength="256" />
@@ -43,8 +45,21 @@
 import { XIcon as CrossIcon, CheckIcon, Modal, Button } from 'omorphia'
 
 const { formatMessage } = useVIntl()
+const formatCompactNumber = useCompactNumber()
 
 const messages = defineMessages({
+  additionalInformationLabel: {
+    id: 'component.modal.collection-create.summary.label',
+    defaultMessage: 'Summary',
+  },
+  additionalInformationDescription: {
+    id: 'component.modal.collection-create.summary.description',
+    defaultMessage: "This appears on your collection's page.",
+  },
+  description: {
+    id: 'component.modal.collection-create.description',
+    defaultMessage: 'Your new collection will be created as a public collection with {count, plural, =0 {no projects} one {{count} project} other {{count} projects}}',
+  },
   header: {
     id: 'component.modal.collection-create.header',
     defaultMessage: 'Create a collection',
