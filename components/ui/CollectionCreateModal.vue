@@ -29,11 +29,11 @@
       <div class="push-right input-group">
         <Button @click="modal.hide()">
           <CrossIcon />
-          Cancel
+          {{ formatMessage(commonMessages.cancelButton) }}
         </Button>
         <Button color="primary" @click="create">
           <CheckIcon />
-          Continue
+          {{ formatMessage(commonMessages.continueButton) }}
         </Button>
       </div>
     </div>
@@ -41,6 +41,8 @@
 </template>
 <script setup>
 import { XIcon as CrossIcon, CheckIcon, Modal, Button } from 'omorphia'
+
+const { formatMessage } = useVIntl()
 
 const router = useRouter()
 
