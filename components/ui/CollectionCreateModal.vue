@@ -110,7 +110,7 @@ async function create() {
   } catch (err) {
     addNotification({
       group: 'main',
-      title: 'An error occurred',
+      title: formatMessage(commonMessages.errorNotificationTitle),
       text: err?.data?.description || err?.message || err,
       type: 'error',
     })
