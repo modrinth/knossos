@@ -24,7 +24,8 @@
         autocomplete="off"
       />
       <label for="additional-information">
-        <span class="label__title">{{ formatMessage(messages.additionalInformationLabel) }}<span class="required">*</span>
+        <span class="label__title">
+          {{ formatMessage(messages.additionalInformationLabel) }}<span class="required">*</span>
         </span>
         <span class="label__description">
           {{ formatMessage(messages.additionalInformationDescription) }}
