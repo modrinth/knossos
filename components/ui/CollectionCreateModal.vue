@@ -11,7 +11,9 @@
         </p>
       </div>
       <label for="name">
-        <span class="label__title">{{ formatMessage(messages.nameLabel) }}<span class="required">*</span></span>
+        <span class="label__title">
+          {{ formatMessage(messages.nameLabel) }}<span class="required">*</span>
+        </span>
       </label>
       <input
         id="name"
@@ -22,8 +24,11 @@
         autocomplete="off"
       />
       <label for="additional-information">
-        <span class="label__title">{{ formatMessage(messages.additionalInformationLabel) }}<span class="required">*</span></span>
-        <span class="label__description">{{ formatMessage(messages.additionalInformationDescription) }}</span>
+        <span class="label__title">{{ formatMessage(messages.additionalInformationLabel) }}<span class="required">*</span>
+        </span>
+        <span class="label__description">
+          {{ formatMessage(messages.additionalInformationDescription) }}
+        </span>
       </label>
       <div class="textarea-wrapper">
         <textarea id="additional-information" v-model="description" maxlength="256" />
@@ -58,7 +63,8 @@ const messages = defineMessages({
   },
   description: {
     id: 'component.modal.collection-create.description',
-    defaultMessage: 'Your new collection will be created as a public collection with {count, plural, =0 {no projects} one {{count} project} other {{count} projects}}',
+    defaultMessage:
+      'Your new collection will be created as a public collection with {count, plural, =0 {no projects} one {{count} project} other {{count} projects}}',
   },
   header: {
     id: 'component.modal.collection-create.header',
