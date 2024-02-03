@@ -1,5 +1,5 @@
 <template>
-  <Modal ref="modal" header="Create a collection">
+  <Modal ref="modal" :header="formatMessage(messages.header)">
     <div class="universal-modal modal-creation universal-labels">
       <div class="markdown-body">
         <p>
@@ -9,14 +9,14 @@
         </p>
       </div>
       <label for="name">
-        <span class="label__title">Name<span class="required">*</span></span>
+        <span class="label__title">{{ formatMessage(messages.nameLabel) }}<span class="required">*</span></span>
       </label>
       <input
         id="name"
         v-model="name"
         type="text"
         maxlength="64"
-        :placeholder="`Enter collection name...`"
+        :placeholder="formatMessage(messages.namePlaceholder)"
         autocomplete="off"
       />
       <label for="additional-information">
@@ -43,6 +43,21 @@
 import { XIcon as CrossIcon, CheckIcon, Modal, Button } from 'omorphia'
 
 const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  header: {
+    id: 'component.modal.collection-create.header',
+    defaultMessage: 'Create a collection',
+  },
+  nameLabel: {
+    id: 'component.modal.collection-create.name.label',
+    defaultMessage: 'Name',
+  },
+  namePlaceholder: {
+    id: 'component.modal.collection-create.name.placeholder',
+    defaultMessage: 'Enter collection name...',
+  },
+})
 
 const router = useRouter()
 
