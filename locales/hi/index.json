@@ -1,12 +1,12 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "अधिकृत"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "अस्वीकार"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<मज़बूत>{ ऐपनाम }</ मजबूत > <निर्माता-लिंक >{निर्माता }</निर्माता-लिंक > के लिए योग्य होगा:"
   },
   "auth.authorize.authorize-app-name": {
     "message": "Authorize {appName}"
