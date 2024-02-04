@@ -145,7 +145,7 @@
           :collapsing-toggle-style="true"
         />
         <div class="push-right input-group">
-          <button class="iconified-button" @click="$refs.editLinksModal.hide()">
+          <button class="iconified-button" @click="editLinksModal.hide()">
             <CrossIcon />
             Cancel
           </button>
@@ -176,7 +176,7 @@
           <button
             class="iconified-button"
             :disabled="selectedProjects.length === 0"
-            @click="$refs.editLinksModal.show()"
+            @click="editLinksModal.show()"
           >
             <EditIcon />
             Edit links
@@ -299,7 +299,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { Multiselect } from 'vue-multiselect'
 
 import Badge from '~/components/ui/Badge.vue'
@@ -319,7 +319,19 @@ import SaveIcon from '~/assets/images/utils/save.svg'
 import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
 import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
 
-const projects = ref(this.updateSort(this.user.projects, 'Name'))
+const { formatMessage } = useVIntl()
+
+useHead({
+  title: 'Projects - Modrinth',
+})
+
+const data = useNuxtApp()
+const user = await useUser()
+await initUserProjects()
+
+const editLinksModal = ref(null)
+
+const projects = ref(updateSort(user.value.projects, 'Name'))
 const versions = ref([])
 const selectedProjects = ref([])
 const sortBy = ref('Name')
@@ -432,8 +444,8 @@ async function bulkEditLinks() {
       }
     )
 
-    this.$refs.editLinksModal.hide()
-    this.$notify({
+    editLinksModal.value.hide()
+    data.$notify({
       group: 'main',
       title: 'Success',
       text: "Bulk edited selected project's links.",
@@ -450,7 +462,7 @@ async function bulkEditLinks() {
     editLinks.value.wiki.clear = false
     editLinks.value.discord.clear = false
   } catch (e) {
-    this.$notify({
+    data.$notify({
       group: 'main',
       title: 'An error occurred',
       text: e,
@@ -458,45 +470,6 @@ async function bulkEditLinks() {
     })
   }
 }
-
-export default defineNuxtComponent({
-  components: {
-    Avatar,
-    Badge,
-    SettingsIcon,
-    TrashIcon,
-    Checkbox,
-    IssuesIcon,
-    PlusIcon,
-    CrossIcon,
-    EditIcon,
-    SaveIcon,
-    Modal,
-    ModalCreation,
-    Multiselect,
-    CopyCode,
-    AscendingIcon,
-    DescendingIcon,
-  },
-  async setup() {
-    const { formatMessage } = useVIntl()
-
-    const user = await useUser()
-    await initUserProjects()
-    return { formatMessage, user: ref(user) }
-  },
-  data() {
-    return {
-      
-    }
-  },
-  head: {
-    title: 'Projects - Modrinth',
-  },
-  methods: {
-    
-  },
-})
 </script>
 <style lang="scss" scoped>
 .grid-table {
