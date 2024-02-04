@@ -319,6 +319,146 @@ import SaveIcon from '~/assets/images/utils/save.svg'
 import AscendingIcon from '~/assets/images/utils/sort-asc.svg'
 import DescendingIcon from '~/assets/images/utils/sort-desc.svg'
 
+const projects = ref(this.updateSort(this.user.projects, 'Name'))
+const versions = ref([])
+const selectedProjects = ref([])
+const sortBy = ref('Name')
+const descending = ref(false)
+const editLinks = ref({
+  showAffected: false,
+  source: {
+    val: '',
+    clear: false,
+  },
+  discord: {
+    val: '',
+    clear: false,
+  },
+  wiki: {
+    val: '',
+    clear: false,
+  },
+  issues: {
+    val: '',
+    clear: false,
+  },
+})
+
+const UPLOAD_VERSION = 1 << 0
+const DELETE_VERSION = 1 << 1
+const EDIT_DETAILS = 1 << 2
+const EDIT_BODY = 1 << 3
+const MANAGE_INVITES = 1 << 4
+const REMOVE_MEMBER = 1 << 5
+const EDIT_MEMBER = 1 << 6
+const DELETE_PROJECT = 1 << 7
+
+function updateDescending() {
+  descending.value = !descending.value
+  projects.value = updateSort(projects.value, sortBy.value, descending.value)
+}
+
+function updateSort(projects, sort, descending) {
+  let sortedArray = projects
+  switch (sort) {
+    case 'Name':
+      sortedArray = projects.slice().sort((a, b) => {
+        return a.title.localeCompare(b.title)
+      })
+      break
+    case 'Status':
+      sortedArray = projects.slice().sort((a, b) => {
+        if (a.status < b.status) {
+          return -1
+        }
+        if (a.status > b.status) {
+          return 1
+        }
+        return 0
+      })
+      break
+    case 'Type':
+      sortedArray = projects.slice().sort((a, b) => {
+        if (a.project_type < b.project_type) {
+          return -1
+        }
+        if (a.project_type > b.project_type) {
+          return 1
+        }
+        return 0
+      })
+      break
+    default:
+      break
+  }
+
+  if (descending) {
+    sortedArray = sortedArray.reverse()
+  }
+
+  return sortedArray
+}
+
+async function bulkEditLinks() {
+  try {
+    const baseData = {
+      issues_url: editLinks.value.issues.clear ? null : editLinks.value.issues.val.trim(),
+      source_url: editLinks.value.source.clear ? null : editLinks.value.source.val.trim(),
+      wiki_url: editLinks.value.wiki.clear ? null : editLinks.value.wiki.val.trim(),
+      discord_url: editLinks.value.discord.clear ? null : editLinks.value.discord.val.trim(),
+    }
+
+    if (!baseData.issues_url?.length ?? 1 > 0) {
+      delete baseData.issues_url
+    }
+
+    if (!baseData.source_url?.length ?? 1 > 0) {
+      delete baseData.source_url
+    }
+
+    if (!baseData.wiki_url?.length ?? 1 > 0) {
+      delete baseData.wiki_url
+    }
+
+    if (!baseData.discord_url?.length ?? 1 > 0) {
+      delete baseData.discord_url
+    }
+
+    await useBaseFetch(
+      `projects?ids=${JSON.stringify(selectedProjects.value.map((x) => x.id))}`,
+      {
+        method: 'PATCH',
+        body: baseData,
+      }
+    )
+
+    this.$refs.editLinksModal.hide()
+    this.$notify({
+      group: 'main',
+      title: 'Success',
+      text: "Bulk edited selected project's links.",
+      type: 'success',
+    })
+    selectedProjects.value = []
+
+    editLinks.value.issues.val = ''
+    editLinks.value.source.val = ''
+    editLinks.value.wiki.val = ''
+    editLinks.value.discord.val = ''
+    editLinks.value.issues.clear = false
+    editLinks.value.source.clear = false
+    editLinks.value.wiki.clear = false
+    editLinks.value.discord.clear = false
+  } catch (e) {
+    this.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: e,
+      type: 'error',
+    })
+  }
+}
+
 export default defineNuxtComponent({
   components: {
     Avatar,
@@ -347,149 +487,14 @@ export default defineNuxtComponent({
   },
   data() {
     return {
-      projects: this.updateSort(this.user.projects, 'Name'),
-      versions: [],
-      selectedProjects: [],
-      sortBy: 'Name',
-      descending: false,
-      editLinks: {
-        showAffected: false,
-        source: {
-          val: '',
-          clear: false,
-        },
-        discord: {
-          val: '',
-          clear: false,
-        },
-        wiki: {
-          val: '',
-          clear: false,
-        },
-        issues: {
-          val: '',
-          clear: false,
-        },
-      },
+      
     }
   },
   head: {
     title: 'Projects - Modrinth',
   },
-  created() {
-    this.UPLOAD_VERSION = 1 << 0
-    this.DELETE_VERSION = 1 << 1
-    this.EDIT_DETAILS = 1 << 2
-    this.EDIT_BODY = 1 << 3
-    this.MANAGE_INVITES = 1 << 4
-    this.REMOVE_MEMBER = 1 << 5
-    this.EDIT_MEMBER = 1 << 6
-    this.DELETE_PROJECT = 1 << 7
-  },
   methods: {
-    updateDescending() {
-      this.descending = !this.descending
-      this.projects = this.updateSort(this.projects, this.sortBy, this.descending)
-    },
-    updateSort(projects, sort, descending) {
-      let sortedArray = projects
-      switch (sort) {
-        case 'Name':
-          sortedArray = projects.slice().sort((a, b) => {
-            return a.title.localeCompare(b.title)
-          })
-          break
-        case 'Status':
-          sortedArray = projects.slice().sort((a, b) => {
-            if (a.status < b.status) {
-              return -1
-            }
-            if (a.status > b.status) {
-              return 1
-            }
-            return 0
-          })
-          break
-        case 'Type':
-          sortedArray = projects.slice().sort((a, b) => {
-            if (a.project_type < b.project_type) {
-              return -1
-            }
-            if (a.project_type > b.project_type) {
-              return 1
-            }
-            return 0
-          })
-          break
-        default:
-          break
-      }
-
-      if (descending) {
-        sortedArray = sortedArray.reverse()
-      }
-
-      return sortedArray
-    },
-    async bulkEditLinks() {
-      try {
-        const baseData = {
-          issues_url: this.editLinks.issues.clear ? null : this.editLinks.issues.val.trim(),
-          source_url: this.editLinks.source.clear ? null : this.editLinks.source.val.trim(),
-          wiki_url: this.editLinks.wiki.clear ? null : this.editLinks.wiki.val.trim(),
-          discord_url: this.editLinks.discord.clear ? null : this.editLinks.discord.val.trim(),
-        }
-
-        if (!baseData.issues_url?.length ?? 1 > 0) {
-          delete baseData.issues_url
-        }
-
-        if (!baseData.source_url?.length ?? 1 > 0) {
-          delete baseData.source_url
-        }
-
-        if (!baseData.wiki_url?.length ?? 1 > 0) {
-          delete baseData.wiki_url
-        }
-
-        if (!baseData.discord_url?.length ?? 1 > 0) {
-          delete baseData.discord_url
-        }
-
-        await useBaseFetch(
-          `projects?ids=${JSON.stringify(this.selectedProjects.map((x) => x.id))}`,
-          {
-            method: 'PATCH',
-            body: baseData,
-          }
-        )
-
-        this.$refs.editLinksModal.hide()
-        this.$notify({
-          group: 'main',
-          title: 'Success',
-          text: "Bulk edited selected project's links.",
-          type: 'success',
-        })
-        this.selectedProjects = []
-
-        this.editLinks.issues.val = ''
-        this.editLinks.source.val = ''
-        this.editLinks.wiki.val = ''
-        this.editLinks.discord.val = ''
-        this.editLinks.issues.clear = false
-        this.editLinks.source.clear = false
-        this.editLinks.wiki.clear = false
-        this.editLinks.discord.clear = false
-      } catch (e) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: e,
-          type: 'error',
-        })
-      }
-    },
+    
   },
 })
 </script>
