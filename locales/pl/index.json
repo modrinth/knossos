@@ -252,7 +252,7 @@
     "message": "{name} - Kolekcja"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Utwórz nowy"
+    "message": "Utwórz nową"
   },
   "dashboard.collections.label.projects-count": {
     "message": "{count, plural, one {{count} projekt} few {{count} projekty} many {{count} projektów} other {{count} projektów}}"
