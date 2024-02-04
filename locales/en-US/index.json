@@ -263,6 +263,9 @@
   "dashboard.collections.long-title": {
     "message": "Your collections"
   },
+  "dashboard.organization.title": {
+    "message": "Organizations"
+  },
   "frog": {
     "message": "You've been frogged! 🐸"
   },

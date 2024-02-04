@@ -54,6 +54,8 @@ import { PlusIcon, Avatar, UsersIcon } from 'omorphia'
 import { useAuth } from '~/composables/auth.js'
 import OrganizationCreateModal from '~/components/ui/OrganizationCreateModal.vue'
 
+const { formatMessage } = useVIntl()
+
 const createOrgModal = ref(null)
 
 const auth = await useAuth()
