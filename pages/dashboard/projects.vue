@@ -335,7 +335,7 @@ const projects = ref(updateSort(user.value.projects, 'Name'))
 const selectedProjects = ref([])
 const sortBy = ref('Name')
 const descending = ref(false)
-const editLinks = ref({
+const editLinks = reactive({
   showAffected: false,
   source: {
     val: '',
