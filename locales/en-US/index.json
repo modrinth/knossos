@@ -263,6 +263,12 @@
   "dashboard.collections.long-title": {
     "message": "Your collections"
   },
+  "dashboard.organization.action.create-organization": {
+    "message": "Create organization"
+  },
+  "dashboard.organization.make-organization": {
+    "message": "Make an organization!"
+  },
   "dashboard.organization.title": {
     "message": "Organizations"
   },

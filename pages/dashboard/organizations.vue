@@ -3,11 +3,11 @@
     <OrganizationCreateModal ref="createOrgModal" />
     <section class="universal-card">
       <div class="header__row">
-        <h2 class="header__title">Organizations</h2>
+        <h2 class="header__title">{{ formatMessage(messages.title) }}</h2>
         <div class="input-group">
           <button class="iconified-button brand-button" @click="openCreateOrgModal">
             <PlusIcon />
-            Create organization
+            {{ formatMessage(messages.createOrganization) }}
           </button>
         </div>
       </div>
@@ -43,7 +43,9 @@
           </nuxt-link>
         </div>
       </template>
-      <template v-else> Make an organization! </template>
+      <template v-else>
+        {{ formatMessage(messages.makeOrganizationLabel) }}
+      </template>
     </section>
   </div>
 </template>
@@ -55,6 +57,21 @@ import { useAuth } from '~/composables/auth.js'
 import OrganizationCreateModal from '~/components/ui/OrganizationCreateModal.vue'
 
 const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  createOrganization: {
+    id: 'dashboard.organization.action.create-organization',
+    defaultMessage: 'Create organization',
+  },
+  makeOrganizationLabel: {
+    id: 'dashboard.organization.make-organization',
+    defaultMessage: 'Make an organization!',
+  },
+  title: {
+    id: 'dashboard.organization.title',
+    defaultMessage: 'Organizations',
+  },
+})
 
 const createOrgModal = ref(null)
 
