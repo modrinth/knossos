@@ -1,21 +1,21 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Autorizar"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Rechazar"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> por <creator-link>{creator}</creator-link> podrá:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Autorizar {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Ninguna localización de redirección se encontró en la respuesta"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Serás redireccionado a <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Enviar correo de recuperación"
@@ -57,109 +57,109 @@
     "message": "Reiniciar su contraseña"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Por favor introduce el código de doble factor para continuar."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Introduzca código de doble factor"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Introducir código..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>¿Contraseña olvidada?</forgot-password-link> • <create-account-link>Crear una cuenta</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Correo electrónico o usuario"
   },
   "auth.sign-in.password.label": {
     "message": "Contraseña"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Iniciar sesión con"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Iniciar sesión"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "O usa una contraseña"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Crear cuenta"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Volver a introducir contraseña"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "Correo electrónico"
   },
   "auth.sign-up.label.username": {
     "message": "Nombre de Usuario"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Al crear una cuenta, aceptas los <terms-link>Términos</terms-link> y la <privacy-policy-link>Política de privacidad</privacy-policy-link> de Modrinth."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "¡Las contraseñas no coinciden!"
   },
   "auth.sign-up.password.label": {
     "message": "Contraseña"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "¿Ya tienes una cuenta?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Suscribirse a actualizaciones sobre Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Registrarse"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "O crea una cuenta"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Iniciar sesión con"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Configuración de cuenta"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Iniciar sesión"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "¡Tu correo electrónico ya ha sido verificado!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "Correo electrónico ya verificado"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Volver a enviar email de verificación"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Fuimos incapaces de verificar tu correo electrónico. Prueba a volver a enviar el correo de verificación a través de tu panel de control iniciando sesión."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "Fuimos incapaces de verificar tu correo electrónico. Prueba a volver a enviar el correo de verificación a través del botón de abajo."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "Verificación de correo electrónico fallida"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "¡Tu correo electrónico ha sido verificado con éxito!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Verificación del correo electrónico"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Verificar correo electrónico"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Suscribirse a actualizaciones sobre Modrinth"
   },
   "auth.welcome.description": {
     "message": "Gracias por crearte una cuenta. ¡Ahora puedes seguir y crear proyectos, recibir actualizaciones sobre tus proyectos favoritos y mucho más!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Al crear una cuenta, aceptas los <terms-link>Términos</terms-link> y la <privacy-policy-link>Política de privacidad</privacy-policy-link> de Modrinth."
   },
   "auth.welcome.long-title": {
     "message": "¡Bienvenido a Modrinth!"
@@ -174,7 +174,7 @@
     "message": "Continuar"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "Crear un proyecto"
   },
   "button.edit": {
     "message": "Editar"
@@ -183,85 +183,85 @@
     "message": "Guardar"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Guardar cambios"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "Iniciar sesión"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "Cerrar sesión"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Eliminar icono"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Editar icono"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Eliminar proyecto"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Dejar de seguir proyecto"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Subir icono"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "Esto eliminará esta colección para siempre. Esta acción no se puede deshacer."
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "¿Estás seguro de que quieres eliminar esta colección?"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} - Ver la colección {name} de {username} en Modrinth"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "Colección generada automáticamente de todos los proyectos que sigues."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "Colección no encontrada"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "Colección"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Creado {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "Mantenido por"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "¡Esta colección no tiene proyectos!"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "No tienes ningún proyecto.\n¿Te gustaría <create-link>añadir uno</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Propietario"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "Privado"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "Actualizado {ago}"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "{name} - Colección"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "Crear nueva"
   },
   "dashboard.collections.label.projects-count": {
     "message": "{count, plural, one {{count} project} other {{count} projects}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "Busca en tus colecciones"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "Tus colecciones"
   },
   "frog": {
     "message": "¡Has sido ranado! 🐸"
@@ -288,70 +288,70 @@
     "message": "Vista en lista"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "Colecciones"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Creado {ago}"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "Panel de control"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "Eliminar"
   },
   "label.description": {
-    "message": "Description"
+    "message": "Descripción"
   },
   "label.error": {
     "message": "Error"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "Proyectos seguidos"
   },
   "label.moderation": {
-    "message": "Moderation"
+    "message": "Moderación"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "Notificaciones"
   },
   "label.password": {
-    "message": "Password"
+    "message": "Contraseña"
   },
   "label.public": {
-    "message": "Public"
+    "message": "Público"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "Rechazado"
   },
   "label.scopes": {
     "message": "Scopes"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "Configuración"
   },
   "label.title": {
-    "message": "Title"
+    "message": "Título"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "No listado"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "Visibilidad"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "Cambiar tema"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "Obtener la app de Modrinth"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "Tu avatar"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "Visitar la configuración de cuenta"
   },
   "layout.banner.add-email.title": {
-    "message": "For security purposes, please enter your email on Modrinth."
+    "message": "Por motivos de seguridad, por favor introduce tu correo electrónico en Modrinth."
   },
   "layout.banner.staging.description": {
     "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
@@ -360,67 +360,67 @@
     "message": "You’re viewing Modrinth’s staging environment."
   },
   "layout.banner.verify-email.action": {
-    "message": "Re-send verification email"
+    "message": "Reenviar correo de verificación"
   },
   "layout.banner.verify-email.title": {
-    "message": "For security purposes, please verify your email address on Modrinth."
+    "message": "Por motivos de seguridad, por favor verifica tu correo electrónico en Modrinth."
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "Empleos"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "Privacidad"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Reglas"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Términos"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "Empresa"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "Redes sociales"
   },
   "layout.footer.legal-disclaimer": {
     "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "Modrinth es <github-link>código abierto</github-link>."
   },
   "layout.footer.resources.blog": {
     "message": "Blog"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "Documentación"
   },
   "layout.footer.resources.status": {
-    "message": "Status"
+    "message": "Estado"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "Soporte"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "Recursos"
   },
   "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Visita tu perfil"
   },
   "layout.menu-toggle.action": {
-    "message": "Toggle menu"
+    "message": "Alternar menú"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Descarga mods de Minecraft, plugins, datapacks, shaders, paquetes de recursos y modpacks en Modrinth. Descubre y publica proyectos en Modrinth con una interfaz moderna y fácil de usar y con API."
   },
   "layout.meta.og-description": {
-    "message": "Discover and publish Minecraft content!"
+    "message": "¡Descubre y publica contenido de Minecraft!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "Inicio"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "Buscar"
   },
   "notification.error.title": {
     "message": "Ha ocurrido un error"
@@ -732,52 +732,52 @@
     "message": "Write auth data"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Eliminar tu cuenta"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Eliminar tu cuenta"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Acceder a tu información de perfil pública"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Leer información del usuario"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Leer tu correo electrónico"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "Leer correo electrónico del usuario"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Escribir en tu perfil"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Escribir información del usuario"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Crear nuevas versiones"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "Crear versiones"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Eliminar una versión"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Eliminar versiones"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Leer todas las versiones"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "Leer todas las versiones"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Escribir a datos de versión"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "Crear versiones"
   },
   "settings.language.categories.auto": {
     "message": "Automático"
@@ -825,37 +825,37 @@
     "message": "Idioma"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Crear un PAT"
   },
   "settings.pats.description": {
     "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "Crear PAT"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Expira"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Nombre"
   },
   "settings.pats.modal.create.name.placeholder": {
     "message": "Enter the PAT's name..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Crear token de acceso personal"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Eliminar este token"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Esto eliminará este token para siempre (en plan, realmente para siempre)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "¿Estás seguro de que quieres eliminar este token?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Editar token de acceso personal"
   },
   "settings.pats.title": {
     "message": "PATs"
@@ -864,46 +864,46 @@
     "message": "Personal Access Tokens"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Editar token"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Revocar token"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Caducado {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Expira {inTime}"
   },
   "settings.pats.token.last-used": {
     "message": "Last used {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Nunca usado"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "Revocar sesión"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "Creado {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "Sesión actual"
   },
   "settings.sessions.description": {
     "message": "Aquí están todos los dispositivos que están conectados a tu cuenta de Modrinth en este momento. Puedes cerrar sesión en cada uno individualmente.\n\nSi ves una entrada que no reconoces, cierra sesión en ese dispositivo y cambia la contraseña de tu cuenta de Modrinth inmediatamente."
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "Último acceso {ago}"
   },
   "settings.sessions.title": {
     "message": "Sesiones"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Sistema operativo desconocido"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Plataforma desconocida"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} a las {time, time, short}"
