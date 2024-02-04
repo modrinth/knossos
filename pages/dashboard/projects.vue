@@ -332,7 +332,6 @@ await initUserProjects()
 const editLinksModal = ref(null)
 
 const projects = ref(updateSort(user.value.projects, 'Name'))
-const versions = ref([])
 const selectedProjects = ref([])
 const sortBy = ref('Name')
 const descending = ref(false)
@@ -356,14 +355,7 @@ const editLinks = ref({
   },
 })
 
-const UPLOAD_VERSION = 1 << 0
-const DELETE_VERSION = 1 << 1
 const EDIT_DETAILS = 1 << 2
-const EDIT_BODY = 1 << 3
-const MANAGE_INVITES = 1 << 4
-const REMOVE_MEMBER = 1 << 5
-const EDIT_MEMBER = 1 << 6
-const DELETE_PROJECT = 1 << 7
 
 function updateDescending() {
   descending.value = !descending.value
@@ -436,13 +428,10 @@ async function bulkEditLinks() {
       delete baseData.discord_url
     }
 
-    await useBaseFetch(
-      `projects?ids=${JSON.stringify(selectedProjects.value.map((x) => x.id))}`,
-      {
-        method: 'PATCH',
-        body: baseData,
-      }
-    )
+    await useBaseFetch(`projects?ids=${JSON.stringify(selectedProjects.value.map((x) => x.id))}`, {
+      method: 'PATCH',
+      body: baseData,
+    })
 
     editLinksModal.value.hide()
     data.$notify({
