@@ -21,9 +21,9 @@
           <NavStackItem v-if="true" link="/dashboard/projects" label="Projects">
             <ListIcon />
           </NavStackItem>
-          <NavStackItem 
-            v-if="true" 
-            link="/dashboard/organizations" 
+          <NavStackItem
+            v-if="true"
+            link="/dashboard/organizations"
             :label="formatMessage(messages.organizationTitle)"
           >
             <OrganizationIcon />
