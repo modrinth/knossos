@@ -201,7 +201,7 @@
     "message": "Projekt entfernen"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Projekt nicht mehr folgen"
   },
   "collection.button.upload-icon": {
     "message": "Profilbild hochladen"
@@ -825,61 +825,61 @@
     "message": "Sprache"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Erstelle ein PAT"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "Mit PATs kannst du auf die API von Modrinth zugreifen. Weitere Informationen findest du in der <doc-link>Dokumentation zur Modrinth-API</doc-link>. Sie können jederzeit erstellt und widerrufen werden."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "PAT erstellen"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Ablaufdatum"
   },
   "settings.pats.modal.create.name.label": {
     "message": "Name"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Gib den Namen des PAT ein..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Erstelle einen persönlichen Zugriffstoken"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Lösche diesen Token"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Dies wird diesen Token für immer entfernen (wirklich für immer)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Bist du sicher, dass du diesen Token löschen möchtest?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Bearbeite den persönlichen Zugriffstoken"
   },
   "settings.pats.title": {
     "message": "PATs"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Persönliche Zugriffstoken"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Token bearbeiten"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Token widerrufen"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Abgelaufen {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Verfällt in {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Zuletzt verwendet {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Nie verwendet"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Sitzung widerrufen"
