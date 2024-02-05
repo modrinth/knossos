@@ -1,60 +1,60 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Autorizza"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Rifiuta"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> di <creator-link>{creator}</creator-link> sarà in grado di:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Autorizza {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Nessuna posizione di reindirizzamento trovata nella risposta"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Sarai reindirizzato a <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Invia e-mail di recupero"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Inserisci la tua email qui sotto e ti invieremo un link di recupero per permetterti di recuperare il tuo account."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "E-mail o nome utente"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "E-mail"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "Una e-mail con le istruzioni ti è stata inviata se l'e-mail è stata precedentemente salvata sul tuo account."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "E-mail inviata"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Ora potrai accedere al tuo account con la nuova password."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Password reimpostata con successo"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Reimposta password"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Conferma password"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Inserisci la tua nuova password qui sotto per accedere al tuo account."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Reimposta password"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Reimposta la tua password"
   },
   "auth.sign-in.2fa.description": {
     "message": "Inserisci un codice a due fattori per procedere."
@@ -66,97 +66,97 @@
     "message": "Inserisci codice..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Password dimenticata?</forgot-password-link> • <create-account-link>Crea un account</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "E-mail o nome utente"
   },
   "auth.sign-in.password.label": {
     "message": "Password"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Accedi con"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Accedi"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "Oppure usa una password"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Crea account"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Conferma password"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "E-mail"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Nome utentetente"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Creando un'account, accetti i <terms-link>Termini</terms-link> e la <privacy-policy-link>Politica sulla Riservatezza</privacy-policy-link> di Modrinth."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "Le password non corrispondono!"
   },
   "auth.sign-up.password.label": {
     "message": "Password"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Hai già un account?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Iscriviti agli aggiornamenti di Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Registrati"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Oppure crea un account da zero"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Registrati con"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Impostazioni account"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Accedi"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "La tua email è già stata verificata!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "La tua e-mail è già stata verificata"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Rinvia e-mail di verifica"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Non siamo stati in grado di verificare la tua e-mail. Prova a inviare nuovamente l'e-mail di verifica attraverso la tua dashboard accedendo."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "Non siamo stati in grado di verificare la tua e-mail. Prova a inviare nuovamente l'e-mail di verifica premendo il pulsante sottostante."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "Verifica e-mail non riuscita"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "Il tuo indirizzo e-mail è stato verificato con successo!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Verifica e-mail"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Verifica l'e-mail"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Iscriviti agli aggiornamenti di Modrinth"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "Grazie per aver creato un account. Ora puoi seguire e creare progetti, ricevere aggiornamenti sui tuoi progetti preferiti, e altro ancora!"
   },
   "auth.welcome.label.tos": {
     "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
