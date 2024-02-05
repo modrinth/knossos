@@ -263,13 +263,22 @@
   "dashboard.collections.long-title": {
     "message": "Your collections"
   },
-  "dashboard.organization.action.create-organization": {
+  "dashboard.organization.title": {
+    "message": "Organizations"
+  },
+  "dashboard.organizations.action.create-organization": {
     "message": "Create organization"
   },
-  "dashboard.organization.make-organization": {
+  "dashboard.organizations.error.fetch-organization": {
+    "message": "Failed to fetch organizations"
+  },
+  "dashboard.organizations.make-organization": {
     "message": "Make an organization!"
   },
-  "dashboard.organization.title": {
+  "dashboard.organizations.members": {
+    "message": "{count, plural, one {{count} member} other {{count} members}}"
+  },
+  "dashboard.organizations.title": {
     "message": "Organizations"
   },
   "frog": {

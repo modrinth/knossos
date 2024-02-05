@@ -32,10 +32,11 @@
                 <div class="stats">
                   <UsersIcon />
                   <span>
-                    {{ onlyAcceptedMembers(org.members).length }} member<template
-                      v-if="onlyAcceptedMembers(org.members).length !== 1"
-                      >s</template
-                    >
+                    {{
+                      formatMessage(messages.membersLabel, {
+                        count: formatCompactNumber(onlyAcceptedMembers(org.members).length),
+                      })
+                    }}
                   </span>
                 </div>
               </span>
@@ -57,18 +58,27 @@ import { useAuth } from '~/composables/auth.js'
 import OrganizationCreateModal from '~/components/ui/OrganizationCreateModal.vue'
 
 const { formatMessage } = useVIntl()
+const formatCompactNumber = useCompactNumber()
 
 const messages = defineMessages({
   createOrganization: {
-    id: 'dashboard.organization.action.create-organization',
+    id: 'dashboard.organizations.action.create-organization',
     defaultMessage: 'Create organization',
   },
+  fetchOranizationError: {
+    id: 'dashboard.organizations.error.fetch-organization',
+    defaultMessage: 'Failed to fetch organizations',
+  },
   makeOrganizationLabel: {
-    id: 'dashboard.organization.make-organization',
+    id: 'dashboard.organizations.make-organization',
     defaultMessage: 'Make an organization!',
   },
+  membersLabel: {
+    id: 'dashboard.organizations.members',
+    defaultMessage: '{count, plural, one {{count} member} other {{count} members}}',
+  },
   title: {
-    id: 'dashboard.organization.title',
+    id: 'dashboard.organizations.title',
     defaultMessage: 'Organizations',
   },
 })
@@ -91,7 +101,7 @@ const onlyAcceptedMembers = (members) => members.filter((member) => member?.acce
 if (error.value) {
   createError({
     statusCode: 500,
-    message: 'Failed to fetch organizations',
+    message: formatMessage(message.fetchOranizationError),
   })
 }
 
