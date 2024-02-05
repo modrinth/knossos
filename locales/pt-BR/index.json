@@ -174,7 +174,7 @@
     "message": "Continuar"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "Crie um projeto"
   },
   "button.edit": {
     "message": "Editar"
@@ -186,10 +186,10 @@
     "message": "Salvar mudanças"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "Entrar"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "Sair"
   },
   "collection.button.delete-icon": {
     "message": "Excluir ícone"
@@ -294,7 +294,7 @@
     "message": "Criado {ago}"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "Painel de controle"
   },
   "label.delete": {
     "message": "Excluir"
@@ -309,10 +309,10 @@
     "message": "Projetos seguidos"
   },
   "label.moderation": {
-    "message": "Moderation"
+    "message": "Moderação"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "Notificações"
   },
   "label.password": {
     "message": "Senha"
@@ -327,7 +327,7 @@
     "message": "Escopos"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "Configurações"
   },
   "label.title": {
     "message": "Título"
@@ -339,88 +339,88 @@
     "message": "Visibilidade"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "Mudar tema"
   },
   "layout.action.get-modrinth-app": {
     "message": "Get Modrinth App"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "Seu avatar"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "Acesse as configurações de conta"
   },
   "layout.banner.add-email.title": {
-    "message": "For security purposes, please enter your email on Modrinth."
+    "message": "Por razões de segurança, verifique o seu endereço de email do Modrinth."
   },
   "layout.banner.staging.description": {
-    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+    "message": "O ambiente de desenvolvimento está rodando em uma cópia da database do Modrinth de produção. Ele é usado para testar e depurar, e pode estar rodando versões em desenvolvimento do backfront e/ou frotend do Modrinth mais novas do que as vistas na instância de produção."
   },
   "layout.banner.staging.title": {
-    "message": "You’re viewing Modrinth’s staging environment."
+    "message": "Você está no ambiente de desenvolvimento do Modrinth."
   },
   "layout.banner.verify-email.action": {
-    "message": "Re-send verification email"
+    "message": "Reenviar email de verificação"
   },
   "layout.banner.verify-email.title": {
-    "message": "For security purposes, please verify your email address on Modrinth."
+    "message": "Por razões de segurança, verifique o seu endereço de email do Modrinth."
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "Carreiras"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "Privacidade"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Regras"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Termos"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "Empresa"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "Interaja"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "NÃO SOMOS UM SERVIÇO OFICIAL DO MINECRAFT. NÃO SOMOS APROVADOS OU ASSOCIADOS COM A MOJANG OU MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "O Modrinth é <github-link>código aberto</github-link>."
   },
   "layout.footer.resources.blog": {
     "message": "Blog"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "Documentação"
   },
   "layout.footer.resources.status": {
     "message": "Status"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "Suporte"
   },
   "layout.footer.resources.title": {
     "message": "Resources"
   },
   "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Visite seu perfil"
   },
   "layout.menu-toggle.action": {
     "message": "Toggle menu"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Baixe mods, plugins, datapacks, shaders, resourcepacks e modpacks de Minecraft no Modrinth. Descubra e publique projetos no Modrinth com uma interface e API modernas e de fácil uso."
   },
   "layout.meta.og-description": {
-    "message": "Discover and publish Minecraft content!"
+    "message": "Descubra e publique conteúdo de Minecraft!"
   },
   "layout.nav.home": {
     "message": "Home"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "Pesquisar"
   },
   "notification.error.title": {
     "message": "Ocorreu um erro"
