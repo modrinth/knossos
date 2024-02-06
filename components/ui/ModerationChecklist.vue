@@ -264,6 +264,10 @@
       </div>
     </div>
     <div class="input-group push-right">
+      <button class="btn" @click="goToNextProject">
+        <ExitIcon />
+        Skip
+      </button>
       <button v-if="currentStepIndex > 0" class="btn" @click="previousPage()">
         <LeftArrowIcon /> Previous
       </button>
@@ -323,6 +327,7 @@ import {
   DropdownIcon,
   XIcon as CrossIcon,
   EyeOffIcon,
+  ExitIcon,
 } from 'omorphia'
 import Categories from '~/components/ui/search/Categories.vue'
 
