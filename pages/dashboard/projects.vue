@@ -406,10 +406,10 @@ function updateSort(projects, sort, descending) {
 async function bulkEditLinks() {
   try {
     const baseData = {
-      issues_url: editLinks.value.issues.clear ? null : editLinks.value.issues.val.trim(),
-      source_url: editLinks.value.source.clear ? null : editLinks.value.source.val.trim(),
-      wiki_url: editLinks.value.wiki.clear ? null : editLinks.value.wiki.val.trim(),
-      discord_url: editLinks.value.discord.clear ? null : editLinks.value.discord.val.trim(),
+      issues_url: editLinks.issues.clear ? null : editLinks.issues.val.trim(),
+      source_url: editLinks.source.clear ? null : editLinks.source.val.trim(),
+      wiki_url: editLinks.wiki.clear ? null : editLinks.wiki.val.trim(),
+      discord_url: editLinks.discord.clear ? null : editLinks.discord.val.trim(),
     }
 
     if (!baseData.issues_url?.length ?? 1 > 0) {
