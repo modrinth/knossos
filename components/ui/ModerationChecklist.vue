@@ -765,11 +765,11 @@ const fileApprovalTypes = ref([
 ])
 const filePermissionTypes = ref([
   {
-    id: 'yes',
+    id: true,
     name: 'Yes',
   },
   {
-    id: 'no',
+    id: false,
     name: 'No',
   },
 ])
@@ -778,17 +778,16 @@ const message = ref('')
 const generatedMessage = ref(false)
 const loadingMessage = ref(false)
 async function generateMessage() {
-  currentStepIndex.value += 1
   loadingMessage.value = true
-  function printMods(mods, message) {
+  function printMods(mods, msg) {
     if (mods.length === 0) {
       return
     }
 
-    message.value += message
+    message.value += msg
     message.value += '\n\n'
 
-    for (const mod in mods) {
+    for (const mod of mods) {
       message.value += `- ${mod}\n`
     }
   }
@@ -801,7 +800,7 @@ async function generateMessage() {
     const permanentNoMods = []
     const unidentifiedMods = []
 
-    for (const project in modPackData.value) {
+    for (const project of modPackData.value) {
       if (project.type === 'unknown') {
         updateProjects[project.hash] = {
           status: project.status,
@@ -896,6 +895,7 @@ async function generateMessage() {
   }
   generatedMessage.value = true
   loadingMessage.value = false
+  currentStepIndex.value += 1
   await navigateTo(`/${props.project.project_type}/${props.project.slug}/moderation`)
 }
 
