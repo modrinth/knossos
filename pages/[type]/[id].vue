@@ -755,6 +755,11 @@
         </div>
       </div>
     </div>
+    <ModerationChecklist
+      v-if="auth.user && tags.staffRoles.includes(auth.user.role) && showModerationChecklist"
+      :project="project"
+      :reset-project="resetProject"
+    />
   </div>
 </template>
 <script setup>
@@ -815,6 +820,7 @@ import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import { userCollectProject } from '~/composables/user.js'
 import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 import OrganizationIcon from '~/assets/images/utils/organization.svg'
+import ModerationChecklist from '~/components/ui/ModerationChecklist.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -1207,6 +1213,11 @@ async function copyId() {
 }
 
 const collapsedChecklist = ref(false)
+
+const showModerationChecklist = ref(false)
+if (process.client && history && history.state && history.state.showChecklist) {
+  showModerationChecklist.value = true
+}
 </script>
 <style lang="scss" scoped>
 .header {
