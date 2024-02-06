@@ -803,6 +803,7 @@ async function generateMessage() {
     for (const project of modPackData.value) {
       if (project.type === 'unknown') {
         updateProjects[project.hash] = {
+          type: 'unknown',
           status: project.status,
           proof: project.proof,
           title: project.title,
@@ -812,6 +813,7 @@ async function generateMessage() {
 
       if (project.type === 'flame') {
         updateProjects[project.hash] = {
+          type: 'flame',
           status: project.status,
           id: project.id,
           link: project.url,
