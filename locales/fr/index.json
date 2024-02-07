@@ -42,7 +42,7 @@
     "message": "Password successfully reset"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Réinitialiser le mot de passe"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
     "message": "Confirm password"
@@ -51,19 +51,19 @@
     "message": "Enter your new password below to gain access to your account."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Réinitialiser le mot de passe"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Réinitialiser votre mot de passe"
   },
   "auth.sign-in.2fa.description": {
     "message": "Please enter a two-factor code to proceed."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Saisir le code à deux facteurs"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Saisir le code..."
   },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
@@ -72,28 +72,28 @@
     "message": "Email or username"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Mot de passe"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Se connecter avec"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Se connecter"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "Ou utiliser un mot de passe"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Créer un compte"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Confirmer le mot de passe"
   },
   "auth.sign-up.email.label": {
     "message": "E-mail"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Nom d'utilisateur"
   },
   "auth.sign-up.legal-dislaimer": {
     "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
@@ -102,7 +102,7 @@
     "message": "Passwords do not match!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "Mot de passe"
   },
   "auth.sign-up.sign-in-option.title": {
     "message": "Already have an account?"
@@ -195,10 +195,10 @@
     "message": "Delete icon"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Modifier l'icône"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Supprimer le projet"
   },
   "collection.button.unfollow-project": {
     "message": "Unfollow project"
@@ -225,7 +225,7 @@
     "message": "Collection"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Créée {ago}"
   },
   "collection.label.curated-by": {
     "message": "Curated by"
@@ -237,7 +237,7 @@
     "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Propriétaire"
   },
   "collection.label.private": {
     "message": "Privé"
@@ -261,7 +261,7 @@
     "message": "Search your collections"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "Vos collections"
   },
   "frog": {
     "message": "Vous avez été grenouillé ! 🐸"
@@ -297,7 +297,7 @@
     "message": "Tableau de bord"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "Supprimer"
   },
   "label.description": {
     "message": "Description"
@@ -315,7 +315,7 @@
     "message": "Notifications"
   },
   "label.password": {
-    "message": "Password"
+    "message": "Mot de passe"
   },
   "label.public": {
     "message": "Public"
