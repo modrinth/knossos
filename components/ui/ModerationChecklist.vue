@@ -3,7 +3,6 @@
     <h1>Moderation checklist</h1>
     <div v-if="done">
       <p>You are done moderating this project! There are {{ futureProjects.length }} left.</p>
-      <button class="btn btn-purple" @click="goToNextProject">Next project</button>
     </div>
     <div v-else-if="generatedMessage">
       <p>
@@ -16,7 +15,10 @@
     </div>
     <div v-else-if="steps[currentStepIndex].id === 'modpack-permissions'">
       <h2 v-if="modPackData">
-        Modpack permissions ({{ modPackIndex + 1 }} / {{ modPackData.length }})
+        Modpack permissions
+        <template v-if="modPackIndex + 1 <= modPackData.length">
+          ({{ modPackIndex + 1 }} / {{ modPackData.length }})
+        </template>
       </h2>
       <div v-if="!modPackData">Loading data...</div>
       <div v-else-if="modPackData.length === 0">
@@ -24,6 +26,12 @@
       </div>
       <div v-else-if="!modPackData[modPackIndex]">
         <p>All permission checks complete!</p>
+        <div class="input-group modpack-buttons">
+          <button class="btn" @click="modPackIndex -= 1">
+            <LeftArrowIcon />
+            Previous
+          </button>
+        </div>
       </div>
       <div v-else>
         <div v-if="modPackData[modPackIndex].type === 'unknown'">
@@ -181,6 +189,7 @@
       <p v-if="steps[currentStepIndex].id === 'title'">
         <strong>Title:</strong> {{ project.title }}
       </p>
+      <p v-if="steps[currentStepIndex].id === 'slug'"><strong>Slug:</strong> {{ project.slug }}</p>
       <p v-if="steps[currentStepIndex].id === 'summary'">
         <strong>Summary:</strong> {{ project.description }}
       </p>
@@ -255,24 +264,24 @@
                 <span v-if="filler.required" class="required">*</span>
               </span>
             </label>
-            <div v-if="filler.large" class="textarea-wrapper">
-              <textarea :id="filler.id" v-model="filler.value" autocomplete="off" />
+            <div v-if="filler.large" class="markdown-editor-spacing">
+              <MarkdownEditor v-model="filler.value" :placeholder="'Enter moderation message'" />
             </div>
             <input v-else :id="filler.id" v-model="filler.value" type="text" autocomplete="off" />
           </div>
         </div>
       </div>
     </div>
-    <div class="input-group push-right">
-      <button class="btn" @click="goToNextProject">
+    <div class="input-group modpack-buttons">
+      <button v-if="!done" class="btn skip-btn" @click="goToNextProject">
         <ExitIcon />
         Skip
       </button>
-      <button v-if="currentStepIndex > 0" class="btn" @click="previousPage()">
+      <button v-if="currentStepIndex > 0" class="btn" @click="previousPage() && !done">
         <LeftArrowIcon /> Previous
       </button>
       <button
-        v-if="currentStepIndex < steps.length - 1"
+        v-if="currentStepIndex < steps.length - 1 && !done"
         class="btn btn-primary"
         @click="nextPage()"
       >
@@ -286,8 +295,8 @@
       >
         <UpdatedIcon /> Generate message
       </button>
-      <template v-if="generatedMessage">
-        <button class="btn btn-green" @click="sendMessage('approved')">
+      <template v-if="generatedMessage && !done">
+        <button class="btn btn-green" @click="sendMessage(project.requested_status ?? 'approved')">
           <CheckIcon /> Approve
         </button>
         <div class="joined-buttons">
@@ -312,6 +321,9 @@
           </OverflowMenu>
         </div>
       </template>
+      <button v-if="done" class="btn btn-primary next-project" @click="goToNextProject">
+        Next project
+      </button>
     </div>
   </div>
 </template>
@@ -371,6 +383,19 @@ Per section 5.2 of [Modrinth's Content Rules](https://modrinth.com/legal/rules#m
       ],
     },
     {
+      id: 'slug',
+      question: 'Is the slug accurate and appropriate?',
+      shown: true,
+      rules: ['Matches title / not misleading (acronyms are OK)'],
+      options: [
+        {
+          name: 'Misused',
+          resultingMessage: `## Misuse of Slug
+Per section 5.2 of [Modrinth's Content Rules](https://modrinth.com/legal/rules#miscellaneous) your project slug (URL) must accurately represent your project. `,
+        },
+      ],
+    },
+    {
       id: 'summary',
       question: `Is the project's summary sufficient?`,
       shown: true,
@@ -412,7 +437,7 @@ This is the first thing most people will see about your mod other than the Logo,
         'Should be accessible (no fancy characters / non-standard text, no image-only descriptions, must have English component, etc)',
       ],
       exceptions: [
-        'Modpacks generally have a stricter requirement to qualify as a sufficient description. Generally, a mod list and a short explainer is approvable.',
+        'Modpacks generally have a more lax requirement to qualify as a sufficient description. Generally, a mod list and a short explainer is approvable.',
       ],
       options: [
         {
@@ -477,10 +502,29 @@ Per section 2 of [Modrinth's Content Rules](https://modrinth.com/legal/rules#cle
 Per section 5.4 of [Modrinth's Content Rules](https://modrinth.com/legal/rules#miscellaneous) all links must lead to correctly labeled publicly available resources that are directly related to your project.`,
         },
         {
-          name: 'Not accessible',
+          name: 'Not accessible (source)',
           resultingMessage: `## Unreachable Links
 Per section 5.4 of [Modrinth's Content Rules](https://modrinth.com/legal/rules#miscellaneous) all links must lead to correctly labeled publicly available resources that are directly related to your project.
-Currently, your Source link directs to a Page Not Found error, likely because your repository is private, make sure to make your repository public before resubmitting your project!  `,
+Currently, your Source link directs to a Page Not Found error, likely because your repository is private, make sure to make your repository public before resubmitting your project!`,
+          fillers: [
+            {
+              id: 'EXPLAINER',
+              question: 'Please elaborate on how the author can improve their description.',
+              large: true,
+            },
+          ],
+        },
+        {
+          name: 'Not accessible (other)',
+          resultingMessage: `## Unreachable Links
+Per section 5.4 of [Modrinth's Content Rules](https://modrinth.com/legal/rules#miscellaneous) all links must lead to correctly labeled publicly available resources that are directly related to your project.
+Currently, your %LINK% link is inaccessible!`,
+          fillers: [
+            {
+              id: 'LINK',
+              question: 'Please specify the link type that is inaccessible.',
+            },
+          ],
         },
       ],
     },
@@ -778,6 +822,7 @@ const message = ref('')
 const generatedMessage = ref(false)
 const loadingMessage = ref(false)
 async function generateMessage() {
+  message.value = ''
   loadingMessage.value = true
   function printMods(mods, msg) {
     if (mods.length === 0) {
@@ -887,7 +932,7 @@ async function generateMessage() {
 
       if (option.fillers && option.fillers.length > 0) {
         for (const filler of option.fillers) {
-          addonMessage = addonMessage.replace(new RegExp(`%${filler.id}%`, 'g'), filler.value)
+          addonMessage = addonMessage.replace(new RegExp(`%${filler.id}%`, 'g'), filler.value ?? '')
         }
       }
 
@@ -948,6 +993,11 @@ async function goToNextProject() {
   const router = useRouter()
 
   const project = futureProjects.value[0]
+
+  if (!project) {
+    await navigateTo('/moderation/review')
+  }
+
   await router.push({
     name: 'type-id',
     params: {
@@ -971,11 +1021,15 @@ async function goToNextProject() {
   border: 1px solid var(--color-bg-inverted);
   width: 600px;
 
-  .modpack-buttons {
-    margin-top: 1rem;
+  .skip-btn {
+    margin-right: auto;
   }
 
-  .push-right {
+  .next-project {
+    margin-left: auto;
+  }
+
+  .modpack-buttons {
     margin-top: 1rem;
   }
 
