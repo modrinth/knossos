@@ -1,39 +1,39 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "o ken e ilo"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "o pini"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "ilo <strong> {appName} </strong> pi jan <creator-link> {creator} </creator-link> li ken ni:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "o ken e ilo {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "ilo li pakala li ken ala tawa e sina tawa lipu"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "sina kama tawa <redirect-url> {url} </redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "o pana e toki ilo tawa mi"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "o pana e nimi sina pi toki ilo. mi pana e nasin tawa ni. nasin la sina ken pona e sijelo ilo sina pi lipu Modrinth."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "nimi sijelo anu nimi pi toki ilo"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "nimi sina pi toki ilo"
   },
   "auth.reset-password.notification.email-sent.text": {
     "message": "An email with instructions has been sent to you if the email was previously saved on your account."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "ilo li pana e toki tawa sina"
   },
   "auth.reset-password.notification.password-reset.text": {
     "message": "You can now log-in into your account with your new password."
@@ -69,10 +69,10 @@
     "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "nimi sijelo anu nimi pi toki ilo"
   },
   "auth.sign-in.password.label": {
-    "message": "Nimi open"
+    "message": "nimi len"
   },
   "auth.sign-in.sign-in-with": {
     "message": "Sign in with"
@@ -99,16 +99,16 @@
     "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "nimi len li sama ala!"
   },
   "auth.sign-up.password.label": {
-    "message": "Nimi open"
+    "message": "nimi len"
   },
   "auth.sign-up.sign-in-option.title": {
     "message": "Already have an account?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "sina wile kute e sin pi lipu Modrinth"
   },
   "auth.sign-up.title": {
     "message": "Sign Up"
@@ -153,7 +153,7 @@
     "message": "Verify Email"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "ilo Modrinth li pana e lipu pi sona sin tawa ilo sina"
   },
   "auth.welcome.description": {
     "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
@@ -162,28 +162,28 @@
     "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "kama pona tawa lipu Modrinth!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "kama pona"
   },
   "button.cancel": {
     "message": "o ala"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "o ni"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "o pana e pali"
   },
   "button.edit": {
     "message": "o ante"
   },
   "button.save": {
-    "message": "awen"
+    "message": "o awen"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "o awen e ante"
   },
   "button.sign-in": {
     "message": "Sign in"
@@ -192,49 +192,49 @@
     "message": "Sign out"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "o weka e sitelen"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "o ante e sitelen"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "o weka e pali"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "o kute ala e pali ni"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "o pana e sitelen"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "ni li weka e kulupu lon tenpo ale. sina ken ala kama sin e ona."
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "sina wile ala wile weka e kulupu ni?"
   },
   "collection.description": {
     "message": "{description} - View the collection {name} by {username} on Modrinth"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "sina awen lukin e pali ni."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "mi ken ala alasa e ni"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "kulupu pali"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "ona li kama lon tenpo {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "lipu tan"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "kulupu ni li jo ala e pali!"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "sina pali ala e ijo.\nsina wile <create-link>pali e ijo</create-link> anu seme?"
   },
   "collection.label.owner": {
     "message": "Owner"
@@ -258,10 +258,10 @@
     "message": "{count, plural, one {{count} project} other {{count} projects}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "o alasa lon kulupu pali sina"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "kulupu pali sina"
   },
   "frog": {
     "message": "mi akesi e sina a! 🐸"
@@ -288,25 +288,25 @@
     "message": "lipu lukin"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "kulupu pali"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "ona li kama lon tenpo {ago}"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "lipu suli"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "o weka"
   },
   "label.description": {
-    "message": "Description"
+    "message": "sona"
   },
   "label.error": {
-    "message": "Error"
+    "message": "pakala"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "pali kute"
   },
   "label.moderation": {
     "message": "Moderation"
@@ -315,7 +315,7 @@
     "message": "Notifications"
   },
   "label.password": {
-    "message": "Password"
+    "message": "nimi len"
   },
   "label.public": {
     "message": "Public"
@@ -324,34 +324,34 @@
     "message": "Rejected"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "ona li ken:"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "lipu ante"
   },
   "label.title": {
     "message": "Title"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "lon lipu ala"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "ken lukin"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "o ante e kule lipu"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "o jo e ilo Modrinth"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "sitelen sina"
   },
   "layout.banner.add-email.button": {
     "message": "Visit account settings"
   },
   "layout.banner.add-email.title": {
-    "message": "For security purposes, please enter your email on Modrinth."
+    "message": "o pana e nimi sina pi toki ilo lon lipu Modrinth."
   },
   "layout.banner.staging.description": {
     "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
@@ -405,7 +405,7 @@
     "message": "Resources"
   },
   "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "o lukin e lipu sina"
   },
   "layout.menu-toggle.action": {
     "message": "Toggle menu"
@@ -417,10 +417,10 @@
     "message": "Discover and publish Minecraft content!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "lipu open"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "o alasa"
   },
   "notification.error.title": {
     "message": "pakala a!"
@@ -432,7 +432,7 @@
     "message": "o pana e sona ike"
   },
   "profile.error.not-found": {
-    "message": "mi ken alasa e ni"
+    "message": "mi ken ala alasa e ni"
   },
   "profile.input.upload-avatar": {
     "message": "o pana e sitelen"
@@ -462,16 +462,16 @@
     "message": "kulupu jan"
   },
   "profile.meta.description": {
-    "message": "o kama jo e pali tan {username} lon lipu Modrinth"
+    "message": "o jo e pali tan {username} lon lipu Modrinth"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - o kama jo e pali tan {username} lon lipu Modrinth"
+    "message": "{bio} - o jo e pali tan {username} lon lipu Modrinth"
   },
   "profile.stats.downloads": {
     "message": "jan {count, plural, other {<stat>{count}</stat>}} li jo e pali tan ona"
   },
   "profile.stats.projects-followers": {
-    "message": "jan {count, plural, other {<stat>{count}</stat>}} li lukin e pali tan ona"
+    "message": "jan {count, plural, other {<stat>{count}</stat>}} li kute e pali tan ona"
   },
   "profile.user-id": {
     "message": "nanpa jan: {id}"
@@ -480,10 +480,10 @@
     "message": "ale"
   },
   "project-type.collection.plural": {
-    "message": "kulupu lipu"
+    "message": "kulupu pali"
   },
   "project-type.collection.singular": {
-    "message": "kulupu lipu"
+    "message": "kulupu pali"
   },
   "project-type.datapack.plural": {
     "message": "toki wawa"
@@ -510,10 +510,10 @@
     "message": "ilo kulupu"
   },
   "project-type.project.plural": {
-    "message": "kulupu pi pali musi"
+    "message": "pali"
   },
   "project-type.project.singular": {
-    "message": "kulupu pi pali musi"
+    "message": "pali"
   },
   "project-type.resourcepack.plural": {
     "message": "poki sitelen"
@@ -636,7 +636,7 @@
     "message": "sona e mani tawa sina"
   },
   "scopes.payoutsWrite.description": {
-    "message": "lanpan e mani sina"
+    "message": "jo e mani sina"
   },
   "scopes.payoutsWrite.label": {
     "message": "lanpan e mani sina"
@@ -657,13 +657,13 @@
     "message": "weka e kulupu musi"
   },
   "scopes.projectDelete.label": {
-    "message": "weka e kulupu musi"
+    "message": "weka e pali"
   },
   "scopes.projectRead.description": {
-    "message": "lukin e kulupu musi"
+    "message": "lukin e pali ale"
   },
   "scopes.projectRead.label": {
-    "message": "lukin e kulupu musi"
+    "message": "lukin e pali"
   },
   "scopes.projectWrite.description": {
     "message": "pana tawa kulupu musi"
@@ -900,10 +900,10 @@
     "message": "lon pi sijelo sina"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "ilo pi sona ala"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "nasin pi sona ala"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long}, {time, time, short}"
