@@ -90,7 +90,7 @@
     "message": "Confirm password"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "nimi sina pi toki ilo"
   },
   "auth.sign-up.label.username": {
     "message": "Username"
@@ -213,7 +213,7 @@
     "message": "sina wile ala wile weka e kulupu ni?"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} - o lukin e kulupu {name} tan {username} lon lipu Modrinth"
   },
   "collection.description.following": {
     "message": "sina awen lukin e pali ni."
@@ -234,13 +234,13 @@
     "message": "kulupu ni li jo ala e pali!"
   },
   "collection.label.no-projects-auth": {
-    "message": "sina pali ala e ijo.\nsina wile <create-link>pali e ijo</create-link> anu seme?"
+    "message": "kulupu ni li jo ala e pali\nsina wile ala wile <create-link>pana e pali</create-link>?"
   },
   "collection.label.owner": {
     "message": "Owner"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "lukin sina taso"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
@@ -252,7 +252,7 @@
     "message": "{name} - Collection"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "o sin e kulupu"
   },
   "dashboard.collections.label.projects-count": {
     "message": "{count, plural, one {{count} project} other {{count} projects}}"
@@ -330,7 +330,7 @@
     "message": "lipu ante"
   },
   "label.title": {
-    "message": "Title"
+    "message": "nimi lawa"
   },
   "label.unlisted": {
     "message": "lon lipu ala"
