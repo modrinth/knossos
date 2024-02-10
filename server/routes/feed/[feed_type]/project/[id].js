@@ -1,5 +1,5 @@
 import { Feed } from 'feed'
-import { renderString } from '~/helpers/parse.js'
+import { renderString } from 'omorphia'
 
 const capitalizeString = (name) => {
   return name ? name.charAt(0).toUpperCase() + name.slice(1) : name
@@ -70,7 +70,7 @@ export default defineEventHandler(async (event) => {
       description: `Loaders: ${loadersPretty}, Minecraft versions: ${gameVersionsPretty}`,
       content:
         // Check for changelog length being greater than 1 to ensure no blank changelog section.
-        renderString(
+      renderString(
           version.changelog.length > 1 ? version.changelog : 'No changelog was specified.'
         ),
       author: [
