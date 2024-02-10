@@ -4,27 +4,31 @@
       <h2>Project status</h2>
       <Badge :type="project.status" />
       <p v-if="isApproved(project)">
-        Your project been approved by the moderators and you may freely change project visibility in
+        Your project has been approved by the moderators and you may freely change project
+        visibility in
         <router-link :to="`${getProjectLink(project)}/settings`" class="text-link"
           >your project's settings</router-link
         >.
       </p>
       <div v-else-if="isUnderReview(project)">
         <p>
-          Project reviews typically take 24 to 48 hours. Modrinth's moderators will leave a message
-          below if they have any questions or concerns for you.
-
-          <!--
-          If your review has taken more than 48 hours, check our Discord or social media for
-          moderation delays.
-          -->
+          Modrinth's team of content moderators work hard to review all submitted projects.
+          Typically, you can expect a new project to be reviewed within 24 to 48 hours. Please keep
+          in mind that larger projects, especially modpacks, may require more time to review.
+          Certain holidays or events may also lead to delays depending on moderator availability.
+          Modrinth's moderators will leave a message below if they have any questions or concerns
+          for you.
         </p>
-
-        <p class="warning">
-          <IssuesIcon /> Due to a high volume of new projects, reviews are currently experiencing
-          extended delays, much greater than usual. Many projects may be under review for a week or
-          more. Please understand that we are working to fix this problem as soon as possible. Our
-          sincerest apologies for the inconvenience!
+        <p>
+          If your review has taken more than 48 hours, check our
+          <a
+            class="text-link"
+            href="https://support.modrinth.com/en/articles/8793355-modrinth-project-review-times"
+            target="_blank"
+          >
+            support article on review times
+          </a>
+          for moderation delays.
         </p>
       </div>
       <template v-else-if="isRejected(project)">
@@ -70,18 +74,18 @@
     <section id="messages" class="universal-card">
       <h2>Messages</h2>
       <p>
-        This is a private conversation thread with the Modrinth moderators. They will message you
-        for issues concerning your project on Modrinth, and you are welcome to message them about
-        things concerning your project.
+        This is a private conversation thread with the Modrinth moderators. They may message you
+        with issues concerning this project. Additionally, you are welcome to start a discussion
+        here regarding this project and its status.
       </p>
       <ConversationThread
         v-if="thread"
         :thread="thread"
-        :update-thread="(newThread) => (thread = newThread)"
         :project="project"
         :set-status="setStatus"
         :current-member="currentMember"
         :auth="auth"
+        @update-thread="(newThread) => (thread = newThread)"
       />
     </section>
   </div>
@@ -111,9 +115,12 @@ const props = defineProps({
       return null
     },
   },
+  resetProject: {
+    type: Function,
+    required: true,
+    default: () => {},
+  },
 })
-
-const emit = defineEmits(['update:project'])
 
 const app = useNuxtApp()
 const auth = await useAuth()
@@ -137,7 +144,7 @@ async function setStatus(status) {
     })
     const project = props.project
     project.status = status
-    emit('update:project', project)
+    await props.resetProject()
     thread.value = await useBaseFetch(`thread/${thread.value.id}`)
   } catch (err) {
     app.$notify({

@@ -19,6 +19,7 @@
           maxlength="2048"
           type="email"
           :placeholder="`Enter your email address...`"
+          @keyup.enter="saveEmail()"
         />
         <div class="input-group push-right">
           <button class="iconified-button" @click="$refs.changeEmailModal.hide()">
@@ -44,7 +45,10 @@
       } password`"
     >
       <div class="universal-modal">
-        <ul v-if="newPassword !== confirmNewPassword" class="known-errors">
+        <ul
+          v-if="newPassword !== confirmNewPassword && confirmNewPassword.length > 0"
+          class="known-errors"
+        >
           <li>Input passwords do not match!</li>
         </ul>
         <label v-if="removePasswordMode" for="old-password">
@@ -117,7 +121,7 @@
               class="iconified-button brand-button"
               :disabled="
                 newPassword.length == 0 ||
-                oldPassword.length == 0 ||
+                (auth.user.has_password && oldPassword.length == 0) ||
                 newPassword !== confirmNewPassword
               "
               @click="savePassword"
@@ -147,6 +151,7 @@
             maxlength="11"
             type="text"
             placeholder="Enter code..."
+            @keyup.enter="removeTwoFactor()"
           />
           <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
           <div class="input-group push-right">
@@ -197,7 +202,9 @@
               v-model="twoFactorCode"
               maxlength="6"
               type="text"
+              autocomplete="one-time-code"
               placeholder="Enter code..."
+              @keyup.enter="verifyTwoFactorCode()"
             />
             <p v-if="twoFactorIncorrect" class="known-errors">The code entered is incorrect!</p>
           </template>
@@ -264,7 +271,11 @@
               >
                 <TrashIcon /> Remove
               </button>
-              <a v-else class="btn" :href="`${getAuthUrl(provider.id)}&token=${auth.token}`">
+              <a
+                v-else
+                class="btn"
+                :href="`${getAuthUrl(provider.id, '/settings/account')}&token=${auth.token}`"
+              >
                 <ExternalIcon /> Add
               </a>
             </div>
@@ -591,27 +602,6 @@ const authProviders = [
     icon: GoogleIcon,
   },
 ]
-
-async function removeAuthProvider(provider) {
-  startLoading()
-  try {
-    await useBaseFetch('auth/provider', {
-      method: 'DELETE',
-      body: {
-        provider,
-      },
-    })
-    await useAuth(auth.value.token)
-  } catch (err) {
-    data.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err.data.description,
-      type: 'error',
-    })
-  }
-  stopLoading()
-}
 
 async function deleteAccount() {
   startLoading()

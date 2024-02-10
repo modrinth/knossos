@@ -9,12 +9,6 @@
       proceed-label="Delete"
       @proceed="deleteVersion()"
     />
-    <ModalReport
-      v-if="auth.user"
-      ref="modal_version_report"
-      :item-id="version.id"
-      item-type="version"
-    />
     <Modal v-if="auth.user && currentMember" ref="modal_package_mod" header="Package data pack">
       <div class="modal-package-mod universal-labels">
         <div class="markdown-body">
@@ -153,14 +147,14 @@
           <DownloadIcon aria-hidden="true" />
           Download
         </a>
-        <button class="iconified-button" @click="$refs.modal_version_report.show()">
-          <ReportIcon aria-hidden="true" />
-          Report
-        </button>
         <nuxt-link v-if="!auth.user" class="iconified-button" to="/auth/sign-in">
           <ReportIcon aria-hidden="true" />
           Report
         </nuxt-link>
+        <button v-else class="iconified-button" @click="() => reportVersion(version.id)">
+          <ReportIcon aria-hidden="true" />
+          Report
+        </button>
         <nuxt-link
           v-if="currentMember"
           class="action iconified-button"
@@ -195,29 +189,9 @@
     <div class="version-page__changelog universal-card">
       <h3>Changelog</h3>
       <template v-if="isEditing">
-        <span
-          >This editor supports
-          <a
-            class="text-link"
-            href="https://docs.modrinth.com/docs/tutorials/markdown/"
-            target="_blank"
-            >Markdown formatting</a
-          >. HTML can also be used inside your changelog, not including styles, scripts, and
-          iframes.
-        </span>
-        <Chips v-model="changelogViewMode" class="separator" :items="['source', 'preview']" />
-        <div v-if="changelogViewMode === 'source'" class="resizable-textarea-wrapper">
-          <textarea id="body" v-model="version.changelog" maxlength="65536" />
+        <div class="changelog-editor-spacing">
+          <MarkdownEditor v-model="version.changelog" :on-image-upload="onImageUpload" />
         </div>
-        <div
-          v-if="changelogViewMode === 'preview'"
-          class="markdown-body"
-          v-html="
-            version.changelog
-              ? renderHighlightedString(version.changelog)
-              : 'No changelog specified.'
-          "
-        />
       </template>
       <div
         v-else
@@ -397,27 +371,9 @@
           :show-labels="false"
           :allow-empty="false"
         />
-        <FileInput
-          v-if="isEditing && primaryFile.hashes.sha1 === file.hashes.sha1"
-          class="iconified-button raised-button"
-          prompt="Replace"
-          :accept="acceptFileFromProjectType(project.project_type)"
-          :max-size="524288000"
-          should-always-reset
-          @change="
-            (x) => {
-              deleteFiles.push(file.hashes.sha1)
-              version.files.splice(index, 1)
-              oldFileTypes.splice(index, 1)
-
-              replaceFile = x[0]
-            }
-          "
-        >
-          <TransferIcon />
-        </FileInput>
         <button
-          v-else-if="isEditing"
+          v-if="isEditing"
+          :disabled="primaryFile.hashes.sha1 === file.hashes.sha1"
           class="iconified-button raised-button"
           @click="
             () => {
@@ -567,7 +523,7 @@
             :custom-label="(value) => $formatCategory(value)"
             :loading="tags.loaders.length === 0"
             :multiple="true"
-            :searchable="false"
+            :searchable="true"
             :show-no-results="false"
             :close-on-select="false"
             :clear-on-select="false"
@@ -656,11 +612,14 @@
   </div>
 </template>
 <script>
+import { MarkdownEditor } from 'omorphia'
 import { Multiselect } from 'vue-multiselect'
 import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
 import { inferVersionInfo } from '~/helpers/infer.js'
 import { createDataPackVersion } from '~/helpers/package.js'
 import { renderHighlightedString } from '~/helpers/highlight.js'
+import { reportVersion } from '~/utils/report-helpers.ts'
+import { useImageUpload } from '~/composables/image-upload.ts'
 
 import Avatar from '~/components/ui/Avatar.vue'
 import Badge from '~/components/ui/Badge.vue'
@@ -668,7 +627,6 @@ import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Categories from '~/components/ui/search/Categories.vue'
 import ModalConfirm from '~/components/ui/ModalConfirm.vue'
-import ModalReport from '~/components/ui/ModalReport.vue'
 import Chips from '~/components/ui/Chips.vue'
 import Checkbox from '~/components/ui/Checkbox.vue'
 import FileInput from '~/components/ui/FileInput.vue'
@@ -693,6 +651,7 @@ import ChevronRightIcon from '~/assets/images/utils/chevron-right.svg'
 
 export default defineNuxtComponent({
   components: {
+    MarkdownEditor,
     Modal,
     FileInput,
     Checkbox,
@@ -717,7 +676,6 @@ export default defineNuxtComponent({
     Breadcrumbs,
     CopyCode,
     ModalConfirm,
-    ModalReport,
     Multiselect,
     BoxIcon,
     RightArrowIcon,
@@ -758,6 +716,11 @@ export default defineNuxtComponent({
       default() {
         return {}
       },
+    },
+    resetProject: {
+      type: Function,
+      required: true,
+      default: () => {},
     },
   },
   async setup(props) {
@@ -919,6 +882,7 @@ export default defineNuxtComponent({
       primaryFile: ref(primaryFile),
       alternateFile: ref(alternateFile),
       replaceFile: ref(replaceFile),
+      uploadedImageIds: ref([]),
     }
   },
   data() {
@@ -927,7 +891,6 @@ export default defineNuxtComponent({
       newDependencyType: 'required',
       newDependencyId: '',
 
-      changelogViewMode: 'source',
       showSnapshots: false,
 
       newFiles: [],
@@ -967,6 +930,14 @@ export default defineNuxtComponent({
     },
   },
   methods: {
+    async onImageUpload(file) {
+      const response = await useImageUpload(file, { context: 'version' })
+
+      this.uploadedImageIds.push(response.id)
+      this.uploadedImageIds = this.uploadedImageIds.slice(-10)
+
+      return response.url
+    },
     getPreviousLink() {
       if (this.$router.options.history.state.back) {
         if (
@@ -1067,19 +1038,7 @@ export default defineNuxtComponent({
       }
 
       try {
-        if (this.replaceFile) {
-          const reader = new FileReader()
-          reader.onloadend = async function (event) {
-            const hash = await crypto.subtle.digest('SHA-1', event.target.result)
-            this.primaryFile.hashes.sha1 = [...new Uint8Array(hash)]
-              .map((x) => x.toString(16).padStart(2, '0'))
-              .join('')
-          }
-
-          reader.readAsArrayBuffer(this.replaceFile)
-        }
-
-        if (this.newFiles.length > 0 || this.replaceFile) {
+        if (this.newFiles.length > 0) {
           const formData = new FormData()
           const fileParts = this.newFiles.map((f, idx) => `${f.name}-${idx}`)
 
@@ -1100,14 +1059,6 @@ export default defineNuxtComponent({
             formData.append(fileParts[i], new Blob([this.newFiles[i]]), this.newFiles[i].name)
           }
 
-          if (this.replaceFile) {
-            formData.append(
-              this.replaceFile.name.concat('-' + this.newFiles.length),
-              new Blob([this.replaceFile]),
-              this.replaceFile.name
-            )
-          }
-
           await useBaseFetch(`version/${this.version.id}/file`, {
             method: 'POST',
             body: formData,
@@ -1117,26 +1068,32 @@ export default defineNuxtComponent({
           })
         }
 
+        const body = {
+          name: this.version.name || this.version.version_number,
+          version_number: this.version.version_number,
+          changelog: this.version.changelog,
+          version_type: this.version.version_type,
+          dependencies: this.version.dependencies,
+          game_versions: this.version.game_versions,
+          loaders: this.version.loaders,
+          primary_file: ['sha1', this.primaryFile.hashes.sha1],
+          featured: this.version.featured,
+          file_types: this.oldFileTypes.map((x, i) => {
+            return {
+              algorithm: 'sha1',
+              hash: this.version.files[i].hashes.sha1,
+              file_type: x ? x.value : null,
+            }
+          }),
+        }
+
+        if (this.project.project_type === 'modpack') {
+          delete body.dependencies
+        }
+
         await useBaseFetch(`version/${this.version.id}`, {
           method: 'PATCH',
-          body: {
-            name: this.version.name || this.version.version_number,
-            version_number: this.version.version_number,
-            changelog: this.version.changelog,
-            version_type: this.version.version_type,
-            dependencies: this.version.dependencies,
-            game_versions: this.version.game_versions,
-            loaders: this.version.loaders,
-            primary_file: ['sha1', this.primaryFile.hashes.sha1],
-            featured: this.version.featured,
-            file_types: this.oldFileTypes.map((x, i) => {
-              return {
-                algorithm: 'sha1',
-                hash: this.version.files[i].hashes.sha1,
-                file_type: x ? x.value : null,
-              }
-            }),
-          },
+          body,
         })
 
         for (const hash of this.deleteFiles) {
@@ -1145,13 +1102,13 @@ export default defineNuxtComponent({
           })
         }
 
-        const newEditedVersions = await this.resetProjectVersions()
+        await this.resetProjectVersions()
 
         await this.$router.replace(
           `/${this.project.project_type}/${
             this.project.slug ? this.project.slug : this.project.id
           }/version/${encodeURI(
-            newEditedVersions.find((x) => x.id === this.version.id).displayUrlEnding
+            this.versions.find((x) => x.id === this.version.id).displayUrlEnding
           )}`
         )
       } catch (err) {
@@ -1165,6 +1122,7 @@ export default defineNuxtComponent({
       }
       stopLoading()
     },
+    reportVersion,
     async createVersion() {
       this.shouldPreventActions = true
       startLoading()
@@ -1325,6 +1283,7 @@ export default defineNuxtComponent({
         useBaseFetch(`project/${this.version.project_id}/version`),
         useBaseFetch(`project/${this.version.project_id}/version?featured=true`),
         useBaseFetch(`project/${this.version.project_id}/dependencies`),
+        this.resetProject(),
       ])
 
       const newCreatedVersions = this.$computeVersions(versions, this.members)
@@ -1343,6 +1302,10 @@ export default defineNuxtComponent({
 </script>
 
 <style lang="scss" scoped>
+.changelog-editor-spacing {
+  padding-block: var(--gap-md);
+}
+
 .version-page {
   display: grid;
 

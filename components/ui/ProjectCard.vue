@@ -42,6 +42,7 @@
       class="tags"
     >
       <EnvironmentIndicator
+        v-if="clientSide && serverSide"
         :type-only="moderation"
         :client-side="clientSide"
         :server-side="serverSide"
@@ -77,7 +78,7 @@
         <span class="date-label">Updated </span>{{ fromNow(updatedAt) }}
       </div>
       <div
-        v-else
+        v-else-if="showCreatedDate"
         v-tooltip="$dayjs(createdAt).format('MMMM D, YYYY [at] h:mm A')"
         class="stat date"
       >
@@ -194,6 +195,11 @@ export default {
       default: null,
     },
     showUpdatedDate: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    showCreatedDate: {
       type: Boolean,
       required: false,
       default: true,

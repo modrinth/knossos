@@ -373,7 +373,6 @@
               </defs>
             </svg>
           </div>
-          <div class="additional-label">Coming soon</div>
           <h3>Data and Statistics</h3>
           <p>Get detailed reports on page views, download counts, and revenue</p>
         </div>
@@ -521,19 +520,9 @@ const sortType = ref('relevance')
 const auth = await useAuth()
 const tags = useTags()
 
-const [{ data: searchProjects, refresh: updateSearchProjects }, { data: notifications }] =
-  await Promise.all([
-    useAsyncData(
-      'demoSearchProjects',
-      () => useBaseFetch(`search?limit=3&query=${searchQuery.value}&index=${sortType.value}`),
-      {
-        transform: (result) => result.hits,
-      }
-    ),
-    useAsyncData('updatedProjects', () => useBaseFetch(`search?limit=3&query=&index=updated`), {
-      transform: (result) => result.hits,
-    }),
-  ])
+const searchProjects = ref([])
+const notifications = ref([])
+const updateSearchProjects = async () => {}
 
 const val = Math.ceil(homepageProjects.length / 3)
 const rows = shallowRef([

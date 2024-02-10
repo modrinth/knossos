@@ -1,11 +1,16 @@
 <template>
-  <div v-if="$route.name.startsWith('type-id-settings')" class="normal-page">
+  <div v-if="route.name.startsWith('type-id-settings')" class="normal-page">
     <div class="normal-page__sidebar">
       <aside class="universal-card">
         <Breadcrumbs
           current-title="Settings"
           :link-stack="[
-            { href: `/dashboard/projects`, label: 'Projects' },
+            {
+              href: organization
+                ? `/organization/${organization.slug}/settings/projects`
+                : `/dashboard/projects`,
+              label: 'Projects',
+            },
             {
               href: `/${project.project_type}/${project.slug ? project.slug : project.id}`,
               label: project.title,
@@ -75,6 +80,16 @@
           >
             <UsersIcon />
           </NavStackItem>
+          <h3>View</h3>
+          <NavStackItem
+            :link="`/${project.project_type}/${
+              project.slug ? project.slug : project.id
+            }/settings/analytics`"
+            label="Analytics"
+            chevron
+          >
+            <ChartIcon />
+          </NavStackItem>
           <h3>Upload</h3>
           <NavStackItem
             :link="`/${project.project_type}/${project.slug ? project.slug : project.id}/gallery`"
@@ -99,8 +114,8 @@
         :project="project"
         :versions="versions"
         :current-member="currentMember"
-        :is-settings="$route.name.startsWith('type-id-settings')"
-        :route-name="$route.name"
+        :is-settings="route.name.startsWith('type-id-settings')"
+        :route-name="route.name"
         :set-processing="setProcessing"
         :collapsed="collapsedChecklist"
         :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
@@ -116,10 +131,13 @@
         v-model:members="members"
         v-model:all-members="allMembers"
         v-model:dependencies="dependencies"
+        v-model:organization="organization"
         :current-member="currentMember"
         :patch-project="patchProject"
         :patch-icon="patchIcon"
-        :update-icon="resetProject"
+        :reset-project="resetProject"
+        :reset-organization="resetOrganization"
+        :reset-members="resetMembers"
         :route="route"
       />
     </div>
@@ -130,12 +148,7 @@
         <div class="markdown-body" v-html="renderString(licenseText)" />
       </div>
     </Modal>
-    <ModalReport
-      v-if="auth.user"
-      ref="modal_project_report"
-      :item-id="project.id"
-      item-type="project"
-    />
+    <CollectionCreateModal ref="modal_collection" :project-ids="[project.id]" />
     <div
       :class="{
         'normal-page': true,
@@ -210,6 +223,7 @@
               />
             </Categories>
             <hr class="card-divider" />
+
             <div class="primary-stat">
               <DownloadIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
@@ -219,6 +233,7 @@
                 download<span v-if="project.downloads !== 1">s</span>
               </div>
             </div>
+
             <div class="primary-stat">
               <HeartIcon class="primary-stat__icon" aria-hidden="true" />
               <div class="primary-stat__text">
@@ -258,13 +273,9 @@
             <hr class="card-divider" />
             <div class="input-group">
               <template v-if="auth.user">
-                <button class="iconified-button" @click="$refs.modal_project_report.show()">
-                  <ReportIcon aria-hidden="true" />
-                  Report
-                </button>
                 <button
                   v-if="!user.follows.find((x) => x.id === project.id)"
-                  class="iconified-button"
+                  class="btn"
                   @click="userFollowProject(project)"
                 >
                   <HeartIcon aria-hidden="true" />
@@ -272,22 +283,86 @@
                 </button>
                 <button
                   v-if="user.follows.find((x) => x.id === project.id)"
-                  class="iconified-button"
+                  class="btn"
                   @click="userUnfollowProject(project)"
                 >
                   <HeartIcon fill="currentColor" aria-hidden="true" />
                   Unfollow
                 </button>
+                <PopoutMenu class="btn" direction="right" position="bottom" from="top-right">
+                  <BookmarkIcon aria-hidden="true" />
+                  Save
+                  <template #menu>
+                    <input
+                      v-model="displayCollectionsSearch"
+                      type="text"
+                      placeholder="Search collections..."
+                      class="search-input menu-search"
+                    />
+                    <div v-if="collections.length > 0" class="collections-list">
+                      <Checkbox
+                        v-for="option in collections"
+                        :key="option.id"
+                        :model-value="option.projects.includes(project.id)"
+                        class="popout-checkbox"
+                        @update:model-value="() => onUserCollectProject(option, project.id)"
+                      >
+                        {{ option.name }}
+                      </Checkbox>
+                    </div>
+                    <div v-else class="menu-text">
+                      <p class="popout-text">No collections found.</p>
+                    </div>
+                    <button class="btn collection-button" @click="$refs.modal_collection.show()">
+                      <PlusIcon />
+                      Create new collection
+                    </button>
+                  </template>
+                </PopoutMenu>
+                <OverflowMenu
+                  class="btn icon-only"
+                  :options="[
+                    {
+                      id: 'report',
+                      action: () => reportProject(project.id),
+                      color: 'red',
+                      hoverOnly: true,
+                    },
+                    { id: 'copy-id', action: () => copyId() },
+                  ]"
+                  :direction="cosmetics.projectLayout ? 'left' : 'right'"
+                >
+                  <MoreHorizontalIcon />
+                  <template #report> <ReportIcon /> Report</template>
+                  <template #copy-id> <ClipboardCopyIcon /> Copy ID</template>
+                </OverflowMenu>
               </template>
               <template v-else>
-                <nuxt-link class="iconified-button" to="/auth/sign-in">
-                  <ReportIcon aria-hidden="true" />
-                  Report
-                </nuxt-link>
                 <nuxt-link class="iconified-button" to="/auth/sign-in">
                   <HeartIcon aria-hidden="true" />
                   Follow
                 </nuxt-link>
+                <nuxt-link class="iconified-button" to="/auth/sign-in">
+                  <BookmarkIcon aria-hidden="true" />
+                  Save
+                </nuxt-link>
+                <OverflowMenu
+                  class="btn icon-only"
+                  :options="[
+                    {
+                      id: 'report',
+                      action: () => navigateTo('/auth/sign-in'),
+                      color: 'red',
+                      hoverOnly: true,
+                    },
+                    { id: 'copy-id', action: () => copyId() },
+                  ]"
+                  :direction="cosmetics.projectLayout ? 'left' : 'right'"
+                >
+                  <MoreHorizontalIcon />
+                  <template #report> <ReportIcon /> Report</template>
+                  <template #copy-id> <ClipboardCopyIcon /> Copy ID</template>
+                </OverflowMenu>
               </template>
             </div>
           </div>
@@ -330,8 +405,8 @@
           :project="project"
           :versions="versions"
           :current-member="currentMember"
-          :is-settings="$route.name.startsWith('type-id-settings')"
-          :route-name="$route.name"
+          :is-settings="route.name.startsWith('type-id-settings')"
+          :route-name="route.name"
           :set-processing="setProcessing"
           :collapsed="collapsedChecklist"
           :toggle-collapsed="() => (collapsedChecklist = !collapsedChecklist)"
@@ -410,11 +485,15 @@
           v-model:members="members"
           v-model:all-members="allMembers"
           v-model:dependencies="dependencies"
+          v-model:organization="organization"
           :current-member="currentMember"
+          :reset-project="resetProject"
+          :reset-organization="resetOrganization"
+          :reset-members="resetMembers"
           :route="route"
         />
       </section>
-      <div class="card normal-page__info">
+      <div class="universal-card normal-page__info">
         <template
           v-if="
             project.issues_url ||
@@ -496,7 +575,7 @@
           <div class="featured-header">
             <h2 class="card-header">Featured versions</h2>
             <nuxt-link
-              v-if="$route.name !== 'type-id-versions' && (versions.length > 0 || currentMember)"
+              v-if="route.name !== 'type-id-versions' && (versions.length > 0 || currentMember)"
               :to="`/${project.project_type}/${
                 project.slug ? project.slug : project.id
               }/versions#all-versions`"
@@ -551,6 +630,19 @@
         </template>
         <h2 class="card-header">Project members</h2>
         <nuxt-link
+          v-if="organization"
+          class="team-member columns button-transparent"
+          :to="`/organization/${organization.slug}`"
+        >
+          <Avatar :src="organization.icon_url" :alt="organization.name" size="sm" />
+          <div class="member-info">
+            <p class="name">
+              {{ organization.name }}
+            </p>
+            <p class="role"><OrganizationIcon /> Organization</p>
+          </div>
+        </nuxt-link>
+        <nuxt-link
           v-for="member in members"
           :key="member.user.id"
           class="team-member columns button-transparent"
@@ -559,7 +651,9 @@
           <Avatar :src="member.avatar_url" :alt="member.username" size="sm" circle />
 
           <div class="member-info">
-            <p class="name">{{ member.name }}</p>
+            <p class="name">
+              {{ member.name }} <CrownIcon v-if="member.is_owner" v-tooltip="'Project owner'" />
+            </p>
             <p class="role">
               {{ member.role }}
             </p>
@@ -664,7 +758,19 @@
   </div>
 </template>
 <script setup>
-import { Promotion } from 'omorphia'
+import {
+  Promotion,
+  OverflowMenu,
+  PopoutMenu,
+  BookmarkIcon,
+  MoreHorizontalIcon,
+  ClipboardCopyIcon,
+  PlusIcon,
+  Checkbox,
+  ChartIcon,
+  renderString,
+} from 'omorphia'
+import CrownIcon from '~/assets/images/utils/crown.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
 import ClearIcon from '~/assets/images/utils/clear.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
@@ -689,7 +795,6 @@ import Badge from '~/components/ui/Badge.vue'
 import Categories from '~/components/ui/search/Categories.vue'
 import EnvironmentIndicator from '~/components/ui/EnvironmentIndicator.vue'
 import Modal from '~/components/ui/Modal.vue'
-import ModalReport from '~/components/ui/ModalReport.vue'
 import NavRow from '~/components/ui/NavRow.vue'
 import CopyCode from '~/components/ui/CopyCode.vue'
 import Avatar from '~/components/ui/Avatar.vue'
@@ -705,8 +810,11 @@ import LinksIcon from '~/assets/images/utils/link.svg'
 import LicenseIcon from '~/assets/images/utils/copyright.svg'
 import GalleryIcon from '~/assets/images/utils/image.svg'
 import VersionIcon from '~/assets/images/utils/version.svg'
-import { renderString } from '~/helpers/parse.js'
+import { reportProject } from '~/utils/report-helpers.ts'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
+import { userCollectProject } from '~/composables/user.js'
+import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
+import OrganizationIcon from '~/assets/images/utils/organization.svg'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -716,6 +824,15 @@ const auth = await useAuth()
 const user = await useUser()
 const cosmetics = useCosmetics()
 const tags = useTags()
+
+const displayCollectionsSearch = ref('')
+const collections = computed(() =>
+  user.value && user.value.collections
+    ? user.value.collections.filter((x) =>
+        x.name.toLowerCase().includes(displayCollectionsSearch.value.toLowerCase())
+      )
+    : []
+)
 
 if (
   !route.params.id ||
@@ -731,14 +848,23 @@ if (
   })
 }
 
-let project, allMembers, dependencies, featuredVersions, versions
+let project,
+  resetProject,
+  allMembers,
+  resetMembers,
+  dependencies,
+  featuredVersions,
+  versions,
+  organization,
+  resetOrganization
 try {
   ;[
-    { data: project },
-    { data: allMembers },
+    { data: project, refresh: resetProject },
+    { data: allMembers, refresh: resetMembers },
     { data: dependencies },
     { data: featuredVersions },
     { data: versions },
+    { data: organization, refresh: resetOrganization },
   ] = await Promise.all([
     useAsyncData(`project/${route.params.id}`, () => useBaseFetch(`project/${route.params.id}`), {
       transform: (project) => {
@@ -749,10 +875,6 @@ try {
             project.loaders,
             tags.value
           )
-
-          if (process.client && history.state && history.state.overrideProjectType) {
-            project.project_type = history.state.overrideProjectType
-          }
         }
 
         return project
@@ -760,7 +882,7 @@ try {
     }),
     useAsyncData(
       `project/${route.params.id}/members`,
-      () => useBaseFetch(`project/${route.params.id}/members`),
+      () => useBaseFetch(`project/${route.params.id}/members`, { apiVersion: 3 }),
       {
         transform: (members) => {
           members.forEach((it, index) => {
@@ -780,6 +902,9 @@ try {
     ),
     useAsyncData(`project/${route.params.id}/version`, () =>
       useBaseFetch(`project/${route.params.id}/version`)
+    ),
+    useAsyncData(`project/${route.params.id}/organization`, () =>
+      useBaseFetch(`project/${route.params.id}/organization`, { apiVersion: 3 })
     ),
   ])
 
@@ -814,27 +939,46 @@ if (project.value.project_type !== route.params.type || route.params.id !== proj
   )
 }
 
-const members = ref(allMembers.value.filter((x) => x.accepted))
-const currentMember = ref(
-  auth.value.user ? allMembers.value.find((x) => x.user.id === auth.value.user.id) : null
-)
+// Members should be an array of all members, without the accepted ones, and with the user with the Owner role at the start
+// The rest of the members should be sorted by role, then by name
+const members = computed(() => {
+  const acceptedMembers = allMembers.value.filter((x) => x.accepted)
+  const owner = acceptedMembers.find((x) => x.is_owner)
+  const rest = acceptedMembers.filter((x) => !x.is_owner) || []
 
-if (
-  !currentMember.value &&
-  auth.value.user &&
-  tags.value.staffRoles.includes(auth.value.user.role)
-) {
-  currentMember.value = {
-    team_id: project.team_id,
-    user: auth.value.user,
-    role: auth.value.role,
-    permissions: auth.value.user.role === 'admin' ? 1023 : 12,
-    accepted: true,
-    payouts_split: 0,
-    avatar_url: auth.value.user.avatar_url,
-    name: auth.value.user.username,
+  rest.sort((a, b) => {
+    if (a.role === b.role) {
+      return a.user.username.localeCompare(b.user.username)
+    } else {
+      return a.role.localeCompare(b.role)
+    }
+  })
+
+  return owner ? [owner, ...rest] : rest
+})
+
+const currentMember = computed(() => {
+  let val = auth.value.user ? allMembers.value.find((x) => x.user.id === auth.value.user.id) : null
+
+  if (!val && auth.value.user && organization.value && organization.value.members) {
+    val = organization.value.members.find((x) => x.user.id === auth.value.user.id)
   }
-}
+
+  if (!val && auth.value.user && tags.value.staffRoles.includes(auth.value.user.role)) {
+    val = {
+      team_id: project.team_id,
+      user: auth.value.user,
+      role: auth.value.role,
+      permissions: auth.value.user.role === 'admin' ? 1023 : 12,
+      accepted: true,
+      payouts_split: 0,
+      avatar_url: auth.value.user.avatar_url,
+      name: auth.value.user.username,
+    }
+  }
+
+  return val
+})
 
 versions.value = data.$computeVersions(versions.value, allMembers.value)
 
@@ -866,22 +1010,28 @@ const licenseIdDisplay = computed(() => {
 })
 const featuredGalleryImage = computed(() => project.value.gallery.find((img) => img.featured))
 
-const projectTypeDisplay = data.$formatProjectType(
-  data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
+const projectTypeDisplay = computed(() =>
+  data.$formatProjectType(
+    data.$getProjectTypeForDisplay(project.value.project_type, project.value.loaders)
+  )
 )
-const title = `${project.value.title} - Minecraft ${projectTypeDisplay}`
-const description = `${project.value.description} - Download the Minecraft ${projectTypeDisplay} ${
-  project.value.title
-} by ${members.value.find((x) => x.role === 'Owner').user.username} on Modrinth`
+
+const title = computed(() => `${project.value.title} - Minecraft ${projectTypeDisplay.value}`)
+const description = computed(
+  () =>
+    `${project.value.description} - Download the Minecraft ${projectTypeDisplay.value} ${
+      project.value.title
+    } by ${members.value.find((x) => x.is_owner)?.user?.username || 'a Creator'} on Modrinth`
+)
 
 if (!route.name.startsWith('type-id-settings')) {
   useSeoMeta({
-    title,
-    description,
-    ogTitle: title,
-    ogDescription: project.value.description,
-    ogImage: project.value.icon_url ?? 'https://cdn.modrinth.com/placeholder.png',
-    robots:
+    title: () => title.value,
+    description: () => description.value,
+    ogTitle: () => title.value,
+    ogDescription: () => project.value.description,
+    ogImage: () => project.value.icon_url ?? 'https://cdn.modrinth.com/placeholder.png',
+    robots: () =>
       project.value.status === 'approved' || project.value.status === 'archived'
         ? 'all'
         : 'noindex',
@@ -908,15 +1058,7 @@ if (!route.name.startsWith('type-id-settings')) {
   })
 }
 
-async function resetProject() {
-  const newProject = await useBaseFetch(`project/${project.value.id}`)
-
-  newProject.actualProjectType = JSON.parse(JSON.stringify(newProject.project_type))
-
-  newProject.project_type = data.$getProjectTypeForUrl(newProject.project_type, newProject.loaders)
-
-  project.value = newProject
-}
+const onUserCollectProject = useClientTry(userCollectProject)
 
 async function clearMessage() {
   startLoading()
@@ -972,7 +1114,7 @@ const licenseText = ref('')
 async function getLicenseData() {
   try {
     const text = await useBaseFetch(`tag/license/${project.value.license.id}`)
-    licenseText.value = text.body
+    licenseText.value = text.body || 'License text could not be retrieved.'
   } catch {
     licenseText.value = 'License text could not be retrieved.'
   }
@@ -1080,6 +1222,10 @@ async function updateMembers() {
   )
 }
 
+async function copyId() {
+  await navigator.clipboard.writeText(project.value.id)
+}
+
 const collapsedChecklist = ref(false)
 </script>
 <style lang="scss" scoped>
@@ -1148,7 +1294,6 @@ const collapsedChecklist = ref(false)
 }
 
 .project__header {
-  overflow: hidden;
   .project__gallery {
     display: none;
   }
@@ -1157,11 +1302,12 @@ const collapsedChecklist = ref(false)
       display: inline-block;
       width: 100%;
       height: 10rem;
-      background-color: var(--color-button-bg-active);
       img {
         width: 100%;
         height: 10rem;
         object-fit: cover;
+        background-color: var(--color-button-bg-active);
+        border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
       }
     }
     .project__icon {
@@ -1175,6 +1321,9 @@ const collapsedChecklist = ref(false)
     margin: 0;
     background: none;
     border-radius: unset;
+  }
+  .input-group {
+    flex-wrap: nowrap;
   }
 }
 
@@ -1286,11 +1435,24 @@ const collapsedChecklist = ref(false)
 
     .name {
       font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+
+      svg {
+        color: var(--color-orange);
+      }
     }
 
     p {
       font-size: var(--font-size-sm);
       margin: 0.2rem 0;
+    }
+
+    .role {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
     }
   }
 }
@@ -1382,5 +1544,45 @@ const collapsedChecklist = ref(false)
 
 .normal-page__sidebar .mod-button {
   margin-top: var(--spacing-card-sm);
+}
+
+.popout-checkbox {
+  padding: var(--gap-sm) var(--gap-md);
+  white-space: nowrap;
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+
+.popout-heading {
+  padding: var(--gap-sm) var(--gap-md);
+  padding-bottom: 0;
+  font-size: var(--font-size-nm);
+  color: var(--color-secondary);
+}
+
+.collection-button {
+  margin: var(--gap-sm) var(--gap-md);
+  white-space: nowrap;
+}
+
+.menu-text {
+  padding: 0 var(--gap-md);
+  font-size: var(--font-size-nm);
+  color: var(--color-secondary);
+}
+
+.menu-search {
+  margin: var(--gap-sm) var(--gap-md);
+  width: calc(100% - var(--gap-md) * 2);
+}
+
+.collections-list {
+  max-height: 40rem;
+  overflow-y: auto;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  margin: var(--gap-sm) var(--gap-md);
+  padding: var(--gap-sm);
 }
 </style>
