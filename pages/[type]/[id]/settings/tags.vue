@@ -113,9 +113,7 @@
 </template>
 
 <script setup>
-import Checkbox from '~/components/ui/Checkbox.vue'
-import StarIcon from '~/assets/images/utils/star.svg'
-import SaveIcon from '~/assets/images/utils/save.svg'
+import { Checkbox, StarIcon, SaveIcon } from 'omorphia'
 
 const data = useNuxtApp()
 
