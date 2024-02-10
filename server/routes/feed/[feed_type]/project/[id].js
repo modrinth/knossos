@@ -70,7 +70,7 @@ export default defineEventHandler(async (event) => {
       description: `Loaders: ${loadersPretty}, Minecraft versions: ${gameVersionsPretty}`,
       content:
         // Check for changelog length being greater than 1 to ensure no blank changelog section.
-      renderString(
+        renderString(
           version.changelog.length > 1 ? version.changelog : 'No changelog was specified.'
         ),
       author: [
