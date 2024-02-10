@@ -442,14 +442,14 @@ async function bulkEditLinks() {
     })
     selectedProjects.value = []
 
-    editLinks.value.issues.val = ''
-    editLinks.value.source.val = ''
-    editLinks.value.wiki.val = ''
-    editLinks.value.discord.val = ''
-    editLinks.value.issues.clear = false
-    editLinks.value.source.clear = false
-    editLinks.value.wiki.clear = false
-    editLinks.value.discord.clear = false
+    editLinks.issues.val = ''
+    editLinks.source.val = ''
+    editLinks.wiki.val = ''
+    editLinks.discord.val = ''
+    editLinks.issues.clear = false
+    editLinks.source.clear = false
+    editLinks.wiki.clear = false
+    editLinks.discord.clear = false
   } catch (e) {
     data.$notify({
       group: 'main',
