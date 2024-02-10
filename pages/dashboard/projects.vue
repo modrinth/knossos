@@ -325,7 +325,6 @@ useHead({
   title: 'Projects - Modrinth',
 })
 
-const data = useNuxtApp()
 const user = await useUser()
 await initUserProjects()
 
@@ -434,7 +433,7 @@ async function bulkEditLinks() {
     })
 
     editLinksModal.value.hide()
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'Success',
       text: "Bulk edited selected project's links.",
@@ -451,7 +450,7 @@ async function bulkEditLinks() {
     editLinks.wiki.clear = false
     editLinks.discord.clear = false
   } catch (e) {
-    data.$notify({
+    addNotification({
       group: 'main',
       title: 'An error occurred',
       text: e,
