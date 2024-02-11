@@ -357,9 +357,9 @@ import {
   NavRow,
   CopyCode,
   Avatar,
+  Badge,
 } from 'omorphia'
 import ProjectCard from '~/components/ui/ProjectCard.vue'
-import Badge from '~/components/ui/Badge.vue'
 import { reportUser } from '~/utils/report-helpers.ts'
 
 import UpToDate from '~/assets/images/illustrations/up_to_date.svg'
