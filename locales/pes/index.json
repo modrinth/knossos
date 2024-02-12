@@ -1,51 +1,51 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "اجازه دادن"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "رد کردن"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> از <creator-link>{creator}</creator-link> مجاز خواهد بود تا:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "اجازه دادن به {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "هیچ مکان تغییر مسیری در پاسخ یافت نشد"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "شما هدایت خواهید شد به <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "ارسال ایمیل بازیابی"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "ایمیل خود را وارد کنید و ما یک لینک بازیابی برای شما ارسال خواهیم کرد تا اکانت خود را بازیابی کنید."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "ایمیل یا نام کاربری"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "ایمیل"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "یک ایمیل با راهنمایی های لازم به ایمیلی که قبلا در این حساب وارد کردید فرستاده شد."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "ایمیل ارسال شد"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "شما حالا میتوانید با گذرواژه جدیدتان وارد شوید."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "گذرواژه با موفقیت تنظیم مجدد شد"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "بازنشانی گذرواژه"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "تکرار گذرواژه"
   },
   "auth.reset-password.post-challenge.description": {
     "message": "Enter your new password below to gain access to your account."
