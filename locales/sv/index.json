@@ -225,7 +225,7 @@
     "message": "Samling"
   },
   "collection.label.created-at": {
-    "message": "Skapades för {ago}"
+    "message": "Skapades {ago}"
   },
   "collection.label.curated-by": {
     "message": "Kurerad av"
@@ -273,7 +273,7 @@
     "message": "{count, plural, one {{count} person} other {{count} personer}} har blivit grodad!"
   },
   "frog.sinceOpened": {
-    "message": "Sidan öppnades för {ago}"
+    "message": "Sidan öppnades {ago}"
   },
   "frog.title": {
     "message": "Groda"
@@ -885,7 +885,7 @@
     "message": "Återkalla session"
   },
   "settings.sessions.created-ago": {
-    "message": "Skapades för {ago}"
+    "message": "Skapades {ago}"
   },
   "settings.sessions.current-session": {
     "message": "Nuvarande session"
@@ -894,7 +894,7 @@
     "message": "Här är alla enheter som är inloggade på ditt Modrinth konto. Du kan logga ut från var och en individuellt.\n\nOm du ser en enhet som du inte känner igen loggar du ut från enheten och ändrar lösenordet på ditt Modrinth konto omedelbart."
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Användes för {ago}"
+    "message": "Användes {ago}"
   },
   "settings.sessions.title": {
     "message": "Sessioner"
