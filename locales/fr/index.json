@@ -24,16 +24,16 @@
     "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "Email ou nom d'utilisateur"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
     "message": "E-mail"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "Un email contenant des instructions vous a été envoyé si l'adresse email était précédemment enregistrée sur votre compte."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "Email envoyé"
   },
   "auth.reset-password.notification.password-reset.text": {
     "message": "You can now log-in into your account with your new password."
