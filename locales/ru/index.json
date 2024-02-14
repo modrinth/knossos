@@ -123,7 +123,7 @@
     "message": "Настройки учётной записи"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Войти"
   },
   "auth.verify-email.already-verified.description": {
     "message": "Адрес вашей электронной почты уже подтверждён."
@@ -135,7 +135,7 @@
     "message": "Отправить письмо ещё раз"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Нам не удалось проверить ваш адрес электронную почту. Попробуйте повторно отправить письмо для проверки через панель управления, войдя в систему."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
     "message": "Не удалось подтвердить электронную почту. Попробуйте запросить письмо с подтверждением ещё раз при помощи кнопки ниже."
