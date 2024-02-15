@@ -375,7 +375,7 @@
     "message": "Rules"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Termini di servizio"
   },
   "layout.footer.company.title": {
     "message": "Company"
@@ -894,13 +894,13 @@
     "message": "Questi sono tutti i dispositivi che sono attualmente connessi al tuo account di Modrith. Puoi uscire da ciascuno individualmente.\n\nSe vedi noti dispositivo che non riconosci, effettua la disconnessione e cambia la password del tuo account di Modrith immediatamente."
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "Ultimo accesso {ago}"
   },
   "settings.sessions.title": {
     "message": "Sessioni"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Sistema operativo sconosciuto"
   },
   "settings.sessions.unknown-platform": {
     "message": "Piattaforma sconosciuta"
