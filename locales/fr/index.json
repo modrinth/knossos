@@ -33,19 +33,19 @@
     "message": "Un email contenant des instructions vous a été envoyé si l'adresse email était précédemment enregistrée sur votre compte."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email envoyé"
+    "message": "E-mail envoyé"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Vous pouvez maintenant vous connecter à votre compte avec votre nouveau mot de passe."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Mot de passe réinitialisé avec succès"
   },
   "auth.reset-password.post-challenge.action": {
     "message": "Réinitialiser le mot de passe"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Confirmer le mot de passe"
   },
   "auth.reset-password.post-challenge.description": {
     "message": "Enter your new password below to gain access to your account."
@@ -108,7 +108,7 @@
     "message": "Already have an account?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "S'abonner aux mises à jour de Modrinth"
   },
   "auth.sign-up.title": {
     "message": "Sign Up"
@@ -228,10 +228,10 @@
     "message": "Créée {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "Organisée par"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "Cette collection ne comporte aucun projet !"
   },
   "collection.label.no-projects-auth": {
     "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
@@ -306,7 +306,7 @@
     "message": "Erreur"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "Projets suivis"
   },
   "label.moderation": {
     "message": "Modération"
@@ -321,7 +321,7 @@
     "message": "Public"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "Refusé·e"
   },
   "label.scopes": {
     "message": "Scopes"
@@ -330,13 +330,13 @@
     "message": "Paramètres"
   },
   "label.title": {
-    "message": "Title"
+    "message": "Titre"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "Non répertorié·e"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "Visibilité"
   },
   "layout.action.change-theme": {
     "message": "Change theme"
@@ -366,7 +366,7 @@
     "message": "For security purposes, please verify your email address on Modrinth."
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "Carrières"
   },
   "layout.footer.company.privacy": {
     "message": "Privacy"
@@ -381,7 +381,7 @@
     "message": "Company"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "Interaction"
   },
   "layout.footer.legal-disclaimer": {
     "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
@@ -396,16 +396,16 @@
     "message": "Documentation"
   },
   "layout.footer.resources.status": {
-    "message": "Status"
+    "message": "Statut"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "Assistance"
   },
   "layout.footer.resources.title": {
     "message": "Ressources"
   },
   "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Consulter votre profil"
   },
   "layout.menu-toggle.action": {
     "message": "Toggle menu"
@@ -417,7 +417,7 @@
     "message": "Discover and publish Minecraft content!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "Accueil"
   },
   "layout.nav.search": {
     "message": "Rechercher"
