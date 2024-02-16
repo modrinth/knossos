@@ -111,19 +111,19 @@
     "message": "S'abonner aux mises à jour de Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "S'inscrire"
   },
   "auth.sign-up.title.create-account": {
     "message": "Or create an account yourself"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "S'inscrire avec"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Paramètres du compte"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Se connecter"
   },
   "auth.verify-email.already-verified.description": {
     "message": "Your email is already verified!"
@@ -387,7 +387,7 @@
     "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "Modrinth est <github-link>open source</github-link>."
   },
   "layout.footer.resources.blog": {
     "message": "Blog"
