@@ -18,7 +18,7 @@
     "message": "您將被重新導向至 <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "傳送復原電子郵件"
+    "message": "傳送救援電子郵件"
   },
   "auth.reset-password.method-choice.description": {
     "message": "請在下方輸入您的電子郵件，我們將傳送救援連結，協助您取回帳號。"
@@ -354,7 +354,7 @@
     "message": "出於安全考量，請在 Modrinth 上輸入您的電子郵件。"
   },
   "layout.banner.staging.description": {
-    "message": "臨時環境在生產 Modrinth 資料庫的副本上執行。這用於測試和除錯目的，並且可能執行比生產實例更新的 Modrinth 後端或前端的開發版本。"
+    "message": "臨時環境正在執行生產 Modrinth 資料庫的副本。這個副本用於測試和除錯目的，並且可能執行比生產實例更新的 Modrinth 後端或前端開發版本。"
   },
   "layout.banner.staging.title": {
     "message": "您正在查看 Modrinth 的臨時環境。"
@@ -411,7 +411,7 @@
     "message": "切換選單"
   },
   "layout.meta.description": {
-    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。透過現代且好用的介面和 API 在 Modrinth 上探索和發布專案。"
+    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。透過現代又好用的介面和 API 在 Modrinth 上探索和發布專案。"
   },
   "layout.meta.og-description": {
     "message": "探索並發布 Minecraft 內容！"
