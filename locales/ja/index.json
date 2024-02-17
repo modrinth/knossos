@@ -57,7 +57,7 @@
     "message": "パスワードを再設定します"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "続行するには二段階認証コードを入力してください。"
   },
   "auth.sign-in.2fa.label": {
     "message": "Enter two-factor code"
