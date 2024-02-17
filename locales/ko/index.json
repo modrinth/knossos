@@ -1,111 +1,111 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "승인"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "거부"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> 작성자 <creator-link>{creator}</creator-link>가 허용:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "{appName} 승인"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "응답에서 리디렉션 위치를 찾을 수 없습니다"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "<redirect-url>{url}</redirect-url>로 리디렉션됩니다."
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "복구 이메일 보내기"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "아래에 이메일을 입력하시면 계정 복구를 위한 복구 링크를 보내드립니다."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "이메일 또는 아이디"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "이메일"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "이메일이 계정에 이전에 저장되었다면, 지침이 포함된 이메일이 발송될것입니다."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "이메일 전송"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "이제 새 비밀번호로 계정에 로그인할 수 있습니다."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "비밀번호가 성공적으로 재설정되었습니다"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "비밀번호 재설정"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "비밀번호 확인"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "계정에 접근하기 위해 아래에 새 비밀번호를 입력하세요."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "비밀번호 재설정"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "비밀번호 재설정"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "진행하려면 이중 인증 코드를 입력해 주세요."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "2단계 인증 코드 입력"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "코드 입력..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>비밀번호를 잊으셨나요?</forgot-password-link> • <create-account-link>계정 만들기</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "이메일 또는 아이디"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "비밀번호"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "다음을 통해 로그인"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "로그인"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "또는 비밀번호 사용하기"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "계정 만들기"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "비밀번호 확인"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "이메일"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "사용자명"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "계정을 생성함으로써, Modrinth의 <terms-link>이용 약관</terms-link> 및 <privacy-policy-link>개인정보 보호정책</privacy-policy-link>에 동의하게 됩니다."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "비밀번호가 일치하지 않습니다."
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "비밀번호"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "이미 계정이 있으신가요?"
   },
   "auth.sign-up.subscribe.label": {
     "message": "Subscribe to updates about Modrinth"
