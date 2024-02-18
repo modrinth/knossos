@@ -21,7 +21,7 @@
     "message": "Envoyer l'e-mail de réinitialisation"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Entrez votre adresse email ci-dessous et nous vous enverrons un lien de récupération pour vous permettre de récupérer votre compte."
   },
   "auth.reset-password.method-choice.email-username.label": {
     "message": "Email ou nom d'utilisateur"
@@ -48,7 +48,7 @@
     "message": "Confirmer le mot de passe"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Entrez votre nouveau mot de passe ci-dessous pour avoir accès à votre compte."
   },
   "auth.reset-password.title": {
     "message": "Réinitialiser le mot de passe"
@@ -57,7 +57,7 @@
     "message": "Réinitialiser votre mot de passe"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Veuillez entrer un code à deux facteurs pour continuer."
   },
   "auth.sign-in.2fa.label": {
     "message": "Saisir le code à deux facteurs"
@@ -66,10 +66,10 @@
     "message": "Saisir le code..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Mot de passe oublié ?</forgot-password-link> • <create-account-link>Créer un compte</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Courriel ou nom d'utilisateur"
   },
   "auth.sign-in.password.label": {
     "message": "Mot de passe"
@@ -96,16 +96,16 @@
     "message": "Nom d'utilisateur"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "En créant un compte, vous acceptez les <terms-link>Conditions d'utilisation</terms-link> et la <privacy-policy-link>Politique de confidentialité</privacy-policy-link> de Modrinth."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "Les mots de passe ne correspondent pas!"
   },
   "auth.sign-up.password.label": {
     "message": "Mot de passe"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Avez-vous déjà un compte?"
   },
   "auth.sign-up.subscribe.label": {
     "message": "S'abonner aux mises à jour de Modrinth"
@@ -114,7 +114,7 @@
     "message": "S'inscrire"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Ou créez vous-même un compte"
   },
   "auth.sign-up.title.sign-up-with": {
     "message": "S'inscrire avec"
@@ -126,16 +126,16 @@
     "message": "Se connecter"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "Votre adresse e-mail est déjà vérifiée !"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "E-mail déjà vérifié"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Renvoyer un email de vérification"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Nous n'avons pas pu vérifier votre e-mail. Essayez d'envoyer à nouveau l'e-mail de vérification via votre tableau de bord en vous connectant."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
     "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
