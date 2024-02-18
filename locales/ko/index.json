@@ -108,73 +108,73 @@
     "message": "이미 계정이 있으신가요?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Modrinth에 대한 업데이트 구독"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "회원 가입"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "또는 직접 계정을 만드세요"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "다음 계정으로 가입:"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "계정 설정"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "로그인"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "이미 이메일이 인증되었습니다."
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "이미 이메일이 인증되었습니다"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "인증 메일 다시 보내기"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "이메일을 인증할 수 없었습니다. 로그인하여 대시보드를 통해 인증 이메일을 다시 보내주세요."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "이메일을 인증할 수 없었습니다. 아래 버튼을 통해 인증 이메일을 다시 보내보세요."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "이메일 인증에 실패했습니다"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "이메일 주소가 성공적으로 인증되었습니다."
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "이메일 인증"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "이메일 인증"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Modrinth에 대한 업데이트 구독"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "계정을 만들어 주셔서 감사합니다. 이제 프로젝트를 팔로우하고 생성하며, 좋아하는 프로젝트에 대한 업데이트를 받고, 그 외에도 더 많은 것을 할 수 있습니다!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "계정을 생성함으로써 Modrinth의 <terms-link>이용 약관</terms-link> 및 <privacy-policy-link>개인정보 보호정책</privacy-policy-link>에 동의하게 됩니다."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "Modrinth에 오신걸 환영합니다!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "환영합니다"
   },
   "button.cancel": {
     "message": "취소"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "계속"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "프로젝트 생성"
   },
   "button.edit": {
     "message": "편집"
@@ -183,85 +183,85 @@
     "message": "저장"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "변경 사항 저장"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "로그인"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "로그아웃"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "아이콘 삭제"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "아이콘 수정"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "프로젝트 삭제"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "프로젝트 언팔로우"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "아이콘 업로드"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "이 작업은 이 컬렉션을 영구적으로 제거합니다. 이 작업은 취소할 수 없습니다."
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "이 컬렉션을 삭제하시겠습니까?"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} - Modrinth에서 {username}이(가) 만든 컬렉션 {name} 보기"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "팔로우하는 모든 프로젝트로 자동 생성된 컬렉션입니다."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "컬렉션을 찾을 수 없습니다"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "컬렉션"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "{ago}에 생성됨"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "큐레이터:"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "이 컬렉션에는 프로젝트가 없습니다."
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "프로젝트가 없습니다.\n새로 <create-link>추가하시겠습니까</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "소유자"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "비공개"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "{ago} 에 업데이트됨"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "{name} - 컬렉션"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "새로 만들기"
   },
   "dashboard.collections.label.projects-count": {
     "message": "{count, plural, one {{count} project} other {{count} projects}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "컬렉션 검색"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "당신의 컬렉션"
   },
   "frog": {
     "message": "당신은 개구리입니다! 🐸"
@@ -288,139 +288,139 @@
     "message": "목록 보기"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "컬렉션"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "{ago}에 생성됨"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "대시보드"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "삭제"
   },
   "label.description": {
-    "message": "Description"
+    "message": "설명"
   },
   "label.error": {
-    "message": "Error"
+    "message": "오류"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "팔로우한 프로젝트"
   },
   "label.moderation": {
-    "message": "Moderation"
+    "message": "관리"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "알림"
   },
   "label.password": {
-    "message": "Password"
+    "message": "비밀번호"
   },
   "label.public": {
-    "message": "Public"
+    "message": "공개"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "거부됨"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "범위"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "설정"
   },
   "label.title": {
-    "message": "Title"
+    "message": "제목"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "비공개"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "공개 설정"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "테마 변경"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "Modrinth 앱 받기"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "당신의 아바타"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "계정 설정 방문"
   },
   "layout.banner.add-email.title": {
-    "message": "For security purposes, please enter your email on Modrinth."
+    "message": "보안을 위해 Modrinth에서 사용하는 이메일을 입력해 주세요."
   },
   "layout.banner.staging.description": {
-    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+    "message": "스테이징 환경은 프로덕션 Modrinth 데이터베이스의 복사본에서 실행되고 있습니다. 이는 테스트 및 디버깅 목적으로 사용되며, 프로덕션 인스턴스보다 새로운 개발 중인 Modrinth 백엔드 또는 프론트엔드 버전을 실행할 수 있습니다."
   },
   "layout.banner.staging.title": {
-    "message": "You’re viewing Modrinth’s staging environment."
+    "message": "Modrinth의 스테이징 환경을 보고 계십니다."
   },
   "layout.banner.verify-email.action": {
-    "message": "Re-send verification email"
+    "message": "인증 메일 다시 보내기"
   },
   "layout.banner.verify-email.title": {
-    "message": "For security purposes, please verify your email address on Modrinth."
+    "message": "보안을 위해 Modrinth에서 사용하는 이메일을 입력해 주세요."
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "커리어"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "개인정보 처리방침"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "규칙"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "이용약관"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "회사"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "커뮤니티"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "공식 마인크래프트 서비스가 아닙니다. MOJANG 또는 MICROSOFT에 의해 승인되거나 연관되어 있지 않습니다.\nNOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "Modrinth는 <github-link>오픈 소스</github-link>입니다."
   },
   "layout.footer.resources.blog": {
-    "message": "Blog"
+    "message": "블로그"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "문서"
   },
   "layout.footer.resources.status": {
-    "message": "Status"
+    "message": "상태"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "지원"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "정보"
   },
   "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "프로필 방문"
   },
   "layout.menu-toggle.action": {
-    "message": "Toggle menu"
+    "message": "메뉴 전환"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Modrinth에서 마인크래프트 모드, 플러그인, 데이터팩, 셰이더, 리소스팩, 그리고 모드팩을 다운로드하세요. 현대적이고 사용하기 쉬운 인터페이스 및 API를 통해 Modrinth에서 프로젝트를 발견하고 게시하세요."
   },
   "layout.meta.og-description": {
-    "message": "Discover and publish Minecraft content!"
+    "message": "마인크래프트 콘텐츠를 발견하고 게시하세요!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "홈"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "검색"
   },
   "notification.error.title": {
     "message": "오류가 발생했습니다"
@@ -447,16 +447,16 @@
     "message": "사용자명"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "이 사용자는 컬렉션이 없습니다!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "컬렉션이 없습니다.\n새로 <create-link>추가하시겠습니까</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "이 사용자에게는 프로젝트가 없습니다!"
   },
   "profile.label.no-projects-auth": {
-    "message": "아직 아무 프로젝트도 없습니다.\n<create-link>새로 하나</create-link> 만드시겠습니까?"
+    "message": "프로젝트가 없습니다.\n새로 <create-link>만드시겠습니까</create-link>?"
   },
   "profile.label.organizations": {
     "message": "Organizations"
