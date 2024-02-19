@@ -18,10 +18,10 @@
     "message": "您將被重新導向至 <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "傳送救援電子郵件"
+    "message": "傳送復原電子郵件"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "請在下方輸入您的電子郵件，我們將傳送救援連結，協助您取回帳號。"
+    "message": "請在下方輸入您的電子郵件，我們將傳送復原連結，協助您取回帳號。"
   },
   "auth.reset-password.method-choice.email-username.label": {
     "message": "電子郵件或使用者名稱"
@@ -57,10 +57,10 @@
     "message": "重設您的密碼"
   },
   "auth.sign-in.2fa.description": {
-    "message": "請輸入雙重要素驗證代碼以繼續。"
+    "message": "請輸入雙重驗證代碼以繼續。"
   },
   "auth.sign-in.2fa.label": {
-    "message": "請輸入雙重要素驗證代碼"
+    "message": "請輸入雙重驗證代碼"
   },
   "auth.sign-in.2fa.placeholder": {
     "message": "輸入代碼..."
@@ -351,19 +351,19 @@
     "message": "查看帳號設定"
   },
   "layout.banner.add-email.title": {
-    "message": "出於安全考量，請在 Modrinth 上輸入您的電子郵件。"
+    "message": "基於安全考量，請在 Modrinth 上輸入您的電子郵件。"
   },
   "layout.banner.staging.description": {
-    "message": "臨時環境正在執行生產 Modrinth 資料庫的副本。這個副本用於測試和除錯目的，並且可能執行比生產實例更新的 Modrinth 後端或前端開發版本。"
+    "message": "預備環境正在執行生產 Modrinth 資料庫的副本。這個副本用於測試和除錯目的，並且可能執行比生產實例更新的 Modrinth 後端或前端開發版本。"
   },
   "layout.banner.staging.title": {
-    "message": "您正在查看 Modrinth 的臨時環境。"
+    "message": "您正在查看 Modrinth 的預備環境。"
   },
   "layout.banner.verify-email.action": {
     "message": "重新傳送驗證電子郵件"
   },
   "layout.banner.verify-email.title": {
-    "message": "為了安全起見，請在 Modrinth 上驗證您的電子郵件地址。"
+    "message": "基於安全考量，請在 Modrinth 上驗證您的電子郵件地址。"
   },
   "layout.footer.company.careers": {
     "message": "職業生涯"
