@@ -192,7 +192,7 @@
     "message": "Se déconnecter"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Supprimer l'icône"
   },
   "collection.button.edit-icon": {
     "message": "Modifier l'icône"
@@ -204,7 +204,7 @@
     "message": "Unfollow project"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Importer une icône"
   },
   "collection.delete-modal.description": {
     "message": "This will remove this collection forever. This action cannot be undone."
@@ -246,7 +246,7 @@
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "Mise à jour {ago}"
   },
   "collection.title": {
     "message": "{name} - Collection"
@@ -339,16 +339,16 @@
     "message": "Visibilité"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "Changer de thème"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "Obtenir l'application Modrinth"
   },
   "layout.avatar.alt": {
     "message": "Votre avatar"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "Consulter les paramètres du compte"
   },
   "layout.banner.add-email.title": {
     "message": "For security purposes, please enter your email on Modrinth."
@@ -369,7 +369,7 @@
     "message": "Carrières"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "Confidentialité"
   },
   "layout.footer.company.rules": {
     "message": "Règles"
@@ -882,7 +882,7 @@
     "message": "Jamais utilisé"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "Révoquer la session"
   },
   "settings.sessions.created-ago": {
     "message": "Created {ago}"
