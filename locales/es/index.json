@@ -714,16 +714,16 @@
     "message": "Read sessions"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Leer hilos"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Leer hilos"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Escribir a hilos"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Escribir hilos"
   },
   "scopes.userAuthWrite.description": {
     "message": "Modify your authentication data"
