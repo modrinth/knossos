@@ -30,7 +30,7 @@
     "message": "電子郵件"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "如果您的電子郵件先前已儲存在這個帳號中，則我們已向您傳送了一封包含指示的電子郵件。"
+    "message": "如果您的電子郵件先前儲存在這個帳號中，則我們已向您傳送了內含指示的電子郵件。"
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "電子郵件已傳送"
@@ -96,7 +96,7 @@
     "message": "使用者名稱"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "建立帳號即代表您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
+    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
   },
   "auth.sign-up.notification.password-mismatch.text": {
     "message": "密碼不正確！"
@@ -159,7 +159,7 @@
     "message": "感謝您建立帳號。您現在可以追蹤和建立專案，接收有關您喜愛專案的更新等等！"
   },
   "auth.welcome.label.tos": {
-    "message": "建立帳號即代表您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
+    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
   },
   "auth.welcome.long-title": {
     "message": "歡迎使用 Modrinth！"
