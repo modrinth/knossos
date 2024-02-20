@@ -147,10 +147,10 @@
     "message": "Your email address has been successfully verified!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Vérification de l'adresse e-mail"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Vérifier l'adresse e-mail"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "S'abonner aux mises à jour de Modrinth"
@@ -207,10 +207,10 @@
     "message": "Importer une icône"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "Cette action supprimera définitivement cette collection. Cette action ne peut être annulée."
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "Êtes-vous sûr de vouloir supprimer cette collection ?"
   },
   "collection.description": {
     "message": "{description} - View the collection {name} by {username} on Modrinth"
