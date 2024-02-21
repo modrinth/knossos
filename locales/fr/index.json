@@ -138,13 +138,13 @@
     "message": "Nous n'avons pas pu vérifier votre e-mail. Essayez d'envoyer à nouveau l'e-mail de vérification via votre tableau de bord en vous connectant."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "Nous n'avons pas pu vérifier votre e-mail. Essayez de renvoyer l'e-mail de vérification via le bouton ci-dessous."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "La vérification de l'e-mail a échoué"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "Votre adresse e-mail a été vérifiée avec succès !"
   },
   "auth.verify-email.post-verification.title": {
     "message": "Vérification de l'adresse e-mail"
@@ -201,7 +201,7 @@
     "message": "Supprimer le projet"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Ne plus suivre le projet"
   },
   "collection.button.upload-icon": {
     "message": "Importer une icône"
@@ -213,13 +213,13 @@
     "message": "Êtes-vous sûr de vouloir supprimer cette collection ?"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} - Voir la collection {name} par {username} sur Modrinth"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "Collection générée automatiquement de tous les projets que vous suivez."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "Collection introuvable"
   },
   "collection.label.collection": {
     "message": "Collection"
@@ -234,7 +234,7 @@
     "message": "Cette collection ne comporte aucun projet !"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "Vous n'avez aucun projet.\nSouhaitez-vous <create-link>en ajouter un</create-link> ?"
   },
   "collection.label.owner": {
     "message": "Propriétaire"
@@ -243,7 +243,7 @@
     "message": "Privé"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, one {<stat>{count}</stat> projet} other {<stat>{count}</stat> projets}}"
   },
   "collection.label.updated-at": {
     "message": "Mise à jour {ago}"
@@ -255,10 +255,10 @@
     "message": "Créer une nouvelle"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, one {{count} projet} other {{count} projets}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "Rechercher dans vos collections"
   },
   "dashboard.collections.long-title": {
     "message": "Vos collections"
