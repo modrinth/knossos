@@ -159,7 +159,7 @@
     "message": "Grazie per aver creato un account. Ora puoi seguire e creare progetti, ricevere aggiornamenti sui tuoi progetti preferiti, e altro ancora!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Creando un account, hai accettato i <terms-link>Termini</terms-link> e la <privacy-policy-link>Privacy Policy</privacy-policy-link> di Modrinth."
   },
   "auth.welcome.long-title": {
     "message": "Benvenuto in Modrinth!"
@@ -348,7 +348,7 @@
     "message": "Il tuo avatar"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "Impostazioni dell'account"
   },
   "layout.banner.add-email.title": {
     "message": "For security purposes, please enter your email on Modrinth."
