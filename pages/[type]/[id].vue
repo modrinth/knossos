@@ -415,10 +415,6 @@
           :auth="auth"
           :tags="tags"
         />
-        <MessageBanner v-else-if="project.status === 'withheld'" message-type="warning">
-          {{ project.title }} has been removed from search by Modrinth's moderators. Please use
-          {{ project.title }} at your own risk.
-        </MessageBanner>
         <MessageBanner v-if="project.status === 'archived'" message-type="warning">
           {{ project.title }} has been archived. {{ project.title }} will not receive any further
           updates unless the author decides to unarchive the project.
