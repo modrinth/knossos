@@ -1,9 +1,9 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Ủy Quyền"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Từ Chối"
   },
   "auth.authorize.app-info": {
     "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
@@ -18,10 +18,10 @@
     "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Gửi email khôi phục"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Điền email của bạn và chúng tôi sẽ gửi đường dẫn khôi phục để bạn lấy lại tài khoản của mình."
   },
   "auth.reset-password.method-choice.email-username.label": {
     "message": "Email or username"
@@ -123,10 +123,10 @@
     "message": "Account settings"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Đăng nhập"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "Email của bạn đã được xác minh!"
   },
   "auth.verify-email.already-verified.title": {
     "message": "Email already verified"
@@ -147,7 +147,7 @@
     "message": "Your email address has been successfully verified!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Xác minh email"
   },
   "auth.verify-email.title": {
     "message": "Verify Email"
@@ -204,7 +204,7 @@
     "message": "Unfollow project"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Đăng biểu tượng"
   },
   "collection.delete-modal.description": {
     "message": "This will remove this collection forever. This action cannot be undone."
@@ -222,13 +222,13 @@
     "message": "Collection not found"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "Bộ sưu tập"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Đã tạo {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "Giám sát bởi"
   },
   "collection.label.no-projects": {
     "message": "This collection has no projects!"
@@ -237,16 +237,16 @@
     "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Chủ sở hữu"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "Riêng tư"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "Đã cập nhật {ago}"
   },
   "collection.title": {
     "message": "{name} - Collection"
