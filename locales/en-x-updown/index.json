@@ -54,127 +54,127 @@
     "message": "pɹoʍssɐԀ ʇǝsǝᴚ"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "pɹoʍssɐd ɹnoʎ ʇǝsǝᴚ"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "˙pǝǝɔoɹd oʇ ǝpoɔ ɹoʇɔɐɟ-oʍʇ ɐ ɹǝʇuǝ ǝsɐǝꞁԀ"
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "ǝpoɔ ɹoʇɔɐɟ-oʍʇ ɹǝʇuƎ"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "˙˙˙ǝpoɔ ɹǝʇuƎ"
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "</create-account-link>ʇunoɔɔɐ uɐ ǝʇɐǝɹƆ<create-account-link> • </forgot-password-link>¿pɹoʍssɐd ʇoᵷɹoℲ<forgot-password-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "ǝɯɐuɹǝsn ɹo ꞁᴉɐɯƎ"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "pɹoʍssɐԀ"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "ɥʇᴉʍ uᴉ uᵷᴉS"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "uI uᵷᴉS"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "pɹoʍssɐd ɐ ǝsn ɹO"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "ʇunoɔɔɐ ǝʇɐǝɹƆ"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "pɹoʍssɐd ɯɹᴉɟuoƆ"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "ꞁᴉɐɯƎ"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "ǝɯɐuɹǝs∩"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "˙</privacy-policy-link>ʎɔᴉꞁoԀ ʎɔɐʌᴉɹԀ<privacy-policy-link> puɐ </terms-link>sɯɹǝ⟘<terms-link> s,ɥʇuᴉɹpoW oʇ ǝǝɹᵷɐ noʎ 'ʇunoɔɔɐ uɐ ᵷuᴉʇɐǝɹɔ ʎᗺ"
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "¡ɥɔʇɐɯ ʇou op spɹoʍssɐԀ"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "pɹoʍssɐԀ"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "¿ʇunoɔɔɐ uɐ ǝʌɐɥ ʎpɐǝɹꞁⱯ"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "ɥʇuᴉɹpoW ʇnoqɐ sǝʇɐpdn oʇ ǝqᴉɹɔsqnS"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "d∩ uᵷᴉS"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "ɟꞁǝsɹnoʎ ʇunoɔɔɐ uɐ ǝʇɐǝɹɔ ɹO"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "ɥʇᴉʍ dn uᵷᴉS"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "sᵷuᴉʇʇǝs ʇunoɔɔⱯ"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "uᴉ uᵷᴉS"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "¡pǝᴉɟᴉɹǝʌ ʎpɐǝɹꞁɐ sᴉ ꞁᴉɐɯǝ ɹno⅄"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "pǝᴉɟᴉɹǝʌ ʎpɐǝɹꞁɐ ꞁᴉɐɯƎ"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "ꞁᴉɐɯǝ uoᴉʇɐɔᴉɟᴉɹǝʌ puǝsǝᴚ"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "˙uᴉ ᵷuᴉuᵷᴉs ʎq pɹɐoqɥsɐp ɹnoʎ ɥᵷnoɹɥʇ ꞁᴉɐɯǝ uoᴉʇɐɔᴉɟᴉɹǝʌ ǝɥʇ ᵷuᴉpuǝs-ǝɹ ʎɹ⟘ ˙ꞁᴉɐɯǝ ɹnoʎ ʎɟᴉɹǝʌ oʇ ǝꞁqɐun ǝɹǝʍ ǝM"
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "˙ʍoꞁǝq uoʇʇnq ǝɥʇ ɥᵷnoɹɥʇ ꞁᴉɐɯǝ uoᴉʇɐɔᴉɟᴉɹǝʌ ǝɥʇ ᵷuᴉpuǝs-ǝɹ ʎɹ⟘ ˙ꞁᴉɐɯǝ ɹnoʎ ʎɟᴉɹǝʌ oʇ ǝꞁqɐun ǝɹǝʍ ǝM"
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "pǝꞁᴉɐɟ uoᴉʇɐɔᴉɟᴉɹǝʌ ꞁᴉɐɯƎ"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "¡pǝᴉɟᴉɹǝʌ ʎꞁꞁnɟssǝɔɔns uǝǝq sɐɥ ssǝɹppɐ ꞁᴉɐɯǝ ɹno⅄"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "uoᴉʇɐɔᴉɟᴉɹǝʌ ꞁᴉɐɯƎ"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "ꞁᴉɐɯƎ ʎɟᴉɹǝɅ"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "ɥʇuᴉɹpoW ʇnoqɐ sǝʇɐpdn oʇ ǝqᴉɹɔsqnS"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "¡ǝɹoɯ puɐ 'sʇɔǝɾoɹd ǝʇᴉɹoʌɐɟ ɹnoʎ ʇnoqɐ sǝʇɐpdn ǝʌᴉǝɔǝɹ 'sʇɔǝɾoɹd ǝʇɐǝɹɔ puɐ ʍoꞁꞁoɟ ʍou uɐɔ no⅄ ˙ʇunoɔɔɐ uɐ ᵷuᴉʇɐǝɹɔ ɹoɟ noʎ ʞuɐɥ⟘"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "˙</privacy-policy-link>ʎɔᴉꞁoԀ ʎɔɐʌᴉɹԀ<privacy-policy-link> puɐ </terms-link>sɯɹǝ⟘<terms-link> s,ɥʇuᴉɹpoW oʇ pǝǝɹᵷɐ ǝʌɐɥ noʎ 'ʇunoɔɔɐ uɐ ᵷuᴉʇɐǝɹɔ ʎᗺ"
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "¡ɥʇuᴉɹpoW oʇ ǝɯoɔꞁǝM"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "ǝɯoɔꞁǝM"
   },
   "button.cancel": {
     "message": "ꞁǝɔuɐƆ"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "ǝnuᴉʇuoƆ"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "ʇɔǝɾoɹd ɐ ǝʇɐǝɹƆ"
   },
   "button.edit": {
     "message": "ʇᴉpƎ"
@@ -183,85 +183,85 @@
     "message": "ǝʌɐS"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "sǝᵷuɐɥɔ ǝʌɐS"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "uᴉ uᵷᴉS"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "ʇno uᵷᴉS"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "uoɔᴉ ǝʇǝꞁǝᗡ"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "uoɔᴉ ʇᴉpƎ"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "ʇɔǝɾoɹd ǝʌoɯǝᴚ"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "ʇɔǝɾoɹd ʍoꞁꞁoɟu∩"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "uoɔᴉ pɐoꞁd∩"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "˙ǝuopun ǝq ʇouuɐɔ uoᴉʇɔɐ sᴉɥ⟘ ˙ɹǝʌǝɹoɟ uoᴉʇɔǝꞁꞁoɔ sᴉɥʇ ǝʌoɯǝɹ ꞁꞁᴉʍ sᴉɥ⟘"
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "¿uoᴉʇɔǝꞁꞁoɔ sᴉɥʇ ǝʇǝꞁǝp oʇ ʇuɐʍ noʎ ǝɹns noʎ ǝɹⱯ"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "ɥʇuᴉɹpoW uo {username} ʎq {name} uoᴉʇɔǝꞁꞁoɔ ǝɥʇ ʍǝᴉɅ - {description}"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "˙ᵷuᴉʍoꞁꞁoɟ ǝɹ,noʎ sʇɔǝɾoɹd ǝɥʇ ꞁꞁɐ ɟo uoᴉʇɔǝꞁꞁoɔ pǝʇɐɹǝuǝᵷ-oʇnⱯ"
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "punoɟ ʇou uoᴉʇɔǝꞁꞁoƆ"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "uoᴉʇɔǝꞁꞁoƆ"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "{ago} pǝʇɐǝɹƆ"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "ʎq pǝʇɐɹnƆ"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "¡sʇɔǝɾoɹd ou sɐɥ uoᴉʇɔǝꞁꞁoɔ sᴉɥ⟘"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "¿</create-link>ǝuo ppɐ<create-link> oʇ ǝʞᴉꞁ noʎ pꞁnoM\n˙sʇɔǝɾoɹd ʎuɐ ǝʌɐɥ ʇ,uop no⅄"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "ɹǝuʍO"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "ǝʇɐʌᴉɹԀ"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, one {<stat>{count}</stat> ʇɔǝɾoɹd} other {<stat>{count}</stat> sʇɔǝɾoɹd}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "{ago} pǝʇɐpd∩"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "uoᴉʇɔǝꞁꞁoƆ - {name}"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "ʍǝu ǝʇɐǝɹƆ"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, one {{count} ʇɔǝɾoɹd} other {{count} sʇɔǝɾoɹd}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "suoᴉʇɔǝꞁꞁoɔ ɹnoʎ ɥɔɹɐǝS"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "suoᴉʇɔǝꞁꞁoɔ ɹno⅄"
   },
   "frog": {
     "message": "🐸 ¡pǝᵷᵷoɹɟ uǝǝq ǝʌ,no⅄"
@@ -288,139 +288,139 @@
     "message": "ʍǝᴉʌ ʇsᴉꞀ"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "suoᴉʇɔǝꞁꞁoƆ"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "{ago} pǝʇɐǝɹƆ"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "pɹɐoqɥsɐᗡ"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "ǝʇǝꞁǝᗡ"
   },
   "label.description": {
-    "message": "Description"
+    "message": "uoᴉʇdᴉɹɔsǝᗡ"
   },
   "label.error": {
-    "message": "Error"
+    "message": "ɹoɹɹƎ"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "sʇɔǝɾoɹd pǝʍoꞁꞁoℲ"
   },
   "label.moderation": {
-    "message": "Moderation"
+    "message": "uoᴉʇɐɹǝpoW"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "suoᴉʇɐɔᴉɟᴉʇoN"
   },
   "label.password": {
-    "message": "Password"
+    "message": "pɹoʍssɐԀ"
   },
   "label.public": {
-    "message": "Public"
+    "message": "ɔᴉꞁqnԀ"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "pǝʇɔǝɾǝᴚ"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "sǝdoɔS"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "sᵷuᴉʇʇǝS"
   },
   "label.title": {
-    "message": "Title"
+    "message": "ǝꞁʇᴉ⟘"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "pǝʇsᴉꞁu∩"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "ʎʇᴉꞁᴉqᴉsᴉɅ"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "ǝɯǝɥʇ ǝᵷuɐɥƆ"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "ddⱯ ɥʇuᴉɹpoW ʇǝ⅁"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "ɹɐʇɐʌɐ ɹno⅄"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "sᵷuᴉʇʇǝs ʇunoɔɔɐ ʇᴉsᴉɅ"
   },
   "layout.banner.add-email.title": {
-    "message": "For security purposes, please enter your email on Modrinth."
+    "message": "˙ɥʇuᴉɹpoW uo ꞁᴉɐɯǝ ɹnoʎ ɹǝʇuǝ ǝsɐǝꞁd 'sǝsodɹnd ʎʇᴉɹnɔǝs ɹoℲ"
   },
   "layout.banner.staging.description": {
-    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+    "message": "˙ǝɔuɐʇsuᴉ uoᴉʇɔnpoɹd ǝɥʇ uɐɥʇ ɹǝʍǝu puǝʇuoɹɟ ɹo puǝʞɔɐq ɥʇuᴉɹpoW ǝɥʇ ɟo suoᴉsɹǝʌ ʇuǝɯdoꞁǝʌǝp-uᴉ ᵷuᴉuunɹ ǝq ʎɐɯ puɐ 'sǝsodɹnd ᵷuᴉᵷᵷnqǝp puɐ ᵷuᴉʇsǝʇ ɹoɟ pǝsn sᴉ sᴉɥ⟘ ˙ǝsɐqɐʇɐp ɥʇuᴉɹpoW uoᴉʇɔnpoɹd ǝɥʇ ɟo ʎdoɔ ɐ uo ᵷuᴉuunɹ sᴉ ʇuǝɯuoɹᴉʌuǝ ᵷuᴉᵷɐʇs ǝɥ⟘"
   },
   "layout.banner.staging.title": {
-    "message": "You’re viewing Modrinth’s staging environment."
+    "message": "˙ʇuǝɯuoɹᴉʌuǝ ᵷuᴉᵷɐʇs s,ɥʇuᴉɹpoW ᵷuᴉʍǝᴉʌ ǝɹ,no⅄"
   },
   "layout.banner.verify-email.action": {
-    "message": "Re-send verification email"
+    "message": "ꞁᴉɐɯǝ uoᴉʇɐɔᴉɟᴉɹǝʌ puǝs-ǝᴚ"
   },
   "layout.banner.verify-email.title": {
-    "message": "For security purposes, please verify your email address on Modrinth."
+    "message": "˙ɥʇuᴉɹpoW uo ssǝɹppɐ ꞁᴉɐɯǝ ɹnoʎ ʎɟᴉɹǝʌ ǝsɐǝꞁd 'sǝsodɹnd ʎʇᴉɹnɔǝs ɹoℲ"
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "sɹǝǝɹɐƆ"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "ʎɔɐʌᴉɹԀ"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "sǝꞁnᴚ"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "sɯɹǝ⟘"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "ʎuɐdɯoƆ"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "ʇɔɐɹǝʇuI"
   },
   "layout.footer.legal-disclaimer": {
     "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "˙</github-link>ǝɔɹnos uǝdo<github-link> sᴉ ɥʇuᴉɹpoW"
   },
   "layout.footer.resources.blog": {
-    "message": "Blog"
+    "message": "ᵷoꞁᗺ"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "sɔoᗡ"
   },
   "layout.footer.resources.status": {
-    "message": "Status"
+    "message": "snʇɐʇS"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "ʇɹoddnS"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "sǝɔɹnosǝᴚ"
   },
   "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "ǝꞁᴉɟoɹd ɹnoʎ ʇᴉsᴉɅ"
   },
   "layout.menu-toggle.action": {
-    "message": "Toggle menu"
+    "message": "nuǝɯ ǝꞁᵷᵷo⟘"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "˙IԀⱯ puɐ ǝɔɐɟɹǝʇuᴉ ǝsn oʇ ʎsɐǝ 'uɹǝpoɯ ɐ ɥʇᴉʍ ɥʇuᴉɹpoW uo sʇɔǝɾoɹd ɥsᴉꞁqnd puɐ ɹǝʌoɔsᴉᗡ ˙ɥʇuᴉɹpoW uo sʞɔɐdpoɯ puɐ 'sʞɔɐdǝɔɹnosǝɹ 'sɹǝpɐɥs 'sʞɔɐdɐʇɐp 'suᴉᵷnꞁd 'spoɯ ʇɟɐɹɔǝuᴉW pɐoꞁuʍoᗡ"
   },
   "layout.meta.og-description": {
-    "message": "Discover and publish Minecraft content!"
+    "message": "¡ʇuǝʇuoɔ ʇɟɐɹɔǝuᴉW ɥsᴉꞁqnd puɐ ɹǝʌoɔsᴉᗡ"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "ǝɯoH"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "ɥɔɹɐǝS"
   },
   "notification.error.title": {
     "message": "pǝɹɹnɔɔo ɹoɹɹǝ uⱯ"
@@ -459,7 +459,7 @@
     "message": "¿ǝuo <create-link>ǝʇɐǝɹɔ</create-link> oʇ ǝʞᴉl noʎ plnoM\n˙sʇɔǝſoɹd ʎuɐ ǝʌɐɥ ʇ'uop no⅄"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "suoᴉʇɐzᴉuɐᵷɹO"
   },
   "profile.meta.description": {
     "message": "ɥʇuᴉɹpoꟽ uo sʇɔǝſoɹd {username}'s pɐoluʍoᗡ"
@@ -510,10 +510,10 @@
     "message": "uᴉɓnlԀ"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "sʇɔǝɾoɹԀ"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "ʇɔǝɾoɹԀ"
   },
   "project-type.resourcepack.plural": {
     "message": "sʞɔɐԀ ǝɔɹnosǝᴚ"
@@ -528,256 +528,256 @@
     "message": "ɹǝpɐɥS"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "˙ꞁɐʇoʇ uᴉ {amount} uʍɐɹpɥʇᴉʍ ǝʌɐɥ no⅄"
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "˙{method} ɥᵷnoɹɥʇ {amount} uʍɐɹpɥʇᴉʍ ǝʌɐɥ no⅄"
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "˙{year} uᴉ {amount} uʍɐɹpɥʇᴉʍ ǝʌɐɥ no⅄"
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "˙{method} ɥᵷnoɹɥʇ {year} uᴉ {amount} uʍɐɹpɥʇᴉʍ ǝʌɐɥ no⅄"
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "ɐʇɐp sɔᴉʇʎꞁɐuɐ ɹnoʎ ssǝɔɔⱯ"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "sɔᴉʇʎꞁɐuɐ pɐǝᴚ"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "suoᴉʇɔǝꞁꞁoɔ ǝʇɐǝɹƆ"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "suoᴉʇɔǝꞁꞁoɔ ǝʇɐǝɹƆ"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "suoᴉʇɔǝꞁꞁoɔ ǝʇǝꞁǝᗡ"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "suoᴉʇɔǝꞁꞁoɔ ǝʇǝꞁǝᗡ"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "suoᴉʇɔǝꞁꞁoɔ pɐǝᴚ"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "suoᴉʇɔǝꞁꞁoɔ pɐǝᴚ"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "suoᴉʇɔǝꞁꞁoɔ oʇ ǝʇᴉɹM"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "suoᴉʇɔǝꞁꞁoɔ ǝʇᴉɹM"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "suoᴉʇɐɔᴉɟᴉʇou ɹnoʎ pɐǝᴚ"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "suoᴉʇɐɔᴉɟᴉʇou pɐǝᴚ"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "suoᴉʇɐɔᴉɟᴉʇou ɹnoʎ ʍǝᴉɅ/ǝʇǝꞁǝᗡ"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "suoᴉʇɐɔᴉɟᴉʇou ǝʇᴉɹM"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "suoᴉʇɐzᴉuɐᵷɹo ǝʇɐǝɹƆ"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "suoᴉʇɐzᴉuɐᵷɹo ǝʇɐǝɹƆ"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "suoᴉʇɐzᴉuɐᵷɹo ǝʇǝꞁǝᗡ"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "suoᴉʇɐzᴉuɐᵷɹo ǝʇǝꞁǝᗡ"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "suoᴉʇɐzᴉuɐᵷɹo pɐǝᴚ"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "suoᴉʇɐzᴉuɐᵷɹo pɐǝᴚ"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "suoᴉʇɐzᴉuɐᵷɹo oʇ ǝʇᴉɹM"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "suoᴉʇɐzᴉuɐᵷɹo ǝʇᴉɹM"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "suǝʞoʇ IԀⱯ ꞁɐuosɹǝd ǝʇɐǝɹƆ"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "s⟘ⱯԀ ǝʇɐǝɹƆ"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "suǝʞoʇ IԀⱯ ꞁɐuosɹǝd ɹnoʎ ǝʇǝꞁǝᗡ"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "s⟘ⱯԀ ǝʇǝꞁǝᗡ"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "suǝʞoʇ IԀⱯ pǝʇɐǝɹɔ ʍǝᴉɅ"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "s⟘ⱯԀ pɐǝᴚ"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "suǝʞoʇ IԀⱯ ꞁɐuosɹǝd ʇᴉpƎ"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "s⟘ⱯԀ ǝʇᴉɹM"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "ɐʇɐp sʇnoʎɐd ɹnoʎ pɐǝᴚ"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "sʇnoʎɐd pɐǝᴚ"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "ʎǝuoɯ ʍɐɹpɥʇᴉM"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "sʇnoʎɐd ǝʇᴉɹM"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "suoᴉʇɔɐ sɔᴉʇʎꞁɐuɐ ɯɹoɟɹǝԀ"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "sɔᴉʇʎꞁɐuɐ ɯɹoɟɹǝԀ"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "sʇɔǝɾoɹd ʍǝu ǝʇɐǝɹƆ"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "sʇɔǝɾoɹd ǝʇɐǝɹƆ"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "sʇɔǝɾoɹd ɹnoʎ ǝʇǝꞁǝᗡ"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "sʇɔǝɾoɹd ǝʇǝꞁǝᗡ"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "sʇɔǝɾoɹd ɹnoʎ ꞁꞁɐ pɐǝᴚ"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "sʇɔǝɾoɹd pɐǝᴚ"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "ɐʇɐp ʇɔǝɾoɹd oʇ ǝʇᴉɹM"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "sʇɔǝɾoɹd ǝʇᴉɹM"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "sʇɹodǝɹ ǝʇɐǝɹƆ"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "sʇɹodǝɹ ǝʇɐǝɹƆ"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "sʇɹodǝɹ ǝʇǝꞁǝᗡ"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "sʇɹodǝɹ ǝʇǝꞁǝᗡ"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "sʇɹodǝɹ pɐǝᴚ"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "sʇɹodǝɹ pɐǝᴚ"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "sʇɹodǝɹ ʇᴉpƎ"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "sʇɹodǝɹ ǝʇᴉɹM"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "suoᴉssǝs pǝnssᴉ-ɥʇuᴉɹpoɯ ssǝɔɔⱯ"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "suoᴉssǝs ssǝɔɔⱯ"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "suoᴉssǝs ǝʇǝꞁǝᗡ"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "suoᴉssǝs ǝʇǝꞁǝᗡ"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "suoᴉssǝs ǝʌᴉʇɔɐ pɐǝᴚ"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "suoᴉssǝs pɐǝᴚ"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "spɐǝɹɥʇ pɐǝᴚ"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "spɐǝɹɥʇ pɐǝᴚ"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "spɐǝɹɥʇ oʇ ǝʇᴉɹM"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "spɐǝɹɥʇ ǝʇᴉɹM"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "ɐʇɐp uoᴉʇɐɔᴉʇuǝɥʇnɐ ɹnoʎ ʎɟᴉpoW"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "ɐʇɐp ɥʇnɐ ǝʇᴉɹM"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "ʇunoɔɔɐ ɹnoʎ ǝʇǝꞁǝᗡ"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "ʇunoɔɔɐ ɹnoʎ ǝʇǝꞁǝᗡ"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "uoᴉʇɐɯɹoɟuᴉ ǝꞁᴉɟoɹd ɔᴉꞁqnd ɹnoʎ ssǝɔɔⱯ"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "ɐʇɐp ɹǝsn pɐǝᴚ"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "ꞁᴉɐɯǝ ɹnoʎ pɐǝᴚ"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "ꞁᴉɐɯǝ ɹǝsn pɐǝᴚ"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "ǝꞁᴉɟoɹd ɹnoʎ oʇ ǝʇᴉɹM"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "ɐʇɐp ɹǝsn ǝʇᴉɹM"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "suoᴉsɹǝʌ ʍǝu ǝʇɐǝɹƆ"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "suoᴉsɹǝʌ ǝʇɐǝɹƆ"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "uoᴉsɹǝʌ ɐ ǝʇǝꞁǝᗡ"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "suoᴉsɹǝʌ ǝʇǝꞁǝᗡ"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "suoᴉsɹǝʌ ꞁꞁɐ pɐǝᴚ"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "suoᴉsɹǝʌ pɐǝᴚ"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "ɐʇɐp uoᴉsɹǝʌ oʇ ǝʇᴉɹM"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "suoᴉsɹǝʌ ǝʇᴉɹM"
   },
   "settings.language.categories.auto": {
     "message": "ɔᴉʇɐɯoʇnⱯ"
@@ -825,85 +825,85 @@
     "message": "ǝᵷɐnᵷuɐꞀ"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "⟘ⱯԀ ɐ ǝʇɐǝɹƆ"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "˙ǝɯᴉʇ ʎuɐ ʇɐ pǝʞoʌǝɹ puɐ pǝʇɐǝɹɔ ǝq uɐɔ ʎǝɥ⟘ ˙</doc-link>uoᴉʇɐʇuǝɯnɔop IԀⱯ s,ɥʇuᴉɹpoW<<doc-link> ǝǝs 'uoᴉʇɐɯɹoɟuᴉ ǝɹoɯ ɹoℲ ˙IԀⱯ s,ɥʇuᴉɹpoW ssǝɔɔɐ oʇ pǝsn ǝq uɐɔ s⟘ⱯԀ"
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "⟘ⱯԀ ǝʇɐǝɹƆ"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "sǝɹᴉdxƎ"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "ǝɯɐN"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "˙˙˙ǝɯɐu s,⟘ⱯԀ ǝɥʇ ɹǝʇuƎ"
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "uǝʞoʇ ssǝɔɔɐ ꞁɐuosɹǝd ǝʇɐǝɹƆ"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "uǝʞoʇ sᴉɥʇ ǝʇǝꞁǝᗡ"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "˙(ɹǝʌǝɹoɟ ʎꞁꞁɐǝɹ ǝʞᴉꞁ) ɹǝʌǝɹoɟ uǝʞoʇ sᴉɥʇ ǝʌoɯǝɹ ꞁꞁᴉʍ sᴉɥ⟘"
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "¿uǝʞoʇ sᴉɥʇ ǝʇǝꞁǝp oʇ ʇuɐʍ noʎ ǝɹns noʎ ǝɹⱯ"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "uǝʞoʇ ssǝɔɔɐ ꞁɐuosɹǝd ʇᴉpƎ"
   },
   "settings.pats.title": {
-    "message": "PATs"
+    "message": "s⟘ⱯԀ"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "suǝʞo⟘ ssǝɔɔⱯ ꞁɐuosɹǝԀ"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "uǝʞoʇ ʇᴉpƎ"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "uǝʞoʇ ǝʞoʌǝᴚ"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "{ago} pǝɹᴉdxƎ"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "{inTime} sǝɹᴉdxƎ"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "{ago} pǝsn ʇsɐꞀ"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "pǝsn ɹǝʌǝN"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "uoᴉssǝs ǝʞoʌǝᴚ"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "{ago} pǝʇɐǝɹƆ"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "uoᴉssǝs ʇuǝɹɹnƆ"
   },
   "settings.sessions.description": {
     "message": "˙ʎꞁǝʇɐᴉpǝɯɯᴉ pɹoʍssɐd ʇunoɔɔɐ ɥʇuᴉɹpoW ɹnoʎ ǝᵷuɐɥɔ puɐ ǝɔᴉʌǝp ʇɐɥʇ ɟo ʇno ᵷoꞁ 'ǝzᴉuᵷoɔǝɹ ʇ,uop noʎ ʎɹʇuǝ uɐ ǝǝs noʎ ɟI\n\n˙ʎꞁꞁɐnpᴉʌᴉpuᴉ ǝuo ɥɔɐǝ ɟo ʇno ᵷoꞁ uɐɔ no⅄ ˙ʇunoɔɔɐ ɥʇuᴉɹpoW ɹnoʎ ɥʇᴉʍ uᴉ pǝᵷᵷoꞁ ʎꞁʇuǝɹɹnɔ ǝɹɐ ʇɐɥʇ sǝɔᴉʌǝp ǝɥʇ ꞁꞁɐ ǝɹɐ ǝɹǝH"
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "{ago} pǝssǝɔɔɐ ʇsɐꞀ"
   },
   "settings.sessions.title": {
     "message": "suoᴉssǝS"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "SO uʍouʞu∩"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "ɯɹoɟʇɐꞁd uʍouʞu∩"
   },
   "tooltip.date-at-time": {
     "message": "{time, time, short} ʇɐ {date, date, long}"
