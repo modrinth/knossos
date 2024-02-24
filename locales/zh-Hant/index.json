@@ -156,7 +156,7 @@
     "message": "訂閱有關 Modrinth 的更新"
   },
   "auth.welcome.description": {
-    "message": "感謝您建立帳號。您現在可以追蹤和建立專案，接收有關您喜愛專案的更新等等！"
+    "message": "感謝您建立帳號。您現在可以追蹤和建立專案，接收有關您喜愛專案的更新，以及更多功能！"
   },
   "auth.welcome.label.tos": {
     "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
@@ -207,7 +207,7 @@
     "message": "上傳圖示"
   },
   "collection.delete-modal.description": {
-    "message": "這將永久刪除這個收藏夾。這項動作無法復原。"
+    "message": "這將永久刪除這個收藏夾。這項行為無法復原。"
   },
   "collection.delete-modal.title": {
     "message": "您確定要刪除這個收藏夾嗎？"
@@ -828,7 +828,7 @@
     "message": "建立個人存取權杖"
   },
   "settings.pats.description": {
-    "message": "個人存取權杖可用於存取 Modrinth 的 API。請參閱 <doc-link>Modrinth 的 API 文件</doc-link>，以獲得更多資訊。您可以隨時建立和撤銷這些權杖。"
+    "message": "個人存取權杖可用於存取 Modrinth 的 API。請參閱 <doc-link>Modrinth 的 API 文件</doc-link>，以獲得更多資訊。您可以隨時建立或撤銷這些權杖。"
   },
   "settings.pats.modal.create.action": {
     "message": "建立個人存取權杖"
