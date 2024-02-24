@@ -384,7 +384,7 @@
     "message": "交互"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "非官方 MINECRAFT 服务。未经 MOJANG 或 MICROSOFT 批准并且与之无关。"
+    "message": "非官方 MINECRAFT 服务。未经 MOJANG 或 MICROSOFT 批准或与之关联。"
   },
   "layout.footer.open-source": {
     "message": "Modrinth 是<github-link>开源</github-link>的。"
