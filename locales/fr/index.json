@@ -411,7 +411,7 @@
     "message": "Basculer le menu"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Téléchargez des mods Minecraft, des plugins, des datapacks, des shaders, des resourcepacks et des modpacks sur Modrinth. Découvrez et publiez des projets sur Modrinth avec une interface moderne et facile à utiliser, ainsi qu'une API."
   },
   "layout.meta.og-description": {
     "message": "Découvrez et publiez du contenu Minecraft !"
@@ -543,7 +543,7 @@
     "message": "Accéder à vos données analytiques"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Lire les analyses"
   },
   "scopes.collectionCreate.description": {
     "message": "Créer des collections"
@@ -558,16 +558,16 @@
     "message": "Supprimer des collections"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Lire les collections"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Lire les collections"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Écrire dans les collections"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Écrire des collections"
   },
   "scopes.notificationRead.description": {
     "message": "Lire vos notifications"
