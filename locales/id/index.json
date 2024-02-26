@@ -1,27 +1,27 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Izinkan"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Tolak"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> oleh <creator-link>{creator}</creator-link> akan dapat mengakses:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Izinkan {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Halaman url yang dicari tidak merespon"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Anda akan di alihkan ke <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Kirim email pemulihan"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Masukkan email anda di bawah dan kita akan mengirimkan link untuk memulihkan akun anda."
   },
   "auth.reset-password.method-choice.email-username.label": {
     "message": "Email or username"
