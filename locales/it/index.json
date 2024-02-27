@@ -18,7 +18,7 @@
     "message": "Sarai reindirizzato a <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Invia e-mail di recupero"
+    "message": "Invia email di recupero"
   },
   "auth.reset-password.method-choice.description": {
     "message": "Inserisci la tua email qui sotto e ti invieremo un link di recupero per permetterti di recuperare il tuo account."
@@ -33,7 +33,7 @@
     "message": "Un'e-mail con istruzioni ti è stata inviata se essa è stata salvata precedentemente sul tuo account."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "E-mail inviata"
+    "message": "Email inviata"
   },
   "auth.reset-password.notification.password-reset.text": {
     "message": "Ora potrai accedere al tuo account con la nuova password."
@@ -69,7 +69,7 @@
     "message": "<forgot-password-link>Password dimenticata?</forgot-password-link> • <create-account-link>Crea un account</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "E-mail o nome utente"
+    "message": "Email o nome utente"
   },
   "auth.sign-in.password.label": {
     "message": "Password"
@@ -90,7 +90,7 @@
     "message": "Conferma password"
   },
   "auth.sign-up.email.label": {
-    "message": "E-mail"
+    "message": "Email"
   },
   "auth.sign-up.label.username": {
     "message": "Nome utente"
@@ -147,10 +147,10 @@
     "message": "Il tuo indirizzo e-mail è stato verificato con successo!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Verifica e-mail"
+    "message": "Verifica email"
   },
   "auth.verify-email.title": {
-    "message": "Verifica l'e-mail"
+    "message": "Verifica l'email"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "Iscriviti agli aggiornamenti di Modrinth"
@@ -351,76 +351,76 @@
     "message": "Impostazioni dell'account"
   },
   "layout.banner.add-email.title": {
-    "message": "For security purposes, please enter your email on Modrinth."
+    "message": "Per motivi di sicurezza, per favore inserisci la tua email su Modrinth."
   },
   "layout.banner.staging.description": {
-    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+    "message": "L'ambiente di staging sta eseguendo su una copia del database di production di Modrinth. Questo è utilizzato per scopi di testing e debugging, e potrebbe eseguire versioni in sviluppo del backend o del frontend di Modrinth che sono più recenti dell'istanza in production."
   },
   "layout.banner.staging.title": {
-    "message": "You’re viewing Modrinth’s staging environment."
+    "message": "Stai visualizzando l'ambiente di staging di Modrinth."
   },
   "layout.banner.verify-email.action": {
-    "message": "Re-send verification email"
+    "message": "Rinvia email di verifica"
   },
   "layout.banner.verify-email.title": {
-    "message": "For security purposes, please verify your email address on Modrinth."
+    "message": "Per motivi di sicurezza, per favore verifica il tuo indirizzo email su Modrinth."
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "Lavora con noi"
   },
   "layout.footer.company.privacy": {
     "message": "Privacy"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Regole"
   },
   "layout.footer.company.terms": {
     "message": "Termini di servizio"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "Società"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "Interagisci"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "NON UN SERVIZIO MINECRAFT UFFICIALE, NON APPROVATO DA O ASSOCIATO CON MOJANG O MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "Modrinth è <github-link>open source</github-link>."
   },
   "layout.footer.resources.blog": {
     "message": "Blog"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "Documentazione"
   },
   "layout.footer.resources.status": {
-    "message": "Status"
+    "message": "Stato"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "Supporto"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "Risorse"
   },
   "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Visita il tuo profilo"
   },
   "layout.menu-toggle.action": {
-    "message": "Toggle menu"
+    "message": "Mostra/Nascondi menu"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Scarica mod, plugin, datapack, shader, pacchetti risorse e modpack Minecraft su Modrinth. Scopri e pubblica progetti su Modrinth con un'interfaccia ed un'API moderna e facile da usare."
   },
   "layout.meta.og-description": {
-    "message": "Discover and publish Minecraft content!"
+    "message": "Scopri e pubblica contenuti per Minecraft!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "Pagina Principale"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "Cerca"
   },
   "notification.error.title": {
     "message": "Si è verificato un errore"
@@ -825,70 +825,70 @@
     "message": "Lingua"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Crea un PAT"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "I PAT possono essere utilizzati per accedere all'API di Modrinth. Per maggiori informazioni, vedi la <doc-link>documentazione dell'API di Modrinth</doc-link>. Essi possono essere creati e revocati in qualsiasi momento."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "Crea un PAT"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Scade"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Nome"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Inserisci il nome del PAT..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Crea un token di accesso personale (PAT)"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Elimina questo token"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Questo eliminerà questo token per sempre (no, seriamente, per sempre)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Sei sicuro di voler eliminare questo token?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Modifica il token di accesso personale (PAT)"
   },
   "settings.pats.title": {
-    "message": "PATs"
+    "message": "PAT"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Token di Accesso Personali"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Modifica token"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Revoca token"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Scaduto {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Scadrà {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Ultimo utilizzo {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Mai utilizzato"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "Revoca sessione"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "Creato {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "Sessione corrente"
   },
   "settings.sessions.description": {
     "message": "Questi sono tutti i dispositivi che sono attualmente connessi al tuo account di Modrith. Puoi uscire da ciascuno individualmente.\n\nSe vedi noti dispositivo che non riconosci, effettua la disconnessione e cambia la password del tuo account di Modrith immediatamente."
