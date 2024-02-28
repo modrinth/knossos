@@ -1,15 +1,15 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Awutwowize"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Dewlinwe"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> buu <creator-link>{creator}</creator-link> wiww bi awle tu:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Awutwowize {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
     "message": "No redirect location found in response"
