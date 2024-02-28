@@ -39,28 +39,28 @@
     "message": "You can now log-in into your account with your new password."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Parool edukalt lähtestatud"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Lähtesta parool"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Kinnita parool"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Sisesta all oma uus parool, et kontole ligi pääseda."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Lähtesta parool"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Lähtesta oma parool"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Palun sisesta jätkamiseks kaksikautentimise kood."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Sisesta kaksikautentimise kood"
   },
   "auth.sign-in.2fa.placeholder": {
     "message": "Sisesta kood..."
@@ -126,31 +126,31 @@
     "message": "Logi sisse"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "Sinu meiliaadress on juba kinnitatud!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "Email juba kinnitatud"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Saada kinnituskiri uuesti"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Me ei saanud su meiliaadressit kinnitada. Proovi kinnituskiri uuesti saata, logides oma profiilile."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "Me ei saanud su meiliaadressit kinnitada. Proovi kinnituskiri uuesti saata, vajutades allolevale nupule."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "Meiliaadressi kinnitamine ebaõnnestus"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "Sinu meiliaadress on edukalt kinnitatud!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Meiliaadressi kinnitamine"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Kinnita meiliaadress"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "Telli Modrinthi uudiskiri"
@@ -174,7 +174,7 @@
     "message": "Jätka"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "Loo projekt"
   },
   "button.edit": {
     "message": "Muuda"
@@ -183,13 +183,13 @@
     "message": "Salvesta"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Salvesta muudatused"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "Logi sisse"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "Logi välja"
   },
   "collection.button.delete-icon": {
     "message": "Kustuta ikoon"
@@ -201,7 +201,7 @@
     "message": "Eemalda projekt"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Lõpeta projekti jälgimine"
   },
   "collection.button.upload-icon": {
     "message": "Upload icon"
@@ -237,10 +237,10 @@
     "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Omanik"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "Privaatne"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
@@ -342,13 +342,13 @@
     "message": "Change theme"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "Laadi alla Modrinthi äpp"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "Sinu profiilipilt"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "Vaata konto seadeid"
   },
   "layout.banner.add-email.title": {
     "message": "For security purposes, please enter your email on Modrinth."
