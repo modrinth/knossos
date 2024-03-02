@@ -171,7 +171,7 @@
     "message": "取消"
   },
   "button.continue": {
-    "message": "下一步"
+    "message": "繼續"
   },
   "button.create-a-project": {
     "message": "建立專案"
@@ -207,7 +207,7 @@
     "message": "上傳圖示"
   },
   "collection.delete-modal.description": {
-    "message": "這將永久刪除這個收藏夾。這項行為無法復原。"
+    "message": "這將永久刪除這個收藏夾。此動作無法復原。"
   },
   "collection.delete-modal.title": {
     "message": "您確定要刪除這個收藏夾嗎？"
@@ -828,7 +828,7 @@
     "message": "建立個人存取權杖"
   },
   "settings.pats.description": {
-    "message": "個人存取權杖可用於存取 Modrinth 的 API。請參閱 <doc-link>Modrinth 的 API 文件</doc-link>，以獲得更多資訊。您可以隨時建立或撤銷這些權杖。"
+    "message": "個人存取權杖可用於存取 Modrinth 的 API。如需詳細資訊，請參閱 <doc-link>Modrinth 的 API 文件</doc-link>。您可以隨時建立或撤銷這些權杖。"
   },
   "settings.pats.modal.create.action": {
     "message": "建立個人存取權杖"
