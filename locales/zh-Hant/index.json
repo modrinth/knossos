@@ -207,7 +207,7 @@
     "message": "上傳圖示"
   },
   "collection.delete-modal.description": {
-    "message": "這將永久刪除這個收藏夾。此動作無法復原。"
+    "message": "這將永遠移除這個收藏夾。此動作無法復原。"
   },
   "collection.delete-modal.title": {
     "message": "您確定要刪除這個收藏夾嗎？"
