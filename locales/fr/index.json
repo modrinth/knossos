@@ -630,10 +630,10 @@
     "message": "Write PATs"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Lire les données de vos paiements"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Lire les paiements"
   },
   "scopes.payoutsWrite.description": {
     "message": "Withdraw money"
@@ -741,7 +741,7 @@
     "message": "Accéder aux informations de votre profil public"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Lire les données de l'utilisateur"
   },
   "scopes.userReadEmail.description": {
     "message": "Lire votre adresse e-mail"
