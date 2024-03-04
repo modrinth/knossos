@@ -9,64 +9,64 @@
     "message": "<मज़बूत>{ ऐपनाम }</ मजबूत > <निर्माता-लिंक >{निर्माता }</निर्माता-लिंक > के लिए योग्य होगा:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "{appName} को अधिकृत करें"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "प्रत्युत्तर में कोई पुनर्निर्देशन स्थान नहीं मिला"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "आपको <redirect-url>{url}</redirect-url> पर पुनः निर्देशित किया जाएगा"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "पुनर्प्राप्ति ईमेल भेजें"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "नीचे अपना ईमेल दर्ज करें और हम आपको अपना खाता पुनर्प्राप्त करने की अनुमति देने के लिए एक पुनर्प्राप्ति लिंक भेजेंगे।"
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "ईमेल या उपयोगकर्ता का नाम"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "ईमेल"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "यदि ईमेल पहले आपके खाते में सहेजा गया था तो आपको निर्देशों वाला एक ईमेल भेजा गया है।"
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "ईमेल भेजा गया है"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "अब आप अपने नए पासवर्ड से अपने खाते में लॉग-इन कर सकते हैं।"
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "पासवर्ड सफलतापूर्वक रीसेट हो गया"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "पासवर्ड रीसेट"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "पासवर्ड की पुष्टि कीजिये"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "अपने खाते तक पहुंच प्राप्त करने के लिए नीचे अपना नया पासवर्ड दर्ज करें।"
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "पासवर्ड रीसेट"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "अपना पासवर्ड रीसेट करें"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "आगे बढ़ने के लिए कृपया दो-कारक कोड दर्ज करें।"
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "दो-कारक कोड दर्ज करें"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "कोड दर्ज करें..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>forgot-password-link></forgot-password-link> • <create-account-link>एक खाता बनाएं</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
     "message": "Email or username"
@@ -150,7 +150,7 @@
     "message": "Email verification"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "ईमेल सत्यापित करें"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "Subscribe to updates about Modrinth"
