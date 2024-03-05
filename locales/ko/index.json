@@ -459,7 +459,7 @@
     "message": "프로젝트가 없습니다.\n새로 <create-link>만드시겠습니까</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "단체"
   },
   "profile.meta.description": {
     "message": "Modrinth에서 {username}의 모드 내려받기"
@@ -480,10 +480,10 @@
     "message": "전체"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "콜렉션"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "콜렉션"
   },
   "project-type.datapack.plural": {
     "message": "데이터 팩"
@@ -510,7 +510,7 @@
     "message": "플러그인"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "프로젝트"
   },
   "project-type.project.singular": {
     "message": "프로젝트"
@@ -528,40 +528,40 @@
     "message": "셰이더"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "총 {amount}을(를) 인출하셨습니다."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "{method}을(를) 이용해서 총 {amount}을(를) 인출하셨습니다."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "{year}년간 총 {amount}을(를) 인출하셨습니다."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "{year}년간 {method}을(를) 이용해서 총 {amount}을(를) 인출하셨습니다."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "분석 데이터에 접근"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "분석 데이터 확인"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "콜렉션 생성"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "콜렉션 생성"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "콜렉션 삭제"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "콜렉션 삭제"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "콜렉션 읽기"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "콜렉션 읽기"
   },
   "scopes.collectionWrite.description": {
     "message": "Write to collections"
@@ -573,25 +573,25 @@
     "message": "Read your notifications"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "알림 확인"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "알림 삭제/확인"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "알림 작성"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "단체 생성"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "단체 생성"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "조직 삭제"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "조직 삭제"
   },
   "scopes.organizationRead.description": {
     "message": "Read organizations"
@@ -609,37 +609,37 @@
     "message": "Create personal API tokens"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "PAT 생성"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "개인 API 토큰 삭제"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "PAT 삭제"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "생성된 API 토큰 확인"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "PAT 확인"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "개인 API 토큰 설정"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "PAT 쓰기"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "인출 데이터 확인"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "인출 방법 확인"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "돈 인출"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "인출 방법 작성"
   },
   "scopes.performAnalytics.description": {
     "message": "Perform analytics actions"
@@ -648,16 +648,16 @@
     "message": "Perform analytics"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "새 프로젝트 생성"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "프로젝트 생성"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "프로젝트 삭제"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "프로젝트 삭제"
   },
   "scopes.projectRead.description": {
     "message": "Read all your projects"
