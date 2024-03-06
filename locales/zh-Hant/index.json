@@ -828,7 +828,7 @@
     "message": "建立個人存取權杖"
   },
   "settings.pats.description": {
-    "message": "個人存取權杖可用於存取 Modrinth 的 API。如需詳細資訊，請參閱 <doc-link>Modrinth 的 API 文件</doc-link>。您可以隨時建立或撤銷這些權杖。"
+    "message": "個人存取權杖可用於存取 Modrinth 的 API。請參閱 <doc-link>Modrinth 的 API 文件</doc-link>以獲得更多資訊。您可以隨時建立或撤銷這些權杖。"
   },
   "settings.pats.modal.create.action": {
     "message": "建立個人存取權杖"
