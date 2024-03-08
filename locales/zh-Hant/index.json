@@ -345,7 +345,7 @@
     "message": "取得 Modrinth App"
   },
   "layout.avatar.alt": {
-    "message": "您的個人檔案相片"
+    "message": "您的相片"
   },
   "layout.banner.add-email.button": {
     "message": "查看帳號設定"
@@ -435,7 +435,7 @@
     "message": "這個使用者不存在"
   },
   "profile.input.upload-avatar": {
-    "message": "上傳個人檔案相片"
+    "message": "上傳相片"
   },
   "profile.joined-at": {
     "message": "加入於 {ago}"
@@ -576,7 +576,7 @@
     "message": "讀取通知"
   },
   "scopes.notificationWrite.description": {
-    "message": "刪除／查看您的通知"
+    "message": "刪除／檢視您的通知"
   },
   "scopes.notificationWrite.label": {
     "message": "寫入通知"
@@ -618,7 +618,7 @@
     "message": "刪除個人存取權杖"
   },
   "scopes.patRead.description": {
-    "message": "查看已建立的 API 權杖"
+    "message": "檢視已建立的 API 權杖"
   },
   "scopes.patRead.label": {
     "message": "讀取個人存取權杖"
@@ -891,7 +891,7 @@
     "message": "目前的工作階段"
   },
   "settings.sessions.description": {
-    "message": "下列為您目前已登入 Modrinth 帳號的所有裝置。您可以個別登出每個裝置。\n\n如果您看到不認識的裝置，請立即登出該裝置並變更您的 Modrinth 帳號密碼。"
+    "message": "下列為您目前已登入 Modrinth 帳號的所有裝置。您可以個別登出每部裝置。\n\n如果您看到不認識的裝置，請立即登出該裝置並變更您的 Modrinth 帳號密碼。"
   },
   "settings.sessions.last-accessed-ago": {
     "message": "上次存取於 {ago}"
