@@ -600,7 +600,7 @@
     "message": "Read organizations"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Écrire à des organisations"
   },
   "scopes.organizationWrite.label": {
     "message": "Write organizations"
@@ -627,7 +627,7 @@
     "message": "Edit personal API tokens"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Créer des jetons d'accès personnel"
   },
   "scopes.payoutsRead.description": {
     "message": "Lire les données de vos paiements"
@@ -636,7 +636,7 @@
     "message": "Lire les paiements"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Retirer de l'argent"
   },
   "scopes.payoutsWrite.label": {
     "message": "Write payouts"
@@ -645,7 +645,7 @@
     "message": "Perform analytics actions"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Effectuer des analyses"
   },
   "scopes.projectCreate.description": {
     "message": "Créer de nouveaux projets"
@@ -696,7 +696,7 @@
     "message": "Créer des rapports"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Accéder aux sessions émises par Modrinth"
   },
   "scopes.sessionAccess.label": {
     "message": "Accéder aux sessions"
