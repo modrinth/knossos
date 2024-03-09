@@ -1,9 +1,9 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "אשר"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "דחה"
   },
   "auth.authorize.app-info": {
     "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
@@ -189,7 +189,7 @@
     "message": "Sign in"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "התנתק"
   },
   "collection.button.delete-icon": {
     "message": "Delete icon"
@@ -198,7 +198,7 @@
     "message": "Edit icon"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "מחיקת פרוייקט"
   },
   "collection.button.unfollow-project": {
     "message": "Unfollow project"
@@ -222,10 +222,10 @@
     "message": "Collection not found"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "אוסף"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "נוצר לפני {ago}"
   },
   "collection.label.curated-by": {
     "message": "Curated by"
@@ -240,13 +240,13 @@
     "message": "Owner"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "פרטי"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "עודכן לפני {ago}"
   },
   "collection.title": {
     "message": "{name} - Collection"
@@ -288,22 +288,22 @@
     "message": "תצוגת רשימה"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "אוספים"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "נוצר לפני {ago}"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "לוח בקרה"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "מחק"
   },
   "label.description": {
-    "message": "Description"
+    "message": "תיאור"
   },
   "label.error": {
-    "message": "Error"
+    "message": "שגיאה"
   },
   "label.followed-projects": {
     "message": "Followed projects"
@@ -312,25 +312,25 @@
     "message": "Moderation"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "התראות"
   },
   "label.password": {
-    "message": "Password"
+    "message": "סיסמה"
   },
   "label.public": {
-    "message": "Public"
+    "message": "ציבורי"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "נדחה"
   },
   "label.scopes": {
     "message": "Scopes"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "הגדרות"
   },
   "label.title": {
-    "message": "Title"
+    "message": "כותרת"
   },
   "label.unlisted": {
     "message": "Unlisted"
@@ -369,13 +369,13 @@
     "message": "Careers"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "פרטיות"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "כללים"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "תנאים"
   },
   "layout.footer.company.title": {
     "message": "Company"
@@ -390,7 +390,7 @@
     "message": "Modrinth is <github-link>open source</github-link>."
   },
   "layout.footer.resources.blog": {
-    "message": "Blog"
+    "message": "בלוג"
   },
   "layout.footer.resources.docs": {
     "message": "Docs"
@@ -399,7 +399,7 @@
     "message": "Status"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "תמיכה"
   },
   "layout.footer.resources.title": {
     "message": "Resources"
@@ -417,10 +417,10 @@
     "message": "Discover and publish Minecraft content!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "דף בית"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "חיפוש"
   },
   "notification.error.title": {
     "message": "אירעה שגיאה"
@@ -837,7 +837,7 @@
     "message": "Expires"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "שם"
   },
   "settings.pats.modal.create.name.placeholder": {
     "message": "Enter the PAT's name..."
