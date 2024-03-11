@@ -228,8 +228,8 @@ import {
   SaveIcon,
   CopyCode,
   ConfirmModal,
+  Modal,
 } from 'omorphia'
-import Modal from '~/components/ui/Modal.vue'
 
 import {
   scopeList,
