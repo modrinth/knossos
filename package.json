@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "build": "nuxi build",
+    "build": "pnpm intl:extract && nuxi build",
     "dev": "nuxi dev",
     "generate": "nuxi generate",
     "preview": "nuxi preview",
