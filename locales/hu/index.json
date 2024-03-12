@@ -1,180 +1,180 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Engedélyezd"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Elutasítás"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "-strong>{appName}</strong> <creator-link>{creator}</creator-link>-tól/től tudni fog:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Engedélyezd {appName}-t"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Átirányítási útvonal nen található a válaszban"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Át lesz irányítva redirect-url>{url}</redirect-url>-ra/re"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Helyreállító email küldés"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Írja be email-címét az alábbi mezőbe és kiküldünk egy helyreállító hivatkozást hogy helyreállítsa fiókját."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "Email-cím vagy felhasználónév"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "Email-cím"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "Egy email el lett küldve az email-címéra ha az email-cím el volt mentve a fiókjában."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "Email elküldve"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Mosmár be tud jelentkezni fiókjába az új jelszavával."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Jelszó sikeresen visszaállítva"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Jelszó átállítása"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Jelszó megerősítése"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Írja be az új jelszavát lejjebb hogy hozzáférést szerezzen a fiókjához."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Jelszó átállítása"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Jelszava visszaállítása"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Kérjük írja be a kétlépcsős azonosító kódját a továbblépéshez."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Írja be a kétlépcsős azonosító kódját"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Írja be a kódot..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Elfelejtette jelszavát?</forgot-password-link>• <create-account-link>Fiók létrehozása</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Email-cím vagy felhasználónév"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Jelszó"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Bejelentkezés a következők használatával"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Bejelentkezés"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "Vagy használjon jelszót"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Fiók létrehozása"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Jelszó megerősítése"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "Email-cím"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Felhasználónév"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Fiók létrehozásával hozzájárulsz a Modrinth <terms-link>Feltételeihez</terms-link> és az <privacy-policy-link>Adatvédelmi irányelveihez</privacy-policy-link>."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "A jelszavak nem egyeznek!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "Jelszó"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Már van fiókja?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Feliratkozás a Modrinthel kapcsolatos frissítésekre"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Regisztráció"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Vagy hozzon létre fiókot"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Regisztráljon az alábbiak használatával"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Fiók beállítások"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Bejelentkezés"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "Az email-címe már meg van erősítve!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "Email-cím már meg van erősítve"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Megerősítő email újraküldése"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Nem tudtuk ellenőrizni az e-mail-címét. Próbálja meg újra elküldeni az ellenőrző e-mailt az irányítópulton keresztül, bejelentkezve."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "Nem tudtuk ellenőrizni az e-mail-címét. Próbálja újra elküldeni az ellenőrző e-mailt az alábbi gombbal."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "Email megerősítés sikertelen"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "Email-címét sikeresen megerősítettük!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Email megerősítés"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Email-cím megerősítése"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Feliratkozás a Modrinthel kapcsolatos frissítésekre"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "Köszönjük, hogy létrehoztál egy fiókot. Mostantól követhet és létrehozhat projekteket, frissítéseket kaphat kedvenc projektjeiről stb!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Fiók létrehozásával Ön elfogadta a Modrinth <terms-link> Feltételeit</terms-link> és<privacy-policy-link> Adatvédelmi irányelveit</privacy-policy-link>."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "Üdvözlünk a Modrinth-nél!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "Üdvözlünk"
   },
   "button.cancel": {
     "message": "Mégse"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "Folytatás"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "Project létrehozása"
   },
   "button.edit": {
     "message": "Szerkesztés"
@@ -183,85 +183,85 @@
     "message": "Mentés"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Változtatások mentése"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "Bejelentkezés"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "Kijelentkezés"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Ikon törlése"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Ikon szerkesztése"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Project törlése"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Project követésének letiltása"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Ikon feltöltése"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "Ez az egész gyűjteményt törölni fogja. Ezen művelet nem visszavonható."
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "Biztos törölni szeretnéd ezt a gyűjteményt?"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} – Tekintse meg {username} {name} gyűjteményét a Modrinth-on"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "Automatikusan generált gyűjtemény az összes projectből amit követsz."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "Gyűjtemény nem található"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "Gyűjtemény"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Készítve {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "Fenntartja"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "Ez a gyűjtemény nem tartalmaz projekteket!"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "Nincsenek projektjeid. Szeretnél <create-link>hozzáadni egyet</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Tulajdonos"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "Privát"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, one {<stat>{count}</stat> projekt} other {<stat>{count}</stat> projektek}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "Frissítve {ago}"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "{name} - Gyűjtemény"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "Új létrehozása"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, one {{count} projekt} other {{count} projektek}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "Keress a gyűjteményeid között"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "Gyűjteményeid"
   },
   "frog": {
     "message": "Meg lettél békázva! 🐸"
@@ -288,139 +288,139 @@
     "message": "Lista nézet"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "Gyűjtemények"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Létrehozva {ago}"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "Irányítópult"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "Törlés"
   },
   "label.description": {
-    "message": "Description"
+    "message": "Leírás"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Hiba"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "Követett projektek"
   },
   "label.moderation": {
-    "message": "Moderation"
+    "message": "Moderáció"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "Értesítések"
   },
   "label.password": {
-    "message": "Password"
+    "message": "Jelszó"
   },
   "label.public": {
-    "message": "Public"
+    "message": "Publikus"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "Elutasítva"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Hatáskörök"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "Beállítások"
   },
   "label.title": {
-    "message": "Title"
+    "message": "Cím"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "Nem listázott"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "Láthatóság"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "Téma megváltoztatása"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "Szerezze be a Modrinth alkalmazást"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "Avatárod"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "Nézze meg fiókbeállításait"
   },
   "layout.banner.add-email.title": {
-    "message": "For security purposes, please enter your email on Modrinth."
+    "message": "Biztonsági okokból, kérjük írja be email-címét Modrinthen."
   },
   "layout.banner.staging.description": {
-    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+    "message": "Az átmeneti környezet az éles Modrinth adatbázis egy példányán fut. Ezt tesztelési és hibakeresési célokra használják, és előfordulhat, hogy a Modrinth backend vagy az éles példánynál újabb fejlesztői verziói futnak rajta."
   },
   "layout.banner.staging.title": {
-    "message": "You’re viewing Modrinth’s staging environment."
+    "message": "A Modrinth színreviteli környezetét nézed."
   },
   "layout.banner.verify-email.action": {
-    "message": "Re-send verification email"
+    "message": "Megerősítő email újraküldése"
   },
   "layout.banner.verify-email.title": {
-    "message": "For security purposes, please verify your email address on Modrinth."
+    "message": "Biztonsági okokból kérjük hitelesítse email-címét Modrinthen."
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "Karrierek"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "Adatvédelem"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Szabályzat"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Feltételek"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "Cég"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "Kezelés"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "NEM HIVATALOS MINECRAFT SZOLGÁLTATÁS. A MOJANG VAGY MICROSOFT NEM HAGYTA JÓVÁ, VAGY NEM PARTNERÜK."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "A Modrinth <github-link>nyílt forráskódú</github-link>."
   },
   "layout.footer.resources.blog": {
-    "message": "Blog"
+    "message": "Napló"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "Dokumentumok"
   },
   "layout.footer.resources.status": {
-    "message": "Status"
+    "message": "Állapot"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "Segítség"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "Erőforrások"
   },
   "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Nézze meg profilját"
   },
   "layout.menu-toggle.action": {
-    "message": "Toggle menu"
+    "message": "Menü váltása"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Tölts le Minecraft modokat, pluginokat, datapackeket, shaderöket, forráscsomagokat, és modpackeket Modrinthen. Böngéssz és publikálj projekteket Modrinthen egy modern, könnyen használható felülettel és API-val"
   },
   "layout.meta.og-description": {
-    "message": "Discover and publish Minecraft content!"
+    "message": "Böngéssz és publikálj Minecraft tartalmat!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "Otthon"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "Keresés"
   },
   "notification.error.title": {
     "message": "Hiba történt"
@@ -531,253 +531,253 @@
     "message": "Felvettél összesen {amount}."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "Kivettél {amount}-t {method}-on keresztül."
   },
   "revenue.transfers.total.year": {
     "message": "{amount}-at/et vettél fel {year}-ban/ben."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "Kivettél {amount}-t {year}-ban/ben {method}-on keresztül."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "Analitikai adataid elérése"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Analitikák olvasása"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Gyűjtemények létrehozása"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "Gyűjtemények létrehozása"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Gyűjtemények törlése"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "Gyűjtemények törlése"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Gyűjtemények olvasása"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Gyűjtemények olvasása"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Gyűjteményekhez írása"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Gyűjteményekhez írás"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Értesítéseid olvasása"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "Értesítések olvasása"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Értesítések törlése/megtekintése"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Értesítések írása"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Szervezetek létrehozása"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Szervezetek létrehozása"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Szervezetek törlése"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Szervezetek törlése"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Szervezetek olvasása"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Szervezetek olvasása"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Szervezetekhez írás"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Szervezetekhez írás"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Személyes API tokenek létrehozása"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "PAT-ek létrehozása"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Személyes API tokenek létrehozása"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "PAT-ek törlése"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Létrehozott API tokenek megtekintése"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "PAT-ek olvasása"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Személyes API tokenek szerkesztése"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "PAT-ek írása"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Kifizetési adataid olvasása"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Kifizetések olvasása"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Pénz felvétele"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Kifizetések írása"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Analitikai tevékenységek végrehajtása"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Analitikák végrehajtása"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Új projektek létrehozása"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Projektek létrehozása"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Projektjeid törlése"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Projektek törlése"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Összes projekted olvasása"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Projektek olvasása"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Projekt adatához írás"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Projektek írása"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Jelentések létrehozása"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Jelentések létrehozása"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Jelentések törlése"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Jelentések törlése"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Helentések olvasása"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Jelentések olvasása"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Jelentések szerkesztése"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Jelentések írása"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Hozzáférés a modrinth által kiadott munkamenetekhez"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Munkamenetek létrehozása"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Munkamenetek törlése"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Munkamenetek törlése"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Aktív munkamenetek olvasása"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Munkamenetek olvasása"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Szálak olvasása"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Szálak olvasása"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Szálakhoz írás"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Szálak írása"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Az authentikációs adataid módosítása"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Auth adat írása"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Fiók törlése"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Fiókod törlése"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Hozzáférés a publikus profil információidhoz"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Felhasználó adatainak olvasása"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Emailed olvasása"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "Felhasználó emaileinek olvasása"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Írás a profiljához"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Felhasználói adatok írása"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Új verzió létrehozása"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "Verzió létrehozása"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Verzió törlése"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Verziók törlése"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Összes verzió olvasása"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "Verziók olvasása"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Verzió adataihoz írás"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "Verziók írása"
   },
   "settings.language.categories.auto": {
     "message": "Automatikus"
@@ -825,85 +825,85 @@
     "message": "Nyelv"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "PAT létrehozása"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "PAT-ok használhatók a Modrinth API eléréséhez. További információért lásd a <doc-link>Modrinth API dokumentációját</doc-link>. Bármikor létrehozhatók és visszavonhatók."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "PAT létrehozása"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Lejár"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Név"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Írd be a PAT nevét..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Személyes elérési token létrehozása"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Token törlése"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Ez örökre törölni fogja ezt a tokent (tényleg örökre)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Tényleg törölni akarod ezt a tokent?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Személyes elérési token szerkesztése"
   },
   "settings.pats.title": {
-    "message": "PATs"
+    "message": "PAT-ek"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Személyes Elérési Tokenek"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Token szerkesztése"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Token visszavonása"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Lejárt {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Lejár {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Utoljára használva {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Sohasem használva"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "Munkamenet visszavonása"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "Létrehozva {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "Jelenlegi munkamenet"
   },
   "settings.sessions.description": {
     "message": "Itt megtalálod az összes eszközt amin jelenleg be vagy jelentkezve a Modrinth fiókodba. Kiléphetsz belőlük egyesével.\n\nHa látsz egy eszközt, amit nem ismersz fel, jelentkezz ki belőle és azonnal változtasd meg a Modrinth fiókod jelszavát."
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "Utoljára használva {ago}"
   },
   "settings.sessions.title": {
     "message": "Munkamenetek"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Ismeretlen OS"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Ismeretlen platform"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} {time, time, short}"
