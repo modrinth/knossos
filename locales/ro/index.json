@@ -1,15 +1,15 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Permite"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Refuză"
   },
   "auth.authorize.app-info": {
     "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Autorizează {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
     "message": "No redirect location found in response"
@@ -18,16 +18,16 @@
     "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Trimite e-mail de recuperare"
   },
   "auth.reset-password.method-choice.description": {
     "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "Email sau nume utilizator"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "E-mail"
   },
   "auth.reset-password.notification.email-sent.text": {
     "message": "An email with instructions has been sent to you if the email was previously saved on your account."
@@ -42,19 +42,19 @@
     "message": "Password successfully reset"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Resetare parolă"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Confirmă parola"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Introdu noua parolă mai jos pentru a-ți accesa contul."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Resetare parolă"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Resetează-ți parola"
   },
   "auth.sign-in.2fa.description": {
     "message": "Please enter a two-factor code to proceed."
@@ -63,7 +63,7 @@
     "message": "Enter two-factor code"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Introdu codul..."
   },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
@@ -96,7 +96,7 @@
     "message": "Username"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Prin crearea unui cont, ești de acord cu <terms-link>Termenii</terms-link> și <privacy-policy-link>Politica de confidențialitate</privacy-policy-link> Modrinth."
   },
   "auth.sign-up.notification.password-mismatch.text": {
     "message": "Passwords do not match!"
@@ -159,7 +159,7 @@
     "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Prin crearea unui cont, ești de acord cu <terms-link>Termenii</terms-link> și <privacy-policy-link>Politica de confidențialitate</privacy-policy-link> Modrinth."
   },
   "auth.welcome.long-title": {
     "message": "Welcome to Modrinth!"
@@ -171,43 +171,43 @@
     "message": "Anulează"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "Continuă"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "Creează un proiect"
   },
   "button.edit": {
-    "message": "Editare"
+    "message": "Editează"
   },
   "button.save": {
-    "message": "Salvați"
+    "message": "Salvează"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Salvează schimbările"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "Autentificare"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "Deconectare"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Șterge icon"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Editează icon"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Șterge proiect"
   },
   "collection.button.unfollow-project": {
     "message": "Unfollow project"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Încarcă icon"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "Colecția va fi ștearsă pentru totdeauna. Aceasta acțiune nu va poate fi retrasă."
   },
   "collection.delete-modal.title": {
     "message": "Are you sure you want to delete this collection?"
@@ -225,25 +225,25 @@
     "message": "Collection"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Creat acum {ago}"
   },
   "collection.label.curated-by": {
     "message": "Curated by"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "Această colecție nu are proiecte!"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "Nu ai niciun proiect.\nVrei să <create-link>creezi unul</create-link>?"
   },
   "collection.label.owner": {
     "message": "Owner"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "Privat"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, one {<stat>{count}</stat> proiect} few {<stat>{count}</stat> proiecte} other {<stat>{count}</stat> de proiecte}}"
   },
   "collection.label.updated-at": {
     "message": "Updated {ago}"
@@ -270,7 +270,7 @@
     "message": "O pictură fotorealistă a unui labirint de broaște"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {Doar {count} om a fost broscățuit!} other {Alți {count} de oameni au fost broscățuit!}}"
+    "message": "{count, plural, one {Doar {count} om a fost broscăit} few {Alți {count} oameni au fost broscăiți} other {Alți {count} de oameni au fost broscăiți}}!"
   },
   "frog.sinceOpened": {
     "message": "Această pagină a fost deschisă acum {ago}"
@@ -291,7 +291,7 @@
     "message": "Collections"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Creat acum {ago}"
   },
   "label.dashboard": {
     "message": "Dashboard"
@@ -468,7 +468,7 @@
     "message": "{bio} - Descarcă proiectele lui {username} pe Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> descărcare} few {<stat>{count}</stat> descărcări} other {<stat>{count}</stat> descărcari}}"
+    "message": "{count, plural, one {<stat>{count}</stat> descărcare} few {<stat>{count}</stat> descărcări} other {<stat>{count}</stat> de descărcări}}"
   },
   "profile.stats.projects-followers": {
     "message": "{count, plural, one {<stat>{count}</stat> urmăritor} few {<stat>{count}</stat> urmăritori} other {<stat>{count}</stat> urmăritori}} de proiecte"
@@ -870,7 +870,7 @@
     "message": "Revoke token"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Expirat acum {ago}"
   },
   "settings.pats.token.expires-in": {
     "message": "Expires {inTime}"
@@ -885,7 +885,7 @@
     "message": "Revoke session"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "Creat acum {ago}"
   },
   "settings.sessions.current-session": {
     "message": "Current session"
@@ -894,7 +894,7 @@
     "message": "Aici sunt toate dispozitivele care sunt în prezent conectate la contul dvs. Modrinth. Vă puteți deconecta de la fiecare cont individual.\n\nDacă vedeți o intrare pe care nu o recunoașteți, deconectați-vă de pe acel dispozitiv și schimbați parola pentru contul Modrinth imediat."
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "Ultima accesare acum {ago}"
   },
   "settings.sessions.title": {
     "message": "Sesiuni"
