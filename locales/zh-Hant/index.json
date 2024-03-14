@@ -24,10 +24,10 @@
     "message": "請在下方輸入您的電子郵件地址，我們將傳送復原連結，協助您取回帳號。"
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "電子郵件或使用者名稱"
+    "message": "電子郵件地址或使用者名稱"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "電子郵件"
+    "message": "電子郵件地址"
   },
   "auth.reset-password.notification.email-sent.text": {
     "message": "如果您的電子郵件地址先前儲存在這個帳號中，則我們已向您傳送了內含指示的電子郵件。"
@@ -69,7 +69,7 @@
     "message": "<forgot-password-link>忘記密碼？</forgot-password-link> • <create-account-link>建立帳號</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "電子郵件或使用者名稱"
+    "message": "電子郵件地址或使用者名稱"
   },
   "auth.sign-in.password.label": {
     "message": "密碼"
