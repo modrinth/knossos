@@ -18,7 +18,7 @@
     "message": "您將被重新導向至 <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "傳送復原電子郵件"
+    "message": "傳送復原郵件"
   },
   "auth.reset-password.method-choice.description": {
     "message": "請在下方輸入您的電子郵件地址，我們將傳送復原連結，協助您取回帳號。"
@@ -39,7 +39,7 @@
     "message": "您現在可以使用新密碼登入您的帳號。"
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "已成功重設密碼"
+    "message": "密碼重設成功"
   },
   "auth.reset-password.post-challenge.action": {
     "message": "重設密碼"
@@ -57,13 +57,13 @@
     "message": "重設您的密碼"
   },
   "auth.sign-in.2fa.description": {
-    "message": "請輸入雙重驗證代碼以繼續。"
+    "message": "請輸入雙重驗證碼以繼續。"
   },
   "auth.sign-in.2fa.label": {
-    "message": "請輸入雙重驗證代碼"
+    "message": "請輸入雙重驗證碼"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "輸入代碼..."
+    "message": "輸入驗證碼..."
   },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>忘記密碼？</forgot-password-link> • <create-account-link>建立帳號</create-account-link>"
@@ -90,7 +90,7 @@
     "message": "確認密碼"
   },
   "auth.sign-up.email.label": {
-    "message": "電子郵件"
+    "message": "電子郵件地址"
   },
   "auth.sign-up.label.username": {
     "message": "使用者名稱"
@@ -105,7 +105,7 @@
     "message": "密碼"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "已有帳號？"
+    "message": "已有帳號了嗎？"
   },
   "auth.sign-up.subscribe.label": {
     "message": "訂閱有關 Modrinth 的更新"
@@ -129,16 +129,16 @@
     "message": "您的電子郵件已經驗證過了！"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "電子郵件已認證"
+    "message": "電子郵件已驗證"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "重新傳送驗證電子郵件"
+    "message": "重新傳送驗證郵件"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "我們無法驗證您的電子郵件。請嘗試登入後透過儀表板重新傳送驗證電子郵件。"
+    "message": "我們無法驗證您的電子郵件。請嘗試登入後透過儀表板重新傳送驗證郵件。"
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "我們無法驗證您的電子郵件。請嘗試透過下方按鈕重新傳送驗證電子郵件。"
+    "message": "我們無法驗證您的電子郵件。請嘗試透過下方按鈕重新傳送驗證郵件。"
   },
   "auth.verify-email.failed-verification.title": {
     "message": "電子郵件驗證失敗"
@@ -207,7 +207,7 @@
     "message": "上傳圖示"
   },
   "collection.delete-modal.description": {
-    "message": "這將永遠移除這個收藏夾。此動作無法復原。"
+    "message": "這將永久刪除這個收藏夾。此動作無法復原。"
   },
   "collection.delete-modal.title": {
     "message": "您確定要刪除這個收藏夾嗎？"
@@ -234,7 +234,7 @@
     "message": "這個收藏夾沒有專案！"
   },
   "collection.label.no-projects-auth": {
-    "message": "您還沒有專案。\n您想要 <create-link>新增一個</create-link> 嗎？"
+    "message": "您還沒有專案。\n您想要<create-link>新增一個</create-link>嗎？"
   },
   "collection.label.owner": {
     "message": "擁有者"
@@ -258,10 +258,10 @@
     "message": "{count, plural,other {{count} 個專案}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "搜尋您的專案夾"
+    "message": "搜尋您的收藏夾"
   },
   "dashboard.collections.long-title": {
-    "message": "您的專案夾"
+    "message": "您的收藏夾"
   },
   "frog": {
     "message": "你被耍了！🐸"
@@ -387,7 +387,7 @@
     "message": "非官方 MINECRAFT 服務。未經 MOJANG 或 MICROSOFT 核准或與之關聯。"
   },
   "layout.footer.open-source": {
-    "message": "Modrinth 是 <github-link>開源</github-link> 的。"
+    "message": "Modrinth 是<github-link>開源</github-link>的。"
   },
   "layout.footer.resources.blog": {
     "message": "部落格"
@@ -450,13 +450,13 @@
     "message": "這個使用者沒有收藏夾！"
   },
   "profile.label.no-collections-auth": {
-    "message": "您還沒有收藏夾。\n您想要 <create-link>建立一個</create-link> 嗎？"
+    "message": "您還沒有收藏夾。\n您想要<create-link>建立一個</create-link>嗎？"
   },
   "profile.label.no-projects": {
     "message": "這個使用者沒有專案！"
   },
   "profile.label.no-projects-auth": {
-    "message": "您還沒有專案。\n您想要 <create-link>建立一個</create-link> 嗎？"
+    "message": "您還沒有專案。\n您想要<create-link>建立一個</create-link>嗎？"
   },
   "profile.label.organizations": {
     "message": "組織"
@@ -558,7 +558,7 @@
     "message": "刪除收藏夾"
   },
   "scopes.collectionRead.description": {
-    "message": "查看收藏夾"
+    "message": "讀取收藏夾"
   },
   "scopes.collectionRead.label": {
     "message": "讀取收藏夾"
