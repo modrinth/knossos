@@ -48,7 +48,13 @@ export const updateTheme = (value, updatePreference = false) => {
   }
 
   if (process.client) {
+    const css = document.createElement('style')
+    css.appendChild(document.createTextNode('*,*::after,*::before{transition:none!important}'))
+    document.head.appendChild(css)
+
     document.documentElement.className = `${theme.value.value}-mode`
+
+    setTimeout(() => document.head.removeChild(css), 1)
   }
 
   themeCookie.value = theme.value
