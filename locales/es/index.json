@@ -243,7 +243,7 @@
     "message": "Privado"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, one {<stat>{count}</stat> proyecto} other {<stat>{count}</stat> proyectos}}"
   },
   "collection.label.updated-at": {
     "message": "Actualizado {ago}"
@@ -255,7 +255,7 @@
     "message": "Crear nueva"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, one {{count} proyecto} other {{count} proyectos}}"
   },
   "dashboard.collections.label.search-input": {
     "message": "Busca en tus colecciones"
@@ -324,7 +324,7 @@
     "message": "Rechazado"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Ámbitos"
   },
   "label.settings": {
     "message": "Configuración"
@@ -354,10 +354,10 @@
     "message": "Por motivos de seguridad, por favor introduce tu correo electrónico en Modrinth."
   },
   "layout.banner.staging.description": {
-    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+    "message": "El entorno de ensayo ejecuta en una copia de producción de la base de datos de Modrinth. Está usada para fines de prueba y depuración, y puede estar ejecutando versiones en desarrollo del backend o frontent de Modrinth más recientes que la instancia de producción."
   },
   "layout.banner.staging.title": {
-    "message": "You’re viewing Modrinth’s staging environment."
+    "message": "Estás viendo el entorno de ensayo de Modrinth."
   },
   "layout.banner.verify-email.action": {
     "message": "Reenviar correo de verificación"
@@ -384,7 +384,7 @@
     "message": "Redes sociales"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "NO ES UN SERVICIO OFICIAL DE MINECRAFT. NO SE ENCUENTRA APROBADO O ASOCIADO CON MOJANG O MICROSOFT."
   },
   "layout.footer.open-source": {
     "message": "Modrinth es <github-link>código abierto</github-link>."
@@ -696,22 +696,22 @@
     "message": "Escribir informes"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Acceder a sessiones emitidas por modrinth"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Sesiones de acceso"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Eliminar sesiones"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Eliminar sesiones"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Leer sesiones activas"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Leer sesiones"
   },
   "scopes.threadRead.description": {
     "message": "Leer hilos"
@@ -726,10 +726,10 @@
     "message": "Escribir hilos"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Modificar tus datos de autentificación"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Escribir datos de autentificación"
   },
   "scopes.userDelete.description": {
     "message": "Eliminar tu cuenta"
@@ -828,7 +828,7 @@
     "message": "Crear un PAT"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "Los PATs pueden ser usados para acceder a la API de Modrinth. Para más información, consulta <doc-link>la documentación de la API de Modrinth</doc-link>. Pueden ser creados y revokados en cualquier momento."
   },
   "settings.pats.modal.create.action": {
     "message": "Crear PAT"
@@ -840,7 +840,7 @@
     "message": "Nombre"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Introduce el nombre del PAT..."
   },
   "settings.pats.modal.create.title": {
     "message": "Crear token de acceso personal"
@@ -861,7 +861,7 @@
     "message": "PATs"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Tokens de Acceso Personal (PAT)"
   },
   "settings.pats.token.action.edit": {
     "message": "Editar token"
@@ -876,7 +876,7 @@
     "message": "Expira {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Último uso {ago}"
   },
   "settings.pats.token.never-used": {
     "message": "Nunca usado"
