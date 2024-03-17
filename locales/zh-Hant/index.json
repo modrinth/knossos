@@ -30,10 +30,10 @@
     "message": "電子郵件地址"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "如果您的電子郵件地址先前儲存在這個帳號中，則我們已向您傳送了內含指示的電子郵件。"
+    "message": "如果您的電子郵件地址先前儲存在這個帳號中，則我們已向您傳送了內含指示的郵件。"
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "已傳送電子郵件"
+    "message": "已傳送郵件"
   },
   "auth.reset-password.notification.password-reset.text": {
     "message": "您現在可以使用新密碼登入您的帳號。"
@@ -216,7 +216,7 @@
     "message": "{description} — 在 Modrinth 上查看 {username} 的收藏夾 {name}"
   },
   "collection.description.following": {
-    "message": "自動產生您所有追蹤專案的收藏夾。"
+    "message": "自動產生的收藏夾，包含您正在追蹤的所有專案。"
   },
   "collection.error.not-found": {
     "message": "找不到收藏夾"
@@ -408,7 +408,7 @@
     "message": "查看您的個人檔案"
   },
   "layout.menu-toggle.action": {
-    "message": "切換選單"
+    "message": "開合選單"
   },
   "layout.meta.description": {
     "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。透過現代化且易於使用的介面和 API 在 Modrinth 上探索及發布專案。"
@@ -540,10 +540,10 @@
     "message": "您透過 {method} 在 {year} 年提款了 {amount} 元。"
   },
   "scopes.analytics.description": {
-    "message": "存取您的分析數據"
+    "message": "存取您的分析資料"
   },
   "scopes.analytics.label": {
-    "message": "讀取分析"
+    "message": "讀取分析數據"
   },
   "scopes.collectionCreate.description": {
     "message": "建立收藏夾"
@@ -639,13 +639,13 @@
     "message": "提款"
   },
   "scopes.payoutsWrite.label": {
-    "message": "寫入支出"
+    "message": "寫入付款"
   },
   "scopes.performAnalytics.description": {
-    "message": "進行分析動作"
+    "message": "進行分析數據動作"
   },
   "scopes.performAnalytics.label": {
-    "message": "進行分析"
+    "message": "進行數據分析"
   },
   "scopes.projectCreate.description": {
     "message": "建立新專案"
@@ -873,13 +873,13 @@
     "message": "過期於 {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "過期於 {inTime}"
+    "message": "到期於 {inTime}"
   },
   "settings.pats.token.last-used": {
     "message": "上次使用於 {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "從未使用過"
+    "message": "從未使用"
   },
   "settings.sessions.action.revoke-session": {
     "message": "撤銷工作階段授權"
