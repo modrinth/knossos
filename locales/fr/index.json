@@ -579,7 +579,7 @@
     "message": "Supprimer/visualiser vos notifications"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Écrire des notifications"
   },
   "scopes.organizationCreate.description": {
     "message": "Créer des organisations"
@@ -594,16 +594,16 @@
     "message": "Supprimer des organisations"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Lire des organisations"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Lire des organisations"
   },
   "scopes.organizationWrite.description": {
     "message": "Écrire à des organisations"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Écrire des organisations"
   },
   "scopes.patCreate.description": {
     "message": "Créer des jetons d'API personnels"
@@ -624,7 +624,7 @@
     "message": "Lire les jetons d'accès personnels"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Modifier des jetons d'API personnels"
   },
   "scopes.patWrite.label": {
     "message": "Créer des jetons d'accès personnel"
@@ -639,10 +639,10 @@
     "message": "Retirer de l'argent"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Écrire des paiements"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Exécuter des actions analytiques"
   },
   "scopes.performAnalytics.label": {
     "message": "Effectuer des analyses"
@@ -666,7 +666,7 @@
     "message": "Lire des projets"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Écrire dans les données du projet"
   },
   "scopes.projectWrite.label": {
     "message": "Créer des projets"
@@ -723,13 +723,13 @@
     "message": "Écrire dans les fils"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Écrire des fils"
   },
   "scopes.userAuthWrite.description": {
     "message": "Modifier vos données d'authentification"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Écrire les données d'authentification"
   },
   "scopes.userDelete.description": {
     "message": "Supprimer votre compte"
@@ -750,10 +750,10 @@
     "message": "Lire l'adresse e-mail de l'utilisateur"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Écrire sur votre profil"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Écrire les données utilisateur"
   },
   "scopes.versionCreate.description": {
     "message": "Créer de nouvelles versions"
@@ -774,7 +774,7 @@
     "message": "Lire les versions"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Écrire les données de la version"
   },
   "scopes.versionWrite.label": {
     "message": "Créer des versions"
