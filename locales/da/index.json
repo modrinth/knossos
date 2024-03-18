@@ -1,15 +1,15 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Godkend"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Afslå"
   },
   "auth.authorize.app-info": {
     "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Godkend {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
     "message": "No redirect location found in response"
