@@ -408,7 +408,7 @@
     "message": "查看您的個人檔案"
   },
   "layout.menu-toggle.action": {
-    "message": "開合選單"
+    "message": "切換選單"
   },
   "layout.meta.description": {
     "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。透過現代化且易於使用的介面和 API 在 Modrinth 上探索及發布專案。"
