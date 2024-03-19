@@ -93,16 +93,16 @@
     "message": "อีเมล"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "ชื่อผู้ใช้"
   },
   "auth.sign-up.legal-dislaimer": {
     "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "รหัสผ่านไม่ตรงกัน!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "รหัสผ่าน"
   },
   "auth.sign-up.sign-in-option.title": {
     "message": "Already have an account?"
@@ -111,25 +111,25 @@
     "message": "Subscribe to updates about Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "ลงทะเบียน"
   },
   "auth.sign-up.title.create-account": {
     "message": "Or create an account yourself"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "สมัครใช้งานด้วย"
   },
   "auth.verify-email.action.account-settings": {
     "message": "Account settings"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "เข้าสู่ระบบ"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "อีเมลของคุณยืนยันไปแล้ว"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "อีเมลยืนยันไปแล้ว"
   },
   "auth.verify-email.failed-verification.action": {
     "message": "Resend verification email"
@@ -162,7 +162,7 @@
     "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "ยินดีต้อนรับ สู่ Modrinth!"
   },
   "auth.welcome.title": {
     "message": "ยินดีต้อนรับ"
@@ -174,7 +174,7 @@
     "message": "ดำเนินการต่อ"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "สร้างโปรเจกต์"
   },
   "button.edit": {
     "message": "แก้ไข"
@@ -183,28 +183,28 @@
     "message": "บันทึก"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "บันทึกการเปลี่ยนแปลง"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "เข้าสู่ระบบ"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "ออกจากระบบ"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "ลบ ไอคอน"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "แก้ไข ไอคอน"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "ลบโปรเจค"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "เลิกติดตาม โปรเจค"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "อัปโหลด ไอคอน"
   },
   "collection.delete-modal.description": {
     "message": "This will remove this collection forever. This action cannot be undone."
@@ -219,13 +219,13 @@
     "message": "Auto-generated collection of all the projects you're following."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "ไม่พบคอลเล็กชัน"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "คอลเลกชัน"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "สร้างขึ้นเมื่อ {ago}"
   },
   "collection.label.curated-by": {
     "message": "Curated by"
@@ -234,25 +234,25 @@
     "message": "This collection has no projects!"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "คุณยังไม่มีซักโปรเจกต์\nคุณอยากจะ<create-link>สร้างขึ้นมาสักอันนึงไหม</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "เจ้าของ"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "เฉพาะฉัน"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "อัปเดตเมื่อ {ago}"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "{name} คอลเลกชัน"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "สร้างใหม่"
   },
   "dashboard.collections.label.projects-count": {
     "message": "{count, plural, one {{count} project} other {{count} projects}}"
@@ -261,7 +261,7 @@
     "message": "Search your collections"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "คอลเลกชัน ของฉัน"
   },
   "frog": {
     "message": "คุณถูกอ๊บแล้ว! 🐸"
@@ -291,16 +291,16 @@
     "message": "Collections"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "สร้างขึ้นเมื่อ {ago}"
   },
   "label.dashboard": {
     "message": "Dashboard"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "ลบ"
   },
   "label.description": {
-    "message": "Description"
+    "message": "คำอธิบาย"
   },
   "label.error": {
     "message": "Error"
@@ -312,34 +312,34 @@
     "message": "Moderation"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "แจ้งเตือน"
   },
   "label.password": {
-    "message": "Password"
+    "message": "รหัสผ่าน"
   },
   "label.public": {
-    "message": "Public"
+    "message": "สาธารณะ"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "ไม่อนุมัติ"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "ขอบเขต"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "ตั้งค่า"
   },
   "label.title": {
-    "message": "Title"
+    "message": "ชื่อเรื่อง"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "ไม่เป็นสาธารณะ"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "การเปิดเผย"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "เปลี่ยนธีม"
   },
   "layout.action.get-modrinth-app": {
     "message": "Get Modrinth App"
@@ -834,76 +834,76 @@
     "message": "Create PAT"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "วันหมดอายุ"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "ชื่อ"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "ใส่ชื่อ PAT"
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "สร้างโทเคนส่วนบุคคล"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "ลบโทเคนนี้"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "โทเคนนี้มันจะหายไปตลอดกาล (แบบว่า ตลอดกาลจริงๆ นะ)"
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "คุณแน่ใจหรือว่าต้องการลบโทเคนอันนี้?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "แก้ไขโทเคนส่วนบุคคล"
   },
   "settings.pats.title": {
     "message": "PATs"
   },
   "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "โทเคนส่วนบุคคล"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "แก้ไขโทเคน"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "ลบโทเคน"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "หมดอายุไปแล้ว {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "จะหมดอายุ {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "เข้าใช้งานล่าสุดเมื่อ {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "ไม่เคยใช้"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "ยกเลิกเซสชัน"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "สร้างขึ้นเมื่อ {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "เซสชันปัจจุบัน"
   },
   "settings.sessions.description": {
     "message": "ทั้งหมดนี้คืออุปกรณ์ทั้งหมดที่ได้เข้าสู่ระบบด้วยบัญชี Modrinth ของคุณอยู่ คุณสามารถกดออกจากระบบให้กับอุปกรณ์เหล่านี้ต่างหากได้\n\nหากคุณพบเห็นการเข้าสู่ระบบที่คุณไม่รู้จัก ให้ออกจากระบบของอุปกรณ์นั้น ๆ แล้วเปลี่ยนรหัสผ่านบัญชีของ Modrinth ทันที"
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "เข้าใช้งานเมื่อ {ago}"
   },
   "settings.sessions.title": {
     "message": "เซสชัน"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "ไม่ทราบระบบปฏิบัติการ"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "ไม่ทราบแพลตฟอร์ม"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} ณ เวลา {time, time, short}"
