@@ -18,7 +18,7 @@
     "message": "您將被重新導向至 <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "傳送復原郵件"
+    "message": "傳送復原電子郵件"
   },
   "auth.reset-password.method-choice.description": {
     "message": "請在下方輸入您的電子郵件地址，我們將傳送復原連結，協助您取回帳號。"
@@ -30,10 +30,10 @@
     "message": "電子郵件地址"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "如果您的電子郵件地址先前儲存在這個帳號中，則我們已向您傳送了內含指示的郵件。"
+    "message": "如果您的電子郵件地址先前儲存在這個帳號中，則我們已向您傳送了內含指示的電子郵件。"
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "已傳送郵件"
+    "message": "已傳送電子郵件"
   },
   "auth.reset-password.notification.password-reset.text": {
     "message": "您現在可以使用新密碼登入您的帳號。"
@@ -57,10 +57,10 @@
     "message": "重設您的密碼"
   },
   "auth.sign-in.2fa.description": {
-    "message": "請輸入雙重驗證碼以繼續。"
+    "message": "請輸入兩步驟驗證碼以繼續。"
   },
   "auth.sign-in.2fa.label": {
-    "message": "請輸入雙重驗證碼"
+    "message": "請輸入兩步驟驗證碼"
   },
   "auth.sign-in.2fa.placeholder": {
     "message": "輸入驗證碼..."
@@ -132,13 +132,13 @@
     "message": "電子郵件已驗證"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "重新傳送驗證郵件"
+    "message": "重新傳送驗證電子郵件"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "我們無法驗證您的電子郵件。請嘗試登入後透過儀表板重新傳送驗證郵件。"
+    "message": "我們無法驗證您的電子郵件。請嘗試登入後透過儀表板重新傳送驗證電子郵件。"
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "我們無法驗證您的電子郵件。請嘗試透過下方按鈕重新傳送驗證郵件。"
+    "message": "我們無法驗證您的電子郵件。請嘗試透過下方按鈕重新傳送驗證電子郵件。"
   },
   "auth.verify-email.failed-verification.title": {
     "message": "電子郵件驗證失敗"
@@ -351,7 +351,7 @@
     "message": "查看帳號設定"
   },
   "layout.banner.add-email.title": {
-    "message": "基於安全考量，請在 Modrinth 上輸入您的電子郵件。"
+    "message": "基於安全考量，請在 Modrinth 上輸入您的電子郵件地址。"
   },
   "layout.banner.staging.description": {
     "message": "預備環境正在執行生產 Modrinth 資料庫的副本。這個副本用於測試和除錯目的，並且可能執行比生產實例更新的 Modrinth 後端或前端開發版本。"
@@ -360,7 +360,7 @@
     "message": "您正在查看 Modrinth 的預備環境。"
   },
   "layout.banner.verify-email.action": {
-    "message": "重新傳送驗證郵件"
+    "message": "重新傳送驗證電子郵件"
   },
   "layout.banner.verify-email.title": {
     "message": "基於安全考量，請在 Modrinth 上驗證您的電子郵件地址。"
