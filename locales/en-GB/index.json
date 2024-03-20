@@ -1,6 +1,6 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Authorise"
   },
   "auth.authorize.action.decline": {
     "message": "Decline"
@@ -9,7 +9,7 @@
     "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Authorise {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
     "message": "No redirect location found in response"
@@ -156,7 +156,7 @@
     "message": "Subscribe to updates about Modrinth"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favourite projects, and more!"
   },
   "auth.welcome.label.tos": {
     "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
@@ -459,7 +459,7 @@
     "message": "You don't have any projects.\nWould you like to <create-link>create one</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Organisations"
   },
   "profile.meta.description": {
     "message": "Download {username}'s projects on Modrinth"
@@ -582,10 +582,10 @@
     "message": "Write notifications"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Create organisations"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Create organisations"
   },
   "scopes.organizationDelete.description": {
     "message": "Delete organizations"
@@ -597,13 +597,13 @@
     "message": "Read organizations"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Read organisations"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Write to organisations"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Write organisations"
   },
   "scopes.patCreate.description": {
     "message": "Create personal API tokens"
@@ -891,7 +891,7 @@
     "message": "Current session"
   },
   "settings.sessions.description": {
-    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognize, log out of that device and change your Modrinth account password immediately."
+    "message": "Here are all the devices that are currently logged in with your Modrinth account. You can log out of each one individually.\n\nIf you see an entry you don't recognise, log out of that device and change your Modrinth account password immediately."
   },
   "settings.sessions.last-accessed-ago": {
     "message": "Last accessed {ago}"
