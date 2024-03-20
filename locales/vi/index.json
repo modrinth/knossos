@@ -6,7 +6,7 @@
     "message": "Từ Chối"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> bởi <creator-link>{creator}</creator-link> sẽ có quyền:"
   },
   "auth.authorize.authorize-app-name": {
     "message": "Authorize {appName}"
