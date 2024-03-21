@@ -18,10 +18,10 @@
     "message": "您將被重新導向至 <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "傳送復原電子郵件"
+    "message": "傳送救援電子郵件"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "請在下方輸入您的電子郵件地址，我們將傳送復原連結，協助您取回帳號。"
+    "message": "請在下方輸入您的電子郵件地址，我們將傳送救援連結，協助您取回帳號。"
   },
   "auth.reset-password.method-choice.email-username.label": {
     "message": "電子郵件地址或使用者名稱"
