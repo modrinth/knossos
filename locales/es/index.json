@@ -54,7 +54,7 @@
     "message": "Restablecer contraseña"
   },
   "auth.reset-password.title.long": {
-    "message": "Reiniciar su contraseña"
+    "message": "Restablezca su contraseña"
   },
   "auth.sign-in.2fa.description": {
     "message": "Por favor introduce el código de doble factor para continuar."
@@ -93,7 +93,7 @@
     "message": "Correo electrónico"
   },
   "auth.sign-up.label.username": {
-    "message": "Nombre de Usuario"
+    "message": "Nombre de usuario"
   },
   "auth.sign-up.legal-dislaimer": {
     "message": "Al crear una cuenta, aceptas los <terms-link>Términos</terms-link> y la <privacy-policy-link>Política de privacidad</privacy-policy-link> de Modrinth."
@@ -111,13 +111,13 @@
     "message": "Suscribirse a actualizaciones sobre Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Registrarse"
+    "message": "Crear cuenta"
   },
   "auth.sign-up.title.create-account": {
     "message": "O crea una cuenta"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Iniciar sesión con"
+    "message": "Crear cuenta con"
   },
   "auth.verify-email.action.account-settings": {
     "message": "Configuración de cuenta"
