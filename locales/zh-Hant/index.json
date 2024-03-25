@@ -12,7 +12,7 @@
     "message": "授權 {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "在回應中找不到重新導向位置"
+    "message": "找不到回應中的重新導向位置"
   },
   "auth.authorize.redirect-url": {
     "message": "您將被重新導向至 <redirect-url>{url}</redirect-url>"
@@ -369,7 +369,7 @@
     "message": "職業生涯"
   },
   "layout.footer.company.privacy": {
-    "message": "隱私權條款"
+    "message": "隱私權"
   },
   "layout.footer.company.rules": {
     "message": "社群規範"
@@ -411,7 +411,7 @@
     "message": "切換選單"
   },
   "layout.meta.description": {
-    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。透過現代化且易於使用的介面和 API 在 Modrinth 上探索及發布專案。"
+    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。透過現代化、易於使用的介面和 API 在 Modrinth 上探索及發布專案。"
   },
   "layout.meta.og-description": {
     "message": "探索並發布 Minecraft 內容！"
