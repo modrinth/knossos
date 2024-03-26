@@ -1,51 +1,51 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Authoriseer"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Weiger"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> door <creator-link>{creator}</creator-link> kan het volgende:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Autoriseer {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Geen doorverwijzingslocatie gevonden in antwoord"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "U zal worden doorgestuurd naar <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Herstel-e-mail verzenden"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Voer hieronder uw e-mailadres in en we sturen een herstellink zodat u uw account kunt herstellen."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "E-mail of gebruikersnaam"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "E-Mail"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "Een e-mail met instructies is naar u verzonden als de e-mail eerder op uw account is opgeslagen."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "E-mail is verzonden"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "U kunt nu inloggen op uw account met uw nieuwe wachtwoord."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Wachtwoord succesvol opnieuw ingesteld"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Reset wachtwoord"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Bevestig wachtwoord"
   },
   "auth.reset-password.post-challenge.description": {
     "message": "Enter your new password below to gain access to your account."
