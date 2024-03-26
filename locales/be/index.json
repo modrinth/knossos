@@ -1,15 +1,15 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Аўтарызаваць"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Адхіліць"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> ад <creator-link>{creator}</creator-link> зможа:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Аўтарызаваць {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
     "message": "No redirect location found in response"
@@ -18,7 +18,7 @@
     "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Даслаць ліст аднаўлення"
   },
   "auth.reset-password.method-choice.description": {
     "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
@@ -27,7 +27,7 @@
     "message": "Email or username"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "Электронная пошта"
   },
   "auth.reset-password.notification.email-sent.text": {
     "message": "An email with instructions has been sent to you if the email was previously saved on your account."
@@ -42,7 +42,7 @@
     "message": "Password successfully reset"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Скінуць пароль"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
     "message": "Confirm password"
@@ -51,10 +51,10 @@
     "message": "Enter your new password below to gain access to your account."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Скінуць пароль"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Скід вашага пароля"
   },
   "auth.sign-in.2fa.description": {
     "message": "Please enter a two-factor code to proceed."
@@ -63,73 +63,73 @@
     "message": "Enter two-factor code"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Увядзіце код..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Забылі пароль?</forgot-password-link> • <create-account-link>Рэгістрацыя</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Электронная пошта ці імя карыстальніка"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Пароль"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Увайсці з дапамогай"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Увайсці"
   },
   "auth.sign-in.use-password": {
     "message": "Or use a password"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Стварыць уліковы запіс"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Пацвердзіце пароль"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "Электронная пошта"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Імя карыстальніка"
   },
   "auth.sign-up.legal-dislaimer": {
     "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "Паролі не супадаюць!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "Пароль"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Ужо маеце ўліковы запіс?"
   },
   "auth.sign-up.subscribe.label": {
     "message": "Subscribe to updates about Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Рэгістрацыя"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Ці зарэгіструйцеся"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Зарэгістравацца праз"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Налады ўліковага запісу"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Увайсці"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "Ваша электронная пошта пацверджана!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "Электронная пошта пацверджана"
   },
   "auth.verify-email.failed-verification.action": {
     "message": "Resend verification email"
@@ -141,40 +141,40 @@
     "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "Памылка пацверджання электроннай пошты"
   },
   "auth.verify-email.post-verification.description": {
     "message": "Your email address has been successfully verified!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Пацверджанне электроннай пошты"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Пацвердзіць электронную пошту"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Падпісацца на абнаўленні вакол Modrinth"
   },
   "auth.welcome.description": {
     "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Ствараючы ўліковы запіс, вы пагаджаецеся з нашымі <terms-link>Умовамі</terms-link> і <privacy-policy-link>Палітыкай прыватнасці</privacy-policy-link>."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "Вітаем на Modrinth!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "Вітаем"
   },
   "button.cancel": {
     "message": "Скасаваць"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "Працягнуць"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "Стварыць праект"
   },
   "button.edit": {
     "message": "Рэдагаваць"
@@ -183,28 +183,28 @@
     "message": "Захаваць"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Захаваць змены"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "Увайсці"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "Выйсці"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Выдаліць іконку"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Змяніць іконку"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Выдаліць праект"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Адпісацца ад праекта"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Загрузіць іконку"
   },
   "collection.delete-modal.description": {
     "message": "This will remove this collection forever. This action cannot be undone."
@@ -219,49 +219,49 @@
     "message": "Auto-generated collection of all the projects you're following."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "Калекцыя не знойдзена"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "Калекцыя"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Створана {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "Курыруецца"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "У гэтай калекцыі няма праектаў!"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "У вас няма ніякіх праектаў.\nВы хаціце <create-link>стварыць адзін</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Уладальнік"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "Прыватны"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural,one {<stat>{count}</stat> праект} other {<stat>{count}</stat>праектаў}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "Абноўлены {ago}"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "Калекцыя {name}"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "Стварыць новую"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural,one {{count} праект} other {{count} праектаў}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "Пошук у вашых калекцыях"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "Вашы калекцыі"
   },
   "frog": {
     "message": "Вас жабнулі! 🐸"
@@ -288,67 +288,67 @@
     "message": "Спіс"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "Калекцыі"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Створана {ago}"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "Панель кіравання"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "Выдаліць"
   },
   "label.description": {
-    "message": "Description"
+    "message": "Апісанне"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Памылка"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "Падпіскі"
   },
   "label.moderation": {
-    "message": "Moderation"
+    "message": "Мадэрацыя"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "Паведамленні"
   },
   "label.password": {
-    "message": "Password"
+    "message": "Пароль"
   },
   "label.public": {
-    "message": "Public"
+    "message": "Публічны"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "Адхілена"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Дазволы"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "Налады"
   },
   "label.title": {
-    "message": "Title"
+    "message": "Назва"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "Непублічны"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "Бачнасць"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "Змяніць тэму"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "Спампаваць Modrinth App"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "Ваш аватар"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "Адкрыць налады ўліковага запісу"
   },
   "layout.banner.add-email.title": {
     "message": "For security purposes, please enter your email on Modrinth."
@@ -366,49 +366,49 @@
     "message": "For security purposes, please verify your email address on Modrinth."
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "Вакансіі"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "Прыватнасць"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Правілы"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Умовы"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "Кампанія"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "Супольнасць"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "НЕ З'ЯЎЛЯЕЦЦА АФІЦЫЙНЫМ СЕРВІСАМ MINECRAFT. НЕ ЎХВАЛЕНА І НЕ ЗВЯЗАНА З КАМПАНІЯЙ MOJANG ЦІ MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "Modrinth гэта <github-link>праект з адкрытым зыходным кодам</github-link>."
   },
   "layout.footer.resources.blog": {
-    "message": "Blog"
+    "message": "Блог"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "Дакументацыя"
   },
   "layout.footer.resources.status": {
-    "message": "Status"
+    "message": "Статус"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "Падтрымка"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "Рэсурсы"
   },
   "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Адкрыць профіль"
   },
   "layout.menu-toggle.action": {
-    "message": "Toggle menu"
+    "message": "Уключыць меню"
   },
   "layout.meta.description": {
     "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
@@ -417,10 +417,10 @@
     "message": "Discover and publish Minecraft content!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "Галоўная"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "Пошук"
   },
   "notification.error.title": {
     "message": "Узнікла памылка"
@@ -459,7 +459,7 @@
     "message": "У вас яшчэ няма праектаў.\nХаціце <create-link>стварыць адзін</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Арганізацыі"
   },
   "profile.meta.description": {
     "message": "Спампаваць праекты {username} на Modrinth"
@@ -543,13 +543,13 @@
     "message": "Access your analytics data"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Чытаць аналітыку"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Ствараць калекцыі"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "Ствараць калекцыі"
   },
   "scopes.collectionDelete.description": {
     "message": "Delete collections"
@@ -588,10 +588,10 @@
     "message": "Create organizations"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Выдаліць арганізацыі"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Выдаліць арганізацыі"
   },
   "scopes.organizationRead.description": {
     "message": "Read organizations"
