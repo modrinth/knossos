@@ -96,7 +96,7 @@
     "message": "使用者名稱"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
+    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》及《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
   },
   "auth.sign-up.notification.password-mismatch.text": {
     "message": "密碼不正確！"
@@ -159,7 +159,7 @@
     "message": "感謝您建立帳號。您現在可以追蹤和建立專案，接收有關您喜愛專案的更新，以及更多功能！"
   },
   "auth.welcome.label.tos": {
-    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
+    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》及《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
   },
   "auth.welcome.long-title": {
     "message": "歡迎使用 Modrinth！"
@@ -411,7 +411,7 @@
     "message": "切換選單"
   },
   "layout.meta.description": {
-    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。透過現代化、易於使用的介面和 API 在 Modrinth 上探索及發布專案。"
+    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。使用現代、易於使用的介面和 API 在 Modrinth 上探索和發布專案。"
   },
   "layout.meta.og-description": {
     "message": "探索並發布 Minecraft 內容！"
