@@ -24,7 +24,7 @@
     "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "Электронная пошта ці імя карыстальніка"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
     "message": "Электронная пошта"
@@ -33,7 +33,7 @@
     "message": "An email with instructions has been sent to you if the email was previously saved on your account."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "Ліст адпраўлены"
   },
   "auth.reset-password.notification.password-reset.text": {
     "message": "You can now log-in into your account with your new password."
@@ -45,7 +45,7 @@
     "message": "Скінуць пароль"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Пацвердзіце пароль"
   },
   "auth.reset-password.post-challenge.description": {
     "message": "Enter your new password below to gain access to your account."
@@ -552,22 +552,22 @@
     "message": "Ствараць калекцыі"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Выдаляць калекцыі"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "Выдаляць калекцыі"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Аглядаць калекцыі"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Аглядаць калекцыі"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Запісваць у калекцыі"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Запісваць у калекцыі"
   },
   "scopes.notificationRead.description": {
     "message": "Read your notifications"
