@@ -1,0 +1,911 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "ǝzᴉɹoɥʇnⱯ"
+  },
+  "auth.authorize.action.decline": {
+    "message": "ǝuᴉꞁɔǝᗡ"
+  },
+  "auth.authorize.app-info": {
+    "message": ":oʇ ǝꞁqɐ ǝq ꞁꞁᴉʍ <creator-link>{creator}</creator-link> ʎq <strong>{appName}</strong>"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "{appName} ǝzᴉɹoɥʇnⱯ"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "ǝsuodsǝɹ uᴉ punoɟ uoᴉʇɐɔoꞁ ʇɔǝɹᴉpǝɹ oN"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "<redirect-url>{url}</redirect-url> oʇ pǝʇɔǝɹᴉpǝɹ ǝq ꞁꞁᴉʍ no⅄"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "ꞁᴉɐɯǝ ʎɹǝʌoɔǝɹ puǝS"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "˙ʇunoɔɔɐ ɹnoʎ ɹǝʌoɔǝɹ oʇ noʎ ʍoꞁꞁɐ oʇ ʞuᴉꞁ ʎɹǝʌoɔǝɹ ɐ puǝs ꞁꞁ,ǝʍ puɐ ʍoꞁǝq ꞁᴉɐɯǝ ɹnoʎ ɹǝʇuƎ"
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "ǝɯɐuɹǝsn ɹo ꞁᴉɐɯƎ"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "ꞁᴉɐɯƎ"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "˙ʇunoɔɔɐ ɹnoʎ uo pǝʌɐs ʎꞁsnoᴉʌǝɹd sɐʍ ꞁᴉɐɯǝ ǝɥʇ ɟᴉ noʎ oʇ ʇuǝs uǝǝq sɐɥ suoᴉʇɔnɹʇsuᴉ ɥʇᴉʍ ꞁᴉɐɯǝ uⱯ"
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "ʇuǝs ꞁᴉɐɯƎ"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "˙pɹoʍssɐd ʍǝu ɹnoʎ ɥʇᴉʍ ʇunoɔɔɐ ɹnoʎ oʇuᴉ uᴉ-ᵷoꞁ ʍou uɐɔ no⅄"
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "ʇǝsǝɹ ʎꞁꞁnɟssǝɔɔns pɹoʍssɐԀ"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "pɹoʍssɐd ʇǝsǝᴚ"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "ᴚǝsǝʇ pɐssʍoɹd"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "˙ʇunoɔɔɐ ɹnoʎ oʇ ssǝɔɔɐ uᴉɐᵷ oʇ ʍoꞁǝq pɹoʍssɐd ʍǝu ɹnoʎ ɹǝʇuƎ"
+  },
+  "auth.reset-password.title": {
+    "message": "pɹoʍssɐԀ ʇǝsǝᴚ"
+  },
+  "auth.reset-password.title.long": {
+    "message": "pɹoʍssɐd ɹnoʎ ʇǝsǝᴚ"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "˙pǝǝɔoɹd oʇ ǝpoɔ ɹoʇɔɐɟ-oʍʇ ɐ ɹǝʇuǝ ǝsɐǝꞁԀ"
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "ǝpoɔ ɹoʇɔɐɟ-oʍʇ ɹǝʇuƎ"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "˙˙˙ǝpoɔ ɹǝʇuƎ"
+  },
+  "auth.sign-in.additional-options": {
+    "message": "</create-account-link>ʇunoɔɔɐ uɐ ǝʇɐǝɹƆ<create-account-link> • </forgot-password-link>¿pɹoʍssɐd ʇoᵷɹoℲ<forgot-password-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "ǝɯɐuɹǝsn ɹo ꞁᴉɐɯƎ"
+  },
+  "auth.sign-in.password.label": {
+    "message": "pɹoʍssɐԀ"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "ɥʇᴉʍ uᴉ uᵷᴉS"
+  },
+  "auth.sign-in.title": {
+    "message": "uI uᵷᴉS"
+  },
+  "auth.sign-in.use-password": {
+    "message": "pɹoʍssɐd ɐ ǝsn ɹO"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "ʇunoɔɔɐ ǝʇɐǝɹƆ"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "pɹoʍssɐd ɯɹᴉɟuoƆ"
+  },
+  "auth.sign-up.email.label": {
+    "message": "ꞁᴉɐɯƎ"
+  },
+  "auth.sign-up.label.username": {
+    "message": "ǝɯɐuɹǝs∩"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "˙</privacy-policy-link>ʎɔᴉꞁoԀ ʎɔɐʌᴉɹԀ<privacy-policy-link> puɐ </terms-link>sɯɹǝ⟘<terms-link> s,ɥʇuᴉɹpoW oʇ ǝǝɹᵷɐ noʎ 'ʇunoɔɔɐ uɐ ᵷuᴉʇɐǝɹɔ ʎᗺ"
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "¡ɥɔʇɐɯ ʇou op spɹoʍssɐԀ"
+  },
+  "auth.sign-up.password.label": {
+    "message": "pɹoʍssɐԀ"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "¿ʇunoɔɔɐ uɐ ǝʌɐɥ ʎpɐǝɹꞁⱯ"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "ɥʇuᴉɹpoW ʇnoqɐ sǝʇɐpdn oʇ ǝqᴉɹɔsqnS"
+  },
+  "auth.sign-up.title": {
+    "message": "d∩ uᵷᴉS"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "ɟꞁǝsɹnoʎ ʇunoɔɔɐ uɐ ǝʇɐǝɹɔ ɹO"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "ɥʇᴉʍ dn uᵷᴉS"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "sᵷuᴉʇʇǝs ʇunoɔɔⱯ"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "uᴉ uᵷᴉS"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "¡pǝᴉɟᴉɹǝʌ ʎpɐǝɹꞁɐ sᴉ ꞁᴉɐɯǝ ɹno⅄"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "pǝᴉɟᴉɹǝʌ ʎpɐǝɹꞁɐ ꞁᴉɐɯƎ"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "ꞁᴉɐɯǝ uoᴉʇɐɔᴉɟᴉɹǝʌ puǝsǝᴚ"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "˙uᴉ ᵷuᴉuᵷᴉs ʎq pɹɐoqɥsɐp ɹnoʎ ɥᵷnoɹɥʇ ꞁᴉɐɯǝ uoᴉʇɐɔᴉɟᴉɹǝʌ ǝɥʇ ᵷuᴉpuǝs-ǝɹ ʎɹ⟘ ˙ꞁᴉɐɯǝ ɹnoʎ ʎɟᴉɹǝʌ oʇ ǝꞁqɐun ǝɹǝʍ ǝM"
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "˙ʍoꞁǝq uoʇʇnq ǝɥʇ ɥᵷnoɹɥʇ ꞁᴉɐɯǝ uoᴉʇɐɔᴉɟᴉɹǝʌ ǝɥʇ ᵷuᴉpuǝs-ǝɹ ʎɹ⟘ ˙ꞁᴉɐɯǝ ɹnoʎ ʎɟᴉɹǝʌ oʇ ǝꞁqɐun ǝɹǝʍ ǝM"
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "pǝꞁᴉɐɟ uoᴉʇɐɔᴉɟᴉɹǝʌ ꞁᴉɐɯƎ"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "¡pǝᴉɟᴉɹǝʌ ʎꞁꞁnɟssǝɔɔns uǝǝq sɐɥ ssǝɹppɐ ꞁᴉɐɯǝ ɹno⅄"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "uoᴉʇɐɔᴉɟᴉɹǝʌ ꞁᴉɐɯƎ"
+  },
+  "auth.verify-email.title": {
+    "message": "ꞁᴉɐɯƎ ʎɟᴉɹǝɅ"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "ɥʇuᴉɹpoW ʇnoqɐ sǝʇɐpdn oʇ ǝqᴉɹɔsqnS"
+  },
+  "auth.welcome.description": {
+    "message": "¡ǝɹoɯ puɐ 'sʇɔǝɾoɹd ǝʇᴉɹoʌɐɟ ɹnoʎ ʇnoqɐ sǝʇɐpdn ǝʌᴉǝɔǝɹ 'sʇɔǝɾoɹd ǝʇɐǝɹɔ puɐ ʍoꞁꞁoɟ ʍou uɐɔ no⅄ ˙ʇunoɔɔɐ uɐ ᵷuᴉʇɐǝɹɔ ɹoɟ noʎ ʞuɐɥ⟘"
+  },
+  "auth.welcome.label.tos": {
+    "message": "˙</privacy-policy-link>ʎɔᴉꞁoԀ ʎɔɐʌᴉɹԀ<privacy-policy-link> puɐ </terms-link>sɯɹǝ⟘<terms-link> s,ɥʇuᴉɹpoW oʇ pǝǝɹᵷɐ ǝʌɐɥ noʎ 'ʇunoɔɔɐ uɐ ᵷuᴉʇɐǝɹɔ ʎᗺ"
+  },
+  "auth.welcome.long-title": {
+    "message": "¡ɥʇuᴉɹpoW oʇ ǝɯoɔꞁǝM"
+  },
+  "auth.welcome.title": {
+    "message": "ǝɯoɔꞁǝM"
+  },
+  "button.cancel": {
+    "message": "ꞁǝɔuɐƆ"
+  },
+  "button.continue": {
+    "message": "ǝnuᴉʇuoƆ"
+  },
+  "button.create-a-project": {
+    "message": "ʇɔǝɾoɹd ɐ ǝʇɐǝɹƆ"
+  },
+  "button.edit": {
+    "message": "ʇᴉpƎ"
+  },
+  "button.save": {
+    "message": "ǝʌɐS"
+  },
+  "button.save-changes": {
+    "message": "sǝᵷuɐɥɔ ǝʌɐS"
+  },
+  "button.sign-in": {
+    "message": "uᴉ uᵷᴉS"
+  },
+  "button.sign-out": {
+    "message": "ʇno uᵷᴉS"
+  },
+  "collection.button.delete-icon": {
+    "message": "uoɔᴉ ǝʇǝꞁǝᗡ"
+  },
+  "collection.button.edit-icon": {
+    "message": "uoɔᴉ ʇᴉpƎ"
+  },
+  "collection.button.remove-project": {
+    "message": "ʇɔǝɾoɹd ǝʌoɯǝᴚ"
+  },
+  "collection.button.unfollow-project": {
+    "message": "ʇɔǝɾoɹd ʍoꞁꞁoɟu∩"
+  },
+  "collection.button.upload-icon": {
+    "message": "uoɔᴉ pɐoꞁd∩"
+  },
+  "collection.delete-modal.description": {
+    "message": "˙ǝuopun ǝq ʇouuɐɔ uoᴉʇɔɐ sᴉɥ⟘ ˙ɹǝʌǝɹoɟ uoᴉʇɔǝꞁꞁoɔ sᴉɥʇ ǝʌoɯǝɹ ꞁꞁᴉʍ sᴉɥ⟘"
+  },
+  "collection.delete-modal.title": {
+    "message": "¿uoᴉʇɔǝꞁꞁoɔ sᴉɥʇ ǝʇǝꞁǝp oʇ ʇuɐʍ noʎ ǝɹns noʎ ǝɹⱯ"
+  },
+  "collection.description": {
+    "message": "ɥʇuᴉɹpoW uo {username} ʎq {name} uoᴉʇɔǝꞁꞁoɔ ǝɥʇ ʍǝᴉɅ - {description}"
+  },
+  "collection.description.following": {
+    "message": "˙ᵷuᴉʍoꞁꞁoɟ ǝɹ,noʎ sʇɔǝɾoɹd ǝɥʇ ꞁꞁɐ ɟo uoᴉʇɔǝꞁꞁoɔ pǝʇɐɹǝuǝᵷ-oʇnⱯ"
+  },
+  "collection.error.not-found": {
+    "message": "punoɟ ʇou uoᴉʇɔǝꞁꞁoƆ"
+  },
+  "collection.label.collection": {
+    "message": "uoᴉʇɔǝꞁꞁoƆ"
+  },
+  "collection.label.created-at": {
+    "message": "{ago} pǝʇɐǝɹƆ"
+  },
+  "collection.label.curated-by": {
+    "message": "ʎq pǝʇɐɹnƆ"
+  },
+  "collection.label.no-projects": {
+    "message": "¡sʇɔǝɾoɹd ou sɐɥ uoᴉʇɔǝꞁꞁoɔ sᴉɥ⟘"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "¿</create-link>ǝuo ppɐ<create-link> oʇ ǝʞᴉꞁ noʎ pꞁnoM\n˙sʇɔǝɾoɹd ʎuɐ ǝʌɐɥ ʇ,uop no⅄"
+  },
+  "collection.label.owner": {
+    "message": "ɹǝuʍO"
+  },
+  "collection.label.private": {
+    "message": "ǝʇɐʌᴉɹԀ"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> ʇɔǝɾoɹd} other {<stat>{count}</stat> sʇɔǝɾoɹd}}"
+  },
+  "collection.label.updated-at": {
+    "message": "{ago} pǝʇɐpd∩"
+  },
+  "collection.title": {
+    "message": "uoᴉʇɔǝꞁꞁoƆ - {name}"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "ʍǝu ǝʇɐǝɹƆ"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} ʇɔǝɾoɹd} other {{count} sʇɔǝɾoɹd}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "suoᴉʇɔǝꞁꞁoɔ ɹnoʎ ɥɔɹɐǝS"
+  },
+  "dashboard.collections.long-title": {
+    "message": "suoᴉʇɔǝꞁꞁoɔ ɹno⅄"
+  },
+  "frog": {
+    "message": "🐸 ¡pǝᵷᵷoɹɟ uǝǝq ǝʌ,no⅄"
+  },
+  "frog.altText": {
+    "message": "ɥʇuᴉɹʎqɐꞁ ᵷoɹɟ ɐ ɟo ᵷuᴉʇuᴉɐd ɔᴉʇsᴉꞁɐǝɹoʇoɥd Ɐ"
+  },
+  "frog.froggedPeople": {
+    "message": "¡pǝᵷᵷoɹɟ osꞁɐ ǝɹǝʍ {count, plural, one {uosɹǝd ǝɹoɯ {count}} other {ǝꞁdoǝd ǝɹoɯ {count}}}"
+  },
+  "frog.sinceOpened": {
+    "message": "{ago} pǝuǝdo sɐʍ ǝᵷɐd sᴉɥ⟘"
+  },
+  "frog.title": {
+    "message": "ᵷoɹℲ"
+  },
+  "input.view.gallery": {
+    "message": "ʍǝᴉʌ ʎɹǝꞁꞁɐ⅁"
+  },
+  "input.view.grid": {
+    "message": "ʍǝᴉʌ pᴉɹ⅁"
+  },
+  "input.view.list": {
+    "message": "ʍǝᴉʌ ʇsᴉꞀ"
+  },
+  "label.collections": {
+    "message": "suoᴉʇɔǝꞁꞁoƆ"
+  },
+  "label.created-ago": {
+    "message": "{ago} pǝʇɐǝɹƆ"
+  },
+  "label.dashboard": {
+    "message": "pɹɐoqɥsɐᗡ"
+  },
+  "label.delete": {
+    "message": "ǝʇǝꞁǝᗡ"
+  },
+  "label.description": {
+    "message": "uoᴉʇdᴉɹɔsǝᗡ"
+  },
+  "label.error": {
+    "message": "ɹoɹɹƎ"
+  },
+  "label.followed-projects": {
+    "message": "sʇɔǝɾoɹd pǝʍoꞁꞁoℲ"
+  },
+  "label.moderation": {
+    "message": "uoᴉʇɐɹǝpoW"
+  },
+  "label.notifications": {
+    "message": "suoᴉʇɐɔᴉɟᴉʇoN"
+  },
+  "label.password": {
+    "message": "pɹoʍssɐԀ"
+  },
+  "label.public": {
+    "message": "ɔᴉꞁqnԀ"
+  },
+  "label.rejected": {
+    "message": "pǝʇɔǝɾǝᴚ"
+  },
+  "label.scopes": {
+    "message": "sǝdoɔS"
+  },
+  "label.settings": {
+    "message": "sᵷuᴉʇʇǝS"
+  },
+  "label.title": {
+    "message": "ǝꞁʇᴉ⟘"
+  },
+  "label.unlisted": {
+    "message": "pǝʇsᴉꞁu∩"
+  },
+  "label.visibility": {
+    "message": "ʎʇᴉꞁᴉqᴉsᴉɅ"
+  },
+  "layout.action.change-theme": {
+    "message": "ǝɯǝɥʇ ǝᵷuɐɥƆ"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "ddⱯ ɥʇuᴉɹpoW ʇǝ⅁"
+  },
+  "layout.avatar.alt": {
+    "message": "ɹɐʇɐʌɐ ɹno⅄"
+  },
+  "layout.banner.add-email.button": {
+    "message": "sᵷuᴉʇʇǝs ʇunoɔɔɐ ʇᴉsᴉɅ"
+  },
+  "layout.banner.add-email.title": {
+    "message": "˙ɥʇuᴉɹpoW uo ꞁᴉɐɯǝ ɹnoʎ ɹǝʇuǝ ǝsɐǝꞁd 'sǝsodɹnd ʎʇᴉɹnɔǝs ɹoℲ"
+  },
+  "layout.banner.staging.description": {
+    "message": "˙ǝɔuɐʇsuᴉ uoᴉʇɔnpoɹd ǝɥʇ uɐɥʇ ɹǝʍǝu puǝʇuoɹɟ ɹo puǝʞɔɐq ɥʇuᴉɹpoW ǝɥʇ ɟo suoᴉsɹǝʌ ʇuǝɯdoꞁǝʌǝp-uᴉ ᵷuᴉuunɹ ǝq ʎɐɯ puɐ 'sǝsodɹnd ᵷuᴉᵷᵷnqǝp puɐ ᵷuᴉʇsǝʇ ɹoɟ pǝsn sᴉ sᴉɥ⟘ ˙ǝsɐqɐʇɐp ɥʇuᴉɹpoW uoᴉʇɔnpoɹd ǝɥʇ ɟo ʎdoɔ ɐ uo ᵷuᴉuunɹ sᴉ ʇuǝɯuoɹᴉʌuǝ ᵷuᴉᵷɐʇs ǝɥ⟘"
+  },
+  "layout.banner.staging.title": {
+    "message": "˙ʇuǝɯuoɹᴉʌuǝ ᵷuᴉᵷɐʇs s,ɥʇuᴉɹpoW ᵷuᴉʍǝᴉʌ ǝɹ,no⅄"
+  },
+  "layout.banner.verify-email.action": {
+    "message": "ꞁᴉɐɯǝ uoᴉʇɐɔᴉɟᴉɹǝʌ puǝs-ǝᴚ"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "˙ɥʇuᴉɹpoW uo ssǝɹppɐ ꞁᴉɐɯǝ ɹnoʎ ʎɟᴉɹǝʌ ǝsɐǝꞁd 'sǝsodɹnd ʎʇᴉɹnɔǝs ɹoℲ"
+  },
+  "layout.footer.company.careers": {
+    "message": "sɹǝǝɹɐƆ"
+  },
+  "layout.footer.company.privacy": {
+    "message": "ʎɔɐʌᴉɹԀ"
+  },
+  "layout.footer.company.rules": {
+    "message": "sǝꞁnᴚ"
+  },
+  "layout.footer.company.terms": {
+    "message": "sɯɹǝ⟘"
+  },
+  "layout.footer.company.title": {
+    "message": "ʎuɐdɯoƆ"
+  },
+  "layout.footer.interact.title": {
+    "message": "ʇɔɐɹǝʇuI"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "˙</github-link>ǝɔɹnos uǝdo<github-link> sᴉ ɥʇuᴉɹpoW"
+  },
+  "layout.footer.resources.blog": {
+    "message": "ᵷoꞁᗺ"
+  },
+  "layout.footer.resources.docs": {
+    "message": "sɔoᗡ"
+  },
+  "layout.footer.resources.status": {
+    "message": "snʇɐʇS"
+  },
+  "layout.footer.resources.support": {
+    "message": "ʇɹoddnS"
+  },
+  "layout.footer.resources.title": {
+    "message": "sǝɔɹnosǝᴚ"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "ǝꞁᴉɟoɹd ɹnoʎ ʇᴉsᴉɅ"
+  },
+  "layout.menu-toggle.action": {
+    "message": "nuǝɯ ǝꞁᵷᵷo⟘"
+  },
+  "layout.meta.description": {
+    "message": "˙IԀⱯ puɐ ǝɔɐɟɹǝʇuᴉ ǝsn oʇ ʎsɐǝ 'uɹǝpoɯ ɐ ɥʇᴉʍ ɥʇuᴉɹpoW uo sʇɔǝɾoɹd ɥsᴉꞁqnd puɐ ɹǝʌoɔsᴉᗡ ˙ɥʇuᴉɹpoW uo sʞɔɐdpoɯ puɐ 'sʞɔɐdǝɔɹnosǝɹ 'sɹǝpɐɥs 'sʞɔɐdɐʇɐp 'suᴉᵷnꞁd 'spoɯ ʇɟɐɹɔǝuᴉW pɐoꞁuʍoᗡ"
+  },
+  "layout.meta.og-description": {
+    "message": "¡ʇuǝʇuoɔ ʇɟɐɹɔǝuᴉW ɥsᴉꞁqnd puɐ ɹǝʌoɔsᴉᗡ"
+  },
+  "layout.nav.home": {
+    "message": "ǝɯoH"
+  },
+  "layout.nav.search": {
+    "message": "ɥɔɹɐǝS"
+  },
+  "notification.error.title": {
+    "message": "pǝɹɹnɔɔo ɹoɹɹǝ uⱯ"
+  },
+  "profile.button.manage-projects": {
+    "message": "sʇɔǝɾoɹd ǝᵷɐuɐW"
+  },
+  "profile.button.report": {
+    "message": "ʇɹodǝᴚ"
+  },
+  "profile.error.not-found": {
+    "message": "punoɟ ʇou ɹǝs∩"
+  },
+  "profile.input.upload-avatar": {
+    "message": "ɹɐʇɐʌɐ pɐoꞁd∩"
+  },
+  "profile.joined-at": {
+    "message": "{ago} pǝuᴉoՐ"
+  },
+  "profile.label.edit-bio": {
+    "message": "oᴉᗺ"
+  },
+  "profile.label.edit-username": {
+    "message": "ǝɯɐuɹǝs∩"
+  },
+  "profile.label.no-collections": {
+    "message": "kehotoaner@gmail.com\n"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Ff injector?"
+  },
+  "profile.label.no-projects": {
+    "message": "¡sʇɔǝɾoɹd ou sɐɥ ɹǝsn sᴉɥ⟘"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "¿ǝuo <create-link>ǝʇɐǝɹɔ</create-link> oʇ ǝʞᴉl noʎ plnoM\n˙sʇɔǝſoɹd ʎuɐ ǝʌɐɥ ʇ'uop no⅄"
+  },
+  "profile.label.organizations": {
+    "message": "suoᴉʇɐzᴉuɐᵷɹO"
+  },
+  "profile.meta.description": {
+    "message": "ɥʇuᴉɹpoꟽ uo sʇɔǝſoɹd {username}'s pɐoluʍoᗡ"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "ɥʇuᴉɹpoꟽ uo sʇɔǝſoɹd {username}'s pɐoluʍoᗡ - {bio}"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {pɐoluʍop <stat>{count}</stat>} other {spɐoluʍop <stat>{count}</stat>}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "sʇɔǝſoɹd ɟo {count, plural, one {ɹǝʍolloɟ <stat>{count}</stat>} other {sɹǝʍolloɟ <stat>{count}</stat>}}"
+  },
+  "profile.user-id": {
+    "message": "{id} :ᗡI ɹǝsՈ"
+  },
+  "project-type.all": {
+    "message": "llⱯ"
+  },
+  "project-type.collection.plural": {
+    "message": "Collecties"
+  },
+  "project-type.collection.singular": {
+    "message": ""
+  },
+  "project-type.datapack.plural": {
+    "message": "sʞɔɐԀ ɐʇɐᗡ"
+  },
+  "project-type.datapack.singular": {
+    "message": "ʞɔɐԀ ɐʇɐᗡ"
+  },
+  "project-type.mod.plural": {
+    "message": "spoꟽ"
+  },
+  "project-type.mod.singular": {
+    "message": "poꟽ"
+  },
+  "project-type.modpack.plural": {
+    "message": "sʞɔɐdpoꟽ"
+  },
+  "project-type.modpack.singular": {
+    "message": "ʞɔɐdpoꟽ"
+  },
+  "project-type.plugin.plural": {
+    "message": "suᴉɓnlԀ"
+  },
+  "project-type.plugin.singular": {
+    "message": "uᴉɓnlԀ"
+  },
+  "project-type.project.plural": {
+    "message": "sʇɔǝɾoɹԀ"
+  },
+  "project-type.project.singular": {
+    "message": "ʇɔǝɾoɹԀ"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "sʞɔɐԀ ǝɔɹnosǝᴚ"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "ʞɔɐԀ ǝɔɹnosǝᴚ"
+  },
+  "project-type.shader.plural": {
+    "message": "sɹǝpɐɥS"
+  },
+  "project-type.shader.singular": {
+    "message": "ɹǝpɐɥS"
+  },
+  "revenue.transfers.total": {
+    "message": "˙ꞁɐʇoʇ uᴉ {amount} uʍɐɹpɥʇᴉʍ ǝʌɐɥ no⅄"
+  },
+  "revenue.transfers.total.method": {
+    "message": "˙{method} ɥᵷnoɹɥʇ {amount} uʍɐɹpɥʇᴉʍ ǝʌɐɥ no⅄"
+  },
+  "revenue.transfers.total.year": {
+    "message": "˙{year} uᴉ {amount} uʍɐɹpɥʇᴉʍ ǝʌɐɥ no⅄"
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "˙{method} ɥᵷnoɹɥʇ {year} uᴉ {amount} uʍɐɹpɥʇᴉʍ ǝʌɐɥ no⅄"
+  },
+  "scopes.analytics.description": {
+    "message": "ɐʇɐp sɔᴉʇʎꞁɐuɐ ɹnoʎ ssǝɔɔⱯ"
+  },
+  "scopes.analytics.label": {
+    "message": "sɔᴉʇʎꞁɐuɐ pɐǝᴚ"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "suoᴉʇɔǝꞁꞁoɔ ǝʇɐǝɹƆ"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "suoᴉʇɔǝꞁꞁoɔ ǝʇɐǝɹƆ"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "suoᴉʇɔǝꞁꞁoɔ ǝʇǝꞁǝᗡ"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "suoᴉʇɔǝꞁꞁoɔ ǝʇǝꞁǝᗡ"
+  },
+  "scopes.collectionRead.description": {
+    "message": "suoᴉʇɔǝꞁꞁoɔ pɐǝᴚ"
+  },
+  "scopes.collectionRead.label": {
+    "message": "suoᴉʇɔǝꞁꞁoɔ pɐǝᴚ"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "suoᴉʇɔǝꞁꞁoɔ oʇ ǝʇᴉɹM"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "suoᴉʇɔǝꞁꞁoɔ ǝʇᴉɹM"
+  },
+  "scopes.notificationRead.description": {
+    "message": "suoᴉʇɐɔᴉɟᴉʇou ɹnoʎ pɐǝᴚ"
+  },
+  "scopes.notificationRead.label": {
+    "message": "suoᴉʇɐɔᴉɟᴉʇou pɐǝᴚ"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "suoᴉʇɐɔᴉɟᴉʇou ɹnoʎ ʍǝᴉɅ/ǝʇǝꞁǝᗡ"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "suoᴉʇɐɔᴉɟᴉʇou ǝʇᴉɹM"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "suoᴉʇɐzᴉuɐᵷɹo ǝʇɐǝɹƆ"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "suoᴉʇɐzᴉuɐᵷɹo ǝʇɐǝɹƆ"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "suoᴉʇɐzᴉuɐᵷɹo ǝʇǝꞁǝᗡ"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "suoᴉʇɐzᴉuɐᵷɹo ǝʇǝꞁǝᗡ"
+  },
+  "scopes.organizationRead.description": {
+    "message": "suoᴉʇɐzᴉuɐᵷɹo pɐǝᴚ"
+  },
+  "scopes.organizationRead.label": {
+    "message": "suoᴉʇɐzᴉuɐᵷɹo pɐǝᴚ"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "suoᴉʇɐzᴉuɐᵷɹo oʇ ǝʇᴉɹM"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "suoᴉʇɐzᴉuɐᵷɹo ǝʇᴉɹM"
+  },
+  "scopes.patCreate.description": {
+    "message": "suǝʞoʇ IԀⱯ ꞁɐuosɹǝd ǝʇɐǝɹƆ"
+  },
+  "scopes.patCreate.label": {
+    "message": "s⟘ⱯԀ ǝʇɐǝɹƆ"
+  },
+  "scopes.patDelete.description": {
+    "message": "suǝʞoʇ IԀⱯ ꞁɐuosɹǝd ɹnoʎ ǝʇǝꞁǝᗡ"
+  },
+  "scopes.patDelete.label": {
+    "message": "s⟘ⱯԀ ǝʇǝꞁǝᗡ"
+  },
+  "scopes.patRead.description": {
+    "message": "suǝʞoʇ IԀⱯ pǝʇɐǝɹɔ ʍǝᴉɅ"
+  },
+  "scopes.patRead.label": {
+    "message": "s⟘ⱯԀ pɐǝᴚ"
+  },
+  "scopes.patWrite.description": {
+    "message": "suǝʞoʇ IԀⱯ ꞁɐuosɹǝd ʇᴉpƎ"
+  },
+  "scopes.patWrite.label": {
+    "message": "s⟘ⱯԀ ǝʇᴉɹM"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "ɐʇɐp sʇnoʎɐd ɹnoʎ pɐǝᴚ"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "sʇnoʎɐd pɐǝᴚ"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "ʎǝuoɯ ʍɐɹpɥʇᴉM"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "sʇnoʎɐd ǝʇᴉɹM"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "suoᴉʇɔɐ sɔᴉʇʎꞁɐuɐ ɯɹoɟɹǝԀ"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "sɔᴉʇʎꞁɐuɐ ɯɹoɟɹǝԀ"
+  },
+  "scopes.projectCreate.description": {
+    "message": "sʇɔǝɾoɹd ʍǝu ǝʇɐǝɹƆ"
+  },
+  "scopes.projectCreate.label": {
+    "message": "sʇɔǝɾoɹd ǝʇɐǝɹƆ"
+  },
+  "scopes.projectDelete.description": {
+    "message": "sʇɔǝɾoɹd ɹnoʎ ǝʇǝꞁǝᗡ"
+  },
+  "scopes.projectDelete.label": {
+    "message": "sʇɔǝɾoɹd ǝʇǝꞁǝᗡ"
+  },
+  "scopes.projectRead.description": {
+    "message": "sʇɔǝɾoɹd ɹnoʎ ꞁꞁɐ pɐǝᴚ"
+  },
+  "scopes.projectRead.label": {
+    "message": "sʇɔǝɾoɹd pɐǝᴚ"
+  },
+  "scopes.projectWrite.description": {
+    "message": "ɐʇɐp ʇɔǝɾoɹd oʇ ǝʇᴉɹM"
+  },
+  "scopes.projectWrite.label": {
+    "message": "sʇɔǝɾoɹd ǝʇᴉɹM"
+  },
+  "scopes.reportCreate.description": {
+    "message": "sʇɹodǝɹ ǝʇɐǝɹƆ"
+  },
+  "scopes.reportCreate.label": {
+    "message": "sʇɹodǝɹ ǝʇɐǝɹƆ"
+  },
+  "scopes.reportDelete.description": {
+    "message": "sʇɹodǝɹ ǝʇǝꞁǝᗡ"
+  },
+  "scopes.reportDelete.label": {
+    "message": "sʇɹodǝɹ ǝʇǝꞁǝᗡ"
+  },
+  "scopes.reportRead.description": {
+    "message": "sʇɹodǝɹ pɐǝᴚ"
+  },
+  "scopes.reportRead.label": {
+    "message": "sʇɹodǝɹ pɐǝᴚ"
+  },
+  "scopes.reportWrite.description": {
+    "message": "sʇɹodǝɹ ʇᴉpƎ"
+  },
+  "scopes.reportWrite.label": {
+    "message": "sʇɹodǝɹ ǝʇᴉɹM"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "suoᴉssǝs pǝnssᴉ-ɥʇuᴉɹpoɯ ssǝɔɔⱯ"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "suoᴉssǝs ssǝɔɔⱯ"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "suoᴉssǝs ǝʇǝꞁǝᗡ"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "suoᴉssǝs ǝʇǝꞁǝᗡ"
+  },
+  "scopes.sessionRead.description": {
+    "message": "suoᴉssǝs ǝʌᴉʇɔɐ pɐǝᴚ"
+  },
+  "scopes.sessionRead.label": {
+    "message": "suoᴉssǝs pɐǝᴚ"
+  },
+  "scopes.threadRead.description": {
+    "message": "spɐǝɹɥʇ pɐǝᴚ"
+  },
+  "scopes.threadRead.label": {
+    "message": "spɐǝɹɥʇ pɐǝᴚ"
+  },
+  "scopes.threadWrite.description": {
+    "message": "spɐǝɹɥʇ oʇ ǝʇᴉɹM"
+  },
+  "scopes.threadWrite.label": {
+    "message": "spɐǝɹɥʇ ǝʇᴉɹM"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "ɐʇɐp uoᴉʇɐɔᴉʇuǝɥʇnɐ ɹnoʎ ʎɟᴉpoW"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "ɐʇɐp ɥʇnɐ ǝʇᴉɹM"
+  },
+  "scopes.userDelete.description": {
+    "message": "ʇunoɔɔɐ ɹnoʎ ǝʇǝꞁǝᗡ"
+  },
+  "scopes.userDelete.label": {
+    "message": "ʇunoɔɔɐ ɹnoʎ ǝʇǝꞁǝᗡ"
+  },
+  "scopes.userRead.description": {
+    "message": "uoᴉʇɐɯɹoɟuᴉ ǝꞁᴉɟoɹd ɔᴉꞁqnd ɹnoʎ ssǝɔɔⱯ"
+  },
+  "scopes.userRead.label": {
+    "message": "ɐʇɐp ɹǝsn pɐǝᴚ"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "ꞁᴉɐɯǝ ɹnoʎ pɐǝᴚ"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "ꞁᴉɐɯǝ ɹǝsn pɐǝᴚ"
+  },
+  "scopes.userWrite.description": {
+    "message": "ǝꞁᴉɟoɹd ɹnoʎ oʇ ǝʇᴉɹM"
+  },
+  "scopes.userWrite.label": {
+    "message": "ɐʇɐp ɹǝsn ǝʇᴉɹM"
+  },
+  "scopes.versionCreate.description": {
+    "message": "suoᴉsɹǝʌ ʍǝu ǝʇɐǝɹƆ"
+  },
+  "scopes.versionCreate.label": {
+    "message": "suoᴉsɹǝʌ ǝʇɐǝɹƆ"
+  },
+  "scopes.versionDelete.description": {
+    "message": "uoᴉsɹǝʌ ɐ ǝʇǝꞁǝᗡ"
+  },
+  "scopes.versionDelete.label": {
+    "message": "suoᴉsɹǝʌ ǝʇǝꞁǝᗡ"
+  },
+  "scopes.versionRead.description": {
+    "message": "suoᴉsɹǝʌ ꞁꞁɐ pɐǝᴚ"
+  },
+  "scopes.versionRead.label": {
+    "message": "suoᴉsɹǝʌ pɐǝᴚ"
+  },
+  "scopes.versionWrite.description": {
+    "message": "ɐʇɐp uoᴉsɹǝʌ oʇ ǝʇᴉɹM"
+  },
+  "scopes.versionWrite.label": {
+    "message": "suoᴉsɹǝʌ ǝʇᴉɹM"
+  },
+  "settings.language.categories.auto": {
+    "message": "ɔᴉʇɐɯoʇnⱯ"
+  },
+  "settings.language.categories.default": {
+    "message": "sǝɓɐnɓuɐl pɹɐpuɐʇS"
+  },
+  "settings.language.categories.experimental": {
+    "message": "sǝɓɐnɓuɐl lɐʇuǝɯᴉɹǝdxƎ"
+  },
+  "settings.language.categories.fun": {
+    "message": "sǝɓɐnɓuɐl unℲ"
+  },
+  "settings.language.categories.search-result": {
+    "message": "sʇlnsǝɹ ɥɔɹɐǝS"
+  },
+  "settings.language.description": {
+    "message": "˙<crowdin-link>uᴉpʍoɹƆ uo</crowdin-link> sɹǝǝʇunloʌ ʎq pǝʇnqᴉɹʇuoɔ ǝɹɐ suoᴉʇɐlsuɐɹꞱ ˙ǝʇᴉs ǝɥʇ ɹoɟ ǝɓɐnɓuɐl pǝɹɹǝɟǝɹd ɹnoʎ ǝsooɥƆ"
+  },
+  "settings.language.languages.automatic": {
+    "message": "ǝɓɐnɓuɐl ɯǝʇsʎs ǝɥʇ ɥʇᴉʍ ɔuʎS"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "˙˙˙ᵷuᴉʎꞁddⱯ ˙{label}"
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "ɹoɹɹƎ ˙{label}"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "˙ʇᴉq ɐ uᴉ uᴉɐɓɐ ʎɹꞱ ˙ǝɓɐnɓuɐl sᴉɥʇ pɐol ʇouuɐƆ"
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "ʇlnsǝɹ ɥɔɹɐǝs ʇsɹᴉɟ ǝɥʇ snɔoɟ oʇ ʇᴉɯqnS"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "˙˙˙ǝɓɐnɓuɐl ɐ ɹoɟ ɥɔɹɐǝS"
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "˙ɥɔɹɐǝs ɹnoʎ {matches, plural, =0 {ɥɔʇɐɯ sǝɓɐnɓuɐl oN} one {sǝɥɔʇɐɯ ǝɓɐnɓuɐl #} other {ɥɔʇɐɯ sǝɓɐnɓuɐl #}}"
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "˙ɥɔɹɐǝs ɹnoʎ ɥɔʇɐɯ sǝᵷɐnᵷuɐꞁ oN"
+  },
+  "settings.language.title": {
+    "message": "ǝᵷɐnᵷuɐꞀ"
+  },
+  "settings.pats.action.create": {
+    "message": "⟘ⱯԀ ɐ ǝʇɐǝɹƆ"
+  },
+  "settings.pats.description": {
+    "message": "˙ǝɯᴉʇ ʎuɐ ʇɐ pǝʞoʌǝɹ puɐ pǝʇɐǝɹɔ ǝq uɐɔ ʎǝɥ⟘ ˙</doc-link>uoᴉʇɐʇuǝɯnɔop IԀⱯ s,ɥʇuᴉɹpoW<<doc-link> ǝǝs 'uoᴉʇɐɯɹoɟuᴉ ǝɹoɯ ɹoℲ ˙IԀⱯ s,ɥʇuᴉɹpoW ssǝɔɔɐ oʇ pǝsn ǝq uɐɔ s⟘ⱯԀ"
+  },
+  "settings.pats.modal.create.action": {
+    "message": "⟘ⱯԀ ǝʇɐǝɹƆ"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "sǝɹᴉdxƎ"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "ǝɯɐN"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "˙˙˙ǝɯɐu s,⟘ⱯԀ ǝɥʇ ɹǝʇuƎ"
+  },
+  "settings.pats.modal.create.title": {
+    "message": "uǝʞoʇ ssǝɔɔɐ ꞁɐuosɹǝd ǝʇɐǝɹƆ"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "uǝʞoʇ sᴉɥʇ ǝʇǝꞁǝᗡ"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "˙(ɹǝʌǝɹoɟ ʎꞁꞁɐǝɹ ǝʞᴉꞁ) ɹǝʌǝɹoɟ uǝʞoʇ sᴉɥʇ ǝʌoɯǝɹ ꞁꞁᴉʍ sᴉɥ⟘"
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "¿uǝʞoʇ sᴉɥʇ ǝʇǝꞁǝp oʇ ʇuɐʍ noʎ ǝɹns noʎ ǝɹⱯ"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "uǝʞoʇ ssǝɔɔɐ ꞁɐuosɹǝd ʇᴉpƎ"
+  },
+  "settings.pats.title": {
+    "message": "s⟘ⱯԀ"
+  },
+  "settings.pats.title.long": {
+    "message": "suǝʞo⟘ ssǝɔɔⱯ ꞁɐuosɹǝԀ"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "uǝʞoʇ ʇᴉpƎ"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "uǝʞoʇ ǝʞoʌǝᴚ"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "{ago} pǝɹᴉdxƎ"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "{inTime} sǝɹᴉdxƎ"
+  },
+  "settings.pats.token.last-used": {
+    "message": "{ago} pǝsn ʇsɐꞀ"
+  },
+  "settings.pats.token.never-used": {
+    "message": "pǝsn ɹǝʌǝN"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "uoᴉssǝs ǝʞoʌǝᴚ"
+  },
+  "settings.sessions.created-ago": {
+    "message": "{ago} pǝʇɐǝɹƆ"
+  },
+  "settings.sessions.current-session": {
+    "message": "uoᴉssǝs ʇuǝɹɹnƆ"
+  },
+  "settings.sessions.description": {
+    "message": "˙ʎꞁǝʇɐᴉpǝɯɯᴉ pɹoʍssɐd ʇunoɔɔɐ ɥʇuᴉɹpoW ɹnoʎ ǝᵷuɐɥɔ puɐ ǝɔᴉʌǝp ʇɐɥʇ ɟo ʇno ᵷoꞁ 'ǝzᴉuᵷoɔǝɹ ʇ,uop noʎ ʎɹʇuǝ uɐ ǝǝs noʎ ɟI\n\n˙ʎꞁꞁɐnpᴉʌᴉpuᴉ ǝuo ɥɔɐǝ ɟo ʇno ᵷoꞁ uɐɔ no⅄ ˙ʇunoɔɔɐ ɥʇuᴉɹpoW ɹnoʎ ɥʇᴉʍ uᴉ pǝᵷᵷoꞁ ʎꞁʇuǝɹɹnɔ ǝɹɐ ʇɐɥʇ sǝɔᴉʌǝp ǝɥʇ ꞁꞁɐ ǝɹɐ ǝɹǝH"
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "{ago} pǝssǝɔɔɐ ʇsɐꞀ"
+  },
+  "settings.sessions.title": {
+    "message": "suoᴉssǝS"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "SO uʍouʞu∩"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "ɯɹoɟʇɐꞁd uʍouʞu∩"
+  },
+  "tooltip.date-at-time": {
+    "message": "{time, time, short} ʇɐ {date, date, long}"
+  }
+}

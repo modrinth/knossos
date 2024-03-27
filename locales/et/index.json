@@ -1,0 +1,911 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "Authorize"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Decline"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Authorize {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "No redirect location found in response"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "Send recovery email"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "E-post või kasutajanimi"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "E-post"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "Meil saadetud"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "You can now log-in into your account with your new password."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Parool edukalt lähtestatud"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Lähtesta parool"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Kinnita parool"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Sisesta all oma uus parool, et kontole ligi pääseda."
+  },
+  "auth.reset-password.title": {
+    "message": "Lähtesta parool"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Lähtesta oma parool"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Palun sisesta jätkamiseks kaksikautentimise kood."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Sisesta kaksikautentimise kood"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Sisesta kood..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "E-post või kasutajanimi"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Parool"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Logi sisse teenusega"
+  },
+  "auth.sign-in.title": {
+    "message": "Logi sisse"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Või kasuta parooli"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Loo konto"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Kinnita parool"
+  },
+  "auth.sign-up.email.label": {
+    "message": "E-post"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Kasutajanimi"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Paroolid ei ühti!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Parool"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Konto juba olemas?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Subscribe to updates about Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Registreeru"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Or create an account yourself"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Registreeru teenusega"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Konto seaded"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Logi sisse"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "Sinu meiliaadress on juba kinnitatud!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "Email juba kinnitatud"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Saada kinnituskiri uuesti"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "Me ei saanud su meiliaadressit kinnitada. Proovi kinnituskiri uuesti saata, logides oma profiilile."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "Me ei saanud su meiliaadressit kinnitada. Proovi kinnituskiri uuesti saata, vajutades allolevale nupule."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "Meiliaadressi kinnitamine ebaõnnestus"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "Sinu meiliaadress on edukalt kinnitatud!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "Meiliaadressi kinnitamine"
+  },
+  "auth.verify-email.title": {
+    "message": "Kinnita meiliaadress"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Telli Modrinthi uudiskiri"
+  },
+  "auth.welcome.description": {
+    "message": "Täname konto loomise eest. Sa saad nüüd projekte jälgida ja luua, hankida lemmikprojektide uuendusi ja muudki!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Konto loomisega oled nõustunud Modrinthi <terms-link>teenusetingimuste</terms-link> ja <privacy-policy-link>privaatsuspoliitikaga</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Tere tulemast Modrinthi!"
+  },
+  "auth.welcome.title": {
+    "message": "Tere tulemast"
+  },
+  "button.cancel": {
+    "message": "Tühista"
+  },
+  "button.continue": {
+    "message": "Jätka"
+  },
+  "button.create-a-project": {
+    "message": "Loo projekt"
+  },
+  "button.edit": {
+    "message": "Muuda"
+  },
+  "button.save": {
+    "message": "Salvesta"
+  },
+  "button.save-changes": {
+    "message": "Salvesta muudatused"
+  },
+  "button.sign-in": {
+    "message": "Logi sisse"
+  },
+  "button.sign-out": {
+    "message": "Logi välja"
+  },
+  "collection.button.delete-icon": {
+    "message": "Kustuta ikoon"
+  },
+  "collection.button.edit-icon": {
+    "message": "Muuda ikooni"
+  },
+  "collection.button.remove-project": {
+    "message": "Eemalda projekt"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Lõpeta projekti jälgimine"
+  },
+  "collection.button.upload-icon": {
+    "message": "Upload icon"
+  },
+  "collection.delete-modal.description": {
+    "message": "This will remove this collection forever. This action cannot be undone."
+  },
+  "collection.delete-modal.title": {
+    "message": "Are you sure you want to delete this collection?"
+  },
+  "collection.description": {
+    "message": "{description} - View the collection {name} by {username} on Modrinth"
+  },
+  "collection.description.following": {
+    "message": "Auto-generated collection of all the projects you're following."
+  },
+  "collection.error.not-found": {
+    "message": "Collection not found"
+  },
+  "collection.label.collection": {
+    "message": "Collection"
+  },
+  "collection.label.created-at": {
+    "message": "Created {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Curated by"
+  },
+  "collection.label.no-projects": {
+    "message": "This collection has no projects!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Omanik"
+  },
+  "collection.label.private": {
+    "message": "Privaatne"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Updated {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - Collection"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Create new"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Search your collections"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Your collections"
+  },
+  "frog": {
+    "message": "Sind on konnastatud! 🐸"
+  },
+  "frog.altText": {
+    "message": "Konnalabürindi fotorealistlik maal"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural, one {{count} inimene veel sai} other {{count} teist inimest said}} samuti konnastatud!"
+  },
+  "frog.sinceOpened": {
+    "message": "See leht avati {ago}"
+  },
+  "frog.title": {
+    "message": "Konn"
+  },
+  "input.view.gallery": {
+    "message": "Galeriivaade"
+  },
+  "input.view.grid": {
+    "message": "Ruudustikuvaade"
+  },
+  "input.view.list": {
+    "message": "Nimekirjavaade"
+  },
+  "label.collections": {
+    "message": "Collections"
+  },
+  "label.created-ago": {
+    "message": "Created {ago}"
+  },
+  "label.dashboard": {
+    "message": "Dashboard"
+  },
+  "label.delete": {
+    "message": "Delete"
+  },
+  "label.description": {
+    "message": "Description"
+  },
+  "label.error": {
+    "message": "Error"
+  },
+  "label.followed-projects": {
+    "message": "Followed projects"
+  },
+  "label.moderation": {
+    "message": "Moderation"
+  },
+  "label.notifications": {
+    "message": "Notifications"
+  },
+  "label.password": {
+    "message": "Parool"
+  },
+  "label.public": {
+    "message": "Avalik"
+  },
+  "label.rejected": {
+    "message": "Tagasilükatud"
+  },
+  "label.scopes": {
+    "message": "Scopes"
+  },
+  "label.settings": {
+    "message": "Settings"
+  },
+  "label.title": {
+    "message": "Pealkiri"
+  },
+  "label.unlisted": {
+    "message": "Mitteavalik"
+  },
+  "label.visibility": {
+    "message": "Nähtavus"
+  },
+  "layout.action.change-theme": {
+    "message": "Change theme"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Laadi alla Modrinthi äpp"
+  },
+  "layout.avatar.alt": {
+    "message": "Sinu profiilipilt"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Vaata konto seadeid"
+  },
+  "layout.banner.add-email.title": {
+    "message": "For security purposes, please enter your email on Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+  },
+  "layout.banner.staging.title": {
+    "message": "You’re viewing Modrinth’s staging environment."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Re-send verification email"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "For security purposes, please verify your email address on Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Careers"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Privacy"
+  },
+  "layout.footer.company.rules": {
+    "message": "Rules"
+  },
+  "layout.footer.company.terms": {
+    "message": "Terms"
+  },
+  "layout.footer.company.title": {
+    "message": "Company"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interact"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth is <github-link>open source</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Docs"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Support"
+  },
+  "layout.footer.resources.title": {
+    "message": "Resources"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Visit your profile"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Toggle menu"
+  },
+  "layout.meta.description": {
+    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+  },
+  "layout.meta.og-description": {
+    "message": "Discover and publish Minecraft content!"
+  },
+  "layout.nav.home": {
+    "message": "Home"
+  },
+  "layout.nav.search": {
+    "message": "Search"
+  },
+  "notification.error.title": {
+    "message": "Tekkis tõrge"
+  },
+  "profile.button.manage-projects": {
+    "message": "Halda projekte"
+  },
+  "profile.button.report": {
+    "message": "Teavita"
+  },
+  "profile.error.not-found": {
+    "message": "Kasutajat ei leitud"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Laadi üles profiilipilt"
+  },
+  "profile.joined-at": {
+    "message": "Liitus {ago}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Elulugu"
+  },
+  "profile.label.edit-username": {
+    "message": "Kasutajanimi"
+  },
+  "profile.label.no-collections": {
+    "message": "Sellel kasutajal pole kogumeid!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Sul pole ühtegi kogumit.\nKas soovid <create-link>ühe luua</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "Sellel kasutajal pole projekte!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "Sul pole ühtegi projekti.\nKas sooviksid <create-link>ühe luua</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Organisatsioonid"
+  },
+  "profile.meta.description": {
+    "message": "Laadi Modrinthis {username} projektid alla"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Laadi Modrinthis {username} projektid alla"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> allalaadimine} other {<stat>{count}</stat> allalaadimist}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> projektide jälgija} other {<stat>{count}</stat> projektide jälgijat}}"
+  },
+  "profile.user-id": {
+    "message": "Kasutaja ID: {id}"
+  },
+  "project-type.all": {
+    "message": "Kõik"
+  },
+  "project-type.collection.plural": {
+    "message": "Kogumid"
+  },
+  "project-type.collection.singular": {
+    "message": "Kogum"
+  },
+  "project-type.datapack.plural": {
+    "message": "Andmepakid"
+  },
+  "project-type.datapack.singular": {
+    "message": "Andmepakk"
+  },
+  "project-type.mod.plural": {
+    "message": "Modid"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modipakid"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modipakk"
+  },
+  "project-type.plugin.plural": {
+    "message": "Pluginad"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projektid"
+  },
+  "project-type.project.singular": {
+    "message": "Projekt"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Ressursipakid"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Ressursipakk"
+  },
+  "project-type.shader.plural": {
+    "message": "Varjutajad"
+  },
+  "project-type.shader.singular": {
+    "message": "Varjutaja"
+  },
+  "revenue.transfers.total": {
+    "message": "You have withdrawn {amount} in total."
+  },
+  "revenue.transfers.total.method": {
+    "message": "You have withdrawn {amount} through {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "You have withdrawn {amount} in {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "You have withdrawn {amount} in {year} through {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "Access your analytics data"
+  },
+  "scopes.analytics.label": {
+    "message": "Analüütika lugemine"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Kogumite loomine"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Kogumite loomine"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Kogumite kustutamine"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Kogumite kustutamine"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Kogumite lugemine"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Kogumite lugemine"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Kogumite muutmine"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Kogumite muutmine"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Read your notifications"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Read notifications"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Delete/View your notifications"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Write notifications"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Organisatsioonide loomine"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Organisatsioonide loomine"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Organisatsioonide kustutamine"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Organisatsioonide kustutamine"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Organisatsioonide lugemine"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Organisatsioonide lugemine"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Organisatsioonide muutmine"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Organisatsioonide muutmine"
+  },
+  "scopes.patCreate.description": {
+    "message": "Create personal API tokens"
+  },
+  "scopes.patCreate.label": {
+    "message": "Create PATs"
+  },
+  "scopes.patDelete.description": {
+    "message": "Delete your personal API tokens"
+  },
+  "scopes.patDelete.label": {
+    "message": "Delete PATs"
+  },
+  "scopes.patRead.description": {
+    "message": "View created API tokens"
+  },
+  "scopes.patRead.label": {
+    "message": "Read PATs"
+  },
+  "scopes.patWrite.description": {
+    "message": "Edit personal API tokens"
+  },
+  "scopes.patWrite.label": {
+    "message": "Write PATs"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Read your payouts data"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Read payouts"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Withdraw money"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Write payouts"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Perform analytics actions"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Perform analytics"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Create new projects"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Create projects"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Delete your projects"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Delete projects"
+  },
+  "scopes.projectRead.description": {
+    "message": "Read all your projects"
+  },
+  "scopes.projectRead.label": {
+    "message": "Read projects"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Write to project data"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Projektide muutmine"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Raportite loomine"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Raportite loomine"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Raportite kustutamine"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Raportite kustutamine"
+  },
+  "scopes.reportRead.description": {
+    "message": "Raportite lugemine"
+  },
+  "scopes.reportRead.label": {
+    "message": "Raportite lugemine"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Raportite muutmine"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Raportite muutmine"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Access modrinth-issued sessions"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Seansside ligipääs"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Seansside kustutamine"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Seansside kustutamine"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Aktiivsete seansside lugemine"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Seansside lugemine"
+  },
+  "scopes.threadRead.description": {
+    "message": "Lõimede lugemine"
+  },
+  "scopes.threadRead.label": {
+    "message": "Lõimede lugemine"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Lõimedesse kirjutamine"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Lõimedesse kirjutamine"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Autentimisandmete muutmine"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Autentimisandmete kirjutamine"
+  },
+  "scopes.userDelete.description": {
+    "message": "Delete your account"
+  },
+  "scopes.userDelete.label": {
+    "message": "Delete your account"
+  },
+  "scopes.userRead.description": {
+    "message": "Access your public profile information"
+  },
+  "scopes.userRead.label": {
+    "message": "Read user data"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Read your email"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Read user email"
+  },
+  "scopes.userWrite.description": {
+    "message": "Write to your profile"
+  },
+  "scopes.userWrite.label": {
+    "message": "Write user data"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Create new versions"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Create versions"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Delete a version"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Delete versions"
+  },
+  "scopes.versionRead.description": {
+    "message": "Read all versions"
+  },
+  "scopes.versionRead.label": {
+    "message": "Read versions"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Write to version data"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Write versions"
+  },
+  "settings.language.categories.auto": {
+    "message": "Automaatne"
+  },
+  "settings.language.categories.default": {
+    "message": "Standardsed keeled"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Katsetusjärgus keeled"
+  },
+  "settings.language.categories.fun": {
+    "message": "Lõbusad keeled"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Otsingutulemused"
+  },
+  "settings.language.description": {
+    "message": "Vali saidi jaoks eelistatud keel. Tõlkeid pakuvad vabatahtlikud saidil <crowdin-link>Crowdin</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Sünkrooni süsteemikeelega"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Rakendamine..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Viga"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Seda keelt ei saa laadida. Proovi mõne aja pärast uuesti."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Sisesta, et esimene otsingutulemus fookustada"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Otsi keelt..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {Ükski keel ei vasta su otsingule} one {# keel vastab su otsingule} other {# keelt vastavad su otsingule}}."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "Ükski keel ei vasta su otsingule."
+  },
+  "settings.language.title": {
+    "message": "Keel"
+  },
+  "settings.pats.action.create": {
+    "message": "Create a PAT"
+  },
+  "settings.pats.description": {
+    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Create PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Expires"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Name"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Enter the PAT's name..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Create personal access token"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Delete this token"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "This will remove this token forever (like really forever)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Are you sure you want to delete this token?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Edit personal access token"
+  },
+  "settings.pats.title": {
+    "message": "PATs"
+  },
+  "settings.pats.title.long": {
+    "message": "Personal Access Tokens"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Edit token"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Revoke token"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Expired {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Expires {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Last used {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Never used"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Revoke session"
+  },
+  "settings.sessions.created-ago": {
+    "message": "Created {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "Current session"
+  },
+  "settings.sessions.description": {
+    "message": "Siin on kõik seadmed, mis on hetkel sinu Modrinthi kontoga sisselogitud. Sa võid igast seadmest eraldi välja logida.\n\nKui näed mõnda seadet, mida ei tuvasta, logi sealt koheselt välja ning muuda oma Modrinthi konto parool."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "Viimati juurdepääsetud {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "Seansid"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "Tundmatu opsüsteem"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Tundmatu platvorm"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} kell {time, time, short}"
+  }
+}

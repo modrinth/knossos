@@ -1,0 +1,911 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "Sahkan"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Tolak"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> oleh <creator-link>{creator}</creator-link> akan dapat:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Sahkan {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "Tiada lokasi ubah hala ditemui sebagai balasan"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "Anda akan diubah hala ke <redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "Hantar e-mel pemulihan"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Masukkan e-mel anda di bawah dan kami akan menghantar pautan pemulihan untuk membolehkan anda memulihkan akaun anda."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "E-mel atau nama pengguna"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "E-mel"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "E-mel dengan arahan telah dihantar kepada anda jika e-mel tersebut telah disimpan pada akaun anda sebelum ini."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "E-mel telah dihantar"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "Anda kini boleh log masuk ke akaun anda dengan kata laluan baharu anda."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Kata laluan berjaya ditetapkan semula"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Tetap semula kata laluan"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Sahkan kata laluan"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Masukkan kata laluan baharu anda di bawah untuk mendapatkan akses ke akaun anda."
+  },
+  "auth.reset-password.title": {
+    "message": "Tetap Semula Kata Laluan"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Tetap semula kata laluan"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Sila masukkan kod dua faktor untuk meneruskan."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Masukkan kod dua faktor"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Masukkan kod..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Lupa kata laluan?</forgot-password-link> • <create-account-link>Cipta akaun</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "E-mel atau nama pengguna"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Kata Laluan"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Log masuk dengan"
+  },
+  "auth.sign-in.title": {
+    "message": "Log Masuk"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Atau gunakan kata laluan"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Cipta akaun"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Sahkan kata laluan"
+  },
+  "auth.sign-up.email.label": {
+    "message": "E-mel"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Nama pengguna"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "Dengan mencipta akaun, anda bersetuju dengan <terms-link>Terma</terms-link> dan <privacy-policy-link>Dasar Privasi</privacy-policy-link> Modrinth."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Kata laluan tidak sepadan!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Kata Laluan"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Sudah mempunyai akaun?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Langgan untuk kemas kini tentang Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Daftar"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Atau cipta akaun anda sendiri"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Daftar dengan"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Tetapan akaun"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Log masuk"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "E-mel anda sudah pun disahkan!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "E-mel sudah pun disahkan"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Hantar semula e-mel pengesahan"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "Kami tidak dapat mengesahkan e-mel anda. Cuba hantar semula e-mel pengesahan melalui papan pemuka anda dengan melog masuk."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "Kami tidak dapat mengesahkan e-mel anda. Cuba hantar semula e-mel pengesahan melalui butang di bawah."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "Pengesahan e-mel gagal"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "Alamat e-mel anda telah berjaya disahkan!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "Pengesahan e-mel"
+  },
+  "auth.verify-email.title": {
+    "message": "Sahkan E-mel"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "لڠݢن اونتوق کمس کيني تنتڠ مودرين‌ث (Modrinth)"
+  },
+  "auth.welcome.description": {
+    "message": "تريما کاسيه کران منچيڤتا اکاءون. اندا کيني بوليه مڠيکوتي دان منچيڤتا ڤروجيک، منريما کمس کيني تنتڠ ڤروجيک کݢمرن اندا دان باپق لاݢي!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "دڠن منچيڤتا اکاءون، اندا تله برستوجو دڠن <terms-link>ترما</terms-link> دان <privacy-policy-link>داسر ڤريۏاسي</privacy-policy-link> مودرين‌ث (Modrinth)."
+  },
+  "auth.welcome.long-title": {
+    "message": "سلامت داتڠ کمودرين‌ث (Modrinth)!"
+  },
+  "auth.welcome.title": {
+    "message": "سلامت داتڠ"
+  },
+  "button.cancel": {
+    "message": "بطل"
+  },
+  "button.continue": {
+    "message": "تروسکن"
+  },
+  "button.create-a-project": {
+    "message": "Cipta projek"
+  },
+  "button.edit": {
+    "message": "سونتيڠ"
+  },
+  "button.save": {
+    "message": "سيمڤن"
+  },
+  "button.save-changes": {
+    "message": "Simpan perubahan"
+  },
+  "button.sign-in": {
+    "message": "Log masuk"
+  },
+  "button.sign-out": {
+    "message": "Log keluar"
+  },
+  "collection.button.delete-icon": {
+    "message": "Padam ikon"
+  },
+  "collection.button.edit-icon": {
+    "message": "Sunting ikon"
+  },
+  "collection.button.remove-project": {
+    "message": "Alih keluar projek"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Nyahikut projek"
+  },
+  "collection.button.upload-icon": {
+    "message": "Muat naik ikon"
+  },
+  "collection.delete-modal.description": {
+    "message": "Ini akan mengalih keluar koleksi ini selama-lamanya. Tindakan ini tidak boleh dibuat asal."
+  },
+  "collection.delete-modal.title": {
+    "message": "Adakah anda pasti mahu memadamkan koleksi ini?"
+  },
+  "collection.description": {
+    "message": "{description} - Lihat koleksi {name} oleh {username} di Modrinth"
+  },
+  "collection.description.following": {
+    "message": "Koleksi semua projek yang anda ikuti yang dijana secara automatik."
+  },
+  "collection.error.not-found": {
+    "message": "Koleksi tidak dijumpai"
+  },
+  "collection.label.collection": {
+    "message": "Koleksi"
+  },
+  "collection.label.created-at": {
+    "message": "Dicipta {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Diurus oleh"
+  },
+  "collection.label.no-projects": {
+    "message": "Koleksi ini tidak memiliki sebarang projek!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "Anda tidak memiliki sebarang projek.\nAdakah anda mahu <create-link>menambah sebuah projek</create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Pemilik"
+  },
+  "collection.label.private": {
+    "message": "Peribadi"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, other {<stat>{count}</stat> projek}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Dikemas kini {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - Koleksi"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Cipta baharu"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, other {{count} projek}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Cari koleksi anda"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Koleksi anda"
+  },
+  "frog": {
+    "message": "اندا تله دکاتق! 🐸"
+  },
+  "frog.altText": {
+    "message": "سبواه لوکيسن فوتورياليستيق لابيرين کاتق"
+  },
+  "frog.froggedPeople": {
+    "message": "ترداڤت {count, plural, other {{count} لاݢي اورڠ}} يڠ توروت دکاتق جوݢ!"
+  },
+  "frog.sinceOpened": {
+    "message": "هلامن اين تله دبوک {ago}"
+  },
+  "frog.title": {
+    "message": "کاتق"
+  },
+  "input.view.gallery": {
+    "message": "بنتوق ڬالري"
+  },
+  "input.view.grid": {
+    "message": "بنتوق ݢريد"
+  },
+  "input.view.list": {
+    "message": "بنتوق سناراي"
+  },
+  "label.collections": {
+    "message": "Koleksi"
+  },
+  "label.created-ago": {
+    "message": "Dicipta {ago}"
+  },
+  "label.dashboard": {
+    "message": "Papan Pemuka"
+  },
+  "label.delete": {
+    "message": "Padam"
+  },
+  "label.description": {
+    "message": "Keterangan"
+  },
+  "label.error": {
+    "message": "Ralat"
+  },
+  "label.followed-projects": {
+    "message": "Projek yang diikuti"
+  },
+  "label.moderation": {
+    "message": "Penyederhanaan"
+  },
+  "label.notifications": {
+    "message": "Pemberitahuan"
+  },
+  "label.password": {
+    "message": "Kata Laluan"
+  },
+  "label.public": {
+    "message": "Awam"
+  },
+  "label.rejected": {
+    "message": "Ditolak"
+  },
+  "label.scopes": {
+    "message": "Skop"
+  },
+  "label.settings": {
+    "message": "Tetapan"
+  },
+  "label.title": {
+    "message": "Tajuk"
+  },
+  "label.unlisted": {
+    "message": "Tidak disenaraikan"
+  },
+  "label.visibility": {
+    "message": "Keterlihatan"
+  },
+  "layout.action.change-theme": {
+    "message": "Tukar tema"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Dapatkan Modrinth App"
+  },
+  "layout.avatar.alt": {
+    "message": "Avatar anda"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Lawat tetapan akaun"
+  },
+  "layout.banner.add-email.title": {
+    "message": "اونتوق توجوان کسلامتن⹁ سيلا ماسوقکن إي-ميل اندا دمودرين‌ث (Modrinth)."
+  },
+  "layout.banner.staging.description": {
+    "message": "Persekitaran pementasan berjalan pada salinan pangkalan data produksi Modrinth. Ini digunakan untuk tujuan ujian dan penyahpepijatan, dan mungkin menjalankan versi dalam pembangunan bahagian belakang atau hadapan Modrinth yang lebih baharu daripada instance pengeluaran."
+  },
+  "layout.banner.staging.title": {
+    "message": "اندا سدڠ مليهت ڤرسکيترن ڤمنتسن مودرين‌ث (Modrinth)."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "هنتر سمولا إي-ميل ڤڠصحن"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "اونتوق توجوان کسلامتن⹁ سيلا صحکن علامت إي-ميل اندا دمودرين‌ث (Modrinth)."
+  },
+  "layout.footer.company.careers": {
+    "message": "کرجاي"
+  },
+  "layout.footer.company.privacy": {
+    "message": "ڤريۏاسي"
+  },
+  "layout.footer.company.rules": {
+    "message": "ڤراتورن"
+  },
+  "layout.footer.company.terms": {
+    "message": "ترما"
+  },
+  "layout.footer.company.title": {
+    "message": "شريکت"
+  },
+  "layout.footer.interact.title": {
+    "message": "اينترکسي"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "بوکن ڤرخدمتن راسمي ماءينکرف‌ت (MINECRAFT). تيدق دلولوسکن اتاو برکاءيتن دڠن موجڠ (MOJANG) اتاو ماءيکروسوف‌ت (MICROSOFT)."
+  },
+  "layout.footer.open-source": {
+    "message": "مودرين‌ث (Modrinth) اداله <github-link>سومبر تربوک</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "بلوݢ"
+  },
+  "layout.footer.resources.docs": {
+    "message": "دوکومنتاسي"
+  },
+  "layout.footer.resources.status": {
+    "message": "ستاتوس"
+  },
+  "layout.footer.resources.support": {
+    "message": "سوکوڠن"
+  },
+  "layout.footer.resources.title": {
+    "message": "سومبر"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "لاوت ڤروفيل اندا"
+  },
+  "layout.menu-toggle.action": {
+    "message": "توݢول مينو"
+  },
+  "layout.meta.description": {
+    "message": "Muat turun mod, pemalam, pek data, pek pembayang, pek sumber dan pek mod Minecraft di Modrinth. Temui dan terbitkan projek di Modrinth dengan antara muka dan API yang moden dan mudah digunakan."
+  },
+  "layout.meta.og-description": {
+    "message": "Temui dan terbitkan kandungan Minecraft!"
+  },
+  "layout.nav.home": {
+    "message": "Laman Utama"
+  },
+  "layout.nav.search": {
+    "message": "Cari"
+  },
+  "notification.error.title": {
+    "message": "سبواه رالت تله برلاکو"
+  },
+  "profile.button.manage-projects": {
+    "message": "اوروس ڤروجيک"
+  },
+  "profile.button.report": {
+    "message": "لاڤور"
+  },
+  "profile.error.not-found": {
+    "message": "ڤڠݢونا تيدق دجومڤاءي"
+  },
+  "profile.input.upload-avatar": {
+    "message": "موات ناءيق اۏاتر"
+  },
+  "profile.joined-at": {
+    "message": "تله مپرتاءي ڤد {ago}"
+  },
+  "profile.label.edit-bio": {
+    "message": "بيو"
+  },
+  "profile.label.edit-username": {
+    "message": "نام ڤڠݢونا"
+  },
+  "profile.label.no-collections": {
+    "message": "ڤڠݢونا اين تيدق مميليقي سبارڠ کوليکسي!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "اندا تيدق مميليقي سبارڠ کوليکسي.\nاداکه اندا ماهو <create-link>منچيڤتا سبواه کوليکسي</create-link>؟"
+  },
+  "profile.label.no-projects": {
+    "message": "ڤڠݢونا اين تيدق مميليقي سبارڠ ڤروجک!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "اندا تيدق مميليقي سبارڠ ڤروجيک.\nاداکه اندا ماهو <create-link>منچيڤتا سبواه ڤروجک</create-link>؟"
+  },
+  "profile.label.organizations": {
+    "message": "ڤرتوبوهن"
+  },
+  "profile.meta.description": {
+    "message": "موات تورون ڤروجيک ميليق {username} دمودرين‌ث (Modrinth)"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - موات تورون ڤروجيک ميليق {username} دمودرين‌ث (Modrinth)"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, other {<stat>{count}</stat> موات تورون}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, other {<stat>{count}</stat> ڤڠيکوت}} ڤروجيک"
+  },
+  "profile.user-id": {
+    "message": "ID ڤڠݢونا: {id}"
+  },
+  "project-type.all": {
+    "message": "سموا"
+  },
+  "project-type.collection.plural": {
+    "message": "کوليکسي"
+  },
+  "project-type.collection.singular": {
+    "message": "کوليکسي"
+  },
+  "project-type.datapack.plural": {
+    "message": "ڤيک داتا"
+  },
+  "project-type.datapack.singular": {
+    "message": "ڤيک داتا"
+  },
+  "project-type.mod.plural": {
+    "message": "مود"
+  },
+  "project-type.mod.singular": {
+    "message": "مود"
+  },
+  "project-type.modpack.plural": {
+    "message": "ڤيک مود"
+  },
+  "project-type.modpack.singular": {
+    "message": "ڤيک مود"
+  },
+  "project-type.plugin.plural": {
+    "message": "ڤمالم"
+  },
+  "project-type.plugin.singular": {
+    "message": "ڤمالم"
+  },
+  "project-type.project.plural": {
+    "message": "ڤروجيک"
+  },
+  "project-type.project.singular": {
+    "message": "ڤروجيک"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "ڤيک سومبر"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "ڤيک سومبر"
+  },
+  "project-type.shader.plural": {
+    "message": "ڤمبايڠ"
+  },
+  "project-type.shader.singular": {
+    "message": "ڤمبايڠ"
+  },
+  "revenue.transfers.total": {
+    "message": "اندا تله مڠلوارکن {amount} سچارا کسلوروهن."
+  },
+  "revenue.transfers.total.method": {
+    "message": "اندا تله مڠلوارکن {amount} ملالوٴي {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "اندا تله مڠلوارکن {amount} ڤد تاهون {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "اندا تله مڠلوارکن {amount} ڤد تاهون {year} ملالوٴي {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "اکسيس داتا اناليتيس اندا"
+  },
+  "scopes.analytics.label": {
+    "message": "باچ اناليسيس"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "چيڤتا کوليکسي"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "چيڤتا کوليکسي"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "هاڤوس کوليکسي"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "هاڤوس کوليکسي"
+  },
+  "scopes.collectionRead.description": {
+    "message": "باچ کوليکسي"
+  },
+  "scopes.collectionRead.label": {
+    "message": "باچ کوليکسي"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "توليس ککوليکسي"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "توليس کوليکسي"
+  },
+  "scopes.notificationRead.description": {
+    "message": "باچ ڤمبريتاهوان اندا"
+  },
+  "scopes.notificationRead.label": {
+    "message": "باچ ڤمبريتاهوان"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "هاڤوس/ليهت ڤمبريتاهوان اندا"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "توليس ڤمبريتاهوان"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "چيڤتا ڤرتوبوهن"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "چيڤتا ڤرتوبوهن"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "هاڤوس ڤرتوبوهن"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "هاڤوس ڤرتوبوهن"
+  },
+  "scopes.organizationRead.description": {
+    "message": "باچ ڤرتوبوهن"
+  },
+  "scopes.organizationRead.label": {
+    "message": "باچ ڤرتوبوهن"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "توليس کڤرتوبوهن"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "توليس ڤرتوبوهن"
+  },
+  "scopes.patCreate.description": {
+    "message": "چيڤتا توکن API ڤريبادي"
+  },
+  "scopes.patCreate.label": {
+    "message": "چيڤتا PAT"
+  },
+  "scopes.patDelete.description": {
+    "message": "هاڤوس توکن API ڤريبادي اندا"
+  },
+  "scopes.patDelete.label": {
+    "message": "هاڤوس PAT"
+  },
+  "scopes.patRead.description": {
+    "message": "ليهت توکن API يڠ دچيڤتا"
+  },
+  "scopes.patRead.label": {
+    "message": "باچ PAT"
+  },
+  "scopes.patWrite.description": {
+    "message": "سونتيڠ توکن API ڤريبادي"
+  },
+  "scopes.patWrite.label": {
+    "message": "توليس PAT"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "باچ داتا ڤمبايرن اندا"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "باچ ڤمبايرن"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "کلوارکن واڠ"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "توليس ڤمبايرن"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "لاکوکن تيندقن اناليسيس"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "لاکوکن اناليسيس"
+  },
+  "scopes.projectCreate.description": {
+    "message": "چيڤتا ڤروجيک بهارو"
+  },
+  "scopes.projectCreate.label": {
+    "message": "چيڤتا ڤروجيک"
+  },
+  "scopes.projectDelete.description": {
+    "message": "هاڤوس ڤروجيک اندا"
+  },
+  "scopes.projectDelete.label": {
+    "message": "هاڤوس ڤروجيک"
+  },
+  "scopes.projectRead.description": {
+    "message": "باچ سموا ڤروجيک اندا"
+  },
+  "scopes.projectRead.label": {
+    "message": "باچ ڤروجيک"
+  },
+  "scopes.projectWrite.description": {
+    "message": "توليس کداتا ڤروجيک"
+  },
+  "scopes.projectWrite.label": {
+    "message": "توليس ڤروجيک"
+  },
+  "scopes.reportCreate.description": {
+    "message": "چيڤتا لاڤورن"
+  },
+  "scopes.reportCreate.label": {
+    "message": "چيڤتا لاڤورن"
+  },
+  "scopes.reportDelete.description": {
+    "message": "هاڤوس لاڤورن"
+  },
+  "scopes.reportDelete.label": {
+    "message": "هاڤوس لاڤورن"
+  },
+  "scopes.reportRead.description": {
+    "message": "باچ لاڤورن"
+  },
+  "scopes.reportRead.label": {
+    "message": "باچ لاڤورن"
+  },
+  "scopes.reportWrite.description": {
+    "message": "سونتيڠ لاڤورن"
+  },
+  "scopes.reportWrite.label": {
+    "message": "توليس لاڤورن"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "اکسيس سيسي کلوارن مودرين‌ث (Modrinth)"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "اکسيس سيسي"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "هاڤوس سيسي"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "هاڤوس سيسي"
+  },
+  "scopes.sessionRead.description": {
+    "message": "باچ سيسي اکتيف"
+  },
+  "scopes.sessionRead.label": {
+    "message": "باچ سيسي"
+  },
+  "scopes.threadRead.description": {
+    "message": "باچ ببنڠ"
+  },
+  "scopes.threadRead.label": {
+    "message": "باچ ببنڠ"
+  },
+  "scopes.threadWrite.description": {
+    "message": "توليس کببنڠ"
+  },
+  "scopes.threadWrite.label": {
+    "message": "توليس ببنڠ"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "اوبه سواي داتا ڤڠصحن اندا"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "توليس داتا ڤڠصحن"
+  },
+  "scopes.userDelete.description": {
+    "message": "هاڤوس اکاٴون اندا"
+  },
+  "scopes.userDelete.label": {
+    "message": "هاڤوس اکاٴون اندا"
+  },
+  "scopes.userRead.description": {
+    "message": "اکسيس معلومت ڤروفيل عوام اندا"
+  },
+  "scopes.userRead.label": {
+    "message": "باچ داتا ڤڠݢونا"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "باچ اي-ميل اندا"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "باچ اي-ميل ڤڠݢونا"
+  },
+  "scopes.userWrite.description": {
+    "message": "توليس کڤروفيل اندا"
+  },
+  "scopes.userWrite.label": {
+    "message": "توليس داتا ڤڠݢونا"
+  },
+  "scopes.versionCreate.description": {
+    "message": "چيڤتا ۏرسي بهارو"
+  },
+  "scopes.versionCreate.label": {
+    "message": "چيڤتا ۏرسي"
+  },
+  "scopes.versionDelete.description": {
+    "message": "هاڤوس سبواه ۏرسي"
+  },
+  "scopes.versionDelete.label": {
+    "message": "هاڤوس ۏرسي"
+  },
+  "scopes.versionRead.description": {
+    "message": "باچ سموا ۏرسي"
+  },
+  "scopes.versionRead.label": {
+    "message": "باچ ۏرسي"
+  },
+  "scopes.versionWrite.description": {
+    "message": "توليس کداتا ۏرسي"
+  },
+  "scopes.versionWrite.label": {
+    "message": "توليس ۏرسي"
+  },
+  "settings.language.categories.auto": {
+    "message": "اءوتوماتيک"
+  },
+  "settings.language.categories.default": {
+    "message": "بهاس ستندرد"
+  },
+  "settings.language.categories.experimental": {
+    "message": "بهاس ايکسڤيريمنتل"
+  },
+  "settings.language.categories.fun": {
+    "message": "بهاس مپرونوقکن"
+  },
+  "settings.language.categories.search-result": {
+    "message": "حاصيل چارين"
+  },
+  "settings.language.description": {
+    "message": "ڤيليه بهاس ڤيليهن اندا اونتوق لامن اين. ترجمهن تله دسومبڠکن اوليه سوکاريلاون <crowdin-link>دکراءودين</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "سلارسکن دڠن بهاس سيستم"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. منرڤکن..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. رالت"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "تيدق داڤت ممواتکن بهاس اين. سيلا چوبا لاݢي ننتي."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "هنتر اونتوق فوکوسکن حاصيل چارين ڤرتام"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "چاري بهاس..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {تياد بهاس يڠ سڤادن} other {ترداڤت # بهاس يڠ سڤادن}} دڠن چارين اندا."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "تياد بهاس يڠ سڤادن دڠن چارين اندا."
+  },
+  "settings.language.title": {
+    "message": "بهاس"
+  },
+  "settings.pats.action.create": {
+    "message": "Cipta PAT"
+  },
+  "settings.pats.description": {
+    "message": "PAT boleh digunakan untuk mengakses API Modrinth. Untuk mendapatkan maklumat lanjut, lihat <doc-link>Dokumentasi API Modrinth</doc-link>. Ia boleh dibuat dan dibatalkan pada bila-bila masa."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Cipta PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Luput"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Nama"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Masukkan nama PAT..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "چيڤتا توکن اکسيس ڤريبادي (PAT)"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "ڤادم توکن اين"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "اين اکن مڠاليه کلوار توکن اين سلاما-لاماڽ (يڠ بنر٢ سلاماڽ)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Adakah anda pasti mahu memadamkan token ini?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Sunting token akses peribadi (PAT)"
+  },
+  "settings.pats.title": {
+    "message": "PAT"
+  },
+  "settings.pats.title.long": {
+    "message": "Token Akses Peribadi (PAT)"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Sunting token"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Tarik balik token"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Telah luput {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Akan luput dalam {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Kali terakhir digunakan {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "تيدق ڤرنه دݢوناکن"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "تاريق باليق سيسي"
+  },
+  "settings.sessions.created-ago": {
+    "message": "دچيڤتا {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "سيسي سماس"
+  },
+  "settings.sessions.description": {
+    "message": "برايکوت اياله سموا ڤرنتي يڠ سدڠ دلوݢ ماسوق دڠن اکاءون مودرين‌ث (Modrinth) اندا. اندا بوليه لوݢ کلوار درڤد ستياڤ ساتو ڤرنتي سچارا اينديۏيدو.\n\nجک اندا مليهت اينتري يڠ اندا تيدق كنالي⹁ لوݢ کلوار درڤد ڤرنتي ايت دان/دن توكر کات لالوان اکاءون مودرين‌ث (Modrinth) اندا دڠن سݢرا."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "کالي تراخير دأکسيس {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "سيسي"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "OS تيدق دکتاهوءي"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "ڤلتفورم تيدق دکتاهوءي"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} ڤد جم {time, time, short}"
+  }
+}

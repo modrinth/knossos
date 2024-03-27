@@ -1,0 +1,911 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "Εξουσιοδότηση"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Απόρριψη"
+  },
+  "auth.authorize.app-info": {
+    "message": "Η εφαρμογή <strong>{appName}</strong> από τον χρήστη <creator-link>{creator}</creator-link> θα είναι σε θέση να:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Εξουσιοδότηση {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "Δεν βρέθηκε τοποθεσία ανακατεύθυνσης στην απόκριση"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "Θα μεταφερθείτε στο <redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "Αποστολή email ανάκτησης"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Εισάγετε τη διέθυνση email σας παρακάτω και θα στείλουμε έναν σύνδεσμο ανάκτησης για να σας επιτρέψουμε την ανάκτηση του λογαριασμού σας."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "Email ή όνομα χρήστη"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "Διεύθυνση email"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "Σας έχει αποσταλεί ένα email με οδηγίες, αν η συγκεκριμένη διεύθυνση είχε αποθηκευτεί προηγουμένως στον λογαριασμό σας."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "Το email στάλθηκε"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "Τώρα μπορείτε να συνδεθείτε στον λογαριασμό σας με το νέο κωδικό πρόσβασής σας."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Επιτυχής επαναφορά κωδικού πρόσβασης"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Επαναφορά κωδικού πρόσβασης"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Επιβεβαίωση κωδικού"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Εισάγετε τον νέο κωδικό πρόσβασης παρακάτω για να αποκτήσετε πρόσβαση στον λογαριασμό σας."
+  },
+  "auth.reset-password.title": {
+    "message": "Επαναφορά Κωδικού Πρόσβασης"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Επαναφορά του κωδικού πρόσβασης"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Παρακαλούμε εισάγετε έναν κωδικό δύο παραγόντων για να συνεχίσετε."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Εισάγετε κωδικό δύο παραγόντων"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Εισαγωγή κωδικού..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Ξέχασα τον κωδικό</forgot-password-link> • <create-account-link>Δημιουργία λογαριασμού</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "Διεύθυνση email ή όνομα χρήστη"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Κωδικός Πρόσβασης"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Είσοδος με"
+  },
+  "auth.sign-in.title": {
+    "message": "Είσοδος"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Ή χρησιμοποιήστε κωδικό πρόσβασης"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Δημιουργία λογαριασμού"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Επιβεβαίωση κωδικού"
+  },
+  "auth.sign-up.email.label": {
+    "message": "Διεύθυνση email"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Όνομα Χρήστη"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "Με τη δημιουργία λογαριασμού, συμφωνείτε με τους <terms-link>Όρους</terms-link> και την <privacy-policy-link>Πολιτική απορρήτου</privacy-policy-link> του Modrinth."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Οι κωδικοί δεν ταιριάζουν!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Κωδικός Πρόσβασης"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Έχετε ήδη λογαριασμό;"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Εγγραφή σε ενημερώσεις σχετικά με το Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Εγγραφή"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Ή δημιουργήστε έναν λογαριασμό μόνοι σας"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Εγγραφή με"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Ρυθμίσεις λογαριασμού"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Είσοδος"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "Το email σας έχει ήδη επαληθευτεί!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "Το email έχει ήδη επαληθευτεί"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Επαναποστολή email επιβεβαίωσης"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "Δεν μπορέσαμε να επαληθεύσουμε το email σας. Προσπαθήστε να ξαναστείλετε το email επαλήθευσης μέσω του πίνακα ελέγχου λογαριασμού κάνοντας σύνδεση."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "Δεν μπορέσαμε να επαληθεύσουμε το email σας. Προσπαθήστε να ξαναστείλετε το email επαλήθευσης μέσω του παρακάτω κουμπιού."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "Αποτυχία επαλήθευσης email"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "Η διεύθυνση email σας έχει επαληθευτεί επιτυχώς!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "Επαλήθευση email"
+  },
+  "auth.verify-email.title": {
+    "message": "Επαλήθευση Email"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Εγγραφή σε ενημερώσεις σχετικά με το Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Ευχαριστούμε για τη δημιουργία λογαριασμού. Τώρα μπορείς να ακολουθείς και να δημιουργείς έργα, να λαμβάνεις ενημερώσεις για τα αγαπημένα σου έργα και πολλά άλλα!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Με τη δημιουργία λογαριασμού, συμφωνείς με τους <terms-link>Όρους</terms-link> και την <privacy-policy-link>Πολιτική απορρήτου</privacy-policy-link> του Modrinth."
+  },
+  "auth.welcome.long-title": {
+    "message": "Καλώς ήρθες στο Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Καλώς όρισες"
+  },
+  "button.cancel": {
+    "message": "Ακύρωση"
+  },
+  "button.continue": {
+    "message": "Συνέχεια"
+  },
+  "button.create-a-project": {
+    "message": "Δημιουργία έργου"
+  },
+  "button.edit": {
+    "message": "Επεξεργασία"
+  },
+  "button.save": {
+    "message": "Αποθήκευση"
+  },
+  "button.save-changes": {
+    "message": "Αποθήκευση αλλαγών"
+  },
+  "button.sign-in": {
+    "message": "Είσοδος"
+  },
+  "button.sign-out": {
+    "message": "Έξοδος"
+  },
+  "collection.button.delete-icon": {
+    "message": "Διαγραφή εικονιδίου"
+  },
+  "collection.button.edit-icon": {
+    "message": "Επεξεργασία εικονιδίου"
+  },
+  "collection.button.remove-project": {
+    "message": "Αφαίρεση έργου"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Μη παρακολούθηση έργου"
+  },
+  "collection.button.upload-icon": {
+    "message": "Ανέβασμα εικονιδίου"
+  },
+  "collection.delete-modal.description": {
+    "message": "Αυτό θα αφαιρέσει αυτήν τη συλλογή για πάντα. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
+  },
+  "collection.delete-modal.title": {
+    "message": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτήν την συλλογή;"
+  },
+  "collection.description": {
+    "message": "{description} - Προβολή της συλλογής {name} από τον χρήστη {username} στο Modrinth"
+  },
+  "collection.description.following": {
+    "message": "Αυτόματα δημιουργημένη συλλογή από τα ακολουθούμενα έργα."
+  },
+  "collection.error.not-found": {
+    "message": "Η συλλογή δε βρέθηκε"
+  },
+  "collection.label.collection": {
+    "message": "Συλλογή"
+  },
+  "collection.label.created-at": {
+    "message": "Δημιουργήθηκε {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Επιμέλεια από"
+  },
+  "collection.label.no-projects": {
+    "message": "Αυτή η συλλογή δεν έχει έργα!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "Δεν έχετε κανένα έργο.\nΘα θέλατε να <create-link>προσθέσετε ένα</create-link>;"
+  },
+  "collection.label.owner": {
+    "message": "Ιδιοκτήτης"
+  },
+  "collection.label.private": {
+    "message": "Ιδιωτική"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> έργο} other {<stat>{count}</stat> έργα}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Ενημερώθηκε {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - Συλλογή"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Δημιουργία νέας"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} έργο} other {{count} έργα}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Αναζήτηση στις συλλογές μου"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Οι συλλογές μου"
+  },
+  "frog": {
+    "message": "Μόλις βατραχιάστικες! 🐸"
+  },
+  "frog.altText": {
+    "message": "Μια φωτορεαλιστική ζωγραφιά ενός βατραχολαβυρίνθου"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural, one {{count} ακόμη άτομο βατραχιάστηκε} other {{count} ακόμη άτομα βατραχιάστηκαν}}!"
+  },
+  "frog.sinceOpened": {
+    "message": "Αυτή η σελίδα ανοίχτηκε {ago}"
+  },
+  "frog.title": {
+    "message": "Βάτραχος"
+  },
+  "input.view.gallery": {
+    "message": "Προβολή συλλογής"
+  },
+  "input.view.grid": {
+    "message": "Προβολή πλέγματος"
+  },
+  "input.view.list": {
+    "message": "Προβολή λίστας"
+  },
+  "label.collections": {
+    "message": "Συλλογές"
+  },
+  "label.created-ago": {
+    "message": "Δημιουργήθηκε {ago}"
+  },
+  "label.dashboard": {
+    "message": "Ταμπλό"
+  },
+  "label.delete": {
+    "message": "Διαγραφή"
+  },
+  "label.description": {
+    "message": "Περιγραφή"
+  },
+  "label.error": {
+    "message": "Σφάλμα"
+  },
+  "label.followed-projects": {
+    "message": "Ακολουθούμενα έργα"
+  },
+  "label.moderation": {
+    "message": "Moderation"
+  },
+  "label.notifications": {
+    "message": "Ειδοποιήσεις"
+  },
+  "label.password": {
+    "message": "Κωδικός Πρόσβασης"
+  },
+  "label.public": {
+    "message": "Δημόσιο"
+  },
+  "label.rejected": {
+    "message": "Απορρίφθηκε"
+  },
+  "label.scopes": {
+    "message": "Scopes"
+  },
+  "label.settings": {
+    "message": "Ρυθμίσεις"
+  },
+  "label.title": {
+    "message": "Τίτλος"
+  },
+  "label.unlisted": {
+    "message": "Μη Καταχωρημένο"
+  },
+  "label.visibility": {
+    "message": "Ορατότητα"
+  },
+  "layout.action.change-theme": {
+    "message": "Αλλαγή θέματος"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Λήψη Εφαρμογής Modrinth"
+  },
+  "layout.avatar.alt": {
+    "message": "Το avatar μου"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Επίσκεψη ρυθμίσεων λογαριασμού"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Για λόγους ασφαλείας, παρακαλούμε εισάγετε το email σας στο Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "Το περιβάλλον σταδιοποίησης εκτελείται σε ένα αντίγραφο της μόνιμης βάσης δεδομένων του Modrinth. Χρησιμοποιείται για σκοπούς δοκιμών και αποσφαλμάτωσης και μπορεί να τρέχει εκδόσεις του backend ή frontend του Modrinth που βρίσκονται σε εξέλιξη και είναι νεότερες από την παραγωγική έκδοση."
+  },
+  "layout.banner.staging.title": {
+    "message": "Είστε στο περιβάλλον σταδιοποίησης του Modrinth."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Επαναποστολή email επαλήθευσης"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "Για λόγους ασφαλείας, παρακαλούμε επαληθεύεστε το email σας στο Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Careers"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Privacy"
+  },
+  "layout.footer.company.rules": {
+    "message": "Rules"
+  },
+  "layout.footer.company.terms": {
+    "message": "Terms"
+  },
+  "layout.footer.company.title": {
+    "message": "Company"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interact"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth is <github-link>open source</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Docs"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Support"
+  },
+  "layout.footer.resources.title": {
+    "message": "Resources"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Visit your profile"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Toggle menu"
+  },
+  "layout.meta.description": {
+    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+  },
+  "layout.meta.og-description": {
+    "message": "Discover and publish Minecraft content!"
+  },
+  "layout.nav.home": {
+    "message": "Home"
+  },
+  "layout.nav.search": {
+    "message": "Search"
+  },
+  "notification.error.title": {
+    "message": "Προέκυψε σφάλμα"
+  },
+  "profile.button.manage-projects": {
+    "message": "Διαχείριση έργων"
+  },
+  "profile.button.report": {
+    "message": "Αναφορά"
+  },
+  "profile.error.not-found": {
+    "message": "Ο χρήστης δε βρέθηκε"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Ανεβάστε avatar"
+  },
+  "profile.joined-at": {
+    "message": "Εγγράφηκε {ago}"
+  },
+  "profile.label.edit-bio": {
+    "message": "Βιογραφικό"
+  },
+  "profile.label.edit-username": {
+    "message": "Όνομα Χρήστη"
+  },
+  "profile.label.no-collections": {
+    "message": "Αυτός ο χρήστης δεν έχει συλλογές!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Δεν έχετε συλλογές.\nΘα θέλατε να <create-link>δημιουργήσετε μία</create-link>;"
+  },
+  "profile.label.no-projects": {
+    "message": "Αυτός ο χρήστης δεν έχει έργα!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "Δεν έχετε κανένα έργο.\nΘα θέλατε να <create-link>δημιουργήστε ένα</create-link>;"
+  },
+  "profile.label.organizations": {
+    "message": "Οργανισμοί"
+  },
+  "profile.meta.description": {
+    "message": "Κατεβάστε τα έργα του {username} στο Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Κατέβασε τα έργα του {username} στο Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> λήψη} other {<stat>{count}</stat> λήψεις}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> ακόλουθος} other {<stat>{count}</stat> ακόλουθοι}} έργων"
+  },
+  "profile.user-id": {
+    "message": "Αναγνωριστικό Χρήστη: {id}"
+  },
+  "project-type.all": {
+    "message": "Όλα"
+  },
+  "project-type.collection.plural": {
+    "message": "Συλλογές"
+  },
+  "project-type.collection.singular": {
+    "message": "Συλλογή"
+  },
+  "project-type.datapack.plural": {
+    "message": "Πακέτα Δεδομένων"
+  },
+  "project-type.datapack.singular": {
+    "message": "Πακέτο Δεδομένων"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Έργα"
+  },
+  "project-type.project.singular": {
+    "message": "Έργο"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Πακέτα Πόρων"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Πακέτο Πόρων"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
+  },
+  "revenue.transfers.total": {
+    "message": "Έχετε αποσύρει {amount} συνολικά."
+  },
+  "revenue.transfers.total.method": {
+    "message": "Έχετε αποσύρει {amount} μέσω του {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "Έχετε αποσύρει {amount} το {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "Έχετε αποσύρει {amount} το {year} μέσω του {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "Πρόσβαση στα αναλυτικά δεδομένα"
+  },
+  "scopes.analytics.label": {
+    "message": "Ανάγνωση αναλυτικών στοιχείων"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Δημιουργία συλλογών"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Δημιουργία συλλογών"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Διαγραφή συλλογών"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Διαγραφή συλλογών"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Ανάγνωση συλλογών"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Ανάγνωση συλλογών"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Επεξεργασία συλλογών"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Επεξεργασία συλλογών"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Ανάγνωση των ειδοποιήσεων σας"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Πρόσβαση στις ειδοποιήσεις"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Διαγραφή/Προβολή των ειδοποιήσεων σας"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Write notifications"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Δημιουργία οργανισμών"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Δημιουργία οργανισμών"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Διαγραφή οργανισμών"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Διαγραφή οργανισμών"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Read organizations"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Read organizations"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Write to organizations"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Write organizations"
+  },
+  "scopes.patCreate.description": {
+    "message": "Create personal API tokens"
+  },
+  "scopes.patCreate.label": {
+    "message": "Create PATs"
+  },
+  "scopes.patDelete.description": {
+    "message": "Delete your personal API tokens"
+  },
+  "scopes.patDelete.label": {
+    "message": "Delete PATs"
+  },
+  "scopes.patRead.description": {
+    "message": "View created API tokens"
+  },
+  "scopes.patRead.label": {
+    "message": "Read PATs"
+  },
+  "scopes.patWrite.description": {
+    "message": "Edit personal API tokens"
+  },
+  "scopes.patWrite.label": {
+    "message": "Write PATs"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Read your payouts data"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Ανάγνωση πληρωμών"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Ανάληψη χρημάτων"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Write payouts"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Perform analytics actions"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Perform analytics"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Create new projects"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Create projects"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Delete your projects"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Delete projects"
+  },
+  "scopes.projectRead.description": {
+    "message": "Read all your projects"
+  },
+  "scopes.projectRead.label": {
+    "message": "Read projects"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Write to project data"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Write projects"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Create reports"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Create reports"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Delete reports"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Delete reports"
+  },
+  "scopes.reportRead.description": {
+    "message": "Read reports"
+  },
+  "scopes.reportRead.label": {
+    "message": "Read reports"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Edit reports"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Write reports"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Access modrinth-issued sessions"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Access sessions"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Delete sessions"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Delete sessions"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Read active sessions"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Read sessions"
+  },
+  "scopes.threadRead.description": {
+    "message": "Read threads"
+  },
+  "scopes.threadRead.label": {
+    "message": "Read threads"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Write to threads"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Write threads"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Modify your authentication data"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Write auth data"
+  },
+  "scopes.userDelete.description": {
+    "message": "Delete your account"
+  },
+  "scopes.userDelete.label": {
+    "message": "Delete your account"
+  },
+  "scopes.userRead.description": {
+    "message": "Access your public profile information"
+  },
+  "scopes.userRead.label": {
+    "message": "Read user data"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Read your email"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Read user email"
+  },
+  "scopes.userWrite.description": {
+    "message": "Write to your profile"
+  },
+  "scopes.userWrite.label": {
+    "message": "Write user data"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Create new versions"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Create versions"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Delete a version"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Delete versions"
+  },
+  "scopes.versionRead.description": {
+    "message": "Read all versions"
+  },
+  "scopes.versionRead.label": {
+    "message": "Read versions"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Write to version data"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Write versions"
+  },
+  "settings.language.categories.auto": {
+    "message": "Αυτόματη"
+  },
+  "settings.language.categories.default": {
+    "message": "Τυπικές γλώσσες"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Πειραματικές γλώσσες"
+  },
+  "settings.language.categories.fun": {
+    "message": "Διασκεδαστικές γλώσσες"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Αποτελέσματα αναζήτησης"
+  },
+  "settings.language.description": {
+    "message": "Επίλεξε τη γλώσσα που προτιμάς για τον ιστότοπο. Οι μεταφράσεις παρέχονται από εθελοντές <crowdin-link>στο Crowdin</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Συγχρoνισμός με τη γλώσσα συστήματος"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Εφαρμογή..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Σφάλμα"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Δεν ήταν δυνατή η φόρτωση αυτής της γλώσσας. Ξαναδοκιμάστε σε λίγο."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Υποβολή για εστίαση στο πρώτο αποτέλεσμα αναζήτησης"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Αναζητήστε για μια γλώσσα..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {Καμία γλώσσα δεν ταιριάζει} one {# γλώσσα ταιριάζει} other {# γλώσσες ταιριάζουν}} την αναζήτησή σου."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "Καμία γλώσσα δεν αντιστοιχεί στην αναζήτηση σου."
+  },
+  "settings.language.title": {
+    "message": "Γλώσσα"
+  },
+  "settings.pats.action.create": {
+    "message": "Create a PAT"
+  },
+  "settings.pats.description": {
+    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Create PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Expires"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Name"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Enter the PAT's name..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Create personal access token"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Delete this token"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "This will remove this token forever (like really forever)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Are you sure you want to delete this token?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Edit personal access token"
+  },
+  "settings.pats.title": {
+    "message": "PATs"
+  },
+  "settings.pats.title.long": {
+    "message": "Personal Access Tokens"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Edit token"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Revoke token"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Expired {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Expires {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Last used {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Never used"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Revoke session"
+  },
+  "settings.sessions.created-ago": {
+    "message": "Created {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "Current session"
+  },
+  "settings.sessions.description": {
+    "message": "Ακολουθούν όλες οι συσκευές που είναι συνδεδεμένες αυτήν τη στιγμή με τον λογαριασμό σας στο Modrinth. Μπορείτε να αποσυνδεθείτε από καθεμία ξεχωριστά.\n\nΕάν δείτε μια καταχώριση που δεν αναγνωρίζετε, αποσυνδεθείτε από αυτήν τη συσκευή και αλλάξτε αμέσως τον κωδικό πρόσβασης του λογαριασμού σας Modrinth."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "Last accessed {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "Συνεδρίες"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "Unknown OS"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Unknown platform"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} στις {time, time, short}"
+  }
+}

@@ -1,0 +1,911 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "Yetkilendir"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Reddet"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> (<creator-link>{creator}</creator-link>) şunu yapabilecek:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "{appName} uygulamasını yetkilendir"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "Yanıtta yönlendirme konumu bulunamadı"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "<redirect-url>{url}</redirect-url> adresine yönlendirileceksiniz"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "Kurtarma e-postası gönder"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Kurtarma bağlantısının gönderileceği e-posta adresini aşağıya girin."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "E-posta veya kullanıcı adı"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "E-posta"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "Girilen e-posta adresi geçerli bir hesaba kayıtlıysa parola sıfırlama talimatların bulunduğu bir e-posta gönderilecektir."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "E-posta yollandı"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "Yeni parolanızla artık hesabınıza giriş yapabilirsiniz."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Parola sıfırlandı"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Parolayı sıfırla"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Parolayı onayla"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Hesabınıza erişebilmeniz için aşağıya yeni parolanızı girin."
+  },
+  "auth.reset-password.title": {
+    "message": "Parolayı Sıfırla"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Parolanızı sıfırlayın"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Lütfen devam etmek için bir çift aşamalı kod girin."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Çift aşamalı kod gir"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Kodu girin..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Parolanızı mı unuttunuz?</forgot-password-link> • <create-account-link>Yeni hesap oluştur</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "E-posta veya kullanıcı adı"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Parola"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Giriş yapmak için şunları kullanabilirsiniz"
+  },
+  "auth.sign-in.title": {
+    "message": "Giriş Yap"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Veya parola kullanın"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Hesap oluştur"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Parolayı onayla"
+  },
+  "auth.sign-up.email.label": {
+    "message": "E-posta"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Kullanıcı adı"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "Bir hesap oluşturarak, Modrinth'in <terms-link>Kurallar</terms-link> ve  <privacy-policy-link>Gizlilik İlkeleri </privacy-policy-link>'ni kabul etmiş sayılırsınız."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Parolalar uyuşmuyor!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Parola"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Zaten bir hesabınız var mı?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Modrinth hakkında güncellemelere abone ol"
+  },
+  "auth.sign-up.title": {
+    "message": "Kaydol"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Veya kendiniz oluşturun"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Şununla kaydol"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Hesap ayarları"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Giriş yap"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "E-postan zaten doğrulanmış!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "E-posta zaten doğrulanmış"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Doğrulama e-postasını yeniden yolla"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "E-postanızı doğrulayamadık. Doğrulama e-postasını panelinizin üzerinden yeniden yollamayı deneyin."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "E-postanı doğrulayamadık. Doğrulama e-postasını, aşağıdaki tuşla yeniden yollamayı dene."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "E-posta doğrulaması başarısız"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "E-posta adresiniz başarıyla doğrulandı!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "E-posta doğrulaması"
+  },
+  "auth.verify-email.title": {
+    "message": "E-posta Doğrula"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Modrinth'le ilgili güncellemelere abone ol"
+  },
+  "auth.welcome.description": {
+    "message": "Hesap oluşturduğunuz için teşekkür ederiz. Artık projeleri takip edebilir ve yaratabilir, favori projelerinizle ilgili güncellemeler alabilir ve daha fazlasını yapabilirsiniz!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Bir hesap oluşturarak, Modrinth'in <terms-link>Şartlar</terms-link>'ını ve <privacy-policy-link>Gizlilik İlkeleri</privacy-policy-link>'ni kabul etmiş sayılırsınız."
+  },
+  "auth.welcome.long-title": {
+    "message": "Modrinth'e Hoş Geldin!"
+  },
+  "auth.welcome.title": {
+    "message": "Hoş Geldin"
+  },
+  "button.cancel": {
+    "message": "İptal"
+  },
+  "button.continue": {
+    "message": "Devam"
+  },
+  "button.create-a-project": {
+    "message": "Bir proje oluştur"
+  },
+  "button.edit": {
+    "message": "Düzenle"
+  },
+  "button.save": {
+    "message": "Kaydet"
+  },
+  "button.save-changes": {
+    "message": "Değişiklikleri kaydet"
+  },
+  "button.sign-in": {
+    "message": "Giriş yap"
+  },
+  "button.sign-out": {
+    "message": "Çıkış yap"
+  },
+  "collection.button.delete-icon": {
+    "message": "Simge sil"
+  },
+  "collection.button.edit-icon": {
+    "message": "Simge düzenle"
+  },
+  "collection.button.remove-project": {
+    "message": "Proje kaldır"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Projeye takibi bırak"
+  },
+  "collection.button.upload-icon": {
+    "message": "Simge yükle"
+  },
+  "collection.delete-modal.description": {
+    "message": "Bu işlem, koleksiyonu sonsuza dek kaldıracak. Bu eylem geri alınamaz."
+  },
+  "collection.delete-modal.title": {
+    "message": "Bu koleksiyonu silmek istediğinizden emin misiniz?"
+  },
+  "collection.description": {
+    "message": "{description} - Modrinth'te {username} tarafından yaratılmış {name} koleksiyonunu göster"
+  },
+  "collection.description.following": {
+    "message": "Takip ettiğin projelerden otomatik oluşturulmuş koleksiyon."
+  },
+  "collection.error.not-found": {
+    "message": "Koleksiyon bulunamadı"
+  },
+  "collection.label.collection": {
+    "message": "Koleksiyon"
+  },
+  "collection.label.created-at": {
+    "message": "{ago} oluşturuldu"
+  },
+  "collection.label.curated-by": {
+    "message": "Küratörlüğünü Yapan"
+  },
+  "collection.label.no-projects": {
+    "message": "Bu koleksiyonun projesi yok!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "Herhangi bir projeniz yok.\n<create-link>Yeni bir tane</create-link> eklemek ister miydiniz?"
+  },
+  "collection.label.owner": {
+    "message": "Sahip"
+  },
+  "collection.label.private": {
+    "message": "Gizli"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> proje} other {<stat>{count}</stat> proje}}"
+  },
+  "collection.label.updated-at": {
+    "message": "{ago} güncellendi"
+  },
+  "collection.title": {
+    "message": "{name} - Koleksiyon"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Yeni oluştur"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} proje} other {{count} proje}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Koleksiyonlarını ara"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Koleksiyonların"
+  },
+  "frog": {
+    "message": "Kurbağalandınız! 🐸"
+  },
+  "frog.altText": {
+    "message": "Bir kurbağa labirentinin fotogerçekçi bir çizimi"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural, other {{count} kişi daha}} kurbağalandı!"
+  },
+  "frog.sinceOpened": {
+    "message": "Bu sayfa {ago} açıldı"
+  },
+  "frog.title": {
+    "message": "Kurbağa"
+  },
+  "input.view.gallery": {
+    "message": "Galeri görünümü"
+  },
+  "input.view.grid": {
+    "message": "Izgara görünümü"
+  },
+  "input.view.list": {
+    "message": "Liste görünümü"
+  },
+  "label.collections": {
+    "message": "Koleksiyonlar"
+  },
+  "label.created-ago": {
+    "message": "{ago} oluşturuldu"
+  },
+  "label.dashboard": {
+    "message": "Panel"
+  },
+  "label.delete": {
+    "message": "Sil"
+  },
+  "label.description": {
+    "message": "Açıklama"
+  },
+  "label.error": {
+    "message": "Hata"
+  },
+  "label.followed-projects": {
+    "message": "Takip edilen projeler"
+  },
+  "label.moderation": {
+    "message": "Moderasyon"
+  },
+  "label.notifications": {
+    "message": "Bildirimler"
+  },
+  "label.password": {
+    "message": "Parola"
+  },
+  "label.public": {
+    "message": "Herkese Açık"
+  },
+  "label.rejected": {
+    "message": "Reddedilmiş"
+  },
+  "label.scopes": {
+    "message": "Kapsamlar"
+  },
+  "label.settings": {
+    "message": "Ayarlar"
+  },
+  "label.title": {
+    "message": "Başlık"
+  },
+  "label.unlisted": {
+    "message": "Liste Dışı"
+  },
+  "label.visibility": {
+    "message": "Görünürlük"
+  },
+  "layout.action.change-theme": {
+    "message": "Tema değiştir"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Modrinth uygulaması edin"
+  },
+  "layout.avatar.alt": {
+    "message": "Avatarın"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Hesap ayarlarını ziyaret et"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Güvenlik amacıyla, lütfen Modrinth'te e-postanızı girin."
+  },
+  "layout.banner.staging.description": {
+    "message": "Hazırlama ortamı, üretim Modrinth veri tabanının bir kopyası üzerinde çalışır. Bu, test ve hata ayıklama amacıyla kullanılır ve Modrinth arka ucunun veya ön ucunun üretim örneğinden daha yeni geliştirme sürümlerini çalıştırıyor olabilir."
+  },
+  "layout.banner.staging.title": {
+    "message": "Modrinth'in hazırlama ortamını görüntülüyorsunuz."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Doğrulama e-postasını yeniden gönder"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "Güvenlik amacıyla, lütfen Modrinth'te e-posta adresinizi doğrulayın."
+  },
+  "layout.footer.company.careers": {
+    "message": "Kariyerler"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Gizlilik"
+  },
+  "layout.footer.company.rules": {
+    "message": "Kurallar"
+  },
+  "layout.footer.company.terms": {
+    "message": "Koşullar"
+  },
+  "layout.footer.company.title": {
+    "message": "Şirket"
+  },
+  "layout.footer.interact.title": {
+    "message": "Etkileşim"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "RESMİ BİR MINECRAFT HİZMETİ DEĞİLDİR. MOJANG VEYA MICROSOFT TARAFINDAN ONAYLANMAMIŞTIR VEYA BUNLARLA İLİŞKİLİ DEĞİLDİR."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth <github-link>açık kaynaktır</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Dokümantasyon"
+  },
+  "layout.footer.resources.status": {
+    "message": "Durum"
+  },
+  "layout.footer.resources.support": {
+    "message": "Destek"
+  },
+  "layout.footer.resources.title": {
+    "message": "Kaynaklar"
+  },
+  "layout.label.visit-your-profile": {
+    "message": "Profilini ziyaret et"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Menü aç/kapa"
+  },
+  "layout.meta.description": {
+    "message": "Modrinth üzerinden Minecraft modları, eklentileri, veri paketleri, shaderları, kaynak paketleri ve mod paketleri indir. Modern ve kullanımı kolay bir arayüz ve API ile Modrinth üzerinden projeler keşfet ve yayınla."
+  },
+  "layout.meta.og-description": {
+    "message": "Minecraft içeriği keşfet ve yayınla!"
+  },
+  "layout.nav.home": {
+    "message": "Anasayfa"
+  },
+  "layout.nav.search": {
+    "message": "Arama"
+  },
+  "notification.error.title": {
+    "message": "Bir hata oluştu"
+  },
+  "profile.button.manage-projects": {
+    "message": "Projeleri yönet"
+  },
+  "profile.button.report": {
+    "message": "Bildir"
+  },
+  "profile.error.not-found": {
+    "message": "Kullanıcı bulunamadı"
+  },
+  "profile.input.upload-avatar": {
+    "message": "Profil görüntüsü yükle"
+  },
+  "profile.joined-at": {
+    "message": "{ago} katıldı"
+  },
+  "profile.label.edit-bio": {
+    "message": "Hakkında"
+  },
+  "profile.label.edit-username": {
+    "message": "Kullanıcı adı"
+  },
+  "profile.label.no-collections": {
+    "message": "Bu kullanıcının koleksiyonu yok!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Hiç koleksiyonunuz yok.\n<create-link>Yeni bir</create-link> koleksiyon oluşturmak ister misiniz?"
+  },
+  "profile.label.no-projects": {
+    "message": "Bu kullanıcının projesi yok!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "Herhangi bir projeniz yok.\n<create-link>Yeni bir tane oluşturmak</create-link> ister misiniz?"
+  },
+  "profile.label.organizations": {
+    "message": "Organizasyonlar"
+  },
+  "profile.meta.description": {
+    "message": "{username} kullanıcısının Modrinth'teki projelerini indir"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - {username} kullanıcısının Modrinth'teki projelerini indir"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> indirme} other {<stat>{count}</stat> indirme}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "Projelerin {count, plural, one {<stat>{count}</stat> takipçisi} other {<stat>{count}</stat> takipçisi}}"
+  },
+  "profile.user-id": {
+    "message": "Kullanıcı ID: {id}"
+  },
+  "project-type.all": {
+    "message": "Tümü"
+  },
+  "project-type.collection.plural": {
+    "message": "Koleksiyonlar"
+  },
+  "project-type.collection.singular": {
+    "message": "Koleksiyon"
+  },
+  "project-type.datapack.plural": {
+    "message": "Veri Paketleri"
+  },
+  "project-type.datapack.singular": {
+    "message": "Veri Paketi"
+  },
+  "project-type.mod.plural": {
+    "message": "Modlar"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Mod Paketleri"
+  },
+  "project-type.modpack.singular": {
+    "message": "Mod Paketi"
+  },
+  "project-type.plugin.plural": {
+    "message": "Eklentiler"
+  },
+  "project-type.plugin.singular": {
+    "message": "Eklenti"
+  },
+  "project-type.project.plural": {
+    "message": "Projeler"
+  },
+  "project-type.project.singular": {
+    "message": "Proje"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Kaynak Paketleri"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Kaynak Paketi"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaderlar"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
+  },
+  "revenue.transfers.total": {
+    "message": "Toplam {amount} çektiniz."
+  },
+  "revenue.transfers.total.method": {
+    "message": "{method} yoluyla toplam {amount} çektiniz."
+  },
+  "revenue.transfers.total.year": {
+    "message": "{year} yılında toplam {amount} çektiniz."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "{method} yoluyla, {year} yılında toplam {amount} çektiniz."
+  },
+  "scopes.analytics.description": {
+    "message": "Analiz verilerinize erişin"
+  },
+  "scopes.analytics.label": {
+    "message": "Analiz oku"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Koleksiyon oluştur"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Koleksiyon oluştur"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Koleksiyon sil"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Koleksiyon sil"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Koleksiyon oku"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Koleksiyon oku"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Koleksiyonlara yaz"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Koleksiyon yaz"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Bildirimlerinizi görün"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Bildirim oku"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Bildirimlerinizi silin/gösterin"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Bildirim yaz"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Organizasyon oluştur"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Organizasyon oluştur"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Organizasyon kaldır"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Organizasyon kaldır"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Organizasyon oku"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Organizasyon oku"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Organizasyonlara yaz"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Organizasyon yaz"
+  },
+  "scopes.patCreate.description": {
+    "message": "Kişisel API tokenleri oluştur"
+  },
+  "scopes.patCreate.label": {
+    "message": "PAT oluştur"
+  },
+  "scopes.patDelete.description": {
+    "message": "Kişisel API tokenlerinizi silin"
+  },
+  "scopes.patDelete.label": {
+    "message": "PAT sil"
+  },
+  "scopes.patRead.description": {
+    "message": "Oluşturulmuş API tokenlerini göster"
+  },
+  "scopes.patRead.label": {
+    "message": "PAT oku"
+  },
+  "scopes.patWrite.description": {
+    "message": "Kişisel API tokenlerini düzenle"
+  },
+  "scopes.patWrite.label": {
+    "message": "PAT yaz"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Ödeme verilerinizi okuyun"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Ödemeleri oku"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Para çek"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Ödemeleri yaz"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Analiz eylemlerini gerçekleştir"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Analiz uygula"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Yeni projeler oluştur"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Proje oluştur"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Projelerinizi silin"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Proje sil"
+  },
+  "scopes.projectRead.description": {
+    "message": "Tüm projelerinizi okuyun"
+  },
+  "scopes.projectRead.label": {
+    "message": "Proje oku"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Proje verilerine yazın"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Proje yaz"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Bildiri oluştur"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Bildiri oluştur"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Bildiri sil"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Bildiri sil"
+  },
+  "scopes.reportRead.description": {
+    "message": "Bildiri oku"
+  },
+  "scopes.reportRead.label": {
+    "message": "Rapor oku\n"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Rapor düzenle"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Rapor yaz"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Modrinth tarafından verilen oturumlara eriş"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Oturumlara eriş"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Oturumları sil"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Oturum sil"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Aktif oturumları oku"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Oturum oku"
+  },
+  "scopes.threadRead.description": {
+    "message": "Konu başlıklarını oku"
+  },
+  "scopes.threadRead.label": {
+    "message": "Konu oku"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Konu başlıklarına yaz"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Konu yaz"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Kimlik doğrulama verilerinizi değiştirin"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Kimlik doğrulama veri yaz"
+  },
+  "scopes.userDelete.description": {
+    "message": "Hesabınızı silin"
+  },
+  "scopes.userDelete.label": {
+    "message": "Hesap sil"
+  },
+  "scopes.userRead.description": {
+    "message": "Herkese açık profil bilgilerinize erişin"
+  },
+  "scopes.userRead.label": {
+    "message": "Kullanıcı verisi oku"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "E-postanızı okuyun"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Kullanıcı e-postasını oku"
+  },
+  "scopes.userWrite.description": {
+    "message": "Profilinize yazın"
+  },
+  "scopes.userWrite.label": {
+    "message": "Kullanıcı verisi yaz"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Yeni sürümler oluştur"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Sürüm oluştur"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Bir sürüm sil"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Sürüm sil"
+  },
+  "scopes.versionRead.description": {
+    "message": "Tüm sürümleri oku"
+  },
+  "scopes.versionRead.label": {
+    "message": "Sürüm oku"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Sürüm verisine yaz"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Sürüm yaz"
+  },
+  "settings.language.categories.auto": {
+    "message": "Otomatik"
+  },
+  "settings.language.categories.default": {
+    "message": "Standart diller"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Tamamlanmamış diller"
+  },
+  "settings.language.categories.fun": {
+    "message": "Komik diller"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Arama sonuçları"
+  },
+  "settings.language.description": {
+    "message": "Sitenin görüntüleneceği dili seçin. Çeviriler <crowdin-link>Crowdin</crowdin-link> üzerindeki gönüllüler tarafından yapılmaktadır."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Sistem diliyle eşleştir"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Uygulanıyor..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Hata"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Bu dil yüklenemedi. Birazdan yeniden deneyin."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "İlk arama sonucuna odaklanması için gönderme tuşuna basın"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Bir dil arayın..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "Aramanızla eşleşen {matches, plural, =0 {dil bulunamadı} other {# dil bulundu}}."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "Aramanızla eşleşen dil bulunmamakta."
+  },
+  "settings.language.title": {
+    "message": "Dil"
+  },
+  "settings.pats.action.create": {
+    "message": "Bir PAT yarat"
+  },
+  "settings.pats.description": {
+    "message": "PAT'lar Modrinth'in API'sine erişmekte kullanılabilir. Daha fazla bilgi için, <doc-link>Modrinth API dokümantasyonununa</doc-link>na bakın. Bunlar her zaman oluşturulabilir veya iptal edilebilir."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "PAT oluştur"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Son kullanma tarihi"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Ad"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "PAT'ın adını girin..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Kişisel erişim token'i (PAT) oluştur"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Bu tokeni sil"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "Bu işlem, bu tokeni sonsuza dek (gerçekten de sonsuza dek) kaldıracak."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Bu tokeni silmek istediğinizden emin misiniz?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Kişisel erişim tokenini (PAT'ı) düzenle"
+  },
+  "settings.pats.title": {
+    "message": "PAT'lar"
+  },
+  "settings.pats.title.long": {
+    "message": "Kişisel Erişim Tokenleri (PAT'lar)"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Token düzenle"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Token iptal et"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "{ago} son kullanma tarihi geçti"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "{inTime} son kullanma tarihi geçecek"
+  },
+  "settings.pats.token.last-used": {
+    "message": "En son {ago} kullanıldı"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Hiç kullanılmadı"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Oturumu iptal et"
+  },
+  "settings.sessions.created-ago": {
+    "message": "{ago} oluşturuldu"
+  },
+  "settings.sessions.current-session": {
+    "message": "Mevcut oturum"
+  },
+  "settings.sessions.description": {
+    "message": "Şu an Modrinth hesabınızla giriş yapılmış tüm cihazlar burada. Her birinden teker teker çıkış yapabilirsiniz.\n\nEğer tanımadığınız bir girdi varsa, o cihazdan çıkış yapın ve Modrinth hesabınızın parolasını derhal değiştirin."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "En son {ago} erişildi"
+  },
+  "settings.sessions.title": {
+    "message": "Oturumlar"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "Bilinmeyen İşletim Sistemi"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Bilinmeyen platform"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long}, {time, time, short}"
+  }
+}
