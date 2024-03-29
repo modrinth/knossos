@@ -30,7 +30,7 @@
     "message": "電子郵件地址"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "如果您的電子郵件地址先前儲存在這個帳號中，則我們已向您傳送了內含指示的電子郵件。"
+    "message": "如果您先前在帳號中儲存過電子郵件地址，我們已經傳送了一封包含說明的電子郵件給您。"
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "已傳送電子郵件"
@@ -156,7 +156,7 @@
     "message": "訂閱有關 Modrinth 的更新"
   },
   "auth.welcome.description": {
-    "message": "感謝您建立帳號。您現在可以追蹤和建立專案，接收有關您喜愛專案的更新，以及更多功能！"
+    "message": "感謝您建立帳號。現在您可以追蹤和建立專案、接收喜愛專案的更新資訊，以及享受更多功能！"
   },
   "auth.welcome.label.tos": {
     "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》及《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
@@ -828,7 +828,7 @@
     "message": "建立個人存取權杖"
   },
   "settings.pats.description": {
-    "message": "個人存取權杖可用於存取 Modrinth 的 API。請參閱 <doc-link>Modrinth 的 API 文件</doc-link>以獲得更多資訊。您可以隨時建立或撤銷這些權杖。"
+    "message": "個人存取權杖可以用來存取 Modrinth 的 API。如需詳細資訊，請參閱 <doc-link>Modrinth 的 API 文件</doc-link>。您可以隨時建立或撤銷 PAT。"
   },
   "settings.pats.modal.create.action": {
     "message": "建立個人存取權杖"
