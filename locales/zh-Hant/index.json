@@ -30,7 +30,7 @@
     "message": "電子郵件地址"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "如果您先前在帳號中儲存過電子郵件地址，我們已經傳送了一封包含說明的電子郵件給您。"
+    "message": "如果您先前在帳號中儲存過電子郵件地址，則我們已傳送了一封包含說明的電子郵件給您。"
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "已傳送電子郵件"
@@ -207,7 +207,7 @@
     "message": "上傳圖示"
   },
   "collection.delete-modal.description": {
-    "message": "這將永久刪除這個收藏夾。此動作無法復原。"
+    "message": "這項操作會永久刪除這個收藏夾，且永久無法復原。"
   },
   "collection.delete-modal.title": {
     "message": "您確定要刪除這個收藏夾嗎？"
@@ -279,13 +279,13 @@
     "message": "青蛙"
   },
   "input.view.gallery": {
-    "message": "畫廊檢視"
+    "message": "畫廊版面配置"
   },
   "input.view.grid": {
-    "message": "網格檢視"
+    "message": "格狀版面配置"
   },
   "input.view.list": {
-    "message": "清單檢視"
+    "message": "清單版面配置"
   },
   "label.collections": {
     "message": "收藏夾"
@@ -300,7 +300,7 @@
     "message": "刪除"
   },
   "label.description": {
-    "message": "描述"
+    "message": "說明"
   },
   "label.error": {
     "message": "錯誤"
@@ -348,7 +348,7 @@
     "message": "您的相片"
   },
   "layout.banner.add-email.button": {
-    "message": "查看帳號設定"
+    "message": "前往帳號設定"
   },
   "layout.banner.add-email.title": {
     "message": "基於安全考量，請在 Modrinth 上輸入您的電子郵件地址。"
@@ -411,10 +411,10 @@
     "message": "切換選單"
   },
   "layout.meta.description": {
-    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。使用現代、易於使用的介面和 API 在 Modrinth 上探索和發布專案。"
+    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。使用現代、易於使用的介面和 API 在 Modrinth 上探索及發布專案。"
   },
   "layout.meta.og-description": {
-    "message": "探索並發布 Minecraft 內容！"
+    "message": "探索及發布 Minecraft 內容！"
   },
   "layout.nav.home": {
     "message": "首頁"
@@ -543,7 +543,7 @@
     "message": "存取您的分析資料"
   },
   "scopes.analytics.label": {
-    "message": "讀取分析數據"
+    "message": "讀取數據分析"
   },
   "scopes.collectionCreate.description": {
     "message": "建立收藏夾"
@@ -576,7 +576,7 @@
     "message": "讀取通知"
   },
   "scopes.notificationWrite.description": {
-    "message": "刪除／檢視您的通知"
+    "message": "刪除／查看您的通知"
   },
   "scopes.notificationWrite.label": {
     "message": "寫入通知"
@@ -642,10 +642,10 @@
     "message": "寫入付款"
   },
   "scopes.performAnalytics.description": {
-    "message": "進行分析數據動作"
+    "message": "執行數據分析動作"
   },
   "scopes.performAnalytics.label": {
-    "message": "進行數據分析"
+    "message": "執行數據分析"
   },
   "scopes.projectCreate.description": {
     "message": "建立新專案"
@@ -849,7 +849,7 @@
     "message": "刪除這個權杖"
   },
   "settings.pats.modal.delete.description": {
-    "message": "這將永遠刪除這個權杖（真的是永遠）。"
+    "message": "這項操作會永遠刪除這個權杖（真的是永遠）。"
   },
   "settings.pats.modal.delete.title": {
     "message": "您確定要刪除這個權杖嗎？"
