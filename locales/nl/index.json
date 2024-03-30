@@ -123,7 +123,7 @@
     "message": "Account settings"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Log in"
   },
   "auth.verify-email.already-verified.description": {
     "message": "Your email is already verified!"
@@ -183,13 +183,13 @@
     "message": "Opslaan"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Wijzigingen opslaan"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "Log in"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "Log uit"
   },
   "collection.button.delete-icon": {
     "message": "Delete icon"
@@ -198,7 +198,7 @@
     "message": "Edit icon"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Verwijder Project"
   },
   "collection.button.unfollow-project": {
     "message": "Unfollow project"
@@ -240,7 +240,7 @@
     "message": "Owner"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "Privé"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
@@ -288,7 +288,7 @@
     "message": "Lijstweergave"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "Collecties"
   },
   "label.created-ago": {
     "message": "Created {ago}"
@@ -300,49 +300,49 @@
     "message": "Delete"
   },
   "label.description": {
-    "message": "Description"
+    "message": "Beschrijving"
   },
   "label.error": {
     "message": "Error"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "Gevolgde Projecten"
   },
   "label.moderation": {
     "message": "Moderation"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "Meldingen"
   },
   "label.password": {
-    "message": "Password"
+    "message": "Wachtwoord"
   },
   "label.public": {
     "message": "Public"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "Afgewezen"
   },
   "label.scopes": {
     "message": "Scopes"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "Instellingen"
   },
   "label.title": {
-    "message": "Title"
+    "message": "Titel"
   },
   "label.unlisted": {
     "message": "Unlisted"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "Zichtbaarheid"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "Thema veranderen"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "Download Modrinth App"
   },
   "layout.avatar.alt": {
     "message": "Your avatar"
@@ -372,13 +372,13 @@
     "message": "Privacy"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Regels"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Voorwaarden"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "Bedrijf"
   },
   "layout.footer.interact.title": {
     "message": "Interact"
@@ -393,25 +393,25 @@
     "message": "Blog"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "Documenten"
   },
   "layout.footer.resources.status": {
     "message": "Status"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "Ondersteuning"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "Bronnen"
   },
   "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Bezoek je profiel"
   },
   "layout.menu-toggle.action": {
     "message": "Toggle menu"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Download Minecraft mods, plugins datapacks, shaders recourcepacks op Modrinth. Ontdek en publiceer projecten op Modrinth met een modern en makkelijk te gebruiken interface en API."
   },
   "layout.meta.og-description": {
     "message": "Discover and publish Minecraft content!"
