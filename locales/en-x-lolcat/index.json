@@ -63,22 +63,22 @@
     "message": "Enter two-factor code"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Intr code?????? K..."
   },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>I forgot.</forgot-password-link> • <create-account-link>Count me in!</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "emAil oR username?? plz?"
   },
   "auth.sign-in.password.label": {
     "message": "Secret code"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "oh hi sign in your  usEer acCCouNte"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Sagn inin"
   },
   "auth.sign-in.use-password": {
     "message": "Or use a password"
