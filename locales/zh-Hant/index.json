@@ -30,7 +30,7 @@
     "message": "電子郵件地址"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "如果您先前在帳號中儲存過電子郵件地址，則我們已傳送了一封包含說明的電子郵件給您。"
+    "message": "如果您先前在帳號中儲存過電子郵件地址，則我們已傳送了一封包含指示的電子郵件給您。"
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "已傳送電子郵件"
@@ -207,7 +207,7 @@
     "message": "上傳圖示"
   },
   "collection.delete-modal.description": {
-    "message": "這項操作會永久刪除這個收藏夾，且永久無法復原。"
+    "message": "這項動作會永久刪除這個收藏夾，且永久無法復原。"
   },
   "collection.delete-modal.title": {
     "message": "您確定要刪除這個收藏夾嗎？"
@@ -708,7 +708,7 @@
     "message": "刪除工作階段"
   },
   "scopes.sessionRead.description": {
-    "message": "讀取活躍的工作階段"
+    "message": "讀取活動工作階段"
   },
   "scopes.sessionRead.label": {
     "message": "讀取工作階段"
@@ -807,7 +807,7 @@
     "message": "{label}。發生錯誤"
   },
   "settings.language.languages.load-failed": {
-    "message": "無法載入這個語言。請稍後再試。"
+    "message": "無法載入這種語言。請稍後再試。"
   },
   "settings.language.languages.search-field.description": {
     "message": "提交以聚焦第一個搜尋結果"
@@ -870,7 +870,7 @@
     "message": "撤銷權杖"
   },
   "settings.pats.token.expired-ago": {
-    "message": "過期於 {ago}"
+    "message": "到期於 {ago}"
   },
   "settings.pats.token.expires-in": {
     "message": "到期於 {inTime}"
