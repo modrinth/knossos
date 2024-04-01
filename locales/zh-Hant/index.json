@@ -156,7 +156,7 @@
     "message": "訂閱有關 Modrinth 的更新"
   },
   "auth.welcome.description": {
-    "message": "感謝您建立帳號。現在您可以追蹤和建立專案、接收喜愛專案的更新資訊，以及享受更多功能！"
+    "message": "感謝您建立帳號。您現在可以追蹤和建立專案，接收有關您喜愛專案的更新，以及更多功能！"
   },
   "auth.welcome.label.tos": {
     "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》及《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
@@ -411,10 +411,10 @@
     "message": "切換選單"
   },
   "layout.meta.description": {
-    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。使用現代、易於使用的介面和 API 在 Modrinth 上探索及發布專案。"
+    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。使用現代、易於使用的介面和 API 在 Modrinth 上探索和發布專案。"
   },
   "layout.meta.og-description": {
-    "message": "探索及發布 Minecraft 內容！"
+    "message": "探索和發布 Minecraft 內容！"
   },
   "layout.nav.home": {
     "message": "首頁"
@@ -849,7 +849,7 @@
     "message": "刪除這個權杖"
   },
   "settings.pats.modal.delete.description": {
-    "message": "這項操作會永遠刪除這個權杖（真的是永遠）。"
+    "message": "這項操作會永遠刪除這個權杖（非常久）。"
   },
   "settings.pats.modal.delete.title": {
     "message": "您確定要刪除這個權杖嗎？"
@@ -906,6 +906,6 @@
     "message": "未知的平台"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} {time, time, short}"
+    "message": "{date, date, long}，{time, time, short}"
   }
 }
