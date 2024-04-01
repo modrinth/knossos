@@ -354,6 +354,7 @@
           >
         </p>
         <p>© Rinth, Inc.</p>
+        <p>frogs are cool</p>
       </div>
       <div class="links links-1" role="region" aria-label="Legal">
         <h4 aria-hidden="true">{{ formatMessage(footerMessages.companyTitle) }}</h4>
