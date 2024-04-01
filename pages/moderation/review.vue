@@ -13,6 +13,13 @@
       <button v-else class="iconified-button push-right" @click="oldestFirst = true">
         <SortAscIcon />Sorting by newest
       </button>
+      <button
+        class="btn btn-highlight"
+        :disabled="projectsFiltered.length === 0"
+        @click="goToProjects()"
+      >
+        <ModerationIcon /> Start moderating
+      </button>
     </div>
     <p v-if="projectType !== 'all'" class="project-count">
       Showing {{ projectsFiltered.length }} {{ projectTypePlural }} of {{ projects.length }} total
@@ -46,7 +53,7 @@
           >
             <Avatar :src="project.icon_url" size="xs" no-shadow raised />
             <span class="stacked">
-              <span class="title">{{ project.title }}</span>
+              <span class="title">{{ project.name }}</span>
               <span>{{ $formatProjectType(project.inferred_project_type) }}</span>
             </span>
           </nuxt-link>
@@ -101,6 +108,7 @@ import EyeIcon from '~/assets/images/utils/eye.svg'
 import SortAscIcon from '~/assets/images/utils/sort-asc.svg'
 import SortDescIcon from '~/assets/images/utils/sort-desc.svg'
 import WarningIcon from '~/assets/images/utils/issues.svg'
+import ModerationIcon from '~/assets/images/sidebar/admin.svg'
 import Badge from '~/components/ui/Badge.vue'
 import { formatProjectType } from '~/plugins/shorthands.js'
 
@@ -115,7 +123,7 @@ const TIME_24H = 86400000
 const TIME_48H = TIME_24H * 2
 
 const { data: projects } = await useAsyncData('moderation/projects?count=1000', () =>
-  useBaseFetch('moderation/projects?count=1000')
+  useBaseFetch('moderation/projects?count=1000', { internal: true })
 )
 const members = ref([])
 const projectType = ref('all')
@@ -125,7 +133,7 @@ const projectsFiltered = computed(() =>
   projects.value.filter(
     (x) =>
       projectType.value === 'all' ||
-      app.$getProjectTypeForUrl(x.project_type, x.loaders) === projectType.value
+      app.$getProjectTypeForUrl(x.project_types[0], x.loaders) === projectType.value
   )
 )
 
@@ -155,7 +163,7 @@ const projectTypes = computed(() => {
 })
 
 if (projects.value) {
-  const teamIds = projects.value.map((x) => x.team)
+  const teamIds = projects.value.map((x) => x.team_id)
   const organizationIds = projects.value.filter((x) => x.organization).map((x) => x.organization)
 
   const url = `teams?ids=${encodeURIComponent(JSON.stringify(teamIds))}`
@@ -169,7 +177,7 @@ if (projects.value) {
     projects.value = projects.value.map((project) => {
       project.owner = members.value
         .flat()
-        .find((x) => x.team_id === project.team && x.role === 'Owner')
+        .find((x) => x.team_id === project.team_id && x.role === 'Owner')
       project.org = orgs.value.find((x) => x.id === project.organization)
       project.age = project.queued ? now - app.$dayjs(project.queued) : Number.MAX_VALUE
       project.age_warning = ''
@@ -179,12 +187,28 @@ if (projects.value) {
         project.age_warning = 'warning'
       }
       project.inferred_project_type = app.$getProjectTypeForUrl(
-        project.project_type,
+        project.project_types[0],
         project.loaders
       )
       return project
     })
   }
+}
+async function goToProjects() {
+  const router = useRouter()
+
+  const project = projectsFiltered.value[0]
+  await router.push({
+    name: 'type-id',
+    params: {
+      type: project.project_types[0],
+      id: project.slug ? project.slug : project.id,
+    },
+    state: {
+      showChecklist: true,
+      projects: projectsFiltered.value.slice(1).map((x) => (x.slug ? x.slug : x.id)),
+    },
+  })
 }
 </script>
 <style lang="scss" scoped>

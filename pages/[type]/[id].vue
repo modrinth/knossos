@@ -367,37 +367,6 @@
             </div>
           </div>
         </div>
-        <div
-          v-if="currentMember && project.moderator_message"
-          class="universal-card moderation-card"
-        >
-          <h2 class="card-header">Message from the moderators:</h2>
-          <div v-if="project.moderator_message.body">
-            <p v-if="project.moderator_message.message" class="mod-message__title">
-              {{ project.moderator_message.message }}
-            </p>
-          </div>
-          <div
-            class="markdown-body"
-            v-html="
-              renderString(
-                project.moderator_message.body
-                  ? project.moderator_message.body
-                  : project.moderator_message.message
-              )
-            "
-          />
-          <div class="buttons status-buttons">
-            <button
-              v-if="tags.approvedStatuses.includes(project.status)"
-              class="iconified-button"
-              @click="clearMessage"
-            >
-              <ClearIcon />
-              Clear message
-            </button>
-          </div>
-        </div>
       </div>
       <section class="normal-page__content">
         <ProjectMemberHeader
@@ -415,10 +384,6 @@
           :auth="auth"
           :tags="tags"
         />
-        <MessageBanner v-else-if="project.status === 'withheld'" message-type="warning">
-          {{ project.title }} has been removed from search by Modrinth's moderators. Please use
-          {{ project.title }} at your own risk.
-        </MessageBanner>
         <MessageBanner v-if="project.status === 'archived'" message-type="warning">
           {{ project.title }} has been archived. {{ project.title }} will not receive any further
           updates unless the author decides to unarchive the project.
@@ -465,7 +430,9 @@
                 href: `/${project.project_type}/${
                   project.slug ? project.slug : project.id
                 }/moderation`,
-                shown: !!currentMember,
+                shown:
+                  !!currentMember &&
+                  (isRejected(project) || isUnderReview(project) || isStaff(auth.user)),
               },
             ]"
           />
@@ -755,6 +722,11 @@
         </div>
       </div>
     </div>
+    <ModerationChecklist
+      v-if="auth.user && tags.staffRoles.includes(auth.user.role) && showModerationChecklist"
+      :project="project"
+      :reset-project="resetProject"
+    />
   </div>
 </template>
 <script setup>
@@ -769,10 +741,12 @@ import {
   Checkbox,
   ChartIcon,
   renderString,
+  isRejected,
+  isUnderReview,
+  isStaff,
 } from 'omorphia'
 import CrownIcon from '~/assets/images/utils/crown.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
-import ClearIcon from '~/assets/images/utils/clear.svg'
 import DownloadIcon from '~/assets/images/utils/download.svg'
 import UpdateIcon from '~/assets/images/utils/updated.svg'
 import QueuedIcon from '~/assets/images/utils/list-end.svg'
@@ -815,6 +789,7 @@ import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import { userCollectProject } from '~/composables/user.js'
 import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 import OrganizationIcon from '~/assets/images/utils/organization.svg'
+import ModerationChecklist from '~/components/ui/ModerationChecklist.vue'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -1040,31 +1015,6 @@ if (!route.name.startsWith('type-id-settings')) {
 
 const onUserCollectProject = useClientTry(userCollectProject)
 
-async function clearMessage() {
-  startLoading()
-
-  try {
-    await useBaseFetch(`project/${project.value.id}`, {
-      method: 'PATCH',
-      body: {
-        moderation_message: null,
-        moderation_message_body: null,
-      },
-    })
-
-    project.value.moderator_message = null
-  } catch (err) {
-    data.$notify({
-      group: 'main',
-      title: 'An error occurred',
-      text: err.data.description,
-      type: 'error',
-    })
-  }
-
-  stopLoading()
-}
-
 async function setProcessing() {
   startLoading()
 
@@ -1207,6 +1157,11 @@ async function copyId() {
 }
 
 const collapsedChecklist = ref(false)
+
+const showModerationChecklist = ref(false)
+if (process.client && history && history.state && history.state.showChecklist) {
+  showModerationChecklist.value = true
+}
 </script>
 <style lang="scss" scoped>
 .header {
