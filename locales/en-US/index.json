@@ -779,6 +779,18 @@
   "scopes.versionWrite.label": {
     "message": "Write versions"
   },
+  "settings.account.title": {
+    "message": "Account and security"
+  },
+  "settings.appearance.title": {
+    "message": "Appearance"
+  },
+  "settings.applications.title": {
+    "message": "Your applications"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Authorized apps"
+  },
   "settings.language.categories.auto": {
     "message": "Automatic"
   },
@@ -858,10 +870,7 @@
     "message": "Edit personal access token"
   },
   "settings.pats.title": {
-    "message": "PATs"
-  },
-  "settings.pats.title.long": {
-    "message": "Personal Access Tokens"
+    "message": "Personal access tokens"
   },
   "settings.pats.token.action.edit": {
     "message": "Edit token"
@@ -880,6 +889,9 @@
   },
   "settings.pats.token.never-used": {
     "message": "Never used"
+  },
+  "settings.profile.title": {
+    "message": "Public profile"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Revoke session"

@@ -894,31 +894,6 @@ tr.button-transparent {
   }
 }
 
-.card {
-  position: relative;
-  min-height: var(--font-size-2xl);
-  padding: var(--spacing-card-md) var(--spacing-card-lg);
-
-  background: var(--color-raised-bg);
-  border-radius: var(--size-rounded-card);
-  outline: 2px solid transparent;
-
-  margin-bottom: var(--spacing-card-md);
-
-  box-shadow: var(--shadow-card);
-
-  .card__overlay {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    grid-gap: 0.5rem;
-    z-index: 2;
-  }
-}
-
 .card-divider {
   background-color: var(--color-divider);
   border: none;
