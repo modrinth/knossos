@@ -83,3 +83,6 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# Automatically generated locale files
+/locales/en-US/index.json
