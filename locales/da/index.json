@@ -18,7 +18,7 @@
     "message": "Du vil blive omdirigeret til <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Send gendannelses e-mail"
   },
   "auth.reset-password.method-choice.description": {
     "message": "Indtast din e-mail nedenfor, så sender vi et gendannelseslink, så du kan gendanne din konto."
@@ -57,10 +57,10 @@
     "message": "Nulstil din adgangskode"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Indtast venligst en tofaktorkode for at fortsætte."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Indtast venligst en tofaktorkode for at fortsætte."
   },
   "auth.sign-in.2fa.placeholder": {
     "message": "Indtast kode..."
@@ -135,7 +135,7 @@
     "message": "Resend verification email"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Vi var ikke i stand til at bekræfte din e-mail. Prøv at sende bekræftelses-e-mailen igen via dit betjeningspanel ved at logge ind."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
     "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
