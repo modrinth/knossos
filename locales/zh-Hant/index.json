@@ -348,7 +348,7 @@
     "message": "您的相片"
   },
   "layout.banner.add-email.button": {
-    "message": "調整帳號設定"
+    "message": "前往帳號設定"
   },
   "layout.banner.add-email.title": {
     "message": "基於安全考量，請在 Modrinth 上輸入您的電子郵件地址。"
@@ -807,7 +807,7 @@
     "message": "{label}。發生錯誤"
   },
   "settings.language.languages.load-failed": {
-    "message": "無法載入這種語言。請稍後再試。"
+    "message": "無法載入此語言。請稍後再試。"
   },
   "settings.language.languages.search-field.description": {
     "message": "提交以聚焦第一個搜尋結果"
@@ -891,7 +891,7 @@
     "message": "目前的工作階段"
   },
   "settings.sessions.description": {
-    "message": "下列為您目前已登入 Modrinth 帳號的所有裝置。您可以個別登出每部裝置。\n\n如果您看到不認識的裝置，請立即登出該裝置並變更您的 Modrinth 帳號密碼。"
+    "message": "您目前已在下列裝置上登入 Modrinth 帳號。您可以單獨登出每部裝置。\n\n如果您看到不認識的裝置，請立即登出該裝置並變更您的 Modrinth 帳號密碼。"
   },
   "settings.sessions.last-accessed-ago": {
     "message": "上次存取於 {ago}"
