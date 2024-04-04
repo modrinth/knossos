@@ -156,7 +156,7 @@
     "message": "訂閱有關 Modrinth 的更新"
   },
   "auth.welcome.description": {
-    "message": "感謝您建立帳號。您現在可以追蹤和建立專案，接收有關您喜愛專案的更新，以及更多功能！"
+    "message": "感謝您建立帳號。您現在可以追蹤專案、建立專案、接收喜愛專案的更新資訊，以及享用更多功能！"
   },
   "auth.welcome.label.tos": {
     "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
@@ -306,7 +306,7 @@
     "message": "錯誤"
   },
   "label.followed-projects": {
-    "message": "已追蹤的專案"
+    "message": "正在追蹤的專案"
   },
   "label.moderation": {
     "message": "管理"
@@ -576,7 +576,7 @@
     "message": "讀取通知"
   },
   "scopes.notificationWrite.description": {
-    "message": "刪除／查看您的通知"
+    "message": "刪除及查看您的通知"
   },
   "scopes.notificationWrite.label": {
     "message": "寫入通知"
