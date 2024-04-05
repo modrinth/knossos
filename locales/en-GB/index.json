@@ -24,7 +24,7 @@
     "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "Email or Username"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
     "message": "Email"
@@ -36,7 +36,7 @@
     "message": "Email sent"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "You can now log in to your account with your new password."
   },
   "auth.reset-password.notification.password-reset.title": {
     "message": "Password successfully reset"
@@ -69,7 +69,7 @@
     "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Email or Username"
   },
   "auth.sign-in.password.label": {
     "message": "Password"
@@ -108,7 +108,7 @@
     "message": "Already have an account?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Subscribe to updated about Modrinth"
   },
   "auth.sign-up.title": {
     "message": "Sign Up"
@@ -123,7 +123,7 @@
     "message": "Account settings"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Sign In"
   },
   "auth.verify-email.already-verified.description": {
     "message": "Your email is already verified!"
@@ -135,10 +135,10 @@
     "message": "Resend verification email"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "We were unable to verify your email. Try resending the verification email through your dashboard by signing in."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "We were unable to verify your email. Try resending the verification email through the button below."
   },
   "auth.verify-email.failed-verification.title": {
     "message": "Email verification failed"
@@ -186,10 +186,10 @@
     "message": "Save changes"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "Sign In"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "Sign Out"
   },
   "collection.button.delete-icon": {
     "message": "Delete icon"
@@ -357,10 +357,10 @@
     "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
   },
   "layout.banner.staging.title": {
-    "message": "You’re viewing Modrinth’s staging environment."
+    "message": "You're viewing Modrinth's staging environment."
   },
   "layout.banner.verify-email.action": {
-    "message": "Re-send verification email"
+    "message": "Resend verification email"
   },
   "layout.banner.verify-email.title": {
     "message": "For security purposes, please verify your email address on Modrinth."
@@ -588,13 +588,13 @@
     "message": "Create organisations"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Delete organisations"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Delete organisations"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Read organisations"
   },
   "scopes.organizationRead.label": {
     "message": "Read organisations"
