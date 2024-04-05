@@ -156,7 +156,7 @@
     "message": "訂閱有關 Modrinth 的更新"
   },
   "auth.welcome.description": {
-    "message": "感謝您建立帳號。您現在可以追蹤專案、建立專案、接收喜愛專案的更新資訊，以及享用更多功能！"
+    "message": "感謝您建立帳號。您現在可以追蹤專案、建立專案、接收喜愛專案的更新資訊，以及享有更多功能！"
   },
   "auth.welcome.label.tos": {
     "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
@@ -216,7 +216,7 @@
     "message": "{description} — 在 Modrinth 上查看 {username} 的收藏夾 {name}"
   },
   "collection.description.following": {
-    "message": "自動產生的收藏夾，包含您正在追蹤的所有專案。"
+    "message": "這個收藏夾包含您正在追蹤的所有專案（自動產生）。"
   },
   "collection.error.not-found": {
     "message": "找不到收藏夾"
@@ -891,7 +891,7 @@
     "message": "目前的工作階段"
   },
   "settings.sessions.description": {
-    "message": "您目前已在下列裝置上登入 Modrinth 帳號。您可以單獨登出每部裝置。\n\n如果您看到不認識的裝置，請立即登出該裝置並變更您的 Modrinth 帳號密碼。"
+    "message": "您目前已在下列裝置上登入 Modrinth 帳號。您可以分別登出每部裝置。\n\n如果您看到不認識的裝置，請立即登出該裝置並變更您的 Modrinth 帳號密碼。"
   },
   "settings.sessions.last-accessed-ago": {
     "message": "上次存取於 {ago}"
