@@ -1,13 +1,18 @@
 <template>
   <div>
     <section class="card">
-      <h2>Profile information</h2>
+      <h2>{{ formatMessage(messages.title) }}</h2>
       <p>
-        Your profile information is publicly viewable on Modrinth and through the
-        <a href="https://docs.modrinth.com/" target="_blank" class="text-link">Modrinth API</a>.
+        <IntlFormatted :message-id="messages.description">
+          <template #docs-link="{ children }">
+            <a href="https://docs.modrinth.com/" target="_blank" class="text-link">
+              <component :is="() => children" />
+            </a>
+          </template>
+        </IntlFormatted>
       </p>
       <label>
-        <span class="label__title">Profile picture</span>
+        <span class="label__title">{{ formatMessage(messages.profilePicture) }}</span>
       </label>
       <div class="avatar-changer">
         <Avatar
@@ -21,7 +26,7 @@
             :max-size="262144"
             :show-icon="true"
             class="btn"
-            :prompt="'Upload image'"
+            :prompt="formatMessage(commonMessages.uploadImageButton)"
             accept="image/png,image/jpeg,image/gif,image/webp"
             @change="showPreviewImage"
           >
@@ -36,33 +41,45 @@
               }
             "
           >
-            <UndoIcon />Reset icon
+            <UndoIcon />
+            {{ formatMessage(messages.profilePictureReset) }}
           </Button>
         </div>
       </div>
       <label for="username-field">
-        <span class="label__title">Username</span>
+        <span class="label__title">{{ formatMessage(messages.usernameTitle) }}</span>
         <span class="label__description">
-          A unique case-insensitive name to identify your profile.
+          {{ formatMessage(messages.usernameDescription) }}
         </span>
       </label>
       <input id="username-field" v-model="username" type="text" />
       <label for="bio-field">
-        <span class="label__title">Bio</span>
+        <span class="label__title">{{ formatMessage(messages.bioTitle) }}</span>
         <span class="label__description">
-          A short description to tell everyone a little bit about you.
+          {{ formatMessage(messages.bioDescription) }}
         </span>
       </label>
       <textarea id="bio-field" v-model="bio" type="text" />
       <div v-if="hasUnsavedChanges" class="input-group">
-        <Button color="primary" :action="() => saveChanges()"> <SaveIcon /> Save changes </Button>
-        <Button :action="() => cancel()"> <XIcon /> Cancel </Button>
+        <Button color="primary" :action="() => saveChanges()">
+          <SaveIcon /> {{ formatMessage(commonMessages.saveChangesButton) }}
+        </Button>
+        <Button :action="() => cancel()">
+          <XIcon /> {{ formatMessage(commonMessages.cancelButton) }}
+        </Button>
       </div>
       <div v-else class="input-group">
         <Button disabled color="primary" :action="() => saveChanges()">
-          <SaveIcon /> {{ saved ? 'Changes saved' : 'Save changes' }}
+          <SaveIcon />
+          {{
+            saved
+              ? formatMessage(commonMessages.changesSavedLabel)
+              : formatMessage(commonMessages.saveChangesButton)
+          }}
         </Button>
-        <Button :link="`/user/${auth.user.username}`"> <UserIcon /> Visit your profile </Button>
+        <Button :link="`/user/${auth.user.username}`">
+          <UserIcon /> {{ formatMessage(messages.visitProfile) }}
+        </Button>
       </div>
     </section>
   </div>
@@ -79,6 +96,7 @@ import {
   UndoIcon,
   XIcon,
 } from 'omorphia'
+import { commonMessages } from '~/utils/common-messages'
 
 useHead({
   title: 'Account settings - Modrinth',
@@ -86,6 +104,48 @@ useHead({
 
 definePageMeta({
   middleware: 'auth',
+})
+
+const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  title: {
+    id: 'settings.profile.profile-info',
+    defaultMessage: 'Profile information',
+  },
+  description: {
+    id: 'settings.profile.description',
+    defaultMessage:
+      'Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>.',
+  },
+  profilePicture: {
+    id: 'settings.profile.profile-picture.title',
+    defaultMessage: 'Profile picture',
+  },
+  profilePictureReset: {
+    id: 'settings.profile.profile-picture.reset',
+    defaultMessage: 'Reset',
+  },
+  usernameTitle: {
+    id: 'settings.profile.username.title',
+    defaultMessage: 'Username',
+  },
+  usernameDescription: {
+    id: 'settings.profile.username.description',
+    defaultMessage: 'A unique case-insensitive name to identify your profile.',
+  },
+  bioTitle: {
+    id: 'settings.profile.bio.title',
+    defaultMessage: 'Bio',
+  },
+  bioDescription: {
+    id: 'settings.profile.bio.description',
+    defaultMessage: 'A short description to tell everyone a little bit about you.',
+  },
+  visitProfile: {
+    id: 'settings.profile.visit-profile',
+    defaultMessage: 'Visit your profile',
+  },
 })
 
 const auth = await useAuth()
@@ -175,6 +235,7 @@ async function saveChanges() {
 .avatar-changer {
   display: flex;
   gap: var(--gap-lg);
+  margin-top: var(--gap-md);
 }
 
 textarea {

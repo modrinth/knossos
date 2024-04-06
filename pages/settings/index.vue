@@ -1,19 +1,26 @@
 <template>
   <div>
     <MessageBanner v-if="cosmetics.developerMode" message-type="warning" class="developer-message">
-      <CodeIcon /> <strong>Developer mode</strong> is active. This will allow you to view the
-      internal IDs of various things throughout Modrinth that may be helpful if you're a developer
-      using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle
-      developer mode.
-      <Button :action="() => disableDeveloperMode()"> Deactivate developer mode </Button>
+      <CodeIcon />
+      <IntlFormatted :message-id="developerModeBanner.description">
+        <template #strong="{ children }">
+          <strong>
+            <component :is="() => normalizeChildren(children)" />
+          </strong>
+        </template>
+      </IntlFormatted>
+      <Button :action="() => disableDeveloperMode()">
+        {{ formatMessage(developerModeBanner.deactivate) }}
+      </Button>
     </MessageBanner>
     <section class="universal-card">
-      <h2>Color theme</h2>
+      <h2>{{ formatMessage(colorTheme.title) }}</h2>
+      <p>{{ formatMessage(colorTheme.description) }}</p>
       <div class="theme-options">
         <button
-          v-for="option in options"
+          v-for="option in themeOptions"
           :key="option"
-          class="theme-option button-base"
+          class="preview-radio button-base"
           :class="{ selected: theme.preference === option }"
           @click="() => updateColorTheme(option)"
         >
@@ -27,79 +34,130 @@
           <div class="label">
             <RadioButtonChecked v-if="theme.preference === option" class="radio" />
             <RadioButtonIcon v-else class="radio" />
-            {{ formatOption(option) }}
+            {{ colorTheme[option] ? formatMessage(colorTheme[option]) : option }}
+            <SunIcon
+              v-if="'light' === option"
+              v-tooltip="formatMessage(colorTheme.preferredLight)"
+              class="theme-icon"
+            />
+            <MoonIcon
+              v-else-if="cosmetics.preferredDarkTheme === option"
+              v-tooltip="formatMessage(colorTheme.preferredDark)"
+              class="theme-icon"
+            />
+
+            <SunIcon
+              v-else-if="option === 'system' && rawSystemTheme === 'light'"
+              v-tooltip="formatMessage(colorTheme.systemPrefersLight)"
+              class="theme-icon"
+            />
+            <MoonIcon
+              v-else-if="option === 'system' && rawSystemTheme === 'dark'"
+              v-tooltip="formatMessage(colorTheme.systemPrefersDark)"
+              class="theme-icon"
+            />
           </div>
         </button>
       </div>
     </section>
     <section class="universal-card">
-      <h2>Sidebar mode</h2>
-      <div class="adjacent-input small">
-        <label for="search-layout-toggle">
-          <span class="label__title">Search sidebar on the right</span>
-          <span class="label__description">
-            Enabling this will put the search page's filters sidebar on the right side.
-          </span>
-        </label>
-        <input
-          id="search-layout-toggle"
-          v-model="cosmetics.searchLayout"
-          class="switch stylized-toggle"
-          type="checkbox"
-          @change="saveCosmetics"
-        />
-      </div>
-      <div class="adjacent-input small">
-        <label for="project-layout-toggle">
-          <span class="label__title">Project sidebar on the right</span>
-          <span class="label__description"
-            >Enabling this will put the project pages' info sidebars on the right side.</span
-          >
-        </label>
-        <input
-          id="project-layout-toggle"
-          v-model="cosmetics.projectLayout"
-          class="switch stylized-toggle"
-          type="checkbox"
-          @change="saveCosmetics"
-        />
+      <h2>{{ formatMessage(projectListLayouts.title) }}</h2>
+      <p>{{ formatMessage(projectListLayouts.description) }}</p>
+      <div class="project-lists">
+        <div v-for="projectType in listTypes" :key="projectType.id + '-project-list-layouts'">
+          <div class="label">
+            <div class="label__title">
+              {{
+                projectListLayouts[projectType.id]
+                  ? formatMessage(projectListLayouts[projectType.id])
+                  : projectType.id
+              }}
+            </div>
+          </div>
+          <div class="project-list-layouts">
+            <button
+              class="preview-radio button-base"
+              :class="{ selected: cosmetics.searchDisplayMode[projectType.id] === 'list' }"
+              @click="() => (cosmetics.searchDisplayMode[projectType.id] = 'list')"
+            >
+              <div class="preview">
+                <div class="layout-list-mode">
+                  <div class="example-card card"></div>
+                  <div class="example-card card"></div>
+                  <div class="example-card card"></div>
+                  <div class="example-card card"></div>
+                </div>
+              </div>
+              <div class="label">
+                <RadioButtonChecked
+                  v-if="cosmetics.searchDisplayMode[projectType.id] === 'list'"
+                  class="radio"
+                />
+                <RadioButtonIcon v-else class="radio" />
+                Rows
+              </div>
+            </button>
+            <button
+              class="preview-radio button-base"
+              :class="{ selected: cosmetics.searchDisplayMode[projectType.id] === 'grid' }"
+              @click="() => (cosmetics.searchDisplayMode[projectType.id] = 'grid')"
+            >
+              <div class="preview">
+                <div class="layout-grid-mode">
+                  <div class="example-card card"></div>
+                  <div class="example-card card"></div>
+                  <div class="example-card card"></div>
+                  <div class="example-card card"></div>
+                  <div class="example-card card"></div>
+                  <div class="example-card card"></div>
+                </div>
+              </div>
+              <div class="label">
+                <RadioButtonChecked
+                  v-if="cosmetics.searchDisplayMode[projectType.id] === 'grid'"
+                  class="radio"
+                />
+                <RadioButtonIcon v-else class="radio" />
+                Grid
+              </div>
+            </button>
+            <button
+              class="preview-radio button-base"
+              :class="{ selected: cosmetics.searchDisplayMode[projectType.id] === 'gallery' }"
+              @click="() => (cosmetics.searchDisplayMode[projectType.id] = 'gallery')"
+            >
+              <div class="preview">
+                <div class="layout-gallery-mode">
+                  <div class="example-card card"></div>
+                  <div class="example-card card"></div>
+                  <div class="example-card card"></div>
+                  <div class="example-card card"></div>
+                </div>
+              </div>
+              <div class="label">
+                <RadioButtonChecked
+                  v-if="cosmetics.searchDisplayMode[projectType.id] === 'gallery'"
+                  class="radio"
+                />
+                <RadioButtonIcon v-else class="radio" />
+                Gallery
+              </div>
+            </button>
+          </div>
+        </div>
       </div>
     </section>
     <section class="universal-card">
-      <h2>Project list display mode</h2>
-      <div
-        v-for="projectType in listTypes"
-        :key="projectType.id + '-display-mode-selector'"
-        class="adjacent-input"
-      >
-        <label :for="projectType.id + '-search-display-mode'">
-          <span class="label__title">{{ projectType.name }} display mode</span>
-          <span class="label__description"
-            >Change the display view for {{ projectType.display }}.</span
-          >
-        </label>
-        <Multiselect
-          :id="projectType + '-search-display-mode'"
-          v-model="cosmetics.searchDisplayMode[projectType.id]"
-          :options="tags.projectViewModes"
-          :custom-label="$capitalizeString"
-          :searchable="false"
-          :close-on-select="true"
-          :show-labels="false"
-          :allow-empty="false"
-          @update:model-value="saveCosmetics"
-        />
-      </div>
-    </section>
-    <section class="universal-card">
-      <h2>Feature flags</h2>
+      <h2>{{ formatMessage(featureFlags.title) }}</h2>
+      <p>{{ formatMessage(featureFlags.description) }}</p>
       <div class="adjacent-input small">
         <label for="advanced-rendering">
-          <span class="label__title">Advanced rendering</span>
-          <span class="label__description"
-            >Enables advanced rendering such as blur effects that may cause performance issues
-            without hardware-accelerated rendering.</span
-          >
+          <span class="label__title">
+            {{ formatMessage(featureFlags.advancedRenderingTitle) }}
+          </span>
+          <span class="label__description">
+            {{ formatMessage(featureFlags.advancedRenderingDescription) }}
+          </span>
         </label>
         <input
           id="advanced-rendering"
@@ -111,11 +169,11 @@
       </div>
       <div class="adjacent-input small">
         <label for="external-links-new-tab">
-          <span class="label__title">Open external links in new tab</span>
+          <span class="label__title">
+            {{ formatMessage(featureFlags.externalLinksNewTabTitle) }}
+          </span>
           <span class="label__description">
-            Make links which go outside of Modrinth open in a new tab. No matter this setting, links
-            on the same domain and in Markdown descriptions will open in the same tab, and links on
-            ads and edit pages will open in a new tab.
+            {{ formatMessage(featureFlags.externalLinksNewTabDescription) }}
           </span>
         </label>
         <input
@@ -128,10 +186,11 @@
       </div>
       <div class="adjacent-input small">
         <label for="modrinth-app-promos">
-          <span class="label__title">Hide Modrinth App promotions</span>
+          <span class="label__title">
+            {{ formatMessage(featureFlags.hideModrinthAppPromosTitle) }}
+          </span>
           <span class="label__description">
-            Hides the "Get Modrinth App" buttons from primary navigation. The Modrinth App page can
-            still be found on the landing page or in the footer.
+            {{ formatMessage(featureFlags.hideModrinthAppPromosDescription) }}
           </span>
         </label>
         <input
@@ -142,28 +201,218 @@
           @change="saveCosmetics"
         />
       </div>
+      <div class="adjacent-input small">
+        <label for="search-layout-toggle">
+          <span class="label__title">
+            {{ formatMessage(featureFlags.rightAlignedSearchSidebarTitle) }}
+          </span>
+          <span class="label__description">
+            {{ formatMessage(featureFlags.rightAlignedSearchSidebarDescription) }}
+          </span>
+        </label>
+        <input
+          id="search-layout-toggle"
+          v-model="cosmetics.searchLayout"
+          class="switch stylized-toggle"
+          type="checkbox"
+          @change="saveCosmetics"
+        />
+      </div>
+      <div class="adjacent-input small">
+        <label for="project-layout-toggle">
+          <span class="label__title">
+            {{ formatMessage(featureFlags.rightAlignedProjectSidebarTitle) }}
+          </span>
+          <span class="label__description">
+            {{ formatMessage(featureFlags.rightAlignedProjectSidebarDescription) }}
+          </span>
+        </label>
+        <input
+          id="project-layout-toggle"
+          v-model="cosmetics.projectLayout"
+          class="switch stylized-toggle"
+          type="checkbox"
+          @change="saveCosmetics"
+        />
+      </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { Multiselect } from 'vue-multiselect'
-import { CodeIcon, Button, RadioButtonIcon, RadioButtonChecked } from 'omorphia'
+import { CodeIcon, Button, RadioButtonIcon, RadioButtonChecked, SunIcon, MoonIcon } from 'omorphia'
 import { formatProjectType } from '~/plugins/shorthands.js'
 import MessageBanner from '~/components/ui/MessageBanner.vue'
+import { DARK_THEMES } from '~/composables/theme.js'
 
 useHead({
   title: 'Display settings - Modrinth',
+})
+
+const { formatMessage } = useVIntl()
+
+const developerModeBanner = defineMessages({
+  description: {
+    id: 'settings.display.banner.developer-mode.description',
+    defaultMessage:
+      "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode.",
+  },
+  deactivate: {
+    id: 'settings.display.banner.developer-mode.button',
+    defaultMessage: 'Deactivate developer mode',
+  },
+})
+
+const colorTheme = defineMessages({
+  title: {
+    id: 'settings.display.theme.title',
+    defaultMessage: 'Color theme',
+  },
+  description: {
+    id: 'settings.display.theme.description',
+    defaultMessage: 'Select your preferred color theme for Modrinth on this device.',
+  },
+  system: {
+    id: 'settings.display.theme.system',
+    defaultMessage: 'Sync with system',
+  },
+  light: {
+    id: 'settings.display.theme.light',
+    defaultMessage: 'Light',
+  },
+  dark: {
+    id: 'settings.display.theme.dark',
+    defaultMessage: 'Dark',
+  },
+  oled: {
+    id: 'settings.display.theme.oled',
+    defaultMessage: 'OLED',
+  },
+  retro: {
+    id: 'settings.display.theme.retro',
+    defaultMessage: 'Retro',
+  },
+  preferredLight: {
+    id: 'settings.display.theme.preferred-light-theme',
+    defaultMessage: 'Preferred light theme',
+  },
+  preferredDark: {
+    id: 'settings.display.theme.preferred-dark-theme',
+    defaultMessage: 'Preferred dark theme',
+  },
+  systemPrefersLight: {
+    id: 'settings.display.theme.system-prefers-light',
+    defaultMessage: 'System prefers light theme',
+  },
+  systemPrefersDark: {
+    id: 'settings.display.theme.system-prefers-dark',
+    defaultMessage: 'System prefers dark theme',
+  },
+})
+
+const projectListLayouts = defineMessages({
+  title: {
+    id: 'settings.display.project-list-layouts.title',
+    defaultMessage: 'Project list layouts',
+  },
+  description: {
+    id: 'settings.display.project-list-layouts.description',
+    defaultMessage:
+      'Select your preferred layout for each page that displays project lists on this device.',
+  },
+  mod: {
+    id: 'settings.display.project-list-layouts.mod',
+    defaultMessage: 'Mods page',
+  },
+  plugin: {
+    id: 'settings.display.project-list-layouts.plugin',
+    defaultMessage: 'Plugins page',
+  },
+  datapack: {
+    id: 'settings.display.project-list-layouts.datapack',
+    defaultMessage: 'Data Packs page',
+  },
+  shader: {
+    id: 'settings.display.project-list-layouts.shader',
+    defaultMessage: 'Shaders page',
+  },
+  resourcepack: {
+    id: 'settings.display.project-list-layouts.resourcepack',
+    defaultMessage: 'Resource Packs page',
+  },
+  modpack: {
+    id: 'settings.display.project-list-layouts.modpack',
+    defaultMessage: 'Modpacks page',
+  },
+  user: {
+    id: 'settings.display.project-list-layouts.user',
+    defaultMessage: 'User profile pages',
+  },
+})
+
+const featureFlags = defineMessages({
+  title: {
+    id: 'settings.display.flags.title',
+    defaultMessage: 'Feature flags',
+  },
+  description: {
+    id: 'settings.display.flags.description',
+    defaultMessage: 'Enable or disable certain features on this device.',
+  },
+  advancedRenderingTitle: {
+    id: 'settings.display.sidebar.advanced-rendering.title',
+    defaultMessage: 'Advanced rendering',
+  },
+  advancedRenderingDescription: {
+    id: 'settings.display.sidebar.advanced-rendering.description',
+    defaultMessage:
+      'Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering.',
+  },
+  externalLinksNewTabTitle: {
+    id: 'settings.display.sidebar.external-links-new-tab.title',
+    defaultMessage: 'Open external links in new tab',
+  },
+  externalLinksNewTabDescription: {
+    id: 'settings.display.sidebar.external-links-new-tab.description',
+    defaultMessage:
+      'Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab.',
+  },
+  hideModrinthAppPromosTitle: {
+    id: 'settings.display.sidebar.hide-app-promos.title',
+    defaultMessage: 'Hide Modrinth App promotions',
+  },
+  hideModrinthAppPromosDescription: {
+    id: 'settings.display.sidebar.hide-app-promos.description',
+    defaultMessage:
+      'Hides the "Get Modrinth App" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer.',
+  },
+  rightAlignedSearchSidebarTitle: {
+    id: 'settings.display.sidebar.right-aligned-search-sidebar.title',
+    defaultMessage: 'Right-aligned search sidebar',
+  },
+  rightAlignedSearchSidebarDescription: {
+    id: 'settings.display.sidebar.right-aligned-search-sidebar.description',
+    defaultMessage: 'Aligns the search filters sidebar to the right of the search results.',
+  },
+  rightAlignedProjectSidebarTitle: {
+    id: 'settings.display.sidebar.right-aligned-project-sidebar.title',
+    defaultMessage: 'Right-aligned project sidebar',
+  },
+  rightAlignedProjectSidebarDescription: {
+    id: 'settings.display.sidebar.right-aligned-project-sidebar.description',
+    defaultMessage: "Aligns the project details sidebar to the right of the page's content.",
+  },
 })
 
 const cosmetics = useCosmetics()
 const tags = useTags()
 
 const systemTheme = ref('light')
+const rawSystemTheme = ref('light')
 
 const theme = useTheme()
 
-const options = computed(() => {
+const themeOptions = computed(() => {
   const options = ['system', 'light', 'dark', 'oled']
   if (cosmetics.value.developerMode || theme.value.preference === 'retro') {
     options.push('retro')
@@ -171,28 +420,26 @@ const options = computed(() => {
   return options
 })
 
-function formatOption(value) {
-  if (value === 'oled') {
-    return 'OLED'
-  } else if (value === 'system') {
-    return 'Sync with system'
-  }
-  return value.charAt(0).toUpperCase() + value.slice(1)
-}
-
 onMounted(() => {
-  const colorSchemeQueryList = window.matchMedia('(prefers-color-scheme: light)')
-  if (colorSchemeQueryList.matches) {
-    systemTheme.value = 'light'
-  } else {
-    systemTheme.value = 'dark'
-  }
+  updateSystemTheme()
 })
 
+function updateSystemTheme() {
+  const colorSchemeQueryList = window.matchMedia('(prefers-color-scheme: light)')
+  if (colorSchemeQueryList.matches) {
+    rawSystemTheme.value = 'light'
+    systemTheme.value = 'light'
+  } else {
+    rawSystemTheme.value = 'dark'
+    systemTheme.value = cosmetics.value.preferredDarkTheme
+  }
+}
+
 function updateColorTheme(value) {
-  if (['dark', 'oled', 'retro'].includes(value)) {
+  if (DARK_THEMES.includes(value)) {
     cosmetics.value.preferredDarkTheme = value
     saveCosmetics()
+    updateSystemTheme()
   }
   updateTheme(value, true)
 }
@@ -212,25 +459,20 @@ const listTypes = computed(() => {
   const types = tags.value.projectTypes.map((type) => {
     return {
       id: type.id,
-      name: formatProjectType(type.id) + ' search',
+      name: formatProjectType(type.id) + 's',
       display: 'the ' + formatProjectType(type.id).toLowerCase() + 's search page',
     }
   })
   types.push({
     id: 'user',
-    name: 'User page',
+    name: 'User profiles',
     display: 'user pages',
   })
   return types
 })
 </script>
 <style scoped lang="scss">
-.theme-options {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--gap-lg);
-}
-.theme-option {
+.preview-radio {
   width: 100%;
   border-radius: var(--radius-md);
   padding: 0;
@@ -238,63 +480,167 @@ const listTypes = computed(() => {
   border: 1px solid var(--color-divider);
   background-color: var(--color-button-bg);
   color: var(--color-base);
+  display: flex;
+  flex-direction: column;
+  outline: 2px solid transparent;
 
   &.selected {
     color: var(--color-contrast);
 
-    .label svg {
-      color: var(--color-brand);
+    .label {
+      .radio {
+        color: var(--color-brand);
+      }
+
+      .theme-icon {
+        color: var(--color-text);
+      }
     }
   }
 
   .preview {
     background-color: var(--color-bg);
     padding: 1.5rem;
+    outline: 2px solid transparent;
 
     .example-card {
       margin: 0;
       padding: 1rem;
-      display: grid;
-      grid-template: 'icon text1' 'icon text2';
-      grid-template-columns: auto 1fr;
-      gap: 0.5rem;
-
-      .example-icon {
-        grid-area: icon;
-        width: 2rem;
-        height: 2rem;
-        background-color: var(--color-button-bg);
-        border-radius: var(--radius-sm);
-      }
-
-      .example-text-1,
-      .example-text-2 {
-        height: 0.5rem;
-        border-radius: var(--radius-sm);
-      }
-
-      .example-text-1 {
-        grid-area: text1;
-        width: 100%;
-        background-color: var(--color-base);
-      }
-
-      .example-text-2 {
-        grid-area: text2;
-        width: 60%;
-        background-color: var(--color-secondary);
-      }
+      outline: 2px solid transparent;
+      min-height: 0;
     }
   }
 
   .label {
     display: flex;
     align-items: center;
+    text-align: left;
+    flex-grow: 1;
     padding: var(--gap-md) var(--gap-lg);
 
-    svg {
+    .radio {
       margin-right: 0.5rem;
     }
+
+    .theme-icon {
+      color: var(--color-secondary);
+      margin-left: 0.25rem;
+    }
+  }
+}
+.theme-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--gap-lg);
+
+  .preview .example-card {
+    margin: 0;
+    padding: 1rem;
+    display: grid;
+    grid-template: 'icon text1' 'icon text2';
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+    outline: 2px solid transparent;
+
+    .example-icon {
+      grid-area: icon;
+      width: 2rem;
+      height: 2rem;
+      background-color: var(--color-button-bg);
+      border-radius: var(--radius-sm);
+      outline: 2px solid transparent;
+    }
+
+    .example-text-1,
+    .example-text-2 {
+      height: 0.5rem;
+      border-radius: var(--radius-sm);
+      outline: 2px solid transparent;
+    }
+
+    .example-text-1 {
+      grid-area: text1;
+      width: 100%;
+      background-color: var(--color-base);
+    }
+
+    .example-text-2 {
+      grid-area: text2;
+      width: 60%;
+      background-color: var(--color-secondary);
+    }
+  }
+}
+
+.project-lists {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+
+  > :first-child .label__title {
+    margin-top: 0;
+  }
+
+  .preview {
+    --_layout-width: 7rem;
+    --_layout-height: 4.5rem;
+    --_layout-gap: 0.25rem;
+
+    .example-card {
+      border-radius: 0.5rem;
+      width: var(--_layout-width);
+      height: calc((var(--_layout-height) - 3 * var(--_layout-gap)) / 4);
+      padding: 0;
+    }
+
+    .layout-list-mode {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--_layout-gap);
+    }
+
+    .layout-grid-mode {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--_layout-gap);
+
+      .example-card {
+        width: calc((var(--_layout-width) - 2 * var(--_layout-gap)) / 3);
+        height: calc((var(--_layout-height) - var(--_layout-gap)) / 2);
+      }
+    }
+
+    .layout-gallery-mode {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--_layout-gap);
+
+      .example-card {
+        width: calc((var(--_layout-width) - var(--_layout-gap)) / 2);
+        height: calc((var(--_layout-height) - var(--_layout-gap)) / 2);
+      }
+    }
+  }
+}
+
+.project-list-layouts {
+  display: flex;
+  gap: var(--gap-lg);
+  width: fit-content;
+
+  .preview-radio .example-card {
+    border: 2px solid transparent;
+  }
+
+  .preview-radio.selected .example-card {
+    border-color: var(--color-brand);
+    background-color: var(--color-brand-highlight);
+  }
+
+  .preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -302,6 +648,7 @@ const listTypes = computed(() => {
   svg {
     vertical-align: middle;
     margin-bottom: 2px;
+    margin-right: 0.5rem;
   }
 
   .btn {
