@@ -288,7 +288,7 @@
     "message": "Grid view"
   },
   "input.view.list": {
-    "message": "List view"
+    "message": "Rows view"
   },
   "label.changes-saved": {
     "message": "Changes saved"

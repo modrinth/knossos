@@ -69,7 +69,7 @@ export const commonMessages = defineMessages({
   },
   listInputView: {
     id: 'input.view.list',
-    defaultMessage: 'List view',
+    defaultMessage: 'Rows view',
   },
   moderationLabel: {
     id: 'label.moderation',
