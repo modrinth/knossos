@@ -294,7 +294,7 @@
     "message": "Δημιουργήθηκε {ago}"
   },
   "label.dashboard": {
-    "message": "Ταμπλό"
+    "message": "Πίνακας ελέγχου"
   },
   "label.delete": {
     "message": "Διαγραφή"
@@ -309,7 +309,7 @@
     "message": "Ακολουθούμενα έργα"
   },
   "label.moderation": {
-    "message": "Moderation"
+    "message": "Διοίκηση"
   },
   "label.notifications": {
     "message": "Ειδοποιήσεις"
@@ -366,58 +366,58 @@
     "message": "Για λόγους ασφαλείας, παρακαλούμε επαληθεύεστε το email σας στο Modrinth."
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "Καριέρες"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "Απόρρητο"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Κανόνες"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Όροι"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "Εταιρεία"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "Αλληλεπίδραση"
   },
   "layout.footer.legal-disclaimer": {
     "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "Modrinth είναι <github-link>ανοιχτή πηγή</github-link>."
   },
   "layout.footer.resources.blog": {
-    "message": "Blog"
+    "message": "Ιστολόγιο"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "Έγγραφα"
   },
   "layout.footer.resources.status": {
-    "message": "Status"
+    "message": "Κατάσταση"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "Υποστήριξη"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "Πόροι"
   },
   "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Επισκεφθείτε το προφίλ μας"
   },
   "layout.menu-toggle.action": {
-    "message": "Toggle menu"
+    "message": "Εναλλαγή μενού"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Κατεβάστε τροποποιήσεις, πρόσθετα, datapacks, shaders, πακέτα πόρων και modpacks για το Minecraft στο Modrinth. Ανακαλύψτε και δημοσιεύστε έργα στο Modrinth με ένα σύγχρονο, εύχρηστο περιβάλλον και API."
   },
   "layout.meta.og-description": {
-    "message": "Discover and publish Minecraft content!"
+    "message": "Ανακαλύψτε και δημοσιεύστε περιεχόμενο για το Minecraft!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "Σπίτι"
   },
   "layout.nav.search": {
     "message": "Search"
