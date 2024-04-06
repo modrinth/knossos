@@ -108,7 +108,7 @@
     "message": "已有帳號了嗎？"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "訂閱有關 Modrinth 的更新"
+    "message": "訂閱有關 Modrinth 的更新資訊"
   },
   "auth.sign-up.title": {
     "message": "註冊"
@@ -153,7 +153,7 @@
     "message": "驗證電子郵件"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "訂閱有關 Modrinth 的更新"
+    "message": "訂閱有關 Modrinth 的更新資訊"
   },
   "auth.welcome.description": {
     "message": "感謝您建立帳號。您現在可以追蹤專案、建立專案、接收喜愛專案的更新資訊，以及享有更多功能！"
@@ -618,7 +618,7 @@
     "message": "刪除個人存取權杖"
   },
   "scopes.patRead.description": {
-    "message": "檢視已建立的 API 權杖"
+    "message": "查看已建立的 API 權杖"
   },
   "scopes.patRead.label": {
     "message": "讀取個人存取權杖"
@@ -891,7 +891,7 @@
     "message": "目前的工作階段"
   },
   "settings.sessions.description": {
-    "message": "您目前已在下列裝置上登入 Modrinth 帳號。您可以分別登出每部裝置。\n\n如果您看到不認識的裝置，請立即登出該裝置並變更您的 Modrinth 帳號密碼。"
+    "message": "您目前已在下列裝置上登入 Modrinth 帳號。您可以分別登出每部裝置。\n\n如果您對某部裝置沒有印象，請立即登出該裝置並變更您的 Modrinth 帳號密碼。"
   },
   "settings.sessions.last-accessed-ago": {
     "message": "上次存取於 {ago}"
