@@ -890,12 +890,6 @@
   "settings.display.theme.system": {
     "message": "Sync with system"
   },
-  "settings.display.theme.system-prefers-dark": {
-    "message": "System prefers dark theme"
-  },
-  "settings.display.theme.system-prefers-light": {
-    "message": "System prefers light theme"
-  },
   "settings.display.theme.title": {
     "message": "Color theme"
   },

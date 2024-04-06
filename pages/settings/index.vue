@@ -45,17 +45,6 @@
               v-tooltip="formatMessage(colorTheme.preferredDark)"
               class="theme-icon"
             />
-
-            <SunIcon
-              v-else-if="option === 'system' && rawSystemTheme === 'light'"
-              v-tooltip="formatMessage(colorTheme.systemPrefersLight)"
-              class="theme-icon"
-            />
-            <MoonIcon
-              v-else-if="option === 'system' && rawSystemTheme === 'dark'"
-              v-tooltip="formatMessage(colorTheme.systemPrefersDark)"
-              class="theme-icon"
-            />
           </div>
         </button>
       </div>
@@ -300,14 +289,6 @@ const colorTheme = defineMessages({
     id: 'settings.display.theme.preferred-dark-theme',
     defaultMessage: 'Preferred dark theme',
   },
-  systemPrefersLight: {
-    id: 'settings.display.theme.system-prefers-light',
-    defaultMessage: 'System prefers light theme',
-  },
-  systemPrefersDark: {
-    id: 'settings.display.theme.system-prefers-dark',
-    defaultMessage: 'System prefers dark theme',
-  },
 })
 
 const projectListLayouts = defineMessages({
@@ -408,7 +389,6 @@ const cosmetics = useCosmetics()
 const tags = useTags()
 
 const systemTheme = ref('light')
-const rawSystemTheme = ref('light')
 
 const theme = useTheme()
 
@@ -427,10 +407,8 @@ onMounted(() => {
 function updateSystemTheme() {
   const colorSchemeQueryList = window.matchMedia('(prefers-color-scheme: light)')
   if (colorSchemeQueryList.matches) {
-    rawSystemTheme.value = 'light'
     systemTheme.value = 'light'
   } else {
-    rawSystemTheme.value = 'dark'
     systemTheme.value = cosmetics.value.preferredDarkTheme
   }
 }
@@ -530,7 +508,7 @@ const listTypes = computed(() => {
 }
 .theme-options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
   gap: var(--gap-lg);
 
   .preview .example-card {
