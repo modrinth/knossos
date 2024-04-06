@@ -24,46 +24,46 @@
     "message": "Masukkan email anda di bawah dan kita akan mengirimkan link untuk memulihkan akun anda."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "Surel atau nama pengguna"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "Surel"
   },
   "auth.reset-password.notification.email-sent.text": {
     "message": "An email with instructions has been sent to you if the email was previously saved on your account."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "Email terkirim"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Kamu sekarang dapat masuk ke akunmu dengan password baru."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Kata sandi berhasil direset"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Reset kata sandi"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Konfirmasi password"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Masukkan kata sandi baru dibawah untuk mengakses akunmu."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Reset Kata Sandi"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Reset passwordmu"
   },
   "auth.sign-in.2fa.description": {
     "message": "Please enter a two-factor code to proceed."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Masukkan kode dua-faktor"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Masukkan kode..."
   },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
@@ -162,19 +162,19 @@
     "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "Selamat datang ke Modrinth!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "Selamat datang"
   },
   "button.cancel": {
     "message": "Batal"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "Lanjutkan"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "Buat projek"
   },
   "button.edit": {
     "message": "Ubah"
@@ -231,37 +231,37 @@
     "message": "Curated by"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "Koleksi ini tidak memiliki projek apalun!"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "Kamu tidak memiliki projek apapun.\nApakah kamu ingin <create-link>membuat satu?</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Pemilik"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "Pribadi"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "Diperbarui {ago}"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "{name} - Koleksi"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "Buat baru"
   },
   "dashboard.collections.label.projects-count": {
     "message": "{count, plural, one {{count} project} other {{count} projects}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "Cari koleksimu"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "Koleksimu"
   },
   "frog": {
     "message": "🐸Kamu Terkodok-kodok🐸"
@@ -288,70 +288,70 @@
     "message": "Tampilan Daftar"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "Koleksi"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Dibuat {ago}"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "Dasbor"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "Hapus"
   },
   "label.description": {
-    "message": "Description"
+    "message": "Deskripsi"
   },
   "label.error": {
     "message": "Error"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "Projek yang diikuti"
   },
   "label.moderation": {
-    "message": "Moderation"
+    "message": "Moderasi"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "Notifikasi"
   },
   "label.password": {
-    "message": "Password"
+    "message": "Kata sandi"
   },
   "label.public": {
-    "message": "Public"
+    "message": "Publik"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "Ditolak"
   },
   "label.scopes": {
     "message": "Scopes"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "Pengaturan"
   },
   "label.title": {
-    "message": "Title"
+    "message": "Judul"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "Tidak terdaftar"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "Visibilitas"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "Ganti tema"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "Dapatkan aplikasi Modrinth"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "Avatarmu"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "Kunjungi pengaturan akun"
   },
   "layout.banner.add-email.title": {
-    "message": "For security purposes, please enter your email on Modrinth."
+    "message": "Karena alasan keamanan, harap isi surelmu di Modrinth."
   },
   "layout.banner.staging.description": {
     "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
@@ -360,28 +360,28 @@
     "message": "You’re viewing Modrinth’s staging environment."
   },
   "layout.banner.verify-email.action": {
-    "message": "Re-send verification email"
+    "message": "Kirim ulang email verifikasi"
   },
   "layout.banner.verify-email.title": {
     "message": "For security purposes, please verify your email address on Modrinth."
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "Karir"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "Privasi"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Peraturan"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Kebijakan"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "Perusahaan"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "Interaksi"
   },
   "layout.footer.legal-disclaimer": {
     "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
@@ -393,19 +393,19 @@
     "message": "Blog"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "Dokumen"
   },
   "layout.footer.resources.status": {
     "message": "Status"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "Bantuan"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "Sumber Daya"
   },
   "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Kunjungi profilmu"
   },
   "layout.menu-toggle.action": {
     "message": "Toggle menu"
@@ -414,13 +414,13 @@
     "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
   },
   "layout.meta.og-description": {
-    "message": "Discover and publish Minecraft content!"
+    "message": "Jelajahi dan publikasikan konten Minecraft!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "Beranda"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "Pencarian"
   },
   "notification.error.title": {
     "message": "Terjadi kesalahan"
@@ -447,7 +447,7 @@
     "message": "Nama pengguna"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "Pengguna ini tidak memiliki koleksi apapun!"
   },
   "profile.label.no-collections-auth": {
     "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
@@ -459,7 +459,7 @@
     "message": "Anda tidak memiliki proyek apa pun.\nApakah anda ingin <create-link>membuatnya</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Organisasi"
   },
   "profile.meta.description": {
     "message": "Unduh proyek {username} di Modrinth"
@@ -480,10 +480,10 @@
     "message": "Semua"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "Koleksi"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "Koleksi"
   },
   "project-type.datapack.plural": {
     "message": "Data Packs"
@@ -510,10 +510,10 @@
     "message": "Plugin"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "Projek"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "Projek"
   },
   "project-type.resourcepack.plural": {
     "message": "Resource Packs"
