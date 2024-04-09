@@ -18,10 +18,10 @@
     "message": "您將被重新導向至 <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "傳送救援電子郵件"
+    "message": "傳送密碼重設連結"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "請在下方輸入您的電子郵件地址，我們將傳送救援連結，協助您取回帳號。"
+    "message": "請在下方輸入您的電子郵件地址，我們將傳送密碼重設連結，協助您取回帳號。"
   },
   "auth.reset-password.method-choice.email-username.label": {
     "message": "電子郵件地址或使用者名稱"
@@ -105,7 +105,7 @@
     "message": "密碼"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "已有帳號了嗎？"
+    "message": "已經有帳號了嗎？"
   },
   "auth.sign-up.subscribe.label": {
     "message": "訂閱 Modrinth 的動態"
@@ -129,7 +129,7 @@
     "message": "您的電子郵件已經驗證過了！"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "電子郵件已驗證"
+    "message": "電子郵件已經驗證過了"
   },
   "auth.verify-email.failed-verification.action": {
     "message": "重新傳送驗證電子郵件"
@@ -156,7 +156,7 @@
     "message": "訂閱 Modrinth 的動態"
   },
   "auth.welcome.description": {
-    "message": "感謝您建立帳號。您現在可以追蹤專案、建立專案、接收喜愛專案的更新資訊，以及享有更多功能！"
+    "message": "感謝您建立帳號。您現在可以追蹤專案、建立專案和接收喜愛專案的更新資訊，以及享有更多功能！"
   },
   "auth.welcome.label.tos": {
     "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
@@ -207,7 +207,7 @@
     "message": "上傳圖示"
   },
   "collection.delete-modal.description": {
-    "message": "這項動作會永久刪除這個收藏夾，且永久無法復原。"
+    "message": "這項操作會永久刪除這個收藏夾，且無法復原。"
   },
   "collection.delete-modal.title": {
     "message": "您確定要刪除這個收藏夾嗎？"
@@ -642,7 +642,7 @@
     "message": "寫入付款"
   },
   "scopes.performAnalytics.description": {
-    "message": "執行數據分析動作"
+    "message": "執行數據分析操作"
   },
   "scopes.performAnalytics.label": {
     "message": "執行數據分析"
