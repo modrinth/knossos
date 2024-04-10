@@ -726,7 +726,9 @@ function toggleBrowseMenu() {
 }
 function changeTheme() {
   updateTheme(
-    DARK_THEMES.includes(app.$colorMode.value) ? 'light' : cosmetics.value.preferredDarkTheme,
+    DARK_THEMES.includes(app.$colorMode.value)
+      ? 'light'
+      : cosmetics.value.preferredDarkTheme ?? 'dark',
     true
   )
 }
