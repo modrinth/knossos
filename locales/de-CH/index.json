@@ -191,6 +191,9 @@
   "button.sign-out": {
     "message": "Abmelden"
   },
+  "button.upload-image": {
+    "message": "Bild hochladen"
+  },
   "collection.button.delete-icon": {
     "message": "Symbol löschen"
   },
@@ -285,7 +288,10 @@
     "message": "Rasteransicht"
   },
   "input.view.list": {
-    "message": "Listenansicht"
+    "message": "Zeilen-Ansicht"
+  },
+  "label.changes-saved": {
+    "message": "Änderungen gespeichert"
   },
   "label.collections": {
     "message": "Sammlungen"
@@ -779,6 +785,114 @@
   "scopes.versionWrite.label": {
     "message": "Versionen schreiben"
   },
+  "settings.account.title": {
+    "message": "Konto und Sicherheit"
+  },
+  "settings.appearance.title": {
+    "message": "Erscheinungsbild"
+  },
+  "settings.applications.title": {
+    "message": "Deine Anwendungen"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Autorisierte Apps"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Entwiklermodus deaktivieren"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Entwiklermodus</strong> ist aktiviert. Dies erlaubt es dir verschiedenste interne IDs von unterschiedlichen Dingen in Modrinth zu sehen, welche für Entwikler welche die Modrinth API verwenden nützlich sein können. Klicke auf das Modrinth Logo am unteren Ende der Seite 5 mal um den Entwiklermodus umzuschalten."
+  },
+  "settings.display.flags.description": {
+    "message": "Aktiviere oder deaktiviere bestimmte Funktionen auf diesem Gerät."
+  },
+  "settings.display.flags.title": {
+    "message": "Feature flags"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Datenpaketen-Seite"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Wähle dein bevorzugtes Layout für jede Seite, welche Projektlisten auf diesem Gerät anzeigt."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Mods-Seite"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Modpakete-Seite"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Plugins-Seite"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Resourcenpakete-Seite"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Shader-Seite"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Projektlisten-Layouts"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "Benutzerprofil-Seiten"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Aktiviert erweitertes Rendering wie einen Unschärfe-Effekt, welches ohne Hardwarebeschleunigtes Rendering eventuell Performance-Probleme verursachen kann."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Erweitertes Rendering"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Lasse Links, welche ausserhalb Modrinths liegen, in einem neuen Tab öffnen. Unabhängig von dieser Einstellung werden Links welche auf die selbe Domain, sowie in Markdown-Beschreibungen sind im selben Tab geöffnet. Links von Werbung und Bearbeitungsseiten öffnen in einem neuen Tab."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Externe Links in neuen Tab öffnen"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Versteckt die \"Modrinth App herunterladen\" Schaltfläche von der Hauptnavigation. Die Modrinth App-Seite kann weiterhin über die Startseite oder in der Fusszeile gefunden werden."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Verstecke Modrinth App Aktionen"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Positioniert die Details des Projekts auf die rechte seite des Seiteninhaltes."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Rechtsbündige Projekt-Seitenleiste"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Positioniert die Suchfilter Seitenleiste rechts neben den Suchergebnissen."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Rechtsbündige Such-Seitenleiste"
+  },
+  "settings.display.theme.dark": {
+    "message": "Dunkel"
+  },
+  "settings.display.theme.description": {
+    "message": "Wähle dein bevorzugtes Farbschema von Modrinth für dieses Gerät aus."
+  },
+  "settings.display.theme.light": {
+    "message": "Hell"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Bevorzugtes dunkles Design"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Bevorzugtes helles Design"
+  },
+  "settings.display.theme.retro": {
+    "message": "Retro"
+  },
+  "settings.display.theme.system": {
+    "message": "Mit System synchronisieren"
+  },
+  "settings.display.theme.title": {
+    "message": "Farbschema"
+  },
   "settings.language.categories.auto": {
     "message": "Automatisch"
   },
@@ -858,9 +972,6 @@
     "message": "Persöhnlichen Zugangs-Token bearbeiten"
   },
   "settings.pats.title": {
-    "message": "PATs"
-  },
-  "settings.pats.title.long": {
     "message": "Persöhnliche Zugangs-Token"
   },
   "settings.pats.token.action.edit": {
@@ -880,6 +991,36 @@
   },
   "settings.pats.token.never-used": {
     "message": "Nie verwendet"
+  },
+  "settings.profile.bio.description": {
+    "message": "Eine kleine Beschreibung um allen etwas über dich zu erzählen."
+  },
+  "settings.profile.bio.title": {
+    "message": "Bio"
+  },
+  "settings.profile.description": {
+    "message": "Deine Profilinformationen sind öffentlich auf Modrinth und über die <docs-link>Modrinth API</docs-link> einsehbar."
+  },
+  "settings.profile.profile-info": {
+    "message": "Profilinformationen"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Zurücksetzen"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Profilbild"
+  },
+  "settings.profile.title": {
+    "message": "Öffentliches Profil"
+  },
+  "settings.profile.username.description": {
+    "message": "Ein einzigartiger Name um dein Profil zu identifizieren (Gross-/Kleinschreibung wird ignroiert)."
+  },
+  "settings.profile.username.title": {
+    "message": "Benutzername"
+  },
+  "settings.profile.visit-profile": {
+    "message": "Dein Profil ansehen"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Sitzung widerrufen"
