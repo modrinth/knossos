@@ -191,6 +191,9 @@
   "button.sign-out": {
     "message": "Logga ut"
   },
+  "button.upload-image": {
+    "message": "Ladda upp en bild"
+  },
   "collection.button.delete-icon": {
     "message": "Ta bort ikon"
   },
@@ -285,7 +288,10 @@
     "message": "Rutnätsvy"
   },
   "input.view.list": {
-    "message": "Listvy"
+    "message": "Radvy"
+  },
+  "label.changes-saved": {
+    "message": "Ändringarna har sparats"
   },
   "label.collections": {
     "message": "Samlingar"
@@ -338,11 +344,14 @@
   "label.visibility": {
     "message": "Synlighet"
   },
+  "label.visit-your-profile": {
+    "message": "Visa din profil"
+  },
   "layout.action.change-theme": {
     "message": "Ändra temat"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Skaffa Modrinth appen"
+    "message": "Installera Modrinth appen"
   },
   "layout.avatar.alt": {
     "message": "Din avatar"
@@ -404,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "Resurser"
   },
-  "layout.label.visit-your-profile": {
-    "message": "Visa din profil"
-  },
   "layout.menu-toggle.action": {
     "message": "Växla meny"
   },
@@ -434,17 +440,8 @@
   "profile.error.not-found": {
     "message": "Användaren kunde inte hittas"
   },
-  "profile.input.upload-avatar": {
-    "message": "Ladda upp profilbild"
-  },
   "profile.joined-at": {
     "message": "Gick med {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "Biografi"
-  },
-  "profile.label.edit-username": {
-    "message": "Användarnamn"
   },
   "profile.label.no-collections": {
     "message": "Denna användare har inga samlingar!"
@@ -779,6 +776,114 @@
   "scopes.versionWrite.label": {
     "message": "Skriva versioner"
   },
+  "settings.account.title": {
+    "message": "Konto och säkerhet"
+  },
+  "settings.appearance.title": {
+    "message": "Utseende"
+  },
+  "settings.applications.title": {
+    "message": "Dina applikationer"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Auktoriserade appar"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Inaktivera utvecklarläge"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Utvecklarläge</strong> är aktiverat. Detta tillåter dig att visa interna ID:n för olika saker genom Modrinth vilket kan vara användbart om du är en utvecklare och använder Modrinths API. Klicka på Modrinth-loggan längst ned fem gånger för att aktivera utvecklarläge."
+  },
+  "settings.display.flags.description": {
+    "message": "Aktivera eller inaktivera vissa funktioner på denna enhet."
+  },
+  "settings.display.flags.title": {
+    "message": "Funktionsflaggor"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Datapaketssida"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Välj en önskad layout för varje sida som visar projektlistor på denna enhet."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Mod-sida"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Modpaketssida"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Plugin-sida"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Resurspaket-sida"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Shaders-sida"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Projektlistans layouter"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "Användarprofil-sidor"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Aktiverar avancerad rendering som t.ex. oskärpa vilket kan leda till prestandaproblem utan hårdvaruaccelerande rendering."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Avancerad rendering"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Får länkar som leder utanför Modrinth att öppna en ny flik. Oavsett vad denna inställning har ställts in på kommer länkar med samma domän och i Markdown-beskrivningar att öppnas i samma flik, och länkar på annonser och redigeringssidor öppnas i en ny flik."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Öppna externa flikar i en ny flik"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Döljer \"Installera Modrinth appen\" knappen från primär navigering. Modrinth app-sidan kan fortfarande hittas på landningssidan eller i sidfoten."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Dölj \"Installera Modrinth\" knapp"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Aligns the project details sidebar to the right of the page's content."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Right-aligned project sidebar"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Aligns the search filters sidebar to the right of the search results."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Right-aligned search sidebar"
+  },
+  "settings.display.theme.dark": {
+    "message": "Dark"
+  },
+  "settings.display.theme.description": {
+    "message": "Select your preferred color theme for Modrinth on this device."
+  },
+  "settings.display.theme.light": {
+    "message": "Light"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Preferred dark theme"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Preferred light theme"
+  },
+  "settings.display.theme.retro": {
+    "message": "Retro"
+  },
+  "settings.display.theme.system": {
+    "message": "Sync with system"
+  },
+  "settings.display.theme.title": {
+    "message": "Color theme"
+  },
   "settings.language.categories.auto": {
     "message": "Automatiskt"
   },
@@ -858,10 +963,7 @@
     "message": "Redigera personliga åtkomstnyckeln"
   },
   "settings.pats.title": {
-    "message": "PAT:s"
-  },
-  "settings.pats.title.long": {
-    "message": "Personliga åtkomstnycklar"
+    "message": "Personal access tokens"
   },
   "settings.pats.token.action.edit": {
     "message": "Redigera nyckel"
@@ -880,6 +982,33 @@
   },
   "settings.pats.token.never-used": {
     "message": "Har aldrig använts"
+  },
+  "settings.profile.bio.description": {
+    "message": "A short description to tell everyone a little bit about you."
+  },
+  "settings.profile.bio.title": {
+    "message": "Bio"
+  },
+  "settings.profile.description": {
+    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "Profile information"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Återställ"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Profilbild"
+  },
+  "settings.profile.title": {
+    "message": "Offentlig profil"
+  },
+  "settings.profile.username.description": {
+    "message": "A unique case-insensitive name to identify your profile."
+  },
+  "settings.profile.username.title": {
+    "message": "Username"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Återkalla session"
