@@ -344,6 +344,9 @@
   "label.visibility": {
     "message": "Бачнасць"
   },
+  "label.visit-your-profile": {
+    "message": "Visit your profile"
+  },
   "layout.action.change-theme": {
     "message": "Змяніць тэму"
   },
@@ -410,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "Рэсурсы"
   },
-  "layout.label.visit-your-profile": {
-    "message": "Адкрыць профіль"
-  },
   "layout.menu-toggle.action": {
     "message": "Уключыць меню"
   },
@@ -440,17 +440,8 @@
   "profile.error.not-found": {
     "message": "Карыстальнік не знойдзены"
   },
-  "profile.input.upload-avatar": {
-    "message": "Загрузіць выяву"
-  },
   "profile.joined-at": {
     "message": "Далучыўся {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "Пра сябе"
-  },
-  "profile.label.edit-username": {
-    "message": "Імя карыстальніка"
   },
   "profile.label.no-collections": {
     "message": "У гэтага карыстальніка няма калекцый!"
@@ -1018,9 +1009,6 @@
   },
   "settings.profile.username.title": {
     "message": "Username"
-  },
-  "settings.profile.visit-profile": {
-    "message": "Visit your profile"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Revoke session"
