@@ -191,6 +191,9 @@
   "button.sign-out": {
     "message": "Se déconnecter"
   },
+  "button.upload-image": {
+    "message": "Upload image"
+  },
   "collection.button.delete-icon": {
     "message": "Supprimer l'icône"
   },
@@ -285,7 +288,10 @@
     "message": "Vue en grille"
   },
   "input.view.list": {
-    "message": "Vue en liste"
+    "message": "Rows view"
+  },
+  "label.changes-saved": {
+    "message": "Changes saved"
   },
   "label.collections": {
     "message": "Collections"
@@ -333,10 +339,13 @@
     "message": "Titre"
   },
   "label.unlisted": {
-    "message": "Non répertorié·e"
+    "message": "Non répertorié"
   },
   "label.visibility": {
     "message": "Visibilité"
+  },
+  "label.visit-your-profile": {
+    "message": "Consulter votre profil"
   },
   "layout.action.change-theme": {
     "message": "Changer de thème"
@@ -404,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "Ressources"
   },
-  "layout.label.visit-your-profile": {
-    "message": "Consulter votre profil"
-  },
   "layout.menu-toggle.action": {
     "message": "Basculer le menu"
   },
@@ -434,17 +440,8 @@
   "profile.error.not-found": {
     "message": "Utilisateur introuvable"
   },
-  "profile.input.upload-avatar": {
-    "message": "Importer un avatar"
-  },
   "profile.joined-at": {
     "message": "A rejoint {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "Biographie"
-  },
-  "profile.label.edit-username": {
-    "message": "Nom d'utilisateur"
   },
   "profile.label.no-collections": {
     "message": "Cet utilisateur n'a aucune collection !"
@@ -779,6 +776,114 @@
   "scopes.versionWrite.label": {
     "message": "Créer des versions"
   },
+  "settings.account.title": {
+    "message": "Compte et sécurité"
+  },
+  "settings.appearance.title": {
+    "message": "Apparence"
+  },
+  "settings.applications.title": {
+    "message": "Your applications"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Applications autorisées"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Désactiver le mode développeur"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+  },
+  "settings.display.flags.description": {
+    "message": "Activer ou désactiver certaines fonctionnalités sur cet appareil."
+  },
+  "settings.display.flags.title": {
+    "message": "Feature flags"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Page des packs de données"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Sélectionnez votre mise en page préférée pour chaque page qui affiche les listes de projets sur cet appareil."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Page des mods"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Page des modpacks"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Page des plugins"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Page des packs de ressources"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Page des shaders"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Project list layouts"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "User profile pages"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Advanced rendering"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Open external links in new tab"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Hide Modrinth App promotions"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Aligns the project details sidebar to the right of the page's content."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Right-aligned project sidebar"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Aligns the search filters sidebar to the right of the search results."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Right-aligned search sidebar"
+  },
+  "settings.display.theme.dark": {
+    "message": "Sombre"
+  },
+  "settings.display.theme.description": {
+    "message": "Sélectionnez votre couleur de thème préféré pour Modrinth sur cet appareil."
+  },
+  "settings.display.theme.light": {
+    "message": "Clair"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Thème sombre préféré"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Thème clair préféré"
+  },
+  "settings.display.theme.retro": {
+    "message": "Rétro"
+  },
+  "settings.display.theme.system": {
+    "message": "Sync with system"
+  },
+  "settings.display.theme.title": {
+    "message": "Couleur du thème"
+  },
   "settings.language.categories.auto": {
     "message": "Automatique"
   },
@@ -858,10 +963,7 @@
     "message": "Modifier le jeton d'accès personnel"
   },
   "settings.pats.title": {
-    "message": "PATs"
-  },
-  "settings.pats.title.long": {
-    "message": "Jetons d'accès personnel"
+    "message": "Personal access tokens"
   },
   "settings.pats.token.action.edit": {
     "message": "Modifier le jeton"
@@ -880,6 +982,33 @@
   },
   "settings.pats.token.never-used": {
     "message": "Jamais utilisé"
+  },
+  "settings.profile.bio.description": {
+    "message": "A short description to tell everyone a little bit about you."
+  },
+  "settings.profile.bio.title": {
+    "message": "Bio"
+  },
+  "settings.profile.description": {
+    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "Profile information"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Réinitialiser"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Photo de profil"
+  },
+  "settings.profile.title": {
+    "message": "Profil public"
+  },
+  "settings.profile.username.description": {
+    "message": "Un nom unique insensible à la casse pour identifier votre profil."
+  },
+  "settings.profile.username.title": {
+    "message": "Nom d'utilisateur"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Révoquer la session"
