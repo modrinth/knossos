@@ -344,6 +344,9 @@
   "label.visibility": {
     "message": "ʎʇᴉꞁᴉqᴉsᴉɅ"
   },
+  "label.visit-your-profile": {
+    "message": "Visit your profile"
+  },
   "layout.action.change-theme": {
     "message": "ǝɯǝɥʇ ǝᵷuɐɥƆ"
   },
@@ -410,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "sǝɔɹnosǝᴚ"
   },
-  "layout.label.visit-your-profile": {
-    "message": "ǝꞁᴉɟoɹd ɹnoʎ ʇᴉsᴉɅ"
-  },
   "layout.menu-toggle.action": {
     "message": "nuǝɯ ǝꞁᵷᵷo⟘"
   },
@@ -440,17 +440,8 @@
   "profile.error.not-found": {
     "message": "punoɟ ʇou ɹǝs∩"
   },
-  "profile.input.upload-avatar": {
-    "message": "ɹɐʇɐʌɐ pɐoꞁd∩"
-  },
   "profile.joined-at": {
     "message": "{ago} pǝuᴉoՐ"
-  },
-  "profile.label.edit-bio": {
-    "message": "oᴉᗺ"
-  },
-  "profile.label.edit-username": {
-    "message": "ǝɯɐuɹǝs∩"
   },
   "profile.label.no-collections": {
     "message": "kehotoaner@gmail.com\n"
@@ -1018,9 +1009,6 @@
   },
   "settings.profile.username.title": {
     "message": "Username"
-  },
-  "settings.profile.visit-profile": {
-    "message": "Visit your profile"
   },
   "settings.sessions.action.revoke-session": {
     "message": "uoᴉssǝs ǝʞoʌǝᴚ"
