@@ -288,7 +288,7 @@
     "message": "По сетке"
   },
   "input.view.list": {
-    "message": "Rows view"
+    "message": "Список"
   },
   "label.changes-saved": {
     "message": "Изменения сохранены"
@@ -343,6 +343,9 @@
   },
   "label.visibility": {
     "message": "Видимость"
+  },
+  "label.visit-your-profile": {
+    "message": "Открыть профиль"
   },
   "layout.action.change-theme": {
     "message": "Изменить тему"
@@ -410,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "Ресурсы"
   },
-  "layout.label.visit-your-profile": {
-    "message": "Открыть профиль"
-  },
   "layout.menu-toggle.action": {
     "message": "Меню"
   },
@@ -440,17 +440,8 @@
   "profile.error.not-found": {
     "message": "Не нашёл такого чела"
   },
-  "profile.input.upload-avatar": {
-    "message": "Засунуть другое рыло"
-  },
   "profile.joined-at": {
     "message": "Приплыл сюда {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "Чё по жизни"
-  },
-  "profile.label.edit-username": {
-    "message": "Кликуха"
   },
   "profile.label.no-collections": {
     "message": "У чела ни одной коллекции!"
@@ -786,94 +777,94 @@
     "message": "Запись версий"
   },
   "settings.account.title": {
-    "message": "Учётная запись и безопасность"
+    "message": "Данные и безопасность"
   },
   "settings.appearance.title": {
     "message": "Внешний вид"
   },
   "settings.applications.title": {
-    "message": "Your applications"
+    "message": "Ваши приложения"
   },
   "settings.authorized-apps.title": {
     "message": "Authorized apps"
   },
   "settings.display.banner.developer-mode.button": {
-    "message": "Deactivate developer mode"
+    "message": "Отключить режим разработчика"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+    "message": "<strong>Режим разработчика</strong> активирован. Он позволяет просматривать различные внутренние идентификаторы Modrinth, которые могут быть полезны, если вы работаете с Modrinth API. Нажмите на логотип Modrinth внизу страницы 5 раз, чтобы переключить режим разаботчика."
   },
   "settings.display.flags.description": {
-    "message": "Enable or disable certain features on this device."
+    "message": "Переключение отдельных функций на этом устройстве."
   },
   "settings.display.flags.title": {
     "message": "Feature flags"
   },
   "settings.display.project-list-layouts.datapack": {
-    "message": "Data Packs page"
+    "message": "Наборы данных"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "Select your preferred layout for each page that displays project lists on this device."
+    "message": "Выберите предпочитаемый макет для каждой страницы с проектами на этом устройстве."
   },
   "settings.display.project-list-layouts.mod": {
-    "message": "Mods page"
+    "message": "Моды"
   },
   "settings.display.project-list-layouts.modpack": {
-    "message": "Modpacks page"
+    "message": "Сборки"
   },
   "settings.display.project-list-layouts.plugin": {
-    "message": "Plugins page"
+    "message": "Плагины"
   },
   "settings.display.project-list-layouts.resourcepack": {
-    "message": "Resource Packs page"
+    "message": "Наборы ресурсов"
   },
   "settings.display.project-list-layouts.shader": {
-    "message": "Shaders page"
+    "message": "Шейдеры"
   },
   "settings.display.project-list-layouts.title": {
-    "message": "Project list layouts"
+    "message": "Представление проектов"
   },
   "settings.display.project-list-layouts.user": {
-    "message": "User profile pages"
+    "message": "Проекты в профиле"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+    "message": "Включить продвинутые эффекты наподобие размытия фона, которые могут понизить производительность на устройствах без аппаратного ускорения графики."
   },
   "settings.display.sidebar.advanced-rendering.title": {
-    "message": "Advanced rendering"
+    "message": "Особые эффекты"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+    "message": "Ссылки, ведущие за пределы Modrinth, должны открываться в новой вкладке. Независимо от этой настройки, ссылки на том же домене и в описаниях Markdown будут открываться в той же вкладке, а ссылки на рекламные и редактирование страниц будут открываться в новой вкладке."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
-    "message": "Open external links in new tab"
+    "message": "Открывать внешние ссылки в новой вкладке"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+    "message": "Убрать кнопку «Загрузить Modrinth App» с поисковых страниц. Ссылку на раздел с Modrinth App всё ещё можно найти на главной странице или в нижней части интерфейса."
   },
   "settings.display.sidebar.hide-app-promos.title": {
-    "message": "Hide Modrinth App promotions"
+    "message": "Скрыть кнопки загрузки Modrinth App"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
-    "message": "Aligns the project details sidebar to the right of the page's content."
+    "message": "Помещает боковую панель с информацией о проекте справа от содержимого страницы."
   },
   "settings.display.sidebar.right-aligned-project-sidebar.title": {
-    "message": "Right-aligned project sidebar"
+    "message": "Отображать боковую панель проекта справа"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.description": {
-    "message": "Aligns the search filters sidebar to the right of the search results."
+    "message": "Помещает боковую панель с фильтрами поиска справа от результатов поиска."
   },
   "settings.display.sidebar.right-aligned-search-sidebar.title": {
-    "message": "Right-aligned search sidebar"
+    "message": "Отображать боковую панель поиска справа"
   },
   "settings.display.theme.dark": {
-    "message": "Dark"
+    "message": "Тёмная"
   },
   "settings.display.theme.description": {
-    "message": "Select your preferred color theme for Modrinth on this device."
+    "message": "Выберите предпочитаемую тему Modrinth на этом устройстве."
   },
   "settings.display.theme.light": {
-    "message": "Light"
+    "message": "Светлая"
   },
   "settings.display.theme.oled": {
     "message": "OLED"
@@ -885,13 +876,13 @@
     "message": "Preferred light theme"
   },
   "settings.display.theme.retro": {
-    "message": "Retro"
+    "message": "Ретро"
   },
   "settings.display.theme.system": {
-    "message": "Sync with system"
+    "message": "Системная"
   },
   "settings.display.theme.title": {
-    "message": "Color theme"
+    "message": "Тема"
   },
   "settings.language.categories.auto": {
     "message": "На автомате"
@@ -972,7 +963,7 @@
     "message": "Изменить персональный токен доступа"
   },
   "settings.pats.title": {
-    "message": "Personal access tokens"
+    "message": "Персональные токены доступа"
   },
   "settings.pats.token.action.edit": {
     "message": "Изменить"
@@ -993,34 +984,31 @@
     "message": "Не использовался"
   },
   "settings.profile.bio.description": {
-    "message": "A short description to tell everyone a little bit about you."
+    "message": "Возможность кратко рассказать всем о себе."
   },
   "settings.profile.bio.title": {
-    "message": "Bio"
+    "message": "О себе"
   },
   "settings.profile.description": {
-    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+    "message": "Информация в вашем профиле доступна публично на Modrinth и через <docs-link>Modrinth API</docs-link>."
   },
   "settings.profile.profile-info": {
-    "message": "Profile information"
+    "message": "Информация в профиле"
   },
   "settings.profile.profile-picture.reset": {
-    "message": "Reset"
+    "message": "Сброс"
   },
   "settings.profile.profile-picture.title": {
-    "message": "Profile picture"
+    "message": "Изображение профиля"
   },
   "settings.profile.title": {
-    "message": "Public profile"
+    "message": "Профиль пользователя"
   },
   "settings.profile.username.description": {
-    "message": "A unique case-insensitive name to identify your profile."
+    "message": "Уникальное имя для идентификации профиля (чувствительно к регистру)."
   },
   "settings.profile.username.title": {
-    "message": "Username"
-  },
-  "settings.profile.visit-profile": {
-    "message": "Visit your profile"
+    "message": "Имя пользователя"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Прервать сеанс"
