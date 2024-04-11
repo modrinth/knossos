@@ -23,8 +23,16 @@
           />
         </div>
 
-        <button class="btn btn-primary centered-btn" @click="recovery">
-          <SendIcon /> {{ formatMessage(methodChoiceMessages.action) }}
+        <p v-if="!token && takingTooLong" class="known-errors">
+          {{ formatMessage(commonMessages.failedToVerifyLabel) }}
+        </p>
+        <button v-else class="btn btn-primary centered-btn" :disabled="!token" @click="recovery">
+          <template v-if="token">
+            <SendIcon /> {{ formatMessage(methodChoiceMessages.action) }}
+          </template>
+          <template v-else>
+            {{ formatMessage(commonMessages.verifyingLabel) }}
+          </template>
         </button>
       </template>
       <template v-else-if="step === 'passed_challenge'">
@@ -58,8 +66,21 @@
           />
         </div>
 
-        <button class="auth-form__input btn btn-primary continue-btn" @click="changePassword">
-          {{ formatMessage(postChallengeMessages.action) }}
+        <p v-if="!token && takingTooLong" class="known-errors">
+          {{ formatMessage(commonMessages.failedToVerifyLabel) }}
+        </p>
+        <button
+          v-else
+          :disabled="!token"
+          class="auth-form__input btn btn-primary continue-btn"
+          @click="changePassword"
+        >
+          <template v-if="token">
+            {{ formatMessage(postChallengeMessages.action) }}
+          </template>
+          <template v-else>
+            {{ formatMessage(commonMessages.verifyingLabel) }}
+          </template>
         </button>
       </template>
     </section>
@@ -163,6 +184,15 @@ const turnstile = ref()
 
 const email = ref('')
 const token = ref('')
+const takingTooLong = ref(false)
+
+onMounted(() => {
+  setTimeout(() => {
+    if (!token.value) {
+      takingTooLong.value = true
+    }
+  }, 10000)
+})
 
 async function recovery() {
   startLoading()

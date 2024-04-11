@@ -55,6 +55,10 @@ export const commonMessages = defineMessages({
     id: 'notification.error.title',
     defaultMessage: 'An error occurred',
   },
+  failedToVerifyLabel: {
+    id: 'label.failed-to-verify',
+    defaultMessage: "Couldn't verify you're a human. Try again later.",
+  },
   followedProjectsLabel: {
     id: 'label.followed-projects',
     defaultMessage: 'Followed projects',
@@ -130,6 +134,10 @@ export const commonMessages = defineMessages({
   uploadImageButton: {
     id: 'button.upload-image',
     defaultMessage: 'Upload image',
+  },
+  verifyingLabel: {
+    id: 'label.verifying',
+    defaultMessage: 'Verifying humanity...',
   },
   visibilityLabel: {
     id: 'label.visibility',

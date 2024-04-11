@@ -83,8 +83,22 @@
 
         <NuxtTurnstile ref="turnstile" v-model="token" class="turnstile" />
 
-        <button class="btn btn-primary continue-btn centered-btn" @click="beginPasswordSignIn()">
-          {{ formatMessage(commonMessages.signInButton) }} <RightArrowIcon />
+        <p v-if="!token && takingTooLong" class="known-errors">
+          {{ formatMessage(commonMessages.failedToVerifyLabel) }}
+        </p>
+        <button
+          v-else
+          class="btn btn-primary continue-btn centered-btn"
+          :disabled="!token"
+          @click="beginPasswordSignIn()"
+        >
+          <template v-if="token">
+            {{ formatMessage(commonMessages.signInButton) }}
+            <RightArrowIcon />
+          </template>
+          <template v-else>
+            {{ formatMessage(commonMessages.verifyingLabel) }}
+          </template>
         </button>
 
         <div class="auth-form__additional-options">
@@ -191,6 +205,15 @@ const turnstile = ref()
 const email = ref('')
 const password = ref('')
 const token = ref('')
+const takingTooLong = ref(false)
+
+onMounted(() => {
+  setTimeout(() => {
+    if (!token.value) {
+      takingTooLong.value = true
+    }
+  }, 10000)
+})
 
 const flow = ref(route.query.flow)
 

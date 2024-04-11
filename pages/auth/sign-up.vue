@@ -108,8 +108,21 @@
         </IntlFormatted>
       </p>
 
-      <button class="btn btn-primary continue-btn centered-btn" @click="createAccount">
-        {{ formatMessage(messages.createAccountButton) }} <RightArrowIcon />
+      <p v-if="!token && takingTooLong" class="known-errors">
+        {{ formatMessage(commonMessages.failedToVerifyLabel) }}
+      </p>
+      <button
+        v-else
+        class="btn btn-primary continue-btn centered-btn"
+        :disabled="!token"
+        @click="createAccount"
+      >
+        <template v-if="token">
+          {{ formatMessage(messages.createAccountButton) }} <RightArrowIcon />
+        </template>
+        <template v-else>
+          {{ formatMessage(commonMessages.verifyingLabel) }}
+        </template>
       </button>
 
       <div class="auth-form__additional-options">
@@ -215,6 +228,16 @@ const username = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const token = ref('')
+const takingTooLong = ref(false)
+
+onMounted(() => {
+  setTimeout(() => {
+    if (!token.value) {
+      takingTooLong.value = true
+    }
+  }, 10000)
+})
+
 const subscribe = ref(true)
 
 const signInLink = computed(

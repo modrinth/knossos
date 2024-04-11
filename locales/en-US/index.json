@@ -311,6 +311,9 @@
   "label.error": {
     "message": "Error"
   },
+  "label.failed-to-verify": {
+    "message": "Couldn't verify you're a human. Try again later."
+  },
   "label.followed-projects": {
     "message": "Followed projects"
   },
@@ -340,6 +343,9 @@
   },
   "label.unlisted": {
     "message": "Unlisted"
+  },
+  "label.verifying": {
+    "message": "Verifying humanity..."
   },
   "label.visibility": {
     "message": "Visibility"
