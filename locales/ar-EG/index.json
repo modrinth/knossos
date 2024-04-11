@@ -344,6 +344,9 @@
   "label.visibility": {
     "message": "Visibility"
   },
+  "label.visit-your-profile": {
+    "message": "Visit your profile"
+  },
   "layout.action.change-theme": {
     "message": "Change theme"
   },
@@ -410,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "Resources"
   },
-  "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
-  },
   "layout.menu-toggle.action": {
     "message": "Toggle menu"
   },
@@ -440,17 +440,8 @@
   "profile.error.not-found": {
     "message": "لم يتم العثور على المُستخدم"
   },
-  "profile.input.upload-avatar": {
-    "message": "تحميل صورة الحساب"
-  },
   "profile.joined-at": {
     "message": "انضممت {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "السيرة الذاتية"
-  },
-  "profile.label.edit-username": {
-    "message": "اسم المستخدم"
   },
   "profile.label.no-collections": {
     "message": "هذا المستخدم ليس لديه مجموعات!"
@@ -1018,9 +1009,6 @@
   },
   "settings.profile.username.title": {
     "message": "Username"
-  },
-  "settings.profile.visit-profile": {
-    "message": "Visit your profile"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Revoke session"
