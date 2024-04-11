@@ -344,6 +344,9 @@
   "label.visibility": {
     "message": "Sichtbarkeit"
   },
+  "label.visit-your-profile": {
+    "message": "Visit your profile"
+  },
   "layout.action.change-theme": {
     "message": "Farbschema ändern"
   },
@@ -410,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "Resourcen"
   },
-  "layout.label.visit-your-profile": {
-    "message": "Dein Profil ansehen"
-  },
   "layout.menu-toggle.action": {
     "message": "Menü umschalten"
   },
@@ -440,17 +440,8 @@
   "profile.error.not-found": {
     "message": "Benutzer nicht gefunden"
   },
-  "profile.input.upload-avatar": {
-    "message": "Avatar hochladen"
-  },
   "profile.joined-at": {
     "message": "{ago} beigetreten"
-  },
-  "profile.label.edit-bio": {
-    "message": "Bio"
-  },
-  "profile.label.edit-username": {
-    "message": "Benutzername"
   },
   "profile.label.no-collections": {
     "message": "Dieser Benutzer hat keine Sammlungen!"
@@ -807,7 +798,7 @@
     "message": "Aktiviere oder deaktiviere bestimmte Funktionen auf diesem Gerät."
   },
   "settings.display.flags.title": {
-    "message": "Feature flags"
+    "message": "Experimentelle Funktionen"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Datenpaketen-Seite"
@@ -1018,9 +1009,6 @@
   },
   "settings.profile.username.title": {
     "message": "Benutzername"
-  },
-  "settings.profile.visit-profile": {
-    "message": "Dein Profil ansehen"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Sitzung widerrufen"
