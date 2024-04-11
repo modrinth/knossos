@@ -344,6 +344,9 @@
   "label.visibility": {
     "message": "ken lukin"
   },
+  "label.visit-your-profile": {
+    "message": "Visit your profile"
+  },
   "layout.action.change-theme": {
     "message": "o ante e kule lipu"
   },
@@ -410,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "Resources"
   },
-  "layout.label.visit-your-profile": {
-    "message": "o lukin e lipu sina"
-  },
   "layout.menu-toggle.action": {
     "message": "Toggle menu"
   },
@@ -440,17 +440,8 @@
   "profile.error.not-found": {
     "message": "mi ken ala alasa e ni"
   },
-  "profile.input.upload-avatar": {
-    "message": "o pana e sitelen"
-  },
   "profile.joined-at": {
     "message": "ona li kama lon tenpo {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "sona"
-  },
-  "profile.label.edit-username": {
-    "message": "nimi"
   },
   "profile.label.no-collections": {
     "message": "jan ni li jo ala e kulupu lipu!"
@@ -1018,9 +1009,6 @@
   },
   "settings.profile.username.title": {
     "message": "Username"
-  },
-  "settings.profile.visit-profile": {
-    "message": "Visit your profile"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Revoke session"
