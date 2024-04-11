@@ -344,6 +344,9 @@
   "label.visibility": {
     "message": "Visibilité"
   },
+  "label.visit-your-profile": {
+    "message": "Consulter votre profil"
+  },
   "layout.action.change-theme": {
     "message": "Changer de thème"
   },
@@ -410,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "Ressources"
   },
-  "layout.label.visit-your-profile": {
-    "message": "Consulter votre profil"
-  },
   "layout.menu-toggle.action": {
     "message": "Basculer le menu"
   },
@@ -440,17 +440,8 @@
   "profile.error.not-found": {
     "message": "Utilisateur introuvable"
   },
-  "profile.input.upload-avatar": {
-    "message": "Importer un avatar"
-  },
   "profile.joined-at": {
     "message": "A rejoint {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "Biographie"
-  },
-  "profile.label.edit-username": {
-    "message": "Nom d'utilisateur"
   },
   "profile.label.no-collections": {
     "message": "Cet utilisateur n'a aucune collection !"
@@ -786,49 +777,49 @@
     "message": "Créer des versions"
   },
   "settings.account.title": {
-    "message": "Account and security"
+    "message": "Compte et sécurité"
   },
   "settings.appearance.title": {
-    "message": "Appearance"
+    "message": "Apparence"
   },
   "settings.applications.title": {
     "message": "Your applications"
   },
   "settings.authorized-apps.title": {
-    "message": "Authorized apps"
+    "message": "Applications autorisées"
   },
   "settings.display.banner.developer-mode.button": {
-    "message": "Deactivate developer mode"
+    "message": "Désactiver le mode développeur"
   },
   "settings.display.banner.developer-mode.description": {
     "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
   },
   "settings.display.flags.description": {
-    "message": "Enable or disable certain features on this device."
+    "message": "Activer ou désactiver certaines fonctionnalités sur cet appareil."
   },
   "settings.display.flags.title": {
     "message": "Feature flags"
   },
   "settings.display.project-list-layouts.datapack": {
-    "message": "Data Packs page"
+    "message": "Page des packs de données"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "Select your preferred layout for each page that displays project lists on this device."
+    "message": "Sélectionnez votre mise en page préférée pour chaque page qui affiche les listes de projets sur cet appareil."
   },
   "settings.display.project-list-layouts.mod": {
-    "message": "Mods page"
+    "message": "Page des mods"
   },
   "settings.display.project-list-layouts.modpack": {
-    "message": "Modpacks page"
+    "message": "Page des modpacks"
   },
   "settings.display.project-list-layouts.plugin": {
-    "message": "Plugins page"
+    "message": "Page des plugins"
   },
   "settings.display.project-list-layouts.resourcepack": {
-    "message": "Resource Packs page"
+    "message": "Page des packs de ressources"
   },
   "settings.display.project-list-layouts.shader": {
-    "message": "Shaders page"
+    "message": "Page des shaders"
   },
   "settings.display.project-list-layouts.title": {
     "message": "Project list layouts"
@@ -867,31 +858,31 @@
     "message": "Right-aligned search sidebar"
   },
   "settings.display.theme.dark": {
-    "message": "Dark"
+    "message": "Sombre"
   },
   "settings.display.theme.description": {
-    "message": "Select your preferred color theme for Modrinth on this device."
+    "message": "Sélectionnez votre couleur de thème préféré pour Modrinth sur cet appareil."
   },
   "settings.display.theme.light": {
-    "message": "Light"
+    "message": "Clair"
   },
   "settings.display.theme.oled": {
     "message": "OLED"
   },
   "settings.display.theme.preferred-dark-theme": {
-    "message": "Preferred dark theme"
+    "message": "Thème sombre préféré"
   },
   "settings.display.theme.preferred-light-theme": {
-    "message": "Preferred light theme"
+    "message": "Thème clair préféré"
   },
   "settings.display.theme.retro": {
-    "message": "Retro"
+    "message": "Rétro"
   },
   "settings.display.theme.system": {
     "message": "Sync with system"
   },
   "settings.display.theme.title": {
-    "message": "Color theme"
+    "message": "Couleur du thème"
   },
   "settings.language.categories.auto": {
     "message": "Automatique"
@@ -1005,22 +996,19 @@
     "message": "Profile information"
   },
   "settings.profile.profile-picture.reset": {
-    "message": "Reset"
+    "message": "Réinitialiser"
   },
   "settings.profile.profile-picture.title": {
-    "message": "Profile picture"
+    "message": "Photo de profil"
   },
   "settings.profile.title": {
-    "message": "Public profile"
+    "message": "Profil public"
   },
   "settings.profile.username.description": {
-    "message": "A unique case-insensitive name to identify your profile."
+    "message": "Un nom unique insensible à la casse pour identifier votre profil."
   },
   "settings.profile.username.title": {
-    "message": "Username"
-  },
-  "settings.profile.visit-profile": {
-    "message": "Visit your profile"
+    "message": "Nom d'utilisateur"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Révoquer la session"
