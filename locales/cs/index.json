@@ -191,6 +191,9 @@
   "button.sign-out": {
     "message": "Odhlásit se"
   },
+  "button.upload-image": {
+    "message": "Nahrát obrázek"
+  },
   "collection.button.delete-icon": {
     "message": "Odstranit ikonu"
   },
@@ -285,7 +288,10 @@
     "message": "Zobrazení v mřížce"
   },
   "input.view.list": {
-    "message": "Zobrazení v seznamu"
+    "message": "Zobrazení v řádcích"
+  },
+  "label.changes-saved": {
+    "message": "Změny uloženy"
   },
   "label.collections": {
     "message": "Kolekce"
@@ -337,6 +343,9 @@
   },
   "label.visibility": {
     "message": "Viditelnost"
+  },
+  "label.visit-your-profile": {
+    "message": "Visit your profile"
   },
   "layout.action.change-theme": {
     "message": "Změnit motiv"
@@ -404,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "Zdroje"
   },
-  "layout.label.visit-your-profile": {
-    "message": "Navštívit váš profil"
-  },
   "layout.menu-toggle.action": {
     "message": "Přepnout menu"
   },
@@ -434,17 +440,8 @@
   "profile.error.not-found": {
     "message": "Uživatel nebyl nalezen"
   },
-  "profile.input.upload-avatar": {
-    "message": "Nahrát profilový obrázek"
-  },
   "profile.joined-at": {
     "message": "Připojil se {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "Bio"
-  },
-  "profile.label.edit-username": {
-    "message": "Uživatelské jméno"
   },
   "profile.label.no-collections": {
     "message": "Tento uživatel nemá žádné kolekce!"
@@ -498,10 +495,10 @@
     "message": "Mód"
   },
   "project-type.modpack.plural": {
-    "message": "Balíčky Modifikací"
+    "message": "Modpacky"
   },
   "project-type.modpack.singular": {
-    "message": "Balíček Modifikací"
+    "message": "Modpack"
   },
   "project-type.plugin.plural": {
     "message": "Pluginy"
@@ -779,6 +776,114 @@
   "scopes.versionWrite.label": {
     "message": "Psát verze"
   },
+  "settings.account.title": {
+    "message": "Účet a zabezpečení"
+  },
+  "settings.appearance.title": {
+    "message": "Vzhled"
+  },
+  "settings.applications.title": {
+    "message": "Vaše aplikace"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Autorizované aplikace"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Deaktivovat vývojářský režim"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Vývojářský režim</strong> je aktivní. To vám umožní zobrazit interní ID různých věcí v Modrinthu, které mohou být užitečné, pokud používáte Modrinth API. Klikněte na logo Modrinthu ve spodní části stránky 5krát pro přepnutí vývojářského režimu."
+  },
+  "settings.display.flags.description": {
+    "message": "Povolit nebo zakázat některé funkce na tomto zařízení."
+  },
+  "settings.display.flags.title": {
+    "message": "Příznaky funkcí"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Stránka datapacků"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Vyberte si preferované rozložení pro každou stránku, která zobrazuje seznamy projektů na tomto zařízení."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Stránka módů"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Stránka modpacků"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Stránka pluginů"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Stránka resourcepacků"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Stránka shaderů"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Rozvržení seznamu projektů"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "Stránka uživatelských profilů"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Umožňuje pokročilé vykreslování, jako jsou efekty rozostření, které mohou způsobit problémy s výkonem bez hardwarového vykreslení."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Pokročilé vykreslování"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Open external links in new tab"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Hide Modrinth App promotions"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Aligns the project details sidebar to the right of the page's content."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Right-aligned project sidebar"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Aligns the search filters sidebar to the right of the search results."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Right-aligned search sidebar"
+  },
+  "settings.display.theme.dark": {
+    "message": "Tmavý"
+  },
+  "settings.display.theme.description": {
+    "message": "Vyberte si preferovaný barevný motiv pro Modrinth na tomto zařízení."
+  },
+  "settings.display.theme.light": {
+    "message": "Světlý"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Preferovat tmavý motiv"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Preferovat světlý motiv"
+  },
+  "settings.display.theme.retro": {
+    "message": "Retro"
+  },
+  "settings.display.theme.system": {
+    "message": "Synchronizovat se systémem"
+  },
+  "settings.display.theme.title": {
+    "message": "Barevný motiv"
+  },
   "settings.language.categories.auto": {
     "message": "Automaticky"
   },
@@ -858,10 +963,7 @@
     "message": "Upravit osobní přístupový token (PAT)"
   },
   "settings.pats.title": {
-    "message": "PATy"
-  },
-  "settings.pats.title.long": {
-    "message": "Osobní přístupové tokeny (PAT)"
+    "message": "Osobní přístupové tokeny"
   },
   "settings.pats.token.action.edit": {
     "message": "Upravit token"
@@ -880,6 +982,33 @@
   },
   "settings.pats.token.never-used": {
     "message": "Nikdy nepoužito"
+  },
+  "settings.profile.bio.description": {
+    "message": "Stručný popis, který o vás všem trochu řekne."
+  },
+  "settings.profile.bio.title": {
+    "message": "Bio"
+  },
+  "settings.profile.description": {
+    "message": "Vaše profilové informace jsou veřejně viditelné na Modrinthu a přes <docs-link>API Modrinthu</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "Profilové informace"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Obnovit"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Profilový obrázek"
+  },
+  "settings.profile.title": {
+    "message": "Veřejný profil"
+  },
+  "settings.profile.username.description": {
+    "message": "Jedinečný název, který identifikuje váš profil. (nerozlišuje malá a velká písmena)"
+  },
+  "settings.profile.username.title": {
+    "message": "Uživatelské jméno"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Odvolat relaci"
