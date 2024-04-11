@@ -54,7 +54,7 @@
     "message": "Tetap Semula Kata Laluan"
   },
   "auth.reset-password.title.long": {
-    "message": "Tetap semula kata laluan"
+    "message": "Tetap semula kata laluan anda"
   },
   "auth.sign-in.2fa.description": {
     "message": "Sila masukkan kod dua faktor untuk meneruskan."
@@ -75,10 +75,10 @@
     "message": "Kata Laluan"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Log masuk dengan"
+    "message": "Daftar masuk dengan"
   },
   "auth.sign-in.title": {
-    "message": "Log Masuk"
+    "message": "Daftar Masuk"
   },
   "auth.sign-in.use-password": {
     "message": "Atau gunakan kata laluan"
@@ -123,7 +123,7 @@
     "message": "Tetapan akaun"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Log masuk"
+    "message": "Daftar masuk"
   },
   "auth.verify-email.already-verified.description": {
     "message": "E-mel anda sudah pun disahkan!"
@@ -135,7 +135,7 @@
     "message": "Hantar semula e-mel pengesahan"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "Kami tidak dapat mengesahkan e-mel anda. Cuba hantar semula e-mel pengesahan melalui papan pemuka anda dengan melog masuk."
+    "message": "Kami tidak dapat mengesahkan e-mel anda. Cuba hantar semula e-mel pengesahan melalui papan pemuka anda dengan mendaftar masuk."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
     "message": "Kami tidak dapat mengesahkan e-mel anda. Cuba hantar semula e-mel pengesahan melalui butang di bawah."
@@ -186,10 +186,13 @@
     "message": "Simpan perubahan"
   },
   "button.sign-in": {
-    "message": "Log masuk"
+    "message": "Daftar masuk"
   },
   "button.sign-out": {
-    "message": "Log keluar"
+    "message": "Daftar keluar"
+  },
+  "button.upload-image": {
+    "message": "Muat naik gambar"
   },
   "collection.button.delete-icon": {
     "message": "Padam ikon"
@@ -285,7 +288,10 @@
     "message": "Bentuk grid"
   },
   "input.view.list": {
-    "message": "Bentuk senarai"
+    "message": "Bentuk barisan"
+  },
+  "label.changes-saved": {
+    "message": "Perubahan disimpan"
   },
   "label.collections": {
     "message": "Koleksi"
@@ -337,6 +343,9 @@
   },
   "label.visibility": {
     "message": "Keterlihatan"
+  },
+  "label.visit-your-profile": {
+    "message": "Lawat profil anda"
   },
   "layout.action.change-theme": {
     "message": "Tukar tema"
@@ -404,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "Sumber"
   },
-  "layout.label.visit-your-profile": {
-    "message": "Lawat profil anda"
-  },
   "layout.menu-toggle.action": {
     "message": "Togol menu"
   },
@@ -434,17 +440,8 @@
   "profile.error.not-found": {
     "message": "Pengguna tidak dijumpai"
   },
-  "profile.input.upload-avatar": {
-    "message": "Muat naik avatar"
-  },
   "profile.joined-at": {
     "message": "Telah menyertai pada {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "Bio"
-  },
-  "profile.label.edit-username": {
-    "message": "Nama pengguna"
   },
   "profile.label.no-collections": {
     "message": "Pengguna ini tidak memiliki sebarang koleksi!"
@@ -779,6 +776,114 @@
   "scopes.versionWrite.label": {
     "message": "Tulis versi"
   },
+  "settings.account.title": {
+    "message": "Akaun dan keselamatan"
+  },
+  "settings.appearance.title": {
+    "message": "Tampilan"
+  },
+  "settings.applications.title": {
+    "message": "Aplikasi anda"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Aplikasi yang disahkan"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Nyahaktifkan mod pembangun"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Mod pembangun</strong> kini aktif. Ini akan membolehkan anda melihat ID dalaman pelbagai perkara di seluruh Modrinth yang mungkin berguna jika anda seorang pembangun yang menggunakan API Modrinth. Klik pada logo Modrinth di bahagian bawah halaman 5 kali untuk menogol mod pembangun."
+  },
+  "settings.display.flags.description": {
+    "message": "Dayakan atau nyahdayakan ciri tertentu pada peranti ini."
+  },
+  "settings.display.flags.title": {
+    "message": "Penetapan ciri"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Halaman Pek Data"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Pilih susun atur pilihan anda untuk setiap halaman yang memaparkan senarai projek pada peranti ini."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Halaman Mod"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Halaman Pek Mod"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Halaman Pemalam"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Halaman Pek Sumber"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Halaman Pembayang"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Susun atur senarai projek"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "Halaman profil pengguna"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Mendayakan pemaparan lanjutan seperti kesan kabur yang boleh menyebabkan masalah prestasi tanpa pemaparan dipercepatkan perkakasan."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Pemaparan lanjutan"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Buka pautan yang membawa anda ke luar Modrinth dalam tab baharu. Tidak kira tetapan ini, pautan pada domain yang sama dan dalam keterangan Markdown akan dibuka dalam tab yang sama dan pautan pada iklan dan halaman sunting akan dibuka dalam tab baharu."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Buka pautan luaran dalam tab baharu"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Menyembunyikan butang \"Dapatkan Modrinth App\" daripada navigasi utama. Halaman Modrinth App masih boleh ditemui pada halaman pendaratan atau dalam pengaki."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Sembunyikan promosi Modrinth App"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Menjajarkan bar sisi butiran projek di sebelah kanan kandungan halaman."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Bar sisi projek dijajar kanan"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Menjajarkan bar sisi penapis carian di sebelah kanan hasil carian."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Bar sisi carian dijajar kanan"
+  },
+  "settings.display.theme.dark": {
+    "message": "Gelap"
+  },
+  "settings.display.theme.description": {
+    "message": "Pilih tema warna pilihan anda untuk Modrinth pada peranti ini."
+  },
+  "settings.display.theme.light": {
+    "message": "Cerah"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Lebih pilih tema gelap"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Lebih pilih tema cerah"
+  },
+  "settings.display.theme.retro": {
+    "message": "Retro"
+  },
+  "settings.display.theme.system": {
+    "message": "Selaraskan dengan sistem"
+  },
+  "settings.display.theme.title": {
+    "message": "Tema warna"
+  },
   "settings.language.categories.auto": {
     "message": "Automatik"
   },
@@ -858,10 +963,7 @@
     "message": "Sunting token akses peribadi (PAT)"
   },
   "settings.pats.title": {
-    "message": "PAT"
-  },
-  "settings.pats.title.long": {
-    "message": "Token Akses Peribadi (PAT)"
+    "message": "Token akses peribadi"
   },
   "settings.pats.token.action.edit": {
     "message": "Sunting token"
@@ -873,13 +975,40 @@
     "message": "Telah luput {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Akan luput dalam {inTime}"
+    "message": "Akan luput {inTime}"
   },
   "settings.pats.token.last-used": {
     "message": "Kali terakhir digunakan {ago}"
   },
   "settings.pats.token.never-used": {
     "message": "Tidak pernah digunakan"
+  },
+  "settings.profile.bio.description": {
+    "message": "Keterangan ringkas untuk memberitahu semua orang serba sedikit tentang anda."
+  },
+  "settings.profile.bio.title": {
+    "message": "Bio"
+  },
+  "settings.profile.description": {
+    "message": "Maklumat profil anda boleh dilihat secara terbuka di Modrinth dan melalui <docs-link>API Modrinth</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "Maklumat profil"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Tetap semula"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Gambar profil"
+  },
+  "settings.profile.title": {
+    "message": "Profil awam"
+  },
+  "settings.profile.username.description": {
+    "message": "Nama tidak sensitif huruf besar yang unik untuk mengenal pasti profil anda."
+  },
+  "settings.profile.username.title": {
+    "message": "Nama pengguna"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Tarik balik sesi"
