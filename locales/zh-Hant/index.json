@@ -108,7 +108,7 @@
     "message": "已經有帳號了嗎？"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "訂閱 Modrinth 的動態"
+    "message": "訂閱 Modrinth 的最新消息"
   },
   "auth.sign-up.title": {
     "message": "註冊"
@@ -153,10 +153,10 @@
     "message": "驗證電子郵件"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "訂閱 Modrinth 的動態"
+    "message": "訂閱 Modrinth 的最新消息"
   },
   "auth.welcome.description": {
-    "message": "感謝您建立帳號。您現在可以追蹤專案、建立專案和接收喜愛專案的更新資訊，以及享有更多功能！"
+    "message": "感謝您建立帳號。您現在可以追蹤專案和建立專案，接收喜愛專案的更新資訊，還有更多精彩功能等你來發掘！"
   },
   "auth.welcome.label.tos": {
     "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
@@ -344,6 +344,9 @@
   "label.visibility": {
     "message": "瀏覽權限"
   },
+  "label.visit-your-profile": {
+    "message": "瀏覽您的個人檔案"
+  },
   "layout.action.change-theme": {
     "message": "變更主題"
   },
@@ -410,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "資源"
   },
-  "layout.label.visit-your-profile": {
-    "message": "瀏覽您的個人檔案"
-  },
   "layout.menu-toggle.action": {
     "message": "切換選單"
   },
@@ -440,17 +440,8 @@
   "profile.error.not-found": {
     "message": "這個使用者不存在"
   },
-  "profile.input.upload-avatar": {
-    "message": "上傳大頭貼"
-  },
   "profile.joined-at": {
     "message": "加入於 {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "關於我"
-  },
-  "profile.label.edit-username": {
-    "message": "使用者名稱"
   },
   "profile.label.no-collections": {
     "message": "這個使用者沒有收藏夾！"
@@ -801,19 +792,19 @@
     "message": "停用開發人員模式"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+    "message": "已啟用<strong>開發人員模式</strong>。這個模式將允許您查看 Modrinth 的各項內部 ID，如果您是使用 Modrinth API 的開發人員，這可能會很有幫助。按 5 次頁面底部的 Modrinth 圖示即可開啟和關閉開發人員模式。"
   },
   "settings.display.flags.description": {
-    "message": "Enable or disable certain features on this device."
+    "message": "啟用或停用這個裝置上的特定功能。"
   },
   "settings.display.flags.title": {
-    "message": "Feature flags"
+    "message": "功能旗標"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "資料包頁面"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "Select your preferred layout for each page that displays project lists on this device."
+    "message": "選擇你在這個裝置上顯示專案清單時，偏好的版面配置。"
   },
   "settings.display.project-list-layouts.mod": {
     "message": "模組頁面"
@@ -837,61 +828,61 @@
     "message": "使用者個人檔案頁面"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+    "message": "啟用進階繪製（例如模糊效果），如果沒有硬體加速繪製功能，可能會導致效能問題。"
   },
   "settings.display.sidebar.advanced-rendering.title": {
     "message": "進階繪製"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+    "message": "在新分頁中開啟 Modrinth 以外的連結。這項設定僅適用於外部連結，站內連結和 Markdown 說明中的連結仍會在同一個分頁中開啟，而廣告和編輯頁面的連結都將在新分頁中開啟。"
   },
   "settings.display.sidebar.external-links-new-tab.title": {
-    "message": "Open external links in new tab"
+    "message": "在新分頁中開啟外部連結"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+    "message": "在主導覽列中隱藏「取得 Modrinth App」按鈕。你仍可在登入頁面或頁尾找到 Modrinth App 頁面。"
   },
   "settings.display.sidebar.hide-app-promos.title": {
-    "message": "Hide Modrinth App promotions"
+    "message": "隱藏 Modrinth App 廣告"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
-    "message": "Aligns the project details sidebar to the right of the page's content."
+    "message": "將專案詳細資訊側邊欄與頁面內容的右側對齊。"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.title": {
-    "message": "Right-aligned project sidebar"
+    "message": "靠右對齊專案側邊欄"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.description": {
-    "message": "Aligns the search filters sidebar to the right of the search results."
+    "message": "將專搜尋篩選器側邊欄與搜尋結果的右側對齊。"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.title": {
-    "message": "Right-aligned search sidebar"
+    "message": "靠右對齊搜尋側邊欄"
   },
   "settings.display.theme.dark": {
-    "message": "深色主題"
+    "message": "深色"
   },
   "settings.display.theme.description": {
-    "message": "Select your preferred color theme for Modrinth on this device."
+    "message": "在這部裝置上選擇您偏好的 Modrinth 色彩主題。"
   },
   "settings.display.theme.light": {
-    "message": "淺色主題"
+    "message": "淺色"
   },
   "settings.display.theme.oled": {
     "message": "OLED"
   },
   "settings.display.theme.preferred-dark-theme": {
-    "message": "Preferred dark theme"
+    "message": "偏好深色主題"
   },
   "settings.display.theme.preferred-light-theme": {
-    "message": "Preferred light theme"
+    "message": "偏好淺色主題"
   },
   "settings.display.theme.retro": {
-    "message": "Retro"
+    "message": "經典"
   },
   "settings.display.theme.system": {
-    "message": "Sync with system"
+    "message": "與系統同步"
   },
   "settings.display.theme.title": {
-    "message": "Color theme"
+    "message": "色彩主題"
   },
   "settings.language.categories.auto": {
     "message": "自動切換"
@@ -972,7 +963,7 @@
     "message": "編輯個人存取權杖"
   },
   "settings.pats.title": {
-    "message": "Personal access tokens"
+    "message": "個人存取權杖"
   },
   "settings.pats.token.action.edit": {
     "message": "編輯權杖"
@@ -993,34 +984,31 @@
     "message": "從未使用"
   },
   "settings.profile.bio.description": {
-    "message": "A short description to tell everyone a little bit about you."
+    "message": "簡短的自我介紹，讓大家更了解你。"
   },
   "settings.profile.bio.title": {
-    "message": "Bio"
+    "message": "關於我"
   },
   "settings.profile.description": {
-    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+    "message": "你的個人檔案將公開顯示在 Modrinth 上，並可透過 <docs-link>Modrinth API</docs-link> 查看。"
   },
   "settings.profile.profile-info": {
-    "message": "Profile information"
+    "message": "個人檔案資訊"
   },
   "settings.profile.profile-picture.reset": {
-    "message": "Reset"
+    "message": "重設"
   },
   "settings.profile.profile-picture.title": {
-    "message": "Profile picture"
+    "message": "個人檔案大頭貼"
   },
   "settings.profile.title": {
-    "message": "Public profile"
+    "message": "公開個人檔案"
   },
   "settings.profile.username.description": {
-    "message": "A unique case-insensitive name to identify your profile."
+    "message": "不分大小寫的獨特名稱，用於識別你的個人檔案。"
   },
   "settings.profile.username.title": {
-    "message": "Username"
-  },
-  "settings.profile.visit-profile": {
-    "message": "Visit your profile"
+    "message": "使用者名稱"
   },
   "settings.sessions.action.revoke-session": {
     "message": "撤銷工作階段授權"
