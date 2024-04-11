@@ -191,6 +191,9 @@
   "button.sign-out": {
     "message": "登出"
   },
+  "button.upload-image": {
+    "message": "上传图片"
+  },
   "collection.button.delete-icon": {
     "message": "删除图标"
   },
@@ -285,7 +288,10 @@
     "message": "网格视图"
   },
   "input.view.list": {
-    "message": "列表视图"
+    "message": "行视图"
+  },
+  "label.changes-saved": {
+    "message": "更改已保存"
   },
   "label.collections": {
     "message": "收藏夹"
@@ -337,6 +343,9 @@
   },
   "label.visibility": {
     "message": "公开范围"
+  },
+  "label.visit-your-profile": {
+    "message": "Visit your profile"
   },
   "layout.action.change-theme": {
     "message": "更改主题"
@@ -404,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "资源"
   },
-  "layout.label.visit-your-profile": {
-    "message": "访问您的个人资料"
-  },
   "layout.menu-toggle.action": {
     "message": "切换菜单"
   },
@@ -434,17 +440,8 @@
   "profile.error.not-found": {
     "message": "用户不存在"
   },
-  "profile.input.upload-avatar": {
-    "message": "上传头像"
-  },
   "profile.joined-at": {
     "message": "加入于 {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "简介"
-  },
-  "profile.label.edit-username": {
-    "message": "用户名"
   },
   "profile.label.no-collections": {
     "message": "该用户没有收藏项目！"
@@ -465,7 +462,7 @@
     "message": "前往 Modrinth 下载 {username} 的项目"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - 前往 Modrinth 下载 {username} 的项目"
+    "message": "{bio} - 在 Modrinth 上下载 {username} 的项目"
   },
   "profile.stats.downloads": {
     "message": "{count, plural,other {<stat>{count}</stat> 次下载}}"
@@ -522,10 +519,10 @@
     "message": "资源包"
   },
   "project-type.shader.plural": {
-    "message": "光影包"
+    "message": "光影"
   },
   "project-type.shader.singular": {
-    "message": "光影包"
+    "message": "光影"
   },
   "revenue.transfers.total": {
     "message": "您总共提现了{amount}。"
@@ -779,6 +776,114 @@
   "scopes.versionWrite.label": {
     "message": "写入版本"
   },
+  "settings.account.title": {
+    "message": "账号与安全"
+  },
+  "settings.appearance.title": {
+    "message": "外观"
+  },
+  "settings.applications.title": {
+    "message": "您的应用程序"
+  },
+  "settings.authorized-apps.title": {
+    "message": "已授权的应用"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "停用开发者模式"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "已激活<strong>开发者模式</strong> 。 这将允许你遍历 Modrinth 的各项内部 ID，如果你是使用 Modrinth API 的开发者，可能会对你有所帮助。点击页面底部的 Modrinth 徽标 5 次来切换开发者模式。"
+  },
+  "settings.display.flags.description": {
+    "message": "在此设备上启用或禁用某些功能。"
+  },
+  "settings.display.flags.title": {
+    "message": "特性标志"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "数据包页面"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "为此设备上显示的项目列表页面选择您的首选布局。"
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "模组页面"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "整合包页面"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "插件页面"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "资源包页面"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "光影页面"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "项目列表布局"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "用户个人资料页面"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "启用高级渲染，例如模糊效果，可能会在没有硬件加速渲染的情况下造成性能问题。"
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "高级渲染"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "在新标签页中打开离开 Modrinth 的链接。 无论如何设置，同一域名和 Markdown 描述中的链接将在同一标签页中打开，而广告和编辑页面的链接将在新标签页中打开"
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "始终在新标签页打开外部链接"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "隐藏主页中的“获取 Modrinth 应用”按钮。Modrinth 应用页面仍然可以在登陆页面或页脚中找到。"
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "隐藏 Modrinth 应用程序推荐"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "将项目详细信息侧栏与页面内容的右侧对齐。"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "右对齐项目侧边栏"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "使搜索筛选器侧边栏与搜索结果的右侧对齐。"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "右对齐搜索侧边栏"
+  },
+  "settings.display.theme.dark": {
+    "message": "深色模式"
+  },
+  "settings.display.theme.description": {
+    "message": "在此设备上为 Modrinth 选择您首选的颜色主题。"
+  },
+  "settings.display.theme.light": {
+    "message": "浅色模式"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "首选深色主题"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "首选浅色主题"
+  },
+  "settings.display.theme.retro": {
+    "message": "复古"
+  },
+  "settings.display.theme.system": {
+    "message": "跟随系统"
+  },
+  "settings.display.theme.title": {
+    "message": "主题颜色"
+  },
   "settings.language.categories.auto": {
     "message": "自动"
   },
@@ -789,7 +894,7 @@
     "message": "实验性语言"
   },
   "settings.language.categories.fun": {
-    "message": "趣味语言"
+    "message": "趣味性语言"
   },
   "settings.language.categories.search-result": {
     "message": "搜索结果"
@@ -819,7 +924,7 @@
     "message": "{matches, plural,=0 {没有语言}other {有 # 种语言}}匹配您的搜索。"
   },
   "settings.language.languages.search.no-results": {
-    "message": "没有语言匹配您的搜索。"
+    "message": "没有符合搜索条件的语言。"
   },
   "settings.language.title": {
     "message": "语言"
@@ -860,9 +965,6 @@
   "settings.pats.title": {
     "message": "个人访问令牌"
   },
-  "settings.pats.title.long": {
-    "message": "个人访问令牌"
-  },
   "settings.pats.token.action.edit": {
     "message": "编辑令牌"
   },
@@ -880,6 +982,33 @@
   },
   "settings.pats.token.never-used": {
     "message": "从未使用"
+  },
+  "settings.profile.bio.description": {
+    "message": "做个简短的自我介绍吧。"
+  },
+  "settings.profile.bio.title": {
+    "message": "简介"
+  },
+  "settings.profile.description": {
+    "message": "您的个人资料信息可在 Modrinth 和通过 <docs-link>Modrinth API</docs-link> 公开查看。"
+  },
+  "settings.profile.profile-info": {
+    "message": "个人资料信息"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "重置"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "头像"
+  },
+  "settings.profile.title": {
+    "message": "公开信息"
+  },
+  "settings.profile.username.description": {
+    "message": "不区分大小写的唯一名称，用于识别您的个人资料。"
+  },
+  "settings.profile.username.title": {
+    "message": "用户名"
   },
   "settings.sessions.action.revoke-session": {
     "message": "撤销会话"
