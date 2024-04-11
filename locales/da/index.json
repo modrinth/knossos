@@ -344,6 +344,9 @@
   "label.visibility": {
     "message": "Synlighed"
   },
+  "label.visit-your-profile": {
+    "message": "Visit your profile"
+  },
   "layout.action.change-theme": {
     "message": "Skift tema"
   },
@@ -410,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "Resources"
   },
-  "layout.label.visit-your-profile": {
-    "message": "Visit your profile"
-  },
   "layout.menu-toggle.action": {
     "message": "Toggle menu"
   },
@@ -440,17 +440,8 @@
   "profile.error.not-found": {
     "message": "Bruger ikke fundet"
   },
-  "profile.input.upload-avatar": {
-    "message": "Upload avatar"
-  },
   "profile.joined-at": {
     "message": "Tilmeldt {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "Om dig"
-  },
-  "profile.label.edit-username": {
-    "message": "Brugernavn"
   },
   "profile.label.no-collections": {
     "message": "This user has no collections!"
@@ -1018,9 +1009,6 @@
   },
   "settings.profile.username.title": {
     "message": "Username"
-  },
-  "settings.profile.visit-profile": {
-    "message": "Visit your profile"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Revoke session"
