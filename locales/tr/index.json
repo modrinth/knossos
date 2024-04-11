@@ -75,13 +75,13 @@
     "message": "Parola"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Giriş yapmak için şunları kullanabilirsiniz"
+    "message": "Şunlarla giriş yapın"
   },
   "auth.sign-in.title": {
     "message": "Giriş Yap"
   },
   "auth.sign-in.use-password": {
-    "message": "Veya parola kullanın"
+    "message": "Ya da bir parola kullanın"
   },
   "auth.sign-up.action.create-account": {
     "message": "Hesap oluştur"
@@ -96,7 +96,7 @@
     "message": "Kullanıcı adı"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "Bir hesap oluşturarak, Modrinth'in <terms-link>Kurallar</terms-link> ve  <privacy-policy-link>Gizlilik İlkeleri </privacy-policy-link>'ni kabul etmiş sayılırsınız."
+    "message": "Bir hesap oluşturarak, Modrinth'in <terms-link>Kurallar</terms-link> ve <privacy-policy-link>Gizlilik İlkeleri </privacy-policy-link>'ni kabul edersiniz."
   },
   "auth.sign-up.notification.password-mismatch.text": {
     "message": "Parolalar uyuşmuyor!"
@@ -126,16 +126,16 @@
     "message": "Giriş yap"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "E-postan zaten doğrulanmış!"
+    "message": "E-postanız zaten doğrulanmış!"
   },
   "auth.verify-email.already-verified.title": {
     "message": "E-posta zaten doğrulanmış"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Doğrulama e-postasını yeniden yolla"
+    "message": "Doğrulama e-postasını yeniden gönder"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "E-postanızı doğrulayamadık. Doğrulama e-postasını panelinizin üzerinden yeniden yollamayı deneyin."
+    "message": "E-postanızı doğrulayamadık. Doğrulama e-postasını gösterge panelinizin üzerinden yeniden göndermeyi deneyin."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
     "message": "E-postanı doğrulayamadık. Doğrulama e-postasını, aşağıdaki tuşla yeniden yollamayı dene."
@@ -162,10 +162,10 @@
     "message": "Bir hesap oluşturarak, Modrinth'in <terms-link>Şartlar</terms-link>'ını ve <privacy-policy-link>Gizlilik İlkeleri</privacy-policy-link>'ni kabul etmiş sayılırsınız."
   },
   "auth.welcome.long-title": {
-    "message": "Modrinth'e Hoş Geldin!"
+    "message": "Modrinth'e hoş geldiniz!"
   },
   "auth.welcome.title": {
-    "message": "Hoş Geldin"
+    "message": "Hoş geldiniz"
   },
   "button.cancel": {
     "message": "İptal"
@@ -191,6 +191,9 @@
   "button.sign-out": {
     "message": "Çıkış yap"
   },
+  "button.upload-image": {
+    "message": "Görsel yükle"
+  },
   "collection.button.delete-icon": {
     "message": "Simge sil"
   },
@@ -198,10 +201,10 @@
     "message": "Simge düzenle"
   },
   "collection.button.remove-project": {
-    "message": "Proje kaldır"
+    "message": "Projeyi kaldır"
   },
   "collection.button.unfollow-project": {
-    "message": "Projeye takibi bırak"
+    "message": "Projeyi takipten çık"
   },
   "collection.button.upload-icon": {
     "message": "Simge yükle"
@@ -213,7 +216,7 @@
     "message": "Bu koleksiyonu silmek istediğinizden emin misiniz?"
   },
   "collection.description": {
-    "message": "{description} - Modrinth'te {username} tarafından yaratılmış {name} koleksiyonunu göster"
+    "message": "{description} - Modrinth'te {username} tarafından yaratılan {name} koleksiyonunu göster"
   },
   "collection.description.following": {
     "message": "Takip ettiğin projelerden otomatik oluşturulmuş koleksiyon."
@@ -225,13 +228,13 @@
     "message": "Koleksiyon"
   },
   "collection.label.created-at": {
-    "message": "{ago} oluşturuldu"
+    "message": "{ago} önce oluşturuldu"
   },
   "collection.label.curated-by": {
-    "message": "Küratörlüğünü Yapan"
+    "message": "Hazırlayan"
   },
   "collection.label.no-projects": {
-    "message": "Bu koleksiyonun projesi yok!"
+    "message": "Bu koleksiyonun hiçbir projesi yok!"
   },
   "collection.label.no-projects-auth": {
     "message": "Herhangi bir projeniz yok.\n<create-link>Yeni bir tane</create-link> eklemek ister miydiniz?"
@@ -246,7 +249,7 @@
     "message": "{count, plural, one {<stat>{count}</stat> proje} other {<stat>{count}</stat> proje}}"
   },
   "collection.label.updated-at": {
-    "message": "{ago} güncellendi"
+    "message": "{ago} önce güncellendi"
   },
   "collection.title": {
     "message": "{name} - Koleksiyon"
@@ -285,7 +288,10 @@
     "message": "Izgara görünümü"
   },
   "input.view.list": {
-    "message": "Liste görünümü"
+    "message": "Satır görünümü"
+  },
+  "label.changes-saved": {
+    "message": "Değişiklikler kaydedildi"
   },
   "label.collections": {
     "message": "Koleksiyonlar"
@@ -337,6 +343,9 @@
   },
   "label.visibility": {
     "message": "Görünürlük"
+  },
+  "label.visit-your-profile": {
+    "message": "Profilinizi ziyaret edin"
   },
   "layout.action.change-theme": {
     "message": "Tema değiştir"
@@ -393,7 +402,7 @@
     "message": "Blog"
   },
   "layout.footer.resources.docs": {
-    "message": "Dokümantasyon"
+    "message": "Belgeler"
   },
   "layout.footer.resources.status": {
     "message": "Durum"
@@ -403,9 +412,6 @@
   },
   "layout.footer.resources.title": {
     "message": "Kaynaklar"
-  },
-  "layout.label.visit-your-profile": {
-    "message": "Profilini ziyaret et"
   },
   "layout.menu-toggle.action": {
     "message": "Menü aç/kapa"
@@ -434,17 +440,8 @@
   "profile.error.not-found": {
     "message": "Kullanıcı bulunamadı"
   },
-  "profile.input.upload-avatar": {
-    "message": "Profil görüntüsü yükle"
-  },
   "profile.joined-at": {
     "message": "{ago} katıldı"
-  },
-  "profile.label.edit-bio": {
-    "message": "Hakkında"
-  },
-  "profile.label.edit-username": {
-    "message": "Kullanıcı adı"
   },
   "profile.label.no-collections": {
     "message": "Bu kullanıcının koleksiyonu yok!"
@@ -459,7 +456,7 @@
     "message": "Herhangi bir projeniz yok.\n<create-link>Yeni bir tane oluşturmak</create-link> ister misiniz?"
   },
   "profile.label.organizations": {
-    "message": "Organizasyonlar"
+    "message": "Örgütler"
   },
   "profile.meta.description": {
     "message": "{username} kullanıcısının Modrinth'teki projelerini indir"
@@ -582,28 +579,28 @@
     "message": "Bildirim yaz"
   },
   "scopes.organizationCreate.description": {
-    "message": "Organizasyon oluştur"
+    "message": "Örgüt oluştur"
   },
   "scopes.organizationCreate.label": {
-    "message": "Organizasyon oluştur"
+    "message": "Örgüt oluştur"
   },
   "scopes.organizationDelete.description": {
-    "message": "Organizasyon kaldır"
+    "message": "Örgütleri kaldır"
   },
   "scopes.organizationDelete.label": {
-    "message": "Organizasyon kaldır"
+    "message": "Örgütleri kaldır"
   },
   "scopes.organizationRead.description": {
-    "message": "Organizasyon oku"
+    "message": "Örgütleri oku"
   },
   "scopes.organizationRead.label": {
-    "message": "Organizasyon oku"
+    "message": "Organizasyon okuÖrgütleri oku"
   },
   "scopes.organizationWrite.description": {
-    "message": "Organizasyonlara yaz"
+    "message": "Örgütlere yaz"
   },
   "scopes.organizationWrite.label": {
-    "message": "Organizasyon yaz"
+    "message": "Örgüt yaz"
   },
   "scopes.patCreate.description": {
     "message": "Kişisel API tokenleri oluştur"
@@ -779,6 +776,114 @@
   "scopes.versionWrite.label": {
     "message": "Sürüm yaz"
   },
+  "settings.account.title": {
+    "message": "Hesap ve güvenlik"
+  },
+  "settings.appearance.title": {
+    "message": "Görünüm"
+  },
+  "settings.applications.title": {
+    "message": "Uygulamalarınız"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Yetkili uygulamalar"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Geliştirici modunu devre dışı bırak"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Geliştirici modu</strong> aktif. Bu, Modrinth API'sini kullanan bir geliştiriciyseniz yardımcı olabilecek Modrinth'teki çeşitli şeylerin dahili kimliklerini görüntülemenizi sağlayacaktır. Geliştirici moduna geçmek için sayfanın altındaki Modrinth logosuna 5 kez tıklayın."
+  },
+  "settings.display.flags.description": {
+    "message": "Bu cihazdaki belli özellikleri etkinleştir veya devre dışı bırak."
+  },
+  "settings.display.flags.title": {
+    "message": "Özellik bayrakları"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Veri Paketleri sayfası"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Bu cihazda proje listelerini gösteren her sayfa için tercih ettiğiniz düzeni seçin."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Modlar sayfası"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Mod paketleri sayfası"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Eklentiler sayfası"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Kaynak Paketleri sayfası"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Shaderlar sayfası"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Proje liste düzenleri"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "Kullanıcı profili sayfaları"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Donanım hızlandırmalı işleme olmadan performans sorunlarına yol açabilecek bulanıklık efektleri gibi gelişmiş işlemeyi etkinleştirir."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Gelişmiş işleme"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Modrinth'in dışına giden bağlantıların yeni bir sekmede açılmasını sağla. Bu ayara bakılmaksızın, aynı alan adındaki ve Markdown açıklamalarındaki bağlantılar aynı sekmede açılacak ve reklamlardaki, düzenleme sayfalarındaki bağlantılar yeni bir sekmede açılacak."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Dış bağlantıları yeni sekmede aç"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "\"Modrinth Uygulamasını Edin\" tuşlarını ana navigasyondan gizler. Modrinth Uygulama sayfası hala açılış sayfasında veya alt bilgide bulunabilir."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Modrinth Uygulama tanıtımlarını gizle"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Proje detayları yan çubuğunu sayfa içeriğinin sağına hizalar."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Sağa hizalı proje yan çubuğu"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Arama filtreleri yan çubuğunu arama sonuçlarının sağına hizalar."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Sağa hizalı arama yan çubuğu"
+  },
+  "settings.display.theme.dark": {
+    "message": "Karanlık"
+  },
+  "settings.display.theme.description": {
+    "message": "Bu cihazda Modrinth için tercih ettiğiniz renk temasını seçin."
+  },
+  "settings.display.theme.light": {
+    "message": "Aydınlık"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Tercih edilen karanlık tema"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Tercih edilen aydınlık tema"
+  },
+  "settings.display.theme.retro": {
+    "message": "Retro"
+  },
+  "settings.display.theme.system": {
+    "message": "Sistemle eşle"
+  },
+  "settings.display.theme.title": {
+    "message": "Renk teması"
+  },
   "settings.language.categories.auto": {
     "message": "Otomatik"
   },
@@ -858,10 +963,7 @@
     "message": "Kişisel erişim tokenini (PAT'ı) düzenle"
   },
   "settings.pats.title": {
-    "message": "PAT'lar"
-  },
-  "settings.pats.title.long": {
-    "message": "Kişisel Erişim Tokenleri (PAT'lar)"
+    "message": "Kişisel erişim tokenleri"
   },
   "settings.pats.token.action.edit": {
     "message": "Token düzenle"
@@ -880,6 +982,33 @@
   },
   "settings.pats.token.never-used": {
     "message": "Hiç kullanılmadı"
+  },
+  "settings.profile.bio.description": {
+    "message": "Senin hakkında herkese birazcık bahsetmek için kısa bir açıklama."
+  },
+  "settings.profile.bio.title": {
+    "message": "Öz"
+  },
+  "settings.profile.description": {
+    "message": "Profil bilgilerin Modrinth'te ve <docs-link>Modrinth API</docs-link> üzerinden herkese açık gösterilebilir."
+  },
+  "settings.profile.profile-info": {
+    "message": "Profil bilgisi"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Sıfırla"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Profil görseli"
+  },
+  "settings.profile.title": {
+    "message": "Herkese açık profil"
+  },
+  "settings.profile.username.description": {
+    "message": "Profilini tanımlamak için büyük-küçük harf hassasiyetli özel ad."
+  },
+  "settings.profile.username.title": {
+    "message": "Kullanıcı adı"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Oturumu iptal et"
