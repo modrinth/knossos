@@ -191,6 +191,9 @@
   "button.sign-out": {
     "message": "Вийти"
   },
+  "button.upload-image": {
+    "message": "Завантажити зображення"
+  },
   "collection.button.delete-icon": {
     "message": "Видалити значок"
   },
@@ -285,7 +288,10 @@
     "message": "У вигляді таблиці"
   },
   "input.view.list": {
-    "message": "У вигляді списку"
+    "message": "Rows view"
+  },
+  "label.changes-saved": {
+    "message": "Зміни збережено"
   },
   "label.collections": {
     "message": "Добірки"
@@ -337,6 +343,9 @@
   },
   "label.visibility": {
     "message": "Видимість"
+  },
+  "label.visit-your-profile": {
+    "message": "Відвідати профіль"
   },
   "layout.action.change-theme": {
     "message": "Змінити тему"
@@ -404,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "Інформація"
   },
-  "layout.label.visit-your-profile": {
-    "message": "Відвідати профіль"
-  },
   "layout.menu-toggle.action": {
     "message": "Перемкнути меню"
   },
@@ -434,17 +440,8 @@
   "profile.error.not-found": {
     "message": "Користувача не знайдено"
   },
-  "profile.input.upload-avatar": {
-    "message": "Вивантажити аватар"
-  },
   "profile.joined-at": {
     "message": "Приєднався {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "Про себе"
-  },
-  "profile.label.edit-username": {
-    "message": "Ім’я користувача"
   },
   "profile.label.no-collections": {
     "message": "У цього користувача немає добірок!"
@@ -779,6 +776,114 @@
   "scopes.versionWrite.label": {
     "message": "Редагувати версії"
   },
+  "settings.account.title": {
+    "message": "Аккаунт та безпека"
+  },
+  "settings.appearance.title": {
+    "message": "Вигляд"
+  },
+  "settings.applications.title": {
+    "message": "Ваші застосунки"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Авторизовані застосунки"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Деактивувати режим розробника"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Режим розробника</strong> активовано. Це дозволить вам переглянути внутрішні ID різних елементів у Modrinth, що може бути корисно, якщо ви розробник, який використовує Modrinth API. Натисніть на логотип Modrinth внизу сторінки 5 разів, щоб увімкнути режим розробника."
+  },
+  "settings.display.flags.description": {
+    "message": "Увімкнення або вимкнення певних функцій на цьому пристрої."
+  },
+  "settings.display.flags.title": {
+    "message": "Спеціальні функції"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Сторінка пакетів даних"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Виберіть бажаний макет для кожної сторінки, яка відображає списки проєктів на цьому пристрої."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Сторінка модифікацій"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Сторінка збірок"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Сторінка плаґінів"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Сторінка пакетів ресурсів"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Сторінка шейдерів"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Project list layouts"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "Сторінки профілю користувача"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Вмикає розширені можливості візуалізації, такі як ефекти розмиття, які можуть спричинити проблеми з продуктивністю без апаратного прискорення."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Розширена візуалізація"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Зробити так, щоб посилання, які виходять за межі Modrinth, відкривалися в новій вкладці. Незалежно від цього налаштування, посилання на тому ж домені та в описах Markdown відкриватимуться в тій же вкладці, а посилання в оголошеннях і на сторінках редагування — в новій вкладці."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Відкривати зовнішні посилання в нових вкладках"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Приховує кнопку \"Отримати Modrinth App\" з основної навігації. Сторінку Modrinth App все ще можна знайти на цільовій сторінці або в нижньому колонтитулі."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Приховати пропозицію Modrinth App"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Aligns the project details sidebar to the right of the page's content."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Right-aligned project sidebar"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Aligns the search filters sidebar to the right of the search results."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Right-aligned search sidebar"
+  },
+  "settings.display.theme.dark": {
+    "message": "Темна"
+  },
+  "settings.display.theme.description": {
+    "message": "Виберіть бажану тему для Modrinth на цьому пристрої."
+  },
+  "settings.display.theme.light": {
+    "message": "Світла"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Бажано темна тема"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Бажано світла тема"
+  },
+  "settings.display.theme.retro": {
+    "message": "Ретро"
+  },
+  "settings.display.theme.system": {
+    "message": "Синхронізувати з системою"
+  },
+  "settings.display.theme.title": {
+    "message": "Кольорова тема"
+  },
   "settings.language.categories.auto": {
     "message": "Автоматично"
   },
@@ -858,9 +963,6 @@
     "message": "Редагувати персональний токен"
   },
   "settings.pats.title": {
-    "message": "Токени доступу"
-  },
-  "settings.pats.title.long": {
     "message": "Персональний токен доступу"
   },
   "settings.pats.token.action.edit": {
@@ -880,6 +982,33 @@
   },
   "settings.pats.token.never-used": {
     "message": "Ніколи не використовувався"
+  },
+  "settings.profile.bio.description": {
+    "message": "Короткий опис, щоб розповісти всім трохи про вас."
+  },
+  "settings.profile.bio.title": {
+    "message": "Про себе"
+  },
+  "settings.profile.description": {
+    "message": "Інформація про ваш профіль є загальнодоступною на Modrinth та через <docs-link>Modrinth API</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "Відомості про профіль"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Скинути"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Зображення профілю"
+  },
+  "settings.profile.title": {
+    "message": "Публічний профіль"
+  },
+  "settings.profile.username.description": {
+    "message": "Унікальне ім'я без урахування регістру для ідентифікації вашого профілю."
+  },
+  "settings.profile.username.title": {
+    "message": "Ім’я користувача"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Завершити сеанс"
