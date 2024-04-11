@@ -191,6 +191,9 @@
   "button.sign-out": {
     "message": "Выйти"
   },
+  "button.upload-image": {
+    "message": "Выбрать изображение"
+  },
   "collection.button.delete-icon": {
     "message": "Удалить значок"
   },
@@ -279,13 +282,16 @@
     "message": "Жаба"
   },
   "input.view.gallery": {
-    "message": "Вид галереи"
+    "message": "Галерея"
   },
   "input.view.grid": {
-    "message": "Вид сетки"
+    "message": "Сетка"
   },
   "input.view.list": {
-    "message": "Вид списка"
+    "message": "Список"
+  },
+  "label.changes-saved": {
+    "message": "Изменения сохранены"
   },
   "label.collections": {
     "message": "Коллекции"
@@ -337,6 +343,9 @@
   },
   "label.visibility": {
     "message": "Видимость"
+  },
+  "label.visit-your-profile": {
+    "message": "Открыть профиль"
   },
   "layout.action.change-theme": {
     "message": "Изменить тему"
@@ -404,9 +413,6 @@
   "layout.footer.resources.title": {
     "message": "Ресурсы"
   },
-  "layout.label.visit-your-profile": {
-    "message": "Открыть профиль"
-  },
   "layout.menu-toggle.action": {
     "message": "Меню"
   },
@@ -434,17 +440,8 @@
   "profile.error.not-found": {
     "message": "Пользователь не найден"
   },
-  "profile.input.upload-avatar": {
-    "message": "Загрузить аватар"
-  },
   "profile.joined-at": {
     "message": "Присоединился {ago}"
-  },
-  "profile.label.edit-bio": {
-    "message": "О себе"
-  },
-  "profile.label.edit-username": {
-    "message": "Имя пользователя"
   },
   "profile.label.no-collections": {
     "message": "У этого пользователя нет коллекций."
@@ -779,6 +776,114 @@
   "scopes.versionWrite.label": {
     "message": "Запись версий"
   },
+  "settings.account.title": {
+    "message": "Данные и безопасность"
+  },
+  "settings.appearance.title": {
+    "message": "Внешний вид"
+  },
+  "settings.applications.title": {
+    "message": "Ваши приложения"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Authorized apps"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Отключить режим разработчика"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Режим разработчика</strong> активирован. Он позволяет просматривать различные внутренние идентификаторы Modrinth, которые могут быть полезны, если вы работаете с Modrinth API. Нажмите на логотип Modrinth внизу страницы 5 раз, чтобы переключить режим разаботчика."
+  },
+  "settings.display.flags.description": {
+    "message": "Переключение отдельных функций на этом устройстве."
+  },
+  "settings.display.flags.title": {
+    "message": "Feature flags"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Наборы данных"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Выберите предпочитаемый макет для каждой страницы с проектами на этом устройстве."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Моды"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Сборки"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Плагины"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Наборы ресурсов"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Шейдеры"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Представление проектов"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "Проекты в профиле"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Включить продвинутые эффекты наподобие размытия фона, которые могут понизить производительность на устройствах без аппаратного ускорения графики."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Особые эффекты"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Ссылки, ведущие за пределы Modrinth, должны открываться в новой вкладке. Независимо от этой настройки, ссылки на том же домене и в описаниях Markdown будут открываться в той же вкладке, а ссылки на рекламные и редактирование страниц будут открываться в новой вкладке."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Открывать внешние ссылки в новой вкладке"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Убрать кнопку «Загрузить Modrinth App» с поисковых страниц. Ссылку на раздел с Modrinth App всё ещё можно найти на главной странице или в нижней части интерфейса."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Скрыть кнопки загрузки Modrinth App"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Помещает боковую панель с информацией о проекте справа от содержимого страницы."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Отображать боковую панель проекта справа"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Помещает боковую панель с фильтрами поиска справа от результатов поиска."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Отображать боковую панель поиска справа"
+  },
+  "settings.display.theme.dark": {
+    "message": "Тёмная"
+  },
+  "settings.display.theme.description": {
+    "message": "Выберите предпочитаемую тему Modrinth на этом устройстве."
+  },
+  "settings.display.theme.light": {
+    "message": "Светлая"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Preferred dark theme"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Preferred light theme"
+  },
+  "settings.display.theme.retro": {
+    "message": "Ретро"
+  },
+  "settings.display.theme.system": {
+    "message": "Системная"
+  },
+  "settings.display.theme.title": {
+    "message": "Тема"
+  },
   "settings.language.categories.auto": {
     "message": "Автоматически"
   },
@@ -858,10 +963,7 @@
     "message": "Изменить персональный токен доступа"
   },
   "settings.pats.title": {
-    "message": "Токены личного доступа"
-  },
-  "settings.pats.title.long": {
-    "message": "Токены личного доступа к API"
+    "message": "Персональные токены доступа"
   },
   "settings.pats.token.action.edit": {
     "message": "Изменить"
@@ -880,6 +982,33 @@
   },
   "settings.pats.token.never-used": {
     "message": "Не использовался"
+  },
+  "settings.profile.bio.description": {
+    "message": "Возможность кратко рассказать всем о себе."
+  },
+  "settings.profile.bio.title": {
+    "message": "О себе"
+  },
+  "settings.profile.description": {
+    "message": "Информация в вашем профиле доступна публично на Modrinth и через <docs-link>Modrinth API</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "Информация в профиле"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Сброс"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Изображение профиля"
+  },
+  "settings.profile.title": {
+    "message": "Профиль пользователя"
+  },
+  "settings.profile.username.description": {
+    "message": "Уникальное имя для идентификации профиля (чувствительно к регистру)."
+  },
+  "settings.profile.username.title": {
+    "message": "Имя пользователя"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Прервать сеанс"
