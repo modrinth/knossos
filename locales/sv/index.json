@@ -345,7 +345,7 @@
     "message": "Synlighet"
   },
   "label.visit-your-profile": {
-    "message": "Visa din profil"
+    "message": "Besök din profil"
   },
   "layout.action.change-theme": {
     "message": "Ändra temat"
@@ -846,10 +846,10 @@
     "message": "Dölj \"Installera Modrinth\" knapp"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
-    "message": "Aligns the project details sidebar to the right of the page's content."
+    "message": "Justerar sidofältet med projektdetaljer till höger om innehållet."
   },
   "settings.display.sidebar.right-aligned-project-sidebar.title": {
-    "message": "Right-aligned project sidebar"
+    "message": "Högerjusterad projektsidofält"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.description": {
     "message": "Aligns the search filters sidebar to the right of the search results."
