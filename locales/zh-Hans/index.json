@@ -345,7 +345,7 @@
     "message": "公开范围"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "访问您的个人资料"
   },
   "layout.action.change-theme": {
     "message": "更改主题"
@@ -777,7 +777,7 @@
     "message": "写入版本"
   },
   "settings.account.title": {
-    "message": "账号与安全"
+    "message": "账户与安全"
   },
   "settings.appearance.title": {
     "message": "外观"
@@ -792,19 +792,19 @@
     "message": "停用开发者模式"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "已激活<strong>开发者模式</strong> 。 这将允许你遍历 Modrinth 的各项内部 ID，如果你是使用 Modrinth API 的开发者，可能会对你有所帮助。点击页面底部的 Modrinth 徽标 5 次来切换开发者模式。"
+    "message": "<strong>开发者模式</strong>处于激活状态 。 这将允许你查看 Modrinth 的各种事物的内部 ID，如果你是使用 Modrinth API 的开发者，可能会有所帮助。点击页面底部的 Modrinth 徽标 5 次以切换开发者模式。"
   },
   "settings.display.flags.description": {
     "message": "在此设备上启用或禁用某些功能。"
   },
   "settings.display.flags.title": {
-    "message": "特性标志"
+    "message": "个性选项"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "数据包页面"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "为此设备上显示的项目列表页面选择您的首选布局。"
+    "message": "为此设备上显示项目列表的每个页面选择您的首选布局。"
   },
   "settings.display.project-list-layouts.mod": {
     "message": "模组页面"
@@ -858,16 +858,16 @@
     "message": "右对齐搜索侧边栏"
   },
   "settings.display.theme.dark": {
-    "message": "深色模式"
+    "message": "深色"
   },
   "settings.display.theme.description": {
     "message": "在此设备上为 Modrinth 选择您首选的颜色主题。"
   },
   "settings.display.theme.light": {
-    "message": "浅色模式"
+    "message": "浅色"
   },
   "settings.display.theme.oled": {
-    "message": "OLED"
+    "message": "纯黑"
   },
   "settings.display.theme.preferred-dark-theme": {
     "message": "首选深色主题"
