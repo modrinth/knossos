@@ -798,13 +798,13 @@
     "message": "啟用或停用這個裝置上的特定功能。"
   },
   "settings.display.flags.title": {
-    "message": "功能旗標"
+    "message": "功能設定"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "資料包頁面"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "選擇你在這個裝置上顯示專案清單時，偏好的版面配置。"
+    "message": "選擇您在這部裝置上偏好的 Modrinth 專案頁面版面配置。"
   },
   "settings.display.project-list-layouts.mod": {
     "message": "模組頁面"
@@ -861,7 +861,7 @@
     "message": "深色"
   },
   "settings.display.theme.description": {
-    "message": "在這部裝置上選擇您偏好的 Modrinth 色彩主題。"
+    "message": "選擇您在這部裝置上偏好的 Modrinth 色彩主題。"
   },
   "settings.display.theme.light": {
     "message": "淺色"
@@ -984,7 +984,7 @@
     "message": "從未使用"
   },
   "settings.profile.bio.description": {
-    "message": "簡短的自我介紹，讓大家更了解你。"
+    "message": "做個簡短的自我介紹，讓大家更了解你。"
   },
   "settings.profile.bio.title": {
     "message": "關於我"
