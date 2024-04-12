@@ -96,7 +96,7 @@
     "message": "نام ڤڠݢونا"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "دڠن منچيڤتا اکاءون، اندا برستوجو دڠن <terms-link>ترما</terms-link> دان <privacy-policy-link>داسر ڤريۏاسي</privacy-policy-link> مودرين‌ث (Modrinth)."
+    "message": "دڠن منچيڤتا اکاءون⹁ اندا برستوجو دڠن <terms-link>ترما</terms-link> دان <privacy-policy-link>داسر ڤريۏاسي</privacy-policy-link> مودرين‌ث (Modrinth)."
   },
   "auth.sign-up.notification.password-mismatch.text": {
     "message": "کات لالوان تيدق سڤادن!"
@@ -141,7 +141,7 @@
     "message": "کامي تيدق داڤت مڠصحکن إي-ميل اندا. چوبا هنتر سمولا إي-ميل ڤڠصحن ملالوءي بوتڠ دباوه."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "ڤڠصحن إي-ميل ڬاڬل"
+    "message": "ڤڠصحن إي-ميل ݢاݢل"
   },
   "auth.verify-email.post-verification.description": {
     "message": "علامت إي-ميل اندا تله برجاي دصحکن!"
@@ -156,10 +156,10 @@
     "message": "لڠݢن اونتوق کمس کيني تنتڠ مودرين‌ث (Modrinth)"
   },
   "auth.welcome.description": {
-    "message": "تريما کاسيه کران منچيڤتا اکاءون. اندا کيني بوليه مڠيکوتي دان منچيڤتا ڤروجيک، منريما کمس کيني تنتڠ ڤروجيک کݢمرن اندا دان باپق لاݢي!"
+    "message": "تريما کاسيه کران منچيڤتا اکاءون. اندا کيني بوليه مڠيکوتي دان منچيڤتا ڤروجيک⹁ منريما کمس کيني تنتڠ ڤروجيک کݢمرن اندا دان باپق لاݢي!"
   },
   "auth.welcome.label.tos": {
-    "message": "دڠن منچيڤتا اکاءون، اندا تله برستوجو دڠن <terms-link>ترما</terms-link> دان <privacy-policy-link>داسر ڤريۏاسي</privacy-policy-link> مودرين‌ث (Modrinth)."
+    "message": "دڠن منچيڤتا اکاءون⹁ اندا تله برستوجو دڠن <terms-link>ترما</terms-link> دان <privacy-policy-link>داسر ڤريۏاسي</privacy-policy-link> مودرين‌ث (Modrinth)."
   },
   "auth.welcome.long-title": {
     "message": "سلامت داتڠ کمودرين‌ث (Modrinth)!"
@@ -192,7 +192,7 @@
     "message": "دفتر کلوار"
   },
   "button.upload-image": {
-    "message": "موات ناءيق ڬمبر"
+    "message": "موات ناءيق ݢمبر"
   },
   "collection.button.delete-icon": {
     "message": "ڤادم ايکون"
@@ -204,7 +204,7 @@
     "message": "اليه کلوار ڤروجيک"
   },
   "collection.button.unfollow-project": {
-    "message": "ڽهأيكوت ڤروجيک"
+    "message": "ڽهأيکوت ڤروجيک"
   },
   "collection.button.upload-icon": {
     "message": "موات ناءيق ايکون"
@@ -249,7 +249,7 @@
     "message": "{count, plural, other {<stat>{count}</stat> ڤروجيک}}"
   },
   "collection.label.updated-at": {
-    "message": "دكمس کيني {ago}"
+    "message": "دکمس کيني {ago}"
   },
   "collection.title": {
     "message": "{name} - کوليکسي"
@@ -282,7 +282,7 @@
     "message": "کاتق"
   },
   "input.view.gallery": {
-    "message": "بنتوق ڬالري"
+    "message": "بنتوق ݢالري"
   },
   "input.view.grid": {
     "message": "بنتوق ݢريد"
@@ -339,7 +339,7 @@
     "message": "تاجوق"
   },
   "label.unlisted": {
-    "message": "تيدق دسنارايكن"
+    "message": "تيدق دسنارايکن"
   },
   "label.visibility": {
     "message": "کترليهاتن"
@@ -348,7 +348,7 @@
     "message": "لاوت ڤروفيل اندا"
   },
   "layout.action.change-theme": {
-    "message": "توكر تيما"
+    "message": "توکر تيما"
   },
   "layout.action.get-modrinth-app": {
     "message": "داڤتکن Modrinth App"
@@ -363,7 +363,7 @@
     "message": "اونتوق توجوان کسلامتن⹁ سيلا ماسوقکن إي-ميل اندا دمودرين‌ث (Modrinth)."
   },
   "layout.banner.staging.description": {
-    "message": "Persekitaran pementasan berjalan pada salinan pangkalan data produksi Modrinth. Ini digunakan untuk tujuan ujian dan penyahpepijatan, dan mungkin menjalankan versi dalam pembangunan bahagian belakang atau hadapan Modrinth yang lebih baharu daripada instance pengeluaran."
+    "message": "ڤرسکيترن ڤمنتسن برجالن ڤد سالينن ڤڠکلن داتا ڤرودوکسي مودرين‌ث (Modrinth). اين دݢوناکن اونتوق توجوان اوجين دان ڤڽهڤڤيجتن⹁ دان موڠکين منجالنکن ۏرسي دالم ڤمباڠونن بهاݢين بلاکڠ اتاو هادڤن مودرين‌ث (Modrinth) يڠ لبيه بهارو درڤد ۏرسي ڤڠلوارن."
   },
   "layout.banner.staging.title": {
     "message": "اندا سدڠ مليهت ڤرسکيترن ڤمنتسن مودرين‌ث (Modrinth)."
@@ -789,13 +789,13 @@
     "message": "اڤليکاسي يڠ دصحکن"
   },
   "settings.display.banner.developer-mode.button": {
-    "message": "ڽهاكتيفکن مود ڤمباڠون"
+    "message": "ڽهاکتيفکن مود ڤمباڠون"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "<strong>مود ڤمباڠون</strong> کيني اکتيف. اين اکن ممبوليهکن اندا مليهت ID دالمن ڤلباݢاي ڤرکارا دسلوروه مودرين‌ث (Modrinth) يڠ موڠکين برݢونا جک اندا سأورڠ ڤمباڠون يڠ مڠڬوناکن API مودرين‌ث (Modrinth). کليک ڤد لوݢو مودرين‌ث (Modrinth) دبهاݢين باوه هلامن 5 کالي اونتوق منوڬول مود ڤمباڠون."
+    "message": "<strong>مود ڤمباڠون</strong> کيني اکتيف. اين اکن ممبوليهکن اندا مليهت ID دالمن ڤلباݢاي ڤرکارا دسلوروه مودرين‌ث (Modrinth) يڠ موڠکين برݢونا جک اندا سأورڠ ڤمباڠون يڠ مڠݢوناکن API مودرين‌ث (Modrinth). کليک ڤد لوݢو مودرين‌ث (Modrinth) دبهاݢين باوه هلامن 5 کالي اونتوق منوݢول مود ڤمباڠون."
   },
   "settings.display.flags.description": {
-    "message": "دايکن اتاو ڽهداياكن چيري ترتنتو ڤد ڤرنتي اين."
+    "message": "دايکن اتاو ڽهداياکن چيري ترتنتو ڤد ڤرنتي اين."
   },
   "settings.display.flags.title": {
     "message": "ڤنتڤن چيري"
@@ -834,13 +834,13 @@
     "message": "ڤماڤرن لنجوتن"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "بوک ڤاءوتن يڠ ممباوا اندا کلوار مودرين‌ث (Modrinth) دالم تب بهارو. تيدق کيرا تتڤن اين، ڤاءوتن ڤد دوماءين يڠ سام دان دالم کترڠن Markdown اکن دبوک دالم تب يڠ سام دان ڤاءوتن ڤد اعلان دان هلامن سونتيڠ اکن دبوک دالم تب بهارو."
+    "message": "بوک ڤاءوتن يڠ ممباوا اندا کلوار مودرين‌ث (Modrinth) دالم تب بهارو. تيدق کيرا تتڤن اين⹁ ڤاءوتن ڤد دوماءين يڠ سام دان دالم کترڠن Markdown اکن دبوک دالم تب يڠ سام دان ڤاءوتن ڤد اعلان دان هلامن سونتيڠ اکن دبوک دالم تب بهارو."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
     "message": "بوک ڤاءوتن لوارن دالم تب بهارو"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "مپمبوپيکن بوتڠ \"داڤتکن Modrinth App\" درڤد ناۏيڬاسي اوتام. هلامن Modrinth App ماسيه بوليه دتموءي ڤد هلامن ڤندارتن اتاو دالم ڤڠاكي."
+    "message": "مپمبوپيکن بوتڠ \"داڤتکن Modrinth App\" درڤد ناۏيݢاسي اوتام. هلامن Modrinth App ماسيه بوليه دتموءي ڤد هلامن ڤندارتن اتاو دالم ڤڠاکي."
   },
   "settings.display.sidebar.hide-app-promos.title": {
     "message": "سمبوپيکن ڤروموسي Modrinth App"
@@ -999,7 +999,7 @@
     "message": "تتڤ سمولا"
   },
   "settings.profile.profile-picture.title": {
-    "message": "ڬمبر ڤروفيل"
+    "message": "ݢمبر ڤروفيل"
   },
   "settings.profile.title": {
     "message": "ڤروفيل عوام"
@@ -1020,7 +1020,7 @@
     "message": "سيسي سماس"
   },
   "settings.sessions.description": {
-    "message": "برايکوت اياله سموا ڤرنتي يڠ سدڠ دلوݢ ماسوق دڠن اکاءون مودرين‌ث (Modrinth) اندا. اندا بوليه لوݢ کلوار درڤد ستياڤ ساتو ڤرنتي سچارا اينديۏيدو.\n\nجک اندا مليهت اينتري يڠ اندا تيدق كنالي⹁ لوݢ کلوار درڤد ڤرنتي ايت دان/دن توكر کات لالوان اکاءون مودرين‌ث (Modrinth) اندا دڠن سݢرا."
+    "message": "برايکوت اياله سموا ڤرنتي يڠ سدڠ دلوݢ ماسوق دڠن اکاءون مودرين‌ث (Modrinth) اندا. اندا بوليه لوݢ کلوار درڤد ستياڤ ساتو ڤرنتي سچارا اينديۏيدو.\n\nجک اندا مليهت اينتري يڠ اندا تيدق کنالي⹁ لوݢ کلوار درڤد ڤرنتي ايت دان/دن توکر کات لالوان اکاءون مودرين‌ث (Modrinth) اندا دڠن سݢرا."
   },
   "settings.sessions.last-accessed-ago": {
     "message": "کالي تراخير دأکسيس {ago}"
