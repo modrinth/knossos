@@ -36,10 +36,10 @@
     "message": "Ліст адпраўлены"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Цяпер вы можаце ўвайсці з вашым новым паролем."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Пароль паспяхова скінуты"
   },
   "auth.reset-password.post-challenge.action": {
     "message": "Скінуць пароль"
@@ -48,7 +48,7 @@
     "message": "Пацвердзіце пароль"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Увядзіце ваш новы пароль ніжэй, каб атрымаць доступ да вашага ўліковага запісу."
   },
   "auth.reset-password.title": {
     "message": "Скінуць пароль"
@@ -57,10 +57,10 @@
     "message": "Скід вашага пароля"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Каб працягнуць, увядзіце код двухэтапнай праверкі."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Увядзіце код двухэтапнай праверкі"
   },
   "auth.sign-in.2fa.placeholder": {
     "message": "Увядзіце код..."
@@ -81,7 +81,7 @@
     "message": "Увайсці"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "Ці выкарыстоўвайце пароль"
   },
   "auth.sign-up.action.create-account": {
     "message": "Стварыць уліковы запіс"
@@ -192,7 +192,7 @@
     "message": "Выйсці"
   },
   "button.upload-image": {
-    "message": "Upload image"
+    "message": "Запампаваць выяву"
   },
   "collection.button.delete-icon": {
     "message": "Выдаліць іконку"
@@ -288,10 +288,10 @@
     "message": "Сетка"
   },
   "input.view.list": {
-    "message": "Rows view"
+    "message": "Спіс"
   },
   "label.changes-saved": {
-    "message": "Changes saved"
+    "message": "Змяненні захаваны"
   },
   "label.collections": {
     "message": "Калекцыі"
@@ -345,7 +345,7 @@
     "message": "Бачнасць"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Адкрыць профіль"
   },
   "layout.action.change-theme": {
     "message": "Змяніць тэму"
@@ -567,22 +567,22 @@
     "message": "Запісваць у калекцыі"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Чытаць вашы паведамленні"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "Чытаць вашы паведамленні"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Выдаляць/глядзець вашыя паведамленні"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Запісваць паведамленні"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Ствараць арганізацыі"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Ствараць арганізацыі"
   },
   "scopes.organizationDelete.description": {
     "message": "Выдаліць арганізацыі"
@@ -591,25 +591,25 @@
     "message": "Выдаліць арганізацыі"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Чытаць спіс арганізацый"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Чытаць спіс арганізацый"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Змяняць арганізацыі"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Змяняць арганізацыі"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Ствараць персанальныя токены API"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "Стварэнне токенаў доступу"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Выдаляць персанальныя токены API"
   },
   "scopes.patDelete.label": {
     "message": "Delete PATs"
@@ -681,28 +681,28 @@
     "message": "Delete reports"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Чытаць спіс скарг"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Чытаць спіс скарг"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Змяняць скаргі"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Падаваць скаргі"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Прагляд сесій, створаных Modrinth"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Прагляд сесій"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Сканчэнне сесій"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Сканчэнне сесій"
   },
   "scopes.sessionRead.description": {
     "message": "Read active sessions"
@@ -858,13 +858,13 @@
     "message": "Right-aligned search sidebar"
   },
   "settings.display.theme.dark": {
-    "message": "Dark"
+    "message": "Цёмная"
   },
   "settings.display.theme.description": {
     "message": "Select your preferred color theme for Modrinth on this device."
   },
   "settings.display.theme.light": {
-    "message": "Light"
+    "message": "Светлая"
   },
   "settings.display.theme.oled": {
     "message": "OLED"
@@ -882,7 +882,7 @@
     "message": "Sync with system"
   },
   "settings.display.theme.title": {
-    "message": "Color theme"
+    "message": "Каляровая схема"
   },
   "settings.language.categories.auto": {
     "message": "Аўтаматычна"
@@ -939,10 +939,10 @@
     "message": "Create PAT"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Тэрмін дзеяння:"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Назва"
   },
   "settings.pats.modal.create.name.placeholder": {
     "message": "Enter the PAT's name..."
@@ -951,7 +951,7 @@
     "message": "Create personal access token"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Выдаліць гэты токен"
   },
   "settings.pats.modal.delete.description": {
     "message": "This will remove this token forever (like really forever)."
@@ -963,76 +963,76 @@
     "message": "Edit personal access token"
   },
   "settings.pats.title": {
-    "message": "Personal access tokens"
+    "message": "Асабістыя токены доступу"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Змяніць токен"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Адазваць токен"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Тэрмін дзеяння: {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Тэрмін дзеяння: {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Апошняя доступ: {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Не выкарыстоўваўся"
   },
   "settings.profile.bio.description": {
-    "message": "A short description to tell everyone a little bit about you."
+    "message": "Магчымасць кораценька распавесці пра сябе."
   },
   "settings.profile.bio.title": {
-    "message": "Bio"
+    "message": "Пра сябе"
   },
   "settings.profile.description": {
-    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+    "message": "Інфармацыя вашага профілю публічная на Modrinth і праз <docs-link>Modrinth API</docs-link>."
   },
   "settings.profile.profile-info": {
-    "message": "Profile information"
+    "message": "Інфармацыя профілю"
   },
   "settings.profile.profile-picture.reset": {
-    "message": "Reset"
+    "message": "Скінуць"
   },
   "settings.profile.profile-picture.title": {
-    "message": "Profile picture"
+    "message": "Выява профілю"
   },
   "settings.profile.title": {
-    "message": "Public profile"
+    "message": "Профіль карыстальніка"
   },
   "settings.profile.username.description": {
-    "message": "A unique case-insensitive name to identify your profile."
+    "message": "Унікальнае імя для ідэнтыфікацыі карыстальніка (адчувальна да рэгістру)."
   },
   "settings.profile.username.title": {
-    "message": "Username"
+    "message": "Імя карыстальніка"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "Спыніць сэсію"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "Пачата: {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "Бягучая сесія"
   },
   "settings.sessions.description": {
     "message": "Ніжэй прадстаўлены ўсе прылады, з якіх здзейснены ўваход у ваш уліковы запіс Modrinth. Вы можаце кіраваць сэсіей кожнага з іх асабіста.\n\nКалі сярод іх прыстунічае незнаёмая прылада, імгненна спыніце яго сэсію і змяніце пароль свайго ўліковага запісу."
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "Апошняя актыўнасць: {ago}"
   },
   "settings.sessions.title": {
     "message": "Сэсіі"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Невядомая АС"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Невядомая платформа"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} у {time, time, short}"
