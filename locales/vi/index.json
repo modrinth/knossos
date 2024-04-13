@@ -24,37 +24,37 @@
     "message": "Điền email của bạn và chúng tôi sẽ gửi đường dẫn khôi phục để bạn lấy lại tài khoản của mình."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "Địa chỉ email hoặc tên đăng nhập"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "Địa chỉ email"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "Thư điện tử với hướng dẫn đã được gửi cho bạn nếu địa chỉ email đã lưu vào tài khoản của bạn trước đây."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "Đã gửi thư điện tử"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Bạn có thể đăng nhập vào tài khoản của bạn với mật khẩu mới của bạn."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Mật khẩu của bạn đã thay đổi thành công"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Đặt lại mật khẩu"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Nhập lại mật khẩu"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Nhập mật khẩu mới vào các ô ở dưới để nhập lại tài khoản của bạn."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Đặt lại mật khẩu"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Đặt lại mật khẩu của bạn"
   },
   "auth.sign-in.2fa.description": {
     "message": "Please enter a two-factor code to proceed."
@@ -63,55 +63,55 @@
     "message": "Enter two-factor code"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Nhập mã..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Quên mật khẩu?</forgot-password-link> • <create-account-link>Tạo tài khoản</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Địa chỉ email hoặc tên đăng nhập"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Mật khẩu"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Đăng nhập bằng"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Đăng nhập"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "Hoặc dùng mật khẩu"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Tạo tài khoản"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Nhập lại mật khẩu"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "Địa chỉ email"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Tên đăng nhập"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Khi bạn tạo tài khoản, bạn đang đồng ý với <terms-link>Diều khoản sử dụng</terms-link> và <privacy-policy-link>Chình sách quyền riêng tư</privacy-policy-link> của Modrinth."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "Mật khẩu không giống nhau!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "Mật khẩu"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Đã có tài khoản?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Đăng kí để nhận cập nhật về Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Đăng ký"
   },
   "auth.sign-up.title.create-account": {
     "message": "Or create an account yourself"
