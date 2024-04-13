@@ -192,7 +192,7 @@
     "message": "Kijelentkezés"
   },
   "button.upload-image": {
-    "message": "Upload image"
+    "message": "Kép feltöltése"
   },
   "collection.button.delete-icon": {
     "message": "Ikon törlése"
@@ -288,10 +288,10 @@
     "message": "Rácsnézet"
   },
   "input.view.list": {
-    "message": "Rows view"
+    "message": "Sor nézet"
   },
   "label.changes-saved": {
-    "message": "Changes saved"
+    "message": "Módosítások elmentve"
   },
   "label.collections": {
     "message": "Gyűjtemények"
@@ -777,112 +777,112 @@
     "message": "Verziók írása"
   },
   "settings.account.title": {
-    "message": "Account and security"
+    "message": "Fiók és biztonság"
   },
   "settings.appearance.title": {
-    "message": "Appearance"
+    "message": "Megjelenés"
   },
   "settings.applications.title": {
-    "message": "Your applications"
+    "message": "Alkalmazásaid"
   },
   "settings.authorized-apps.title": {
-    "message": "Authorized apps"
+    "message": "Azonosított alkalmazások"
   },
   "settings.display.banner.developer-mode.button": {
-    "message": "Deactivate developer mode"
+    "message": "Fejlesztői mód deaktiválása"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+    "message": "<strong>A fejlesztői mód</strong> aktív. Ez lehetővé teszi a különböző dolgok belső azonosítóinak megtekintését a Modrinth-ban, ami hasznos lehet, ha Ön a Modrinth API-t használó fejlesztő. Kattintson ötször a Modrinth logóra az oldal alján a fejlesztői mód váltásához."
   },
   "settings.display.flags.description": {
-    "message": "Enable or disable certain features on this device."
+    "message": "Engedélyezés vagy letiltás bizonyos funkcióknál ezen az eszközön."
   },
   "settings.display.flags.title": {
-    "message": "Feature flags"
+    "message": "Funkciójelzők"
   },
   "settings.display.project-list-layouts.datapack": {
-    "message": "Data Packs page"
+    "message": "Datapackek oldala"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "Select your preferred layout for each page that displays project lists on this device."
+    "message": "Válassza ki a kívánt elrendezést minden olyan oldalhoz, amely projektlistákat jelenít meg ezen az eszközön."
   },
   "settings.display.project-list-layouts.mod": {
-    "message": "Mods page"
+    "message": "Modok oldala"
   },
   "settings.display.project-list-layouts.modpack": {
-    "message": "Modpacks page"
+    "message": "Modpackek oldala"
   },
   "settings.display.project-list-layouts.plugin": {
-    "message": "Plugins page"
+    "message": "Pluginok oldala"
   },
   "settings.display.project-list-layouts.resourcepack": {
-    "message": "Resource Packs page"
+    "message": "Forráscsomagok oldala"
   },
   "settings.display.project-list-layouts.shader": {
-    "message": "Shaders page"
+    "message": "Shaderek oldala"
   },
   "settings.display.project-list-layouts.title": {
-    "message": "Project list layouts"
+    "message": "Projekt lista kinézete"
   },
   "settings.display.project-list-layouts.user": {
-    "message": "User profile pages"
+    "message": "Felhasználói profil oldalak"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+    "message": "Lehetővé teszi a fejlett megjelenítést, például az elmosódási effektusokat, amelyek teljesítményproblémákat okozhatnak hardveres gyorsítás nélkül."
   },
   "settings.display.sidebar.advanced-rendering.title": {
-    "message": "Advanced rendering"
+    "message": "Speciális renderelés"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+    "message": "Nyissa meg a Modrinthon kívüli hivatkozásokat egy új lapon. Ettől a beállítástól függetlenül az ugyanazon a domainen és a Markdown-leírásokban lévő linkek ugyanazon a lapon, a hirdetéseken és a szerkesztőoldalakon lévő linkek pedig egy új lapon nyílnak meg."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
-    "message": "Open external links in new tab"
+    "message": "Külső hivatkozások megnyitása új lapon"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+    "message": "Elrejti a „Modrinth App letöltése” gombokat az elsődleges navigáció elől. A Modrinth App oldal továbbra is megtalálható a céloldalon vagy a láblécben."
   },
   "settings.display.sidebar.hide-app-promos.title": {
-    "message": "Hide Modrinth App promotions"
+    "message": "A Modrinth App promócióinak elrejtése"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
-    "message": "Aligns the project details sidebar to the right of the page's content."
+    "message": "A projekt részleteit tartalmazó oldalsávot az oldal tartalmától jobbra igazítja."
   },
   "settings.display.sidebar.right-aligned-project-sidebar.title": {
-    "message": "Right-aligned project sidebar"
+    "message": "Jobbra igazított projektoldalsáv"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.description": {
-    "message": "Aligns the search filters sidebar to the right of the search results."
+    "message": "A keresési szűrők oldalsávját a keresési eredményektől jobbra igazítja."
   },
   "settings.display.sidebar.right-aligned-search-sidebar.title": {
-    "message": "Right-aligned search sidebar"
+    "message": "Jobbra igazított keresőoldalsáv"
   },
   "settings.display.theme.dark": {
-    "message": "Dark"
+    "message": "Sötét"
   },
   "settings.display.theme.description": {
-    "message": "Select your preferred color theme for Modrinth on this device."
+    "message": "Válassza ki a kívánt Modrinth színtémát ezen az eszközön."
   },
   "settings.display.theme.light": {
-    "message": "Light"
+    "message": "Világos"
   },
   "settings.display.theme.oled": {
     "message": "OLED"
   },
   "settings.display.theme.preferred-dark-theme": {
-    "message": "Preferred dark theme"
+    "message": "Előnyben részesített sötét téma"
   },
   "settings.display.theme.preferred-light-theme": {
-    "message": "Preferred light theme"
+    "message": "Előnyben részesített világos téma"
   },
   "settings.display.theme.retro": {
-    "message": "Retro"
+    "message": "Retró"
   },
   "settings.display.theme.system": {
-    "message": "Sync with system"
+    "message": "Szinkronizálás a rendszerrel"
   },
   "settings.display.theme.title": {
-    "message": "Color theme"
+    "message": "Színtéma"
   },
   "settings.language.categories.auto": {
     "message": "Automatikus"
@@ -963,7 +963,7 @@
     "message": "Személyes elérési token szerkesztése"
   },
   "settings.pats.title": {
-    "message": "Personal access tokens"
+    "message": "Személyes Elérési Tokenek"
   },
   "settings.pats.token.action.edit": {
     "message": "Token szerkesztése"
@@ -984,31 +984,31 @@
     "message": "Sohasem használva"
   },
   "settings.profile.bio.description": {
-    "message": "A short description to tell everyone a little bit about you."
+    "message": "Egy rövid leírás, hogy mindenkinek mesélj magadról egy kicsit."
   },
   "settings.profile.bio.title": {
-    "message": "Bio"
+    "message": "Bemutatkozás"
   },
   "settings.profile.description": {
-    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+    "message": "Profiladatai nyilvánosan megtekinthetők a Modrinth-on és a<docs-link> Modrinth API</docs-link>ban."
   },
   "settings.profile.profile-info": {
-    "message": "Profile information"
+    "message": "Profilinformációk"
   },
   "settings.profile.profile-picture.reset": {
-    "message": "Reset"
+    "message": "Visszaállítás"
   },
   "settings.profile.profile-picture.title": {
-    "message": "Profile picture"
+    "message": "Profilkép"
   },
   "settings.profile.title": {
-    "message": "Public profile"
+    "message": "Nyilvános profil"
   },
   "settings.profile.username.description": {
-    "message": "A unique case-insensitive name to identify your profile."
+    "message": "Egyedi név, amely nem különbözteti meg a kis- és nagybetűket a profilod azonosításához."
   },
   "settings.profile.username.title": {
-    "message": "Username"
+    "message": "Felhasználónév"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Munkamenet visszavonása"
