@@ -345,7 +345,7 @@
     "message": "Widoczność"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Odwiedź swój profil"
   },
   "layout.action.change-theme": {
     "message": "Zmień motyw"
@@ -795,10 +795,10 @@
     "message": "<strong>Tryb dewelopera</strong> jest aktywny. To umożliwia wyświetlać wewnętrzne identyfikatory różnych rzeczy w Modrinth, które mogą być pomocne, jeśli jesteś deweloperem korzystającym z API Modrinth'a. Kliknij logo Modrinth na dole strony 5 razy, aby przełączać tryb dewelopera."
   },
   "settings.display.flags.description": {
-    "message": "Włącz lub wyłącz określone funkcje na tym urządzeniu."
+    "message": "Włącz lub wyłącz określone funkcjonalności na tym urządzeniu."
   },
   "settings.display.flags.title": {
-    "message": "Feature flags"
+    "message": "Funkcjonalności"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Strona Data Packów"
@@ -828,31 +828,31 @@
     "message": "Strony profilu użytkownika"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "Włącza zaawansowane renderowanie obrazu, takie jak efekty rozmycia. Może powodować problemy z wydajnością bez przyspieszonego renderowania sprzętu."
+    "message": "Włącza zaawansowane renderowanie, takie jak efekty rozmycia, które może powodować problemy z wydajnością bez sprzętowej akceleracji renderowania."
   },
   "settings.display.sidebar.advanced-rendering.title": {
     "message": "Zaawansowane renderowanie"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+    "message": "Powoduje, że linki wychodzące poza Modrinth otwierają się w nowej karcie. Bez względu na to ustawienie, linki w tej samej domenie i w opisach Markdown będą otwierane w tej samej karcie, a linki w reklamach i na stronach edycji będą otwierane w nowej karcie."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
     "message": "Otwieraj linki zewnętrzne w nowej karcie"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+    "message": "Ukrywa przyciski \"Pobierz aplikację Modrinth\" z podstawowej nawigacji. Stronę aplikacji Modrinth można nadal znaleźć na stronie głównej lub w stopce."
   },
   "settings.display.sidebar.hide-app-promos.title": {
-    "message": "Hide Modrinth App promotions"
+    "message": "Ukryj promocje aplikacji Modrinth"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
-    "message": "Aligns the project details sidebar to the right of the page's content."
+    "message": "Wyrównuje pasek boczny szczegółów projektu do prawej od zawartości strony."
   },
   "settings.display.sidebar.right-aligned-project-sidebar.title": {
     "message": "Pasek boczny projektu po prawej"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.description": {
-    "message": "Aligns the search filters sidebar to the right of the search results."
+    "message": "Wyrównuje pasek boczny wyszukiwania do prawej strony wyników wyszukiwania."
   },
   "settings.display.sidebar.right-aligned-search-sidebar.title": {
     "message": "Pasek boczny wyszukiwania po prawej"
@@ -984,16 +984,16 @@
     "message": "Nigdy nie używany"
   },
   "settings.profile.bio.description": {
-    "message": "A short description to tell everyone a little bit about you."
+    "message": "Krótki opis, aby powiedzieć wszystkim trochę o Tobie."
   },
   "settings.profile.bio.title": {
     "message": "Opis"
   },
   "settings.profile.description": {
-    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+    "message": "Twoje informacje profilowe są publicznie dostępne na Modrinth i poprzez <docs-link>Modrinth API</docs-link>."
   },
   "settings.profile.profile-info": {
-    "message": "Profile information"
+    "message": "Informacje profilowe"
   },
   "settings.profile.profile-picture.reset": {
     "message": "Zresetuj"
@@ -1005,7 +1005,7 @@
     "message": "Profil publiczny"
   },
   "settings.profile.username.description": {
-    "message": "A unique case-insensitive name to identify your profile."
+    "message": "Unikalna, nierozróżniająca wielkości liter nazwa identyfikująca Twój profil."
   },
   "settings.profile.username.title": {
     "message": "Nazwa użytkownika"
