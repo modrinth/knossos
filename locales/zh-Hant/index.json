@@ -345,7 +345,7 @@
     "message": "瀏覽權限"
   },
   "label.visit-your-profile": {
-    "message": "瀏覽您的個人檔案"
+    "message": "瀏覽個人檔案"
   },
   "layout.action.change-theme": {
     "message": "變更主題"
@@ -804,7 +804,7 @@
     "message": "資料包頁面"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "選擇您在這部裝置上偏好的 Modrinth 專案頁面版面配置。"
+    "message": "選擇這部裝置的偏好專案頁面版面配置。"
   },
   "settings.display.project-list-layouts.mod": {
     "message": "模組頁面"
@@ -861,7 +861,7 @@
     "message": "深色"
   },
   "settings.display.theme.description": {
-    "message": "選擇您在這部裝置上偏好的 Modrinth 色彩主題。"
+    "message": "選擇這部裝置的偏好 Modrinth 色彩主題。"
   },
   "settings.display.theme.light": {
     "message": "淺色"
@@ -915,7 +915,7 @@
     "message": "無法載入這個語言。請稍後再試。"
   },
   "settings.language.languages.search-field.description": {
-    "message": "提交以聚焦第一個搜尋結果"
+    "message": "按下 Enter 以聚焦第一個搜尋結果"
   },
   "settings.language.languages.search-field.placeholder": {
     "message": "搜尋語言..."
