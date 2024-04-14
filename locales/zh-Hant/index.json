@@ -192,7 +192,7 @@
     "message": "登出"
   },
   "button.upload-image": {
-    "message": "上傳圖片"
+    "message": "上傳相片"
   },
   "collection.button.delete-icon": {
     "message": "刪除圖示"
@@ -795,7 +795,7 @@
     "message": "已啟用<strong>開發人員模式</strong>。這個模式將允許您查看 Modrinth 的各項內部 ID，如果您是使用 Modrinth API 的開發人員，這可能會很有幫助。按 5 次頁面底部的 Modrinth 圖示即可開啟和關閉開發人員模式。"
   },
   "settings.display.flags.description": {
-    "message": "啟用或停用這個裝置上的特定功能。"
+    "message": "啟用或停用這部裝置上的特定功能。"
   },
   "settings.display.flags.title": {
     "message": "功能設定"
@@ -804,7 +804,7 @@
     "message": "資料包頁面"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "選擇這部裝置的偏好專案頁面版面配置。"
+    "message": "選擇這部裝置偏好的專案頁面版面配置。"
   },
   "settings.display.project-list-layouts.mod": {
     "message": "模組頁面"
@@ -861,7 +861,7 @@
     "message": "深色"
   },
   "settings.display.theme.description": {
-    "message": "選擇這部裝置的偏好 Modrinth 色彩主題。"
+    "message": "選擇這部裝置偏好的 Modrinth 色彩主題。"
   },
   "settings.display.theme.light": {
     "message": "淺色"
@@ -939,7 +939,7 @@
     "message": "建立個人存取權杖"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "到期"
+    "message": "到期日"
   },
   "settings.pats.modal.create.name.label": {
     "message": "名稱"
@@ -972,10 +972,10 @@
     "message": "撤銷權杖"
   },
   "settings.pats.token.expired-ago": {
-    "message": "到期於 {ago}"
+    "message": " 已於 {ago}到期"
   },
   "settings.pats.token.expires-in": {
-    "message": "到期於 {inTime}"
+    "message": "將於 {inTime}到期"
   },
   "settings.pats.token.last-used": {
     "message": "上次使用於 {ago}"
