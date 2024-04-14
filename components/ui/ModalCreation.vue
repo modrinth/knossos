@@ -114,7 +114,7 @@ const messages = defineMessages({
   },
   visibilityPlaceholder: {
     id: 'component.modal.modal-creation.visibility.placeholder',
-    defaultMessage: 'Choose visibility..',
+    defaultMessage: 'Choose visibility...',
   },
   visibilitysApproved: {
     id: 'component.modal.modal-creation.visibilitys.approved',

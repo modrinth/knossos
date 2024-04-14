@@ -276,7 +276,7 @@
     "message": "The visibility of your project after it has been approved."
   },
   "component.modal.modal-creation.visibility.placeholder": {
-    "message": "Choose visibility.."
+    "message": "Choose visibility..."
   },
   "component.modal.modal-creation.visibilitys.approved": {
     "message": "Public"
