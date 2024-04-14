@@ -345,7 +345,7 @@
     "message": "Viditelnost"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Navštívit váš profil"
   },
   "layout.action.change-theme": {
     "message": "Změnit motiv"
@@ -834,28 +834,28 @@
     "message": "Pokročilé vykreslování"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+    "message": "Způsobí, že odkazy směřující mimo Modrinth budou otevřeny v nové kartě. Bez ohledu na toto nastavení se odkazy na stejné doméně a v Markdown popisech otevřou ve stávající kartě a odkazy na reklamy a úpravy stránek budou otevřeny v nové kartě."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
-    "message": "Open external links in new tab"
+    "message": "Otevřít externí odkazy v nové kartě"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+    "message": "Skryje tlačítka \"Získat aplikaci Modrinth\" z primární navigace. Stránka aplikace Modrinth bude stále přístupná ze vstupní stránky nebo ze zápatí."
   },
   "settings.display.sidebar.hide-app-promos.title": {
-    "message": "Hide Modrinth App promotions"
+    "message": "Skrýt promoci aplikace Modrinth"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
-    "message": "Aligns the project details sidebar to the right of the page's content."
+    "message": "Zarovná postranní panel s detaily o projektu vpravo od obsahu stránky."
   },
   "settings.display.sidebar.right-aligned-project-sidebar.title": {
-    "message": "Right-aligned project sidebar"
+    "message": "Zarovnat panel projektu doprava"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.description": {
-    "message": "Aligns the search filters sidebar to the right of the search results."
+    "message": "Zarovná postranní panel s filtry vpravo od výsledků vyhledávání."
   },
   "settings.display.sidebar.right-aligned-search-sidebar.title": {
-    "message": "Right-aligned search sidebar"
+    "message": "Zarovnat panel vyhledávání doprava"
   },
   "settings.display.theme.dark": {
     "message": "Tmavý"
