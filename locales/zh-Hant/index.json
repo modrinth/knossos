@@ -273,10 +273,10 @@
     "message": "一幅逼真的青蛙迷宮畫作"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, other {有另外 {count} 個人}}同樣被這青蛙耍了！"
+    "message": "{count, plural, other {另有 {count} 個人}}也被這隻青蛙耍了！"
   },
   "frog.sinceOpened": {
-    "message": "這個頁面開啟於 {ago}"
+    "message": "本頁面在 {ago} 開啟"
   },
   "frog.title": {
     "message": "青蛙"
@@ -297,7 +297,7 @@
     "message": "收藏夾"
   },
   "label.created-ago": {
-    "message": "建立於 {ago}"
+    "message": "建立時間：{ago}"
   },
   "label.dashboard": {
     "message": "儀表板"
@@ -363,7 +363,7 @@
     "message": "基於安全考量，請在 Modrinth 上輸入您的電子郵件地址。"
   },
   "layout.banner.staging.description": {
-    "message": "預備環境正在執行生產 Modrinth 資料庫的副本。這個副本用於測試和除錯目的，並且可能執行比生產實例更新的 Modrinth 後端或前端開發版本。"
+    "message": "預備環境正在執行生產 Modrinth 資料庫的副本。這個環境用於測試和除錯目的，並且可能執行比生產實例更新的 Modrinth 後端或前端開發版本。"
   },
   "layout.banner.staging.title": {
     "message": "您正在查看 Modrinth 的預備環境。"
@@ -933,7 +933,7 @@
     "message": "建立個人存取權杖"
   },
   "settings.pats.description": {
-    "message": "個人存取權杖可以用來存取 Modrinth 的 API。如需詳細資訊，請參閱 <doc-link>Modrinth 的 API 文件</doc-link>。您可以隨時建立或撤銷 PAT。"
+    "message": "個人存取權杖可以用來存取 Modrinth 的 API。如需詳細資訊，請參閱 <doc-link>Modrinth 的 API 文件</doc-link>。您可以隨時建立及撤銷 PAT。"
   },
   "settings.pats.modal.create.action": {
     "message": "建立個人存取權杖"
@@ -969,7 +969,7 @@
     "message": "編輯權杖"
   },
   "settings.pats.token.action.revoke": {
-    "message": "撤銷權杖"
+    "message": "撤銷權杖授權"
   },
   "settings.pats.token.expired-ago": {
     "message": " 已於 {ago}到期"
