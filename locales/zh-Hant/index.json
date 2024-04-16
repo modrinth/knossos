@@ -213,7 +213,7 @@
     "message": "這項操作會永久刪除這個收藏夾，且無法復原。"
   },
   "collection.delete-modal.title": {
-    "message": "您確定要刪除這個收藏夾嗎？"
+    "message": "要刪除這個收藏夾嗎？"
   },
   "collection.description": {
     "message": "{description} — 在 Modrinth 上查看 {username} 的收藏夾 {name}"
@@ -225,16 +225,16 @@
     "message": "找不到收藏夾"
   },
   "collection.label.collection": {
-    "message": "收藏"
+    "message": "收藏夾"
   },
   "collection.label.created-at": {
-    "message": "建立於 {ago}"
+    "message": "建立時間：{ago}"
   },
   "collection.label.curated-by": {
     "message": "策展人"
   },
   "collection.label.no-projects": {
-    "message": "這個收藏夾沒有專案！"
+    "message": "這個收藏夾沒有任何專案！"
   },
   "collection.label.no-projects-auth": {
     "message": "您沒有任何專案。\n您想要<create-link>新增一個</create-link>嗎？"
@@ -249,7 +249,7 @@
     "message": "{count, plural,other {<stat>{count}</stat> 個專案}}"
   },
   "collection.label.updated-at": {
-    "message": "更新於 {ago}"
+    "message": "更新時間：{ago}"
   },
   "collection.title": {
     "message": "{name} - 收藏夾"
@@ -438,10 +438,10 @@
     "message": "檢舉"
   },
   "profile.error.not-found": {
-    "message": "這個使用者不存在"
+    "message": "找不到使用者"
   },
   "profile.joined-at": {
-    "message": "加入於 {ago}"
+    "message": "加入時間：{ago}"
   },
   "profile.label.no-collections": {
     "message": "這個使用者沒有收藏夾！"
@@ -957,7 +957,7 @@
     "message": "這項操作會永久刪除這個權杖（非常久）。"
   },
   "settings.pats.modal.delete.title": {
-    "message": "您確定要刪除這個權杖嗎？"
+    "message": "要刪除這個權杖嗎？"
   },
   "settings.pats.modal.edit.title": {
     "message": "編輯個人存取權杖"
@@ -972,13 +972,13 @@
     "message": "撤銷權杖授權"
   },
   "settings.pats.token.expired-ago": {
-    "message": " 已於 {ago}到期"
+    "message": "{ago}到期"
   },
   "settings.pats.token.expires-in": {
-    "message": "將於 {inTime}到期"
+    "message": "{inTime}到期"
   },
   "settings.pats.token.last-used": {
-    "message": "上次使用於 {ago}"
+    "message": "上次使用時間：{ago}"
   },
   "settings.pats.token.never-used": {
     "message": "從未使用"
@@ -1014,7 +1014,7 @@
     "message": "撤銷工作階段授權"
   },
   "settings.sessions.created-ago": {
-    "message": "建立於 {ago}"
+    "message": "建立時間：{ago}"
   },
   "settings.sessions.current-session": {
     "message": "目前的工作階段"
@@ -1023,7 +1023,7 @@
     "message": "您目前已在下列裝置上登入 Modrinth 帳號。您可以分別登出每部裝置。\n\n如果您對某部裝置沒有印象，請立即登出該裝置並變更您的 Modrinth 帳號密碼。"
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "上次存取於 {ago}"
+    "message": "上次存取時間：{ago}"
   },
   "settings.sessions.title": {
     "message": "工作階段"
