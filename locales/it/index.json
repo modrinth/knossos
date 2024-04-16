@@ -12,7 +12,7 @@
     "message": "Autorizza {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "Nessuna posizione di reindirizzamento trovata nella risposta"
+    "message": "Nessuna posizione di reindirizzamento trovata"
   },
   "auth.authorize.redirect-url": {
     "message": "Sarai reindirizzato a <redirect-url>{url}</redirect-url>"
@@ -114,13 +114,13 @@
     "message": "Registrati"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Oppure crea un nuovo account"
+    "message": "Oppure crea un nuovo account:"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Registrati con"
+    "message": "Accedi con"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Impostazioni account"
+    "message": "Impostazioni profilo"
   },
   "auth.verify-email.action.sign-in": {
     "message": "Accedi"
@@ -141,7 +141,7 @@
     "message": "Non siamo stati in grado di verificare la tua e-mail. Prova a inviare nuovamente l'e-mail di verifica premendo il pulsante sottostante."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Verifica e-mail non riuscita"
+    "message": "Verificazione e-mail fallita con succeso"
   },
   "auth.verify-email.post-verification.description": {
     "message": "Il tuo indirizzo e-mail è stato verificato con successo!"
@@ -345,7 +345,7 @@
     "message": "Visibilità"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Vai al tuo profilo"
   },
   "layout.action.change-theme": {
     "message": "Cambia tema"
