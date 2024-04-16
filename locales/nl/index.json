@@ -99,7 +99,7 @@
     "message": "Door een account aan te maken ga je akkoord met Modrinth's <terms-link>Voorwaarden</terms-link> en <privacy-policy-link>Privacybeleid</privacy-policy-link>."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "Wachtwoorden komen niet overeen!"
   },
   "auth.sign-up.password.label": {
     "message": "Wachtwoord"
@@ -111,7 +111,7 @@
     "message": "Abonneer op updates over Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Registreren"
   },
   "auth.sign-up.title.create-account": {
     "message": "Of maak zelf een account aan"
@@ -195,22 +195,22 @@
     "message": "Upload afbeelding"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Pictogram verwijderen"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Pictogram aanpassen"
   },
   "collection.button.remove-project": {
     "message": "Verwijder Project"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Ontvolg project"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Pictogram uploaden"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "Dit zal deze collectie permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt."
   },
   "collection.delete-modal.title": {
     "message": "Weet u zeker dat u deze collectie wil verwijderen?"
@@ -231,7 +231,7 @@
     "message": "Aangemaakt {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "Samengesteld door"
   },
   "collection.label.no-projects": {
     "message": "Deze collectie bevat geen projecten!"
@@ -255,16 +255,16 @@
     "message": "{name} - Collectie"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "Nieuwe maken"
   },
   "dashboard.collections.label.projects-count": {
     "message": "{count, plural, one {{count} project} other {{count} projects}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "Zoek in je collecties"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "Jouw collecties"
   },
   "frog": {
     "message": "Je bent gekikkerd! 🐸"
@@ -291,13 +291,13 @@
     "message": "Rij weergave"
   },
   "label.changes-saved": {
-    "message": "Changes saved"
+    "message": "Wijzigingen opgeslagen"
   },
   "label.collections": {
     "message": "Collecties"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Aangemaakt {ago} geleden"
   },
   "label.dashboard": {
     "message": "Dashboard"
@@ -315,7 +315,7 @@
     "message": "Gevolgde Projecten"
   },
   "label.moderation": {
-    "message": "Moderation"
+    "message": "Moderatie"
   },
   "label.notifications": {
     "message": "Meldingen"
@@ -339,13 +339,13 @@
     "message": "Titel"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "Verborgen"
   },
   "label.visibility": {
     "message": "Zichtbaarheid"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Bezoek je profiel"
   },
   "layout.action.change-theme": {
     "message": "Thema veranderen"
@@ -354,7 +354,7 @@
     "message": "Download Modrinth App"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "Jouw avatar"
   },
   "layout.banner.add-email.button": {
     "message": "Naar accountinstellingen"
@@ -366,7 +366,7 @@
     "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
   },
   "layout.banner.staging.title": {
-    "message": "You’re viewing Modrinth’s staging environment."
+    "message": "Je bekijkt de staging omgeving van Modrinth."
   },
   "layout.banner.verify-email.action": {
     "message": "Verificatie e-mail opnieuw verzenden"
@@ -390,10 +390,10 @@
     "message": "Bedrijf"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "Interactie"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "NIET EEN OFFICIËELE MINECRAFT SERVICE. NIET GOEDGEKEURD DOOR OF GEASSOCIEERD MET MOJANG OF MICROSOFT."
   },
   "layout.footer.open-source": {
     "message": "Modrinth is <github-link>open source</github-link>."
@@ -414,16 +414,16 @@
     "message": "Bronnen"
   },
   "layout.menu-toggle.action": {
-    "message": "Toggle menu"
+    "message": "Menu in-/uitschakelen"
   },
   "layout.meta.description": {
     "message": "Download Minecraft mods, plugins datapacks, shaders recourcepacks op Modrinth. Ontdek en publiceer projecten op Modrinth met een modern en makkelijk te gebruiken interface en API."
   },
   "layout.meta.og-description": {
-    "message": "Discover and publish Minecraft content!"
+    "message": "Ontdek en publiceer Minecraft content!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "Startpagina"
   },
   "layout.nav.search": {
     "message": "Zoeken"
@@ -528,19 +528,19 @@
     "message": "U heeft in totaal {amount} ingetrokken."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "U heeft {amount} opgenomen via {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "U heeft {amount} opgenomen in {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "U heeft {amount} in {year} opgenomen via {method}."
   },
   "scopes.analytics.description": {
     "message": "Access your analytics data"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Lees analytics"
   },
   "scopes.collectionCreate.description": {
     "message": "Collecties aanmaken"
@@ -555,46 +555,46 @@
     "message": "Collecties verwijderen"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Lees collecties"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Lees collecties"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Schrijf naar collecties"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Schrijf collecties"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Lees je meldingen"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "Gelezen meldingen"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Uw meldingen verwijderen/bekijken"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Schrijf meldingen"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Maak organisaties"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Maak organisaties"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Organisaties verwijderen"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Organisaties verwijderen"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Organisaties lezen"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Organisaties lezen"
   },
   "scopes.organizationWrite.description": {
     "message": "Write to organizations"
