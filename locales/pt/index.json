@@ -804,7 +804,7 @@
     "message": "Página de Data Packs"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "Select your preferred layout for each page that displays project lists on this device."
+    "message": "Seleciona o teu layout preferido para cada página que exibe listas de projetos neste dispositivo."
   },
   "settings.display.project-list-layouts.mod": {
     "message": "Página de Mods"
@@ -828,40 +828,40 @@
     "message": "Páginas de perfil de utilizador"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+    "message": "Ativa renderização avançada, como efeitos de desfoque, que podem causar problemas de desempenho sem renderização acelerada por hardware."
   },
   "settings.display.sidebar.advanced-rendering.title": {
     "message": "Renderização Avançada"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+    "message": "Faz com que links direcionados para fora do Modrinth abram numa nova aba. Esta definição não afeta links no mesmo domínio e em descrições Markdown, que vão abrir na mesma aba, e links em anúncios e páginas de edição, que vão abrir numa nova aba."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
     "message": "Abrir links externos numa nova aba"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+    "message": "Oculta os botões \"Obter a App Modrinth\" da navegação primária. A página da App Modrinth ainda pode ser encontrada na página inicial ou no rodapé."
   },
   "settings.display.sidebar.hide-app-promos.title": {
     "message": "Ocultar promoções da Aplicação Modrinth"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
-    "message": "Aligns the project details sidebar to the right of the page's content."
+    "message": "Alinha a barra lateral de detalhes do projeto à direita do conteúdo da página."
   },
   "settings.display.sidebar.right-aligned-project-sidebar.title": {
-    "message": "Right-aligned project sidebar"
+    "message": "Barra lateral do projeto alinhada à direita"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.description": {
-    "message": "Aligns the search filters sidebar to the right of the search results."
+    "message": "Alinha a barra lateral de filtros de pesquisa à direita dos resultados da pesquisa."
   },
   "settings.display.sidebar.right-aligned-search-sidebar.title": {
-    "message": "Right-aligned search sidebar"
+    "message": "Barra lateral de pesquisa alinhada à direita"
   },
   "settings.display.theme.dark": {
     "message": "Escuro"
   },
   "settings.display.theme.description": {
-    "message": "Select your preferred color theme for Modrinth on this device."
+    "message": "Seleciona o teu tema de cores preferido para o Modrinth neste dispositivo."
   },
   "settings.display.theme.light": {
     "message": "Claro"
@@ -870,10 +870,10 @@
     "message": "OLED"
   },
   "settings.display.theme.preferred-dark-theme": {
-    "message": "Preferred dark theme"
+    "message": "Tema escuro preferido"
   },
   "settings.display.theme.preferred-light-theme": {
-    "message": "Preferred light theme"
+    "message": "Tema claro preferido"
   },
   "settings.display.theme.retro": {
     "message": "Retro"
