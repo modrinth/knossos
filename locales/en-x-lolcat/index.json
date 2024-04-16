@@ -1,42 +1,42 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Give him POOOWERS"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "no powers to it"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> by a thinghy called <creator-link>{creator}</creator-link> will have THE POWER to:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "givve powers to {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "noooo we are lost :("
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "You will be sent here ---> <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Send a magic letter"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "gimme your e-mail here - \\/ - an i ll send you an E mail with a recovery link backk to save your accunt!!"
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "Emeil or UserNam"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "emeil"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "un emeil withg instructiones got sent!! (only if u putt te right emeil in!)"
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "Sent a magic letter"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "yay! now you can join the party withh yoour BRAND MEW password!! OwO"
   },
   "auth.reset-password.notification.password-reset.title": {
     "message": "Password successfully reset"
@@ -357,10 +357,10 @@
     "message": "Your avatar"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "Mew! Accunt settsig her!"
   },
   "layout.banner.add-email.title": {
-    "message": "For security purposes, please enter your email on Modrinth."
+    "message": "fur security put ur emeil in modhirit"
   },
   "layout.banner.staging.description": {
     "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
@@ -369,7 +369,7 @@
     "message": "You’re viewing Modrinth’s staging environment."
   },
   "layout.banner.verify-email.action": {
-    "message": "Re-send verification email"
+    "message": "sent AGAIN ur very veryfiCATzzion emeil"
   },
   "layout.banner.verify-email.title": {
     "message": "For security purposes, please verify your email address on Modrinth."
@@ -378,31 +378,31 @@
     "message": "Careers"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "privaZz"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Rulez... boriingh rulez"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Termz.. very mutc boring"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "comPANY!"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "cuul stuf for interactionz"
   },
   "layout.footer.legal-disclaimer": {
     "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "Mohdrint iz <github-link>4 FREE AND oPen surCe!</github-link>."
   },
   "layout.footer.resources.blog": {
-    "message": "Blog"
+    "message": "bolg"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "Borinj docuzment"
   },
   "layout.footer.resources.status": {
     "message": "Status"
@@ -417,7 +417,7 @@
     "message": "Toggle menu"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Downlod MiNceraft pawgins, dattaboxes, cul lights thinghys, cul textures boxes, and modifications boxez on modirinth. discovez and pubblish progectzs on Modirint withz a nwe easy and cat friendly screen and api"
   },
   "layout.meta.og-description": {
     "message": "Discover and publish Minecraft content!"
@@ -501,10 +501,10 @@
     "message": "Modpak"
   },
   "project-type.plugin.plural": {
-    "message": "Pluginz"
+    "message": "Pawginz"
   },
   "project-type.plugin.singular": {
-    "message": "Plugin"
+    "message": "Pawgin"
   },
   "project-type.project.plural": {
     "message": "pro jets"
@@ -813,7 +813,7 @@
     "message": "Modpacks page"
   },
   "settings.display.project-list-layouts.plugin": {
-    "message": "Plugins page"
+    "message": "pawgins sheet"
   },
   "settings.display.project-list-layouts.resourcepack": {
     "message": "Resource Packs page"
