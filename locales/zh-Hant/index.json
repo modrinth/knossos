@@ -363,7 +363,7 @@
     "message": "基於安全考量，請在 Modrinth 上輸入您的電子郵件地址。"
   },
   "layout.banner.staging.description": {
-    "message": "預備環境正在執行生產 Modrinth 資料庫的副本。這個環境用於測試和除錯目的，並且可能執行比生產實例更新的 Modrinth 後端或前端開發版本。"
+    "message": "預備環境執行在 Modrinth 資料庫的副本上。這個環境用於測試和除錯目的，並且可能執行比生產實例更新的 Modrinth 後端或前端開發版本。"
   },
   "layout.banner.staging.title": {
     "message": "您正在查看 Modrinth 的預備環境。"
@@ -792,7 +792,7 @@
     "message": "停用開發人員模式"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "已啟用<strong>開發人員模式</strong>。這個模式將允許您查看 Modrinth 的各項內部 ID，如果您是使用 Modrinth API 的開發人員，這可能會很有幫助。按 5 次頁面底部的 Modrinth 圖示即可開啟和關閉開發人員模式。"
+    "message": "已啟用<strong>開發人員模式</strong>。這個模式將允許您查看 Modrinth 的各項內部 ID，如果您是使用 Modrinth API 的開發人員，可能會很有幫助。按 5 次頁面底部的 Modrinth 圖示即可開啟和關閉開發人員模式。"
   },
   "settings.display.flags.description": {
     "message": "啟用或停用這部裝置上的特定功能。"
@@ -972,7 +972,7 @@
     "message": "撤銷權杖授權"
   },
   "settings.pats.token.expired-ago": {
-    "message": "{ago}到期"
+    "message": "{ago}失效"
   },
   "settings.pats.token.expires-in": {
     "message": "{inTime}到期"
