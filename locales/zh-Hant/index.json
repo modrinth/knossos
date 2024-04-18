@@ -417,7 +417,7 @@
     "message": "切換選單"
   },
   "layout.meta.description": {
-    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。使用現代、易於使用的介面和 API 在 Modrinth 上探索及發布專案。"
+    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。使用現代、簡潔的介面和 API 在 Modrinth 上探索及發布專案。"
   },
   "layout.meta.og-description": {
     "message": "探索及發布 Minecraft 內容！"
@@ -792,7 +792,7 @@
     "message": "停用開發人員模式"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "已啟用<strong>開發人員模式</strong>。這個模式將允許您查看 Modrinth 的各項內部 ID，如果您是使用 Modrinth API 的開發人員，可能會很有幫助。按 5 次頁面底部的 Modrinth 圖示即可開啟和關閉開發人員模式。"
+    "message": "已啟用<strong>開發人員模式</strong>。這個模式可以讓你查看 Modrinth 的各項內部 ID，如果你是使用 Modrinth API 的開發人員，可能會很有幫助。按 5 次頁面底部的 Modrinth 圖示即可開啟和關閉開發人員模式。"
   },
   "settings.display.flags.description": {
     "message": "啟用或停用這部裝置上的特定功能。"
