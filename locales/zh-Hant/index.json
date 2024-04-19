@@ -18,10 +18,10 @@
     "message": "您將被重新導向至 <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "傳送密碼重設連結"
+    "message": "傳送密碼重設電子郵件"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "請在下方輸入您的電子郵件地址，我們將傳送密碼重設連結，協助您取回帳號。"
+    "message": "請輸入您的電子郵件地址，我們將傳送密碼重設連結，協助您取回帳號。"
   },
   "auth.reset-password.method-choice.email-username.label": {
     "message": "電子郵件地址或使用者名稱"
@@ -30,13 +30,13 @@
     "message": "電子郵件地址"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "如果您先前在帳號中儲存過電子郵件地址，則我們已傳送了一封包含指示的電子郵件給您。"
+    "message": "如果您先前在帳號中儲存過電子郵件地址，則我們已傳送一封包含指示的電子郵件給您。"
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "已傳送電子郵件"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "您現在可以使用新密碼登入您的帳號。"
+    "message": "請使用新密碼登入您的帳號。"
   },
   "auth.reset-password.notification.password-reset.title": {
     "message": "密碼重設成功"
@@ -45,16 +45,16 @@
     "message": "重設密碼"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "確認密碼"
+    "message": "確認新密碼"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "請在下方輸入您的新密碼以存取您的帳號。"
+    "message": "請輸入新密碼以登入您的帳號。"
   },
   "auth.reset-password.title": {
     "message": "重設密碼"
   },
   "auth.reset-password.title.long": {
-    "message": "重設您的密碼"
+    "message": "重設密碼"
   },
   "auth.sign-in.2fa.description": {
     "message": "請輸入兩步驟驗證碼以繼續。"
@@ -63,7 +63,7 @@
     "message": "請輸入兩步驟驗證碼"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "輸入驗證碼..."
+    "message": "輸入驗證碼"
   },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>忘記密碼？</forgot-password-link> • <create-account-link>建立帳號</create-account-link>"
@@ -126,37 +126,37 @@
     "message": "登入"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "您的電子郵件已經驗證過了！"
+    "message": "您的電子郵件地址已經完成驗證！無需再次驗證。"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "電子郵件已經驗證過了"
+    "message": "電子郵件地址已經完成驗證"
   },
   "auth.verify-email.failed-verification.action": {
     "message": "重新傳送驗證電子郵件"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "我們無法驗證您的電子郵件。請嘗試登入後透過儀表板重新傳送驗證電子郵件。"
+    "message": "無法驗證您的電子郵件地址。請在登入後，前往儀表板重新傳送驗證電子郵件。"
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "我們無法驗證您的電子郵件。請嘗試透過下方按鈕重新傳送驗證電子郵件。"
+    "message": "無法驗證您的電子郵件地址。請按下按鈕重新傳送驗證電子郵件。"
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "電子郵件驗證失敗"
+    "message": "電子郵件地址驗證失敗"
   },
   "auth.verify-email.post-verification.description": {
     "message": "已成功驗證您的電子郵件地址！"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "電子郵件驗證"
+    "message": "電子郵件地址驗證"
   },
   "auth.verify-email.title": {
-    "message": "驗證電子郵件"
+    "message": "驗證電子郵件地址"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "訂閱 Modrinth 的最新消息"
   },
   "auth.welcome.description": {
-    "message": "感謝您建立帳號。您現在可以追蹤專案和建立專案，接收喜愛專案的更新資訊，還有更多精彩功能等你來發掘！"
+    "message": "感謝你建立帳號。你現在可以追蹤專案和建立專案，接收喜愛專案的動態，還有更多精彩功能等你來發掘！"
   },
   "auth.welcome.label.tos": {
     "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
@@ -237,7 +237,7 @@
     "message": "這個收藏夾沒有任何專案！"
   },
   "collection.label.no-projects-auth": {
-    "message": "您沒有任何專案。\n您想要<create-link>新增一個</create-link>嗎？"
+    "message": "你還沒有任何專案。\n你想要<create-link>新增一個</create-link>嗎？"
   },
   "collection.label.owner": {
     "message": "擁有者"
@@ -261,10 +261,10 @@
     "message": "{count, plural,other {{count} 個專案}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "搜尋您的收藏夾"
+    "message": "搜尋你的收藏夾"
   },
   "dashboard.collections.long-title": {
-    "message": "您的收藏夾"
+    "message": "你的收藏夾"
   },
   "frog": {
     "message": "你被耍了！🐸"
@@ -291,7 +291,7 @@
     "message": "清單版面配置"
   },
   "label.changes-saved": {
-    "message": "儲存變更"
+    "message": "變更已儲存"
   },
   "label.collections": {
     "message": "收藏夾"
@@ -321,7 +321,7 @@
     "message": "通知"
   },
   "label.password": {
-    "message": "密碼"
+    "message": "新密碼"
   },
   "label.public": {
     "message": "公開"
@@ -354,7 +354,7 @@
     "message": "取得 Modrinth App"
   },
   "layout.avatar.alt": {
-    "message": "您的大頭貼"
+    "message": "你的大頭貼"
   },
   "layout.banner.add-email.button": {
     "message": "前往帳號設定"
@@ -447,13 +447,13 @@
     "message": "這個使用者沒有收藏夾！"
   },
   "profile.label.no-collections-auth": {
-    "message": "您沒有任何收藏夾。\n您想要<create-link>建立一個</create-link>嗎？"
+    "message": "你還沒有任何收藏夾。\n你想要<create-link>建立一個</create-link>嗎？"
   },
   "profile.label.no-projects": {
     "message": "這個使用者沒有專案！"
   },
   "profile.label.no-projects-auth": {
-    "message": "您沒有任何專案。\n您想要<create-link>建立一個</create-link>嗎？"
+    "message": "你還沒有任何收藏夾。\n你想要<create-link>建立一個</create-link>嗎？"
   },
   "profile.label.organizations": {
     "message": "組織"
@@ -480,7 +480,7 @@
     "message": "收藏夾"
   },
   "project-type.collection.singular": {
-    "message": "收藏"
+    "message": "收藏夾"
   },
   "project-type.datapack.plural": {
     "message": "資料包"
@@ -537,7 +537,7 @@
     "message": "您透過 {method} 在 {year} 年提款了 {amount} 元。"
   },
   "scopes.analytics.description": {
-    "message": "存取您的分析資料"
+    "message": "存取你的分析資料"
   },
   "scopes.analytics.label": {
     "message": "讀取數據分析"
@@ -567,13 +567,13 @@
     "message": "寫入收藏夾"
   },
   "scopes.notificationRead.description": {
-    "message": "讀取您的通知"
+    "message": "讀取你的通知"
   },
   "scopes.notificationRead.label": {
     "message": "讀取通知"
   },
   "scopes.notificationWrite.description": {
-    "message": "刪除及查看您的通知"
+    "message": "刪除及查看你的通知"
   },
   "scopes.notificationWrite.label": {
     "message": "寫入通知"
@@ -609,7 +609,7 @@
     "message": "建立個人存取權杖"
   },
   "scopes.patDelete.description": {
-    "message": "刪除您的個人 API 權杖"
+    "message": "刪除你的個人 API 權杖"
   },
   "scopes.patDelete.label": {
     "message": "刪除個人存取權杖"
@@ -627,7 +627,7 @@
     "message": "寫入個人存取權杖"
   },
   "scopes.payoutsRead.description": {
-    "message": "讀取您的付款資料"
+    "message": "讀取你的付款資料"
   },
   "scopes.payoutsRead.label": {
     "message": "讀取付款"
@@ -651,13 +651,13 @@
     "message": "建立專案"
   },
   "scopes.projectDelete.description": {
-    "message": "刪除您的專案"
+    "message": "刪除你的專案"
   },
   "scopes.projectDelete.label": {
     "message": "刪除專案"
   },
   "scopes.projectRead.description": {
-    "message": "讀取您的所有專案"
+    "message": "讀取你的所有專案"
   },
   "scopes.projectRead.label": {
     "message": "讀取專案"
@@ -723,31 +723,31 @@
     "message": "寫入討論串"
   },
   "scopes.userAuthWrite.description": {
-    "message": "修改您的驗證資料"
+    "message": "修改你的驗證資料"
   },
   "scopes.userAuthWrite.label": {
     "message": "寫入驗證資料"
   },
   "scopes.userDelete.description": {
-    "message": "刪除您的帳號"
+    "message": "刪除你的帳號"
   },
   "scopes.userDelete.label": {
-    "message": "刪除您的帳號"
+    "message": "刪除你的帳號"
   },
   "scopes.userRead.description": {
-    "message": "存取您的個人檔案公開資訊"
+    "message": "存取你的個人檔案公開資訊"
   },
   "scopes.userRead.label": {
     "message": "讀取使用者資料"
   },
   "scopes.userReadEmail.description": {
-    "message": "讀取您的電子郵件地址"
+    "message": "讀取你的電子郵件地址"
   },
   "scopes.userReadEmail.label": {
     "message": "讀取使用者電子郵件地址"
   },
   "scopes.userWrite.description": {
-    "message": "寫入您的個人檔案"
+    "message": "寫入你的個人檔案"
   },
   "scopes.userWrite.label": {
     "message": "寫入使用者資料"
@@ -777,13 +777,13 @@
     "message": "寫入版本"
   },
   "settings.account.title": {
-    "message": "帳號和安全性"
+    "message": "安全性"
   },
   "settings.appearance.title": {
     "message": "外觀"
   },
   "settings.applications.title": {
-    "message": "您的應用程式"
+    "message": "你的應用程式"
   },
   "settings.authorized-apps.title": {
     "message": "已授權的應用程式"
@@ -792,7 +792,7 @@
     "message": "停用開發人員模式"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "已啟用<strong>開發人員模式</strong>。這個模式可以讓你查看 Modrinth 的各項內部 ID，如果你是使用 Modrinth API 的開發人員，可能會很有幫助。按 5 次頁面底部的 Modrinth 圖示即可開啟和關閉開發人員模式。"
+    "message": "已啟用<strong>開發人員模式</strong>。這個模式可以讓你查看 Modrinth 的各項事物的內部 ID，如果你是使用 Modrinth API 的開發人員，應該會對你有所幫助。按 5 次頁面底部的 Modrinth 圖示即可開啟和關閉開發人員模式。"
   },
   "settings.display.flags.description": {
     "message": "啟用或停用這部裝置上的特定功能。"
@@ -846,13 +846,13 @@
     "message": "隱藏 Modrinth App 廣告"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
-    "message": "將專案詳細資訊側邊欄與頁面內容的右側對齊。"
+    "message": "使專案詳細資訊側邊欄與頁面內容的右側對齊。"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.title": {
     "message": "靠右對齊專案側邊欄"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.description": {
-    "message": "將專搜尋篩選器側邊欄與搜尋結果的右側對齊。"
+    "message": "使搜尋篩選器側邊欄與搜尋結果的右側對齊。"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.title": {
     "message": "靠右對齊搜尋側邊欄"
@@ -918,7 +918,7 @@
     "message": "按下 Enter 以聚焦第一個搜尋結果"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "搜尋語言..."
+    "message": "搜尋語言"
   },
   "settings.language.languages.search-results-announcement": {
     "message": "{matches, plural, =0 {沒有語言} other {有 # 種語言}}與您的搜尋字詞符合。"
@@ -945,7 +945,7 @@
     "message": "名稱"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "輸入個人存取權杖的名稱..."
+    "message": "輸入個人存取權杖的名稱"
   },
   "settings.pats.modal.create.title": {
     "message": "建立個人存取權杖"
@@ -972,10 +972,10 @@
     "message": "撤銷權杖授權"
   },
   "settings.pats.token.expired-ago": {
-    "message": "{ago}失效"
+    "message": "已於 {ago} 到期"
   },
   "settings.pats.token.expires-in": {
-    "message": "{inTime}到期"
+    "message": "將於 {inTime} 到期"
   },
   "settings.pats.token.last-used": {
     "message": "上次使用時間：{ago}"
@@ -990,7 +990,7 @@
     "message": "關於我"
   },
   "settings.profile.description": {
-    "message": "你的個人檔案將公開顯示在 Modrinth 上，並可透過 <docs-link>Modrinth API</docs-link> 查看。"
+    "message": "你的個人檔案會公開顯示在 Modrinth 上，並可透過 <docs-link>Modrinth API</docs-link> 查詢。"
   },
   "settings.profile.profile-info": {
     "message": "個人檔案資訊"
