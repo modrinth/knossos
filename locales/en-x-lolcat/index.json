@@ -3,7 +3,7 @@
     "message": "Give him POOOWERS"
   },
   "auth.authorize.action.decline": {
-    "message": "no powers to it"
+    "message": "no powers 2 it"
   },
   "auth.authorize.app-info": {
     "message": "<strong>{appName}</strong> by a thinghy called <creator-link>{creator}</creator-link> will have THE POWER to:"
@@ -96,16 +96,16 @@
     "message": "My fake internet name is"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and, YAWN, <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Bi kreeating akount, u katee 2 Modetints <terms-link>Worms</terms-link> and <privacy-policy-link>Meow Polici</privacy-policy-link>."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Secret codes are different!"
+    "message": "seekret koeds are not saem!"
   },
   "auth.sign-up.password.label": {
-    "message": "Secret code"
+    "message": "Seekret koed"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Been here already?"
+    "message": "bean heer alredi?"
   },
   "auth.sign-up.subscribe.label": {
     "message": "Subscribe to updates about Modrinth"
@@ -141,13 +141,13 @@
     "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "OW NO! Couldn't veferifilify your magic internet address"
+    "message": "OW NO! Couldn't veferifilify ur magik internet adres"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "YASSS! Magic internet address got veferifilificated!"
+    "message": "YASSS! Magik internet adres got veferifilificated!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Verarifilificate magic internet address"
+    "message": "Verarifilificate magik internet adres"
   },
   "auth.verify-email.title": {
     "message": "Verify Email"
@@ -159,10 +159,10 @@
     "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and, YAWN, <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Bi kreeating akount, u katee 2 Modetints <terms-link>Worms</terms-link> and <privacy-policy-link>Meow Polici</privacy-policy-link>."
   },
   "auth.welcome.long-title": {
-    "message": "Yay! You're here!"
+    "message": "Yay! ur heer!"
   },
   "auth.welcome.title": {
     "message": "get out."
@@ -171,7 +171,7 @@
     "message": "stop it!"
   },
   "button.continue": {
-    "message": "more please!"
+    "message": "katinuew!!"
   },
   "button.create-a-project": {
     "message": "Create a project"
@@ -180,7 +180,7 @@
     "message": "Chaenj"
   },
   "button.save": {
-    "message": "make stay"
+    "message": "maek stay"
   },
   "button.save-changes": {
     "message": "Save changes"
@@ -195,13 +195,13 @@
     "message": "Upload image"
   },
   "collection.button.delete-icon": {
-    "message": "Kill it."
+    "message": "nuke piktuer"
   },
   "collection.button.edit-icon": {
-    "message": "Change it"
+    "message": "chaeng piktuer"
   },
   "collection.button.remove-project": {
-    "message": "Just cancel the whole thing"
+    "message": "Nuke pawjekt!!"
   },
   "collection.button.unfollow-project": {
     "message": "No more. Go away."
@@ -210,10 +210,10 @@
     "message": "New one"
   },
   "collection.delete-modal.description": {
-    "message": "But it'll go away FOREVER!!! C'mon, pweeeeeease?"
+    "message": "But itl go awai FOREVR!!! Cmon, pweeeeeease?"
   },
   "collection.delete-modal.title": {
-    "message": "You're not like 100% sure though, right?"
+    "message": "Ar u liek 100% suer?"
   },
   "collection.description": {
     "message": "{description} - View the collection {name} by {username} on Modrinth"
@@ -222,7 +222,7 @@
     "message": "Auto-generated collection of all the projects you're following."
   },
   "collection.error.not-found": {
-    "message": "Look at the top of the pile and didn't see anything. So yeah, it's not there."
+    "message": "Lookd at de top of de pile and didnt see anyfing. "
   },
   "collection.label.collection": {
     "message": "Kol-ek-shun"
@@ -243,7 +243,7 @@
     "message": "Owner"
   },
   "collection.label.private": {
-    "message": "Eyes closed"
+    "message": "u kan onli sea diz"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
@@ -255,16 +255,16 @@
     "message": "{name} - Collection"
   },
   "dashboard.collections.button.create-new": {
-    "message": "New one! New one!"
+    "message": "maek niew won!"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} project}}"
+    "message": "{count, plural, one {{count} pawjekt} other {{count} pawjekt}}"
   },
   "dashboard.collections.label.search-input": {
     "message": "Look inside"
   },
   "dashboard.collections.long-title": {
-    "message": "These are yours"
+    "message": "Thees aer your"
   },
   "frog": {
     "message": "you been toaded 🐸"
@@ -303,7 +303,7 @@
     "message": "Dashboard"
   },
   "label.delete": {
-    "message": "Burn with fire"
+    "message": "nuek"
   },
   "label.description": {
     "message": "Little text"
@@ -321,13 +321,13 @@
     "message": "Notifications"
   },
   "label.password": {
-    "message": "Secret code"
+    "message": "Seekret koed"
   },
   "label.public": {
-    "message": "Eyes open"
+    "message": "otr kats kan see dis"
   },
   "label.rejected": {
-    "message": "Nope. Sorry."
+    "message": "ur kodes bad"
   },
   "label.scopes": {
     "message": "Scopes"
@@ -339,7 +339,7 @@
     "message": "Big text"
   },
   "label.unlisted": {
-    "message": "Disapeard"
+    "message": "nobodi kan see diz"
   },
   "label.visibility": {
     "message": "Can see"
@@ -357,7 +357,7 @@
     "message": "Your avatar"
   },
   "layout.banner.add-email.button": {
-    "message": "Mew! Accunt settsig her!"
+    "message": "Mew! Ac cow nt settsig heer!"
   },
   "layout.banner.add-email.title": {
     "message": "fur security put ur emeil in modhirit"
@@ -378,7 +378,7 @@
     "message": "Careers"
   },
   "layout.footer.company.privacy": {
-    "message": "privaZz"
+    "message": "nopawdi nows woat u do"
   },
   "layout.footer.company.rules": {
     "message": "Rulez... boriingh rulez"
@@ -387,16 +387,16 @@
     "message": "Termz.. very mutc boring"
   },
   "layout.footer.company.title": {
-    "message": "comPANY!"
+    "message": "comPAWNY!"
   },
   "layout.footer.interact.title": {
-    "message": "cuul stuf for interactionz"
+    "message": "meow wif us"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "diz is maed by mincekraft and iz aproovd bi so-gang and minibed!!"
   },
   "layout.footer.open-source": {
-    "message": "Mohdrint iz <github-link>4 FREE AND oPen surCe!</github-link>."
+    "message": "Mohdrint iz <github-link>4 FREE AND opaw sors!</github-link>."
   },
   "layout.footer.resources.blog": {
     "message": "bolg"
@@ -753,37 +753,37 @@
     "message": "Write user data"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "maek new purrrrrsions"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "maek purrrrrsions"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Vurrsion be gon"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Vurrsions be gon"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "look at all!! purrsions"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "look at purrsions"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "rite 2 purrsion data"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "rite purrsions"
   },
   "settings.account.title": {
-    "message": "Account and security"
+    "message": "ur akount and sekpurriti"
   },
   "settings.appearance.title": {
     "message": "Appearance"
   },
   "settings.applications.title": {
-    "message": "Your applications"
+    "message": "ur aps"
   },
   "settings.authorized-apps.title": {
     "message": "Authorized apps"
@@ -951,88 +951,88 @@
     "message": "Create personal access token"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "nuek dis pat on de bak"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "dis wil nuek dis token for evaaa!!"
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "u want to rm -rf / dis fingi?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "chaeng pat on de bak"
   },
   "settings.pats.title": {
-    "message": "Personal access tokens"
+    "message": "PAT (on de bak)"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "chaeng thingy"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "i dont uant u to ues dis any moer"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "gots nuekd {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "gets nuekd {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "was usd {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "u nevr usd dis"
   },
   "settings.profile.bio.description": {
-    "message": "A short description to tell everyone a little bit about you."
+    "message": "woat kind of kat ar u?"
   },
   "settings.profile.bio.title": {
-    "message": "Bio"
+    "message": "Thingz about Kat"
   },
   "settings.profile.description": {
-    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+    "message": "ur browsing data kan be seen bi otr kats on Moodriet and wif the <docs-link>Moderinorinth fingy</docs-link>."
   },
   "settings.profile.profile-info": {
-    "message": "Profile information"
+    "message": "ur browsr data"
   },
   "settings.profile.profile-picture.reset": {
-    "message": "Reset"
+    "message": "set bak"
   },
   "settings.profile.profile-picture.title": {
-    "message": "Profile picture"
+    "message": "ur piktuer"
   },
   "settings.profile.title": {
-    "message": "Public profile"
+    "message": "ani kat kan see dis"
   },
   "settings.profile.username.description": {
-    "message": "A unique case-insensitive name to identify your profile."
+    "message": "uhhh otr naem"
   },
   "settings.profile.username.title": {
-    "message": "Username"
+    "message": "katnaym"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "no mor sesion 4 u"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "apeerd {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "ur on dis robot rn"
   },
   "settings.sessions.description": {
     "message": "Heer r all robots who no ur pasword. u can log out of evry robot.\n\nif u dont no a robot, kill it and chnge ur moodrinf pa$$word now!"
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "cat usd dis robot {ago}"
   },
   "settings.sessions.title": {
     "message": "sesons"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "idk dis os"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "idk dis catform"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} ad {time, time, short}"
