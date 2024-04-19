@@ -846,43 +846,43 @@
     "message": "Dölj \"Installera Modrinth\" knapp"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
-    "message": "Justerar sidofältet med projektdetaljer till höger om innehållet."
+    "message": "Justerar sidofältet med projektdetaljer till höger om sidans innehåll."
   },
   "settings.display.sidebar.right-aligned-project-sidebar.title": {
     "message": "Högerjusterad projektsidofält"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.description": {
-    "message": "Aligns the search filters sidebar to the right of the search results."
+    "message": "Justerar sökfilternas sidofält till höger om sökresultaten."
   },
   "settings.display.sidebar.right-aligned-search-sidebar.title": {
-    "message": "Right-aligned search sidebar"
+    "message": "Högerjusterad sidosökfält"
   },
   "settings.display.theme.dark": {
-    "message": "Dark"
+    "message": "Mörkt"
   },
   "settings.display.theme.description": {
-    "message": "Select your preferred color theme for Modrinth on this device."
+    "message": "Välj ett färgtema du vill ha för Modrinth på denna enhet."
   },
   "settings.display.theme.light": {
-    "message": "Light"
+    "message": "Ljust"
   },
   "settings.display.theme.oled": {
     "message": "OLED"
   },
   "settings.display.theme.preferred-dark-theme": {
-    "message": "Preferred dark theme"
+    "message": "Önskat mörkt tema"
   },
   "settings.display.theme.preferred-light-theme": {
-    "message": "Preferred light theme"
+    "message": "Önskat ljust tema"
   },
   "settings.display.theme.retro": {
     "message": "Retro"
   },
   "settings.display.theme.system": {
-    "message": "Sync with system"
+    "message": "Synka med systemet"
   },
   "settings.display.theme.title": {
-    "message": "Color theme"
+    "message": "Färgtema"
   },
   "settings.language.categories.auto": {
     "message": "Automatiskt"
@@ -963,7 +963,7 @@
     "message": "Redigera personliga åtkomstnyckeln"
   },
   "settings.pats.title": {
-    "message": "Personal access tokens"
+    "message": "Personliga åtkomstnycklar"
   },
   "settings.pats.token.action.edit": {
     "message": "Redigera nyckel"
@@ -984,7 +984,7 @@
     "message": "Har aldrig använts"
   },
   "settings.profile.bio.description": {
-    "message": "A short description to tell everyone a little bit about you."
+    "message": "En kort beskrivning för att berätta lite om dig själv."
   },
   "settings.profile.bio.title": {
     "message": "Bio"
