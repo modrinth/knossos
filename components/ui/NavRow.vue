@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       sliderPositionX: 0,
-      sliderPositionY: 18,
+      sliderPositionY: 22,
       selectedElementWidth: 0,
       activeIndex: -1,
       oldIndex: -1,
@@ -97,7 +97,7 @@ export default {
       const el = this.$refs.linkElements[this.activeIndex].$el
 
       this.sliderPositionX = el.offsetLeft
-      this.sliderPositionY = el.offsetTop + el.offsetHeight
+      this.sliderPositionY = el.offsetTop + el.offsetHeight + 4
       this.selectedElementWidth = el.offsetWidth
     },
   },
