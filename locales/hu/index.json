@@ -1,6 +1,6 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Engedélyezd"
+    "message": "Engedélyezés"
   },
   "auth.authorize.action.decline": {
     "message": "Elutasítás"
