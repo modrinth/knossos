@@ -15,7 +15,7 @@
     "message": "找不到回應中的重新導向位置"
   },
   "auth.authorize.redirect-url": {
-    "message": "您將被重新導向至 <redirect-url>{url}</redirect-url>"
+    "message": "系統會將你重新導向至 <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "傳送密碼重設電子郵件"
@@ -96,7 +96,7 @@
     "message": "使用者名稱"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
+    "message": "建立帳號即表示你同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
   },
   "auth.sign-up.notification.password-mismatch.text": {
     "message": "密碼不正確！"
@@ -126,7 +126,7 @@
     "message": "登入"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "您的電子郵件地址已經完成驗證！無需再次驗證。"
+    "message": "您的電子郵件地址已經驗證完畢！"
   },
   "auth.verify-email.already-verified.title": {
     "message": "電子郵件地址已經完成驗證"
@@ -156,10 +156,10 @@
     "message": "訂閱 Modrinth 的最新消息"
   },
   "auth.welcome.description": {
-    "message": "感謝你建立帳號。你現在可以追蹤專案和建立專案，接收喜愛專案的動態，還有更多精彩功能等你來發掘！"
+    "message": "感謝您建立帳號。您現在可以追蹤專案和建立專案，接收喜愛專案的動態，還有更多精彩功能等你來發掘！"
   },
   "auth.welcome.label.tos": {
-    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
+    "message": "建立帳號即表示你同意 Modrinth 的《<terms-link>服務條款</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
   },
   "auth.welcome.long-title": {
     "message": "歡迎使用 Modrinth！"
@@ -216,7 +216,7 @@
     "message": "要刪除這個收藏夾嗎？"
   },
   "collection.description": {
-    "message": "{description} — 在 Modrinth 上查看 {username} 的收藏夾 {name}"
+    "message": "{description} — 在 Modrinth 上瀏覽 {username} 的收藏夾 {name}"
   },
   "collection.description.following": {
     "message": "這個收藏夾包含您正在追蹤的所有專案（自動產生）。"
@@ -228,7 +228,7 @@
     "message": "收藏夾"
   },
   "collection.label.created-at": {
-    "message": "建立時間：{ago}"
+    "message": "建立於 {ago}"
   },
   "collection.label.curated-by": {
     "message": "策展人"
@@ -249,7 +249,7 @@
     "message": "{count, plural,other {<stat>{count}</stat> 個專案}}"
   },
   "collection.label.updated-at": {
-    "message": "更新時間：{ago}"
+    "message": "更新於 {ago}"
   },
   "collection.title": {
     "message": "{name} - 收藏夾"
@@ -282,22 +282,22 @@
     "message": "青蛙"
   },
   "input.view.gallery": {
-    "message": "畫廊版面配置"
+    "message": "畫廊檢視"
   },
   "input.view.grid": {
-    "message": "格狀版面配置"
+    "message": "格狀檢視"
   },
   "input.view.list": {
-    "message": "清單版面配置"
+    "message": "清單檢視"
   },
   "label.changes-saved": {
-    "message": "變更已儲存"
+    "message": "已儲存變更"
   },
   "label.collections": {
     "message": "收藏夾"
   },
   "label.created-ago": {
-    "message": "建立時間：{ago}"
+    "message": "建立於 {ago}"
   },
   "label.dashboard": {
     "message": "儀表板"
@@ -441,7 +441,7 @@
     "message": "找不到使用者"
   },
   "profile.joined-at": {
-    "message": "加入時間：{ago}"
+    "message": "加入於 {ago}"
   },
   "profile.label.no-collections": {
     "message": "這個使用者沒有收藏夾！"
@@ -906,7 +906,7 @@
     "message": "與系統語言同步"
   },
   "settings.language.languages.language-label-applying": {
-    "message": "{label}。正在套用..."
+    "message": "{label}。正在套用…"
   },
   "settings.language.languages.language-label-error": {
     "message": "{label}。發生錯誤"
@@ -978,7 +978,7 @@
     "message": "將於 {inTime} 到期"
   },
   "settings.pats.token.last-used": {
-    "message": "上次使用時間：{ago}"
+    "message": "上次使用於 {ago}"
   },
   "settings.pats.token.never-used": {
     "message": "從未使用"
@@ -1014,7 +1014,7 @@
     "message": "撤銷工作階段授權"
   },
   "settings.sessions.created-ago": {
-    "message": "建立時間：{ago}"
+    "message": "建立於 {ago}"
   },
   "settings.sessions.current-session": {
     "message": "目前的工作階段"
@@ -1023,7 +1023,7 @@
     "message": "您目前已在下列裝置上登入 Modrinth 帳號。您可以分別登出每部裝置。\n\n如果您對某部裝置沒有印象，請立即登出該裝置並變更您的 Modrinth 帳號密碼。"
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "上次存取時間：{ago}"
+    "message": "上次存取於 {ago}"
   },
   "settings.sessions.title": {
     "message": "工作階段"
