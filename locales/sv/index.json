@@ -987,13 +987,13 @@
     "message": "En kort beskrivning för att berätta lite om dig själv."
   },
   "settings.profile.bio.title": {
-    "message": "Bio"
+    "message": "Biografi"
   },
   "settings.profile.description": {
-    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+    "message": "Din profilinformation visas offentligt på Modrinth och i <docs-link>Modrinth API</docs-link>."
   },
   "settings.profile.profile-info": {
-    "message": "Profile information"
+    "message": "Profilinformation"
   },
   "settings.profile.profile-picture.reset": {
     "message": "Återställ"
@@ -1005,10 +1005,10 @@
     "message": "Offentlig profil"
   },
   "settings.profile.username.description": {
-    "message": "A unique case-insensitive name to identify your profile."
+    "message": "Ett unikt skift-känsligt namn för att identifiera din profil."
   },
   "settings.profile.username.title": {
-    "message": "Username"
+    "message": "Användarnamn"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Återkalla session"
