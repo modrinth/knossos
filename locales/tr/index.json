@@ -48,7 +48,7 @@
     "message": "Parolayı onayla"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Hesabınıza erişebilmeniz için aşağıya yeni parolanızı girin."
+    "message": "Hesabınıza tekrar erişebilmek için aşağıya yeni parolanızı girin."
   },
   "auth.reset-password.title": {
     "message": "Parolayı Sıfırla"
@@ -594,7 +594,7 @@
     "message": "Örgütleri oku"
   },
   "scopes.organizationRead.label": {
-    "message": "Organizasyon okuÖrgütleri oku"
+    "message": "Organizasyon oku"
   },
   "scopes.organizationWrite.description": {
     "message": "Örgütlere yaz"
@@ -888,7 +888,7 @@
     "message": "Otomatik"
   },
   "settings.language.categories.default": {
-    "message": "Standart diller"
+    "message": "Mevcut diller"
   },
   "settings.language.categories.experimental": {
     "message": "Tamamlanmamış diller"
