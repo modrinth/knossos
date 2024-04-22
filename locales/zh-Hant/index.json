@@ -261,7 +261,7 @@
     "message": "{count, plural,other {{count} 個專案}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "搜尋你的收藏夾"
+    "message": "搜尋收藏夾"
   },
   "dashboard.collections.long-title": {
     "message": "你的收藏夾"
@@ -630,13 +630,13 @@
     "message": "讀取你的付款資料"
   },
   "scopes.payoutsRead.label": {
-    "message": "讀取付款"
+    "message": "讀取付款內容"
   },
   "scopes.payoutsWrite.description": {
     "message": "提款"
   },
   "scopes.payoutsWrite.label": {
-    "message": "寫入付款"
+    "message": "寫入付款內容"
   },
   "scopes.performAnalytics.description": {
     "message": "執行數據分析操作"
