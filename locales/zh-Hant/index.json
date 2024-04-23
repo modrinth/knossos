@@ -138,7 +138,7 @@
     "message": "無法驗證您的電子郵件地址。請在登入後，前往儀表板重新傳送驗證電子郵件。"
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "無法驗證您的電子郵件地址。請按下按鈕重新傳送驗證電子郵件。"
+    "message": "無法驗證您的電子郵件地址。請透過下方按鈕重新傳送驗證電子郵件。"
   },
   "auth.verify-email.failed-verification.title": {
     "message": "電子郵件地址驗證失敗"
@@ -999,7 +999,7 @@
     "message": "重設"
   },
   "settings.profile.profile-picture.title": {
-    "message": "個人檔案大頭貼"
+    "message": "個人檔案相片"
   },
   "settings.profile.title": {
     "message": "公開個人檔案"
