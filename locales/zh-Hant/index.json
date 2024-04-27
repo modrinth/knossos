@@ -6,7 +6,7 @@
     "message": "拒絕"
   },
   "auth.authorize.app-info": {
-    "message": "<creator-link>{creator}</creator-link> 的 <strong>{appName}</strong> 將能夠："
+    "message": "<creator-link>{creator}</creator-link> 的 <strong>{appName}</strong> 將可以："
   },
   "auth.authorize.authorize-app-name": {
     "message": "授權 {appName}"
@@ -999,7 +999,7 @@
     "message": "重設"
   },
   "settings.profile.profile-picture.title": {
-    "message": "個人檔案相片"
+    "message": "大頭貼"
   },
   "settings.profile.title": {
     "message": "公開個人檔案"
