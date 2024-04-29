@@ -330,7 +330,7 @@
     "message": "已拒絕"
   },
   "label.scopes": {
-    "message": "範圍"
+    "message": "權限"
   },
   "label.settings": {
     "message": "設定"
@@ -834,7 +834,7 @@
     "message": "進階繪製"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "在新分頁中開啟 Modrinth 以外的連結。這項設定僅適用於外部連結，站內連結和 Markdown 說明中的連結仍會在同一個分頁中開啟，而廣告和編輯頁面的連結都將在新分頁中開啟。"
+    "message": "在新分頁中開啟 Modrinth 以外的連結。這項設定僅適用於外部連結，內部連結和 Markdown 說明中的連結仍會在同一個分頁中開啟，而廣告和編輯頁面的連結都將在新分頁中開啟。"
   },
   "settings.display.sidebar.external-links-new-tab.title": {
     "message": "在新分頁中開啟外部連結"
@@ -933,7 +933,7 @@
     "message": "建立個人存取權杖"
   },
   "settings.pats.description": {
-    "message": "個人存取權杖可以用來存取 Modrinth 的 API。如需詳細資訊，請參閱 <doc-link>Modrinth 的 API 文件</doc-link>。您可以隨時建立及撤銷 PAT。"
+    "message": "個人存取權杖可以用來存取 Modrinth 的 API。如需詳細資訊，請參閱 <doc-link>Modrinth 的 API 文件</doc-link>。您隨時可以建立及撤銷 PAT。"
   },
   "settings.pats.modal.create.action": {
     "message": "建立個人存取權杖"
