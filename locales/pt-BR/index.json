@@ -288,7 +288,7 @@
     "message": "Exibição em grade"
   },
   "input.view.list": {
-    "message": "Rows view"
+    "message": "Visualização de linhas"
   },
   "label.changes-saved": {
     "message": "Alterações salvas"
@@ -783,7 +783,7 @@
     "message": "Aparência"
   },
   "settings.applications.title": {
-    "message": "Your applications"
+    "message": "Suas aplicações"
   },
   "settings.authorized-apps.title": {
     "message": "Aplicativos autorizados"
@@ -798,7 +798,7 @@
     "message": "Ative ou desative certos recursos neste dispositivo."
   },
   "settings.display.flags.title": {
-    "message": "Feature flags"
+    "message": "Sinalizador de Recursos"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Página dos pacotes de dados"
