@@ -1,180 +1,180 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Упълномощи"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Отхвърли"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> от <creator-link>{creator}</creator-link> ще има права да:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Упълномощи {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Няма намерена локация за препращане в отговора"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Ще бъдете препратени към <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Изпрати имейл за възстановяване"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Въведете имейла ви отдолу и ще ви изпратим линк за възстановяване на вашия акаунт."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "Имейл или потребителско име"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "Имейл"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "Имейл с инструкции беше изпратен до адреса ви, ако той е бил използван преди на акаунта ви."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "Имейл изпратен"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Вече може да влезете във вашия акаунт с новата ви парола."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Паролата е сменена успешно"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Нулиране на паролата"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Потвърди паролата"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Въведете вашата нова парола отдолу, за да получите достъп до акаунта ви."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Нулиране на паролата"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Нулиране на паролата"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Моля въведете двуфакторен код, за да продължите."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Въведете двуфакторен код"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Въведете код..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Забравена парола</forgot-password-link> • <create-account-link>Създаване на профил</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Имейл или потребителско име"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Парола"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Влизане с"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Вход"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "Или използвайте парола"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Създаване на профил"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Потвърди паролата"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "Имейл"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Потребителско име"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Със създаването на профил се съгласявате с <terms-link>Условията за ползване</terms-link> и <privacy-policy-link>Политиката за поверителност</privacy-policy-link> на Modrinth."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "Паролите не съвпадат!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "Парола"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Вече имате профил?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Абонарийте се за новини относно Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Регистрация"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Или създайте профила сами"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Регистриране чрез"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Настройки за профила"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Вход"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "Вашият имейл е вече потвърден!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "Имейл е вече потвърден"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Изпрати отново кода за потвърждение"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Не успяхме да потвърдим имейла ви. Пробвайте да изпратите кода за потвърждение отново."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "Не успяхме да потвърдим имейла ви. Пробвайте да изпратите кода за потвърждение отново чрез бутона отдолу."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "Потвърждаването на имейла беше неуспешно"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "Вашият имейл адрес е потвърден успешно!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Потвърждение на имейл"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Потвърдете имейл"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Абонарийте се за новини относно Modrinth"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "Благодарим ви, че си създадохте профил. Вече може да последваде и създавате проекти, да получавате информация относно вашите любими проекти и още!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Със създаването на профил се съгласявате с <terms-link>Условията за ползване</terms-link> и <privacy-policy-link>Политиката за поверителност</privacy-policy-link> на Modrinth."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "Добре дошли в Modrinth!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "Добре дошли"
   },
   "button.cancel": {
     "message": "Откажи"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "Продължи"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "Създаване на проект"
   },
   "button.edit": {
     "message": "Редактирай"
@@ -183,37 +183,37 @@
     "message": "Запази"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Запази промените"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "Вход"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "Изход"
   },
   "button.upload-image": {
-    "message": "Upload image"
+    "message": "Качи изображение"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Изтрий икона"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Редактирай икона"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Премахване на проект"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Отследване на проекта"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Качи икона"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "Това ще изтрие тази колекция завинаги. Това действие е необратимо."
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "Сигурни ли сте, че искате да изтриете тази колекция?"
   },
   "collection.description": {
     "message": "{description} - View the collection {name} by {username} on Modrinth"
@@ -387,46 +387,46 @@
     "message": "Terms"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "Компания"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "Взаимодействие"
   },
   "layout.footer.legal-disclaimer": {
     "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "Modrinth е <github-link>с отворен код</github-link>."
   },
   "layout.footer.resources.blog": {
-    "message": "Blog"
+    "message": "Блог"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "Документация"
   },
   "layout.footer.resources.status": {
-    "message": "Status"
+    "message": "Статус"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "Поддръжка"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "Ресурси"
   },
   "layout.menu-toggle.action": {
-    "message": "Toggle menu"
+    "message": "Превключване на менюто"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Изтегляй Minecraft модове, плъгини, датапакове, шейдъри и модпакове в Modrinth. Открийте и качвайте проекти в Modrinth с модерен, лесен за използване интерфейс и API."
   },
   "layout.meta.og-description": {
-    "message": "Discover and publish Minecraft content!"
+    "message": "Открийте и публикувайте Minecraft съдържание!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "Начало"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "Търсене"
   },
   "notification.error.title": {
     "message": "Възникна грешка"
@@ -444,10 +444,10 @@
     "message": "Присъединил се {ago}"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "Потребителят няма колекции!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Нямате никакви колекции.\nБихте ли искали да <create-link>създадете един</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "Потребителят няма проекти!"
@@ -456,7 +456,7 @@
     "message": "Нямате никакви проекти.\nБихте ли искали да <create-link>създадете един</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Организации"
   },
   "profile.meta.description": {
     "message": "Изтеглете проекта на {username} от Modrinth"
@@ -477,10 +477,10 @@
     "message": "Всичко"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "Колекции"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "Колекция"
   },
   "project-type.datapack.plural": {
     "message": "Пакети данни"
@@ -507,10 +507,10 @@
     "message": "Плъгин"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "Проекти"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "Проект"
   },
   "project-type.resourcepack.plural": {
     "message": "Ресурсни пакети"
@@ -525,19 +525,19 @@
     "message": "Шейдър"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "Вие изтеглихте {amount} общо."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "Вие изтеглихте {amount} чрез {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "Вие изтеглихте {amount} през {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "Вие изтеглихте {amount} през {year} чрез {method}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "Отворете вашите аналитика"
   },
   "scopes.analytics.label": {
     "message": "Read analytics"
