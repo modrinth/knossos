@@ -192,7 +192,7 @@
     "message": "로그아웃"
   },
   "button.upload-image": {
-    "message": "Upload image"
+    "message": "이미지 업로드"
   },
   "collection.button.delete-icon": {
     "message": "아이콘 삭제"
@@ -291,7 +291,7 @@
     "message": "Rows view"
   },
   "label.changes-saved": {
-    "message": "Changes saved"
+    "message": "변경 내용 저장됨."
   },
   "label.collections": {
     "message": "컬렉션"
@@ -561,13 +561,13 @@
     "message": "콜렉션 읽기"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "콜렉션에 쓰기"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "콜렉션 쓰기"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "알림 확인"
   },
   "scopes.notificationRead.label": {
     "message": "알림 확인"
@@ -603,25 +603,25 @@
     "message": "Write organizations"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "개인 API 토큰을 생성합니다."
   },
   "scopes.patCreate.label": {
     "message": "PAT 생성"
   },
   "scopes.patDelete.description": {
-    "message": "개인 API 토큰 삭제"
+    "message": "개인 API 토큰을 삭제합니다."
   },
   "scopes.patDelete.label": {
     "message": "PAT 삭제"
   },
   "scopes.patRead.description": {
-    "message": "생성된 API 토큰 확인"
+    "message": "생성된 API 토큰을 확인합니다."
   },
   "scopes.patRead.label": {
     "message": "PAT 확인"
   },
   "scopes.patWrite.description": {
-    "message": "개인 API 토큰 설정"
+    "message": "개인 API 토큰을 설정합니다."
   },
   "scopes.patWrite.label": {
     "message": "PAT 쓰기"
@@ -633,7 +633,7 @@
     "message": "인출 방법 확인"
   },
   "scopes.payoutsWrite.description": {
-    "message": "돈 인출"
+    "message": "인출"
   },
   "scopes.payoutsWrite.label": {
     "message": "인출 방법 작성"
@@ -642,16 +642,16 @@
     "message": "Perform analytics actions"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "분석 수행"
   },
   "scopes.projectCreate.description": {
-    "message": "새 프로젝트 생성"
+    "message": "새 프로젝트를 생성합니다."
   },
   "scopes.projectCreate.label": {
     "message": "프로젝트 생성"
   },
   "scopes.projectDelete.description": {
-    "message": "프로젝트 삭제"
+    "message": "프로젝트를 삭제합니다."
   },
   "scopes.projectDelete.label": {
     "message": "프로젝트 삭제"
@@ -696,13 +696,13 @@
     "message": "Access modrinth-issued sessions"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "세션 접근"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "세션을 삭제합니다."
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "세션 삭제"
   },
   "scopes.sessionRead.description": {
     "message": "Read active sessions"
@@ -711,16 +711,16 @@
     "message": "Read sessions"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "스레드를 읽습니다."
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "스레드 읽기"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "스레드에 작성합니다."
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "스레드 작성"
   },
   "scopes.userAuthWrite.description": {
     "message": "Modify your authentication data"
@@ -729,16 +729,16 @@
     "message": "Write auth data"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "당신의 계정을 삭제합니다."
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "계정 삭제"
   },
   "scopes.userRead.description": {
     "message": "Access your public profile information"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "사용자 데이터 열람"
   },
   "scopes.userReadEmail.description": {
     "message": "Read your email"
@@ -753,10 +753,10 @@
     "message": "Write user data"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "새 버전을 만듭니다."
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "버전 생성"
   },
   "scopes.versionDelete.description": {
     "message": "Delete a version"
