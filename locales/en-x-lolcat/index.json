@@ -3,7 +3,7 @@
     "message": "Give him POOOWERS"
   },
   "auth.authorize.action.decline": {
-    "message": "no powers 2 it"
+    "message": "no powers to it"
   },
   "auth.authorize.app-info": {
     "message": "<strong>{appName}</strong> by a thinghy called <creator-link>{creator}</creator-link> will have THE POWER to:"
@@ -18,7 +18,7 @@
     "message": "You will be sent here ---> <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send a magic letter"
+    "message": "Send a magic lweamil"
   },
   "auth.reset-password.method-choice.description": {
     "message": "gimme your e-mail here - \\/ - an i ll send you an E mail with a recovery link backk to save your accunt!!"
@@ -39,28 +39,28 @@
     "message": "yay! now you can join the party withh yoour BRAND MEW password!! OwO"
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Uur pasward sucassfule riset"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Reret puffrod"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Plase canfrim pafsword"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Tupe uur new puswurd bilow to gainnn accceess tu uur iccount."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Risit paessrword"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Risetest uur pyuassword"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Pls entir a twu fecter cad to procied."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Etner tow fwector cad"
   },
   "auth.sign-in.2fa.placeholder": {
     "message": "Intr code?????? K..."
@@ -81,10 +81,10 @@
     "message": "Sagn inin"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "Ar ues paffword"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Craet acouent"
   },
   "auth.sign-up.confirm-password.label": {
     "message": "Same code. But again."
@@ -108,16 +108,16 @@
     "message": "bean heer alredi?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Pwease subscirsde to upfadest ubuut frogrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Sgin ap"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Or craft uur acunt withh nobofy"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Hiiii psl sig up wiht"
   },
   "auth.verify-email.action.account-settings": {
     "message": "Knobs and dials"
@@ -126,19 +126,19 @@
     "message": "Let me in"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "Ur imil is afleredy ferifed!"
   },
   "auth.verify-email.already-verified.title": {
     "message": "You already vererifili... ensured the accuracy, of your magic internet address."
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Cat, ccan u send virfiCAAATziion imiel?"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Forry, we camt virfact ur emial. Tray re-CATing pws the vificatieon eimal thriggh ur dafboad by signing un."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "Haw to viRfacCt ur imil? Tray re-Crararting thes verifications imil thruretsd theiei battuon bilow."
   },
   "auth.verify-email.failed-verification.title": {
     "message": "OW NO! Couldn't veferifilify ur magik internet adres"
@@ -150,13 +150,13 @@
     "message": "Verarifilificate magik internet adres"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Virfs eamli"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Pweasdee can usubcribe to upfates ubunt madrinth"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "Tank u far craft theii acUntTR!!!!1!! Yu cun naw falow andd creeaartinfg profecrs, recicifwvwe updatus AbUt Uur fovirite bRuHhhjects eaend mare!"
   },
   "auth.welcome.label.tos": {
     "message": "Bi kreeating akount, u katee 2 Modetints <terms-link>Worms</terms-link> and <privacy-policy-link>Meow Polici</privacy-policy-link>."
@@ -174,7 +174,7 @@
     "message": "katinuew!!"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "C1rut perg oject"
   },
   "button.edit": {
     "message": "Chaenj"
@@ -183,16 +183,16 @@
     "message": "maek stay"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Svv canghesds"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "Leeet meaghere"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "Go uat hare"
   },
   "button.upload-image": {
-    "message": "Upload image"
+    "message": "Aplad greratimgae"
   },
   "collection.button.delete-icon": {
     "message": "nuke piktuer"
@@ -216,10 +216,10 @@
     "message": "Ar u liek 100% suer?"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description}- ssesea thi caltaection {name} bay {username} oncuul frotgrrFnth"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "Afrv-cenerated prAJjsedr collllectiOOoN Af ull tHis praejcte u fallowoing."
   },
   "collection.error.not-found": {
     "message": "Lookd at de top of de pile and didnt see anyfing. "
@@ -228,19 +228,19 @@
     "message": "Kol-ek-shun"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Crtiatn {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "HeEee or shEEe is OvvVner"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "Herwe is no pragehsct:((((!"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "U dont Ha ae rcool prajedt.\nWant u like to <create-link>afddd onw</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Aewrner"
   },
   "collection.label.private": {
     "message": "u kan onli sea diz"
@@ -249,10 +249,10 @@
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "Not tjed sme from a {ago}"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "{name} - HeeheE hafvw a coule calraertion"
   },
   "dashboard.collections.button.create-new": {
     "message": "maek niew won!"
@@ -288,19 +288,19 @@
     "message": "oooooh squares"
   },
   "input.view.list": {
-    "message": "Rows view"
+    "message": "Loooekkk at hsis coOoOl coed"
   },
   "label.changes-saved": {
-    "message": "Changes saved"
+    "message": "UrrR coul chenge sved"
   },
   "label.collections": {
     "message": "Kol-ek-shuns"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Crdaeaet ed {ago}"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "DashfrdfbOoadd"
   },
   "label.delete": {
     "message": "nuek"
@@ -309,16 +309,16 @@
     "message": "Little text"
   },
   "label.error": {
-    "message": "Error"
+    "message": "IrRar"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "Falalwdared pragject"
   },
   "label.moderation": {
-    "message": "Moderation"
+    "message": "Aahhhh!! Scawe persooon"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "Notfuacaton"
   },
   "label.password": {
     "message": "Seekret koed"
@@ -330,10 +330,10 @@
     "message": "ur kodes bad"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "AscOCpes"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "Setaitng"
   },
   "label.title": {
     "message": "Big text"
@@ -345,16 +345,16 @@
     "message": "Can see"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Heriei IsO UrRu profFIlwwwse"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "CHNANGWE THIS SCAWY THEME"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "ThreEre Is Fragrinth ApPp"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "Ur Auvvutur"
   },
   "layout.banner.add-email.button": {
     "message": "Mew! Ac cow nt settsig heer!"
