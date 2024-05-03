@@ -35,7 +35,7 @@
     "typescript": "^5.4.5",
     "vite-plugin-eslint": "^1.8.1",
     "vite-svg-loader": "^5.1.0",
-    "vue-tsc": "^2.0.16"
+    "vue-tsc": "^1.8.27"
   },
   "dependencies": {
     "@ltd/j-toml": "^1.38.0",
