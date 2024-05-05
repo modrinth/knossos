@@ -255,7 +255,7 @@
     "message": "{name} - 收藏夾"
   },
   "dashboard.collections.button.create-new": {
-    "message": "新增"
+    "message": "建立"
   },
   "dashboard.collections.label.projects-count": {
     "message": "{count, plural,other {{count} 個專案}}"
