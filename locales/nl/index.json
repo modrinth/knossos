@@ -246,7 +246,7 @@
     "message": "Privé"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projecten}}"
   },
   "collection.label.updated-at": {
     "message": "Bijgewerkt {ago}"
@@ -258,7 +258,7 @@
     "message": "Nieuwe maken"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, one {{count} project} other {{count} projecten}}"
   },
   "dashboard.collections.label.search-input": {
     "message": "Zoek in je collecties"
@@ -363,7 +363,7 @@
     "message": "Voor veiligheidsdoeleinden, voer alstublieft uw e-mailadres in op Modrinth."
   },
   "layout.banner.staging.description": {
-    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+    "message": "De staging-omgeving draait op een kopie van de productie Modrinth-database. Dit wordt gebruikt voor test- en debugging doeleinden, en kan versies van de Modrinth backend of frontend draaien die nieuwer zijn dan de productie-site."
   },
   "layout.banner.staging.title": {
     "message": "Je bekijkt de staging omgeving van Modrinth."
@@ -537,7 +537,7 @@
     "message": "U heeft {amount} in {year} opgenomen via {method}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "Toegang tot uw analytics data"
   },
   "scopes.analytics.label": {
     "message": "Lees analytics"
@@ -747,10 +747,10 @@
     "message": "Read user email"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Schrijven naar je profiel"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Gebruikersgegevens veranderen"
   },
   "scopes.versionCreate.description": {
     "message": "Nieuwe versies aanmaken"
@@ -765,37 +765,37 @@
     "message": "Versies verwijderen"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Alle versies lezen"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "Versies lezen"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Schrijven naar versie data"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "Versies veranderen"
   },
   "settings.account.title": {
-    "message": "Account and security"
+    "message": "Account en veiligheid"
   },
   "settings.appearance.title": {
-    "message": "Appearance"
+    "message": "Uiterlijk"
   },
   "settings.applications.title": {
-    "message": "Your applications"
+    "message": "Jouw applicaties"
   },
   "settings.authorized-apps.title": {
-    "message": "Authorized apps"
+    "message": "Geautoriseerde applicaties"
   },
   "settings.display.banner.developer-mode.button": {
-    "message": "Deactivate developer mode"
+    "message": "Ontwikkelaarsmodus deactiveren"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+    "message": "<strong>Ontwikkelaarsmodus</strong> is actief. Dit geeft je de mogelijkheid om de interne ID's van verschillende dingen in Modrinth te bekijken die handig kunnen zijn als je een ontwikkelaar bent en gebruik maakt van de Modrinth API. Klik 5 keer op het Modrinth logo onderaan de pagina om ontwikkelaarsmodus in of uit te schakelen."
   },
   "settings.display.flags.description": {
-    "message": "Enable or disable certain features on this device."
+    "message": "Schakel bepaalde functies op dit apparaat in of uit."
   },
   "settings.display.flags.title": {
     "message": "Feature flags"
@@ -804,22 +804,22 @@
     "message": "Data Packs page"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "Select your preferred layout for each page that displays project lists on this device."
+    "message": "Selecteer de lay-out van uw voorkeur voor elke pagina die projectlijsten op dit apparaat toont."
   },
   "settings.display.project-list-layouts.mod": {
-    "message": "Mods page"
+    "message": "Mods pagina"
   },
   "settings.display.project-list-layouts.modpack": {
-    "message": "Modpacks page"
+    "message": "Modpacks pagina"
   },
   "settings.display.project-list-layouts.plugin": {
-    "message": "Plugins page"
+    "message": "Plugins pagina"
   },
   "settings.display.project-list-layouts.resourcepack": {
     "message": "Resource Packs page"
   },
   "settings.display.project-list-layouts.shader": {
-    "message": "Shaders page"
+    "message": "Shaders pagina"
   },
   "settings.display.project-list-layouts.title": {
     "message": "Project list layouts"
@@ -837,13 +837,13 @@
     "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
-    "message": "Open external links in new tab"
+    "message": "Externe links openen in nieuw tabblad"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+    "message": "Verbergt de \"Download Modrinth App\" knoppen in de primaire navigatie. De Modrinth App pagina kan nog steeds worden gevonden op de landingspagina of in de voettekst."
   },
   "settings.display.sidebar.hide-app-promos.title": {
-    "message": "Hide Modrinth App promotions"
+    "message": "Verberg Modrinth App promoties"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
     "message": "Aligns the project details sidebar to the right of the page's content."
@@ -870,10 +870,10 @@
     "message": "OLED"
   },
   "settings.display.theme.preferred-dark-theme": {
-    "message": "Preferred dark theme"
+    "message": "Geprefereerd donker thema"
   },
   "settings.display.theme.preferred-light-theme": {
-    "message": "Preferred light theme"
+    "message": "Geprefereerd licht thema"
   },
   "settings.display.theme.retro": {
     "message": "Retro"
@@ -1002,7 +1002,7 @@
     "message": "Profielfoto"
   },
   "settings.profile.title": {
-    "message": "Public profile"
+    "message": "Openbaar profiel"
   },
   "settings.profile.username.description": {
     "message": "Een unieke hoofdletterongevoelige naam om je profiel te identificeren."
