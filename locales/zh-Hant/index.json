@@ -126,7 +126,7 @@
     "message": "登入"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "您的電子郵件地址已經驗證完畢！"
+    "message": "您已經驗證過電子郵件地址！"
   },
   "auth.verify-email.already-verified.title": {
     "message": "電子郵件地址已經完成驗證"
@@ -144,7 +144,7 @@
     "message": "電子郵件地址驗證失敗"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "已成功驗證您的電子郵件地址！"
+    "message": "您的電子郵件地址已成功驗證！"
   },
   "auth.verify-email.post-verification.title": {
     "message": "電子郵件地址驗證"
@@ -156,7 +156,7 @@
     "message": "訂閱 Modrinth 的最新消息"
   },
   "auth.welcome.description": {
-    "message": "感謝您建立帳號。您現在可以追蹤專案和建立專案，接收喜愛專案的動態，還有更多精彩功能等你來發掘！"
+    "message": "感謝您建立帳號。您現在可以追蹤專案、建立專案、接收喜愛專案的動態，還有更多精彩功能等你來發掘！"
   },
   "auth.welcome.label.tos": {
     "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>使用規定</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
@@ -744,7 +744,7 @@
     "message": "讀取你的電子郵件地址"
   },
   "scopes.userReadEmail.label": {
-    "message": "讀取使用者電子郵件地址"
+    "message": "讀取使用者郵件地址"
   },
   "scopes.userWrite.description": {
     "message": "寫入你的個人檔案"
