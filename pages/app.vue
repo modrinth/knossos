@@ -872,6 +872,10 @@ useSeoMeta({
               <DownloadIcon />
               <span> Download the Deb </span>
             </a>
+            <a href="https://flathub.org/apps/com.modrinth.ModrinthApp" target="_blank">
+              <DownloadIcon />
+              <span> Install using Flatpak </span>
+            </a>
           </div>
         </div>
       </div>
