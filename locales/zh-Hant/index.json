@@ -354,7 +354,7 @@
     "message": "取得 Modrinth App"
   },
   "layout.avatar.alt": {
-    "message": "你的大頭貼"
+    "message": "你的頭貼"
   },
   "layout.banner.add-email.button": {
     "message": "前往帳號設定"
@@ -999,7 +999,7 @@
     "message": "重設"
   },
   "settings.profile.profile-picture.title": {
-    "message": "大頭貼"
+    "message": "頭貼"
   },
   "settings.profile.title": {
     "message": "公開個人檔案"
