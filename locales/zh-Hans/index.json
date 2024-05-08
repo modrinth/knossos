@@ -66,7 +66,7 @@
     "message": "输入代码..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>忘记密码？</forgot-password-link> • <create-account-link>注册账户</create-account-link>"
+    "message": "<forgot-password-link>忘记密码？</forgot-password-link> • <create-account-link>注册账号</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
     "message": "电子邮件或用户名"
@@ -171,7 +171,7 @@
     "message": "取消"
   },
   "button.continue": {
-    "message": "继续"
+    "message": "下一步"
   },
   "button.create-a-project": {
     "message": "创建项目"
@@ -474,7 +474,7 @@
     "message": "用户 ID：{id}"
   },
   "project-type.all": {
-    "message": "全部"
+    "message": "所有项目"
   },
   "project-type.collection.plural": {
     "message": "收藏夹"
