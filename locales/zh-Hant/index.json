@@ -135,7 +135,7 @@
     "message": "重新傳送驗證電子郵件"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "我們無法驗證您的電子郵件地址。請在登入後，前往儀表板重新傳送驗證電子郵件。"
+    "message": "系統無法驗證您的電子郵件地址。請在登入後，前往儀表板重新傳送驗證電子郵件。"
   },
   "auth.verify-email.failed-verification.description.logged-in": {
     "message": "我們無法驗證您的電子郵件地址。請透過下方按鈕重新傳送驗證電子郵件。"
@@ -156,7 +156,7 @@
     "message": "訂閱 Modrinth 的最新消息"
   },
   "auth.welcome.description": {
-    "message": "感謝您建立帳號。您現在可以追蹤專案、建立專案、接收喜愛專案的動態，還有更多精彩功能等你來發掘！"
+    "message": "感謝您建立帳號。您現在可以追蹤及建立專案、接收喜愛專案的動態，還有更多精彩功能等你來發掘！"
   },
   "auth.welcome.label.tos": {
     "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>使用規定</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
@@ -573,7 +573,7 @@
     "message": "讀取通知"
   },
   "scopes.notificationWrite.description": {
-    "message": "刪除及查看你的通知"
+    "message": "查看及刪除你的通知"
   },
   "scopes.notificationWrite.label": {
     "message": "寫入通知"
