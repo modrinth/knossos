@@ -627,7 +627,7 @@
     "message": "Write PATs"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Lees uw betalingsgegevens"
   },
   "scopes.payoutsRead.label": {
     "message": "Read payouts"
@@ -825,16 +825,16 @@
     "message": "Project list layouts"
   },
   "settings.display.project-list-layouts.user": {
-    "message": "User profile pages"
+    "message": "Profielpagina's voor gebruikers"
   },
   "settings.display.sidebar.advanced-rendering.description": {
     "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
   },
   "settings.display.sidebar.advanced-rendering.title": {
-    "message": "Advanced rendering"
+    "message": "Geavanceerde weergave"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+    "message": "Maak links die buiten Modrinth gaan open in een nieuw tabblad. Ongeacht deze instelling, links op hetzelfde domein en in Markdown beschrijvingen zullen worden geopend in hetzelfde tabblad, en links naar advertenties en bewerken pagina's worden geopend in een nieuw tabblad."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
     "message": "Externe links openen in nieuw tabblad"
@@ -846,13 +846,13 @@
     "message": "Verberg Modrinth App promoties"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
-    "message": "Aligns the project details sidebar to the right of the page's content."
+    "message": "Lijn de project-details zijbalk uit naar de rechterkant van de paginainhoud."
   },
   "settings.display.sidebar.right-aligned-project-sidebar.title": {
     "message": "Rechts uitgelijnde project zijbalk"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.description": {
-    "message": "Aligns the search filters sidebar to the right of the search results."
+    "message": "Lijn de zoekfilters zijbalk uit aan de rechterkant van de zoekresultaten."
   },
   "settings.display.sidebar.right-aligned-search-sidebar.title": {
     "message": "Rechts uitgelijnde zoekbalk"
