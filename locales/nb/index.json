@@ -1,141 +1,141 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Autorisere"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Avslå"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> av <creator-link>{creator}</creator-link> vil kunne:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Autorisere {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Ingen omdirigeringsplassering ble funnet i svaret"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Du vil bli omdirigert til <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Send gjenopprettings-e-post"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Skriv inn e-postadressen din nedenfor, så sender vi en gjenopprettingslenke slik at du kan gjenopprette kontoen din."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "E-post eller brukernavn"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "E-post"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "En e-post med instruksjoner har blitt sendt til deg hvis e-posten tidligere var lagret på kontoen din."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "E-post sendt"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Du kan nå logge inn på kontoen din med ditt nye passord."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Passordet er tilbakestilt"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Tilbakestill passord"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Bekreft passord"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Skriv inn det nye passordet ditt nedenfor for å få tilgang til kontoen din."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Tlbakestill passord"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Tilbakestill passordet ditt"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Skriv inn en tofaktorkode for å fortsette."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Skriv inn tofaktorkode"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Skriv inn kode..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Glemt passord?</forgot-password-link> • <create-account-link>Opprett en konto</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "E-post eller brukernavn"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Passord"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Logge på med"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Logg inn"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "Eller bruk et passord"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Opprett konto"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Bekreft passord"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "E-post"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Brukernavn"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Ved å opprette en konto samtykker du til Modrinths <terms-link>vilkår</terms-link> og <privacy-policy-link>personvernregler</privacy-policy-link>."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "Passordene stemmer ikke overens!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "Passord"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Har du allerede en konto?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Abonner på oppdateringer om Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Registrer deg"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Eller opprett en konto selv"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Registrer deg med"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Kontoinnstillinger"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Logg inn"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "E-posten din er allerede bekreftet!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "E-post allerede bekreftet"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Send e-postbekreftelse på nytt"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Vi kunne ikke bekrefte e-postadressen din. Prøv å sende e-postbekreftelsen på nytt gjennom dashbordet ved å logge på."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
     "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
