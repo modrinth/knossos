@@ -216,55 +216,55 @@
     "message": "Сигурни ли сте, че искате да изтриете тази колекция?"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} - Виж колекцията {name} от {username} в Modrinth"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "Автоматично генерирана колекция от всички проекти, които следвате."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "Колекцията не е намерена"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "Колекция"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Създадено {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "Подгтовено от"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "Колекцията няма проекти!"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "Нямате никакви проекти.\nБихте ли искали да <create-link>създадете един</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Собственик"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "Частно"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, one {<stat>{count}</stat> проект} other {<stat>{count}</stat> проекта}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "Обновено {ago}"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "{name} - Колекция"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "Създай нова"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, one {{count} проект} other {{count} проекта}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "Търси в твоите колекции"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "Твоите колекции"
   },
   "frog": {
     "message": "Ти беше жабясан! 🐸"
@@ -288,103 +288,103 @@
     "message": "Изглед - таблица"
   },
   "input.view.list": {
-    "message": "Rows view"
+    "message": "Изглед в редове"
   },
   "label.changes-saved": {
-    "message": "Changes saved"
+    "message": "Промените са запазени"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "Колекции"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Създадено {ago}"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "Контролен панел"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "Изтрий"
   },
   "label.description": {
-    "message": "Description"
+    "message": "Описание"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Грешка"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "Последвани проекти"
   },
   "label.moderation": {
-    "message": "Moderation"
+    "message": "Модериране"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "Известия"
   },
   "label.password": {
-    "message": "Password"
+    "message": "Парола"
   },
   "label.public": {
-    "message": "Public"
+    "message": "Публично"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "Отхвърлено"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Обхват"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "Настройки"
   },
   "label.title": {
-    "message": "Title"
+    "message": "Заглавие"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "Само с връзка"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "Видимост"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Виж твоя профил"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "Смени тема"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "Изтегли Modrinth приложението"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "Твоята профилна снимка"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "Виж настройките на акаунта"
   },
   "layout.banner.add-email.title": {
-    "message": "For security purposes, please enter your email on Modrinth."
+    "message": "От съображения за сигурност, моля, въведете вашия имейл в Modrinth."
   },
   "layout.banner.staging.description": {
-    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+    "message": "Постановъчната средна работи с копие от производствената Modrinth база данни. Тя се използва за тестване и отстраняване на грешки и е възможно да изпълнява Modrinth фронтенд или бакенд версии в процес на разработка, по-нови от производствената среда."
   },
   "layout.banner.staging.title": {
-    "message": "You’re viewing Modrinth’s staging environment."
+    "message": "Вие гледате постановъчната среда на Modrinth."
   },
   "layout.banner.verify-email.action": {
-    "message": "Re-send verification email"
+    "message": "Изпрати отново кода за потвърждение"
   },
   "layout.banner.verify-email.title": {
-    "message": "For security purposes, please verify your email address on Modrinth."
+    "message": "От съображения за сигурност, моля, потвърдете вашия имейл в Modrinth."
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "Кариери"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "Поверителност"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Правила"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Условия"
   },
   "layout.footer.company.title": {
     "message": "Компания"
@@ -393,7 +393,7 @@
     "message": "Взаимодействие"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "НЕ Е ОФИЦИАЛНА MINECRAFT УСЛУГА. НЕ Е ОДОБРЕНО ОТ ИЛИ СВЪРЗАНО С MOJANG ИЛИ MICROSOFT."
   },
   "layout.footer.open-source": {
     "message": "Modrinth е <github-link>с отворен код</github-link>."
@@ -540,103 +540,103 @@
     "message": "Отворете вашите аналитика"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Преглед на статистики"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Създаване на колекции"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "Създаване на колекции"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Изтриване на колекции"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "Изтриване на колекции"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Преглед на колекции"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Преглед на колекции"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Промяна на колекции"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Промяна на колекции"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Преглед на известия"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "Преглед на известия"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Изтриване/преглед на известия"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Промяна на известия"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Създаване на организации"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Създаване на организации"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Изтриване на организации"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Изтриване на организации"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Преглед на организации"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Преглед на организации"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Промяна на организации"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Промяна на организации"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Създаване на лични API токени"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "Създаване на PAT токени"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Изтриване на лични API токени"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "Изтриване на PAT токени"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Преглед на създадени API токени"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "Преглед на PAT токени"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Промяна на лични API токени"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Промяна на PAT токени"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Преглед на изплащания"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Преглед на изплащания"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Изтегляне на пари"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Създаване на изплащания"
   },
   "scopes.performAnalytics.description": {
     "message": "Perform analytics actions"
@@ -645,25 +645,25 @@
     "message": "Perform analytics"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Създаване на нови проекти"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Създаване на проекти"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Изтриване на проекти"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Изтриване на проекти"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Преглед на всички твои проекти"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Преглед на всички проекти"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Промяна на проекти"
   },
   "scopes.projectWrite.label": {
     "message": "Write projects"
@@ -828,22 +828,22 @@
     "message": "User profile pages"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+    "message": "Позволява модерни изобразявания като ефекти на размазване, които могат да причинят проблеми с производителността без хардуерно ускорено изобразяване."
   },
   "settings.display.sidebar.advanced-rendering.title": {
-    "message": "Advanced rendering"
+    "message": "Модерни изобразявания"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+    "message": "Направи линковете, които излизат извън Modrinth, да се отварят в нов раздел. Независимо от тази настройка, връзките към същия домейн и в Markdown описанията ще се отварят в същия раздел, а линковете в рекламите и страниците за редактиране ще се отварят в нов раздел."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
     "message": "Open external links in new tab"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+    "message": "Скрива бутоните „Изтегляне на Modrinth приложението“ от основната навигация. Страницата на Modrinth приложението все още може да бъде намерена на началната страница или в долния колонтитул."
   },
   "settings.display.sidebar.hide-app-promos.title": {
-    "message": "Hide Modrinth App promotions"
+    "message": "Скриване на рекламите за Modrinth приложението"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
     "message": "Aligns the project details sidebar to the right of the page's content."
