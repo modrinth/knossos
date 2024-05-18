@@ -60,7 +60,7 @@
     "message": "Lütfen devam etmek için bir çift aşamalı kod girin."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Çift aşamalı kod gir"
+    "message": "İki Faktörlü Doğrulama Kodu girin"
   },
   "auth.sign-in.2fa.placeholder": {
     "message": "Kodu girin..."
