@@ -210,22 +210,22 @@
     "message": "上傳圖示"
   },
   "collection.delete-modal.description": {
-    "message": "這項操作會永久刪除這個收藏夾，且無法復原。"
+    "message": "這項操作會永久刪除這個收藏，且無法復原。"
   },
   "collection.delete-modal.title": {
-    "message": "要刪除這個收藏夾嗎？"
+    "message": "要刪除這個收藏嗎？"
   },
   "collection.description": {
-    "message": "{description} — 在 Modrinth 上瀏覽 {username} 的收藏夾 {name}"
+    "message": "{description} — 在 Modrinth 上瀏覽 {username} 的收藏 {name}"
   },
   "collection.description.following": {
-    "message": "這個收藏夾包含您正在追蹤的所有專案（自動產生）。"
+    "message": "這個收藏包含您正在追蹤的所有專案（自動產生）。"
   },
   "collection.error.not-found": {
-    "message": "找不到收藏夾"
+    "message": "找不到收藏"
   },
   "collection.label.collection": {
-    "message": "收藏夾"
+    "message": "收藏"
   },
   "collection.label.created-at": {
     "message": "建立於 {ago}"
@@ -234,7 +234,7 @@
     "message": "策展人"
   },
   "collection.label.no-projects": {
-    "message": "這個收藏夾沒有任何專案！"
+    "message": "這個收藏沒有任何專案！"
   },
   "collection.label.no-projects-auth": {
     "message": "你還沒有任何專案。\n你想要<create-link>新增一個</create-link>嗎？"
@@ -252,7 +252,7 @@
     "message": "更新於 {ago}"
   },
   "collection.title": {
-    "message": "{name} - 收藏夾"
+    "message": "{name} - 收藏"
   },
   "dashboard.collections.button.create-new": {
     "message": "建立"
@@ -261,10 +261,10 @@
     "message": "{count, plural,other {{count} 個專案}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "搜尋收藏夾"
+    "message": "搜尋你的收藏"
   },
   "dashboard.collections.long-title": {
-    "message": "你的收藏夾"
+    "message": "你的收藏"
   },
   "frog": {
     "message": "你被耍了！🐸"
@@ -294,7 +294,7 @@
     "message": "已儲存變更"
   },
   "label.collections": {
-    "message": "收藏夾"
+    "message": "收藏庫"
   },
   "label.created-ago": {
     "message": "建立於 {ago}"
@@ -444,16 +444,16 @@
     "message": "加入於 {ago}"
   },
   "profile.label.no-collections": {
-    "message": "這個使用者沒有收藏夾！"
+    "message": "這個使用者沒有任何收藏！"
   },
   "profile.label.no-collections-auth": {
-    "message": "你還沒有任何收藏夾。\n你想要<create-link>建立一個</create-link>嗎？"
+    "message": "你還沒有任何收藏。\n你想要<create-link>建立一個</create-link>嗎？"
   },
   "profile.label.no-projects": {
     "message": "這個使用者沒有專案！"
   },
   "profile.label.no-projects-auth": {
-    "message": "你還沒有任何收藏夾。\n你想要<create-link>建立一個</create-link>嗎？"
+    "message": "你還沒有任何收藏。\n你想要<create-link>建立一個</create-link>嗎？"
   },
   "profile.label.organizations": {
     "message": "組織"
@@ -477,10 +477,10 @@
     "message": "全部"
   },
   "project-type.collection.plural": {
-    "message": "收藏夾"
+    "message": "收藏"
   },
   "project-type.collection.singular": {
-    "message": "收藏夾"
+    "message": "收藏"
   },
   "project-type.datapack.plural": {
     "message": "資料包"
@@ -543,28 +543,28 @@
     "message": "讀取數據分析"
   },
   "scopes.collectionCreate.description": {
-    "message": "建立收藏夾"
+    "message": "建立收藏"
   },
   "scopes.collectionCreate.label": {
-    "message": "建立收藏夾"
+    "message": "建立收藏"
   },
   "scopes.collectionDelete.description": {
-    "message": "刪除收藏夾"
+    "message": "刪除收藏"
   },
   "scopes.collectionDelete.label": {
     "message": "刪除收藏夾"
   },
   "scopes.collectionRead.description": {
-    "message": "讀取收藏夾"
+    "message": "讀取收藏"
   },
   "scopes.collectionRead.label": {
-    "message": "讀取收藏夾"
+    "message": "讀取收藏"
   },
   "scopes.collectionWrite.description": {
-    "message": "寫入收藏夾"
+    "message": "寫入收藏"
   },
   "scopes.collectionWrite.label": {
-    "message": "寫入收藏夾"
+    "message": "寫入收藏"
   },
   "scopes.notificationRead.description": {
     "message": "讀取你的通知"
