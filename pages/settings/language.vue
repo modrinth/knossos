@@ -1,8 +1,6 @@
 <script setup lang="ts">
+import { RadioButtonIcon, RadioButtonChecked, IssuesIcon } from 'omorphia'
 import Fuse from 'fuse.js/dist/fuse.basic'
-import RadioButtonIcon from '~/assets/images/utils/radio-button.svg'
-import RadioButtonCheckedIcon from '~/assets/images/utils/radio-button-checked.svg'
-import WarningIcon from '~/assets/images/utils/issues.svg'
 import { isModifierKeyDown } from '~/helpers/events.ts'
 import { commonSettingsMessages } from '~/utils/common-messages.ts'
 
@@ -357,7 +355,7 @@ function getItemLabel(locale: Locale) {
               @click="(e) => onItemClick(e, locale)"
               @keydown="(e) => onItemKeydown(e, locale)"
             >
-              <RadioButtonCheckedIcon v-if="$activeLocale === locale.tag" class="radio" />
+              <RadioButtonChecked v-if="$activeLocale === locale.tag" class="radio" />
               <RadioButtonIcon v-else class="radio" />
 
               <div class="language-names">
@@ -376,7 +374,7 @@ function getItemLabel(locale: Locale) {
               :id="`language__${locale.tag}__fail`"
               class="language-load-error"
             >
-              <WarningIcon /> {{ formatMessage(messages.loadFailed) }}
+              <IssuesIcon /> {{ formatMessage(messages.loadFailed) }}
             </div>
           </template>
         </template>
