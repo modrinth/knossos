@@ -219,7 +219,7 @@
     "message": "{description} — 在 Modrinth 上瀏覽 {username} 的收藏 {name}"
   },
   "collection.description.following": {
-    "message": "這個收藏包含您正在追蹤的所有專案（自動產生）。"
+    "message": "由系統自動產生的收藏，包含您正在追蹤的所有專案。"
   },
   "collection.error.not-found": {
     "message": "找不到收藏"
