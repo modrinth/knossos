@@ -792,7 +792,7 @@
     "message": "停用開發人員模式"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "已啟用<strong>開發人員模式</strong>。這個模式可以讓你查看 Modrinth 的各項事物的內部 ID，如果你是使用 Modrinth API 的開發人員，應該會對你有所幫助。按 5 次頁面底部的 Modrinth 圖示即可開關開發人員模式。"
+    "message": "已啟用<strong>開發人員模式</strong>。這個模式可以讓你查看 Modrinth 的各種事物的內部 ID，如果你是使用 Modrinth API 的開發人員，這可能會很有用。點選頁面底部的 Modrinth 圖示 5 次以開啟和關閉開發人員模式。"
   },
   "settings.display.flags.description": {
     "message": "啟用或停用這部裝置上的特定功能。"
