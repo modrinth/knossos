@@ -108,7 +108,7 @@
     "message": "Уже зарегистрированы?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Подписаться на новости Modrinth"
+    "message": "Подписаться на получение новостей Modrinth"
   },
   "auth.sign-up.title": {
     "message": "Вход"
@@ -153,7 +153,7 @@
     "message": "Подтверждение электронной почты"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Подписаться на новости Modrinth"
+    "message": "Подписаться на получение новостей Modrinth"
   },
   "auth.welcome.description": {
     "message": "Поздравляем с регистрацией! Теперь вы можете следить за проектами и создавать свои, получать уведомления от подписок и многое другое!"
@@ -351,7 +351,7 @@
     "message": "Изменить тему"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Загрузить Modrinth App"
+    "message": "Скачать приложение Modrinth"
   },
   "layout.avatar.alt": {
     "message": "Аватар"
@@ -417,7 +417,7 @@
     "message": "Меню"
   },
   "layout.meta.description": {
-    "message": "Загружайте моды, плагины, наборы шейдеров, ресурсов, данных и сборки для Minecraft. Современный и удобный дизайн и API помогут вам в поиске и публикации проектов на Modrinth."
+    "message": "Скачивайте модификации, плагины, наборы ресурсов, данных, шейдеры и сборки модификаций для Minecraft. Узнавайте про новые и публикуйте свои проекты на Modrinth благодаря удобному современному интерфейсу и API."
   },
   "layout.meta.og-description": {
     "message": "Исследуйте и делитесь контентом для Minecraft!"
@@ -465,7 +465,7 @@
     "message": "{bio} — Скачивайте проекты {username} на Modrinth"
   },
   "profile.stats.downloads": {
-    "message": "{count, plural, one {<stat>{count}</stat> загрузка} many {<stat>{count}</stat> загрузок} other {<stat>{count}</stat> загрузки}}"
+    "message": "{count, plural, one {<stat>{count}</stat> скачивание} few {<stat>{count}</stat> скачивания} many {<stat>{count}</stat> скачиваний} other {<stat>{count}</stat> скачиваний}}"
   },
   "profile.stats.projects-followers": {
     "message": "{count, plural, one {<stat>{count}</stat> подписчик} few {<stat>{count}</stat> подписчика} many {<stat>{count}</stat> подписчиков} other {<stat>{count}</stat> подписчика}} у проектов"
@@ -489,16 +489,16 @@
     "message": "Набор данных"
   },
   "project-type.mod.plural": {
-    "message": "Моды"
+    "message": "Модификации"
   },
   "project-type.mod.singular": {
-    "message": "Мод"
+    "message": "Модификация"
   },
   "project-type.modpack.plural": {
-    "message": "Сборки модов"
+    "message": "Сборки модификаций"
   },
   "project-type.modpack.singular": {
-    "message": "Сборка модов"
+    "message": "Сборка модификаций"
   },
   "project-type.plugin.plural": {
     "message": "Плагины"
@@ -792,7 +792,7 @@
     "message": "Отключить режим разработчика"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "<strong>Режим разработчика</strong> активирован. Он позволяет просматривать различные внутренние идентификаторы Modrinth, которые могут быть полезны, если вы работаете с Modrinth API. Нажмите на логотип Modrinth внизу страницы 5 раз, чтобы переключить режим разаботчика."
+    "message": "<strong>Режим разработчика</strong> активирован. Он позволит вам видеть внутренние идентификаторы различных элементов на Modrinth, что может быть полезно, если вы используете API Modrinth. Чтобы включить или отключить режим разработчика, нажмите на логотип Modrinth внизу страницы 5 раз."
   },
   "settings.display.flags.description": {
     "message": "Переключение отдельных функций на этом устройстве."
@@ -807,16 +807,16 @@
     "message": "Выберите предпочитаемый макет для каждой страницы с проектами на этом устройстве."
   },
   "settings.display.project-list-layouts.mod": {
-    "message": "Моды"
+    "message": "Страница модификаций"
   },
   "settings.display.project-list-layouts.modpack": {
-    "message": "Сборки"
+    "message": "Страница сборок"
   },
   "settings.display.project-list-layouts.plugin": {
     "message": "Плагины"
   },
   "settings.display.project-list-layouts.resourcepack": {
-    "message": "Наборы ресурсов"
+    "message": "Страница наборов ресурсов"
   },
   "settings.display.project-list-layouts.shader": {
     "message": "Шейдеры"
