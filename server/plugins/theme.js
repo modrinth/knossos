@@ -7,7 +7,7 @@ export default defineNitroPlugin((nitroApp) => {
       const cookies = parseCookies(event)
 
       const config = useRuntimeConfig()
-      const flags = config.public.production ? PRODUCTION_FLAGS : DEV_FLAGS
+      const flags = config.public.devFeatures ? DEV_FLAGS : PRODUCTION_FLAGS
 
       const extraClasses = flags.USE_EXPERIMENTAL_STYLES_GLOBALLY
         ? ' experimental-colors-within'
