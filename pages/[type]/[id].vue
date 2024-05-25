@@ -62,7 +62,7 @@
             }/settings/license`"
             label="License"
           >
-            <LicenseIcon />
+            <CopyrightIcon />
           </NavStackItem>
           <NavStackItem
             :link="`/${project.project_type}/${
@@ -333,8 +333,8 @@
                   :direction="cosmetics.projectLayout ? 'left' : 'right'"
                 >
                   <MoreHorizontalIcon />
-                  <template #report> <ReportIcon /> Report</template>
-                  <template #copy-id> <ClipboardCopyIcon /> Copy ID</template>
+                  <template #report> <ReportIcon /> Report </template>
+                  <template #copy-id> <ClipboardCopyIcon /> Copy ID </template>
                 </OverflowMenu>
               </template>
               <template v-else>
@@ -360,10 +360,263 @@
                   :direction="cosmetics.projectLayout ? 'left' : 'right'"
                 >
                   <MoreHorizontalIcon />
-                  <template #report> <ReportIcon /> Report</template>
-                  <template #copy-id> <ClipboardCopyIcon /> Copy ID</template>
+                  <template #report> <ReportIcon /> Report </template>
+                  <template #copy-id> <ClipboardCopyIcon /> Copy ID </template>
                 </OverflowMenu>
               </template>
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="flags.PROJECT_COMPATIBILITY_CARD && versions.length > 0"
+          class="card flex-card experimental-colors-within"
+        >
+          <h2>Compatibility</h2>
+          <section>
+            <h3>Minecraft: Java Edition</h3>
+            <div class="tag-list">
+              <div
+                v-for="version in getVersionsToDisplay(project)"
+                :key="`version-tag-${version}`"
+                class="tag-list__item"
+              >
+                {{ version }}
+              </div>
+            </div>
+          </section>
+          <section>
+            <h3>Platforms</h3>
+            <div class="tag-list">
+              <div
+                v-for="platform in project.loaders"
+                :key="`platform-tag-${platform}`"
+                :class="`tag-list__item`"
+                :style="`--_color: var(--color-platform-${platform})`"
+              >
+                <svg v-html="tags.loaders.find((x) => x.name === platform).icon"></svg>
+                {{ $formatCategory(platform) }}
+              </div>
+            </div>
+          </section>
+          <section>
+            <h3>Environments</h3>
+            <div class="status-list">
+              <div class="status-list__item status-list__item--color-green">
+                <CheckIcon /> Singleplayer
+              </div>
+              <div
+                v-if="
+                  project.client_side !== 'unsupported' && project.server_side !== 'unsupported'
+                "
+                class="status-list__item status-list__item--color-green"
+              >
+                <CheckIcon /> Client and server
+              </div>
+              <div
+                v-if="project.client_side === 'required' && project.server_side === 'unsupported'"
+                class="status-list__item status-list__item--color-green"
+              >
+                <CheckIcon /> Client
+              </div>
+              <div
+                v-if="project.server_side === 'required' && project.client_side === 'unsupported'"
+                class="status-list__item status-list__item--color-green"
+              >
+                <CheckIcon /> Server
+              </div>
+              <div
+                v-if="
+                  project.client_side === 'optional' ||
+                  (project.client_side === 'required' && project.server_side === 'optional')
+                "
+                class="status-list__item status-list__item--color-orange"
+              >
+                <CheckIcon /> Client <span>(Limited functionality)</span>
+              </div>
+              <div
+                v-if="
+                  project.server_side === 'optional' ||
+                  (project.server_side === 'required' && project.client_side === 'optional')
+                "
+                class="status-list__item status-list__item--color-orange"
+              >
+                <CheckIcon /> Server <span>(Limited functionality)</span>
+              </div>
+              <div
+                v-if="project.client_side === 'unsupported'"
+                class="status-list__item status-list__item--color-red"
+              >
+                <XIcon /> Client
+              </div>
+              <div
+                v-if="project.server_side === 'unsupported'"
+                class="status-list__item status-list__item--color-red"
+              >
+                <XIcon /> Server
+              </div>
+            </div>
+          </section>
+        </div>
+        <div
+          v-if="
+            flags.NEW_PROJECT_LINKS &&
+            (project.issues_url ||
+              project.source_url ||
+              project.wiki_url ||
+              project.discord_url ||
+              project.donation_urls.length > 0)
+          "
+          class="card flex-card experimental-colors-within"
+        >
+          <h2>Links</h2>
+          <div class="links-list">
+            <a
+              v-if="project.issues_url"
+              :href="project.issues_url"
+              :target="$external()"
+              rel="noopener nofollow ugc"
+            >
+              <IssuesIcon aria-hidden="true" />
+              Report issues
+              <ExternalIcon aria-hidden="true" class="external-icon" />
+            </a>
+            <a
+              v-if="project.source_url"
+              :href="project.source_url"
+              :target="$external()"
+              rel="noopener nofollow ugc"
+            >
+              <CodeIcon aria-hidden="true" />
+              View source
+              <ExternalIcon aria-hidden="true" class="external-icon" />
+            </a>
+            <a
+              v-if="project.wiki_url"
+              :href="project.wiki_url"
+              :target="$external()"
+              rel="noopener nofollow ugc"
+            >
+              <WikiIcon aria-hidden="true" />
+              Visit wiki
+              <ExternalIcon aria-hidden="true" class="external-icon" />
+            </a>
+            <a
+              v-if="project.discord_url"
+              :href="project.discord_url"
+              :target="$external()"
+              rel="noopener nofollow ugc"
+            >
+              <DiscordIcon class="shrink" aria-hidden="true" />
+              Join Discord server
+              <ExternalIcon aria-hidden="true" class="external-icon" />
+            </a>
+            <hr
+              v-if="
+                (project.issues_url ||
+                  project.source_url ||
+                  project.wiki_url ||
+                  project.discord_url) &&
+                project.donation_urls.length > 0
+              "
+            />
+            <a
+              v-for="(donation, index) in project.donation_urls"
+              :key="index"
+              :href="donation.url"
+              :target="$external()"
+              rel="noopener nofollow ugc"
+            >
+              <BuyMeACoffeeLogo v-if="donation.id === 'bmac'" aria-hidden="true" />
+              <PatreonIcon v-else-if="donation.id === 'patreon'" aria-hidden="true" />
+              <KoFiIcon v-else-if="donation.id === 'ko-fi'" aria-hidden="true" />
+              <PayPalIcon v-else-if="donation.id === 'paypal'" aria-hidden="true" />
+              <OpenCollectiveIcon
+                v-else-if="donation.id === 'open-collective'"
+                aria-hidden="true"
+              />
+              <HeartIcon v-else-if="donation.id === 'github'" />
+              <UnknownIcon v-else />
+              <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
+              <span v-else-if="donation.id === 'patreon'">Donate on Patreon</span>
+              <span v-else-if="donation.id === 'paypal'">Donate on PayPal</span>
+              <span v-else-if="donation.id === 'ko-fi'">Donate on Ko-fi</span>
+              <span v-else-if="donation.id === 'github'">Sponsor on GitHub</span>
+              <span v-else>Donate</span>
+              <ExternalIcon aria-hidden="true" class="external-icon" />
+            </a>
+          </div>
+        </div>
+        <div v-if="flags.PROJECT_DETAILS_CARD" class="card flex-card experimental-colors-within">
+          <h2>Details</h2>
+          <div class="details-list">
+            <div class="details-list__item">
+              <LicenseIcon aria-hidden="true" />
+              <div>
+                Licensed
+                <a
+                  v-if="project.license.url"
+                  class="text-link"
+                  :href="project.license.url"
+                  rel="noopener nofollow ugc"
+                >
+                  {{ licenseIdDisplay }} <ExternalIcon />
+                </a>
+                <span
+                  v-else-if="
+                    project.license.id === 'LicenseRef-All-Rights-Reserved' ||
+                    !project.license.id.includes('LicenseRef')
+                  "
+                  class="text-link"
+                  @click="getLicenseData()"
+                >
+                  {{ licenseIdDisplay }}
+                </span>
+                <span v-else>{{ licenseIdDisplay }}</span>
+              </div>
+            </div>
+            <div
+              v-if="project.approved"
+              v-tooltip="$dayjs(project.approved).format('MMMM D, YYYY [at] h:mm A')"
+              class="details-list__item"
+            >
+              <CalendarIcon aria-hidden="true" />
+              <div>
+                Published
+                <span>{{ fromNow(project.approved) }}</span>
+              </div>
+            </div>
+            <div
+              v-else
+              v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm A')"
+              class="details-list__item"
+            >
+              <CalendarIcon aria-hidden="true" />
+              <div>
+                Created
+                <span>{{ fromNow(project.published) }}</span>
+              </div>
+            </div>
+            <div
+              v-if="project.status === 'processing' && project.queued"
+              v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')"
+              class="details-list__item"
+            >
+              <ModeratorIcon aria-hidden="true" />
+              <div>
+                Submitted
+                <span>{{ fromNow(project.queued) }}</span>
+              </div>
+            </div>
+            <div
+              v-if="versions.length > 0 && project.updated"
+              v-tooltip="$dayjs(project.updated).format('MMMM D, YYYY [at] h:mm A')"
+              class="details-list__item"
+            >
+              <VersionIcon aria-hidden="true" />
+              <div>
+                Updated
+                <span>{{ fromNow(project.updated) }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -470,11 +723,12 @@
       <div class="universal-card normal-page__info">
         <template
           v-if="
-            project.issues_url ||
-            project.source_url ||
-            project.wiki_url ||
-            project.discord_url ||
-            project.donation_urls.length > 0
+            !flags.REMOVE_LEGACY_PROJECT_LINKS &&
+            (project.issues_url ||
+              project.source_url ||
+              project.wiki_url ||
+              project.discord_url ||
+              project.donation_urls.length > 0)
           "
         >
           <h2 class="card-header">External resources</h2>
@@ -545,7 +799,7 @@
           </div>
           <hr class="card-divider" />
         </template>
-        <template v-if="featuredVersions.length > 0">
+        <template v-if="!flags.REMOVE_FEATURED_VERSIONS && featuredVersions.length > 0">
           <div class="featured-header">
             <h2 class="card-header">Featured versions</h2>
             <nuxt-link
@@ -626,107 +880,110 @@
 
           <div class="member-info">
             <p class="name">
-              {{ member.name }} <CrownIcon v-if="member.is_owner" v-tooltip="'Project owner'" />
+              {{ member.name }}
+              <CrownIcon v-if="member.is_owner" v-tooltip="'Project owner'" />
             </p>
             <p class="role">
               {{ member.role }}
             </p>
           </div>
         </nuxt-link>
-        <hr class="card-divider" />
-        <h2 class="card-header">Technical information</h2>
-        <div class="infos">
-          <div class="info">
-            <div class="key">License</div>
-            <div class="value lowercase">
-              <a
-                v-if="project.license.url"
-                class="text-link"
-                :href="project.license.url"
-                rel="noopener nofollow ugc"
-              >
-                {{ licenseIdDisplay }}
-              </a>
-              <span
-                v-else-if="
-                  project.license.id === 'LicenseRef-All-Rights-Reserved' ||
-                  !project.license.id.includes('LicenseRef')
-                "
-                class="text-link"
-                @click="getLicenseData()"
-              >
-                {{ licenseIdDisplay }}
-              </span>
-              <span v-else>{{ licenseIdDisplay }}</span>
+        <template v-if="!flags.REMOVE_LEGACY_TECHNICAL_INFO">
+          <hr class="card-divider" />
+          <h2 class="card-header">Technical information</h2>
+          <div class="infos">
+            <div class="info">
+              <div class="key">License</div>
+              <div class="value lowercase">
+                <a
+                  v-if="project.license.url"
+                  class="text-link"
+                  :href="project.license.url"
+                  rel="noopener nofollow ugc"
+                >
+                  {{ licenseIdDisplay }}
+                </a>
+                <span
+                  v-else-if="
+                    project.license.id === 'LicenseRef-All-Rights-Reserved' ||
+                    !project.license.id.includes('LicenseRef')
+                  "
+                  class="text-link"
+                  @click="getLicenseData()"
+                >
+                  {{ licenseIdDisplay }}
+                </span>
+                <span v-else>{{ licenseIdDisplay }}</span>
+              </div>
             </div>
-          </div>
-          <div
-            v-if="
-              project.project_type !== 'resourcepack' &&
-              project.project_type !== 'plugin' &&
-              project.project_type !== 'shader' &&
-              project.project_type !== 'datapack'
-            "
-            class="info"
-          >
-            <div class="key">Client side</div>
-            <div class="value">
-              {{ project.client_side }}
-            </div>
-          </div>
-          <div
-            v-if="
-              project.project_type !== 'resourcepack' &&
-              project.project_type !== 'plugin' &&
-              project.project_type !== 'shader' &&
-              project.project_type !== 'datapack'
-            "
-            class="info"
-          >
-            <div class="key">Server side</div>
-            <div class="value">
-              {{ project.server_side }}
-            </div>
-          </div>
-          <div class="info">
-            <div class="key">Project ID</div>
-            <div class="value lowercase">
-              <CopyCode :text="project.id" />
-            </div>
-          </div>
-          <div class="input-group">
-            <a
+            <div
               v-if="
-                config.public.apiBaseUrl.startsWith('https://api.modrinth.com') &&
-                config.public.siteUrl !== 'https://modrinth.com'
+                project.project_type !== 'resourcepack' &&
+                project.project_type !== 'plugin' &&
+                project.project_type !== 'shader' &&
+                project.project_type !== 'datapack'
               "
-              class="iconified-button"
-              :href="`https://modrinth.com/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }`"
-              rel="noopener nofollow"
-              target="_blank"
+              class="info"
             >
-              <ExternalIcon aria-hidden="true" />
-              View on modrinth.com
-            </a>
-            <a
-              v-else-if="
-                config.public.apiBaseUrl.startsWith('https://staging-api.modrinth.com') &&
-                config.public.siteUrl !== 'https://staging.modrinth.com'
+              <div class="key">Client side</div>
+              <div class="value">
+                {{ project.client_side }}
+              </div>
+            </div>
+            <div
+              v-if="
+                project.project_type !== 'resourcepack' &&
+                project.project_type !== 'plugin' &&
+                project.project_type !== 'shader' &&
+                project.project_type !== 'datapack'
               "
-              class="iconified-button"
-              :href="`https://staging.modrinth.com/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }`"
-              rel="noopener nofollow"
-              target="_blank"
+              class="info"
             >
-              <ExternalIcon aria-hidden="true" />
-              View on staging.modrinth.com
-            </a>
+              <div class="key">Server side</div>
+              <div class="value">
+                {{ project.server_side }}
+              </div>
+            </div>
+            <div class="info">
+              <div class="key">Project ID</div>
+              <div class="value lowercase">
+                <CopyCode :text="project.id" />
+              </div>
+            </div>
+            <div class="input-group">
+              <a
+                v-if="
+                  config.public.apiBaseUrl.startsWith('https://api.modrinth.com') &&
+                  config.public.siteUrl !== 'https://modrinth.com'
+                "
+                class="iconified-button"
+                :href="`https://modrinth.com/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }`"
+                rel="noopener nofollow"
+                target="_blank"
+              >
+                <ExternalIcon aria-hidden="true" />
+                View on modrinth.com
+              </a>
+              <a
+                v-else-if="
+                  config.public.apiBaseUrl.startsWith('https://staging-api.modrinth.com') &&
+                  config.public.siteUrl !== 'https://staging.modrinth.com'
+                "
+                class="iconified-button"
+                :href="`https://staging.modrinth.com/${project.project_type}/${
+                  project.slug ? project.slug : project.id
+                }`"
+                rel="noopener nofollow"
+                target="_blank"
+              >
+                <ExternalIcon aria-hidden="true" />
+                View on staging.modrinth.com
+              </a>
+            </div>
           </div>
-        </div>
+        </template>
       </div>
     </div>
     <ModerationChecklist
@@ -753,6 +1010,8 @@ import {
   isRejected,
   isUnderReview,
   isStaff,
+  CheckIcon,
+  XIcon,
 } from 'omorphia'
 import CrownIcon from '~/assets/images/utils/crown.svg'
 import CalendarIcon from '~/assets/images/utils/calendar.svg'
@@ -790,7 +1049,8 @@ import UsersIcon from '~/assets/images/utils/users.svg'
 import CategoriesIcon from '~/assets/images/utils/tags.svg'
 import DescriptionIcon from '~/assets/images/utils/align-left.svg'
 import LinksIcon from '~/assets/images/utils/link.svg'
-import LicenseIcon from '~/assets/images/utils/copyright.svg'
+import CopyrightIcon from '~/assets/images/utils/copyright.svg'
+import LicenseIcon from '~/assets/images/utils/book-text.svg'
 import GalleryIcon from '~/assets/images/utils/image.svg'
 import VersionIcon from '~/assets/images/utils/version.svg'
 import { reportProject } from '~/utils/report-helpers.ts'
@@ -799,6 +1059,8 @@ import { userCollectProject } from '~/composables/user.js'
 import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 import OrganizationIcon from '~/assets/images/utils/organization.svg'
 import ModerationChecklist from '~/components/ui/ModerationChecklist.vue'
+import ModeratorIcon from '~/assets/images/sidebar/admin.svg'
+import { getVersionsToDisplay } from '~/helpers/projects.js'
 
 const data = useNuxtApp()
 const route = useRoute()
@@ -808,6 +1070,7 @@ const auth = await useAuth()
 const user = await useUser()
 const cosmetics = useCosmetics()
 const tags = useTags()
+const flags = useFeatureFlags()
 
 const displayCollectionsSearch = ref('')
 const collections = computed(() =>
@@ -1177,6 +1440,7 @@ if (process.client && history && history.state && history.state.showChecklist) {
 <style lang="scss" scoped>
 .header {
   grid-area: header;
+
   .title {
     overflow-wrap: break-word;
     margin: var(--spacing-card-xs) 0;
@@ -1243,11 +1507,13 @@ if (process.client && history && history.state && history.state.showChecklist) {
   .project__gallery {
     display: none;
   }
+
   &.has-featured-image {
     .project__gallery {
       display: inline-block;
       width: 100%;
       height: 10rem;
+
       img {
         width: 100%;
         height: 10rem;
@@ -1256,6 +1522,7 @@ if (process.client && history && history.state && history.state.showChecklist) {
         border-radius: var(--size-rounded-card) var(--size-rounded-card) 0 0;
       }
     }
+
     .project__icon {
       margin-top: calc(-3rem - var(--spacing-card-lg) - 4px);
       margin-left: -4px;
@@ -1263,11 +1530,13 @@ if (process.client && history && history.state && history.state.showChecklist) {
       box-shadow: -2px -2px 0 2px var(--color-raised-bg), 2px -2px 0 2px var(--color-raised-bg);
     }
   }
+
   .project__header__content {
     margin: 0;
     background: none;
     border-radius: unset;
   }
+
   .input-group {
     flex-wrap: nowrap;
   }
@@ -1468,6 +1737,7 @@ if (process.client && history && history.state && history.state.showChecklist) {
 .modal-license {
   padding: var(--spacing-card-bg);
 }
+
 .settings-header {
   display: flex;
   flex-direction: row;
@@ -1495,6 +1765,7 @@ if (process.client && history && history.state && history.state.showChecklist) {
 .popout-checkbox {
   padding: var(--gap-sm) var(--gap-md);
   white-space: nowrap;
+
   &:hover {
     filter: brightness(0.95);
   }

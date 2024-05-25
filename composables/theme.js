@@ -25,6 +25,9 @@ export const useTheme = () =>
 export const updateTheme = (value, updatePreference = false) => {
   const theme = useTheme()
   const cosmetics = useCosmetics()
+  const flags = useFeatureFlags()
+
+  const extraClasses = flags.USE_EXPERIMENTAL_STYLES_GLOBALLY ? ' experimental-colors-within' : ''
 
   const themeCookie = useCookie('color-mode', {
     maxAge: 60 * 60 * 24 * 365 * 10,
@@ -49,7 +52,7 @@ export const updateTheme = (value, updatePreference = false) => {
   }
 
   if (process.client) {
-    document.documentElement.className = `${theme.value.value}-mode`
+    document.documentElement.className = `${theme.value.value}-mode${extraClasses}`
   }
 
   themeCookie.value = theme.value

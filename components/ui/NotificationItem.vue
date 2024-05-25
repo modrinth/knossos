@@ -549,7 +549,7 @@ function getMessages() {
   }
 
   .unknown-type {
-    color: var(--color-special-red);
+    color: var(--color-red);
   }
 
   .title-link {
@@ -560,11 +560,11 @@ function getMessages() {
   }
 
   .moderation-color {
-    color: var(--color-special-orange);
+    color: var(--color-orange);
   }
 
   .creator-color {
-    color: var(--color-special-blue);
+    color: var(--color-blue);
   }
 }
 </style>

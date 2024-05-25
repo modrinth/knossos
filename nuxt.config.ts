@@ -256,13 +256,13 @@ export default defineNuxtConfig({
               locale.meta[key] = meta[key].message
             }
           } else {
-            ;(locale.resources ??= {})[fileName] = `./${localeFile}`
+            ; (locale.resources ??= {})[fileName] = `./${localeFile}`
           }
         }
 
         const categoryOverride = localesCategoriesOverrides[tag]
         if (categoryOverride != null) {
-          ;(locale.meta ??= {}).category = categoryOverride
+          ; (locale.meta ??= {}).category = categoryOverride
         }
 
         const omorphiaLocaleData = resolveOmorphiaLocaleImport(tag)
@@ -272,7 +272,7 @@ export default defineNuxtConfig({
 
         const cnDataImport = resolveCompactNumberDataImport(tag)
         if (cnDataImport != null) {
-          ;(locale.additionalImports ??= []).push({
+          ; (locale.additionalImports ??= []).push({
             from: cnDataImport,
             resolve: false,
           })
@@ -288,6 +288,7 @@ export default defineNuxtConfig({
     public: {
       apiBaseUrl: getApiUrl(),
       siteUrl: getDomain(),
+      production: isProduction(),
 
       owner: process.env.VERCEL_GIT_REPO_OWNER || 'modrinth',
       slug: process.env.VERCEL_GIT_REPO_SLUG || 'knossos',
@@ -378,6 +379,10 @@ export default defineNuxtConfig({
 function getApiUrl() {
   // @ts-ignore
   return process.env.BROWSER_BASE_URL ?? globalThis.BROWSER_BASE_URL ?? STAGING_API_URL
+}
+
+function isProduction() {
+  return process.env.NODE_ENV === 'production'
 }
 
 function getDomain() {
