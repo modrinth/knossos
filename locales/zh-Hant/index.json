@@ -630,13 +630,13 @@
     "message": "讀取你的付款資料"
   },
   "scopes.payoutsRead.label": {
-    "message": "讀取付款資訊"
+    "message": "讀取付款資料"
   },
   "scopes.payoutsWrite.description": {
     "message": "提款"
   },
   "scopes.payoutsWrite.label": {
-    "message": "寫入付款資訊"
+    "message": "寫入付款資料"
   },
   "scopes.performAnalytics.description": {
     "message": "執行數據分析操作"
