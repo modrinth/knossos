@@ -546,6 +546,41 @@
             </a>
           </div>
         </div>
+        <div v-if="flags.PROJECT_MEMBERS_CARD" class="card flex-card experimental-styles-within">
+          <h2>Creators</h2>
+          <div class="details-list">
+            <template v-if="organization">
+              <nuxt-link
+                class="details-list__item details-list__item--type-large"
+                :to="`/organization/${organization.slug}`"
+              >
+                <Avatar :src="organization.icon_url" :alt="organization.name" class="icon" data-size="32" data-shape="square" />
+                <div class="rows">
+                  <span>
+                    {{ organization.name }} 
+                  </span>
+                  <span class="details-list__item__text--style-secondary">Organization</span>
+                </div>
+              </nuxt-link>
+              <hr>
+            </template>
+            <nuxt-link
+              v-for="member in members"
+              :key="`member-${member.id}`"
+              class="details-list__item details-list__item--type-large"
+              :to="'/user/' + member.user.username"
+            >
+              <Avatar :src="member.avatar_url" :alt="member.name" class="icon" data-size="32" data-shape="circle" />
+              <div class="rows">
+                <span>
+                  {{ member.name }} 
+                  <CrownIcon v-if="member.is_owner" v-tooltip="'Project owner'" />
+                </span>
+                <span class="details-list__item__text--style-secondary">{{ member.role }}</span>
+              </div>
+            </nuxt-link>
+          </div>
+        </div>
         <div v-if="flags.PROJECT_DETAILS_CARD" class="card flex-card experimental-styles-within">
           <h2>Details</h2>
           <div class="details-list">
@@ -619,41 +654,6 @@
                 <span>{{ fromNow(project.updated) }}</span>
               </div>
             </div>
-          </div>
-        </div>
-        <div v-if="flags.PROJECT_MEMBERS_CARD" class="card flex-card experimental-styles-within">
-          <h2>Creators</h2>
-          <div class="details-list">
-            <template v-if="organization">
-              <nuxt-link
-                class="details-list__item details-list__item--type-large"
-                :to="`/organization/${organization.slug}`"
-              >
-                <Avatar :src="organization.icon_url" :alt="organization.name" class="icon" data-size="32" data-shape="square" />
-                <div class="rows">
-                  <span>
-                    {{ organization.name }} 
-                  </span>
-                  <span class="details-list__item__text--style-secondary">Organization</span>
-                </div>
-              </nuxt-link>
-              <hr>
-            </template>
-            <nuxt-link
-              v-for="member in members"
-              :key="`member-${member.id}`"
-              class="details-list__item details-list__item--type-large"
-              :to="'/user/' + member.user.username"
-            >
-              <Avatar :src="member.avatar_url" :alt="member.name" class="icon" data-size="32" data-shape="circle" />
-              <div class="rows">
-                <span>
-                  {{ member.name }} 
-                  <CrownIcon v-if="member.is_owner" v-tooltip="'Project owner'" />
-                </span>
-                <span class="details-list__item__text--style-secondary">{{ member.role }}</span>
-              </div>
-            </nuxt-link>
           </div>
         </div>
       </div>
