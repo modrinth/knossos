@@ -574,7 +574,7 @@
               <div class="rows">
                 <span>
                   {{ member.name }} 
-                  <CrownIcon v-if="member.is_owner" v-tooltip="'Project owner'" />
+                  <CrownIcon v-if="member.is_owner" v-tooltip="'Project owner'" class="project-owner-icon" />
                 </span>
                 <span class="details-list__item__text--style-secondary">{{ member.role }}</span>
               </div>
@@ -1228,8 +1228,8 @@ if (project.value.project_type !== route.params.type || route.params.id !== proj
 // The rest of the members should be sorted by role, then by name
 const members = computed(() => {
   const acceptedMembers = allMembers.value.filter((x) => x.accepted)
-  const owner = acceptedMembers.find((x) => x.is_owner)
-  const rest = acceptedMembers.filter((x) => !x.is_owner) || []
+  const owner = acceptedMembers.find((x) => organization.value ? organization.value.members.some((orgMember) => orgMember.user.id === x.user.id && orgMember.is_owner) : x.is_owner)
+  const rest = acceptedMembers.filter((x) => x.user.id !== owner.user.id) || []
 
   rest.sort((a, b) => {
     if (a.role === b.role) {
@@ -1843,5 +1843,9 @@ if (process.client && history && history.state && history.state.showChecklist) {
 
 .normal-page__info:empty {
   display: none;
+}
+
+.project-owner-icon {
+  color: var(--color-orange);
 }
 </style>
