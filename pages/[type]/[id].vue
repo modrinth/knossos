@@ -369,7 +369,7 @@
         </div>
         <div
           v-if="flags.PROJECT_COMPATIBILITY_CARD && versions.length > 0"
-          class="card flex-card experimental-colors-within"
+          class="card flex-card experimental-styles-within"
         >
           <h2>Compatibility</h2>
           <section>
@@ -466,7 +466,7 @@
               project.discord_url ||
               project.donation_urls.length > 0)
           "
-          class="card flex-card experimental-colors-within"
+          class="card flex-card experimental-styles-within"
         >
           <h2>Links</h2>
           <div class="links-list">
@@ -546,7 +546,7 @@
             </a>
           </div>
         </div>
-        <div v-if="flags.PROJECT_DETAILS_CARD" class="card flex-card experimental-colors-within">
+        <div v-if="flags.PROJECT_DETAILS_CARD" class="card flex-card experimental-styles-within">
           <h2>Details</h2>
           <div class="details-list">
             <div class="details-list__item">
@@ -557,9 +557,10 @@
                   v-if="project.license.url"
                   class="text-link"
                   :href="project.license.url"
+                  :target="$external()"
                   rel="noopener nofollow ugc"
                 >
-                  {{ licenseIdDisplay }} <ExternalIcon />
+                  {{ licenseIdDisplay }} <ExternalIcon aria-hidden="true" class="external-icon" />
                 </a>
                 <span
                   v-else-if="
@@ -618,6 +619,41 @@
                 <span>{{ fromNow(project.updated) }}</span>
               </div>
             </div>
+          </div>
+        </div>
+        <div v-if="flags.PROJECT_MEMBERS_CARD" class="card flex-card experimental-styles-within">
+          <h2>Creators</h2>
+          <div class="details-list">
+            <template v-if="organization">
+              <nuxt-link
+                class="details-list__item details-list__item--type-large"
+                :to="`/organization/${organization.slug}`"
+              >
+                <Avatar :src="organization.icon_url" :alt="organization.name" class="icon" data-size="32" data-shape="square" />
+                <div class="rows">
+                  <span>
+                    {{ organization.name }} 
+                  </span>
+                  <span class="details-list__item__text--style-secondary">Organization</span>
+                </div>
+              </nuxt-link>
+              <hr>
+            </template>
+            <nuxt-link
+              v-for="member in members"
+              :key="`member-${member.id}`"
+              class="details-list__item details-list__item--type-large"
+              :to="'/user/' + member.user.username"
+            >
+              <Avatar :src="member.avatar_url" :alt="member.name" class="icon" data-size="32" data-shape="circle" />
+              <div class="rows">
+                <span>
+                  {{ member.name }} 
+                  <CrownIcon v-if="member.is_owner" v-tooltip="'Project owner'" />
+                </span>
+                <span class="details-list__item__text--style-secondary">{{ member.role }}</span>
+              </div>
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -856,6 +892,7 @@
           </div>
           <hr class="card-divider" />
         </template>
+        <template v-if="!flags.REMOVE_LEGACY_PROJECT_MEMBERS">
         <h2 class="card-header">Project members</h2>
         <nuxt-link
           v-if="organization"
@@ -888,6 +925,7 @@
             </p>
           </div>
         </nuxt-link>
+      </template>
         <template v-if="!flags.REMOVE_LEGACY_TECHNICAL_INFO">
           <hr class="card-divider" />
           <h2 class="card-header">Technical information</h2>
@@ -1801,5 +1839,9 @@ if (process.client && history && history.state && history.state.showChecklist) {
   border-radius: var(--radius-md);
   margin: var(--gap-sm) var(--gap-md);
   padding: var(--gap-sm);
+}
+
+.normal-page__info:empty {
+  display: none;
 }
 </style>

@@ -27,7 +27,7 @@ export const updateTheme = (value, updatePreference = false) => {
   const cosmetics = useCosmetics()
   const flags = useFeatureFlags()
 
-  const extraClasses = flags.USE_EXPERIMENTAL_STYLES_GLOBALLY ? ' experimental-colors-within' : ''
+  const extraClasses = flags.USE_EXPERIMENTAL_STYLES_GLOBALLY ? ' experimental-styles-within' : ''
 
   const themeCookie = useCookie('color-mode', {
     maxAge: 60 * 60 * 24 * 365 * 10,

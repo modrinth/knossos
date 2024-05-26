@@ -36,11 +36,12 @@ html {
   --icon-16: 1rem; // used for normal-sized icons alongside a label
   --icon-20: 1.25rem; // used for icons in normal sized buttons
   --icon-24: 1.5rem; // used for icons that are used as a primary label or in large buttons
+  --icon-32: 2rem;
 
   --button-border: 1px solid var(--color-button-border);
 }
 
-.experimental-colors-within {
+.experimental-styles-within {
   // Reset deprecated properties
   --color-icon: initial !important;
   --color-text: initial !important;
@@ -74,8 +75,9 @@ html {
 
 .light-mode,
 .light {
-  .experimental-colors-within,
-  &.experimental-colors-within {
+
+  .experimental-styles-within,
+  &.experimental-styles-within {
     --color-bg: #f0f0f0;
     --color-raised-bg: #ffffff;
     --color-button-bg: #f5f5f5;
@@ -104,8 +106,9 @@ html {
 
 .dark-mode,
 .dark {
-  .experimental-colors-within,
-  &.experimental-colors-within {
+
+  .experimental-styles-within,
+  &.experimental-styles-within {
     --color-button-bg: #33363d;
 
     --color-platform-fabric: #dbb69b;
@@ -224,24 +227,18 @@ html {
 
   --landing-transition-gradient-start: rgba(255, 255, 255, 0);
   --landing-transition-gradient-end: #ffffff;
-  --landing-hover-card-gradient: radial-gradient(
-    50% 50% at 50% 50%,
-    #fff 0%,
-    rgba(204, 204, 204, 0.77) 100%
-  );
-  --landing-border-gradient: linear-gradient(
-    to bottom right,
-    rgba(129, 137, 175, 0.75) 0%,
-    rgba(66, 71, 97, 0.34) 100%
-  );
+  --landing-hover-card-gradient: radial-gradient(50% 50% at 50% 50%,
+      #fff 0%,
+      rgba(204, 204, 204, 0.77) 100%);
+  --landing-border-gradient: linear-gradient(to bottom right,
+      rgba(129, 137, 175, 0.75) 0%,
+      rgba(66, 71, 97, 0.34) 100%);
   --landing-border-color: rgba(129, 137, 175, 0.55);
   --landing-creator-gradient: linear-gradient(180deg, #f8f8f8 0%, #f8f8f8 63.19%);
 
-  --landing-blob-gradient: radial-gradient(
-    50% 50% at 50% 50%,
-    rgba(255, 255, 255, 0.35) 0%,
-    rgba(255, 255, 255, 0.2695) 100%
-  );
+  --landing-blob-gradient: radial-gradient(50% 50% at 50% 50%,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(255, 255, 255, 0.2695) 100%);
   --landing-blob-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16),
     inset 2px 2px 64px rgba(255, 255, 255, 0.45);
 
@@ -352,24 +349,18 @@ html {
 
   --landing-transition-gradient-start: rgba(14, 16, 32, 0);
   --landing-transition-gradient-end: #060a1c;
-  --landing-hover-card-gradient: radial-gradient(
-    50% 50% at 50% 50%,
-    #2c304f 0%,
-    rgba(32, 35, 50, 0.77) 100%
-  );
-  --landing-border-gradient: linear-gradient(
-    to bottom right,
-    rgba(168, 177, 221, 0.75) 0%,
-    rgba(168, 177, 221, 0.18) 100%
-  );
+  --landing-hover-card-gradient: radial-gradient(50% 50% at 50% 50%,
+      #2c304f 0%,
+      rgba(32, 35, 50, 0.77) 100%);
+  --landing-border-gradient: linear-gradient(to bottom right,
+      rgba(168, 177, 221, 0.75) 0%,
+      rgba(168, 177, 221, 0.18) 100%);
   --landing-border-color: rgba(168, 177, 221, 0.55);
   --landing-creator-gradient: linear-gradient(180deg, #000000 0%, #0e101d 100%);
 
-  --landing-blob-gradient: radial-gradient(
-    50% 50% at 50% 50%,
-    rgba(44, 48, 79, 0.35) 0%,
-    rgba(32, 35, 50, 0.2695) 100%
-  );
+  --landing-blob-gradient: radial-gradient(50% 50% at 50% 50%,
+      rgba(44, 48, 79, 0.35) 0%,
+      rgba(32, 35, 50, 0.2695) 100%);
   --landing-blob-shadow: 2px 2px 12px rgba(0, 0, 0, 0.16), inset 2px 2px 64px rgba(57, 61, 94, 0.45);
 
   --landing-card-bg: rgba(59, 63, 85, 0.15);
