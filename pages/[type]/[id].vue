@@ -243,7 +243,7 @@
                 follower<span v-if="project.followers !== 1">s</span>
               </div>
             </div>
-            <div class="dates">
+            <div v-if="!flags.REMOVE_LEGACY_PROJECT_DATE_INFO" class="dates">
               <div
                 v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm A')"
                 class="date"
@@ -269,8 +269,8 @@
                 <span class="label">Submitted</span>
                 <span class="value">{{ fromNow(project.queued) }}</span>
               </div>
+              <hr class="card-divider" />
             </div>
-            <hr class="card-divider" />
             <div class="input-group">
               <template v-if="auth.user">
                 <button
@@ -554,15 +554,21 @@
                 class="details-list__item details-list__item--type-large"
                 :to="`/organization/${organization.slug}`"
               >
-                <Avatar :src="organization.icon_url" :alt="organization.name" class="icon" data-size="32" data-shape="square" />
+                <Avatar
+                  :src="organization.icon_url"
+                  :alt="organization.name"
+                  class="icon"
+                  data-size="32"
+                  data-shape="square"
+                />
                 <div class="rows">
                   <span>
-                    {{ organization.name }} 
+                    {{ organization.name }}
                   </span>
                   <span class="details-list__item__text--style-secondary">Organization</span>
                 </div>
               </nuxt-link>
-              <hr>
+              <hr />
             </template>
             <nuxt-link
               v-for="member in members"
@@ -570,11 +576,21 @@
               class="details-list__item details-list__item--type-large"
               :to="'/user/' + member.user.username"
             >
-              <Avatar :src="member.avatar_url" :alt="member.name" class="icon" data-size="32" data-shape="circle" />
+              <Avatar
+                :src="member.avatar_url"
+                :alt="member.name"
+                class="icon"
+                data-size="32"
+                data-shape="circle"
+              />
               <div class="rows">
                 <span>
-                  {{ member.name }} 
-                  <CrownIcon v-if="member.is_owner" v-tooltip="'Project owner'" class="project-owner-icon" />
+                  {{ member.name }}
+                  <CrownIcon
+                    v-if="member.is_owner"
+                    v-tooltip="'Project owner'"
+                    class="project-owner-icon"
+                  />
                 </span>
                 <span class="details-list__item__text--style-secondary">{{ member.role }}</span>
               </div>
@@ -890,42 +906,42 @@
               <Badge v-else-if="version.version_type === 'alpha'" type="alpha" color="red" />
             </div>
           </div>
-          <hr class="card-divider" />
         </template>
         <template v-if="!flags.REMOVE_LEGACY_PROJECT_MEMBERS">
-        <h2 class="card-header">Project members</h2>
-        <nuxt-link
-          v-if="organization"
-          class="team-member columns button-transparent"
-          :to="`/organization/${organization.slug}`"
-        >
-          <Avatar :src="organization.icon_url" :alt="organization.name" size="sm" />
-          <div class="member-info">
-            <p class="name">
-              {{ organization.name }}
-            </p>
-            <p class="role"><OrganizationIcon /> Organization</p>
-          </div>
-        </nuxt-link>
-        <nuxt-link
-          v-for="member in members"
-          :key="member.user.id"
-          class="team-member columns button-transparent"
-          :to="'/user/' + member.user.username"
-        >
-          <Avatar :src="member.avatar_url" :alt="member.username" size="sm" circle />
+          <hr class="card-divider" />
+          <h2 class="card-header">Project members</h2>
+          <nuxt-link
+            v-if="organization"
+            class="team-member columns button-transparent"
+            :to="`/organization/${organization.slug}`"
+          >
+            <Avatar :src="organization.icon_url" :alt="organization.name" size="sm" />
+            <div class="member-info">
+              <p class="name">
+                {{ organization.name }}
+              </p>
+              <p class="role"><OrganizationIcon /> Organization</p>
+            </div>
+          </nuxt-link>
+          <nuxt-link
+            v-for="member in members"
+            :key="member.user.id"
+            class="team-member columns button-transparent"
+            :to="'/user/' + member.user.username"
+          >
+            <Avatar :src="member.avatar_url" :alt="member.username" size="sm" circle />
 
-          <div class="member-info">
-            <p class="name">
-              {{ member.name }}
-              <CrownIcon v-if="member.is_owner" v-tooltip="'Project owner'" />
-            </p>
-            <p class="role">
-              {{ member.role }}
-            </p>
-          </div>
-        </nuxt-link>
-      </template>
+            <div class="member-info">
+              <p class="name">
+                {{ member.name }}
+                <CrownIcon v-if="member.is_owner" v-tooltip="'Project owner'" />
+              </p>
+              <p class="role">
+                {{ member.role }}
+              </p>
+            </div>
+          </nuxt-link>
+        </template>
         <template v-if="!flags.REMOVE_LEGACY_TECHNICAL_INFO">
           <hr class="card-divider" />
           <h2 class="card-header">Technical information</h2>
@@ -1228,7 +1244,13 @@ if (project.value.project_type !== route.params.type || route.params.id !== proj
 // The rest of the members should be sorted by role, then by name
 const members = computed(() => {
   const acceptedMembers = allMembers.value.filter((x) => x.accepted)
-  const owner = acceptedMembers.find((x) => organization.value ? organization.value.members.some((orgMember) => orgMember.user.id === x.user.id && orgMember.is_owner) : x.is_owner)
+  const owner = acceptedMembers.find((x) =>
+    organization.value
+      ? organization.value.members.some(
+          (orgMember) => orgMember.user.id === x.user.id && orgMember.is_owner
+        )
+      : x.is_owner
+  )
   const rest = acceptedMembers.filter((x) => x.user.id !== owner.user.id) || []
 
   rest.sort((a, b) => {

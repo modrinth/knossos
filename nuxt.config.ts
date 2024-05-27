@@ -256,13 +256,13 @@ export default defineNuxtConfig({
               locale.meta[key] = meta[key].message
             }
           } else {
-            ; (locale.resources ??= {})[fileName] = `./${localeFile}`
+            ;(locale.resources ??= {})[fileName] = `./${localeFile}`
           }
         }
 
         const categoryOverride = localesCategoriesOverrides[tag]
         if (categoryOverride != null) {
-          ; (locale.meta ??= {}).category = categoryOverride
+          ;(locale.meta ??= {}).category = categoryOverride
         }
 
         const omorphiaLocaleData = resolveOmorphiaLocaleImport(tag)
@@ -272,7 +272,7 @@ export default defineNuxtConfig({
 
         const cnDataImport = resolveCompactNumberDataImport(tag)
         if (cnDataImport != null) {
-          ; (locale.additionalImports ??= []).push({
+          ;(locale.additionalImports ??= []).push({
             from: cnDataImport,
             resolve: false,
           })
