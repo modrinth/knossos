@@ -156,7 +156,7 @@
     "message": "訂閱 Modrinth 的最新消息"
   },
   "auth.welcome.description": {
-    "message": "感謝您建立帳號。您現在可以追蹤及建立專案、接收喜愛專案的動態，還有更多精彩功能等你來發掘！"
+    "message": "感謝你建立帳號。你現在可以追蹤及建立專案、接收喜愛專案的動態，還有更多精彩功能等你來發掘！"
   },
   "auth.welcome.label.tos": {
     "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>使用規定</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
@@ -828,13 +828,13 @@
     "message": "使用者個人檔案頁面"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "啟用進階繪製（例如模糊效果），如果沒有硬體加速繪製功能，可能會導致效能問題。"
+    "message": "啟用進階繪製功能，例如可能會造成效能問題的模糊效果，但使用硬體加速繪製可避免這些問題。"
   },
   "settings.display.sidebar.advanced-rendering.title": {
     "message": "進階繪製"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "在新分頁中開啟 Modrinth 以外的連結。這項設定僅適用於外部連結，內部連結和 Markdown 說明中的連結仍會在同一個分頁中開啟，而廣告和編輯頁面的連結都將在新分頁中開啟。"
+    "message": "在新分頁中開啟 Modrinth 外部的連結。這項設定僅適用於外部連結，內部連結和 Markdown 說明中的連結仍會在同一個分頁中開啟，而廣告和編輯頁面的連結會在新分頁中開啟。"
   },
   "settings.display.sidebar.external-links-new-tab.title": {
     "message": "在新分頁中開啟外部連結"
@@ -984,7 +984,7 @@
     "message": "從未使用"
   },
   "settings.profile.bio.description": {
-    "message": "做個簡短的自我介紹，讓大家更了解你。"
+    "message": "撰寫一段簡短的自我介紹，讓大家更了解你。"
   },
   "settings.profile.bio.title": {
     "message": "關於我"
@@ -1005,7 +1005,7 @@
     "message": "公開個人檔案"
   },
   "settings.profile.username.description": {
-    "message": "不分大小寫的獨特名稱，用於識別你的個人檔案。"
+    "message": "獨特且不區分大小寫的名稱，用於識別你的個人檔案。"
   },
   "settings.profile.username.title": {
     "message": "使用者名稱"
