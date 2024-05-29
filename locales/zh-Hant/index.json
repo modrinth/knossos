@@ -135,10 +135,10 @@
     "message": "重新傳送驗證電子郵件"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "系統無法驗證您的電子郵件地址。請在登入後，前往儀表板重新傳送驗證電子郵件。"
+    "message": "系統無法驗證您的電子郵件地址。請在登入後，透過儀表板重新傳送驗證電子郵件。"
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "我們無法驗證您的電子郵件地址。請透過下方按鈕重新傳送驗證電子郵件。"
+    "message": "系統無法驗證您的電子郵件地址。請透過下方按鈕重新傳送驗證電子郵件。"
   },
   "auth.verify-email.failed-verification.title": {
     "message": "電子郵件地址驗證失敗"
@@ -375,7 +375,7 @@
     "message": "基於安全考量，請在 Modrinth 上驗證您的電子郵件地址。"
   },
   "layout.footer.company.careers": {
-    "message": "職涯"
+    "message": "工作機會"
   },
   "layout.footer.company.privacy": {
     "message": "隱私權"
@@ -390,7 +390,7 @@
     "message": "公司"
   },
   "layout.footer.interact.title": {
-    "message": "關於"
+    "message": "社群"
   },
   "layout.footer.legal-disclaimer": {
     "message": "非官方 MINECRAFT 服務。未經 MOJANG 或 MICROSOFT 核准或與之關聯。"
