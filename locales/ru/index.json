@@ -417,7 +417,7 @@
     "message": "Меню"
   },
   "layout.meta.description": {
-    "message": "Скачивайте модификации, плагины, наборы ресурсов, данных, шейдеры и сборки модификаций для Minecraft. Узнавайте про новые и публикуйте свои проекты на Modrinth благодаря удобному современному интерфейсу и API."
+    "message": "Скачивайте моды, плагины, наборы ресурсов, данных, шейдеры и сборки модов для Minecraft. Узнавайте про новые и публикуйте свои проекты на Modrinth благодаря удобному современному интерфейсу и API."
   },
   "layout.meta.og-description": {
     "message": "Исследуйте и делитесь контентом для Minecraft!"
@@ -489,16 +489,16 @@
     "message": "Набор данных"
   },
   "project-type.mod.plural": {
-    "message": "Модификации"
+    "message": "Моды"
   },
   "project-type.mod.singular": {
-    "message": "Модификация"
+    "message": "Мод"
   },
   "project-type.modpack.plural": {
-    "message": "Сборки модификаций"
+    "message": "Сборки модов"
   },
   "project-type.modpack.singular": {
-    "message": "Сборка модификаций"
+    "message": "Сборка модов"
   },
   "project-type.plugin.plural": {
     "message": "Плагины"
@@ -807,7 +807,7 @@
     "message": "Выберите предпочитаемый макет для каждой страницы с проектами на этом устройстве."
   },
   "settings.display.project-list-layouts.mod": {
-    "message": "Страница модификаций"
+    "message": "Страница модов"
   },
   "settings.display.project-list-layouts.modpack": {
     "message": "Страница сборок"
