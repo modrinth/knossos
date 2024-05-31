@@ -474,7 +474,7 @@
     "message": "使用者 ID：{id}"
   },
   "project-type.all": {
-    "message": "全部"
+    "message": "所有專案"
   },
   "project-type.collection.plural": {
     "message": "收藏"
