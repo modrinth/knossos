@@ -6,10 +6,10 @@
     "message": "拒絕"
   },
   "auth.authorize.app-info": {
-    "message": "<creator-link>{creator}</creator-link> 的 <strong>{appName}</strong> 將可以："
+    "message": "<creator-link>{creator}</creator-link> 的「<strong>{appName}</strong>」將可執行下列操作："
   },
   "auth.authorize.authorize-app-name": {
-    "message": "授權 {appName}"
+    "message": "授權「{appName}」"
   },
   "auth.authorize.error.no-redirect-url": {
     "message": "找不到回應中的重新導向位置"
