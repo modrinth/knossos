@@ -33,7 +33,7 @@
     "message": "如果您的帳號中先前已儲存該電子郵件地址，系統會將包含指示的電子郵件傳送給您。"
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "已傳送電子郵件"
+    "message": "電子郵件已傳送"
   },
   "auth.reset-password.notification.password-reset.text": {
     "message": "請使用新密碼登入您的帳號。"
@@ -75,7 +75,7 @@
     "message": "密碼"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "登入方式"
+    "message": "使用以下方式登入"
   },
   "auth.sign-in.title": {
     "message": "登入"
@@ -117,7 +117,7 @@
     "message": "或自行建立帳號"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "透過以下方式註冊"
+    "message": "使用以下方式註冊"
   },
   "auth.verify-email.action.account-settings": {
     "message": "帳號設定"
@@ -126,7 +126,7 @@
     "message": "登入"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "您已經驗證過電子郵件地址！"
+    "message": "您已經驗證過電子郵件地址了！"
   },
   "auth.verify-email.already-verified.title": {
     "message": "電子郵件地址已經完成驗證"
@@ -171,7 +171,7 @@
     "message": "取消"
   },
   "button.continue": {
-    "message": "下一步"
+    "message": "繼續"
   },
   "button.create-a-project": {
     "message": "建立專案"
@@ -192,7 +192,7 @@
     "message": "登出"
   },
   "button.upload-image": {
-    "message": "上傳相片"
+    "message": "上傳大頭貼"
   },
   "collection.button.delete-icon": {
     "message": "刪除圖示"
@@ -216,7 +216,7 @@
     "message": "要刪除這個收藏嗎？"
   },
   "collection.description": {
-    "message": "{description} — 在 Modrinth 上瀏覽 {username} 的收藏 {name}"
+    "message": "{description} — 在 Modrinth 上查看 {username} 的收藏「{name}」"
   },
   "collection.description.following": {
     "message": "由系統自動產生的收藏，包含您正在追蹤的所有專案。"
@@ -291,7 +291,7 @@
     "message": "清單檢視"
   },
   "label.changes-saved": {
-    "message": "已儲存變更"
+    "message": "變更已儲存"
   },
   "label.collections": {
     "message": "收藏庫"
@@ -354,7 +354,7 @@
     "message": "取得 Modrinth App"
   },
   "layout.avatar.alt": {
-    "message": "你的頭貼"
+    "message": "你的大頭貼"
   },
   "layout.banner.add-email.button": {
     "message": "前往帳號設定"
@@ -378,7 +378,7 @@
     "message": "工作機會"
   },
   "layout.footer.company.privacy": {
-    "message": "隱私權"
+    "message": "隱私權政策"
   },
   "layout.footer.company.rules": {
     "message": "內容規範"
@@ -999,7 +999,7 @@
     "message": "重設"
   },
   "settings.profile.profile-picture.title": {
-    "message": "頭貼"
+    "message": "大頭貼"
   },
   "settings.profile.title": {
     "message": "公開個人檔案"
