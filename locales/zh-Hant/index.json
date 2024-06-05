@@ -216,7 +216,7 @@
     "message": "要刪除這個收藏嗎？"
   },
   "collection.description": {
-    "message": "{description} — 在 Modrinth 上查看 {username} 的收藏「{name}」"
+    "message": "{description} — 前往 Modrinth 查看 {username} 的收藏「{name}」"
   },
   "collection.description.following": {
     "message": "由系統自動產生的收藏，包含您正在追蹤的所有專案。"
