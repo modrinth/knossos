@@ -15,7 +15,7 @@
     "message": "Nenhuma localização de redirecionamento encontrada na resposta"
   },
   "auth.authorize.redirect-url": {
-    "message": "Você será redirecionado(a) para <redirect-url>{url}</redirect-url>"
+    "message": "Você será redirecionado para <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Enviar email de recuperação"
@@ -24,7 +24,7 @@
     "message": "Digite o seu e-mail abaixo e enviaremos um link de recuperação para que você recupere sua conta."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "E-mail ou nome de usuário"
+    "message": "Email ou nome de usuário"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
     "message": "Email"
@@ -135,16 +135,16 @@
     "message": "Reenviar email de verificação"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "Não fomos capazes de verificar seu email. Ao logar, tente reenviar o email de verificação através do painel."
+    "message": "Não conseguimos verificar seu email. Ao logar, tente reenviar o email de verificação através do painel."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "Fomos incapazes de verificar seu email. Tente reenviar o email de verificação através do botão abaixo."
+    "message": "Não conseguimos verificar seu email. Tente reenviar o email de verificação através do botão abaixo."
   },
   "auth.verify-email.failed-verification.title": {
     "message": "Verificação de email falhou"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Seu endereço de email foi verificado com êxito!"
+    "message": "Seu endereço de email foi verificado com sucesso!"
   },
   "auth.verify-email.post-verification.title": {
     "message": "Verificação de email"
@@ -162,10 +162,10 @@
     "message": "Ao criar uma conta, você concorda com os <terms-link>Termos</terms-link> e <privacy-policy-link>Política de Privacidade</privacy-policy-link> do Modrinth."
   },
   "auth.welcome.long-title": {
-    "message": "Bem-vindo(a) ao Modrinth!"
+    "message": "Bem-vindo ao Modrinth!"
   },
   "auth.welcome.title": {
-    "message": "Bem-vindo(a)"
+    "message": "Bem-vindo"
   },
   "button.cancel": {
     "message": "Cancelar"
@@ -207,10 +207,10 @@
     "message": "Deixar de seguir projeto"
   },
   "collection.button.upload-icon": {
-    "message": "Carregar ícone"
+    "message": "Enviar ícone"
   },
   "collection.delete-modal.description": {
-    "message": "Isso irá remover esta coleção para sempre. Essa ação não pode ser desfeita."
+    "message": "Isso irá deletar esta coleção para sempre. Essa ação não pode ser desfeita."
   },
   "collection.delete-modal.title": {
     "message": "Você tem certeza de que deseja excluir esta coleção?"
@@ -240,7 +240,7 @@
     "message": "Você não tem nenhum projeto.\nGostaria de <create-link>adicionar um</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Dono(a)"
+    "message": "Dono"
   },
   "collection.label.private": {
     "message": "Privado"
@@ -261,7 +261,7 @@
     "message": "{count, plural, one {{count} projeto} other {{count} projetos}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Pesquisar suas coleções"
+    "message": "Pesquisar nas suas coleções"
   },
   "dashboard.collections.long-title": {
     "message": "Suas coleções"
@@ -270,7 +270,7 @@
     "message": "Você foi sapado! 🐸"
   },
   "frog.altText": {
-    "message": "Uma pintura foto realística de um sapo em formato de labirinto"
+    "message": "Uma pintura realista de um sapo-labirinto"
   },
   "frog.froggedPeople": {
     "message": "{count, plural, one {{count} outra pessoa também foi ensapada} other {Outras {count} pessoas também foram ensapadas}}!"
@@ -282,10 +282,10 @@
     "message": "Sapo"
   },
   "input.view.gallery": {
-    "message": "Exibição em galeria"
+    "message": "Visualização em galeria"
   },
   "input.view.grid": {
-    "message": "Exibição em grade"
+    "message": "Visualização em grade"
   },
   "input.view.list": {
     "message": "Visualização de linhas"
@@ -345,7 +345,7 @@
     "message": "Visibilidade"
   },
   "label.visit-your-profile": {
-    "message": "Visite seu perfil"
+    "message": "Abrir seu perfil"
   },
   "layout.action.change-theme": {
     "message": "Mudar tema"
@@ -363,7 +363,7 @@
     "message": "Por razões de segurança, verifique o seu endereço de email do Modrinth."
   },
   "layout.banner.staging.description": {
-    "message": "O ambiente de desenvolvimento está rodando em uma cópia da database do Modrinth de produção. Ele é usado para testar e depurar, e pode estar rodando versões em desenvolvimento do backfront e/ou frotend do Modrinth mais novas do que as vistas na instância de produção."
+    "message": "O ambiente de desenvolvimento está rodando em uma cópia da database do Modrinth padrão. Ele é usado para testar e depurar, e pode estar rodando versões em desenvolvimento do backdnd e/ou frotend do Modrinth mais novas do que as vistas na versão padrão."
   },
   "layout.banner.staging.title": {
     "message": "Você está no ambiente de desenvolvimento do Modrinth."
@@ -396,7 +396,7 @@
     "message": "NÃO SOMOS UM SERVIÇO OFICIAL DO MINECRAFT. NÃO SOMOS APROVADOS OU ASSOCIADOS COM A MOJANG OU MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "O Modrinth é <github-link>código aberto</github-link>."
+    "message": "O Modrinth é <github-link>open source</github-link>."
   },
   "layout.footer.resources.blog": {
     "message": "Blog"
@@ -414,7 +414,7 @@
     "message": "Recursos"
   },
   "layout.menu-toggle.action": {
-    "message": "Abrir/fechar Menu"
+    "message": "Abrir/fechar menu"
   },
   "layout.meta.description": {
     "message": "Baixe mods, plugins, datapacks, shaders, resourcepacks e modpacks de Minecraft no Modrinth. Descubra e publique projetos no Modrinth com uma interface e API modernas e de fácil uso."
@@ -483,10 +483,10 @@
     "message": "Coleção"
   },
   "project-type.datapack.plural": {
-    "message": "Pacotes de dados"
+    "message": "Data Packs"
   },
   "project-type.datapack.singular": {
-    "message": "Pacote de dados"
+    "message": "Data Pack"
   },
   "project-type.mod.plural": {
     "message": "Mods"
