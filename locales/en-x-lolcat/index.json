@@ -246,7 +246,7 @@
     "message": "u kan onli sea diz"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, one {<stat>{count}</stat> pawjekt} other {<stat>{count}</stat> pawekts}}"
   },
   "collection.label.updated-at": {
     "message": "Not tjed sme from a {ago}"
