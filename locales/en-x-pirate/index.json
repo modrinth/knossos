@@ -3,7 +3,7 @@
     "message": "Authorize"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Throw overboard"
   },
   "auth.authorize.app-info": {
     "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
