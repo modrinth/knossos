@@ -192,7 +192,7 @@
     "message": "ʇno uᵷᴉS"
   },
   "button.upload-image": {
-    "message": "Upload image"
+    "message": "ǝƃɐɯᴉ pɐold∩"
   },
   "collection.button.delete-icon": {
     "message": "uoɔᴉ ǝʇǝꞁǝᗡ"
@@ -288,10 +288,10 @@
     "message": "ʍǝᴉʌ pᴉɹ⅁"
   },
   "input.view.list": {
-    "message": "Rows view"
+    "message": "ʍǝᴉʌ sʍoᴚ"
   },
   "label.changes-saved": {
-    "message": "Changes saved"
+    "message": "pǝʌɐs sǝƃuɐɥƆ"
   },
   "label.collections": {
     "message": "suoᴉʇɔǝꞁꞁoƆ"
@@ -345,7 +345,7 @@
     "message": "ʎʇᴉꞁᴉqᴉsᴉɅ"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "ǝꞁᴉɟoɹd ɹnoʎ ʇᴉsᴉɅ"
   },
   "layout.action.change-theme": {
     "message": "ǝɯǝɥʇ ǝᵷuɐɥƆ"
@@ -777,28 +777,28 @@
     "message": "suoᴉsɹǝʌ ǝʇᴉɹM"
   },
   "settings.account.title": {
-    "message": "Account and security"
+    "message": "ʎʇᴉɹnɔǝs puɐ ʇunoɔɔ∀"
   },
   "settings.appearance.title": {
-    "message": "Appearance"
+    "message": "ǝɔuɐɹɐǝdd∀"
   },
   "settings.applications.title": {
-    "message": "Your applications"
+    "message": "suoᴉʇɐɔᴉlddɐ ɹno⅄"
   },
   "settings.authorized-apps.title": {
-    "message": "Authorized apps"
+    "message": "sddɐ pǝzᴉɹoɥʇn∀"
   },
   "settings.display.banner.developer-mode.button": {
-    "message": "Deactivate developer mode"
+    "message": "ǝpoɯ ɹǝdolǝʌǝp ǝʇɐʌᴉʇɔɐǝp"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+    "message": "˙ǝpoɯ ɹǝdolǝʌǝp ǝlƃƃoʇ oʇ sǝɯᴉʇ ϛ ǝƃɐd ǝɥʇ ɟo ɯoʇʇoq ǝɥʇ ʇɐ oƃol ɥʇuᴉɹpoW ǝɥʇ uo ʞɔᴉlƆ ˙IԀ∀ ɥʇuᴉɹpoW ǝɥʇ ƃuᴉsn ɹǝdolǝʌǝp ɐ ǝɹ,noʎ ɟᴉ lnɟdlǝɥ ǝq ʎɐɯ ʇɐɥʇ ɥʇuᴉɹpoW ʇnoɥƃnoɹɥʇ sƃuᴉɥʇ snoᴉɹɐʌ ɟo spI lɐuɹǝʇuᴉ ǝɥʇ ʍǝᴉʌ oʇ noʎ ʍollɐ llᴉʍ sᴉɥ┴ ˙ǝʌᴉʇɔɐ sᴉ <strong>ǝpoɯ ɹǝdolǝʌǝp</strong>"
   },
   "settings.display.flags.description": {
-    "message": "Enable or disable certain features on this device."
+    "message": "˙ǝɔᴉʌǝp sᴉɥʇ uo sǝɹnʇɐǝɟ uᴉɐʇɹǝɔ ǝlqɐsᴉp ɹo ǝlqɐuƎ"
   },
   "settings.display.flags.title": {
-    "message": "Feature flags"
+    "message": "sƃɐlɟ ǝɹnʇɐǝℲ"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Data Packs page"
