@@ -231,7 +231,7 @@
     "message": "Utworzono {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Kurator"
+    "message": "Wybrane przez"
   },
   "collection.label.no-projects": {
     "message": "Ta kolekcja nie ma żadnych projektów!"
@@ -243,7 +243,7 @@
     "message": "Właściciel"
   },
   "collection.label.private": {
-    "message": "Prywatne"
+    "message": "Prywatny"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> projekt} few {<stat>{count}</stat> projekty} many {<stat>{count}</stat> projektów} other {<stat>{count}</stat> projecktów}}"
