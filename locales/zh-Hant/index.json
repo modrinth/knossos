@@ -126,7 +126,7 @@
     "message": "登入"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "您已經驗證過電子郵件地址了！"
+    "message": "您的電子郵件地址已經驗證過了！"
   },
   "auth.verify-email.already-verified.title": {
     "message": "電子郵件地址已經完成驗證"
@@ -834,7 +834,7 @@
     "message": "進階繪製"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "在新分頁中開啟 Modrinth 外部的連結。這項設定僅適用於外部連結，內部連結和 Markdown 說明中的連結仍會在同一個分頁中開啟，而廣告和編輯頁面的連結會在新分頁中開啟。"
+    "message": "在新分頁中開啟 Modrinth 的外部連結。這項設定僅適用於外部連結，內部連結和 Markdown 說明中的連結仍會在同一個分頁中開啟，而廣告和編輯頁面的連結會在新分頁中開啟。"
   },
   "settings.display.sidebar.external-links-new-tab.title": {
     "message": "在新分頁中開啟外部連結"
