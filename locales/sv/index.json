@@ -987,7 +987,7 @@
     "message": "En kort beskrivning för att berätta lite om dig själv."
   },
   "settings.profile.bio.title": {
-    "message": "Biografi"
+    "message": "Om mig"
   },
   "settings.profile.description": {
     "message": "Din profilinformation visas offentligt på Modrinth och i <docs-link>Modrinth API</docs-link>."
