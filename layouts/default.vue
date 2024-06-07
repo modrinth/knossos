@@ -440,6 +440,7 @@ const { formatMessage } = useVIntl()
 const app = useNuxtApp()
 const auth = await useAuth()
 const cosmetics = useCosmetics()
+const flags = useFeatureFlags()
 const tags = useTags()
 
 const config = useRuntimeConfig()
@@ -663,9 +664,10 @@ watch(
 
 function developerModeIncrement() {
   if (developerModeCounter.value >= 5) {
-    cosmetics.value.developerMode = !cosmetics.value.developerMode
+    flags.value.developerMode = !flags.value.developerMode
     developerModeCounter.value = 0
-    if (cosmetics.value.developerMode) {
+    saveFeatureFlags()
+    if (flags.value.developerMode) {
       app.$notify({
         group: 'main',
         title: 'Developer mode activated',

@@ -249,7 +249,7 @@
         >
           <CheckIcon /> Mark as read
         </button>
-        <CopyCode v-if="cosmetics.developerMode" :text="notification.id" />
+        <CopyCode v-if="flags.developerMode" :text="notification.id" />
       </div>
       <div v-else class="input-group">
         <nuxt-link
@@ -281,7 +281,7 @@
         >
           <CheckIcon /> Mark as read
         </button>
-        <CopyCode v-if="cosmetics.developerMode" :text="notification.id" />
+        <CopyCode v-if="flags.developerMode" :text="notification.id" />
       </div>
     </div>
   </div>
@@ -335,7 +335,7 @@ const props = defineProps({
   },
 })
 
-const cosmetics = useCosmetics()
+const flags = useFeatureFlags()
 const tags = useTags()
 
 const type = computed(() =>

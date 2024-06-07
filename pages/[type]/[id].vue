@@ -243,7 +243,7 @@
                 follower<span v-if="project.followers !== 1">s</span>
               </div>
             </div>
-            <div v-if="!flags.REMOVE_LEGACY_PROJECT_DATE_INFO" class="dates">
+            <div v-if="!flags.newProjectDetails" class="dates">
               <div
                 v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm A')"
                 class="date"
@@ -368,7 +368,7 @@
           </div>
         </div>
         <div
-          v-if="flags.PROJECT_COMPATIBILITY_CARD && versions.length > 0"
+          v-if="flags.projectCompatibility && versions.length > 0"
           class="card flex-card experimental-styles-within"
         >
           <h2>Compatibility</h2>
@@ -456,221 +456,6 @@
               </div>
             </div>
           </section>
-        </div>
-        <div
-          v-if="
-            flags.NEW_PROJECT_LINKS &&
-            (project.issues_url ||
-              project.source_url ||
-              project.wiki_url ||
-              project.discord_url ||
-              project.donation_urls.length > 0)
-          "
-          class="card flex-card experimental-styles-within"
-        >
-          <h2>Links</h2>
-          <div class="links-list">
-            <a
-              v-if="project.issues_url"
-              :href="project.issues_url"
-              :target="$external()"
-              rel="noopener nofollow ugc"
-            >
-              <IssuesIcon aria-hidden="true" />
-              Report issues
-              <ExternalIcon aria-hidden="true" class="external-icon" />
-            </a>
-            <a
-              v-if="project.source_url"
-              :href="project.source_url"
-              :target="$external()"
-              rel="noopener nofollow ugc"
-            >
-              <CodeIcon aria-hidden="true" />
-              View source
-              <ExternalIcon aria-hidden="true" class="external-icon" />
-            </a>
-            <a
-              v-if="project.wiki_url"
-              :href="project.wiki_url"
-              :target="$external()"
-              rel="noopener nofollow ugc"
-            >
-              <WikiIcon aria-hidden="true" />
-              Visit wiki
-              <ExternalIcon aria-hidden="true" class="external-icon" />
-            </a>
-            <a
-              v-if="project.discord_url"
-              :href="project.discord_url"
-              :target="$external()"
-              rel="noopener nofollow ugc"
-            >
-              <DiscordIcon class="shrink" aria-hidden="true" />
-              Join Discord server
-              <ExternalIcon aria-hidden="true" class="external-icon" />
-            </a>
-            <hr
-              v-if="
-                (project.issues_url ||
-                  project.source_url ||
-                  project.wiki_url ||
-                  project.discord_url) &&
-                project.donation_urls.length > 0
-              "
-            />
-            <a
-              v-for="(donation, index) in project.donation_urls"
-              :key="index"
-              :href="donation.url"
-              :target="$external()"
-              rel="noopener nofollow ugc"
-            >
-              <BuyMeACoffeeLogo v-if="donation.id === 'bmac'" aria-hidden="true" />
-              <PatreonIcon v-else-if="donation.id === 'patreon'" aria-hidden="true" />
-              <KoFiIcon v-else-if="donation.id === 'ko-fi'" aria-hidden="true" />
-              <PayPalIcon v-else-if="donation.id === 'paypal'" aria-hidden="true" />
-              <OpenCollectiveIcon
-                v-else-if="donation.id === 'open-collective'"
-                aria-hidden="true"
-              />
-              <HeartIcon v-else-if="donation.id === 'github'" />
-              <UnknownIcon v-else />
-              <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
-              <span v-else-if="donation.id === 'patreon'">Donate on Patreon</span>
-              <span v-else-if="donation.id === 'paypal'">Donate on PayPal</span>
-              <span v-else-if="donation.id === 'ko-fi'">Donate on Ko-fi</span>
-              <span v-else-if="donation.id === 'github'">Sponsor on GitHub</span>
-              <span v-else>Donate</span>
-              <ExternalIcon aria-hidden="true" class="external-icon" />
-            </a>
-          </div>
-        </div>
-        <div v-if="flags.PROJECT_MEMBERS_CARD" class="card flex-card experimental-styles-within">
-          <h2>Creators</h2>
-          <div class="details-list">
-            <template v-if="organization">
-              <nuxt-link
-                class="details-list__item details-list__item--type-large"
-                :to="`/organization/${organization.slug}`"
-              >
-                <Avatar
-                  :src="organization.icon_url"
-                  :alt="organization.name"
-                  class="icon"
-                  data-size="32"
-                  data-shape="square"
-                />
-                <div class="rows">
-                  <span>
-                    {{ organization.name }}
-                  </span>
-                  <span class="details-list__item__text--style-secondary">Organization</span>
-                </div>
-              </nuxt-link>
-              <hr />
-            </template>
-            <nuxt-link
-              v-for="member in members"
-              :key="`member-${member.id}`"
-              class="details-list__item details-list__item--type-large"
-              :to="'/user/' + member.user.username"
-            >
-              <Avatar
-                :src="member.avatar_url"
-                :alt="member.name"
-                class="icon"
-                data-size="32"
-                data-shape="circle"
-              />
-              <div class="rows">
-                <span>
-                  {{ member.name }}
-                  <CrownIcon
-                    v-if="member.is_owner"
-                    v-tooltip="'Project owner'"
-                    class="project-owner-icon"
-                  />
-                </span>
-                <span class="details-list__item__text--style-secondary">{{ member.role }}</span>
-              </div>
-            </nuxt-link>
-          </div>
-        </div>
-        <div v-if="flags.PROJECT_DETAILS_CARD" class="card flex-card experimental-styles-within">
-          <h2>Details</h2>
-          <div class="details-list">
-            <div class="details-list__item">
-              <LicenseIcon aria-hidden="true" />
-              <div>
-                Licensed
-                <a
-                  v-if="project.license.url"
-                  class="text-link"
-                  :href="project.license.url"
-                  :target="$external()"
-                  rel="noopener nofollow ugc"
-                >
-                  {{ licenseIdDisplay }} <ExternalIcon aria-hidden="true" class="external-icon" />
-                </a>
-                <span
-                  v-else-if="
-                    project.license.id === 'LicenseRef-All-Rights-Reserved' ||
-                    !project.license.id.includes('LicenseRef')
-                  "
-                  class="text-link"
-                  @click="getLicenseData()"
-                >
-                  {{ licenseIdDisplay }}
-                </span>
-                <span v-else>{{ licenseIdDisplay }}</span>
-              </div>
-            </div>
-            <div
-              v-if="project.approved"
-              v-tooltip="$dayjs(project.approved).format('MMMM D, YYYY [at] h:mm A')"
-              class="details-list__item"
-            >
-              <CalendarIcon aria-hidden="true" />
-              <div>
-                Published
-                <span>{{ fromNow(project.approved) }}</span>
-              </div>
-            </div>
-            <div
-              v-else
-              v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm A')"
-              class="details-list__item"
-            >
-              <CalendarIcon aria-hidden="true" />
-              <div>
-                Created
-                <span>{{ fromNow(project.published) }}</span>
-              </div>
-            </div>
-            <div
-              v-if="project.status === 'processing' && project.queued"
-              v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')"
-              class="details-list__item"
-            >
-              <ModeratorIcon aria-hidden="true" />
-              <div>
-                Submitted
-                <span>{{ fromNow(project.queued) }}</span>
-              </div>
-            </div>
-            <div
-              v-if="versions.length > 0 && project.updated"
-              v-tooltip="$dayjs(project.updated).format('MMMM D, YYYY [at] h:mm A')"
-              class="details-list__item"
-            >
-              <VersionIcon aria-hidden="true" />
-              <div>
-                Updated
-                <span>{{ fromNow(project.updated) }}</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <section class="normal-page__content">
@@ -772,48 +557,48 @@
           :route="route"
         />
       </section>
-      <div class="universal-card normal-page__info">
-        <template
+      <div class="normal-page__info"><div
           v-if="
-            !flags.REMOVE_LEGACY_PROJECT_LINKS &&
+            flags.newProjectLinks &&
             (project.issues_url ||
               project.source_url ||
               project.wiki_url ||
               project.discord_url ||
               project.donation_urls.length > 0)
           "
+          class="card flex-card experimental-styles-within"
         >
-          <h2 class="card-header">External resources</h2>
-          <div class="links">
+          <h2>Links</h2>
+          <div class="links-list">
             <a
               v-if="project.issues_url"
               :href="project.issues_url"
-              class="title"
               :target="$external()"
               rel="noopener nofollow ugc"
             >
               <IssuesIcon aria-hidden="true" />
-              <span>Issues</span>
+              Report issues
+              <ExternalIcon aria-hidden="true" class="external-icon" />
             </a>
             <a
               v-if="project.source_url"
               :href="project.source_url"
-              class="title"
               :target="$external()"
               rel="noopener nofollow ugc"
             >
               <CodeIcon aria-hidden="true" />
-              <span>Source</span>
+              View source
+              <ExternalIcon aria-hidden="true" class="external-icon" />
             </a>
             <a
               v-if="project.wiki_url"
               :href="project.wiki_url"
-              class="title"
               :target="$external()"
               rel="noopener nofollow ugc"
             >
               <WikiIcon aria-hidden="true" />
-              <span>Wiki</span>
+              Visit wiki
+              <ExternalIcon aria-hidden="true" class="external-icon" />
             </a>
             <a
               v-if="project.discord_url"
@@ -822,8 +607,18 @@
               rel="noopener nofollow ugc"
             >
               <DiscordIcon class="shrink" aria-hidden="true" />
-              <span>Discord</span>
+              Join Discord server
+              <ExternalIcon aria-hidden="true" class="external-icon" />
             </a>
+            <hr
+              v-if="
+                (project.issues_url ||
+                  project.source_url ||
+                  project.wiki_url ||
+                  project.discord_url) &&
+                project.donation_urls.length > 0
+              "
+            />
             <a
               v-for="(donation, index) in project.donation_urls"
               :key="index"
@@ -842,120 +637,359 @@
               <HeartIcon v-else-if="donation.id === 'github'" />
               <UnknownIcon v-else />
               <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
-              <span v-else-if="donation.id === 'patreon'">Patreon</span>
-              <span v-else-if="donation.id === 'paypal'">PayPal</span>
-              <span v-else-if="donation.id === 'ko-fi'">Ko-fi</span>
-              <span v-else-if="donation.id === 'github'">GitHub Sponsors</span>
+              <span v-else-if="donation.id === 'patreon'">Donate on Patreon</span>
+              <span v-else-if="donation.id === 'paypal'">Donate on PayPal</span>
+              <span v-else-if="donation.id === 'ko-fi'">Donate on Ko-fi</span>
+              <span v-else-if="donation.id === 'github'">Sponsor on GitHub</span>
               <span v-else>Donate</span>
+              <ExternalIcon aria-hidden="true" class="external-icon" />
             </a>
           </div>
-          <hr class="card-divider" />
-        </template>
-        <template v-if="!flags.REMOVE_FEATURED_VERSIONS && featuredVersions.length > 0">
-          <div class="featured-header">
-            <h2 class="card-header">Featured versions</h2>
-            <nuxt-link
-              v-if="route.name !== 'type-id-versions' && (versions.length > 0 || currentMember)"
-              :to="`/${project.project_type}/${
-                project.slug ? project.slug : project.id
-              }/versions#all-versions`"
-              class="goto-link"
-            >
-              See all
-              <ChevronRightIcon class="featured-header-chevron" aria-hidden="true" />
-            </nuxt-link>
-          </div>
-          <div
-            v-for="version in featuredVersions"
-            :key="version.id"
-            class="featured-version button-transparent"
-            @click="
-              $router.push(
-                `/${project.project_type}/${
-                  project.slug ? project.slug : project.id
-                }/version/${encodeURI(version.displayUrlEnding)}`
-              )
+        </div>
+        <div
+          v-if="
+            showFeaturedVersions ||
+            !flags.newProjectLinks ||
+            !flags.newProjectDetails ||
+            !flags.newProjectMembers
+          "
+          class="universal-card"
+        >
+          <template
+            v-if="
+              !flags.newProjectLinks &&
+              (project.issues_url ||
+                project.source_url ||
+                project.wiki_url ||
+                project.discord_url ||
+                project.donation_urls.length > 0)
             "
           >
-            <a
-              v-tooltip="
-                version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
-              "
-              :href="version.primaryFile.url"
-              class="download square-button brand-button"
-              :aria-label="`Download ${version.name}`"
-              @click.stop="(event) => event.stopPropagation()"
-            >
-              <DownloadIcon aria-hidden="true" />
-            </a>
-            <div class="info">
+            <h2 class="card-header">External resources</h2>
+            <div class="links">
+              <a
+                v-if="project.issues_url"
+                :href="project.issues_url"
+                class="title"
+                :target="$external()"
+                rel="noopener nofollow ugc"
+              >
+                <IssuesIcon aria-hidden="true" />
+                <span>Issues</span>
+              </a>
+              <a
+                v-if="project.source_url"
+                :href="project.source_url"
+                class="title"
+                :target="$external()"
+                rel="noopener nofollow ugc"
+              >
+                <CodeIcon aria-hidden="true" />
+                <span>Source</span>
+              </a>
+              <a
+                v-if="project.wiki_url"
+                :href="project.wiki_url"
+                class="title"
+                :target="$external()"
+                rel="noopener nofollow ugc"
+              >
+                <WikiIcon aria-hidden="true" />
+                <span>Wiki</span>
+              </a>
+              <a
+                v-if="project.discord_url"
+                :href="project.discord_url"
+                :target="$external()"
+                rel="noopener nofollow ugc"
+              >
+                <DiscordIcon class="shrink" aria-hidden="true" />
+                <span>Discord</span>
+              </a>
+              <a
+                v-for="(donation, index) in project.donation_urls"
+                :key="index"
+                :href="donation.url"
+                :target="$external()"
+                rel="noopener nofollow ugc"
+              >
+                <BuyMeACoffeeLogo v-if="donation.id === 'bmac'" aria-hidden="true" />
+                <PatreonIcon v-else-if="donation.id === 'patreon'" aria-hidden="true" />
+                <KoFiIcon v-else-if="donation.id === 'ko-fi'" aria-hidden="true" />
+                <PayPalIcon v-else-if="donation.id === 'paypal'" aria-hidden="true" />
+                <OpenCollectiveIcon
+                  v-else-if="donation.id === 'open-collective'"
+                  aria-hidden="true"
+                />
+                <HeartIcon v-else-if="donation.id === 'github'" />
+                <UnknownIcon v-else />
+                <span v-if="donation.id === 'bmac'">Buy Me a Coffee</span>
+                <span v-else-if="donation.id === 'patreon'">Patreon</span>
+                <span v-else-if="donation.id === 'paypal'">PayPal</span>
+                <span v-else-if="donation.id === 'ko-fi'">Ko-fi</span>
+                <span v-else-if="donation.id === 'github'">GitHub Sponsors</span>
+                <span v-else>Donate</span>
+              </a>
+            </div>
+            <hr
+              v-if="showFeaturedVersions || !flags.newProjectMembers || !flags.newProjectDetails"
+              class="card-divider"
+            />
+          </template>
+          <template v-if="showFeaturedVersions">
+            <div class="featured-header">
+              <h2 class="card-header">Featured versions</h2>
               <nuxt-link
+                v-if="route.name !== 'type-id-versions' && (versions.length > 0 || currentMember)"
                 :to="`/${project.project_type}/${
                   project.slug ? project.slug : project.id
-                }/version/${encodeURI(version.displayUrlEnding)}`"
-                class="top"
+                }/versions#all-versions`"
+                class="goto-link"
               >
-                {{ version.name }}
+                See all
+                <ChevronRightIcon class="featured-header-chevron" aria-hidden="true" />
               </nuxt-link>
-              <div v-if="version.game_versions.length > 0" class="game-version item">
-                {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
-                {{ $formatVersion(version.game_versions) }}
+            </div>
+            <div
+              v-for="version in featuredVersions"
+              :key="version.id"
+              class="featured-version button-transparent"
+              @click="
+                $router.push(
+                  `/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }/version/${encodeURI(version.displayUrlEnding)}`
+                )
+              "
+            >
+              <a
+                v-tooltip="
+                  version.primaryFile.filename + ' (' + $formatBytes(version.primaryFile.size) + ')'
+                "
+                :href="version.primaryFile.url"
+                class="download square-button brand-button"
+                :aria-label="`Download ${version.name}`"
+                @click.stop="(event) => event.stopPropagation()"
+              >
+                <DownloadIcon aria-hidden="true" />
+              </a>
+              <div class="info">
+                <nuxt-link
+                  :to="`/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }/version/${encodeURI(version.displayUrlEnding)}`"
+                  class="top"
+                >
+                  {{ version.name }}
+                </nuxt-link>
+                <div v-if="version.game_versions.length > 0" class="game-version item">
+                  {{ version.loaders.map((x) => $formatCategory(x)).join(', ') }}
+                  {{ $formatVersion(version.game_versions) }}
+                </div>
+                <Badge v-if="version.version_type === 'release'" type="release" color="green" />
+                <Badge v-else-if="version.version_type === 'beta'" type="beta" color="orange" />
+                <Badge v-else-if="version.version_type === 'alpha'" type="alpha" color="red" />
               </div>
-              <Badge v-if="version.version_type === 'release'" type="release" color="green" />
-              <Badge v-else-if="version.version_type === 'beta'" type="beta" color="orange" />
-              <Badge v-else-if="version.version_type === 'alpha'" type="alpha" color="red" />
             </div>
-          </div>
-        </template>
-        <template v-if="!flags.REMOVE_LEGACY_PROJECT_MEMBERS">
-          <hr class="card-divider" />
-          <h2 class="card-header">Project members</h2>
-          <nuxt-link
-            v-if="organization"
-            class="team-member columns button-transparent"
-            :to="`/organization/${organization.slug}`"
-          >
-            <Avatar :src="organization.icon_url" :alt="organization.name" size="sm" />
-            <div class="member-info">
-              <p class="name">
-                {{ organization.name }}
-              </p>
-              <p class="role"><OrganizationIcon /> Organization</p>
-            </div>
-          </nuxt-link>
-          <nuxt-link
-            v-for="member in members"
-            :key="member.user.id"
-            class="team-member columns button-transparent"
-            :to="'/user/' + member.user.username"
-          >
-            <Avatar :src="member.avatar_url" :alt="member.username" size="sm" circle />
+            <hr v-if="!flags.newProjectMembers || !flags.newProjectDetails" class="card-divider" />
+          </template>
+          <template v-if="!flags.newProjectMembers">
+            <h2 class="card-header">Project members</h2>
+            <nuxt-link
+              v-if="organization"
+              class="team-member columns button-transparent"
+              :to="`/organization/${organization.slug}`"
+            >
+              <Avatar :src="organization.icon_url" :alt="organization.name" size="sm" />
+              <div class="member-info">
+                <p class="name">
+                  {{ organization.name }}
+                </p>
+                <p class="role"><OrganizationIcon /> Organization</p>
+              </div>
+            </nuxt-link>
+            <nuxt-link
+              v-for="member in members"
+              :key="member.user.id"
+              class="team-member columns button-transparent"
+              :to="'/user/' + member.user.username"
+            >
+              <Avatar :src="member.avatar_url" :alt="member.username" size="sm" circle />
 
-            <div class="member-info">
-              <p class="name">
-                {{ member.name }}
-                <CrownIcon v-if="member.is_owner" v-tooltip="'Project owner'" />
-              </p>
-              <p class="role">
-                {{ member.role }}
-              </p>
+              <div class="member-info">
+                <p class="name">
+                  {{ member.name }}
+                  <CrownIcon v-if="member.is_owner" v-tooltip="'Project owner'" />
+                </p>
+                <p class="role">
+                  {{ member.role }}
+                </p>
+              </div>
+            </nuxt-link>
+            <hr v-if="!flags.newProjectDetails" class="card-divider" />
+          </template>
+          <template v-if="!flags.newProjectDetails">
+            <h2 class="card-header">Technical information</h2>
+            <div class="infos">
+              <div class="info">
+                <div class="key">License</div>
+                <div class="value lowercase">
+                  <a
+                    v-if="project.license.url"
+                    class="text-link"
+                    :href="project.license.url"
+                    rel="noopener nofollow ugc"
+                  >
+                    {{ licenseIdDisplay }}
+                  </a>
+                  <span
+                    v-else-if="
+                      project.license.id === 'LicenseRef-All-Rights-Reserved' ||
+                      !project.license.id.includes('LicenseRef')
+                    "
+                    class="text-link"
+                    @click="getLicenseData()"
+                  >
+                    {{ licenseIdDisplay }}
+                  </span>
+                  <span v-else>{{ licenseIdDisplay }}</span>
+                </div>
+              </div>
+              <div
+                v-if="
+                  project.project_type !== 'resourcepack' &&
+                  project.project_type !== 'plugin' &&
+                  project.project_type !== 'shader' &&
+                  project.project_type !== 'datapack'
+                "
+                class="info"
+              >
+                <div class="key">Client side</div>
+                <div class="value">
+                  {{ project.client_side }}
+                </div>
+              </div>
+              <div
+                v-if="
+                  project.project_type !== 'resourcepack' &&
+                  project.project_type !== 'plugin' &&
+                  project.project_type !== 'shader' &&
+                  project.project_type !== 'datapack'
+                "
+                class="info"
+              >
+                <div class="key">Server side</div>
+                <div class="value">
+                  {{ project.server_side }}
+                </div>
+              </div>
+              <div class="info">
+                <div class="key">Project ID</div>
+                <div class="value lowercase">
+                  <CopyCode :text="project.id" />
+                </div>
+              </div>
+              <div class="input-group">
+                <a
+                  v-if="
+                    config.public.apiBaseUrl.startsWith('https://api.modrinth.com') &&
+                    config.public.siteUrl !== 'https://modrinth.com'
+                  "
+                  class="iconified-button"
+                  :href="`https://modrinth.com/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }`"
+                  rel="noopener nofollow"
+                  target="_blank"
+                >
+                  <ExternalIcon aria-hidden="true" />
+                  View on modrinth.com
+                </a>
+                <a
+                  v-else-if="
+                    config.public.apiBaseUrl.startsWith('https://staging-api.modrinth.com') &&
+                    config.public.siteUrl !== 'https://staging.modrinth.com'
+                  "
+                  class="iconified-button"
+                  :href="`https://staging.modrinth.com/${project.project_type}/${
+                    project.slug ? project.slug : project.id
+                  }`"
+                  rel="noopener nofollow"
+                  target="_blank"
+                >
+                  <ExternalIcon aria-hidden="true" />
+                  View on staging.modrinth.com
+                </a>
+              </div>
             </div>
-          </nuxt-link>
-        </template>
-        <template v-if="!flags.REMOVE_LEGACY_TECHNICAL_INFO">
-          <hr class="card-divider" />
-          <h2 class="card-header">Technical information</h2>
-          <div class="infos">
-            <div class="info">
-              <div class="key">License</div>
-              <div class="value lowercase">
+          </template>
+        </div>
+        <div v-if="flags.newProjectMembers" class="card flex-card experimental-styles-within">
+          <h2>Creators</h2>
+          <div class="details-list">
+            <template v-if="organization">
+              <nuxt-link
+                class="details-list__item details-list__item--type-large"
+                :to="`/organization/${organization.slug}`"
+              >
+                <Avatar
+                  :src="organization.icon_url"
+                  :alt="organization.name"
+                  class="icon"
+                  data-size="32"
+                  data-shape="square"
+                />
+                <div class="rows">
+                  <span>
+                    {{ organization.name }}
+                  </span>
+                  <span class="details-list__item__text--style-secondary">Organization</span>
+                </div>
+              </nuxt-link>
+              <hr />
+            </template>
+            <nuxt-link
+              v-for="member in members"
+              :key="`member-${member.id}`"
+              class="details-list__item details-list__item--type-large"
+              :to="'/user/' + member.user.username"
+            >
+              <Avatar
+                :src="member.avatar_url"
+                :alt="member.name"
+                class="icon"
+                data-size="32"
+                data-shape="circle"
+              />
+              <div class="rows">
+                <span>
+                  {{ member.name }}
+                  <CrownIcon
+                    v-if="member.is_owner"
+                    v-tooltip="'Project owner'"
+                    class="project-owner-icon"
+                  />
+                </span>
+                <span class="details-list__item__text--style-secondary">{{ member.role }}</span>
+              </div>
+            </nuxt-link>
+          </div>
+        </div>
+        <div v-if="flags.newProjectDetails" class="card flex-card experimental-styles-within">
+          <h2>Details</h2>
+          <div class="details-list">
+            <div class="details-list__item">
+              <LicenseIcon aria-hidden="true" />
+              <div>
+                Licensed
                 <a
                   v-if="project.license.url"
                   class="text-link"
                   :href="project.license.url"
+                  :target="$external()"
                   rel="noopener nofollow ugc"
                 >
-                  {{ licenseIdDisplay }}
+                  {{ licenseIdDisplay }} <ExternalIcon aria-hidden="true" class="external-icon" />
                 </a>
                 <span
                   v-else-if="
@@ -971,73 +1005,51 @@
               </div>
             </div>
             <div
-              v-if="
-                project.project_type !== 'resourcepack' &&
-                project.project_type !== 'plugin' &&
-                project.project_type !== 'shader' &&
-                project.project_type !== 'datapack'
-              "
-              class="info"
+              v-if="project.approved"
+              v-tooltip="$dayjs(project.approved).format('MMMM D, YYYY [at] h:mm A')"
+              class="details-list__item"
             >
-              <div class="key">Client side</div>
-              <div class="value">
-                {{ project.client_side }}
+              <CalendarIcon aria-hidden="true" />
+              <div>
+                Published
+                <span>{{ fromNow(project.approved) }}</span>
               </div>
             </div>
             <div
-              v-if="
-                project.project_type !== 'resourcepack' &&
-                project.project_type !== 'plugin' &&
-                project.project_type !== 'shader' &&
-                project.project_type !== 'datapack'
-              "
-              class="info"
+              v-else
+              v-tooltip="$dayjs(project.published).format('MMMM D, YYYY [at] h:mm A')"
+              class="details-list__item"
             >
-              <div class="key">Server side</div>
-              <div class="value">
-                {{ project.server_side }}
+              <CalendarIcon aria-hidden="true" />
+              <div>
+                Created
+                <span>{{ fromNow(project.published) }}</span>
               </div>
             </div>
-            <div class="info">
-              <div class="key">Project ID</div>
-              <div class="value lowercase">
-                <CopyCode :text="project.id" />
+            <div
+              v-if="project.status === 'processing' && project.queued"
+              v-tooltip="$dayjs(project.queued).format('MMMM D, YYYY [at] h:mm A')"
+              class="details-list__item"
+            >
+              <ModeratorIcon aria-hidden="true" />
+              <div>
+                Submitted
+                <span>{{ fromNow(project.queued) }}</span>
               </div>
             </div>
-            <div class="input-group">
-              <a
-                v-if="
-                  config.public.apiBaseUrl.startsWith('https://api.modrinth.com') &&
-                  config.public.siteUrl !== 'https://modrinth.com'
-                "
-                class="iconified-button"
-                :href="`https://modrinth.com/${project.project_type}/${
-                  project.slug ? project.slug : project.id
-                }`"
-                rel="noopener nofollow"
-                target="_blank"
-              >
-                <ExternalIcon aria-hidden="true" />
-                View on modrinth.com
-              </a>
-              <a
-                v-else-if="
-                  config.public.apiBaseUrl.startsWith('https://staging-api.modrinth.com') &&
-                  config.public.siteUrl !== 'https://staging.modrinth.com'
-                "
-                class="iconified-button"
-                :href="`https://staging.modrinth.com/${project.project_type}/${
-                  project.slug ? project.slug : project.id
-                }`"
-                rel="noopener nofollow"
-                target="_blank"
-              >
-                <ExternalIcon aria-hidden="true" />
-                View on staging.modrinth.com
-              </a>
+            <div
+              v-if="versions.length > 0 && project.updated"
+              v-tooltip="$dayjs(project.updated).format('MMMM D, YYYY [at] h:mm A')"
+              class="details-list__item"
+            >
+              <VersionIcon aria-hidden="true" />
+              <div>
+                Updated
+                <span>{{ fromNow(project.updated) }}</span>
+              </div>
             </div>
           </div>
-        </template>
+        </div>
       </div>
     </div>
     <ModerationChecklist
@@ -1496,6 +1508,10 @@ if (process.client && history && history.state && history.state.showChecklist) {
   showModerationChecklist.value = true
   futureProjects.value = history.state.projects
 }
+
+const showFeaturedVersions = computed(
+  () => !flags.value.removeFeaturedVersions && featuredVersions.value.length > 0
+)
 </script>
 <style lang="scss" scoped>
 .header {

@@ -289,7 +289,7 @@ export default defineNuxtConfig({
       apiBaseUrl: getApiUrl(),
       siteUrl: getDomain(),
       production: isProduction(),
-      devFeatures: useDevFeatures(),
+      featureFlagOverrides: getFeatureFlagOverrides(),
 
       owner: process.env.VERCEL_GIT_REPO_OWNER || 'modrinth',
       slug: process.env.VERCEL_GIT_REPO_SLUG || 'knossos',
@@ -386,8 +386,8 @@ function isProduction() {
   return process.env.NODE_ENV === 'production'
 }
 
-function useDevFeatures() {
-  return !!process.env.ENABLE_DEV_FLAGS
+function getFeatureFlagOverrides() {
+  return process.env.FLAG_OVERRIDES
 }
 
 function getDomain() {
