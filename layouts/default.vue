@@ -125,6 +125,10 @@
                     <ModerationIcon class="icon" />
                     <span class="title">{{ formatMessage(commonMessages.moderationLabel) }}</span>
                   </NuxtLink>
+                  <NuxtLink v-if="flags.developerMode" class="item button-transparent" to="/flags">
+                    <ReportIcon class="icon" />
+                    <span class="title">Feature flags</span>
+                  </NuxtLink>
                   <NuxtLink
                     v-if="!cosmetics.hideModrinthAppPromos"
                     class="item button-transparent primary-color"
@@ -227,6 +231,10 @@
               >
                 <ModerationIcon aria-hidden="true" />
                 {{ formatMessage(commonMessages.moderationLabel) }}
+              </NuxtLink>
+              <NuxtLink v-if="flags.developerMode" class="iconified-button" to="/flags">
+                <ReportIcon aria-hidden="true" />
+                Feature flags
               </NuxtLink>
             </template>
             <NuxtLink class="iconified-button" to="/settings">
@@ -411,7 +419,15 @@
   </div>
 </template>
 <script setup>
-import { LogInIcon, DownloadIcon, LibraryIcon, XIcon, IssuesIcon, Button } from 'omorphia'
+import {
+  LogInIcon,
+  DownloadIcon,
+  LibraryIcon,
+  XIcon,
+  IssuesIcon,
+  Button,
+  ReportIcon,
+} from 'omorphia'
 import HamburgerIcon from '~/assets/images/utils/hamburger.svg'
 import CrossIcon from '~/assets/images/utils/x.svg'
 import SearchIcon from '~/assets/images/utils/search.svg'

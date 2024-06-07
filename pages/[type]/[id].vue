@@ -557,7 +557,8 @@
           :route="route"
         />
       </section>
-      <div class="normal-page__info"><div
+      <div class="normal-page__info">
+        <div
           v-if="
             flags.newProjectLinks &&
             (project.issues_url ||
