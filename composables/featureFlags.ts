@@ -68,6 +68,8 @@ const COOKIE_OPTIONS: CookieOptions<PartialFeatureFlags> = {
 
 export const useFeatureFlags = () =>
   useState<AllFeatureFlags>('featureFlags', () => {
+    const config = useRuntimeConfig()
+
     const savedFlags = useCookie<PartialFeatureFlags>('featureFlags', COOKIE_OPTIONS)
 
     if (!savedFlags.value) {
@@ -75,6 +77,15 @@ export const useFeatureFlags = () =>
     }
 
     const flags: AllFeatureFlags = JSON.parse(JSON.stringify(DEFAULT_FEATURE_FLAGS))
+
+    const overrides = config.public.featureFlagOverrides as PartialFeatureFlags
+    for (const key in overrides) {
+      if (key in flags) {
+        const flag = key as FeatureFlag
+        const value = overrides[flag] as (typeof flags)[FeatureFlag]
+        flags[flag] = value
+      }
+    }
 
     for (const key in savedFlags.value) {
       if (key in flags) {

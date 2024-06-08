@@ -387,7 +387,7 @@ function isProduction() {
 }
 
 function getFeatureFlagOverrides() {
-  return process.env.FLAG_OVERRIDES
+  return JSON.parse(process.env.FLAG_OVERRIDES ?? '{}')
 }
 
 function getDomain() {
