@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { FeatureFlag, DEFAULT_FEATURE_FLAGS, saveFeatureFlags } from '~/composables/featureFlags.ts'
 
-const flags = useFeatureFlags()
+const flags = shallowReactive(useFeatureFlags().value)
 </script>
 
 <template>
