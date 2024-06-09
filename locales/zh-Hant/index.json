@@ -237,7 +237,7 @@
     "message": "這個收藏沒有任何專案！"
   },
   "collection.label.no-projects-auth": {
-    "message": "你還沒有任何專案。\n你想要<create-link>新增一個</create-link>嗎？"
+    "message": "你還沒有任何專案。\n你想要<create-link>加入一個</create-link>嗎？"
   },
   "collection.label.owner": {
     "message": "擁有者"
@@ -273,10 +273,10 @@
     "message": "一幅逼真的青蛙迷宮畫作"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, other {另有 {count} 個人}}也被這隻青蛙耍了！"
+    "message": "{count, plural, other {另外有 {count} 人}}也被這隻青蛙耍了！"
   },
   "frog.sinceOpened": {
-    "message": "本頁面在 {ago} 開啟"
+    "message": "本頁面在 {ago}開啟"
   },
   "frog.title": {
     "message": "青蛙"
@@ -417,7 +417,7 @@
     "message": "切換選單"
   },
   "layout.meta.description": {
-    "message": "在 Modrinth 上下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。使用現代、易於使用的介面和 API 在 Modrinth 上探索及發布專案。"
+    "message": "前往 Modrinth 下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。使用現代、易於使用的介面和 API 在 Modrinth 上探索及發布專案。"
   },
   "layout.meta.og-description": {
     "message": "探索及發布 Minecraft 內容！"
@@ -453,7 +453,7 @@
     "message": "這個使用者沒有專案！"
   },
   "profile.label.no-projects-auth": {
-    "message": "你還沒有任何收藏。\n你想要<create-link>建立一個</create-link>嗎？"
+    "message": "你還沒有任何專案。\n你想要<create-link>建立一個</create-link>嗎？"
   },
   "profile.label.organizations": {
     "message": "組織"
@@ -525,16 +525,16 @@
     "message": "光影包"
   },
   "revenue.transfers.total": {
-    "message": "您總共提款了 {amount} 元。"
+    "message": "您總共提款了 {amount} 美元。"
   },
   "revenue.transfers.total.method": {
-    "message": "您透過 {method} 提款了 {amount} 元。"
+    "message": "您透過 {method} 提款了 {amount} 美元。"
   },
   "revenue.transfers.total.year": {
-    "message": "您在 {year} 年提款了 {amount} 元。"
+    "message": "您在 {year} 年提款了 {amount} 美元。"
   },
   "revenue.transfers.total.year_method": {
-    "message": "您透過 {method} 在 {year} 年提款了 {amount} 元。"
+    "message": "您透過 {method} 在 {year} 年提款了 {amount} 美元。"
   },
   "scopes.analytics.description": {
     "message": "存取你的分析資料"
