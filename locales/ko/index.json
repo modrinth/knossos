@@ -345,7 +345,7 @@
     "message": "공개 설정"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "프로필 방문"
   },
   "layout.action.change-theme": {
     "message": "테마 변경"
@@ -456,7 +456,7 @@
     "message": "프로젝트가 없습니다.\n새로 <create-link>만드시겠습니까</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "단체"
+    "message": "조직"
   },
   "profile.meta.description": {
     "message": "Modrinth에서 {username}의 모드 내려받기"
@@ -579,10 +579,10 @@
     "message": "알림 작성"
   },
   "scopes.organizationCreate.description": {
-    "message": "단체 생성"
+    "message": "조직 생성"
   },
   "scopes.organizationCreate.label": {
-    "message": "단체 생성"
+    "message": "조직 생성"
   },
   "scopes.organizationDelete.description": {
     "message": "조직 삭제"
@@ -591,16 +591,16 @@
     "message": "조직 삭제"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "조직 읽기"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "조직 읽기"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "조직에 쓰기"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "조직 쓰기"
   },
   "scopes.patCreate.description": {
     "message": "개인 API 토큰을 생성합니다."
@@ -639,7 +639,7 @@
     "message": "인출 방법 작성"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "분석 수행"
   },
   "scopes.performAnalytics.label": {
     "message": "분석 수행"
@@ -660,13 +660,13 @@
     "message": "당신의 모든 프로젝트를 볼 수 있습니다."
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "프로젝트 읽기"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "프로젝트 데이터에 쓰기"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "프로젝트 쓰기"
   },
   "scopes.reportCreate.description": {
     "message": "Create reports"
@@ -693,7 +693,7 @@
     "message": "Write reports"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Modrinth 발급 세션에 접근"
   },
   "scopes.sessionAccess.label": {
     "message": "세션 접근"
@@ -705,10 +705,10 @@
     "message": "세션 삭제"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "활성 세션 읽기"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "세션 읽기"
   },
   "scopes.threadRead.description": {
     "message": "스레드를 읽습니다."
@@ -723,10 +723,10 @@
     "message": "스레드 작성"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "인증 데이터 수정"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "인증 데이터 쓰기"
   },
   "scopes.userDelete.description": {
     "message": "당신의 계정을 삭제합니다."
@@ -735,22 +735,22 @@
     "message": "계정 삭제"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "프로필 공개 정보 접근"
   },
   "scopes.userRead.label": {
-    "message": "사용자 데이터 열람"
+    "message": "사용자 데이터 읽기"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "이메일 읽기"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "사용자 이메일 읽기"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "프로필에 쓰기"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "사용자 데이터 쓰기"
   },
   "scopes.versionCreate.description": {
     "message": "새 버전을 만듭니다."
@@ -759,31 +759,31 @@
     "message": "버전 생성"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "버전 삭제"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "버전 삭제"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "모든 버전 읽기"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "버전 읽기"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "버전 데이터에 쓰기"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "버전 쓰기"
   },
   "settings.account.title": {
-    "message": "Account and security"
+    "message": "계정 및 보안"
   },
   "settings.appearance.title": {
-    "message": "Appearance"
+    "message": "외형"
   },
   "settings.applications.title": {
-    "message": "Your applications"
+    "message": "애플리케이션"
   },
   "settings.authorized-apps.title": {
     "message": "승인된 앱"
@@ -795,7 +795,7 @@
     "message": "<strong>개발자 모드</strong>가 활성화되어 있습니다. 이를 통해 Modrinth API를 사용하는 개발자인 경우 도움이 될 수 있는 Modrinth 전체의 여러 내부 ID를 확인할 수 있습니다. 페이지 하단의 Modrinth 로고를 5번 클릭하여 개발자 모드를 전환합니다."
   },
   "settings.display.flags.description": {
-    "message": "Enable or disable certain features on this device."
+    "message": "이 장치에서 특정 기능을 사용하거나 사용하지 않도록 설정합니다."
   },
   "settings.display.flags.title": {
     "message": "기능 플래그"
@@ -804,7 +804,7 @@
     "message": "데이터 팩"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "Select your preferred layout for each page that displays project lists on this device."
+    "message": "이 장치에서 프로젝트 목록을 표시하는 각 페이지에 대해 원하는 레이아웃을 선택합니다."
   },
   "settings.display.project-list-layouts.mod": {
     "message": "모드"
@@ -825,10 +825,10 @@
     "message": "프로젝트 목록 레이아웃"
   },
   "settings.display.project-list-layouts.user": {
-    "message": "User profile pages"
+    "message": "사용자 프로필 페이지"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+    "message": "하드웨어 가속 렌더링이 없으면 성능 문제를 일으킬 수 있는 블러 효과와 같은 고급 렌더링을 활성화합니다."
   },
   "settings.display.sidebar.advanced-rendering.title": {
     "message": "고급 렌더링"
@@ -870,10 +870,10 @@
     "message": "OLED"
   },
   "settings.display.theme.preferred-dark-theme": {
-    "message": "Preferred dark theme"
+    "message": "선호하는 어두운 테마"
   },
   "settings.display.theme.preferred-light-theme": {
-    "message": "Preferred light theme"
+    "message": "선호하는 밝은 테마"
   },
   "settings.display.theme.retro": {
     "message": "레트로"
