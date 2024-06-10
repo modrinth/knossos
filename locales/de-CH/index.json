@@ -147,7 +147,7 @@
     "message": "Deine E-Mail-Adresse wurde erfolgreich bestätigt!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "E-Mail bestätigung"
+    "message": "E-Mail Bestätigung"
   },
   "auth.verify-email.title": {
     "message": "E-Mail bestätigen"
@@ -345,7 +345,7 @@
     "message": "Sichtbarkeit"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Besuche dein Profil"
   },
   "layout.action.change-theme": {
     "message": "Farbschema ändern"
