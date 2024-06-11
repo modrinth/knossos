@@ -12,13 +12,13 @@
     "message": "Awutwowize {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "No wediwect wocation found in wesponse"
   },
   "auth.authorize.redirect-url": {
     "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Send wecovewy emaiw"
   },
   "auth.reset-password.method-choice.description": {
     "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
@@ -39,19 +39,19 @@
     "message": "You can now log-in into your account with your new password."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Passwowd successfuwwy weset"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Weset passwowd"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Confiwm passwowd"
   },
   "auth.reset-password.post-challenge.description": {
     "message": "Enter your new password below to gain access to your account."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Weset passwowd"
   },
   "auth.reset-password.title.long": {
     "message": "Reset your password"
