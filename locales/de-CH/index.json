@@ -798,7 +798,7 @@
     "message": "Aktiviere oder deaktiviere bestimmte Funktionen auf diesem Gerät."
   },
   "settings.display.flags.title": {
-    "message": "Experimentelle Funktionen"
+    "message": "Funktionen umschalten"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Datenpaketen-Seite"
