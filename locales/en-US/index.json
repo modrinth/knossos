@@ -254,6 +254,24 @@
   "collection.title": {
     "message": "{name} - Collection"
   },
+  "component.modal.collection-create.description": {
+    "message": "Your new collection will be created as a public collection with {count, plural, =0 {no projects} one {{count} project} other {{count} projects}}"
+  },
+  "component.modal.collection-create.header": {
+    "message": "Create a collection"
+  },
+  "component.modal.collection-create.name.label": {
+    "message": "Name"
+  },
+  "component.modal.collection-create.name.placeholder": {
+    "message": "Enter collection name..."
+  },
+  "component.modal.collection-create.summary.description": {
+    "message": "This appears on your collection's page."
+  },
+  "component.modal.collection-create.summary.label": {
+    "message": "Summary"
+  },
   "dashboard.collections.button.create-new": {
     "message": "Create new"
   },
