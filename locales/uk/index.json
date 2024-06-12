@@ -798,7 +798,7 @@
     "message": "Увімкнення або вимкнення певних функцій на цьому пристрої."
   },
   "settings.display.flags.title": {
-    "message": "Спеціальні функції"
+    "message": "Перемикання функцій"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Сторінка пакетів даних"
