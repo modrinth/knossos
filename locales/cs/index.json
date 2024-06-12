@@ -798,7 +798,7 @@
     "message": "Povolit nebo zakázat některé funkce na tomto zařízení."
   },
   "settings.display.flags.title": {
-    "message": "Příznaky funkcí"
+    "message": "Toggle features"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Stránka datapacků"
