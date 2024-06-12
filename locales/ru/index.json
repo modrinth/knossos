@@ -798,7 +798,7 @@
     "message": "Переключение отдельных функций на этом устройстве."
   },
   "settings.display.flags.title": {
-    "message": "Флаги функций"
+    "message": "Переключение функций"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Наборы данных"
