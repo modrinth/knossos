@@ -1,9 +1,9 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Volita"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Keeldu"
   },
   "auth.authorize.app-info": {
     "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
@@ -375,46 +375,46 @@
     "message": "For security purposes, please verify your email address on Modrinth."
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "Karjäär"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "Privaatsus"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Reeglid"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Tingimused"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "Ettevõte"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "Suhtle"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "EI OLE AMETLIK MINECRAFTI TEENUS. EI OLE MOJANGI VÕI MICROSOFTI POOLT HEAKS KIIDETUD EGA NENDEGA SEOTUD."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "Modrinth on <github-link>avatud lähtekoodiga</github-link>."
   },
   "layout.footer.resources.blog": {
-    "message": "Blog"
+    "message": "Blogi"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "Dokumentatsioon"
   },
   "layout.footer.resources.status": {
-    "message": "Status"
+    "message": "Olek"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "Tugi"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "Ressursid"
   },
   "layout.menu-toggle.action": {
-    "message": "Toggle menu"
+    "message": "Lülita menüüd"
   },
   "layout.meta.description": {
     "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
@@ -423,10 +423,10 @@
     "message": "Discover and publish Minecraft content!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "Avaleht"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "Otsing"
   },
   "notification.error.title": {
     "message": "Tekkis tõrge"
@@ -798,7 +798,7 @@
     "message": "Enable or disable certain features on this device."
   },
   "settings.display.flags.title": {
-    "message": "Feature flags"
+    "message": "Toggle features"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Data Packs page"
