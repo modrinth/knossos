@@ -798,7 +798,7 @@
     "message": "Activer ou désactiver certaines fonctionnalités sur cet appareil."
   },
   "settings.display.flags.title": {
-    "message": "Menu de fonctionnalité"
+    "message": "Toggle features"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Page des packs de données"
