@@ -798,7 +798,7 @@
     "message": "Włącz lub wyłącz określone funkcjonalności na tym urządzeniu."
   },
   "settings.display.flags.title": {
-    "message": "Funkcjonalności"
+    "message": "Toggle features"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Strona Data Packów"
