@@ -798,7 +798,7 @@
     "message": "Aktivera eller inaktivera vissa funktioner på denna enhet."
   },
   "settings.display.flags.title": {
-    "message": "Funktionsflaggor"
+    "message": "Växla funktioner"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Datapaketssida"
