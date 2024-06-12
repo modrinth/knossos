@@ -798,7 +798,7 @@
     "message": "Engedélyezés vagy letiltás bizonyos funkcióknál ezen az eszközön."
   },
   "settings.display.flags.title": {
-    "message": "Funkciójelzők"
+    "message": "Toggle features"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Datapackek oldala"
