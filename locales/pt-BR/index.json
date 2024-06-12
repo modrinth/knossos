@@ -798,7 +798,7 @@
     "message": "Ative ou desative certos recursos neste dispositivo."
   },
   "settings.display.flags.title": {
-    "message": "Sinalizador de Recursos"
+    "message": "Toggle features"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Página dos pacotes de dados"
