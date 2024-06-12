@@ -108,7 +108,7 @@
     "message": "Уже зарегистрированы?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Подписаться на новости Modrinth"
+    "message": "Подписаться на получение новостей Modrinth"
   },
   "auth.sign-up.title": {
     "message": "Вход"
@@ -153,7 +153,7 @@
     "message": "Подтверждение электронной почты"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Подписаться на новости Modrinth"
+    "message": "Подписаться на получение новостей Modrinth"
   },
   "auth.welcome.description": {
     "message": "Поздравляем с регистрацией! Теперь вы можете следить за проектами и создавать свои, получать уведомления от подписок и многое другое!"
@@ -210,7 +210,7 @@
     "message": "Загрузить значок"
   },
   "collection.delete-modal.description": {
-    "message": "Неправильное восприятие мира ведёт к фатальным последствиям!"
+    "message": "Таков путь."
   },
   "collection.delete-modal.title": {
     "message": "Вы действительно хотите удалить эту коллекцию?"
@@ -351,7 +351,7 @@
     "message": "Изменить тему"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Загрузить Modrinth App"
+    "message": "Скачать приложение Modrinth"
   },
   "layout.avatar.alt": {
     "message": "Аватар"
@@ -417,7 +417,7 @@
     "message": "Меню"
   },
   "layout.meta.description": {
-    "message": "Загружайте моды, плагины, наборы шейдеров, ресурсов, данных и сборки для Minecraft. Современный и удобный дизайн и API помогут вам в поиске и публикации проектов на Modrinth."
+    "message": "Скачивайте моды, плагины, наборы ресурсов, данных, шейдеры и сборки модов для Minecraft. Узнавайте про новые и публикуйте свои проекты на Modrinth благодаря удобному современному интерфейсу и API."
   },
   "layout.meta.og-description": {
     "message": "Исследуйте и делитесь контентом для Minecraft!"
@@ -786,19 +786,19 @@
     "message": "Ваши приложения"
   },
   "settings.authorized-apps.title": {
-    "message": "Authorized apps"
+    "message": "Авторизованные приложения"
   },
   "settings.display.banner.developer-mode.button": {
     "message": "Отключить режим разработчика"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "<strong>Режим разработчика</strong> активирован. Он позволяет просматривать различные внутренние идентификаторы Modrinth, которые могут быть полезны, если вы работаете с Modrinth API. Нажмите на логотип Modrinth внизу страницы 5 раз, чтобы переключить режим разаботчика."
+    "message": "<strong>Режим разработчика</strong> активирован. Он позволит вам видеть внутренние идентификаторы различных элементов на Modrinth, что может быть полезно, если вы используете API Modrinth. Чтобы включить или отключить режим разработчика, нажмите на логотип Modrinth внизу страницы 5 раз."
   },
   "settings.display.flags.description": {
     "message": "Переключение отдельных функций на этом устройстве."
   },
   "settings.display.flags.title": {
-    "message": "Feature flags"
+    "message": "Переключение функций"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Наборы данных"
@@ -807,16 +807,16 @@
     "message": "Выберите предпочитаемый макет для каждой страницы с проектами на этом устройстве."
   },
   "settings.display.project-list-layouts.mod": {
-    "message": "Моды"
+    "message": "Страница модов"
   },
   "settings.display.project-list-layouts.modpack": {
-    "message": "Сборки"
+    "message": "Страница сборок"
   },
   "settings.display.project-list-layouts.plugin": {
     "message": "Плагины"
   },
   "settings.display.project-list-layouts.resourcepack": {
-    "message": "Наборы ресурсов"
+    "message": "Страница наборов ресурсов"
   },
   "settings.display.project-list-layouts.shader": {
     "message": "Шейдеры"
@@ -870,10 +870,10 @@
     "message": "OLED"
   },
   "settings.display.theme.preferred-dark-theme": {
-    "message": "Preferred dark theme"
+    "message": "Предпочитаемая тёмная тема"
   },
   "settings.display.theme.preferred-light-theme": {
-    "message": "Preferred light theme"
+    "message": "Предпочитаемая светлая тема"
   },
   "settings.display.theme.retro": {
     "message": "Ретро"
