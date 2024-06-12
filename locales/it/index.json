@@ -798,7 +798,7 @@
     "message": "Attiva o disattiva determinate funzionalità su questo dispositivo."
   },
   "settings.display.flags.title": {
-    "message": "Flag delle funzionalità"
+    "message": "Attiva/disattiva funzioni"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Pagina dei Data Pack"
