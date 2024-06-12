@@ -798,7 +798,7 @@
     "message": "このデバイスで特定の機能を有効または無効にします。"
   },
   "settings.display.flags.title": {
-    "message": "機能設定"
+    "message": "Toggle features"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "データパックページ"
