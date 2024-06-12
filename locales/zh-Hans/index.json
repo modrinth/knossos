@@ -156,7 +156,7 @@
     "message": "订阅有关 Modrinth 的更新"
   },
   "auth.welcome.description": {
-    "message": "感谢您创建帐户。您现在可以关注和创建项目，接收有关您最喜爱的项目的更新，等等！"
+    "message": "感谢您创建帐户。您现在可以关注和创建项目，接收有关您喜爱的项目的更新等！"
   },
   "auth.welcome.label.tos": {
     "message": "注册账户即代表你同意 Modrinth 的《<terms-link>条款</terms-link>》和《<privacy-policy-link>隐私政策</privacy-policy-link>》。"
@@ -798,7 +798,7 @@
     "message": "在此设备上启用或禁用某些功能。"
   },
   "settings.display.flags.title": {
-    "message": "个性选项"
+    "message": "切换功能"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "数据包页面"
