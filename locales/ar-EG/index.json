@@ -681,22 +681,22 @@
     "message": "Delete reports"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "قراءة التقارير"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "قراءة التقارير"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "تحرير تقرير"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "كتابة التقارير"
   },
   "scopes.sessionAccess.description": {
     "message": "Access modrinth-issued sessions"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "الوصول إلى الجلسات"
   },
   "scopes.sessionDelete.description": {
     "message": "Delete sessions"
@@ -783,10 +783,10 @@
     "message": "Appearance"
   },
   "settings.applications.title": {
-    "message": "Your applications"
+    "message": "تطبيقاتك"
   },
   "settings.authorized-apps.title": {
-    "message": "Authorized apps"
+    "message": "تطبيقات مأذون لها"
   },
   "settings.display.banner.developer-mode.button": {
     "message": "Deactivate developer mode"
@@ -798,10 +798,10 @@
     "message": "Enable or disable certain features on this device."
   },
   "settings.display.flags.title": {
-    "message": "Feature flags"
+    "message": "Toggle features"
   },
   "settings.display.project-list-layouts.datapack": {
-    "message": "Data Packs page"
+    "message": "صفحة حزم البيانات"
   },
   "settings.display.project-list-layouts.description": {
     "message": "Select your preferred layout for each page that displays project lists on this device."
@@ -825,7 +825,7 @@
     "message": "Project list layouts"
   },
   "settings.display.project-list-layouts.user": {
-    "message": "User profile pages"
+    "message": "صفحات الملف الشخصي"
   },
   "settings.display.sidebar.advanced-rendering.description": {
     "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
@@ -954,85 +954,85 @@
     "message": "Delete this token"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "سيؤدي هذا إلى إزالة هذا الرمز إلى الأبد (حقا إلى الأبد)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "هل أنت متأكد من أنك تريد حذف هذا الرمز؟"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "تعديل رمز الوصول الشخصي"
   },
   "settings.pats.title": {
-    "message": "Personal access tokens"
+    "message": "رموز الوصول الشخصي"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "تعديل الرمز"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "إلغاء الرمز"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "انتهت الصلاحية منذ {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "تنتهي الصلاحية {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "آخر وصول منذ {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "لم تستخدم"
   },
   "settings.profile.bio.description": {
     "message": "A short description to tell everyone a little bit about you."
   },
   "settings.profile.bio.title": {
-    "message": "Bio"
+    "message": "السيرة الذاتية"
   },
   "settings.profile.description": {
-    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+    "message": "معلومات ملفك الشخصي قابلة للعرض علنا على Modrinth ومن خلال <docs-link>Modrinth API</docs-link>."
   },
   "settings.profile.profile-info": {
-    "message": "Profile information"
+    "message": "معلومات الملف الشخصي"
   },
   "settings.profile.profile-picture.reset": {
-    "message": "Reset"
+    "message": "إعادة ضبط"
   },
   "settings.profile.profile-picture.title": {
-    "message": "Profile picture"
+    "message": "الصورة الشخصية"
   },
   "settings.profile.title": {
-    "message": "Public profile"
+    "message": "الملف الشخصي العام"
   },
   "settings.profile.username.description": {
     "message": "A unique case-insensitive name to identify your profile."
   },
   "settings.profile.username.title": {
-    "message": "Username"
+    "message": "اسم المستخدم"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "إلغاء الجلسة"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "تم الإنشاء منذ {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "الجلسة الحالية"
   },
   "settings.sessions.description": {
     "message": "هُنا كل الأجهزة التي تمت تسجيل الدخول بحسابك في Modrinth حالياً. تستطيع تسجيل الخروج في كل جهاز بشكل فردي.\n\nأذا رأيت تسجيل لا تتذكره, سجل خروج من ذالِك الجهاز و غًير كلمة السر حسابك في Modrinth في الحال."
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "آخر وصول منذ {ago}"
   },
   "settings.sessions.title": {
     "message": "الجلسات"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "نظام تشغيل غير معروف"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "مِنصة غير معروفة"
   },
   "tooltip.date-at-time": {
     "message": "يوم {date, date, long} على الساعة {time, time, short}"
