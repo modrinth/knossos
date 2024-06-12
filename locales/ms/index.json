@@ -798,7 +798,7 @@
     "message": "Dayakan atau nyahdayakan ciri tertentu pada peranti ini."
   },
   "settings.display.flags.title": {
-    "message": "Penetapan ciri"
+    "message": "Toggle features"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Halaman Pek Data"
