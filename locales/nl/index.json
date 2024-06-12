@@ -798,7 +798,7 @@
     "message": "Schakel bepaalde functies op dit apparaat in of uit."
   },
   "settings.display.flags.title": {
-    "message": "Feature flags"
+    "message": "Toggle features"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Data Packs page"
