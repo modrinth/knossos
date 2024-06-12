@@ -798,7 +798,7 @@
     "message": "이 장치에서 특정 기능을 사용하거나 사용하지 않도록 설정합니다."
   },
   "settings.display.flags.title": {
-    "message": "기능 플래그"
+    "message": "Toggle features"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "데이터 팩"
