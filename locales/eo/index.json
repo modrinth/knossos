@@ -798,7 +798,7 @@
     "message": "Aktivigi aŭ malaktivigi specifajn trajtojn sur tiu ĉi aparato."
   },
   "settings.display.flags.title": {
-    "message": "Trajtoflagoj"
+    "message": "Toggle features"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Paĝo de datumpakaĵoj"
