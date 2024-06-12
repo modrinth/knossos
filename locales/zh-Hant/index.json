@@ -798,7 +798,7 @@
     "message": "啟用或停用這部裝置上的特定功能。"
   },
   "settings.display.flags.title": {
-    "message": "功能設定"
+    "message": "開關功能"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "資料包頁面"
