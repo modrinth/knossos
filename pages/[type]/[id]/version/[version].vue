@@ -725,7 +725,7 @@ export default defineNuxtComponent({
   },
   async setup(props) {
     const data = useNuxtApp()
-    const route = useRoute()
+    const route = useNativeRoute()
 
     const auth = await useAuth()
     const tags = useTags()

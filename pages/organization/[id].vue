@@ -251,7 +251,7 @@ const formatCompactNumber = useCompactNumber()
 const auth = await useAuth()
 const user = await useUser()
 const cosmetics = useCosmetics()
-const route = useRoute()
+const route = useNativeRoute()
 const tags = useTags()
 
 let orgId = useRouteId()

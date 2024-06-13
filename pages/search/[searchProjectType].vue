@@ -365,7 +365,7 @@ const sidebarMenuOpen = ref(false)
 const showAllLoaders = ref(false)
 
 const data = useNuxtApp()
-const route = useRoute()
+const route = useNativeRoute()
 
 const cosmetics = useCosmetics()
 const tags = useTags()

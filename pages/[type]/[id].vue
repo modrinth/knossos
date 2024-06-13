@@ -1130,7 +1130,7 @@ import ModeratorIcon from '~/assets/images/sidebar/admin.svg'
 import { getVersionsToDisplay } from '~/helpers/projects.js'
 
 const data = useNuxtApp()
-const route = useRoute()
+const route = useNativeRoute()
 const config = useRuntimeConfig()
 
 const auth = await useAuth()

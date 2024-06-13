@@ -460,7 +460,7 @@ const flags = useFeatureFlags()
 const tags = useTags()
 
 const config = useRuntimeConfig()
-const route = useRoute()
+const route = useNativeRoute()
 const link = config.public.siteUrl + route.path.replace(/\/+$/, '')
 
 const verifyEmailBannerMessages = defineMessages({

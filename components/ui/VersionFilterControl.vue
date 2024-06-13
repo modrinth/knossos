@@ -98,7 +98,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['switch-page'])
 
-const route = useRoute()
+const route = useNativeRoute()
 
 const tags = useTags()
 
@@ -131,7 +131,7 @@ const selectedVersionTypes = shallowRef(getArrayOrString(route.query.c) ?? [])
 
 async function updateQuery() {
   const router = useRouter()
-  const route = useRoute()
+  const route = useNativeRoute()
 
   await router.replace({
     query: {

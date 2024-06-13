@@ -59,5 +59,5 @@ definePageMeta({
   middleware: 'auth',
 })
 
-const route = useRoute()
+const route = useNativeRoute()
 </script>

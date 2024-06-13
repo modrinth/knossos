@@ -151,7 +151,7 @@ useSeoMeta({
   ogDescription: description,
 })
 
-const route = useRoute()
+const route = useNativeRoute()
 const currentPage = ref(Number(route.query.p ?? 1))
 const filteredVersions = computed(() => {
   const selectedGameVersions = getArrayOrString(route.query.g) ?? []
@@ -175,7 +175,7 @@ function switchPage(page) {
   currentPage.value = page
 
   const router = useRouter()
-  const route = useRoute()
+  const route = useNativeRoute()
 
   router.replace({
     query: {

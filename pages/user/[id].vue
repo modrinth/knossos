@@ -304,7 +304,7 @@ import Avatar from '~/components/ui/Avatar.vue'
 import CollectionCreateModal from '~/components/ui/CollectionCreateModal.vue'
 
 const data = useNuxtApp()
-const route = useRoute()
+const route = useNativeRoute()
 const auth = await useAuth()
 const cosmetics = useCosmetics()
 const tags = useTags()

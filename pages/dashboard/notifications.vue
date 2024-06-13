@@ -68,7 +68,7 @@ useHead({
 
 const auth = await useAuth()
 
-const route = useRoute()
+const route = useNativeRoute()
 const router = useRouter()
 
 const history = computed(() => {
