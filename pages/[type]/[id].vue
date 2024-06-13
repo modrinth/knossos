@@ -1356,6 +1356,26 @@ if (!route.name.startsWith('type-id-settings')) {
         ? 'all'
         : 'noindex',
   })
+
+  useHead({
+    link: [
+      {
+        rel: 'alternate',
+        type: 'application/rss+xml',
+        href: `${config.public.siteUrl}/feed/rss/project/${project.value.id}`,
+      },
+      {
+        rel: 'alternate',
+        type: 'application/atom+xml',
+        href: `${config.public.siteUrl}/feed/atom/project/${project.value.id}`,
+      },
+      {
+        rel: 'alternate',
+        type: 'application/feed+json',
+        href: `${config.public.siteUrl}/feed/json/project/${project.value.id}`,
+      },
+    ],
+  })
 }
 
 const onUserCollectProject = useClientTry(userCollectProject)
