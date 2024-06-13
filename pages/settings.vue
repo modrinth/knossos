@@ -84,7 +84,7 @@ import {
 } from 'omorphia'
 import NavStack from '~/components/ui/NavStack.vue'
 import NavStackItem from '~/components/ui/NavStackItem.vue'
-import MonitorSmartphoneIcon from '~/assets/images/utils/monitor-smartphone.svg'
+import MonitorSmartphoneIcon from '~/assets/images/utils/monitor-smartphone.svg?component'
 
 import { commonMessages, commonSettingsMessages } from '~/utils/common-messages.ts'
 

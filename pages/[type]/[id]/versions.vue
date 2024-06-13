@@ -99,9 +99,9 @@
 </template>
 <script setup>
 import { acceptFileFromProjectType } from '~/helpers/fileUtils.js'
-import DownloadIcon from '~/assets/images/utils/download.svg'
-import UploadIcon from '~/assets/images/utils/upload.svg'
-import InfoIcon from '~/assets/images/utils/info.svg'
+import DownloadIcon from '~/assets/images/utils/download.svg?component'
+import UploadIcon from '~/assets/images/utils/upload.svg?component'
+import InfoIcon from '~/assets/images/utils/info.svg?component'
 import VersionBadge from '~/components/ui/Badge.vue'
 import FileInput from '~/components/ui/FileInput.vue'
 import DropArea from '~/components/ui/DropArea.vue'

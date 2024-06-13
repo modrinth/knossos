@@ -58,7 +58,7 @@ import {
 } from '~/helpers/notifications.js'
 import NotificationItem from '~/components/ui/NotificationItem.vue'
 import Chips from '~/components/ui/Chips.vue'
-import CheckCheckIcon from '~/assets/images/utils/check-check.svg'
+import CheckCheckIcon from '~/assets/images/utils/check-check.svg?component'
 import Breadcrumbs from '~/components/ui/Breadcrumbs.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 

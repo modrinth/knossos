@@ -306,7 +306,7 @@ import { analyticsSetToCSVString, intToRgba } from '~/utils/analytics.js'
 
 import { UiChartsCompactChart as CompactChart, UiChartsChart as Chart } from '#components'
 
-import PaletteIcon from '~/assets/icons/palette.svg'
+import PaletteIcon from '~/assets/icons/palette.svg?component'
 
 const router = useRouter()
 const theme = useTheme()
