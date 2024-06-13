@@ -21,7 +21,7 @@
     "message": "发送恢复电子邮件"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "在下面输入您的电子邮箱，我们将发送恢复链接以允许您恢复帐户。"
+    "message": "在下面输入您的电子邮箱，我们将发送恢复链接以允许您恢复账户。"
   },
   "auth.reset-password.method-choice.email-username.label": {
     "message": "电子邮件或用户名"
@@ -30,7 +30,7 @@
     "message": "电子邮件"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "如果该电子邮箱之前已保存在您的帐户中，则已向您发送一封包含说明的电子邮件。"
+    "message": "如果该电子邮箱之前已保存在您的账户中，则已向您发送一封包含说明的电子邮件。"
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "电子邮件已发送"
@@ -48,7 +48,7 @@
     "message": "确认密码"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "在下面输入您的新密码以访问您的帐户。"
+    "message": "在下面输入您的新密码以访问您的账户。"
   },
   "auth.reset-password.title": {
     "message": "重置密码"
@@ -84,7 +84,7 @@
     "message": "或使用密码"
   },
   "auth.sign-up.action.create-account": {
-    "message": "创建帐户"
+    "message": "创建账户"
   },
   "auth.sign-up.confirm-password.label": {
     "message": "确认密码"
@@ -96,7 +96,7 @@
     "message": "用户名"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "创建帐户即表示您同意 Modrinth 的<terms-link>条款</terms-link>和<privacy-policy-link>隐私政策</privacy-policy-link>。"
+    "message": "创建账户即表示您同意 Modrinth 的<terms-link>条款</terms-link>和<privacy-policy-link>隐私政策</privacy-policy-link>。"
   },
   "auth.sign-up.notification.password-mismatch.text": {
     "message": "密码不匹配！"
@@ -105,7 +105,7 @@
     "message": "密码"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "已有帐户？"
+    "message": "已有账户？"
   },
   "auth.sign-up.subscribe.label": {
     "message": "订阅有关 Modrinth 的更新"
@@ -357,7 +357,7 @@
     "message": "您的头像"
   },
   "layout.banner.add-email.button": {
-    "message": "访问帐户设置"
+    "message": "访问账户设置"
   },
   "layout.banner.add-email.title": {
     "message": "为了安全起见，请在 Modrinth 上输入您的电子邮件。"
@@ -429,7 +429,7 @@
     "message": "搜索"
   },
   "notification.error.title": {
-    "message": "出现错误"
+    "message": "出错了"
   },
   "profile.button.manage-projects": {
     "message": "管理项目"
@@ -954,7 +954,7 @@
     "message": "删除该令牌"
   },
   "settings.pats.modal.delete.description": {
-    "message": "这将永久删除此令牌（真的永久删除）。"
+    "message": "这将永久删除此令牌（真的很久）。"
   },
   "settings.pats.modal.delete.title": {
     "message": "您确定要删除这个令牌吗？"
