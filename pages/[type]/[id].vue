@@ -329,7 +329,9 @@
                       hoverOnly: true,
                     },
                     { id: 'copy-id', action: () => copyId() },
-                    ...(project.project_type === 'modpack' || project.project_type === 'mod' ? [{ id: 'open-in-app', action: () => openInApp() }] : []),
+                    ...(project.project_type === 'modpack' || project.project_type === 'mod'
+                      ? [{ id: 'open-in-app', action: () => openInApp() }]
+                      : []),
                   ]"
                   :direction="cosmetics.projectLayout ? 'left' : 'right'"
                 >
@@ -358,7 +360,9 @@
                       hoverOnly: true,
                     },
                     { id: 'copy-id', action: () => copyId() },
-                    ...(project.project_type === 'modpack' || project.project_type === 'mod' ? [{ id: 'open-in-app', action: () => openInApp() }] : []),
+                    ...(project.project_type === 'modpack' || project.project_type === 'mod'
+                      ? [{ id: 'open-in-app', action: () => openInApp() }]
+                      : []),
                   ]"
                   :direction="cosmetics.projectLayout ? 'left' : 'right'"
                 >
