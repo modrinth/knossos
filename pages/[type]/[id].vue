@@ -329,12 +329,16 @@
                       hoverOnly: true,
                     },
                     { id: 'copy-id', action: () => copyId() },
+                    ...(isAppCompatible()
+                      ? [{ id: 'open-in-app', action: () => openInApp() }]
+                      : []),
                   ]"
                   :direction="cosmetics.projectLayout ? 'left' : 'right'"
                 >
                   <MoreHorizontalIcon />
                   <template #report> <ReportIcon /> Report </template>
                   <template #copy-id> <ClipboardCopyIcon /> Copy ID </template>
+                  <template #open-in-app> <LinkIcon /> Open in App </template>
                 </OverflowMenu>
               </template>
               <template v-else>
@@ -356,12 +360,16 @@
                       hoverOnly: true,
                     },
                     { id: 'copy-id', action: () => copyId() },
+                    ...(isAppCompatible()
+                      ? [{ id: 'open-in-app', action: () => openInApp() }]
+                      : []),
                   ]"
                   :direction="cosmetics.projectLayout ? 'left' : 'right'"
                 >
                   <MoreHorizontalIcon />
                   <template #report> <ReportIcon /> Report </template>
                   <template #copy-id> <ClipboardCopyIcon /> Copy ID </template>
+                  <template #open-in-app> <LinkIcon /> Open in App </template>
                 </OverflowMenu>
               </template>
             </div>
@@ -1079,6 +1087,7 @@ import {
   isStaff,
   CheckIcon,
   XIcon,
+  LinkIcon,
 } from 'omorphia'
 import CrownIcon from '~/assets/images/utils/crown.svg?component'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?component'
@@ -1500,6 +1509,22 @@ async function updateMembers() {
 
 async function copyId() {
   await navigator.clipboard.writeText(project.value.id)
+}
+
+function openInApp() {
+  window.location.href = `modrinth://mod/${project.value.id}`
+}
+
+function isAppCompatible() {
+  // checking against currently supported project types (as of 2024-06-15)
+  if (['mod', 'datapack', 'shader', 'resourcepack', 'modpack'].includes(project.value.project_type)) {
+    return true;
+  } else if (project.value.project_type === 'plugin') {
+    // allow plugins if they also support mod loaders
+    return tags.value.loaderData.modLoaders.some(t => project.value.loaders.includes(t));
+  } else {
+    return false;
+  }
 }
 
 const collapsedChecklist = ref(false)
