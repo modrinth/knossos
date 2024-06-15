@@ -329,12 +329,14 @@
                       hoverOnly: true,
                     },
                     { id: 'copy-id', action: () => copyId() },
+                    ...(project.project_type === 'modpack' || project.project_type === 'mod' ? [{ id: 'open-in-app', action: () => openInApp() }] : []),
                   ]"
                   :direction="cosmetics.projectLayout ? 'left' : 'right'"
                 >
                   <MoreHorizontalIcon />
                   <template #report> <ReportIcon /> Report </template>
                   <template #copy-id> <ClipboardCopyIcon /> Copy ID </template>
+                  <template #open-in-app> <LinkIcon /> Open in App </template>
                 </OverflowMenu>
               </template>
               <template v-else>
@@ -356,12 +358,14 @@
                       hoverOnly: true,
                     },
                     { id: 'copy-id', action: () => copyId() },
+                    ...(project.project_type === 'modpack' || project.project_type === 'mod' ? [{ id: 'open-in-app', action: () => openInApp() }] : []),
                   ]"
                   :direction="cosmetics.projectLayout ? 'left' : 'right'"
                 >
                   <MoreHorizontalIcon />
                   <template #report> <ReportIcon /> Report </template>
                   <template #copy-id> <ClipboardCopyIcon /> Copy ID </template>
+                  <template #open-in-app> <LinkIcon /> Open in App </template>
                 </OverflowMenu>
               </template>
             </div>
@@ -1079,6 +1083,7 @@ import {
   isStaff,
   CheckIcon,
   XIcon,
+  LinkIcon,
 } from 'omorphia'
 import CrownIcon from '~/assets/images/utils/crown.svg?component'
 import CalendarIcon from '~/assets/images/utils/calendar.svg?component'
@@ -1500,6 +1505,10 @@ async function updateMembers() {
 
 async function copyId() {
   await navigator.clipboard.writeText(project.value.id)
+}
+
+function openInApp() {
+  window.location.href = `modrinth:/${window.location.pathname}`
 }
 
 const collapsedChecklist = ref(false)
