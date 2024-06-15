@@ -30,7 +30,7 @@
     "message": "電子郵件地址"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "如果您的帳號中先前已儲存該電子郵件地址，系統已傳送一封內含指示的電子郵件給您。"
+    "message": "如果您的帳號中先前已儲存該電子郵件地址，系統已將一封內含指示的電子郵件傳送給您。"
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "電子郵件已送出"
@@ -126,10 +126,10 @@
     "message": "登入"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "您的電子郵件地址已經完成驗證了！"
+    "message": "您的電子郵件地址已經驗證過了！"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "電子郵件地址已經完成驗證"
+    "message": "電子郵件地址已經驗證過"
   },
   "auth.verify-email.failed-verification.action": {
     "message": "重新傳送驗證電子郵件"
@@ -270,7 +270,7 @@
     "message": "你被耍了！🐸"
   },
   "frog.altText": {
-    "message": "一幅逼真的青蛙迷宮畫作"
+    "message": "一幅逼真的青蛙迷宮繪畫"
   },
   "frog.froggedPeople": {
     "message": "{count, plural, other {另外有 {count} 人}}也被這隻青蛙耍了！"
@@ -450,7 +450,7 @@
     "message": "你還沒有任何收藏。\n你想要<create-link>建立一個</create-link>嗎？"
   },
   "profile.label.no-projects": {
-    "message": "這個使用者沒有專案！"
+    "message": "這個使用者沒有任何專案！"
   },
   "profile.label.no-projects-auth": {
     "message": "你還沒有任何專案。\n你想要<create-link>建立一個</create-link>嗎？"
@@ -474,7 +474,7 @@
     "message": "使用者 ID：{id}"
   },
   "project-type.all": {
-    "message": "所有專案"
+    "message": "全部"
   },
   "project-type.collection.plural": {
     "message": "收藏"
