@@ -329,7 +329,7 @@
                       hoverOnly: true,
                     },
                     { id: 'copy-id', action: () => copyId() },
-                    ...(project.project_type === 'modpack' || project.project_type === 'mod'
+                    ...(isAppCompatible()
                       ? [{ id: 'open-in-app', action: () => openInApp() }]
                       : []),
                   ]"
@@ -360,7 +360,7 @@
                       hoverOnly: true,
                     },
                     { id: 'copy-id', action: () => copyId() },
-                    ...(project.project_type === 'modpack' || project.project_type === 'mod'
+                    ...(isAppCompatible()
                       ? [{ id: 'open-in-app', action: () => openInApp() }]
                       : []),
                   ]"
@@ -1512,7 +1512,19 @@ async function copyId() {
 }
 
 function openInApp() {
-  window.location.href = `modrinth:/${window.location.pathname}`
+  window.location.href = `modrinth://mod/${project.value.id}`
+}
+
+function isAppCompatible() {
+  // checking against currently supported project types (as of 2024-06-15)
+  if (['mod', 'datapack', 'shader', 'resourcepack', 'modpack'].includes(project.value.project_type)) {
+    return true;
+  } else if (project.value.project_type === 'plugin') {
+    // allow plugins if they also support mod loaders
+    return tags.value.loaderData.modLoaders.some(t => project.value.loaders.includes(t));
+  } else {
+    return false;
+  }
 }
 
 const collapsedChecklist = ref(false)
