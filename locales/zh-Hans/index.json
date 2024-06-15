@@ -12,7 +12,7 @@
     "message": "授权 {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "在响应中找不到重定向位置"
+    "message": "响应中未找到重定向位置"
   },
   "auth.authorize.redirect-url": {
     "message": "您将被重定向至<redirect-url>{url}</redirect-url>"
@@ -96,7 +96,7 @@
     "message": "用户名"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "创建账户即表示您同意 Modrinth 的<terms-link>条款</terms-link>和<privacy-policy-link>隐私政策</privacy-policy-link>。"
+    "message": "创建账户即表示您同意 Modrinth 的<terms-link>使用条款</terms-link>和<privacy-policy-link>隐私政策</privacy-policy-link>。"
   },
   "auth.sign-up.notification.password-mismatch.text": {
     "message": "密码不匹配！"
@@ -126,7 +126,7 @@
     "message": "登录"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "您的电子邮件已验证！"
+    "message": "您的电子邮件已经验证！"
   },
   "auth.verify-email.already-verified.title": {
     "message": "电子邮件已验证"
@@ -159,7 +159,7 @@
     "message": "感谢您创建帐户。您现在可以关注和创建项目，接收有关您喜爱的项目的更新等！"
   },
   "auth.welcome.label.tos": {
-    "message": "注册账户即代表你同意 Modrinth 的《<terms-link>条款</terms-link>》和《<privacy-policy-link>隐私政策</privacy-policy-link>》。"
+    "message": "创建账户即代表你同意 Modrinth 的<terms-link>使用条款</terms-link>和<privacy-policy-link>隐私政策</privacy-policy-link>。"
   },
   "auth.welcome.long-title": {
     "message": "欢迎使用 Modrinth！"
@@ -171,7 +171,7 @@
     "message": "取消"
   },
   "button.continue": {
-    "message": "下一步"
+    "message": "继续"
   },
   "button.create-a-project": {
     "message": "创建项目"
@@ -216,7 +216,7 @@
     "message": "您确定要删除该收藏夹吗？"
   },
   "collection.description": {
-    "message": "{description} - 在 Modrinth 上查看 {username} 的收藏夹 {name}"
+    "message": "{description} - 前往 Modrinth 查看 {username} 的收藏夹 {name}"
   },
   "collection.description.following": {
     "message": "自动生成您关注的所有项目的收藏夹。"
@@ -450,7 +450,7 @@
     "message": "你还没有收藏夹。\n是否想要 <create-link>创建一个</create-link>？"
   },
   "profile.label.no-projects": {
-    "message": "此用户没有项目！"
+    "message": "该用户没有项目！"
   },
   "profile.label.no-projects-auth": {
     "message": "您没有任何项目。\n您想要<create-link>创建一个</create-link>吗？"
@@ -462,7 +462,7 @@
     "message": "前往 Modrinth 下载 {username} 的项目"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - 在 Modrinth 上下载 {username} 的项目"
+    "message": "{bio} - 前往 Modrinth 下载 {username} 的项目"
   },
   "profile.stats.downloads": {
     "message": "{count, plural,other {<stat>{count}</stat> 次下载}}"
