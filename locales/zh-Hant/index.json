@@ -312,7 +312,7 @@
     "message": "錯誤"
   },
   "label.followed-projects": {
-    "message": "正在追蹤的專案"
+    "message": "已追蹤的專案"
   },
   "label.moderation": {
     "message": "管理"
@@ -351,7 +351,7 @@
     "message": "變更主題"
   },
   "layout.action.get-modrinth-app": {
-    "message": "取得 Modrinth 應用程式"
+    "message": "下載 Modrinth 應用程式"
   },
   "layout.avatar.alt": {
     "message": "你的大頭貼"
@@ -924,7 +924,7 @@
     "message": "{matches, plural, =0 {沒有語言} other {有 # 種語言}}與您的搜尋字詞符合。"
   },
   "settings.language.languages.search.no-results": {
-    "message": "沒有語言與您的搜尋字詞符合。"
+    "message": "沒有語言符合您的搜尋字詞。"
   },
   "settings.language.title": {
     "message": "語言"
