@@ -1,171 +1,171 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "السماح"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "رفض"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> من <creator-link>{creator}</creator-link> سيكون قادرا على:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "السماح ل{appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "لم يتم العثور على موقع إعادة التوجيه في الرد"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "سيتم إعادة توجيهك إلى <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "إرسال بريد الاسترجاع"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "أدخل بريدك الإلكتروني أدناه وسنرسل رابط استرداد للسماح لك باسترداد حسابك."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "البريد الإلكتروني أو اسم المستخدم"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "البريد الإلكتروني"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "تم إرسال بريد إلكتروني مع التعليمات إليك إذا كان البريد الإلكتروني قد تم حفظه مسبقاً على حسابك."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "تم إرسال البريد الإلكتروني"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "يمكنك الآن تسجيل الدخول إلى حسابك باستخدام كلمة المرور الجديدة."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "تمت إعادة تعيين كلمة المرور بنجاح"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "إعادة تعيين كلمة المرور"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "تأكيد كلمة المرور"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "أدخل كلمة المرور الجديدة أدناه للوصول إلى حسابك."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "إعادة تعيين كلمة المرور"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "أعد تعيين كلمة مرورك"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "الرجاء إدخال رمز المصادقة الثنائية للمتابعة."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "أدخل رمز المصادقة الثنائية"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "أدخل الرمز..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>نسيت كلمة المرور؟</forgot-password-link> * <create-account-link> إنشاء حساب </create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "البريد الإلكتروني أو اسم المستخدم"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "كلمة المرور"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "تسجيل دخول بإستخدام"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "تسجيل الدخول"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "أو استخدم كلمة مرور"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "إنشاء حساب"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "تأكيد كلمة المرور"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "البريد الإلكتروني"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "إسم المستخدم"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "بإنشاء حساب، فإنك توافق على <terms-link>شروط </terms-link>و <privacy-policy-link>سياسة الخصوصية</privacy-policy-link>ل Modrinth."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "كلمات المرور لا تتطابق!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "كلمة المرور"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "لديك حساب بالفعل؟"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "اشترك لتلقي تحديثات حول Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "التسجيل"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "أو أنشئ حسابك بنفسك"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "إنشاء حساب باستخدام"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "إعدادات الحساب"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "تسجيل الدخول"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "تم التحقق من بريدك الإلكتروني مسبقاً!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "تم التحقق من البريد الإلكتروني مسبقاً"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "إعادة إرسال رسالة التحقق"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "لم نتمكن من التحقق من بريدك الإلكتروني. حاول إعادة إرسال رسالة التحقق عبر لوحة التحكم الخاصة بك بتسجيل الدخول."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "لم نتمكن من التحقق من بريدك الإلكتروني. حاول إعادة إرسال رسالة التحقق عبر الزر أدناه."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "فشل التحقق من البريد الإلكتروني"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "تم التحقق من عنوان بريدك الإلكتروني بنجاح!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "التحقق من البريد الإلكتروني"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "التحقق من البريد الإلكتروني"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "اشترك لتلقي تحديثات حول Modrinth"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "شكرا لك على إنشاء حساب. يمكنك الآن متابعة وإنشاء المشاريع، وتلقي التحديثات حول مشاريعك المفضلة، والمزيد!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "من خلال إنشاء حساب ، تكون قد وافقت على <terms-link>شروط </terms-link>و <privacy-policy-link>سياسة الخصوصية</privacy-policy-link> ل Modrinth."
   },
   "auth.welcome.long-title": {
     "message": "مرحبًا بك في Modrinth!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "مرحباً"
   },
   "button.cancel": {
     "message": "إلغاء"
@@ -174,7 +174,7 @@
     "message": "الاستمرار"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "إنشاء مشروع"
   },
   "button.edit": {
     "message": "تعديل"
@@ -183,88 +183,88 @@
     "message": "حفظ"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "حفظ التغييرات"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "تسجيل الدخول"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "تسجيل الخروج"
   },
   "button.upload-image": {
-    "message": "Upload image"
+    "message": "رفع صورة"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "حذف الأيقونة"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "تعديل الأيقونة"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "أزل المشروع"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "إلغاء متابعة المشروع"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "رفع أيقون"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "سيؤدي هذا إلى إزالة هذه المجموعة إلى الأبد. لا يمكن التراجع عن هذا الإجراء."
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "هل أنت متأكد من أنك تريد حذف هذه المجموعة؟"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} - عرض المجموعة {name} بواسطة {username} على Modrinth"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "مجموعة تم إنشاؤها تلقائيا من جميع المشاريع التي تتابعها."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "لم يتم العثور على المجموعة"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "مجموعة"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "تم الإنشاء منذ {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "أنشئ من طرف"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "هذه المجموعة ليس لديها أي مشاريع!"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "ليست لديك أيّة مشاريع.\nهل تودّ <create-link>إنشاء مشروع</create-link>؟"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "المالك"
   },
   "collection.label.private": {
-    "message": "Private"
+    "message": "خاصّة"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "تم التحديث منذ {ago}"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "{name} - مجموعة"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "إنشاء جديد"
   },
   "dashboard.collections.label.projects-count": {
     "message": "{count, plural, one {{count} project} other {{count} projects}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "ابحث في المجموعات الخاصة بك"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "مجموعاتك"
   },
   "frog": {
     "message": "لقد تم ضفدعتك! 🐸"
@@ -288,79 +288,79 @@
     "message": "عرض بنمط الشبكة"
   },
   "input.view.list": {
-    "message": "Rows view"
+    "message": "عرض الصفوف"
   },
   "label.changes-saved": {
-    "message": "Changes saved"
+    "message": "تم حفظ التغييرات"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "المجموعات"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "تم الإنشاء منذ {ago}"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "لوحة التحكم"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "‏حذف"
   },
   "label.description": {
-    "message": "Description"
+    "message": "الوصف"
   },
   "label.error": {
-    "message": "Error"
+    "message": "خطأ"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "المشاريع المُتبعة"
   },
   "label.moderation": {
-    "message": "Moderation"
+    "message": "الإشراف"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "الإشعارات"
   },
   "label.password": {
-    "message": "Password"
+    "message": "كلمة المرور"
   },
   "label.public": {
-    "message": "Public"
+    "message": "عام"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "مرفوضة"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "المجالات"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "الإعدادات"
   },
   "label.title": {
-    "message": "Title"
+    "message": "العنوان"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "غير مدرج"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "الرؤية"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "زيارة ملفك الشخصي"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "غير النمط"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "احصل على تطبيق Modrinth"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "صورتك الرمزية"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "زيارة إعدادات الحساب"
   },
   "layout.banner.add-email.title": {
-    "message": "For security purposes, please enter your email on Modrinth."
+    "message": "لأغراض أمنية، يرجى إدخال بريدك الإلكتروني على Modrinth."
   },
   "layout.banner.staging.description": {
     "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
@@ -369,31 +369,31 @@
     "message": "You’re viewing Modrinth’s staging environment."
   },
   "layout.banner.verify-email.action": {
-    "message": "Re-send verification email"
+    "message": "إعادة إرسال رسالة التحقق"
   },
   "layout.banner.verify-email.title": {
     "message": "For security purposes, please verify your email address on Modrinth."
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "الوظائف"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "الخصوصيـة"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "القوانين"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "الشروط"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "الشركة"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "التفاعل"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "خدمة MINECRAFT غير رسمية. لم تتم الموافقة عليها و غير مرتبطة ب MOJANG و MICROSOFT."
   },
   "layout.footer.open-source": {
     "message": "Modrinth is <github-link>open source</github-link>."
@@ -402,16 +402,16 @@
     "message": "Blog"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "الوثائق"
   },
   "layout.footer.resources.status": {
-    "message": "Status"
+    "message": "الحالة"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "الدعم"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "المصادر"
   },
   "layout.menu-toggle.action": {
     "message": "Toggle menu"
@@ -423,10 +423,10 @@
     "message": "Discover and publish Minecraft content!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "الصفحة الرئيسية"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "البحث"
   },
   "notification.error.title": {
     "message": "حدثَ خطأ ما"
@@ -621,46 +621,46 @@
     "message": "قراءة رموز الوصول الشخصية"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "تعديل رمز API الشخصي"
   },
   "scopes.patWrite.label": {
     "message": "Write PATs"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "قراءة بيانات الدفعات الخاصة بك"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "قراءة الدفعات"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "سحب الأموال"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "كتابة الدفعات"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "تنفيذ إجراءات تحليلية"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "إجراء تحليلات"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "إنشاء مشروع جديد"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "إنشاء مشاريع"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "حذف مشاريعك"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "حذف مشاريع"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "قراءة جميع مشاريعك"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "قراءة المشاريع"
   },
   "scopes.projectWrite.description": {
     "message": "Write to project data"
@@ -669,16 +669,16 @@
     "message": "كتابة مشاريع"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "إنشاء تقارير"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "إنشاء تقارير"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "حذف تقارير"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "حذف تقارير"
   },
   "scopes.reportRead.description": {
     "message": "قراءة التقارير"
@@ -699,16 +699,16 @@
     "message": "الوصول إلى الجلسات"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "حذف جلسات"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "حذف جلسات"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "قراءة الجلسات النشطة"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "قراءة الجلسات"
   },
   "scopes.threadRead.description": {
     "message": "قراءة مواضيع"
@@ -777,10 +777,10 @@
     "message": "كتابة أصدارات"
   },
   "settings.account.title": {
-    "message": "Account and security"
+    "message": "الحساب والأمان"
   },
   "settings.appearance.title": {
-    "message": "Appearance"
+    "message": "المظهر"
   },
   "settings.applications.title": {
     "message": "تطبيقاتك"
@@ -789,34 +789,34 @@
     "message": "تطبيقات مأذون لها"
   },
   "settings.display.banner.developer-mode.button": {
-    "message": "Deactivate developer mode"
+    "message": "تعطيل وضع المطور"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+    "message": "<strong>وضع المطور </strong> نشط. هذا سيسمح لك بعرض المعرفات الداخلية لأشياء مختلفة في جميع أنحاء Modrinth التي قد تكون مفيدة إذا كنت مطورا باستخدام Modrinth API. انقر على شعار Modrinth في أسفل الصفحة 5 مرات لتبديل وضع المطور."
   },
   "settings.display.flags.description": {
-    "message": "Enable or disable certain features on this device."
+    "message": "تمكين أو تعطيل بعض الميزات على هذا الجهاز."
   },
   "settings.display.flags.title": {
-    "message": "Toggle features"
+    "message": "تفعيل الميزات"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "صفحة حزم البيانات"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "Select your preferred layout for each page that displays project lists on this device."
+    "message": "حدد تخطيطك المفضل لكل صفحة تعرض قوائم المشاريع على هذا الجهاز."
   },
   "settings.display.project-list-layouts.mod": {
-    "message": "Mods page"
+    "message": "صفحة التعديلات"
   },
   "settings.display.project-list-layouts.modpack": {
-    "message": "Modpacks page"
+    "message": "صفحة مجموعات المودات"
   },
   "settings.display.project-list-layouts.plugin": {
-    "message": "Plugins page"
+    "message": "صفحة الإضافات"
   },
   "settings.display.project-list-layouts.resourcepack": {
-    "message": "Resource Packs page"
+    "message": "صفحة حزم المصادر"
   },
   "settings.display.project-list-layouts.shader": {
     "message": "Shaders page"
@@ -831,19 +831,19 @@
     "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
   },
   "settings.display.sidebar.advanced-rendering.title": {
-    "message": "Advanced rendering"
+    "message": "التقديم المتقدم"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
     "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
-    "message": "Open external links in new tab"
+    "message": "فتح الروابط الخارجية في علامة تبويب جديدة"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+    "message": "إخفاء أزرار \"الحصول على تطبيقModrinth\" من التنقل الأساسي. صفحة تطبيق Modrinth لا تزال موجودة في صفحة الهبوط أو في أخر الصفحة."
   },
   "settings.display.sidebar.hide-app-promos.title": {
-    "message": "Hide Modrinth App promotions"
+    "message": "إخفاء دعايات تطبيق Modrinth"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
     "message": "Aligns the project details sidebar to the right of the page's content."
@@ -858,31 +858,31 @@
     "message": "Right-aligned search sidebar"
   },
   "settings.display.theme.dark": {
-    "message": "Dark"
+    "message": "مظلم"
   },
   "settings.display.theme.description": {
-    "message": "Select your preferred color theme for Modrinth on this device."
+    "message": "حدد قالب اللون المفضل الخاص بك لModrinth على هذا الجهاز."
   },
   "settings.display.theme.light": {
-    "message": "Light"
+    "message": "مضيئ"
   },
   "settings.display.theme.oled": {
-    "message": "OLED"
+    "message": "أوليد"
   },
   "settings.display.theme.preferred-dark-theme": {
-    "message": "Preferred dark theme"
+    "message": "الثيم المظلم المفضل"
   },
   "settings.display.theme.preferred-light-theme": {
-    "message": "Preferred light theme"
+    "message": "الثيم المضيء المفضل"
   },
   "settings.display.theme.retro": {
-    "message": "Retro"
+    "message": "ريترو"
   },
   "settings.display.theme.system": {
-    "message": "Sync with system"
+    "message": "تزامن مع النظام"
   },
   "settings.display.theme.title": {
-    "message": "Color theme"
+    "message": "لون الثيم"
   },
   "settings.language.categories.auto": {
     "message": "تلقائي"
@@ -930,28 +930,28 @@
     "message": "لُغة"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "إنشاء رمز وصول شخصي"
   },
   "settings.pats.description": {
     "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "إنشاء رمز وصول شخصي"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "تنتهي الصلاحية في"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "الإسم"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "أدخل اسم رمز الوصول الشخصي..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "تعديل رمز الوصول الشخصي"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "حذف هذا الرمز"
   },
   "settings.pats.modal.delete.description": {
     "message": "سيؤدي هذا إلى إزالة هذا الرمز إلى الأبد (حقا إلى الأبد)."
@@ -984,7 +984,7 @@
     "message": "لم تستخدم"
   },
   "settings.profile.bio.description": {
-    "message": "A short description to tell everyone a little bit about you."
+    "message": "وصف قصير لإخبار الجميع قليلاً عنك."
   },
   "settings.profile.bio.title": {
     "message": "السيرة الذاتية"
