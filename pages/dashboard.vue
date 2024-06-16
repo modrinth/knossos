@@ -21,7 +21,11 @@
           <NavStackItem v-if="true" link="/dashboard/projects" label="Projects">
             <ListIcon />
           </NavStackItem>
-          <NavStackItem v-if="true" link="/dashboard/organizations" label="Organizations">
+          <NavStackItem
+            v-if="true"
+            link="/dashboard/organizations"
+            :label="formatMessage(messages.organizationTitle)"
+          >
             <OrganizationIcon />
           </NavStackItem>
           <NavStackItem
@@ -54,6 +58,13 @@ import NotificationsIcon from '~/assets/images/utils/bell.svg?component'
 import OrganizationIcon from '~/assets/images/utils/organization.svg?component'
 
 const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  organizationTitle: {
+    id: 'dashboard.organization.title',
+    defaultMessage: 'Organizations',
+  },
+})
 
 definePageMeta({
   middleware: 'auth',
