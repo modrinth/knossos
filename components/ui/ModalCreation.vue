@@ -1,23 +1,25 @@
 <template>
-  <Modal ref="modal" header="Create a project">
+  <Modal ref="modal" :header="formatMessage(messages.header)">
     <div class="modal-creation universal-labels">
       <div class="markdown-body">
-        <p>New projects are created as drafts and can be found under your profile page.</p>
+        <p>{{formatMessage(messages.description)}}</p>
       </div>
       <label for="name">
-        <span class="label__title">Name<span class="required">*</span></span>
+        <span class="label__title">
+          {{ formatMessage(messages.nameLabel) }}<span class="required">*</span>
+        </span>
       </label>
       <input
         id="name"
         v-model="name"
         type="text"
         maxlength="64"
-        placeholder="Enter project name..."
+        :placeholder="formatMessage(messages.namePlaceholder)"
         autocomplete="off"
         @input="updatedName()"
       />
       <label for="slug">
-        <span class="label__title">URL<span class="required">*</span></span>
+        <span class="label__title">{{formatMessage(messages.slugLabel)}}<span class="required">*</span></span>
       </label>
       <div class="text-input-wrapper">
         <div class="text-input-wrapper__before">https://modrinth.com/project/</div>
@@ -31,9 +33,9 @@
         />
       </div>
       <label for="visibility">
-        <span class="label__title">Visibility<span class="required">*</span></span>
+        <span class="label__title">{{formatMessage(messages.visibilityLabel)}}<span class="required">*</span></span>
         <span class="label__description">
-          The visibility of your project after it has been approved.
+          {{formatMessage(messages.visibilityDescription)}}
         </span>
       </label>
       <multiselect
@@ -46,14 +48,14 @@
         :searchable="false"
         :show-no-results="false"
         :show-labels="false"
-        placeholder="Choose visibility.."
+        :placeholder="formatMessage(messages.visibilityPlaceholder)"
         open-direction="bottom"
       />
       <label for="additional-information">
-        <span class="label__title">Summary<span class="required">*</span></span>
-        <span class="label__description"
-          >This appears in search and on the sidebar of your project's page.</span
-        >
+        <span class="label__title">{{formatMessage(messages.additionalInformationLabel)}}<span class="required">*</span></span>
+        <span class="label__description">
+          {{formatMessage(messages.additionalInformationDescription)}}
+        </span>
       </label>
       <div class="textarea-wrapper">
         <textarea id="additional-information" v-model="description" maxlength="256" />
@@ -61,11 +63,11 @@
       <div class="push-right input-group">
         <button class="iconified-button" @click="cancel">
           <CrossIcon />
-          Cancel
+          {{ formatMessage(commonMessages.cancelButton) }}
         </button>
         <button class="iconified-button brand-button" @click="createProject">
           <CheckIcon />
-          Continue
+          {{ formatMessage(commonMessages.continueButton) }}
         </button>
       </div>
     </div>
@@ -77,6 +79,64 @@ import { Multiselect } from 'vue-multiselect'
 import CrossIcon from '~/assets/images/utils/x.svg?component'
 import CheckIcon from '~/assets/images/utils/right-arrow.svg?component'
 import Modal from '~/components/ui/Modal.vue'
+
+const { formatMessage } = useVIntl()
+
+const messages = defineMessages({
+  header: {
+    id: 'component.modal.modal-creation.header',
+    defaultMessage: 'Create a project',
+  },
+  description: {
+    id: 'component.modal.modal-creation.description',
+    defaultMessage:
+      'New projects are created as drafts and can be found under your profile page.',
+  },
+  nameLabel: {
+    id: 'component.modal.modal-creation.name.label',
+    defaultMessage: 'Name',
+  },
+  namePlaceholder: {
+    id: 'component.modal.modal-creation.name.placeholder',
+    defaultMessage: 'Enter project name...',
+  },
+  slugLabel: {
+    id: 'component.modal.modal-creation.slug.label',
+    defaultMessage: 'URL',
+  },
+  visibilityLabel: {
+    id: 'component.modal.modal-creation.visibility.label',
+    defaultMessage: 'Visibility',
+  },
+  visibilityDescription: {
+    id: 'component.modal.modal-creation.visibility.description',
+    defaultMessage: 'The visibility of your project after it has been approved.'
+  },
+  visibilityPlaceholder: {
+    id: 'component.modal.modal-creation.visibility.placeholder',
+    defaultMessage: 'Choose visibility...',
+  },
+  visibilitysApproved: {
+    id: 'component.modal.modal-creation.visibilitys.approved',
+    defaultMessage: 'Public',
+  },
+  visibilitysPrivate: {
+    id: 'component.modal.modal-creation.visibilitys.private',
+    defaultMessage: 'Private',
+  },
+  visibilitysUnlisted: {
+    id: 'component.modal.modal-creation.visibilitys.unlisted',
+    defaultMessage: 'Unlisted',
+  },
+  additionalInformationLabel: {
+    id: 'component.modal.modal-creation.summary.label',
+    defaultMessage: 'Summary',
+  },
+  additionalInformationDescription: {
+    id: 'component.modal.modal-creation.summary.description',
+    defaultMessage: "This appears in search and on the sidebar of your project's page.",
+  },
+})
 
 export default {
   components: {
@@ -106,20 +166,20 @@ export default {
       visibilities: [
         {
           actual: 'approved',
-          display: 'Public',
+          display: formatMessage(messages.visibilitysApproved),
         },
         {
           actual: 'private',
-          display: 'Private',
+          display: formatMessage(messages.visibilitysPrivate),
         },
         {
           actual: 'unlisted',
-          display: 'Unlisted',
+          display: formatMessage(messages.visibilitysUnlisted),
         },
       ],
       visibility: {
         actual: 'approved',
-        display: 'Public',
+        display: formatMessage(messages.visibilitysApproved),
       },
     }
   },
@@ -182,7 +242,7 @@ export default {
       } catch (err) {
         this.$notify({
           group: 'main',
-          title: 'An error occurred',
+          title: formatMessage(commonMessages.errorNotificationTitle),
           text: err.data.description,
           type: 'error',
         })
