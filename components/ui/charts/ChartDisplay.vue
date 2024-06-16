@@ -160,7 +160,7 @@
                     <div
                       :style="{
                         '--color-brand': isUsingProjectColors
-                          ? intToRgba(project.color, project.id, theme ?? undefined)
+                          ? intToRgba(project.color, project.id, $theme.active ?? undefined)
                           : getDefaultColor(project.id),
                       }"
                       class="legend__item__color"
@@ -309,7 +309,8 @@ import { UiChartsCompactChart as CompactChart, UiChartsChart as Chart } from '#c
 import PaletteIcon from '~/assets/icons/palette.svg?component'
 
 const router = useNativeRouter()
-const theme = useTheme()
+
+const $theme = useTheme()
 
 const props = withDefaults(
   defineProps<{
