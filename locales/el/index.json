@@ -192,7 +192,7 @@
     "message": "Έξοδος"
   },
   "button.upload-image": {
-    "message": "Upload image"
+    "message": "Ανέβασμα Εικόνας"
   },
   "collection.button.delete-icon": {
     "message": "Διαγραφή εικονιδίου"
@@ -288,10 +288,10 @@
     "message": "Προβολή πλέγματος"
   },
   "input.view.list": {
-    "message": "Rows view"
+    "message": "Προβολή σειρών"
   },
   "label.changes-saved": {
-    "message": "Changes saved"
+    "message": "Οι αλλαγές αποθηκεύτηκαν"
   },
   "label.collections": {
     "message": "Συλλογές"
@@ -330,7 +330,7 @@
     "message": "Απορρίφθηκε"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Εμβέλειες"
   },
   "label.settings": {
     "message": "Ρυθμίσεις"
@@ -345,7 +345,7 @@
     "message": "Ορατότητα"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Επίσκεψη του προφίλ μου"
   },
   "layout.action.change-theme": {
     "message": "Αλλαγή θέματος"
@@ -393,7 +393,7 @@
     "message": "Αλληλεπίδραση"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "ΑΝΕΠΙΣΙΜΗ ΠΑΡΟΧΗ ΥΠΗΡΕΣΙΩΝ ΓΙΑ ΤΟ MINECRAFT. ΔΕΝ ΕΓΓΡΙΝΕΤΑΙ Ή ΣΥΣΧΕΤΊΖΕΤΑΙ ΜΕ MOJANG Ή MICROSOFT."
   },
   "layout.footer.open-source": {
     "message": "Modrinth είναι <github-link>ανοιχτή πηγή</github-link>."
@@ -426,7 +426,7 @@
     "message": "Σπίτι"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "Αναζήτηση"
   },
   "notification.error.title": {
     "message": "Προέκυψε σφάλμα"
@@ -576,7 +576,7 @@
     "message": "Διαγραφή/Προβολή των ειδοποιήσεων σας"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Σύνταξη ειδοποιήσεων"
   },
   "scopes.organizationCreate.description": {
     "message": "Δημιουργία οργανισμών"
@@ -591,43 +591,43 @@
     "message": "Διαγραφή οργανισμών"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Επισκόπηση οργανισμών"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Επισκόπηση οργανισμών"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Καταχώριση σε οργανισμούς"
   },
   "scopes.organizationWrite.label": {
     "message": "Write organizations"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Δημιουργία προσωπικών API tokens"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "Δημιουργία PATs"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Διαγραφή προσωπικών API tokens"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "Διαγραφή PATs"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Προβολή δημιουργημένων API tokens"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "Επισκόπηση PATs"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Επεξεργασία προσωπικών API tokens"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Εγγραφή PATs"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Επισκόπηση στοιχείων πληρωμής"
   },
   "scopes.payoutsRead.label": {
     "message": "Ανάγνωση πληρωμών"
@@ -636,91 +636,91 @@
     "message": "Ανάληψη χρημάτων"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Επεξεργασία πληρωμών"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Εκτέλεση ενεργειών ανάλυσης"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Εκτέλεση αναλύσεων"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Δημιουργία νέων έργων"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Δημιουργία έργων"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Διαγραφή των έργων σας"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Διαγραφή έργων"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Επισκόπηση των έργων σας"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Επισκόπηση έργων"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Εγγραφή στα δεδομένα του έργου"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Επεξεργασία έργων"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Δημιουργία αναφορών"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Δημιουργία αναφορών"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Διαγραφή αναφορών"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Διαγραφή αναφορών"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Επισκόπηση αναφορών"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Επισκόπηση αναφορών"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Επεξεργασία αναφορών"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Εγγραφή αναφορών"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Πρόσβαση σε συνόδους, εκδεδυμένες από το Modrinth"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Πρόσβαση σε συνόδους"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Διεγραφή συνόδων"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Διεγραφή συνόδων"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Επισκόπηση ενεργών συνόδων"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Επισκόπηση συνόδων"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Επισκόπηση νημάτων"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Επισκόπηση νημάτων"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Εγγραφή σε νήματα"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Επεξεργασία νημάτων"
   },
   "scopes.userAuthWrite.description": {
     "message": "Modify your authentication data"
@@ -870,19 +870,19 @@
     "message": "OLED"
   },
   "settings.display.theme.preferred-dark-theme": {
-    "message": "Preferred dark theme"
+    "message": "Προτιμώμενο σκοτεινό θέμα"
   },
   "settings.display.theme.preferred-light-theme": {
-    "message": "Preferred light theme"
+    "message": "Προτιμώμενο φωτεινό θέμα"
   },
   "settings.display.theme.retro": {
-    "message": "Retro"
+    "message": "Ρετρό"
   },
   "settings.display.theme.system": {
-    "message": "Sync with system"
+    "message": "Συγχρονισμός με το σύστημα"
   },
   "settings.display.theme.title": {
-    "message": "Color theme"
+    "message": "Χρωματικό θέμα"
   },
   "settings.language.categories.auto": {
     "message": "Αυτόματη"
@@ -930,109 +930,109 @@
     "message": "Γλώσσα"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Δημιουργία ενός PAT"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "Τα PAT μπορούν να χρησιμοποιηθούν για πρόσβαση στο API του Modrinth. Για περισσότερες πληροφορίες, ανατρέξτε στην <doc-link>τεκμηρίωση του Modrinth API</doc-link>. Μπορούν να δημιουργηθούν και να ανακληθούν ανά πάσα στιγμή."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "Δημιουργία PAT"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Λήγει"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Όνομα"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Εισαγωγή ονόματος του PAT..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Δημιουργία προσωπικού token πρόσβασης"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Διαγραφή αυτού του token"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Αυτό θα αφαιρέσει αυτό το token για πάντα (πραγματικά για πάντα)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό το token;"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Επεξεργασία προσωπικού token πρόσβασης"
   },
   "settings.pats.title": {
-    "message": "Personal access tokens"
+    "message": "Προσωπικά tokens πρόσβασης"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Επεξεργασία token"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Ανάκληση token"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Έληξε {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Λήγει {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Τελευταία χρήση {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Ποτέ δεν χρησιμοποιήθηκε"
   },
   "settings.profile.bio.description": {
-    "message": "A short description to tell everyone a little bit about you."
+    "message": "Μια σύντομη περιγραφή για να πεις σε όλους λίγα πράγματα για εσένα."
   },
   "settings.profile.bio.title": {
-    "message": "Bio"
+    "message": "Βιογραφικό"
   },
   "settings.profile.description": {
-    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+    "message": "Οι πληροφορίες του προφίλ σου είναι δημόσια ορατές στο Modrinth και μέσω του <docs-link>Modrinth API</docs-link>."
   },
   "settings.profile.profile-info": {
-    "message": "Profile information"
+    "message": "Πληροφορίες προφίλ"
   },
   "settings.profile.profile-picture.reset": {
-    "message": "Reset"
+    "message": "Επαναφορά"
   },
   "settings.profile.profile-picture.title": {
-    "message": "Profile picture"
+    "message": "Εικόνα προφίλ"
   },
   "settings.profile.title": {
-    "message": "Public profile"
+    "message": "Δημόσιο προφίλ"
   },
   "settings.profile.username.description": {
-    "message": "A unique case-insensitive name to identify your profile."
+    "message": "Ένα μοναδικό όνομα χωρίς διάκριση πεζών-κεφαλαίων για αναγνώριση του προφίλ σου."
   },
   "settings.profile.username.title": {
-    "message": "Username"
+    "message": "Όνομα Χρήστη"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "Ανάκληση συνόδου"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "Δημιουργήθηκε {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "Τρέχουσα σύνοδος"
   },
   "settings.sessions.description": {
     "message": "Ακολουθούν όλες οι συσκευές που είναι συνδεδεμένες αυτήν τη στιγμή με τον λογαριασμό σας στο Modrinth. Μπορείτε να αποσυνδεθείτε από καθεμία ξεχωριστά.\n\nΕάν δείτε μια καταχώριση που δεν αναγνωρίζετε, αποσυνδεθείτε από αυτήν τη συσκευή και αλλάξτε αμέσως τον κωδικό πρόσβασης του λογαριασμού σας Modrinth."
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "Τελευταία πρόσβαση {ago}"
   },
   "settings.sessions.title": {
     "message": "Συνεδρίες"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Άγνωστο Λειτουργικό Σύστημα"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Άγνωστη πλατφόρμα"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} στις {time, time, short}"
