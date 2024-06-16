@@ -370,6 +370,15 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
+  routeRules: {
+    '/**': {
+      headers: {
+        'Accept-CH': 'Sec-CH-Prefers-Color-Scheme',
+        Vary: 'Sec-CH-Prefers-Color-Scheme',
+        'Critical-CH': 'Sec-CH-Prefers-Color-Scheme',
+      },
+    },
+  },
 })
 
 function getApiUrl() {
