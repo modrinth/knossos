@@ -798,7 +798,7 @@
     "message": "Engedélyezés vagy letiltás bizonyos funkcióknál ezen az eszközön."
   },
   "settings.display.flags.title": {
-    "message": "Toggle features"
+    "message": "Funkciók váltása"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Datapackek oldala"
@@ -903,7 +903,7 @@
     "message": "Válaszd ki az általad előnyben részesített nyelvet ehhez az oldalhoz. A fordítások önkéntesek hozzájárulásával készültek <crowdin-link>Crowdin-on</crowdin-link>."
   },
   "settings.language.languages.automatic": {
-    "message": "Szinkronizálás a rendszered nyelvével"
+    "message": "Szinkronizálás a rendszer nyelvével"
   },
   "settings.language.languages.language-label-applying": {
     "message": "{label}. Alkalmazás..."
