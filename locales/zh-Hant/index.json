@@ -234,7 +234,7 @@
     "message": "策展人"
   },
   "collection.label.no-projects": {
-    "message": "這個收藏沒有任何專案！"
+    "message": "這個收藏中沒有任何專案！"
   },
   "collection.label.no-projects-auth": {
     "message": "你還沒有任何專案。\n你想要<create-link>加入一個</create-link>嗎？"
