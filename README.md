@@ -12,7 +12,7 @@ The Modrinth.com frontend, codenamed knossos, is the web interface used for inte
 - Clean and modern interface that simplifies things enough for the layuser but with enough depth for a power user
 - Save projects to a collection to come back to later
 - Follow projects to get notifications when they update
-- Fully open source under GPLv3[^1]!
+- Fully open source under AGPLv3[^1]!
 - Many more features for interacting with Modrinth services
 
 [^1]: Modrinth's logos, branding, and other trademarks are not free for use, see the [licensing section](#license) for more information.
