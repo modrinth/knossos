@@ -642,7 +642,6 @@ const [
       .row__content {
         flex-shrink: 0;
         display: flex;
-        min-width: 100%;
         gap: var(--gap);
         animation: scroll 40s linear infinite;
 
