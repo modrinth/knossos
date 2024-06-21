@@ -1,6 +1,6 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Құзырлау"
+    "message": "Тіркеу"
   },
   "auth.authorize.action.decline": {
     "message": "Бас тарту"
@@ -417,7 +417,7 @@
     "message": "Мәзір"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Modrinth-тен Minecraft-қа мод, плагин, дерек жинағын, шейдер, ресурс жинағын және мод жинағын орнатып ал. Ыңғайлы интерфейсі мен API-і бар Modrinth-тен жоба тап, жоба баста."
   },
   "layout.meta.og-description": {
     "message": "Minecraft-қа контент тап я жаса!"
@@ -627,148 +627,148 @@
     "message": "PAT жазу"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Төлемдеріңіздің дерегін оқу"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Төлем оқу"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Ақша шығару"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Ақша шығарымын жазып алу"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Сараптама әрекетін жасау"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Сараптау"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Жаңа жоба ашу"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Жоба ашу"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Жобаларыңызды жою"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Жоба жою"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Бар жобаңызды оқу"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Жоба оқу"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Жоба дерегіне жазып қою"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Жоба жазу"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Шағым жасау"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Шағым жасау"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Шағым жою"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Шағым жою"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Шағым оқу"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Шағым оқу"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Шағым өңдеу"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Шағым жазу"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Modrinth ашқан сеансқа қол жеткізу"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Сеансқа қол жеткізу"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Сеанс жою"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Сеанс жою"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Белсенді сеанстарды оқу"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Сеанс оқу"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Хабарлама оқу"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Хабарлама оқу"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Хабарламаға жазу"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Хабарлама жазу"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Тіркеме дерегіңізді өңдеу"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Тіркеме дерегін жазып алу"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Тіркелгіңізді жою"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Тіркелгіңізді жою"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Бейініңіздің жария ақпаратына қол жеткізу"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Қолданушы дерегін оқу"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Поштаңызды оқу"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "Қолданушы поштасын оқу"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Бейініңізге жазу"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Қолданушы дерегін жазып алу"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Жаңа нұсқа құру"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "Нұсқа құру"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Нұсқа жою"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Нұсқа жою"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Бар нұсқаны оқу"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "Нұсқа оқу"
   },
   "scopes.versionWrite.description": {
     "message": "Нұсқа дерегіне жазу"
@@ -792,7 +792,7 @@
     "message": "Әзірлеуші режімін өшіру"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+    "message": "<strong>Әзірлеуші режімі</strong> белсенді. Мұның арқасында Modrinth-тегі түрлі заттың ішкі ID-ін көре аласыз. Modrinth API қолданатын әзірлеуші болсаңыз, пайдасы тиіп қалар. Осы беттің төменгі жағында орналасқан Modritnth логотипін 5 рет түртсеңіз, әзірлеуші режімін өшіріп-қоса аласыз."
   },
   "settings.display.flags.description": {
     "message": "Осы құрылғының кейбір бернесін өшіріп-қосу."
@@ -804,7 +804,7 @@
     "message": "Дерек дестелеріне арналған бет"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "Select your preferred layout for each page that displays project lists on this device."
+    "message": "Осы құрылғыдағы жобалар әр бетте қалай тізіліп тұратынын таңдап алыңыз."
   },
   "settings.display.project-list-layouts.mod": {
     "message": "Модтарға арналған бет"
@@ -828,13 +828,13 @@
     "message": "Бейін беттері"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+    "message": "Бұлдырату секілді ілгері рендериңді қосып береді. Аппарат үдететін рендериң жоқта өнімділікті нашарлатуы мүмкін."
   },
   "settings.display.sidebar.advanced-rendering.title": {
     "message": "Ілгері рендериң"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+    "message": "Modrinth-тен тыс сілтемелерді жаңа қойындыдан ашқызады. Бұл баптауға қарамастан, Modrinth-тегі сілтемелер мен сипаттамалар бір қойындыда ашылады. Ал жарнама сілтемесі мен өңдеу парақшасы жаңа қойындыда ашылады."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
     "message": "Қосалқы сілтемені жаңа қойындыдан ашу"
@@ -1035,6 +1035,6 @@
     "message": "Unknown platform"
   },
   "tooltip.date-at-time": {
-    "message": "{date, date, long} at {time, time, short}"
+    "message": "{date, date, long} {time, time, short}"
   }
 }
