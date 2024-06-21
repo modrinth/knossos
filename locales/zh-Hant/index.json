@@ -210,7 +210,7 @@
     "message": "上傳圖示"
   },
   "collection.delete-modal.description": {
-    "message": "這項操作會永久刪除這個收藏，且無法復原。"
+    "message": "系統將永久刪除這個收藏，且這項操作無法復原。"
   },
   "collection.delete-modal.title": {
     "message": "要刪除這個收藏嗎？"
@@ -954,7 +954,7 @@
     "message": "刪除這個權杖"
   },
   "settings.pats.modal.delete.description": {
-    "message": "這項操作會永久刪除這個權杖（非常久）。"
+    "message": "系統將永久刪除這個權杖（真的會永久刪除）。"
   },
   "settings.pats.modal.delete.title": {
     "message": "要刪除這個權杖嗎？"
