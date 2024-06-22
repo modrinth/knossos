@@ -9,7 +9,7 @@
     "message": "<creator-link>{creator}</creator-link> жасаған <strong>{appName}</strong>:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "{appName} құзырлау"
+    "message": "{appName} тіркеу"
   },
   "auth.authorize.error.no-redirect-url": {
     "message": "Кері бағыттар жер таппады"
@@ -786,7 +786,7 @@
     "message": "Қолданбаларыңыз"
   },
   "settings.authorized-apps.title": {
-    "message": "Жете қолданбалар"
+    "message": "Тіркелген қолданбалар"
   },
   "settings.display.banner.developer-mode.button": {
     "message": "Әзірлеуші режімін өшіру"
