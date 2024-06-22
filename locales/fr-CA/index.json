@@ -81,16 +81,16 @@
     "message": "Se connecter"
   },
   "auth.sign-in.use-password": {
-    "message": "Ou utiliser un mot de passe"
+    "message": "Ou utilisez un mot de passe"
   },
   "auth.sign-up.action.create-account": {
     "message": "Créer un compte"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirmer le mot de passe"
+    "message": "Confirmez le mot de passe"
   },
   "auth.sign-up.email.label": {
-    "message": "E-mail"
+    "message": "Adresse courriel"
   },
   "auth.sign-up.label.username": {
     "message": "Nom d'utilisateur"
@@ -105,16 +105,16 @@
     "message": "Mot de passe"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Avez-vous déjà un compte?"
+    "message": "Vous avez déjà un compte?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "S'abonner aux mises à jour de Modrinth"
+    "message": "S'abonner aux nouvelles à propos de Modrinth"
   },
   "auth.sign-up.title": {
     "message": "S'inscrire"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Ou créez vous-même un compte"
+    "message": "Ou créez vous-mêmes un compte"
   },
   "auth.sign-up.title.sign-up-with": {
     "message": "S'inscrire avec"
@@ -126,43 +126,43 @@
     "message": "Se connecter"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Votre adresse e-mail est déjà vérifiée !"
+    "message": "Votre adresse courriel est déjà vérifiée!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "E-mail déjà vérifié"
+    "message": "Votre adresse courriel est déjà vérifiée"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Renvoyer un email de vérification"
+    "message": "Renvoyer le courriel de vérification"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "Nous n'avons pas pu vérifier votre e-mail. Essayez d'envoyer à nouveau l'e-mail de vérification via votre tableau de bord en vous connectant."
+    "message": "Nous n'avons pas pu vérifier votre adresse courriel. Essayez d'envoyer à nouveau le courriel de vérification via votre tableau de bord en vous connectant."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "Nous n'avons pas pu vérifier votre e-mail. Essayez de renvoyer l'e-mail de vérification via le bouton ci-dessous."
+    "message": "Nous n'avons pas pu vérifier votre adresse courriel. Essayez d'envoyer à nouveau le courriel de vérification via le bouton ci-dessous."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "La vérification de l'e-mail a échoué"
+    "message": "La vérification de l'adresse courriel a échoué"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Votre adresse e-mail a été vérifiée avec succès !"
+    "message": "Votre adresse courriel a été vérifiée avec succès!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Vérification de l'adresse e-mail"
+    "message": "Vérification de l'adresse courriel"
   },
   "auth.verify-email.title": {
-    "message": "Vérifier l'adresse e-mail"
+    "message": "Vérifier l'adresse courriel"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "S'abonner aux mises à jour de Modrinth"
+    "message": "S'abonner aux nouvelles à propos de Modrinth"
   },
   "auth.welcome.description": {
-    "message": "Merci d'avoir créé un compte. Vous pouvez maintenant suivre et créer des projets, recevoir des mises à jour sur vos projets préférés, et plus encore !"
+    "message": "Merci d'avoir créé un compte. Vous pouvez maintenant suivre et créer des projets, recevoir des nouvelles sur vos projets préférés, et plus encore!"
   },
   "auth.welcome.label.tos": {
     "message": "En créant un compte, vous acceptez les <terms-link>Conditions d'utilisation</terms-link> et la <privacy-policy-link>Politique de confidentialité</privacy-policy-link> de Modrinth."
   },
   "auth.welcome.long-title": {
-    "message": "Bienvenue sur Modrinth !"
+    "message": "Bienvenue sur Modrinth!"
   },
   "auth.welcome.title": {
     "message": "Bienvenue"
@@ -174,7 +174,7 @@
     "message": "Continuer"
   },
   "button.create-a-project": {
-    "message": "Créer un projet"
+    "message": "Nouveau projet"
   },
   "button.edit": {
     "message": "Modifier"
@@ -192,7 +192,7 @@
     "message": "Se déconnecter"
   },
   "button.upload-image": {
-    "message": "Importer une image"
+    "message": "Téléverser une image"
   },
   "collection.button.delete-icon": {
     "message": "Supprimer l'icône"
@@ -204,10 +204,10 @@
     "message": "Supprimer le projet"
   },
   "collection.button.unfollow-project": {
-    "message": "Ne plus suivre le projet"
+    "message": "Se désabonner du projet"
   },
   "collection.button.upload-icon": {
-    "message": "Importer une icône"
+    "message": "Téléverser une icône"
   },
   "collection.delete-modal.description": {
     "message": "Cette action supprimera définitivement cette collection. Cette action ne peut être annulée."
@@ -231,10 +231,10 @@
     "message": "Créée {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Organisée par"
+    "message": "Créé par"
   },
   "collection.label.no-projects": {
-    "message": "Cette collection ne comporte aucun projet !"
+    "message": "Cette collection ne comporte aucun projet!"
   },
   "collection.label.no-projects-auth": {
     "message": "Vous n'avez aucun projet.\nSouhaitez-vous <create-link>en ajouter un</create-link> ?"
@@ -798,7 +798,7 @@
     "message": "Activer ou désactiver certaines fonctionnalités sur cet appareil."
   },
   "settings.display.flags.title": {
-    "message": "Toggle features"
+    "message": "Activer/désactiver les fonctionnalités"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Page des packs de données"
