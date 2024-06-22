@@ -96,7 +96,7 @@
     "message": "Kullanıcı adı"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "Bir hesap oluşturarak, Modrinth'in <terms-link>Kurallar</terms-link> ve <privacy-policy-link>Gizlilik İlkeleri </privacy-policy-link>'ni kabul edersiniz."
+    "message": "Bir hesap oluşturarak, Modrinth'in <terms-link>Kurallar</terms-link> ve <privacy-policy-link>Gizlilik İlkeleri </privacy-policy-link>'ni kabul etmiş bulunursunuz."
   },
   "auth.sign-up.notification.password-mismatch.text": {
     "message": "Parolalar uyuşmuyor!"
@@ -126,7 +126,7 @@
     "message": "Giriş yap"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "E-postanız zaten doğrulanmış!"
+    "message": "E-postanız önceden doğrulanmış!"
   },
   "auth.verify-email.already-verified.title": {
     "message": "E-posta zaten doğrulanmış"
@@ -138,7 +138,7 @@
     "message": "E-postanızı doğrulayamadık. Doğrulama e-postasını gösterge panelinizin üzerinden yeniden göndermeyi deneyin."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "E-postanı doğrulayamadık. Doğrulama e-postasını, aşağıdaki tuşla yeniden yollamayı dene."
+    "message": "E-postanı doğrulayamadık. Doğrulama e-postasını, aşağıdaki tuşla yeniden yollamayı deneyin."
   },
   "auth.verify-email.failed-verification.title": {
     "message": "E-posta doğrulaması başarısız"
@@ -210,13 +210,13 @@
     "message": "Simge yükle"
   },
   "collection.delete-modal.description": {
-    "message": "Bu işlem, koleksiyonu sonsuza dek kaldıracak. Bu eylem geri alınamaz."
+    "message": "Bu işlem, seçilen koleksiyonu sonsuza dek kaldıracak. Bu eylem geri alınamaz."
   },
   "collection.delete-modal.title": {
     "message": "Bu koleksiyonu silmek istediğinizden emin misiniz?"
   },
   "collection.description": {
-    "message": "{description} - Modrinth'te {username} tarafından yaratılan {name} koleksiyonunu göster"
+    "message": "{description} - Modrinth'te {username} tarafından oluşturulan {name} koleksiyonunu göster"
   },
   "collection.description.following": {
     "message": "Takip ettiğin projelerden otomatik oluşturulmuş koleksiyon."
@@ -234,7 +234,7 @@
     "message": "Hazırlayan"
   },
   "collection.label.no-projects": {
-    "message": "Bu koleksiyonun hiçbir projesi yok!"
+    "message": "Bu koleksiyonun projesi yok!"
   },
   "collection.label.no-projects-auth": {
     "message": "Herhangi bir projeniz yok.\n<create-link>Yeni bir tane</create-link> eklemek ister miydiniz?"
@@ -246,7 +246,7 @@
     "message": "Gizli"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> proje} other {<stat>{count}</stat> proje}}"
+    "message": "{count, plural, one {<stat>{count}</stat> proje} other {<stat>{count}</stat> projeler}}"
   },
   "collection.label.updated-at": {
     "message": "{ago} önce güncellendi"
@@ -258,7 +258,7 @@
     "message": "Yeni oluştur"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} proje} other {{count} proje}}"
+    "message": "{count, plural, one {{count} proje} other {{count} projeler}}"
   },
   "dashboard.collections.label.search-input": {
     "message": "Koleksiyonlarını ara"
