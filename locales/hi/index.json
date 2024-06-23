@@ -69,13 +69,13 @@
     "message": "<forgot-password-link>forgot-password-link></forgot-password-link> • <create-account-link>एक खाता बनाएं</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "ईमेल या उपयोगिनाम"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "गुप्त शब्द"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "इनके साथ साइन इन करें"
   },
   "auth.sign-in.title": {
     "message": "Sign In"
