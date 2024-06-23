@@ -1,9 +1,9 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Autorisé"
+    "message": "Autoriser"
   },
   "auth.authorize.action.decline": {
-    "message": "Refusé"
+    "message": "Refuser"
   },
   "auth.authorize.app-info": {
     "message": "<strong>{appName}</strong> par <creator-link>{creator}</creator-link> sera capable de:"
@@ -243,19 +243,19 @@
     "message": "Propriétaire"
   },
   "collection.label.private": {
-    "message": "Privé"
+    "message": "Privée"
   },
   "collection.label.projects-count": {
     "message": "{count, plural, one {<stat>{count}</stat> projet} other {<stat>{count}</stat> projets}}"
   },
   "collection.label.updated-at": {
-    "message": "Mise à jour {ago}"
+    "message": "Mis à jour il y a {ago}"
   },
   "collection.title": {
     "message": "{name} - Collection"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Créer une nouvelle"
+    "message": "Nouvelle collection"
   },
   "dashboard.collections.label.projects-count": {
     "message": "{count, plural, one {{count} projet} other {{count} projets}}"
@@ -270,10 +270,10 @@
     "message": "Vous avez été grenouillé ! 🐸"
   },
   "frog.altText": {
-    "message": "Un tableau photoréaliste d'un labyrinthe amphibien"
+    "message": "Un tableau photoréaliste d'un labyrinthe batracien"
   },
   "frog.froggedPeople": {
-    "message": "{count, plural, one {{count} Autre personne a été grenouillée !} other {{count} Autres personnes ont été grenouillées !}}"
+    "message": "{count, plural, one {{count} autre personne a été grenouillée !} other {{count} autres personnes ont été grenouillées !}}"
   },
   "frog.sinceOpened": {
     "message": "Cette page a été ouverte {ago}"
@@ -282,10 +282,10 @@
     "message": "Grenouille"
   },
   "input.view.gallery": {
-    "message": "Vue en galerie"
+    "message": "Voir en mode gallerie"
   },
   "input.view.grid": {
-    "message": "Vue en grille"
+    "message": "Voir en mode grille"
   },
   "input.view.list": {
     "message": "Vue en lignes"
