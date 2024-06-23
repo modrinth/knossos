@@ -3,22 +3,22 @@
     "message": "Autoriser"
   },
   "auth.authorize.action.decline": {
-    "message": "Rejeter"
+    "message": "Décliner"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> par <creator-link>{creator}</creator-link> pourra :"
+    "message": "<strong>{appName}</strong> de <creator-link>{creator}</creator-link> pourra:"
   },
   "auth.authorize.authorize-app-name": {
     "message": "Autoriser {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "Aucun lieu de redirection trouvé dans la réponse"
+    "message": "Aucune redirection trouvée dans la réponse"
   },
   "auth.authorize.redirect-url": {
     "message": "Vous allez être redirigé vers <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Envoyer l'e-mail de réinitialisation"
+    "message": "Envoyer un e-mail de récupération"
   },
   "auth.reset-password.method-choice.description": {
     "message": "Entrez votre adresse email ci-dessous et nous vous enverrons un lien de récupération pour vous permettre de récupérer votre compte."
@@ -69,13 +69,13 @@
     "message": "<forgot-password-link>Mot de passe oublié ?</forgot-password-link> • <create-account-link>Créer un compte</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Courriel ou nom d'utilisateur"
+    "message": "Email ou nom d'utilisateur"
   },
   "auth.sign-in.password.label": {
     "message": "Mot de passe"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Se connecter avec"
+    "message": "S'inscrire avec"
   },
   "auth.sign-in.title": {
     "message": "Se connecter"
@@ -99,13 +99,13 @@
     "message": "En créant un compte, vous acceptez les <terms-link>Conditions d'utilisation</terms-link> et la <privacy-policy-link>Politique de confidentialité</privacy-policy-link> de Modrinth."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Les mots de passe ne correspondent pas!"
+    "message": "Les deux mots de passe ne sont pas identiques."
   },
   "auth.sign-up.password.label": {
     "message": "Mot de passe"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Avez-vous déjà un compte?"
+    "message": "Vous avez déjà un compte ?"
   },
   "auth.sign-up.subscribe.label": {
     "message": "S'abonner aux mises à jour de Modrinth"
@@ -114,7 +114,7 @@
     "message": "S'inscrire"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Ou créez vous-même un compte"
+    "message": "Ou créer un compte vous-même"
   },
   "auth.sign-up.title.sign-up-with": {
     "message": "S'inscrire avec"
@@ -798,7 +798,7 @@
     "message": "Activer ou désactiver certaines fonctionnalités sur cet appareil."
   },
   "settings.display.flags.title": {
-    "message": "Toggle features"
+    "message": "Activer/désactiver les fonctionnalités"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "Page des packs de données"
