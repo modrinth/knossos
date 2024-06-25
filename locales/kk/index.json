@@ -1,6 +1,6 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Тіркеу"
+    "message": "Құзырлау"
   },
   "auth.authorize.action.decline": {
     "message": "Бас тарту"
@@ -9,7 +9,7 @@
     "message": "<creator-link>{creator}</creator-link> жасаған <strong>{appName}</strong>:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "{appName} тіркеу"
+    "message": "{appName} құзырлау"
   },
   "auth.authorize.error.no-redirect-url": {
     "message": "Кері бағыттар жер таппады"
@@ -21,7 +21,7 @@
     "message": "Қалпына келтіру хатын жіберу"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Email-іңізді төменге жазыңыз, тіркелгіңізді қалпына келтіретін растау кодын жібереміз."
+    "message": "Тіркелгіңізді қалпына келтіретін растау кодын жіберу үшін email-іңізді төменге жазыңыз."
   },
   "auth.reset-password.method-choice.email-username.label": {
     "message": "Email не логин"
@@ -33,7 +33,7 @@
     "message": "Email-іңіз тіркелгіңізге сақталған болса, сізге нұсқаулы хат жібергілен болуы керек."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email жіберілді"
+    "message": "Хат жіберілді"
   },
   "auth.reset-password.notification.password-reset.text": {
     "message": "Енді тіркелгіңізге жаңа құпиясөзді енгізіп кіре аласыз."
