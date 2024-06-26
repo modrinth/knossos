@@ -39,7 +39,7 @@
     "message": "Енді тіркелгіңізге жаңа құпиясөзді енгізіп кіре аласыз."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Құпиясөз өзгерді"
+    "message": "Құпиясөз сәтті өзгертілді"
   },
   "auth.reset-password.post-challenge.action": {
     "message": "Құпиясөзді өзгерту"
@@ -66,7 +66,7 @@
     "message": "Код теру..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Құпиясөзді ұмытып қалдыңыз ба?</forgot-password-link> • <create-account-link>Жаңадан тіркелу</create-account-link>"
+    "message": "<forgot-password-link>Құпиясөзді ұмыттыңыз ба?</forgot-password-link> • <create-account-link>Жаңадан тіркелу</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
     "message": "Email немесе логин"
@@ -75,7 +75,7 @@
     "message": "Құпиясөз"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Мынадан кіріңіз"
+    "message": "Кіру көздері"
   },
   "auth.sign-in.title": {
     "message": "Кіру"
@@ -99,7 +99,7 @@
     "message": "Тіркелгеніңіз — Modrinth <terms-link>Шарты</terms-link> мен <privacy-policy-link>Құпиялық саясатымен</privacy-policy-link> келіскеніңіз."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Құпиясөз бірдей емес!"
+    "message": "Құпиясөз сәйкес емес!"
   },
   "auth.sign-up.password.label": {
     "message": "Құпиясөз"
@@ -108,19 +108,19 @@
     "message": "Тіркелгіңіз бар ма?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Modrinth-тен жаңалық ап тұру"
+    "message": "Modrinth-тен жаңалық алып тұру"
   },
   "auth.sign-up.title": {
     "message": "Тіркелу"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Немесе жаңадан тіркеліп алыңыз"
+    "message": "Немесе жаңадан тіркеліңіз"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Мынадан тіркеліңіз"
+    "message": "Тіркелу көздері"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Тіркелгі баптау"
+    "message": "Тіркелгі баптаулары"
   },
   "auth.verify-email.action.sign-in": {
     "message": "Кіру"
@@ -141,7 +141,7 @@
     "message": "Email-іңізді растай алмадық. Төмендегі батырманы басып, растау хатын қайта жібертіп көріңіз."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email расталмай қалды"
+    "message": "Email растау сәтсіздігі"
   },
   "auth.verify-email.post-verification.description": {
     "message": "Email-іңіздің мекенжайы расталды!"
@@ -153,7 +153,7 @@
     "message": "Email-імді растау"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Modrinth-тен жаңалық ап тұру"
+    "message": "Modrinth жайлы жаңалықтарға жазылу"
   },
   "auth.welcome.description": {
     "message": "Тіркелгеніңізге рахмет. Енді біреуге жазыла аласыз, жоба аша аласыз, сүйікті жобаңыздан жаңалық ести аласыз, және тағысын тағы!"
@@ -183,7 +183,7 @@
     "message": "Сақтау"
   },
   "button.save-changes": {
-    "message": "Өзгерісін сақтау"
+    "message": "Өзгерістерді сақтау"
   },
   "button.sign-in": {
     "message": "Кіру"
@@ -192,7 +192,7 @@
     "message": "Шығу"
   },
   "button.upload-image": {
-    "message": "Сурет жүктеп салу"
+    "message": "Сурет жүктеу"
   },
   "collection.button.delete-icon": {
     "message": "Белгішені жою"
@@ -201,13 +201,13 @@
     "message": "Белгішені өңдеу"
   },
   "collection.button.remove-project": {
-    "message": "Жобаны ап тастау"
+    "message": "Жобаны жою"
   },
   "collection.button.unfollow-project": {
     "message": "Жобаға жазылмау"
   },
   "collection.button.upload-icon": {
-    "message": "Белгіше жүктеп салу"
+    "message": "Белгіше жүктеу"
   },
   "collection.delete-modal.description": {
     "message": "Топтама біржола жойылады. Бұл әрекетті кері қайтара алмайсыз."
@@ -219,7 +219,7 @@
     "message": "{description} - Modrinth-те {username} жасаған {name} топтамасын көру"
   },
   "collection.description.following": {
-    "message": "Жазылған жобаңыздың бәрі жиналған топтама."
+    "message": "Сіз жазылған жобалардың негізінде өздігінен құралған топтама."
   },
   "collection.error.not-found": {
     "message": "Топтама табылмады"
@@ -228,7 +228,7 @@
     "message": "Топтама"
   },
   "collection.label.created-at": {
-    "message": "{ago} бұрын жасалған"
+    "message": "{ago} жасалған"
   },
   "collection.label.curated-by": {
     "message": "Жетекшісі"
@@ -246,10 +246,10 @@
     "message": "Жеке"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> жоба} other {<stat>{count}</stat> жоба}}"
+    "message": "{count, plural, other {<stat>{count}</stat> жоба}}"
   },
   "collection.label.updated-at": {
-    "message": "{ago} бұрын жаңарған"
+    "message": "{ago} жаңарған"
   },
   "collection.title": {
     "message": "{name} - топтамасы"
@@ -258,10 +258,10 @@
     "message": "Жаңасын ашу"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} жоба} other {{count} жоба}}"
+    "message": "{count, plural, other {{count} жоба}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Топтамаңыздың арасынан іздеңіз"
+    "message": "Топтамалар арасынан іздеу"
   },
   "dashboard.collections.long-title": {
     "message": "Топтамаларыңыз"
@@ -273,10 +273,10 @@
     "message": "Шын бақадан аумайтын шырғалаң"
   },
   "frog.froggedPeople": {
-    "message": "Тағы {count, plural, one {{count} адам} other {{count} адам}} да бақаланып қапты!"
+    "message": "Тағы {count, plural, other {{count} адам}} да бақаланып қалды!"
   },
   "frog.sinceOpened": {
-    "message": "Бұл бет {ago} бұрын ашылған"
+    "message": "Бұл бет {ago} ашылған"
   },
   "frog.title": {
     "message": "Бақа"
@@ -294,10 +294,10 @@
     "message": "Өзгеріс сақталды"
   },
   "label.collections": {
-    "message": "Топтама"
+    "message": "Топтамалар"
   },
   "label.created-ago": {
-    "message": "{ago} бұрын жасалған"
+    "message": "{ago} жасалған"
   },
   "label.dashboard": {
     "message": "Сараптама"
@@ -312,13 +312,13 @@
     "message": "Қате"
   },
   "label.followed-projects": {
-    "message": "Таңдаулы жоба"
+    "message": "Таңдаулы жобалар"
   },
   "label.moderation": {
     "message": "Модерация"
   },
   "label.notifications": {
-    "message": "Мәлімдеме"
+    "message": "Мәлімдемелер"
   },
   "label.password": {
     "message": "Құпиясөз"
@@ -339,7 +339,7 @@
     "message": "Тақырыбы"
   },
   "label.unlisted": {
-    "message": "Жасырылды"
+    "message": "Жасырын"
   },
   "label.visibility": {
     "message": "Көрінуі"
@@ -348,7 +348,7 @@
     "message": "Бейініңізді ашыңыз"
   },
   "layout.action.change-theme": {
-    "message": "Кейпін өзгерту"
+    "message": "Кейіпті өзгерту"
   },
   "layout.action.get-modrinth-app": {
     "message": "Modrinth қолданбасын орнату"
@@ -357,22 +357,22 @@
     "message": "Бейнеңіз"
   },
   "layout.banner.add-email.button": {
-    "message": "Тіркелгі баптауын ашыңыз"
+    "message": "Тіркелгі баптауын ашу"
   },
   "layout.banner.add-email.title": {
-    "message": "Қауіпсіздік мақсатында Modrinth-ке email-іңізді тіркеп қойыңызшы."
+    "message": "Қауіпсіздік мақсатында Modrinth-ке email-іңізді тіркеуіңізді сұраймыз."
   },
   "layout.banner.staging.description": {
-    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+    "message": "Әзірлеу ортасы Modrinth дерекқорының көшірмесімен жұмыс істейді. Ол Modrinth бэкенді мен фронтэндінің қалыпты нұсқасынан бөлек, жұмыс барысында болуы мүмкін нұcқаларды тексеру мен қатесін жөндеу мақсатында қолданылады."
   },
   "layout.banner.staging.title": {
-    "message": "Көз алдыңызда — Modrinth-ті әзірлейтін жер."
+    "message": "Көз алдыңызда — Modrinth-тің әзірлеу ортасы."
   },
   "layout.banner.verify-email.action": {
     "message": "Растау хатын қайта жөнелту"
   },
   "layout.banner.verify-email.title": {
-    "message": "Қауіпсіздік мақсатында Modrinth-ке email-іңізді тіркеп қойыңызшы."
+    "message": "Қауіпсіздік мақсатында Modrinth-ке email-іңізді растауыңызды сұраймыз."
   },
   "layout.footer.company.careers": {
     "message": "Мансап"
@@ -381,10 +381,10 @@
     "message": "Құпиялық"
   },
   "layout.footer.company.rules": {
-    "message": "Ереже"
+    "message": "Ережелер"
   },
   "layout.footer.company.terms": {
-    "message": "Шарт"
+    "message": "Шарттар"
   },
   "layout.footer.company.title": {
     "message": "Компания"
@@ -402,7 +402,7 @@
     "message": "Блог"
   },
   "layout.footer.resources.docs": {
-    "message": "Құжат"
+    "message": "Құжаттар"
   },
   "layout.footer.resources.status": {
     "message": "Күйі"
@@ -411,13 +411,13 @@
     "message": "Жәрдем"
   },
   "layout.footer.resources.title": {
-    "message": "Дереккөз"
+    "message": "Деректер"
   },
   "layout.menu-toggle.action": {
     "message": "Мәзір"
   },
   "layout.meta.description": {
-    "message": "Modrinth-тен Minecraft-қа мод, плагин, дерек жинағын, шейдер, ресурс жинағын және мод жинағын орнатып ал. Ыңғайлы интерфейсі мен API-і бар Modrinth-тен жоба тап, жоба баста."
+    "message": "Modrinth-тен Minecraft-қа мод, плагин, дерек жинағын, шейдер, ресурс жинағын және мод жинағын орнатыңыз. Ыңғайлы бет-бейнесі мен API-ы бар Modrinth-те жобаларды табыңыз, не жариялаңыз."
   },
   "layout.meta.og-description": {
     "message": "Minecraft-қа контент тап я жаса!"
@@ -429,10 +429,10 @@
     "message": "Іздеу"
   },
   "notification.error.title": {
-    "message": "Қате шықты"
+    "message": "Қате орын алды"
   },
   "profile.button.manage-projects": {
-    "message": "Жоба реттеу"
+    "message": "Жобаларды реттеу"
   },
   "profile.button.report": {
     "message": "Шағыну"
@@ -441,7 +441,7 @@
     "message": "Қолданушы табылмады"
   },
   "profile.joined-at": {
-    "message": "{ago} бұрын қосылған"
+    "message": "{ago} қосылған"
   },
   "profile.label.no-collections": {
     "message": "Бір де бір топтамасы жоқ екен!"
