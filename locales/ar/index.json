@@ -1,6 +1,6 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "السماح"
+    "message": "يأذن"
   },
   "auth.authorize.action.decline": {
     "message": "رفض"
