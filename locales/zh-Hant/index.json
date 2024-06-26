@@ -804,7 +804,7 @@
     "message": "資料包頁面"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "選擇您在這部裝置上偏好的專案頁面版面配置。"
+    "message": "依偏好選用在這部裝置上的每個顯示專案清單頁面的版面配置。"
   },
   "settings.display.project-list-layouts.mod": {
     "message": "模組頁面"
@@ -861,7 +861,7 @@
     "message": "深色"
   },
   "settings.display.theme.description": {
-    "message": "選擇您在這部裝置上偏好的 Modrinth 色彩主題。"
+    "message": "依偏好選用在這部裝置上的 Modrinth 色彩主題。"
   },
   "settings.display.theme.light": {
     "message": "淺色"
