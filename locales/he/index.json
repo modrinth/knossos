@@ -6,10 +6,10 @@
     "message": "דחה"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> על ידי <creator-link>{creator}</creator-link> יוכל:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "תאשר {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
     "message": "No redirect location found in response"
@@ -66,7 +66,7 @@
     "message": "הכנס קוד..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>שכחת את הסיסמה?</forgot-password-link> • <create-account-link>צור משתמש</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
     "message": "אימייל או שם משתמש"
