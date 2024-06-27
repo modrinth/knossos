@@ -57,7 +57,7 @@
     "message": "Reset passwordmu"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Tolong masukkan kode otentikasi dua langkah untuk melanjutkan."
   },
   "auth.sign-in.2fa.label": {
     "message": "Masukkan kode dua-faktor"
@@ -66,7 +66,7 @@
     "message": "Masukkan kode..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Lupa password?</forgot-password-link> • <create-account-link>Buat akun</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
     "message": "Surel atau nama pengguna"
@@ -111,28 +111,28 @@
     "message": "Subscribe to updates about Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Daftar"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Atau buat akunmu sendiri"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Daftar dengan"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Setelan akun"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Masuk"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "Email sudah terverifikasi!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "Email sudah terverifikasi"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Kirim ulang email verifikasi"
   },
   "auth.verify-email.failed-verification.description": {
     "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
@@ -186,34 +186,34 @@
     "message": "Save changes"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "Masuk"
   },
   "button.sign-out": {
-    "message": "Sign out"
+    "message": "Keluar"
   },
   "button.upload-image": {
-    "message": "Upload image"
+    "message": "Unggah gambar"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Hapus ikon"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Edit ikon"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Hapus projek"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Batal ikuti projek"
   },
   "collection.button.upload-icon": {
-    "message": "Upload icon"
+    "message": "Unggah ikon"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "Ini akan menghapus koleksi ini selamanya. Tindakan ini tidak dapat diurungkan."
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "Anda yakin ingin menghapus koleksi ini?"
   },
   "collection.description": {
     "message": "{description} - View the collection {name} by {username} on Modrinth"
