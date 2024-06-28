@@ -96,7 +96,7 @@
     "message": "שם משתמש"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "ביצירת חשבון אתה מסכים ל<terms-link>תנאים</terms-link> ו<privacy-policy-link>תנאי הפרטיות</privacy-policy-link> של Modrinth."
   },
   "auth.sign-up.notification.password-mismatch.text": {
     "message": "הסיסמאות אינן תואמות!"
