@@ -1,0 +1,1040 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "Godkend"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Afslå"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> af <creator-link>{creator}</creator-link> vil kunne:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Godkend {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "Ingen omdirigeringslokation fundet i svaret"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "Du omdirigeres til <redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "Send gendannelses e-mail"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Indtast din e-mail nedenfor, så sender vi et gendannelseslink, så du kan gendanne din konto."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "E-mail eller brugernavn"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "E-mail"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "En e-mail med instruktioner er blevet sendt til dig, hvis e-mailen tidligere er blevet gemt på din konto."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "E-mail sendt"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "Du kan nu logge ind på din konto med din nye adgangskode."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Adgangskode blev nulstillet."
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Nulstil adgangskode"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Bekræft adgangskode"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Indtast din nye adgangskode nedenfor for at få adgang til din konto."
+  },
+  "auth.reset-password.title": {
+    "message": "Nulstil Adgangskode"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Nulstil din adgangskode"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Indtast venligst en tofaktorkode for at fortsætte."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Indtast venligst en tofaktorkode for at fortsætte."
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Indtast kode..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Glemt adgangskode?</forgot-password-link> • <create-account-link>Opret en konto</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "E-mail eller brugernavn"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Adgangskode"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Log ind med"
+  },
+  "auth.sign-in.title": {
+    "message": "Log ind"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Eller brug en adgangskode"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Opret konto"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Bekræft adgangskode"
+  },
+  "auth.sign-up.email.label": {
+    "message": "E-mail"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Brugernavn"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "Ved at oprette en konto accepterer du Modrinths <terms-link>Vilkår</terms-link> og <privacy-policy-link>Privatlivspolitik</privacy-policy-link>."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Adgangskoder matcher ikke!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Adgangskode"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Har du allerede en konto?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Abonnér på opdateringer om Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Tilmeld dig"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Eller opret en konto selv"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Tilmeld dig med"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Kontoindstillinger"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Log ind"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "Din e-mail er allerede bekræftet!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "E-mail allerede bekræftet"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Send bekræftelsesmail igen"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "Vi var ikke i stand til at bekræfte din e-mail. Prøv at sende bekræftelses-e-mailen igen via dit betjeningspanel ved at logge ind."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "Vi kunne ikke bekræfte din e-mail. Prøv at sende bekræftelsesmailen igen via knappen nedenfor."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "E-mailbekræftelse mislykkedes"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "Din e-mailadresse er blevet bekræftet!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "E-mailbekræftelse"
+  },
+  "auth.verify-email.title": {
+    "message": "Bekræft E-mail"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Abonnér til opdateringer om Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Tak, fordi du oprettede en konto. Du kan nu følge og oprette projekter, modtage opdateringer om dine yndlingsprojekter og meget mere!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Ved at oprette en konto, accepterer du Modrinth's <terms-link>Vilkår</terms-link> og <privacy-policy-link>Privatlivspolitik</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Velkommen til Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Velkommen"
+  },
+  "button.cancel": {
+    "message": "Annuller"
+  },
+  "button.continue": {
+    "message": "Fortsæt"
+  },
+  "button.create-a-project": {
+    "message": "Opret et projekt"
+  },
+  "button.edit": {
+    "message": "Rediger"
+  },
+  "button.save": {
+    "message": "Gem"
+  },
+  "button.save-changes": {
+    "message": "Gem ændringer"
+  },
+  "button.sign-in": {
+    "message": "Log ind"
+  },
+  "button.sign-out": {
+    "message": "Log ud"
+  },
+  "button.upload-image": {
+    "message": "Upload billede"
+  },
+  "collection.button.delete-icon": {
+    "message": "Slet ikon"
+  },
+  "collection.button.edit-icon": {
+    "message": "Rediger ikon"
+  },
+  "collection.button.remove-project": {
+    "message": "Fjern projekt"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Stop med at følge projekt"
+  },
+  "collection.button.upload-icon": {
+    "message": "Upload ikon"
+  },
+  "collection.delete-modal.description": {
+    "message": "Dette fjerner samlingen for evigt. Denne handling kan ikke fortrydes."
+  },
+  "collection.delete-modal.title": {
+    "message": "Er du sikker på, at du vil slette denne samling?"
+  },
+  "collection.description": {
+    "message": "{description} - Se samlingen {name} af {username} på Modrinth"
+  },
+  "collection.description.following": {
+    "message": "Auto-genererede samling af alle de projekter, du følger."
+  },
+  "collection.error.not-found": {
+    "message": "Samling ikke fundet"
+  },
+  "collection.label.collection": {
+    "message": "Samling"
+  },
+  "collection.label.created-at": {
+    "message": "Oprettet {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Udviklet af"
+  },
+  "collection.label.no-projects": {
+    "message": "Denne samling har ingen projekter!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "Du har ingen projekter.\nØnsker du at <create-link>tilføje en</create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Ejer"
+  },
+  "collection.label.private": {
+    "message": "Privat"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> projekt} other {<stat>{count}</stat> projekter}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Opdateret {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - Samling"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Opret ny"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} projekt} other {{count} projekter}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Søg i dine samlinger"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Dine samlinger"
+  },
+  "frog": {
+    "message": "Du er blevet frøleret! 🐸"
+  },
+  "frog.altText": {
+    "message": "Et fotorealistisk maleri af en frø-labyrint"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural, one {{count} anden} other {{count} andre}} blev også frøleret!"
+  },
+  "frog.sinceOpened": {
+    "message": "Denne side blev åbnet {ago}"
+  },
+  "frog.title": {
+    "message": "Frø"
+  },
+  "input.view.gallery": {
+    "message": "Gallerivisning"
+  },
+  "input.view.grid": {
+    "message": "Gittervisning"
+  },
+  "input.view.list": {
+    "message": "Rækkevisning"
+  },
+  "label.changes-saved": {
+    "message": "Ændringer gemt"
+  },
+  "label.collections": {
+    "message": "Samlinger"
+  },
+  "label.created-ago": {
+    "message": "Oprettet {ago}"
+  },
+  "label.dashboard": {
+    "message": "Dashboard"
+  },
+  "label.delete": {
+    "message": "Slet"
+  },
+  "label.description": {
+    "message": "Beskrivelse"
+  },
+  "label.error": {
+    "message": "Fejl"
+  },
+  "label.followed-projects": {
+    "message": "Followed projects"
+  },
+  "label.moderation": {
+    "message": "Moderation"
+  },
+  "label.notifications": {
+    "message": "Notifikationer"
+  },
+  "label.password": {
+    "message": "Adgangskode"
+  },
+  "label.public": {
+    "message": "Offentlig"
+  },
+  "label.rejected": {
+    "message": "Afvist"
+  },
+  "label.scopes": {
+    "message": "Scopes"
+  },
+  "label.settings": {
+    "message": "Indstillinger"
+  },
+  "label.title": {
+    "message": "Titel"
+  },
+  "label.unlisted": {
+    "message": "Unlisted"
+  },
+  "label.visibility": {
+    "message": "Synlighed"
+  },
+  "label.visit-your-profile": {
+    "message": "Visit your profile"
+  },
+  "layout.action.change-theme": {
+    "message": "Skift tema"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Hent Modrinth-app"
+  },
+  "layout.avatar.alt": {
+    "message": "Din avatar"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Gå til kontoindstillinger"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Af sikkerhedsmæssige årsager bedes du indtaste din e-mail på Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+  },
+  "layout.banner.staging.title": {
+    "message": "You’re viewing Modrinth’s staging environment."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Re-send verification email"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "For security purposes, please verify your email address on Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Careers"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Privacy"
+  },
+  "layout.footer.company.rules": {
+    "message": "Rules"
+  },
+  "layout.footer.company.terms": {
+    "message": "Terms"
+  },
+  "layout.footer.company.title": {
+    "message": "Company"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interact"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth is <github-link>open source</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Docs"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Support"
+  },
+  "layout.footer.resources.title": {
+    "message": "Resources"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Toggle menu"
+  },
+  "layout.meta.description": {
+    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+  },
+  "layout.meta.og-description": {
+    "message": "Discover and publish Minecraft content!"
+  },
+  "layout.nav.home": {
+    "message": "Home"
+  },
+  "layout.nav.search": {
+    "message": "Search"
+  },
+  "notification.error.title": {
+    "message": "Der opstod en fejl"
+  },
+  "profile.button.manage-projects": {
+    "message": "Administrer projekter"
+  },
+  "profile.button.report": {
+    "message": "Anmeld"
+  },
+  "profile.error.not-found": {
+    "message": "Bruger ikke fundet"
+  },
+  "profile.joined-at": {
+    "message": "Tilmeldt {ago}"
+  },
+  "profile.label.no-collections": {
+    "message": "This user has no collections!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Du har ikke nogen samlinger.\nVil du gerne <create-link>oprette et</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "Denne bruger har ingen projekter!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "Du har ikke nogen projekter.\nVil du gerne <create-link>oprette et</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Organizations"
+  },
+  "profile.meta.description": {
+    "message": "Hent {username}'s projekter på Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Hent {username}'s projekter på Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> følger} other {<stat>{count}</stat> følgere}}"
+  },
+  "profile.user-id": {
+    "message": "Bruger-ID: {id}"
+  },
+  "project-type.all": {
+    "message": "Alle"
+  },
+  "project-type.collection.plural": {
+    "message": "Samlinger"
+  },
+  "project-type.collection.singular": {
+    "message": "Samling"
+  },
+  "project-type.datapack.plural": {
+    "message": "Datapakker"
+  },
+  "project-type.datapack.singular": {
+    "message": "Datapakke"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projekter"
+  },
+  "project-type.project.singular": {
+    "message": "Projekt"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Ressourcepakker"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Ressourcepakke"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
+  },
+  "revenue.transfers.total": {
+    "message": "You have withdrawn {amount} in total."
+  },
+  "revenue.transfers.total.method": {
+    "message": "You have withdrawn {amount} through {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "You have withdrawn {amount} in {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "You have withdrawn {amount} in {year} through {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "Access your analytics data"
+  },
+  "scopes.analytics.label": {
+    "message": "Read analytics"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Create collections"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Create collections"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Delete collections"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Delete collections"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Read collections"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Read collections"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Write to collections"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Write collections"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Read your notifications"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Read notifications"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Delete/View your notifications"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Write notifications"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Create organizations"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Create organizations"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Delete organizations"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Slet organisationer"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Læs organisationer"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Læs organisationer"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Skriv til organisationer"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Skriv organisationer"
+  },
+  "scopes.patCreate.description": {
+    "message": "Opret personlige API-tokens"
+  },
+  "scopes.patCreate.label": {
+    "message": "Opret PATs"
+  },
+  "scopes.patDelete.description": {
+    "message": "Slet dine personlige API-tokens"
+  },
+  "scopes.patDelete.label": {
+    "message": "Slet PATs"
+  },
+  "scopes.patRead.description": {
+    "message": "Se oprettede API-tokens"
+  },
+  "scopes.patRead.label": {
+    "message": "Læs PATs"
+  },
+  "scopes.patWrite.description": {
+    "message": "Rediger personlige API-tokens"
+  },
+  "scopes.patWrite.label": {
+    "message": "Skriv PATs"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Læs dine udbetalingsdata"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Læs udbetalinger"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Hæv penge"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Skriv udbetalinger"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Udfør analysehandlinger"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Udfør analyser"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Opret nye projekter"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Opret projekter"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Slet dine projekter"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Slet projekter"
+  },
+  "scopes.projectRead.description": {
+    "message": "Læs alle dine projekter"
+  },
+  "scopes.projectRead.label": {
+    "message": "Læs projekter"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Skriv til projektdata"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Skriv projekter"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Opret rapporter"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Opret rapporter"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Slet rapporter"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Slet rapporter"
+  },
+  "scopes.reportRead.description": {
+    "message": "Læs rapporter"
+  },
+  "scopes.reportRead.label": {
+    "message": "Læs rapporter"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Rediger rapporter"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Skriv rapporter"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Tilgå modrinth-udstedte sessioner"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Tilgå sessioner"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Slet sessioner"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Slet sessioner"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Læs aktive sessioner"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Læs sessioner"
+  },
+  "scopes.threadRead.description": {
+    "message": "Læs tråde"
+  },
+  "scopes.threadRead.label": {
+    "message": "Læs tråde"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Skriv til tråde"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Skriv tråde"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Ændr dine godkendelsesdata"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Skriv godkendelsesdata"
+  },
+  "scopes.userDelete.description": {
+    "message": "Slet din konto"
+  },
+  "scopes.userDelete.label": {
+    "message": "Slet din konto"
+  },
+  "scopes.userRead.description": {
+    "message": "Tilgå dine offentlige profiloplysninger"
+  },
+  "scopes.userRead.label": {
+    "message": "Read user data"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Read your email"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Read user email"
+  },
+  "scopes.userWrite.description": {
+    "message": "Write to your profile"
+  },
+  "scopes.userWrite.label": {
+    "message": "Write user data"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Create new versions"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Create versions"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Delete a version"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Delete versions"
+  },
+  "scopes.versionRead.description": {
+    "message": "Read all versions"
+  },
+  "scopes.versionRead.label": {
+    "message": "Read versions"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Write to version data"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Write versions"
+  },
+  "settings.account.title": {
+    "message": "Account and security"
+  },
+  "settings.appearance.title": {
+    "message": "Appearance"
+  },
+  "settings.applications.title": {
+    "message": "Your applications"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Authorized apps"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Deactivate developer mode"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+  },
+  "settings.display.flags.description": {
+    "message": "Enable or disable certain features on this device."
+  },
+  "settings.display.flags.title": {
+    "message": "Toggle features"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Data Packs page"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Select your preferred layout for each page that displays project lists on this device."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Mods page"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Modpacks page"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Plugins page"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Resource Packs page"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Shaders page"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Project list layouts"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "User profile pages"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Advanced rendering"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Open external links in new tab"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Hide Modrinth App promotions"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Aligns the project details sidebar to the right of the page's content."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Right-aligned project sidebar"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Aligns the search filters sidebar to the right of the search results."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Right-aligned search sidebar"
+  },
+  "settings.display.theme.dark": {
+    "message": "Dark"
+  },
+  "settings.display.theme.description": {
+    "message": "Select your preferred color theme for Modrinth on this device."
+  },
+  "settings.display.theme.light": {
+    "message": "Light"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Preferred dark theme"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Preferred light theme"
+  },
+  "settings.display.theme.retro": {
+    "message": "Retro"
+  },
+  "settings.display.theme.system": {
+    "message": "Sync with system"
+  },
+  "settings.display.theme.title": {
+    "message": "Color theme"
+  },
+  "settings.language.categories.auto": {
+    "message": "Automatisk"
+  },
+  "settings.language.categories.default": {
+    "message": "Standard sprog"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Eksperimentelle sprog"
+  },
+  "settings.language.categories.fun": {
+    "message": "Sjove sprog"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Søgeresultater"
+  },
+  "settings.language.description": {
+    "message": "Vælg dit foretrukne sprog for hjemmesiden. Oversættelser er bidraget af frivillige <crowdin-link>på Crowdin</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Synkroniser med systemsproget"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Anvender..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Fejl"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Kan ikke indlæse dette sprog. Prøv igen om lidt."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Indsend for at fokusere det første søgeresultat"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Søg efter et sprog..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {Ingen sprog passer} other {# sprog passer}} din søgning."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "Ingen sprog passer din søgning."
+  },
+  "settings.language.title": {
+    "message": "Sprog"
+  },
+  "settings.pats.action.create": {
+    "message": "Create a PAT"
+  },
+  "settings.pats.description": {
+    "message": "PATs kan bruges til at tilgå Modrinth's API. For flere oplysninger, se <doc-link>Modrinth's API-dokumentation</doc-link>. De kan oprettes og tilbagekaldes når som helst."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Opret PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Udløber"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Navn"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Indtast PAT's navn..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Opret personlig adgangstoken"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Slet denne token"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "Denne fjerner denne token for evigt (altså, virkelig for evigt)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Er du sikker på, at du vil slette denne token?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Rediger personlig adgangstoken"
+  },
+  "settings.pats.title": {
+    "message": "Personlige adgangstokens"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Rediger token"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Tilbagekald token"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Udløb {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Udløber {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Sidst brugt {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Aldrig brugt"
+  },
+  "settings.profile.bio.description": {
+    "message": "En kort beskrivelse, der fortæller alle lidt om dig selv."
+  },
+  "settings.profile.bio.title": {
+    "message": "Bio"
+  },
+  "settings.profile.description": {
+    "message": "Dine profiloplysninger kan ses offentligt på Modrinth og via <docs-link>Modrinth API</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "Profiloplysninger"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Nulstil"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Profilbillede"
+  },
+  "settings.profile.title": {
+    "message": "Offentlig profil"
+  },
+  "settings.profile.username.description": {
+    "message": "A unique case-insensitive name to identify your profile."
+  },
+  "settings.profile.username.title": {
+    "message": "Brugernavn"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Tilbagekald session"
+  },
+  "settings.sessions.created-ago": {
+    "message": "Oprettet {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "Nuværende session"
+  },
+  "settings.sessions.description": {
+    "message": "Her er alle de enheder, der på nuværende tidspunkt er logget på din Modrinth konto. Du kan logge af hver enhed én ad gangen.\n\nHvis du ser en enhed, du ikke genkender, så log ud af den enhed og ændr adgangskoden til din Mondrinth konto med det samme."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "Sidst tilgået {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "Sessioner"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "Ukendt styresystem"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Ukendt platform"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} kl. {time, time, short}"
+  }
+}

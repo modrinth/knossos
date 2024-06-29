@@ -1,0 +1,1040 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "Аўтарызаваць"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Адхіліць"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> ад <creator-link>{creator}</creator-link> зможа:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Аўтарызаваць {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "No redirect location found in response"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "Даслаць ліст аднаўлення"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "Электронная пошта ці імя карыстальніка"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "Электронная пошта"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "Ліст адпраўлены"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "Цяпер вы можаце ўвайсці з вашым новым паролем."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Пароль паспяхова скінуты"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Скінуць пароль"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Пацвердзіце пароль"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Увядзіце ваш новы пароль ніжэй, каб атрымаць доступ да вашага ўліковага запісу."
+  },
+  "auth.reset-password.title": {
+    "message": "Скінуць пароль"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Скід вашага пароля"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Каб працягнуць, увядзіце код двухэтапнай праверкі."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Увядзіце код двухэтапнай праверкі"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Увядзіце код..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Забылі пароль?</forgot-password-link> • <create-account-link>Рэгістрацыя</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "Электронная пошта ці імя карыстальніка"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Пароль"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Увайсці з дапамогай"
+  },
+  "auth.sign-in.title": {
+    "message": "Увайсці"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Ці выкарыстоўвайце пароль"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Стварыць уліковы запіс"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Пацвердзіце пароль"
+  },
+  "auth.sign-up.email.label": {
+    "message": "Электронная пошта"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Імя карыстальніка"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Паролі не супадаюць!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Пароль"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Ужо маеце ўліковы запіс?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Subscribe to updates about Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Рэгістрацыя"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Ці зарэгіструйцеся"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Зарэгістравацца праз"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Налады ўліковага запісу"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Увайсці"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "Ваша электронная пошта пацверджана!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "Электронная пошта пацверджана"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Resend verification email"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "Памылка пацверджання электроннай пошты"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "Your email address has been successfully verified!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "Пацверджанне электроннай пошты"
+  },
+  "auth.verify-email.title": {
+    "message": "Пацвердзіць электронную пошту"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Падпісацца на абнаўленні вакол Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Ствараючы ўліковы запіс, вы пагаджаецеся з нашымі <terms-link>Умовамі</terms-link> і <privacy-policy-link>Палітыкай прыватнасці</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Вітаем на Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Вітаем"
+  },
+  "button.cancel": {
+    "message": "Скасаваць"
+  },
+  "button.continue": {
+    "message": "Працягнуць"
+  },
+  "button.create-a-project": {
+    "message": "Стварыць праект"
+  },
+  "button.edit": {
+    "message": "Рэдагаваць"
+  },
+  "button.save": {
+    "message": "Захаваць"
+  },
+  "button.save-changes": {
+    "message": "Захаваць змены"
+  },
+  "button.sign-in": {
+    "message": "Увайсці"
+  },
+  "button.sign-out": {
+    "message": "Выйсці"
+  },
+  "button.upload-image": {
+    "message": "Запампаваць выяву"
+  },
+  "collection.button.delete-icon": {
+    "message": "Выдаліць іконку"
+  },
+  "collection.button.edit-icon": {
+    "message": "Змяніць іконку"
+  },
+  "collection.button.remove-project": {
+    "message": "Выдаліць праект"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Адпісацца ад праекта"
+  },
+  "collection.button.upload-icon": {
+    "message": "Загрузіць іконку"
+  },
+  "collection.delete-modal.description": {
+    "message": "This will remove this collection forever. This action cannot be undone."
+  },
+  "collection.delete-modal.title": {
+    "message": "Are you sure you want to delete this collection?"
+  },
+  "collection.description": {
+    "message": "{description} - View the collection {name} by {username} on Modrinth"
+  },
+  "collection.description.following": {
+    "message": "Auto-generated collection of all the projects you're following."
+  },
+  "collection.error.not-found": {
+    "message": "Калекцыя не знойдзена"
+  },
+  "collection.label.collection": {
+    "message": "Калекцыя"
+  },
+  "collection.label.created-at": {
+    "message": "Створана {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Курыруецца"
+  },
+  "collection.label.no-projects": {
+    "message": "У гэтай калекцыі няма праектаў!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "У вас няма ніякіх праектаў.\nВы хаціце <create-link>стварыць адзін</create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Уладальнік"
+  },
+  "collection.label.private": {
+    "message": "Прыватны"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural,one {<stat>{count}</stat> праект} other {<stat>{count}</stat>праектаў}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Абноўлены {ago}"
+  },
+  "collection.title": {
+    "message": "Калекцыя {name}"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Стварыць новую"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural,one {{count} праект} other {{count} праектаў}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Пошук у вашых калекцыях"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Вашы калекцыі"
+  },
+  "frog": {
+    "message": "Вас жабнулі! 🐸"
+  },
+  "frog.altText": {
+    "message": "Фотарэлістычны малюнак жабінага лабірынту"
+  },
+  "frog.froggedPeople": {
+    "message": "Акрамя вас, былі жабнуты яшчэ {count, plural, one {{count} чалавек} other {{count} людзей}}!"
+  },
+  "frog.sinceOpened": {
+    "message": "Гэта старонка была адкрыта {ago}"
+  },
+  "frog.title": {
+    "message": "Жаба"
+  },
+  "input.view.gallery": {
+    "message": "Галерэя"
+  },
+  "input.view.grid": {
+    "message": "Сетка"
+  },
+  "input.view.list": {
+    "message": "Спіс"
+  },
+  "label.changes-saved": {
+    "message": "Змяненні захаваны"
+  },
+  "label.collections": {
+    "message": "Калекцыі"
+  },
+  "label.created-ago": {
+    "message": "Створана {ago}"
+  },
+  "label.dashboard": {
+    "message": "Панель кіравання"
+  },
+  "label.delete": {
+    "message": "Выдаліць"
+  },
+  "label.description": {
+    "message": "Апісанне"
+  },
+  "label.error": {
+    "message": "Памылка"
+  },
+  "label.followed-projects": {
+    "message": "Падпіскі"
+  },
+  "label.moderation": {
+    "message": "Мадэрацыя"
+  },
+  "label.notifications": {
+    "message": "Паведамленні"
+  },
+  "label.password": {
+    "message": "Пароль"
+  },
+  "label.public": {
+    "message": "Публічны"
+  },
+  "label.rejected": {
+    "message": "Адхілена"
+  },
+  "label.scopes": {
+    "message": "Дазволы"
+  },
+  "label.settings": {
+    "message": "Налады"
+  },
+  "label.title": {
+    "message": "Назва"
+  },
+  "label.unlisted": {
+    "message": "Непублічны"
+  },
+  "label.visibility": {
+    "message": "Бачнасць"
+  },
+  "label.visit-your-profile": {
+    "message": "Адкрыць профіль"
+  },
+  "layout.action.change-theme": {
+    "message": "Змяніць тэму"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Спампаваць Modrinth App"
+  },
+  "layout.avatar.alt": {
+    "message": "Ваш аватар"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Адкрыць налады ўліковага запісу"
+  },
+  "layout.banner.add-email.title": {
+    "message": "For security purposes, please enter your email on Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+  },
+  "layout.banner.staging.title": {
+    "message": "You’re viewing Modrinth’s staging environment."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Re-send verification email"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "For security purposes, please verify your email address on Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Вакансіі"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Прыватнасць"
+  },
+  "layout.footer.company.rules": {
+    "message": "Правілы"
+  },
+  "layout.footer.company.terms": {
+    "message": "Умовы"
+  },
+  "layout.footer.company.title": {
+    "message": "Кампанія"
+  },
+  "layout.footer.interact.title": {
+    "message": "Супольнасць"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "НЕ З'ЯЎЛЯЕЦЦА АФІЦЫЙНЫМ СЕРВІСАМ MINECRAFT. НЕ ЎХВАЛЕНА І НЕ ЗВЯЗАНА З КАМПАНІЯЙ MOJANG ЦІ MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth гэта <github-link>праект з адкрытым зыходным кодам</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Блог"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Дакументацыя"
+  },
+  "layout.footer.resources.status": {
+    "message": "Статус"
+  },
+  "layout.footer.resources.support": {
+    "message": "Падтрымка"
+  },
+  "layout.footer.resources.title": {
+    "message": "Рэсурсы"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Уключыць меню"
+  },
+  "layout.meta.description": {
+    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+  },
+  "layout.meta.og-description": {
+    "message": "Discover and publish Minecraft content!"
+  },
+  "layout.nav.home": {
+    "message": "Галоўная"
+  },
+  "layout.nav.search": {
+    "message": "Пошук"
+  },
+  "notification.error.title": {
+    "message": "Узнікла памылка"
+  },
+  "profile.button.manage-projects": {
+    "message": "Кіраванне праектамі"
+  },
+  "profile.button.report": {
+    "message": "Паскардзіцца"
+  },
+  "profile.error.not-found": {
+    "message": "Карыстальнік не знойдзены"
+  },
+  "profile.joined-at": {
+    "message": "Далучыўся {ago}"
+  },
+  "profile.label.no-collections": {
+    "message": "У гэтага карыстальніка няма калекцый!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "У вас няма ніводнай калекцыі.\nЦі хаціце вы <create-link>стварыць адну</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "У гэтага карыстальніка няма праектаў!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "У вас яшчэ няма праектаў.\nХаціце <create-link>стварыць адзін</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Арганізацыі"
+  },
+  "profile.meta.description": {
+    "message": "Спампаваць праекты {username} на Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Спампаваць праекты {username} на Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> спампоўка} few {<stat>{count}</stat> спампоўкі} many {<stat>{count}</stat> спамповак} other {<stat>{count}</stat> спампоўкі}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> падпісчык} few {<stat>{count}</stat> падпісчыка} many {<stat>{count}</stat> падпісчыкаў} other {<stat>{count}</stat> падпісчыка}} праектаў"
+  },
+  "profile.user-id": {
+    "message": "Карыстальніцкі ID: {id}"
+  },
+  "project-type.all": {
+    "message": "Усе"
+  },
+  "project-type.collection.plural": {
+    "message": "Калекцыі"
+  },
+  "project-type.collection.singular": {
+    "message": "Калекцыя"
+  },
+  "project-type.datapack.plural": {
+    "message": "Наборы даных"
+  },
+  "project-type.datapack.singular": {
+    "message": "Набор даных"
+  },
+  "project-type.mod.plural": {
+    "message": "Моды"
+  },
+  "project-type.mod.singular": {
+    "message": "Мод"
+  },
+  "project-type.modpack.plural": {
+    "message": "Зборкі"
+  },
+  "project-type.modpack.singular": {
+    "message": "Зборка"
+  },
+  "project-type.plugin.plural": {
+    "message": "Плагіны"
+  },
+  "project-type.plugin.singular": {
+    "message": "Плагін"
+  },
+  "project-type.project.plural": {
+    "message": "Праекты"
+  },
+  "project-type.project.singular": {
+    "message": "Праект"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Пакеты рэсурсаў"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Пакет рэсурсаў"
+  },
+  "project-type.shader.plural": {
+    "message": "Шэйдэры"
+  },
+  "project-type.shader.singular": {
+    "message": "Шэйдэр"
+  },
+  "revenue.transfers.total": {
+    "message": "You have withdrawn {amount} in total."
+  },
+  "revenue.transfers.total.method": {
+    "message": "You have withdrawn {amount} through {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "You have withdrawn {amount} in {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "You have withdrawn {amount} in {year} through {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "Access your analytics data"
+  },
+  "scopes.analytics.label": {
+    "message": "Чытаць аналітыку"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Ствараць калекцыі"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Ствараць калекцыі"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Выдаляць калекцыі"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Выдаляць калекцыі"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Аглядаць калекцыі"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Аглядаць калекцыі"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Запісваць у калекцыі"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Запісваць у калекцыі"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Чытаць вашы паведамленні"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Чытаць вашы паведамленні"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Выдаляць/глядзець вашыя паведамленні"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Запісваць паведамленні"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Ствараць арганізацыі"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Ствараць арганізацыі"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Выдаліць арганізацыі"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Выдаліць арганізацыі"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Чытаць спіс арганізацый"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Чытаць спіс арганізацый"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Змяняць арганізацыі"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Змяняць арганізацыі"
+  },
+  "scopes.patCreate.description": {
+    "message": "Ствараць персанальныя токены API"
+  },
+  "scopes.patCreate.label": {
+    "message": "Стварэнне токенаў доступу"
+  },
+  "scopes.patDelete.description": {
+    "message": "Выдаляць персанальныя токены API"
+  },
+  "scopes.patDelete.label": {
+    "message": "Delete PATs"
+  },
+  "scopes.patRead.description": {
+    "message": "View created API tokens"
+  },
+  "scopes.patRead.label": {
+    "message": "Read PATs"
+  },
+  "scopes.patWrite.description": {
+    "message": "Edit personal API tokens"
+  },
+  "scopes.patWrite.label": {
+    "message": "Write PATs"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Read your payouts data"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Read payouts"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Withdraw money"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Write payouts"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Perform analytics actions"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Perform analytics"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Create new projects"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Create projects"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Delete your projects"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Delete projects"
+  },
+  "scopes.projectRead.description": {
+    "message": "Read all your projects"
+  },
+  "scopes.projectRead.label": {
+    "message": "Read projects"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Write to project data"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Write projects"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Create reports"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Create reports"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Delete reports"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Delete reports"
+  },
+  "scopes.reportRead.description": {
+    "message": "Чытаць спіс скарг"
+  },
+  "scopes.reportRead.label": {
+    "message": "Чытаць спіс скарг"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Змяняць скаргі"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Падаваць скаргі"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Прагляд сесій, створаных Modrinth"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Прагляд сесій"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Сканчэнне сесій"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Сканчэнне сесій"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Read active sessions"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Read sessions"
+  },
+  "scopes.threadRead.description": {
+    "message": "Read threads"
+  },
+  "scopes.threadRead.label": {
+    "message": "Read threads"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Write to threads"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Write threads"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Modify your authentication data"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Write auth data"
+  },
+  "scopes.userDelete.description": {
+    "message": "Delete your account"
+  },
+  "scopes.userDelete.label": {
+    "message": "Delete your account"
+  },
+  "scopes.userRead.description": {
+    "message": "Access your public profile information"
+  },
+  "scopes.userRead.label": {
+    "message": "Read user data"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Read your email"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Read user email"
+  },
+  "scopes.userWrite.description": {
+    "message": "Write to your profile"
+  },
+  "scopes.userWrite.label": {
+    "message": "Write user data"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Create new versions"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Create versions"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Delete a version"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Delete versions"
+  },
+  "scopes.versionRead.description": {
+    "message": "Read all versions"
+  },
+  "scopes.versionRead.label": {
+    "message": "Read versions"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Write to version data"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Write versions"
+  },
+  "settings.account.title": {
+    "message": "Account and security"
+  },
+  "settings.appearance.title": {
+    "message": "Appearance"
+  },
+  "settings.applications.title": {
+    "message": "Your applications"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Authorized apps"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Deactivate developer mode"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+  },
+  "settings.display.flags.description": {
+    "message": "Enable or disable certain features on this device."
+  },
+  "settings.display.flags.title": {
+    "message": "Toggle features"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Data Packs page"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Select your preferred layout for each page that displays project lists on this device."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Mods page"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Modpacks page"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Plugins page"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Resource Packs page"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Shaders page"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Project list layouts"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "User profile pages"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Advanced rendering"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Open external links in new tab"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Hide Modrinth App promotions"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Aligns the project details sidebar to the right of the page's content."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Right-aligned project sidebar"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Aligns the search filters sidebar to the right of the search results."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Right-aligned search sidebar"
+  },
+  "settings.display.theme.dark": {
+    "message": "Цёмная"
+  },
+  "settings.display.theme.description": {
+    "message": "Select your preferred color theme for Modrinth on this device."
+  },
+  "settings.display.theme.light": {
+    "message": "Светлая"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Preferred dark theme"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Preferred light theme"
+  },
+  "settings.display.theme.retro": {
+    "message": "Retro"
+  },
+  "settings.display.theme.system": {
+    "message": "Sync with system"
+  },
+  "settings.display.theme.title": {
+    "message": "Каляровая схема"
+  },
+  "settings.language.categories.auto": {
+    "message": "Аўтаматычна"
+  },
+  "settings.language.categories.default": {
+    "message": "Стандартныя мовы"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Эксперыментальныя мовы"
+  },
+  "settings.language.categories.fun": {
+    "message": "Жартоўныя мовы"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Вынікі пошуку"
+  },
+  "settings.language.description": {
+    "message": "Выберыце мову, якой аддаеце перавагу на гэтым сайце. Пераклады ствараюцца двбрахвотнікамі <crowdin-link>на Crowdin</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Сінхранізаваць з мовай сістэмы"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Прыстасаванне..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Памылка"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Немагчыма загрузіць гэту мову. Паспрабуйце пазней."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Пацвердзіце, каб сфакусіравацца на першым выніку пошуку"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Пошук мовы..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "Па вашаму запыту {matches, plural, =0 {не знайшлося ні воднай мовы} one {знайшлася # мова} few {знайшлося # мовы} many {знайшлося # моў} other {знайшліся # мовы}}."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "Па вашаму запыту не знойдзена ні воднай мовы."
+  },
+  "settings.language.title": {
+    "message": "Мова"
+  },
+  "settings.pats.action.create": {
+    "message": "Create a PAT"
+  },
+  "settings.pats.description": {
+    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Create PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Тэрмін дзеяння:"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Назва"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Enter the PAT's name..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Create personal access token"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Выдаліць гэты токен"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "This will remove this token forever (like really forever)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Are you sure you want to delete this token?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Edit personal access token"
+  },
+  "settings.pats.title": {
+    "message": "Асабістыя токены доступу"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Змяніць токен"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Адазваць токен"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Тэрмін дзеяння: {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Тэрмін дзеяння: {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Апошняя доступ: {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Не выкарыстоўваўся"
+  },
+  "settings.profile.bio.description": {
+    "message": "Магчымасць кораценька распавесці пра сябе."
+  },
+  "settings.profile.bio.title": {
+    "message": "Пра сябе"
+  },
+  "settings.profile.description": {
+    "message": "Інфармацыя вашага профілю публічная на Modrinth і праз <docs-link>Modrinth API</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "Інфармацыя профілю"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Скінуць"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Выява профілю"
+  },
+  "settings.profile.title": {
+    "message": "Профіль карыстальніка"
+  },
+  "settings.profile.username.description": {
+    "message": "Унікальнае імя для ідэнтыфікацыі карыстальніка (адчувальна да рэгістру)."
+  },
+  "settings.profile.username.title": {
+    "message": "Імя карыстальніка"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Спыніць сэсію"
+  },
+  "settings.sessions.created-ago": {
+    "message": "Пачата: {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "Бягучая сесія"
+  },
+  "settings.sessions.description": {
+    "message": "Ніжэй прадстаўлены ўсе прылады, з якіх здзейснены ўваход у ваш уліковы запіс Modrinth. Вы можаце кіраваць сэсіей кожнага з іх асабіста.\n\nКалі сярод іх прыстунічае незнаёмая прылада, імгненна спыніце яго сэсію і змяніце пароль свайго ўліковага запісу."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "Апошняя актыўнасць: {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "Сэсіі"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "Невядомая АС"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Невядомая платформа"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} у {time, time, short}"
+  }
+}

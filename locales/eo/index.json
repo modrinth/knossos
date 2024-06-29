@@ -1,0 +1,1040 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "Rajtigi"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Rifuzi"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> de <creator-link>{creator}</creator-link> povus:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Rajtigi {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "Neniu redirekta loko trovita en respondo"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "Vi estos redirektata al <redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "Sendi riparan retpoŝton"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Tajpu vian retpoŝtadreson, kaj ni sendos al vi riparan ligilon, por ke vi povu ripari vian konton."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "Retpoŝtadreso aŭ uzantnomo"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "Retpoŝto"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "Retpoŝto kun instrukcio estus sendita al vi, se la retpoŝtadreso estus konservita en via konto."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "Retpoŝto sendita"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "Vi nun povas ensaluti en vian konton per via nova pasvorto."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Pasvorton sukcese restarigis"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Restarigi pasvorton"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Konfirmi pasvorton"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Tajpu vian novan pasvorton por eniri en vian konton."
+  },
+  "auth.reset-password.title": {
+    "message": "Restarigi pasvorton"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Restarigi vian pasvorton"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Bonvolu tajpi dufaktoran kodon por procedi."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Tajpi dufaktoran kodon"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Tajpi kodon..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Ĉu forgesis pasvorton?</forgot-password-link> • <create-account-link>Krei konton</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "Retpoŝtadreso aŭ uzantnomo"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Pasvorto"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Ensaluti per"
+  },
+  "auth.sign-in.title": {
+    "message": "Ensaluti"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Aŭ uzi pasvorton"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Krei konton"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Konfirmi pasvorton"
+  },
+  "auth.sign-up.email.label": {
+    "message": "Retpoŝtadreso"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Uzantnomo"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "Kreante konton, vi konsentas je la <terms-link>Kondiĉoj</terms-link> kaj <privacy-policy-link>Privateca Politiko</privacy-policy-link> de Modrinth."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Pasvortoj ne kongruas!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Pasvorto"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Ĉu jam havas konton?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Aboni novaĵon pri Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Registriĝi"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Aŭ krei konton vi mem"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Registriĝi per"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Agordoj de konto"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Ensaluti"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "Via retpoŝtadreso jam estas konfirmita!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "Retpoŝtadreso jam konfirmita"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Resendi konfirman retpoŝton"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "Ni ne povis konfirmi vian retpoŝtadreson. Provu resendi la konfirman retpoŝton tra via panelo per ensalutado."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "Ni ne povis konfirmi vian retpoŝtadreson. Provu resendi la konfirman retpoŝton tra la malsupra butono."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "Retpoŝtadresa konfirmado malsukcesis"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "Via retpoŝtadreso estas sukcese konfirmita!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "Retpoŝtadresa konfirmado"
+  },
+  "auth.verify-email.title": {
+    "message": "Konfirmi Retpoŝtadreso"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Aboni novaĵon pri Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Dankon por krei konton. Nun vi povas sekvi kaj krei projektojn, ricevi novaĵon pri viaj plej ŝatataj projektojn, kaj pli!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Kreante konton, vi konsentis je la <terms-link>Kondiĉoj</terms-link> kaj <privacy-policy-link>Privateca Politiko</privacy-policy-link> de Modrinth."
+  },
+  "auth.welcome.long-title": {
+    "message": "Bonvenon al Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Bonvenon"
+  },
+  "button.cancel": {
+    "message": "Nuligi"
+  },
+  "button.continue": {
+    "message": "Daŭrigi"
+  },
+  "button.create-a-project": {
+    "message": "Krei projekton"
+  },
+  "button.edit": {
+    "message": "Redakti"
+  },
+  "button.save": {
+    "message": "Konservi"
+  },
+  "button.save-changes": {
+    "message": "Konservi ŝanĝojn"
+  },
+  "button.sign-in": {
+    "message": "Ensaluti"
+  },
+  "button.sign-out": {
+    "message": "Elsaluti"
+  },
+  "button.upload-image": {
+    "message": "Alŝuti bildon"
+  },
+  "collection.button.delete-icon": {
+    "message": "Forigi bildeton"
+  },
+  "collection.button.edit-icon": {
+    "message": "Redakti bildeton"
+  },
+  "collection.button.remove-project": {
+    "message": "Forigi projekton"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Malsekvi projekton"
+  },
+  "collection.button.upload-icon": {
+    "message": "Alŝuti bildeton"
+  },
+  "collection.delete-modal.description": {
+    "message": "Jen forigus ĉi tiun kolekton eterne. Ĉi tiu ago ne povas esti malfarita."
+  },
+  "collection.delete-modal.title": {
+    "message": "Ĉu vi certe volas forigi ĉi tiun kolekton?"
+  },
+  "collection.description": {
+    "message": "{description} - Vidi la kolekton {name} de {username} en Modrinth"
+  },
+  "collection.description.following": {
+    "message": "Aŭtogenerita kolekto de ĉiu projekto sekvata de vi."
+  },
+  "collection.error.not-found": {
+    "message": "Kolekton ne trovita"
+  },
+  "collection.label.collection": {
+    "message": "Kolekto"
+  },
+  "collection.label.created-at": {
+    "message": "Kreita antaŭ {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Arigita de"
+  },
+  "collection.label.no-projects": {
+    "message": "Tiu ĉi kolekto ne havas projektojn!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "Vi ne havas projektojn.\nĈu vi volas <create-link>krei unu</create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Posedanto"
+  },
+  "collection.label.private": {
+    "message": "Privata"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> projekto} other {<stat>{count}</stat> projektoj}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Ĝisdatigita antaŭ {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - Kolekto"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Krei novan"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} projekto} other {{count} projektoj}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Serĉi en viaj kolektoj"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Viaj kolektoj"
+  },
+  "frog": {
+    "message": "Vi estas ranita! 🐸"
+  },
+  "frog.altText": {
+    "message": "Fotoreala pentraĵo de rana labirinto"
+  },
+  "frog.froggedPeople": {
+    "message": "Ankaŭ {count, plural, one {{count} pli homo estas ranita} other {{count} pli da homoj estas ranitaj}}!"
+  },
+  "frog.sinceOpened": {
+    "message": "Ĉi tiu paĝo estis fermata {ago}"
+  },
+  "frog.title": {
+    "message": "Rano"
+  },
+  "input.view.gallery": {
+    "message": "Galeria vido"
+  },
+  "input.view.grid": {
+    "message": "Krada vido"
+  },
+  "input.view.list": {
+    "message": "Vido de vicoj"
+  },
+  "label.changes-saved": {
+    "message": "Ŝanĝoj konservitaj"
+  },
+  "label.collections": {
+    "message": "Kolektoj"
+  },
+  "label.created-ago": {
+    "message": "Kreita antaŭ {ago}"
+  },
+  "label.dashboard": {
+    "message": "Panelo"
+  },
+  "label.delete": {
+    "message": "Forigi"
+  },
+  "label.description": {
+    "message": "Priskribo"
+  },
+  "label.error": {
+    "message": "Eraro"
+  },
+  "label.followed-projects": {
+    "message": "Sekvitaj projektoj"
+  },
+  "label.moderation": {
+    "message": "Kontrolado"
+  },
+  "label.notifications": {
+    "message": "Sciigoj"
+  },
+  "label.password": {
+    "message": "Pasvorto"
+  },
+  "label.public": {
+    "message": "Publika"
+  },
+  "label.rejected": {
+    "message": "Malakceptita"
+  },
+  "label.scopes": {
+    "message": "Ampleksoj"
+  },
+  "label.settings": {
+    "message": "Agordoj"
+  },
+  "label.title": {
+    "message": "Titolo"
+  },
+  "label.unlisted": {
+    "message": "Nelistita"
+  },
+  "label.visibility": {
+    "message": "Videbleco"
+  },
+  "label.visit-your-profile": {
+    "message": "Viziti vian profilon"
+  },
+  "layout.action.change-theme": {
+    "message": "Ŝanĝi temon"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Akiri Modrinth-an Apon"
+  },
+  "layout.avatar.alt": {
+    "message": "Via uzantobildo"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Viziti agordojn de konto"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Por sekureco, bonvolu tajpi vian rotpoŝtadreson sur Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "La sceneja medio funkcias per kopio de la produktada datumbazo Modrinth. Ĉi tio estas uzata por testi kaj elpurigi celojn, kaj eble funkciigas evoluantajn versiojn de la Modrinth malantaŭa aŭ antaŭa fino pli novaj ol la produktada ekzemplo."
+  },
+  "layout.banner.staging.title": {
+    "message": "Vi vidas la scenejan medion de Modrinth."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Resendi konfirman retpoŝton"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "Por sekureco, bonvolu validigi vian rotpoŝtadreson sur Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Karieroj"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Privateco"
+  },
+  "layout.footer.company.rules": {
+    "message": "Reguloj"
+  },
+  "layout.footer.company.terms": {
+    "message": "Kondiĉoj"
+  },
+  "layout.footer.company.title": {
+    "message": "Firmao"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interagi"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "NE OFICIALA SERIVICO DE MINECRAFT. NE APROBATA DE AŬ ASOCIATA KUN MOJANG AŬ MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth estas <github-link>malfermitkoda</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blogo"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Dokumentoj"
+  },
+  "layout.footer.resources.status": {
+    "message": "Stato"
+  },
+  "layout.footer.resources.support": {
+    "message": "Subteno"
+  },
+  "layout.footer.resources.title": {
+    "message": "Rimedoj"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Baskuli menuon"
+  },
+  "layout.meta.description": {
+    "message": "Elŝuti modifojn, kromaĵojn, datumpakaĵojn, nuancilojn, resurspakaĵojn, kaj modifarojn de Minecraft per Modrinth. Trovi kaj publikigi projektojn sur Modrinth per moderna, facila interfaco kaj API."
+  },
+  "layout.meta.og-description": {
+    "message": "Trovi kaj publikigi aĵon de Minecraft!"
+  },
+  "layout.nav.home": {
+    "message": "Hejmo"
+  },
+  "layout.nav.search": {
+    "message": "Serĉi"
+  },
+  "notification.error.title": {
+    "message": "Okazis eraro"
+  },
+  "profile.button.manage-projects": {
+    "message": "Administri projektojn"
+  },
+  "profile.button.report": {
+    "message": "Raporti"
+  },
+  "profile.error.not-found": {
+    "message": "Uzanto ne troviĝis"
+  },
+  "profile.joined-at": {
+    "message": "Aliĝis {ago}"
+  },
+  "profile.label.no-collections": {
+    "message": "Tiu ĉi uzanto ne havas kolektojn!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Vi ne havas kolektojn.\nĈu vi volas <create-link>krei unu</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "Tiu ĉi uzanto ne havas projektojn!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "Vi ne havas projektojn.\nĈu vi volas <create-link>krei unu</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Organizoj"
+  },
+  "profile.meta.description": {
+    "message": "Elŝuti la projektojn de {username} per Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Elŝuti la projectojn de {username} per Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> elŝuto} other {<stat>{count}</stat> elŝutoj}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> sekvanto} other {<stat>{count}</stat> sekvantoj}} de projektoj"
+  },
+  "profile.user-id": {
+    "message": "ID de Uzanto: {id}"
+  },
+  "project-type.all": {
+    "message": "Ĉiuj"
+  },
+  "project-type.collection.plural": {
+    "message": "Kolektoj"
+  },
+  "project-type.collection.singular": {
+    "message": "Kolekto"
+  },
+  "project-type.datapack.plural": {
+    "message": "Datumpakaĵoj"
+  },
+  "project-type.datapack.singular": {
+    "message": "Datumpakaĵo"
+  },
+  "project-type.mod.plural": {
+    "message": "Modifaĵoj"
+  },
+  "project-type.mod.singular": {
+    "message": "Modifaĵo"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modifpakaĵoj"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modifpakaĵo"
+  },
+  "project-type.plugin.plural": {
+    "message": "Kromaĵoj"
+  },
+  "project-type.plugin.singular": {
+    "message": "Kromaĵo"
+  },
+  "project-type.project.plural": {
+    "message": "Projektoj"
+  },
+  "project-type.project.singular": {
+    "message": "Projekto"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resurspakaĵoj"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resurspakaĵo"
+  },
+  "project-type.shader.plural": {
+    "message": "Nuanciloj"
+  },
+  "project-type.shader.singular": {
+    "message": "Nuancilo"
+  },
+  "revenue.transfers.total": {
+    "message": "Vi eltiris {amount} tute."
+  },
+  "revenue.transfers.total.method": {
+    "message": "Vi eltiris {amount} per {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "Vi eltiris {amount} en {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "Vi eltiris {amount} en {year} per {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "Atingi vian datumon de analitiko"
+  },
+  "scopes.analytics.label": {
+    "message": "Legi analitikaĵon"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Krei kolektojn"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Krei kolektojn"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Forigi kolektojn"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Forigi kolektojn"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Legi kolektojn"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Legi kolektojn"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Skribi en kolektojn"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Skribi kolektojn"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Legi viajn sciigojn"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Legi sciigojn"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Farigi/Vidi viajn sciigojn"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Skribi sciigojn"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Krei organizojn"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Krei organizojn"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Forigi organizojn"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Forigi organizojn"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Legi organizojn"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Legi organizojn"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Skribi en organizojn"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Skribi organizojn"
+  },
+  "scopes.patCreate.description": {
+    "message": "Krei proprajn pruvojn de API"
+  },
+  "scopes.patCreate.label": {
+    "message": "Krei PAP-ojn"
+  },
+  "scopes.patDelete.description": {
+    "message": "Forigi viajn proprajn pruvojn de API"
+  },
+  "scopes.patDelete.label": {
+    "message": "Forigi PAP-ojn"
+  },
+  "scopes.patRead.description": {
+    "message": "Vidi kreitajn pruvojn de API"
+  },
+  "scopes.patRead.label": {
+    "message": "Legi PAP-ojn"
+  },
+  "scopes.patWrite.description": {
+    "message": "Redakti proprajn pruvojn de API"
+  },
+  "scopes.patWrite.label": {
+    "message": "Skribi PAP-ojn"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Legi vian datumon de elpagoj"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Legi elpagojn"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Eltiri monon"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Skribi elpagon"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Plenumi agojn de analitiko"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Plenumi analitikaĵon"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Krei novajn projektojn"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Krei projektojn"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Forigi viajn projektojn"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Forigi projektojn"
+  },
+  "scopes.projectRead.description": {
+    "message": "Legi ĉiun projekton vian"
+  },
+  "scopes.projectRead.label": {
+    "message": "Legi projektojn"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Skribi en datumon de projektoj"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Skribi projektojn"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Krei raportojn"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Krei raportojn"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Forigi raportojn"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Forigi raportojn"
+  },
+  "scopes.reportRead.description": {
+    "message": "Legi raportojn"
+  },
+  "scopes.reportRead.label": {
+    "message": "Legi raportojn"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Redakti raportojn"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Skribi raportojn"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Atingi sesiojn eldonitajn de Modrinth"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Atingi sesiojn"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Forigi sesiojn"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Forigi sesiojn"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Legi aktivajn sesiojn"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Legi sesiojn"
+  },
+  "scopes.threadRead.description": {
+    "message": "Legi fadenojn"
+  },
+  "scopes.threadRead.label": {
+    "message": "Legi fadenojn"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Skribi en fadenojn"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Skribi fadenojn"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Modifi vian datumon de aŭtentigo"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Skribi aŭtentdatumon"
+  },
+  "scopes.userDelete.description": {
+    "message": "Forstreki vian konton"
+  },
+  "scopes.userDelete.label": {
+    "message": "Forstreki vian konton"
+  },
+  "scopes.userRead.description": {
+    "message": "Atingi informon de via publika profilo"
+  },
+  "scopes.userRead.label": {
+    "message": "Legi datumon de uzanto"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Legi vian retpoŝtadreson"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Legi retpoŝtadreson de uzanto"
+  },
+  "scopes.userWrite.description": {
+    "message": "Skribi en vian profilon"
+  },
+  "scopes.userWrite.label": {
+    "message": "Skribi datumon de uzanto"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Krei novajn versiojn"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Krei versiojn"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Forigi version"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Forigi versiojn"
+  },
+  "scopes.versionRead.description": {
+    "message": "Legi ĉiun version"
+  },
+  "scopes.versionRead.label": {
+    "message": "Legi versiojn"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Skribi en datumon de versio"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Skribi versiojn"
+  },
+  "settings.account.title": {
+    "message": "Konto kaj sekureco"
+  },
+  "settings.appearance.title": {
+    "message": "Aspekto"
+  },
+  "settings.applications.title": {
+    "message": "Viaj aplikaĵoj"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Rajtigitaj aplikaĵoj"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Malaktivigi programistan modon"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Programista modo</strong> aktivas. Tiu ĉi rajtigas vin vidi la internajn identigilojn de diversaj aferoj tra Modrinth kiuj eble helpas vin se vi estas programisto uzanta la Modrinth API. Alklaku la bildeton de Modrinth ĉe la malsupro de la paĝo 5 foje por aktivigi programistan modon."
+  },
+  "settings.display.flags.description": {
+    "message": "Aktivigi aŭ malaktivigi specifajn trajtojn sur tiu ĉi aparato."
+  },
+  "settings.display.flags.title": {
+    "message": "Toggle features"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Paĝo de datumpakaĵoj"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Elektu vian preferatan aranĝon por la paĝoj kiu montras listojn de projektoj sur tiu ĉi aparato."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Paĝo de modifoj"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Paĝo de modifaroj"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Paĝo de kromaĵoj"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Paĝo de resurspakaĵoj"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Paĝo de nuanciloj"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Aranĝoj de projektaj listoj"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "Paĝoj de uzantprofiloj"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Aktivas kompleksan bildigadon, kiel malklarigo kiuj eble kaŭzas problemojn de rendimento sen aparata bildigado."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Kompleksa biligado"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Malfermi eksterajn ligilojn en nova langeto"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Kaŝas la \"Akiri Modrinth Apon\" butonojn for de ĉefa navigado. La paĝo de Modrinth Apo ankoraŭ estas trovebla sur la ĉefpaĝo aŭ en la paĝopiedo."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Kaŝi promociojn de Modrinth Apo"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Aligns the project details sidebar to the right of the page's content."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Right-aligned project sidebar"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Aligns the search filters sidebar to the right of the search results."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Right-aligned search sidebar"
+  },
+  "settings.display.theme.dark": {
+    "message": "Malhela"
+  },
+  "settings.display.theme.description": {
+    "message": "Select your preferred color theme for Modrinth on this device."
+  },
+  "settings.display.theme.light": {
+    "message": "Hela"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Preferas malhelan temon"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Preferas helan temon"
+  },
+  "settings.display.theme.retro": {
+    "message": "Estinteco"
+  },
+  "settings.display.theme.system": {
+    "message": "Uzi la sisteman temon"
+  },
+  "settings.display.theme.title": {
+    "message": "Kolora temo"
+  },
+  "settings.language.categories.auto": {
+    "message": "Aŭtomate"
+  },
+  "settings.language.categories.default": {
+    "message": "Ordinaraj lingvoj"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Eksperimentaj lingvoj"
+  },
+  "settings.language.categories.fun": {
+    "message": "Amuzaj lingvoj"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Serĉrezultoj"
+  },
+  "settings.language.description": {
+    "message": "Elekti vian preferatan lingvon por la retejo. Tradukoj estas aldonata de volontuloj <crowdin-link>per Crowdin</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Aktualigi laŭ la sistema lingvo"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Aplikado..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Eraro"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Ne povas ŝarĝi ĉi tiun lingvon. Provu denove post iom da tempo."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Sendu por enfokusigi la unuan serĉrezulton"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Serĉi lingvojn..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {Neniuj lingvoj kongruas} one {# lingvo kongruas} other {# lingvoj kongruas}} laŭ via serĉo."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "Neniuj lingvoj kongruas laŭ via serĉo."
+  },
+  "settings.language.title": {
+    "message": "Lingvo"
+  },
+  "settings.pats.action.create": {
+    "message": "Krei PAP-on"
+  },
+  "settings.pats.description": {
+    "message": "PAP-oj povas esti uzata por atingi la API-n de Modrinth. Por pli da informo, vidu <doc-link>dokumentoj de API de Modrinth</doc-link>. Ili povas esti kreataj kaj revokitaj iam ajn."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Krei PAP-on"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Eksiĝos"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Nomo"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Tajpi la nomon de la PAP..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Krei propran API-an pruvon"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Forigi ĉi tiun pruvon"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "Ĉi tio forigi tiun ĉi pruvon eterne (vere, la tutan eternon)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Ĉu vi certe volas forigi tiun ĉi pruvon?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Redakti propran atingan pruvon"
+  },
+  "settings.pats.title": {
+    "message": "Personaj atingaj ĵetonoj"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Redakti pruvon"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Fortiri pruvon"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Eksiĝis antaŭ {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Eksiĝis antaŭ {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Laste uzita antaŭ {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Neniam uzita"
+  },
+  "settings.profile.bio.description": {
+    "message": "Mallonga priskribo por diri al ĉiu pri vi."
+  },
+  "settings.profile.bio.title": {
+    "message": "Priskribo"
+  },
+  "settings.profile.description": {
+    "message": "Informo pri via profilo estas publika en Modrinth kaj tra la <docs-link>API de Modrinth</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "Profila informo"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Reagordi"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Profila Bildo"
+  },
+  "settings.profile.title": {
+    "message": "Publika profilo"
+  },
+  "settings.profile.username.description": {
+    "message": "Unika nomo por indiki vian profilon."
+  },
+  "settings.profile.username.title": {
+    "message": "Uzantnomo"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Nuligi sesion"
+  },
+  "settings.sessions.created-ago": {
+    "message": "Kreita antaŭ {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "Nuna sesio"
+  },
+  "settings.sessions.description": {
+    "message": "Jen ĉiuj aparatoj kiuj nun estas ensaluta kun via konto de Modrinth. Vi povas eligi ĉiun individue.\n\nSe vi vidas enigon, kiun vi ne konas, elsalutigu tiun aparaton kaj ŝanĝu tuj vian pasvorton de Modrinth."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "Laste eniris {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "Sesioj"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "Nekonata operaciumo"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Nekonata platformo"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} je {time, time, short}"
+  }
+}

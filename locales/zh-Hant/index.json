@@ -1,0 +1,1040 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "授權"
+  },
+  "auth.authorize.action.decline": {
+    "message": "拒絕"
+  },
+  "auth.authorize.app-info": {
+    "message": "<creator-link>{creator}</creator-link> 的「<strong>{appName}</strong>」將可執行下列操作："
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "授權「{appName}」"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "找不到回應中的重新導向位置"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "系統會將你重新導向至 <redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "傳送密碼重設電子郵件"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "請輸入您的電子郵件地址，系統將傳送密碼重設連結，協助您取回帳號。"
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "電子郵件地址或使用者名稱"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "電子郵件地址"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "如果您的帳號中先前已儲存該電子郵件地址，系統已將一封內含指示的電子郵件傳送給您。"
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "電子郵件已送出"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "請使用新密碼登入您的帳號。"
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "密碼重設成功"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "重設密碼"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "確認密碼"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "請設定新密碼以登入您的帳號。"
+  },
+  "auth.reset-password.title": {
+    "message": "重設密碼"
+  },
+  "auth.reset-password.title.long": {
+    "message": "重設密碼"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "請輸入兩步驟驗證碼以繼續。"
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "輸入兩步驟驗證碼"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "輸入驗證碼"
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>忘記密碼？</forgot-password-link> • <create-account-link>建立帳號</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "電子郵件地址或使用者名稱"
+  },
+  "auth.sign-in.password.label": {
+    "message": "密碼"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "使用以下方式登入"
+  },
+  "auth.sign-in.title": {
+    "message": "登入"
+  },
+  "auth.sign-in.use-password": {
+    "message": "或使用密碼"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "建立帳號"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "確認密碼"
+  },
+  "auth.sign-up.email.label": {
+    "message": "電子郵件地址"
+  },
+  "auth.sign-up.label.username": {
+    "message": "使用者名稱"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>使用規定</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "密碼不正確！"
+  },
+  "auth.sign-up.password.label": {
+    "message": "密碼"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "已經有帳號了嗎？"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "訂閱 Modrinth 的最新消息"
+  },
+  "auth.sign-up.title": {
+    "message": "註冊"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "或自行建立帳號"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "使用以下方式註冊"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "帳號設定"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "登入"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "您的電子郵件地址已經驗證過了！"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "電子郵件地址已經驗證過"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "重新傳送驗證電子郵件"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "系統無法驗證您的電子郵件地址。請在登入後，透過控制台重新傳送驗證電子郵件。"
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "系統無法驗證您的電子郵件地址。請透過下方按鈕重新傳送驗證電子郵件。"
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "電子郵件地址驗證失敗"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "您的電子郵件地址已成功驗證！"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "電子郵件地址驗證"
+  },
+  "auth.verify-email.title": {
+    "message": "驗證電子郵件地址"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "訂閱 Modrinth 的最新消息"
+  },
+  "auth.welcome.description": {
+    "message": "感謝你建立帳號。你現在可以追蹤及建立專案、接收喜愛專案的更新內容，還有眾多精彩功能等你來發掘！"
+  },
+  "auth.welcome.label.tos": {
+    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>使用規定</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
+  },
+  "auth.welcome.long-title": {
+    "message": "歡迎使用 Modrinth！"
+  },
+  "auth.welcome.title": {
+    "message": "歡迎"
+  },
+  "button.cancel": {
+    "message": "取消"
+  },
+  "button.continue": {
+    "message": "繼續"
+  },
+  "button.create-a-project": {
+    "message": "建立專案"
+  },
+  "button.edit": {
+    "message": "編輯"
+  },
+  "button.save": {
+    "message": "儲存"
+  },
+  "button.save-changes": {
+    "message": "儲存變更"
+  },
+  "button.sign-in": {
+    "message": "登入"
+  },
+  "button.sign-out": {
+    "message": "登出"
+  },
+  "button.upload-image": {
+    "message": "上傳大頭貼"
+  },
+  "collection.button.delete-icon": {
+    "message": "刪除圖示"
+  },
+  "collection.button.edit-icon": {
+    "message": "編輯圖示"
+  },
+  "collection.button.remove-project": {
+    "message": "移除專案"
+  },
+  "collection.button.unfollow-project": {
+    "message": "取消追蹤專案"
+  },
+  "collection.button.upload-icon": {
+    "message": "上傳圖示"
+  },
+  "collection.delete-modal.description": {
+    "message": "系統將永久刪除這個收藏，且這項操作無法復原。"
+  },
+  "collection.delete-modal.title": {
+    "message": "要刪除這個收藏嗎？"
+  },
+  "collection.description": {
+    "message": "{description} — 前往 Modrinth 查看 {username} 的收藏「{name}」"
+  },
+  "collection.description.following": {
+    "message": "由系統自動產生的收藏，包含您正在追蹤的所有專案。"
+  },
+  "collection.error.not-found": {
+    "message": "找不到收藏"
+  },
+  "collection.label.collection": {
+    "message": "收藏"
+  },
+  "collection.label.created-at": {
+    "message": "建立於 {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "策展人"
+  },
+  "collection.label.no-projects": {
+    "message": "這個收藏中沒有任何專案！"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "你還沒有任何專案。\n你想要<create-link>加入一個</create-link>嗎？"
+  },
+  "collection.label.owner": {
+    "message": "擁有者"
+  },
+  "collection.label.private": {
+    "message": "私人"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural,other {<stat>{count}</stat> 個專案}}"
+  },
+  "collection.label.updated-at": {
+    "message": "更新於 {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - 收藏"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "新增"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural,other {{count} 個專案}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "搜尋收藏夾"
+  },
+  "dashboard.collections.long-title": {
+    "message": "你的收藏"
+  },
+  "frog": {
+    "message": "你被耍了！🐸"
+  },
+  "frog.altText": {
+    "message": "一幅逼真的青蛙迷宮繪畫"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural, other {另外有 {count} 人}}也被這隻青蛙耍了！"
+  },
+  "frog.sinceOpened": {
+    "message": "本頁面在 {ago}開啟"
+  },
+  "frog.title": {
+    "message": "青蛙"
+  },
+  "input.view.gallery": {
+    "message": "畫廊檢視"
+  },
+  "input.view.grid": {
+    "message": "格狀檢視"
+  },
+  "input.view.list": {
+    "message": "清單檢視"
+  },
+  "label.changes-saved": {
+    "message": "已儲存變更"
+  },
+  "label.collections": {
+    "message": "收藏庫"
+  },
+  "label.created-ago": {
+    "message": "建立於 {ago}"
+  },
+  "label.dashboard": {
+    "message": "控制台"
+  },
+  "label.delete": {
+    "message": "刪除"
+  },
+  "label.description": {
+    "message": "說明"
+  },
+  "label.error": {
+    "message": "錯誤"
+  },
+  "label.followed-projects": {
+    "message": "追蹤的專案"
+  },
+  "label.moderation": {
+    "message": "管理"
+  },
+  "label.notifications": {
+    "message": "通知"
+  },
+  "label.password": {
+    "message": "密碼"
+  },
+  "label.public": {
+    "message": "公開"
+  },
+  "label.rejected": {
+    "message": "已拒絕"
+  },
+  "label.scopes": {
+    "message": "權限範圍"
+  },
+  "label.settings": {
+    "message": "設定"
+  },
+  "label.title": {
+    "message": "標題"
+  },
+  "label.unlisted": {
+    "message": "不公開"
+  },
+  "label.visibility": {
+    "message": "瀏覽權限"
+  },
+  "label.visit-your-profile": {
+    "message": "瀏覽個人檔案"
+  },
+  "layout.action.change-theme": {
+    "message": "變更主題"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "下載 Modrinth 應用程式"
+  },
+  "layout.avatar.alt": {
+    "message": "你的大頭貼"
+  },
+  "layout.banner.add-email.button": {
+    "message": "前往帳號設定"
+  },
+  "layout.banner.add-email.title": {
+    "message": "基於安全考量，請在 Modrinth 上輸入您的電子郵件地址。"
+  },
+  "layout.banner.staging.description": {
+    "message": "預備環境執行在 Modrinth 資料庫的副本上。這個環境用於測試和除錯目的，並且可能執行比生產實例更新的 Modrinth 後端或前端開發版本。"
+  },
+  "layout.banner.staging.title": {
+    "message": "您正在查看 Modrinth 的預備環境。"
+  },
+  "layout.banner.verify-email.action": {
+    "message": "重新傳送驗證電子郵件"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "基於安全考量，請在 Modrinth 上驗證您的電子郵件地址。"
+  },
+  "layout.footer.company.careers": {
+    "message": "工作機會"
+  },
+  "layout.footer.company.privacy": {
+    "message": "隱私權政策"
+  },
+  "layout.footer.company.rules": {
+    "message": "內容規範"
+  },
+  "layout.footer.company.terms": {
+    "message": "使用規定"
+  },
+  "layout.footer.company.title": {
+    "message": "公司"
+  },
+  "layout.footer.interact.title": {
+    "message": "社群"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "非官方 MINECRAFT 服務。未經 MOJANG 或 MICROSOFT 核准或與之關聯。"
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth 是<github-link>開源</github-link>的。"
+  },
+  "layout.footer.resources.blog": {
+    "message": "部落格"
+  },
+  "layout.footer.resources.docs": {
+    "message": "文件"
+  },
+  "layout.footer.resources.status": {
+    "message": "狀態"
+  },
+  "layout.footer.resources.support": {
+    "message": "支援"
+  },
+  "layout.footer.resources.title": {
+    "message": "資源"
+  },
+  "layout.menu-toggle.action": {
+    "message": "切換選單"
+  },
+  "layout.meta.description": {
+    "message": "前往 Modrinth 下載 Minecraft 模組、插件、資料包、光影包、資源包和模組包。使用現代、易於使用的介面和 API 在 Modrinth 上探索及發布專案。"
+  },
+  "layout.meta.og-description": {
+    "message": "探索及發布 Minecraft 內容！"
+  },
+  "layout.nav.home": {
+    "message": "首頁"
+  },
+  "layout.nav.search": {
+    "message": "搜尋"
+  },
+  "notification.error.title": {
+    "message": "發生錯誤"
+  },
+  "profile.button.manage-projects": {
+    "message": "管理專案"
+  },
+  "profile.button.report": {
+    "message": "檢舉"
+  },
+  "profile.error.not-found": {
+    "message": "找不到使用者"
+  },
+  "profile.joined-at": {
+    "message": "加入於 {ago}"
+  },
+  "profile.label.no-collections": {
+    "message": "這個使用者沒有任何收藏！"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "你還沒有任何收藏。\n你想要<create-link>建立一個</create-link>嗎？"
+  },
+  "profile.label.no-projects": {
+    "message": "這個使用者沒有任何專案！"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "你還沒有任何專案。\n你想要<create-link>建立一個</create-link>嗎？"
+  },
+  "profile.label.organizations": {
+    "message": "組織"
+  },
+  "profile.meta.description": {
+    "message": "前往 Modrinth 下載 {username} 的專案"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} — 前往 Modrinth 下載 {username} 的專案"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, other {<stat>{count}</stat> 次下載}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, other {<stat>{count}</stat>}} 位追蹤者"
+  },
+  "profile.user-id": {
+    "message": "使用者 ID：{id}"
+  },
+  "project-type.all": {
+    "message": "全部"
+  },
+  "project-type.collection.plural": {
+    "message": "收藏"
+  },
+  "project-type.collection.singular": {
+    "message": "收藏"
+  },
+  "project-type.datapack.plural": {
+    "message": "資料包"
+  },
+  "project-type.datapack.singular": {
+    "message": "資料包"
+  },
+  "project-type.mod.plural": {
+    "message": "模組"
+  },
+  "project-type.mod.singular": {
+    "message": "模組"
+  },
+  "project-type.modpack.plural": {
+    "message": "模組包"
+  },
+  "project-type.modpack.singular": {
+    "message": "模組包"
+  },
+  "project-type.plugin.plural": {
+    "message": "插件"
+  },
+  "project-type.plugin.singular": {
+    "message": "插件"
+  },
+  "project-type.project.plural": {
+    "message": "專案"
+  },
+  "project-type.project.singular": {
+    "message": "專案"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "資源包"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "資源包"
+  },
+  "project-type.shader.plural": {
+    "message": "光影包"
+  },
+  "project-type.shader.singular": {
+    "message": "光影包"
+  },
+  "revenue.transfers.total": {
+    "message": "您總共提款了 {amount} 美元。"
+  },
+  "revenue.transfers.total.method": {
+    "message": "您透過 {method} 提款了 {amount} 美元。"
+  },
+  "revenue.transfers.total.year": {
+    "message": "您在 {year} 年提款了 {amount} 美元。"
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "您透過 {method} 在 {year} 年提款了 {amount} 美元。"
+  },
+  "scopes.analytics.description": {
+    "message": "存取你的分析資料"
+  },
+  "scopes.analytics.label": {
+    "message": "讀取數據分析"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "建立收藏"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "建立收藏"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "刪除收藏"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "刪除收藏夾"
+  },
+  "scopes.collectionRead.description": {
+    "message": "讀取收藏"
+  },
+  "scopes.collectionRead.label": {
+    "message": "讀取收藏"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "寫入收藏"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "寫入收藏"
+  },
+  "scopes.notificationRead.description": {
+    "message": "讀取你的通知"
+  },
+  "scopes.notificationRead.label": {
+    "message": "讀取通知"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "查看及刪除你的通知"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "寫入通知"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "建立組織"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "建立組織"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "刪除組織"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "刪除組織"
+  },
+  "scopes.organizationRead.description": {
+    "message": "讀取組織"
+  },
+  "scopes.organizationRead.label": {
+    "message": "讀取組織"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "寫入組織"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "寫入組織"
+  },
+  "scopes.patCreate.description": {
+    "message": "建立個人 API 權杖"
+  },
+  "scopes.patCreate.label": {
+    "message": "建立個人存取權杖"
+  },
+  "scopes.patDelete.description": {
+    "message": "刪除你的個人 API 權杖"
+  },
+  "scopes.patDelete.label": {
+    "message": "刪除個人存取權杖"
+  },
+  "scopes.patRead.description": {
+    "message": "檢視已建立的 API 權杖"
+  },
+  "scopes.patRead.label": {
+    "message": "讀取個人存取權杖"
+  },
+  "scopes.patWrite.description": {
+    "message": "編輯個人 API 權杖"
+  },
+  "scopes.patWrite.label": {
+    "message": "寫入個人存取權杖"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "讀取你的付款資料"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "讀取付款資料"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "提款"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "寫入付款資料"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "執行數據分析操作"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "執行數據分析"
+  },
+  "scopes.projectCreate.description": {
+    "message": "建立新專案"
+  },
+  "scopes.projectCreate.label": {
+    "message": "建立專案"
+  },
+  "scopes.projectDelete.description": {
+    "message": "刪除你的專案"
+  },
+  "scopes.projectDelete.label": {
+    "message": "刪除專案"
+  },
+  "scopes.projectRead.description": {
+    "message": "讀取你的所有專案"
+  },
+  "scopes.projectRead.label": {
+    "message": "讀取專案"
+  },
+  "scopes.projectWrite.description": {
+    "message": "寫入專案資料"
+  },
+  "scopes.projectWrite.label": {
+    "message": "寫入專案"
+  },
+  "scopes.reportCreate.description": {
+    "message": "建立檢舉"
+  },
+  "scopes.reportCreate.label": {
+    "message": "建立檢舉"
+  },
+  "scopes.reportDelete.description": {
+    "message": "刪除檢舉"
+  },
+  "scopes.reportDelete.label": {
+    "message": "刪除檢舉"
+  },
+  "scopes.reportRead.description": {
+    "message": "讀取檢舉"
+  },
+  "scopes.reportRead.label": {
+    "message": "讀取檢舉"
+  },
+  "scopes.reportWrite.description": {
+    "message": "編輯檢舉"
+  },
+  "scopes.reportWrite.label": {
+    "message": "寫入檢舉"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "存取由 Modrinth 提供的工作階段"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "存取工作階段"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "刪除工作階段"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "刪除工作階段"
+  },
+  "scopes.sessionRead.description": {
+    "message": "讀取活動工作階段"
+  },
+  "scopes.sessionRead.label": {
+    "message": "讀取工作階段"
+  },
+  "scopes.threadRead.description": {
+    "message": "讀取討論串"
+  },
+  "scopes.threadRead.label": {
+    "message": "讀取討論串"
+  },
+  "scopes.threadWrite.description": {
+    "message": "寫入討論串"
+  },
+  "scopes.threadWrite.label": {
+    "message": "寫入討論串"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "修改你的驗證資料"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "寫入驗證資料"
+  },
+  "scopes.userDelete.description": {
+    "message": "刪除你的帳號"
+  },
+  "scopes.userDelete.label": {
+    "message": "刪除你的帳號"
+  },
+  "scopes.userRead.description": {
+    "message": "存取你的個人檔案公開資訊"
+  },
+  "scopes.userRead.label": {
+    "message": "讀取使用者資料"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "讀取你的電子郵件地址"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "讀取使用者郵件地址"
+  },
+  "scopes.userWrite.description": {
+    "message": "寫入你的個人檔案"
+  },
+  "scopes.userWrite.label": {
+    "message": "寫入使用者資料"
+  },
+  "scopes.versionCreate.description": {
+    "message": "建立新版本"
+  },
+  "scopes.versionCreate.label": {
+    "message": "建立版本"
+  },
+  "scopes.versionDelete.description": {
+    "message": "刪除一個版本"
+  },
+  "scopes.versionDelete.label": {
+    "message": "刪除版本"
+  },
+  "scopes.versionRead.description": {
+    "message": "讀取所有版本"
+  },
+  "scopes.versionRead.label": {
+    "message": "讀取版本"
+  },
+  "scopes.versionWrite.description": {
+    "message": "寫入版本資料"
+  },
+  "scopes.versionWrite.label": {
+    "message": "寫入版本"
+  },
+  "settings.account.title": {
+    "message": "帳號和安全性"
+  },
+  "settings.appearance.title": {
+    "message": "外觀"
+  },
+  "settings.applications.title": {
+    "message": "你的應用程式"
+  },
+  "settings.authorized-apps.title": {
+    "message": "已授權的應用程式"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "停用開發人員模式"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "已啟用<strong>開發人員模式</strong>。這個模式可以讓你查看 Modrinth 的各種事物的內部 ID，對於使用 Modrinth API 的開發人員而言可能會很有幫助。按 5 次頁面底部的 Modrinth 圖示以開關開發人員模式。"
+  },
+  "settings.display.flags.description": {
+    "message": "啟用或停用這部裝置上的特定功能。"
+  },
+  "settings.display.flags.title": {
+    "message": "開關功能"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "資料包頁面"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "依偏好選用每個顯示專案清單頁面的版面配置。"
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "模組頁面"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "模組包頁面"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "插件頁面"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "資源包頁面"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "光影包頁面"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "專案清單版面配置"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "使用者個人檔案頁面"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "啟用進階繪製功能，例如可能會造成效能問題的模糊效果，但使用硬體加速繪製可避免這些問題。"
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "進階繪製"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "在新分頁中開啟 Modrinth 的外部連結。這項設定僅適用於外部連結，內部連結和 Markdown 說明中的連結仍會在同一個分頁中開啟，而廣告和編輯頁面的連結會在新分頁中開啟。"
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "在新分頁中開啟外部連結"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "在主導覽列中隱藏「下載 Modrinth 應用程式」按鈕。你仍可在登入頁面或頁尾找到 Modrinth 應用程式頁面。"
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "隱藏 Modrinth 應用程式廣告"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "使專案詳細資訊側邊欄與頁面內容的右側對齊。"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "靠右對齊專案側邊欄"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "使搜尋篩選器側邊欄與搜尋結果的右側對齊。"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "靠右對齊搜尋側邊欄"
+  },
+  "settings.display.theme.dark": {
+    "message": "深色"
+  },
+  "settings.display.theme.description": {
+    "message": "依偏好選用 Modrinth 色彩主題。"
+  },
+  "settings.display.theme.light": {
+    "message": "淺色"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "偏好深色主題"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "偏好淺色主題"
+  },
+  "settings.display.theme.retro": {
+    "message": "經典"
+  },
+  "settings.display.theme.system": {
+    "message": "與系統同步"
+  },
+  "settings.display.theme.title": {
+    "message": "色彩主題"
+  },
+  "settings.language.categories.auto": {
+    "message": "自動切換"
+  },
+  "settings.language.categories.default": {
+    "message": "標準語言"
+  },
+  "settings.language.categories.experimental": {
+    "message": "實驗性語言"
+  },
+  "settings.language.categories.fun": {
+    "message": "趣味性語言"
+  },
+  "settings.language.categories.search-result": {
+    "message": "搜尋結果"
+  },
+  "settings.language.description": {
+    "message": "選擇您偏好的網站語言。翻譯由 <crowdin-link>Crowdin</crowdin-link> 上的志願者所貢獻。"
+  },
+  "settings.language.languages.automatic": {
+    "message": "與系統語言同步"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}。正在套用…"
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}。發生錯誤"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "無法載入這個語言。請稍後再試。"
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "按下 Enter 以聚焦第一個搜尋結果"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "搜尋語言"
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {沒有語言} other {有 # 種語言}}與您的搜尋字詞符合。"
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "沒有語言符合您的搜尋字詞。"
+  },
+  "settings.language.title": {
+    "message": "語言"
+  },
+  "settings.pats.action.create": {
+    "message": "建立個人存取權杖"
+  },
+  "settings.pats.description": {
+    "message": "個人存取權杖可以用來存取 Modrinth 的 API。如需詳細資訊，請參閱 <doc-link>Modrinth 的 API 文件</doc-link>。您隨時可以建立及撤銷這些權杖。"
+  },
+  "settings.pats.modal.create.action": {
+    "message": "建立個人存取權杖"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "到期日"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "名稱"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "輸入個人存取權杖的名稱"
+  },
+  "settings.pats.modal.create.title": {
+    "message": "建立個人存取權杖"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "刪除這個權杖"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "系統將永久刪除這個權杖（真的會永久刪除）。"
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "要刪除這個權杖嗎？"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "編輯個人存取權杖"
+  },
+  "settings.pats.title": {
+    "message": "個人存取權杖"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "編輯權杖"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "撤銷權杖授權"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "已於 {ago} 到期"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "將於 {inTime} 到期"
+  },
+  "settings.pats.token.last-used": {
+    "message": "上次使用於 {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "從未使用"
+  },
+  "settings.profile.bio.description": {
+    "message": "簡單介紹一下你自己，讓大家更認識你。"
+  },
+  "settings.profile.bio.title": {
+    "message": "關於我"
+  },
+  "settings.profile.description": {
+    "message": "你的個人檔案會公開顯示在 Modrinth 上，並可透過 <docs-link>Modrinth API</docs-link> 查詢。"
+  },
+  "settings.profile.profile-info": {
+    "message": "個人檔案資訊"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "重設"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "大頭貼"
+  },
+  "settings.profile.title": {
+    "message": "公開個人檔案"
+  },
+  "settings.profile.username.description": {
+    "message": "獨特且不區分大小寫的名稱，用於識別你的個人檔案。"
+  },
+  "settings.profile.username.title": {
+    "message": "使用者名稱"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "撤銷工作階段授權"
+  },
+  "settings.sessions.created-ago": {
+    "message": "建立於 {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "目前的工作階段"
+  },
+  "settings.sessions.description": {
+    "message": "您目前已在下列裝置上登入 Modrinth 帳號。您可以分別登出每部裝置。\n\n如果您對某部裝置沒有印象，請立即登出該裝置並變更您的 Modrinth 帳號密碼。"
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "上次存取於 {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "工作階段"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "未知的作業系統"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "未知的平台"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} {time, time, short}"
+  }
+}

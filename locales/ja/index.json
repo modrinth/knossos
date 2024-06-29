@@ -1,0 +1,1040 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "認証"
+  },
+  "auth.authorize.action.decline": {
+    "message": "拒否"
+  },
+  "auth.authorize.app-info": {
+    "message": "<creator-link>{creator}</creator-link> による <strong>{appName}</strong> は以下のことができるようになります："
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "{appName} を承認する"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "応答にリダイレクト先が見つかりません"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "<redirect-url>{url}</redirect-url> にリダイレクトされます"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "再設定用メールを送信"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "以下にメールアドレスを入力してください。再設定のためのメールを送信します。"
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "メールアドレスまたはユーザー名"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "メールアドレス"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "アカウントに登録されていたメールアドレス宛に、手順を記載したメールを送信しました。"
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "メールを送信しました"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "新しく設定されたパスワードでアカウントにログインできるようになりました。"
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "パスワードの再設定に成功しました"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "パスワードを再設定する"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "パスワードを再入力"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "アカウントにアクセスできるようにするため、新たに設定したいパスワードを入力してください。"
+  },
+  "auth.reset-password.title": {
+    "message": "パスワードを再設定"
+  },
+  "auth.reset-password.title.long": {
+    "message": "パスワードを再設定します"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "続行するには二要素認証コードを入力してください。"
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "二要素認証コードを入力"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "コードを入力..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>パスワードをお忘れですか?</forgot-password-link> • <create-account-link>アカウントを作成する</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "メールアドレスまたはユーザー名"
+  },
+  "auth.sign-in.password.label": {
+    "message": "パスワード"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "外部アカウントでログイン"
+  },
+  "auth.sign-in.title": {
+    "message": "ログイン"
+  },
+  "auth.sign-in.use-password": {
+    "message": "パスワードでログイン"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "作成する"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "パスワード（確認のためもう一度入力）"
+  },
+  "auth.sign-up.email.label": {
+    "message": "メールアドレス"
+  },
+  "auth.sign-up.label.username": {
+    "message": "ユーザー名"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "アカウントを作成すると、Modrinthの <terms-link>利用規約</terms-link> および <privacy-policy-link>プライバシーポリシー</privacy-policy-link>に同意したものとみなされます。"
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "パスワードが一致しません！"
+  },
+  "auth.sign-up.password.label": {
+    "message": "パスワード"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "すでにアカウントをお持ちですか?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Modrinthのアップデートを受け取る"
+  },
+  "auth.sign-up.title": {
+    "message": "アカウント作成"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "メールアドレスで作成"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "外部アカウントで作成"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "アカウント設定"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "ログイン"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "このメールアドレスはすでに確認されています！"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "確認済みのメールアドレス"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "確認メールを再送信する"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "メールアドレスを確認できませんでした。ログインして、ダッシュボードから確認メールを再送信してください。"
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "メールアドレスを確認できませんでした。下のボタンを押して確認メールを再送信してください。"
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "メールアドレスの確認に失敗しました"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "メールアドレスが正常に確認されました！"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "メールアドレスの確認完了"
+  },
+  "auth.verify-email.title": {
+    "message": "メールアドレスを確認"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Modrinthのアップデートを受け取る"
+  },
+  "auth.welcome.description": {
+    "message": "アカウントを作成していただきありがとうございます。プロジェクトのフォローや作成、お気に入りのプロジェクトの更新情報を受け取ることができるようになりました！"
+  },
+  "auth.welcome.label.tos": {
+    "message": "アカウントを作成すると、Modrinthの <terms-link>利用規約</terms-link> および <privacy-policy-link>プライバシーポリシー</privacy-policy-link>に同意したものとみなされます。"
+  },
+  "auth.welcome.long-title": {
+    "message": "Modrinthへようこそ！"
+  },
+  "auth.welcome.title": {
+    "message": "ようこそ"
+  },
+  "button.cancel": {
+    "message": "キャンセル"
+  },
+  "button.continue": {
+    "message": "続ける"
+  },
+  "button.create-a-project": {
+    "message": "プロジェクトを作成"
+  },
+  "button.edit": {
+    "message": "編集"
+  },
+  "button.save": {
+    "message": "保存"
+  },
+  "button.save-changes": {
+    "message": "変更を保存"
+  },
+  "button.sign-in": {
+    "message": "ログイン"
+  },
+  "button.sign-out": {
+    "message": "ログアウト"
+  },
+  "button.upload-image": {
+    "message": "画像をアップロード"
+  },
+  "collection.button.delete-icon": {
+    "message": "アイコンを削除"
+  },
+  "collection.button.edit-icon": {
+    "message": "アイコンを編集"
+  },
+  "collection.button.remove-project": {
+    "message": "プロジェクトを削除"
+  },
+  "collection.button.unfollow-project": {
+    "message": "フォロー解除"
+  },
+  "collection.button.upload-icon": {
+    "message": "アイコンをアップロード"
+  },
+  "collection.delete-modal.description": {
+    "message": "このコレクションは永久に削除されます。この操作は元に戻せません。"
+  },
+  "collection.delete-modal.title": {
+    "message": "本当にこのコレクションを削除しますか？"
+  },
+  "collection.description": {
+    "message": "{description} - Modrinth で {username} が作成した {name} を表示する"
+  },
+  "collection.description.following": {
+    "message": "あなたがフォローしているプロジェクトがすべて含まれた自動生成のコレクションです。"
+  },
+  "collection.error.not-found": {
+    "message": "コレクションが見つかりません"
+  },
+  "collection.label.collection": {
+    "message": "コレクション"
+  },
+  "collection.label.created-at": {
+    "message": "{ago} に作成"
+  },
+  "collection.label.curated-by": {
+    "message": "作成者"
+  },
+  "collection.label.no-projects": {
+    "message": "このコレクションにはプロジェクトがありません！"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "プロジェクトがありません。\n<create-link>プロジェクトを作成しますか？</create-link>"
+  },
+  "collection.label.owner": {
+    "message": "オーナー"
+  },
+  "collection.label.private": {
+    "message": "非公開"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, other {<stat>{count}</stat> プロジェクト}}"
+  },
+  "collection.label.updated-at": {
+    "message": "{ago} に更新"
+  },
+  "collection.title": {
+    "message": "{name} - コレクション"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "新規作成"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, other {{count} プロジェクト}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "コレクションを検索"
+  },
+  "dashboard.collections.long-title": {
+    "message": "コレクション"
+  },
+  "frog": {
+    "message": "カエルにされてしまった！ 🐸"
+  },
+  "frog.altText": {
+    "message": "カエルの迷宮の写実的な絵画"
+  },
+  "frog.froggedPeople": {
+    "message": "これまでに {count, plural, other {{count} 人}}がカエルにされました。"
+  },
+  "frog.sinceOpened": {
+    "message": "このページは {ago} に開かれました"
+  },
+  "frog.title": {
+    "message": "カエル"
+  },
+  "input.view.gallery": {
+    "message": "ギャラリー表示"
+  },
+  "input.view.grid": {
+    "message": "グリッド表示"
+  },
+  "input.view.list": {
+    "message": "行表示"
+  },
+  "label.changes-saved": {
+    "message": "変更が保存されました"
+  },
+  "label.collections": {
+    "message": "コレクション"
+  },
+  "label.created-ago": {
+    "message": "{ago} に作成"
+  },
+  "label.dashboard": {
+    "message": "ダッシュボード"
+  },
+  "label.delete": {
+    "message": "削除"
+  },
+  "label.description": {
+    "message": "概要"
+  },
+  "label.error": {
+    "message": "エラー"
+  },
+  "label.followed-projects": {
+    "message": "フォロー中のプロジェクト"
+  },
+  "label.moderation": {
+    "message": "管理"
+  },
+  "label.notifications": {
+    "message": "通知"
+  },
+  "label.password": {
+    "message": "パスワード"
+  },
+  "label.public": {
+    "message": "公開"
+  },
+  "label.rejected": {
+    "message": "却下済み"
+  },
+  "label.scopes": {
+    "message": "スコープ"
+  },
+  "label.settings": {
+    "message": "設定"
+  },
+  "label.title": {
+    "message": "タイトル"
+  },
+  "label.unlisted": {
+    "message": "限定公開"
+  },
+  "label.visibility": {
+    "message": "公開範囲"
+  },
+  "label.visit-your-profile": {
+    "message": "自分のプロフィールを開く"
+  },
+  "layout.action.change-theme": {
+    "message": "テーマを変更"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Modrinthアプリを入手"
+  },
+  "layout.avatar.alt": {
+    "message": "あなたのアバター"
+  },
+  "layout.banner.add-email.button": {
+    "message": "アカウント設定を開く"
+  },
+  "layout.banner.add-email.title": {
+    "message": "セキュリティのため、Modrinthアカウントのメールアドレスを確認してください。"
+  },
+  "layout.banner.staging.description": {
+    "message": "ステージング環境は、プロダクション環境のModrinthデータベースのコピーで実行されています。 これはテストとデバッグの目的で使用され、Modrinth バックエンドの開発版や、プロダクションインスタンスより新しいフロントエンドを実行している可能性があります。"
+  },
+  "layout.banner.staging.title": {
+    "message": "Modrinthのステージング環境を表示しています。"
+  },
+  "layout.banner.verify-email.action": {
+    "message": "確認メールを再送信"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "セキュリティのために、Modrinthアカウントのメールアドレスを確認してください。"
+  },
+  "layout.footer.company.careers": {
+    "message": "採用情報"
+  },
+  "layout.footer.company.privacy": {
+    "message": "プライバシー"
+  },
+  "layout.footer.company.rules": {
+    "message": "規則"
+  },
+  "layout.footer.company.terms": {
+    "message": "利用規約"
+  },
+  "layout.footer.company.title": {
+    "message": "会社情報"
+  },
+  "layout.footer.interact.title": {
+    "message": "交流"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinthは<github-link>オープンソース</github-link>です。"
+  },
+  "layout.footer.resources.blog": {
+    "message": "ブログ"
+  },
+  "layout.footer.resources.docs": {
+    "message": "ドキュメント"
+  },
+  "layout.footer.resources.status": {
+    "message": "ステータス"
+  },
+  "layout.footer.resources.support": {
+    "message": "サポート"
+  },
+  "layout.footer.resources.title": {
+    "message": "リソース"
+  },
+  "layout.menu-toggle.action": {
+    "message": "メニューの切り替え"
+  },
+  "layout.meta.description": {
+    "message": "Modrinthでは、マインクラフトのModやプラグイン、データパック、シェーダー、リソースパックそしてModパックをダウンロードすることができます。 近代的で快適なインターフェイスとAPIで、プロジェクトを発見し、公開しましょう。"
+  },
+  "layout.meta.og-description": {
+    "message": "マインクラフトのコンテンツを発見し、公開しよう。"
+  },
+  "layout.nav.home": {
+    "message": "ホーム"
+  },
+  "layout.nav.search": {
+    "message": "検索"
+  },
+  "notification.error.title": {
+    "message": "エラーが発生しました"
+  },
+  "profile.button.manage-projects": {
+    "message": "プロジェクトを管理"
+  },
+  "profile.button.report": {
+    "message": "報告"
+  },
+  "profile.error.not-found": {
+    "message": "ユーザーが見つかりませんでした"
+  },
+  "profile.joined-at": {
+    "message": "{ago} に参加"
+  },
+  "profile.label.no-collections": {
+    "message": "このユーザーのコレクションはありません"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "コレクションがありません。\n <create-link>コレクションを作成しますか？</create-link>"
+  },
+  "profile.label.no-projects": {
+    "message": "このユーザーのプロジェクトはありません"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "プロジェクトがありません\nプロジェクトを<create-link>作成しますか</create-link>？"
+  },
+  "profile.label.organizations": {
+    "message": "組織"
+  },
+  "profile.meta.description": {
+    "message": "Modrinthで {username} のプロジェクトをダウンロードする"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Modrinthで {username} のプロジェクトをダウンロードする"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, other {<stat>{count}</stat> ダウンロード}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, other {<stat>{count}</stat> 累計フォロワー}}"
+  },
+  "profile.user-id": {
+    "message": "ユーザーID: {id}"
+  },
+  "project-type.all": {
+    "message": "すべて"
+  },
+  "project-type.collection.plural": {
+    "message": "コレクション"
+  },
+  "project-type.collection.singular": {
+    "message": "コレクション"
+  },
+  "project-type.datapack.plural": {
+    "message": "データパック"
+  },
+  "project-type.datapack.singular": {
+    "message": "データパック"
+  },
+  "project-type.mod.plural": {
+    "message": "Mod"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modパック"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modパック"
+  },
+  "project-type.plugin.plural": {
+    "message": "プラグイン"
+  },
+  "project-type.plugin.singular": {
+    "message": "プラグイン"
+  },
+  "project-type.project.plural": {
+    "message": "プロジェクト"
+  },
+  "project-type.project.singular": {
+    "message": "プロジェクト"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "リソースパック"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "リソースパック"
+  },
+  "project-type.shader.plural": {
+    "message": "シェーダー"
+  },
+  "project-type.shader.singular": {
+    "message": "シェーダー"
+  },
+  "revenue.transfers.total": {
+    "message": "合計で{amount}を引き落としました。"
+  },
+  "revenue.transfers.total.method": {
+    "message": "{method}を経由して合計{amount}を引き落としました。"
+  },
+  "revenue.transfers.total.year": {
+    "message": "{year}年に合計で{amount}を引き落としました。"
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "{year}年に{method}を経由して合計で{amount}を引き落としました。"
+  },
+  "scopes.analytics.description": {
+    "message": "アナリティクスデータにアクセス"
+  },
+  "scopes.analytics.label": {
+    "message": "アナリティクスの読み取り"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "コレクションを作成"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "コレクションの作成"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "コレクションを削除"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "コレクションの削除"
+  },
+  "scopes.collectionRead.description": {
+    "message": "コレクションの読み取り"
+  },
+  "scopes.collectionRead.label": {
+    "message": "コレクションの読み取り"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "コレクションへの書き込み"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "コレクションの書き込み"
+  },
+  "scopes.notificationRead.description": {
+    "message": "通知の読み取り"
+  },
+  "scopes.notificationRead.label": {
+    "message": "通知の読み取り"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "通知の削除/表示"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "通知の書き込み"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "組織を作成"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "組織を作成"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "組織を削除"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "組織の削除"
+  },
+  "scopes.organizationRead.description": {
+    "message": "組織の読み取り"
+  },
+  "scopes.organizationRead.label": {
+    "message": "組織の読み取り"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "組織の書き込み"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "組織の書き込み"
+  },
+  "scopes.patCreate.description": {
+    "message": "個人用APIトークンを作成"
+  },
+  "scopes.patCreate.label": {
+    "message": "PATの作成"
+  },
+  "scopes.patDelete.description": {
+    "message": "個人用APIトークンを削除"
+  },
+  "scopes.patDelete.label": {
+    "message": "PATの削除"
+  },
+  "scopes.patRead.description": {
+    "message": "作成したAPIトークンを表示"
+  },
+  "scopes.patRead.label": {
+    "message": "PATの読み取り"
+  },
+  "scopes.patWrite.description": {
+    "message": "個人用APIトークンを編集"
+  },
+  "scopes.patWrite.label": {
+    "message": "PATの書き込み"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "収益データを読み取る"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "収益の読み取り"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "収益を出金する"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "収益の書き込み"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "分析アクションを実行"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "分析を行う"
+  },
+  "scopes.projectCreate.description": {
+    "message": "新規プロジェクトを作成"
+  },
+  "scopes.projectCreate.label": {
+    "message": "プロジェクトの作成"
+  },
+  "scopes.projectDelete.description": {
+    "message": "プロジェクトを削除"
+  },
+  "scopes.projectDelete.label": {
+    "message": "プロジェクトの削除"
+  },
+  "scopes.projectRead.description": {
+    "message": "あなたの全プロジェクトの読み取り"
+  },
+  "scopes.projectRead.label": {
+    "message": "プロジェクトの読み取り"
+  },
+  "scopes.projectWrite.description": {
+    "message": "プロジェクトデータへの書き込み"
+  },
+  "scopes.projectWrite.label": {
+    "message": "プロジェクトの書き込み"
+  },
+  "scopes.reportCreate.description": {
+    "message": "レポートの作成"
+  },
+  "scopes.reportCreate.label": {
+    "message": "レポートの作成"
+  },
+  "scopes.reportDelete.description": {
+    "message": "レポートの削除"
+  },
+  "scopes.reportDelete.label": {
+    "message": "レポートの削除"
+  },
+  "scopes.reportRead.description": {
+    "message": "レポートの読み取り"
+  },
+  "scopes.reportRead.label": {
+    "message": "レポートの読み取り"
+  },
+  "scopes.reportWrite.description": {
+    "message": "[レポートの編集"
+  },
+  "scopes.reportWrite.label": {
+    "message": "レポートの書き込み"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "発行済みのセッションにアクセス"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "セッションにアクセス"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "セッションを削除"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "セッションの削除"
+  },
+  "scopes.sessionRead.description": {
+    "message": "有効なセッションの読み取り"
+  },
+  "scopes.sessionRead.label": {
+    "message": "セッションの読み取り"
+  },
+  "scopes.threadRead.description": {
+    "message": "スレッドの読み取り"
+  },
+  "scopes.threadRead.label": {
+    "message": "スレッドの読み取り"
+  },
+  "scopes.threadWrite.description": {
+    "message": "スレッドへの書き込み"
+  },
+  "scopes.threadWrite.label": {
+    "message": "スレッドの書き込み"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "認証データの編集"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "認証データの書き込み"
+  },
+  "scopes.userDelete.description": {
+    "message": "アカウントの削除"
+  },
+  "scopes.userDelete.label": {
+    "message": "アカウントの削除"
+  },
+  "scopes.userRead.description": {
+    "message": "あなたの公開プロフィール情報にアクセス"
+  },
+  "scopes.userRead.label": {
+    "message": "ユーザーデータの読み取り"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "あなたのメールアドレスの読み取り"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "メールの読み取り"
+  },
+  "scopes.userWrite.description": {
+    "message": "プロフィールへの書き込み"
+  },
+  "scopes.userWrite.label": {
+    "message": "ユーザーデータの書き込み"
+  },
+  "scopes.versionCreate.description": {
+    "message": "新しいバージョンの作成"
+  },
+  "scopes.versionCreate.label": {
+    "message": "バージョンの作成"
+  },
+  "scopes.versionDelete.description": {
+    "message": "バージョンを削除"
+  },
+  "scopes.versionDelete.label": {
+    "message": "バージョンの削除"
+  },
+  "scopes.versionRead.description": {
+    "message": "全バージョンの読み取り"
+  },
+  "scopes.versionRead.label": {
+    "message": "バージョンの読み取り"
+  },
+  "scopes.versionWrite.description": {
+    "message": "バージョンデータへの書き込み"
+  },
+  "scopes.versionWrite.label": {
+    "message": "バージョンの書き込み"
+  },
+  "settings.account.title": {
+    "message": "アカウントとセキュリティ"
+  },
+  "settings.appearance.title": {
+    "message": "表示設定"
+  },
+  "settings.applications.title": {
+    "message": "アプリケーション"
+  },
+  "settings.authorized-apps.title": {
+    "message": "連携済アプリケーション"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "開発者モードを無効にする"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>開発者モード</strong> が有効です。これにより、Modrinth全体の様々なものの内部IDを表示することができ、Modrinth APIを使用する開発に役立ちます。ページの下部にあるModrinthロゴを5回クリックすると、開発者モードが切り替わります。"
+  },
+  "settings.display.flags.description": {
+    "message": "このデバイスで特定の機能を有効または無効にします。"
+  },
+  "settings.display.flags.title": {
+    "message": "Toggle features"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "データパックページ"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "このデバイスで表示する各ページの好みのレイアウトを選択できます。"
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Modページ"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Modパックページ"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "プラグインページ"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "リソースパックページ"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "シェーダーページ"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "プロジェクト一覧のレイアウト"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "ユーザープロフィールページ"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "ぼかしエフェクトなどの高度なレンダリングを有効にします。グラフィックアクセラレーションが使用できない場合は、パフォーマンスが低下する可能性があります。"
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "高度なレンダリング"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Modrinth外部のリンクを新しいタブで開きます。 この設定に関係なく、同じドメインとMarkdownの概要欄のリンクは同じタブで開き、広告や編集ページのリンクが新しいタブで開きます。"
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "外部リンクを新しいタブで開く"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "「Modrinthアプリを入手」ボタンをプライマリナビゲーションから非表示にします。Modrinth Appのページは、ランディングページまたはフッターに表示されます。"
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Modrinthアプリのプロモーションを非表示"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "プロジェクト詳細のサイドバーをページの右側に揃えます。"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "右揃えのプロジェクトサイドバー"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "検索フィルターのサイドバーを検索結果の右側に揃えます。"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "右揃えの検索サイドバー"
+  },
+  "settings.display.theme.dark": {
+    "message": "ダーク"
+  },
+  "settings.display.theme.description": {
+    "message": "このデバイスでのお好みのカラーテーマを選択してください。"
+  },
+  "settings.display.theme.light": {
+    "message": "ライト"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "選択したダークテーマ"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "選択したライトテーマ"
+  },
+  "settings.display.theme.retro": {
+    "message": "レトロ"
+  },
+  "settings.display.theme.system": {
+    "message": "システムと同期"
+  },
+  "settings.display.theme.title": {
+    "message": "カラーテーマ"
+  },
+  "settings.language.categories.auto": {
+    "message": "自動"
+  },
+  "settings.language.categories.default": {
+    "message": "一般的な言語"
+  },
+  "settings.language.categories.experimental": {
+    "message": "実験中の言語"
+  },
+  "settings.language.categories.fun": {
+    "message": "おもしろ言語"
+  },
+  "settings.language.categories.search-result": {
+    "message": "検索結果"
+  },
+  "settings.language.description": {
+    "message": "このサイトで使用する言語を選択してください。翻訳は<crowdin-link>Crowdin</crowdin-link>のボランティアによって提供されています。"
+  },
+  "settings.language.languages.automatic": {
+    "message": "システムの言語に合わせる"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label} を適用中..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label} エラー"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "この言語を読み込むことができませんでした。もう一度やり直してください。"
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Enterキーを押すと最初の検索結果にフォーカスが移動します。"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "言語を検索..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "検索条件に一致する{matches, plural, =0 {言語が見つかりませんでした} other {、#つの言語が見つかりました}}。"
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "検索条件に一致する言語はありませんでした"
+  },
+  "settings.language.title": {
+    "message": "言語"
+  },
+  "settings.pats.action.create": {
+    "message": "PATを作成"
+  },
+  "settings.pats.description": {
+    "message": "PATはModrinth APIのアクセスに使用できます。詳細については、<doc-link>Modrinth APIドキュメント</doc-link>を参照してください。 作成したPATはいつでも作成し、削除することができます。"
+  },
+  "settings.pats.modal.create.action": {
+    "message": "PATを作成"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "有効期限"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "名前"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "PATの名前を入力..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "個人用アクセストークンを作成"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "このトークンを削除"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "これにより、このトークンは永久に削除されます(本当に永久です)。"
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "本当にこのトークンを削除しますか？"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "個人用アクセストークンを編集"
+  },
+  "settings.pats.title": {
+    "message": "個人用アクセストークン"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "トークンを編集"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "トークンを破棄"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "{ago} に期限切れ"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "{inTime} に期限切れ"
+  },
+  "settings.pats.token.last-used": {
+    "message": "{ago} に使用"
+  },
+  "settings.pats.token.never-used": {
+    "message": "未使用"
+  },
+  "settings.profile.bio.description": {
+    "message": "他のユーザーにあなたのことを伝えるための簡単な説明です。"
+  },
+  "settings.profile.bio.title": {
+    "message": "自己紹介"
+  },
+  "settings.profile.description": {
+    "message": "あなたのプロフィール情報は、Modrinth および <docs-link>Modrinth API</docs-link> で公開されています。"
+  },
+  "settings.profile.profile-info": {
+    "message": "プロフィール情報"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "リセット"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "プロフィール画像"
+  },
+  "settings.profile.title": {
+    "message": "公開プロフィール"
+  },
+  "settings.profile.username.description": {
+    "message": "プロフィールを識別するための、大文字や小文字を区別しない名前です。"
+  },
+  "settings.profile.username.title": {
+    "message": "ユーザー名"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "セッションを破棄"
+  },
+  "settings.sessions.created-ago": {
+    "message": "{ago} に作成"
+  },
+  "settings.sessions.current-session": {
+    "message": "現在のセッション"
+  },
+  "settings.sessions.description": {
+    "message": "これらは現在Modrinthアカウントにログインしているすべてのデバイスです。それぞれ個別にログアウトできます。\n\n見覚えのないデバイスが表示されている場合は、すぐにそのデバイスをログアウトし、Modrinthアカウントのパスワードを変更してください。"
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "{ago} に最終アクセス"
+  },
+  "settings.sessions.title": {
+    "message": "セッション"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "不明なOS"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "不明なプラットフォーム"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} {time, time, short}"
+  }
+}

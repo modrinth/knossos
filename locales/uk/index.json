@@ -1,0 +1,1040 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "Авторизувати"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Відхилити"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>«{appName}»</strong> від <creator-link>{creator}</creator-link> зможе робити наступне:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Авторизація «{appName}»"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "У відповіді не знайдено посилання для перенаправлення"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "Ви будете перенаправлені на <redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "Надіслати лист для відновлення"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Укажіть вашу електронну пошту нижче, щоб ми надіслали вам посилання для відновлення вашого облікового запису."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "Ел. пошта або ім’я користувача"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "Електронна пошта"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "Лист з інструкціями було надіслано на вашу електронну пошту, якщо вона була збережена у вашому обліковому записі."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "Лист надіслано"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "Тепер ви можете увійти до свого облікового запису з новим паролем."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Пароль успішно скинуто"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Скинути пароль"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Підтвердження пароля"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Укажіть ваш новий пароль нижче, щоб отримати доступ до свого облікового запису."
+  },
+  "auth.reset-password.title": {
+    "message": "Скидання пароля"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Скидання пароля"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Будь ласка, укажіть код двофакторної автентифікації, щоб продовжити."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Укажіть код двофакторної автентифікації"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Укажіть код..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Забули пароль?</forgot-password-link> • <create-account-link>Створити обліковий запис</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "Ел. пошта або ім’я користувача"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Пароль"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Увійдіть за допомогою"
+  },
+  "auth.sign-in.title": {
+    "message": "Вхід"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Або ж з паролем"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Створити обліковий запис"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Підтвердження пароля"
+  },
+  "auth.sign-up.email.label": {
+    "message": "Електронна пошта"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Ім’я користувача"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "Створивши обліковий запис, ви погоджуєтеся з <terms-link>Умовами використання</terms-link> та <privacy-policy-link>Політикою конфіденційности</privacy-policy-link> Modrinth."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Паролі не збігаються!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Пароль"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Уже маєте обліковий запис?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Підписатися на оновлення Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Реєстрація"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Або ж вручну"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Реєстрація за допомогою"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Налаштування облікового запису"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Увійти"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "Ваша електронна пошта вже підтверджена!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "Електронна пошта підтверджена"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Повторно надіслати лист з підтвердженням"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "Ми не змогли підтвердити вашу електронну пошту. Спробуйте повторно надіслати лист з підтвердженням через панель керування, увійшовши в обліковий запис."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "Ми не змогли підтвердити вашу електронну пошту. Спробуйте повторно надіслати лист з підтвердженням за допомогою кнопки нижче."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "Не вдалося перевірити електронну пошту"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "Вашу електронну пошту успішно підтверджено!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "Підтвердження електронної пошти"
+  },
+  "auth.verify-email.title": {
+    "message": "Підтвердити електронну пошту"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Підписатися на оновлення Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Дякуємо за створення облікового запису. Тепер ви можете стежити за проєктами, створювати їх, отримувати оновлення про улюблені проєкти та багато іншого!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Створивши обліковий запис, ви погодилися з <terms-link>Умовами використання</terms-link> та <privacy-policy-link>Політикою конфіденційности</privacy-policy-link> Modrinth."
+  },
+  "auth.welcome.long-title": {
+    "message": "Вітаємо в Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Вітаємо"
+  },
+  "button.cancel": {
+    "message": "Скасувати"
+  },
+  "button.continue": {
+    "message": "Продовжити"
+  },
+  "button.create-a-project": {
+    "message": "Створити проєкт"
+  },
+  "button.edit": {
+    "message": "Редагувати"
+  },
+  "button.save": {
+    "message": "Зберегти"
+  },
+  "button.save-changes": {
+    "message": "Зберегти зміни"
+  },
+  "button.sign-in": {
+    "message": "Увійти"
+  },
+  "button.sign-out": {
+    "message": "Вийти"
+  },
+  "button.upload-image": {
+    "message": "Завантажити зображення"
+  },
+  "collection.button.delete-icon": {
+    "message": "Видалити значок"
+  },
+  "collection.button.edit-icon": {
+    "message": "Редагувати значок"
+  },
+  "collection.button.remove-project": {
+    "message": "Вилучити проєкт"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Відписатися від проєкту"
+  },
+  "collection.button.upload-icon": {
+    "message": "Вивантажити значок"
+  },
+  "collection.delete-modal.description": {
+    "message": "Це призведе до видалення цієї добірки назавжди. Цю дію не можна скасувати."
+  },
+  "collection.delete-modal.title": {
+    "message": "Ви впевнені, що хочете видалити цю добірку?"
+  },
+  "collection.description": {
+    "message": "{description} — Дивіться добірку «{name}» від {username} на Modrinth"
+  },
+  "collection.description.following": {
+    "message": "Автоматично згенерована добірка з усіх проєктів на які ви підписані."
+  },
+  "collection.error.not-found": {
+    "message": "Добірок не знайдено"
+  },
+  "collection.label.collection": {
+    "message": "Добірка"
+  },
+  "collection.label.created-at": {
+    "message": "Створено {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Куратори"
+  },
+  "collection.label.no-projects": {
+    "message": "У цій добірці немає проєктів!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "У вас немає жодного проєкту.\nБажаєте <create-link>додати якийсь</create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Власник"
+  },
+  "collection.label.private": {
+    "message": "Приватно"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> проєкт} few {<stat>{count}</stat> проєкти} other {<stat>{count}</stat> проєктів}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Оновлено {ago}"
+  },
+  "collection.title": {
+    "message": "{name} — Добірка"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Створити нову"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} проєкт} few {{count} проєкти} other {{count} проєктів}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Пошук у ваших добірках"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Ваші добірки"
+  },
+  "frog": {
+    "message": "Вас жабнули! 🐸"
+  },
+  "frog.altText": {
+    "message": "Фотореалістичний малюнок жаб’ячого лабіринту"
+  },
+  "frog.froggedPeople": {
+    "message": "Окрім вас жабнули ще {count, plural, one {{count} людину} other {{count} людей}}!"
+  },
+  "frog.sinceOpened": {
+    "message": "Цю сторіку було відкрито {ago}"
+  },
+  "frog.title": {
+    "message": "Жаба"
+  },
+  "input.view.gallery": {
+    "message": "У вигляді галереї"
+  },
+  "input.view.grid": {
+    "message": "У вигляді таблиці"
+  },
+  "input.view.list": {
+    "message": "У вигляді рядків"
+  },
+  "label.changes-saved": {
+    "message": "Зміни збережено"
+  },
+  "label.collections": {
+    "message": "Добірки"
+  },
+  "label.created-ago": {
+    "message": "Створено {ago}"
+  },
+  "label.dashboard": {
+    "message": "Панель керування"
+  },
+  "label.delete": {
+    "message": "Видалити"
+  },
+  "label.description": {
+    "message": "Опис"
+  },
+  "label.error": {
+    "message": "Помилка"
+  },
+  "label.followed-projects": {
+    "message": "Підписки"
+  },
+  "label.moderation": {
+    "message": "Модерація"
+  },
+  "label.notifications": {
+    "message": "Сповіщення"
+  },
+  "label.password": {
+    "message": "Пароль"
+  },
+  "label.public": {
+    "message": "Публічно"
+  },
+  "label.rejected": {
+    "message": "Відхилено"
+  },
+  "label.scopes": {
+    "message": "Цілі"
+  },
+  "label.settings": {
+    "message": "Налаштування"
+  },
+  "label.title": {
+    "message": "Назва"
+  },
+  "label.unlisted": {
+    "message": "Поза списком"
+  },
+  "label.visibility": {
+    "message": "Видимість"
+  },
+  "label.visit-your-profile": {
+    "message": "Відвідати профіль"
+  },
+  "layout.action.change-theme": {
+    "message": "Змінити тему"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Одержати Modrinth App"
+  },
+  "layout.avatar.alt": {
+    "message": "Ваш аватар"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Відвідати налаштування"
+  },
+  "layout.banner.add-email.title": {
+    "message": "З міркувань безпеки, будь ласка, укажіть вашу електронну пошту на Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "Середовище тестування працює на копії виробничої бази даних Modrinth. Воно використовується для перевірки й налагодження та може містити новіші версії бекенду або фронтенду Modrinth, які все ще перебувають у стадії розробки."
+  },
+  "layout.banner.staging.title": {
+    "message": "Ви перебуваєте у середовищі тестування Modrinth."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Повторно надіслати лист з підтвердженням"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "З міркувань безпеки, будь ласка, підтвердьте вашу електронну пошту на Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Вакансії"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Конфіденційність"
+  },
+  "layout.footer.company.rules": {
+    "message": "Правила"
+  },
+  "layout.footer.company.terms": {
+    "message": "Умови використання"
+  },
+  "layout.footer.company.title": {
+    "message": "Компанія"
+  },
+  "layout.footer.interact.title": {
+    "message": "Взаємодія"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "НЕ Є ОФІЦІЙНИМ ПРОДУКТОМ MINECRAFT. НЕ СХВАЛЕНО І НЕ ПОВ’ЯЗАНО З MOJANG ЧИ MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth має <github-link>відкритий код</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Блоґ"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Документація"
+  },
+  "layout.footer.resources.status": {
+    "message": "Стасус"
+  },
+  "layout.footer.resources.support": {
+    "message": "Підтримка"
+  },
+  "layout.footer.resources.title": {
+    "message": "Інформація"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Перемкнути меню"
+  },
+  "layout.meta.description": {
+    "message": "Завантажуйте модифікації, плаґіни, пакети даних, шейдери, пакети ресурсів та збірки для Minecraft на Modrinth. Досліджуйте чужі та публікуйте свої проєкти на Modrinth за допомогою сучасного, простого у використанні інтерфейсу та API."
+  },
+  "layout.meta.og-description": {
+    "message": "Досліджуйте чужий та публікуйте свій уміст для Minecraft!"
+  },
+  "layout.nav.home": {
+    "message": "Головна"
+  },
+  "layout.nav.search": {
+    "message": "Пошук"
+  },
+  "notification.error.title": {
+    "message": "Виникла помилка"
+  },
+  "profile.button.manage-projects": {
+    "message": "Управляти проєктами"
+  },
+  "profile.button.report": {
+    "message": "Поскаржитися"
+  },
+  "profile.error.not-found": {
+    "message": "Користувача не знайдено"
+  },
+  "profile.joined-at": {
+    "message": "Приєднався {ago}"
+  },
+  "profile.label.no-collections": {
+    "message": "У цього користувача немає добірок!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "У вас немає жодної добірки.\nБажаєте <create-link>створити її</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "У цього користувача немає проєктів!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "У вас немає жодного проєкту.\nБажаєте <create-link>створити якийсь</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Організації"
+  },
+  "profile.meta.description": {
+    "message": "Завантажте проєкти {username} на Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} — Завантажуйте проєкти {username} на Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> завантаження} few {<stat>{count}</stat> завантаження} other {<stat>{count}</stat> завантажень}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> підписник} few {<stat>{count}</stat> підписники} other {<stat>{count}</stat> підписників}} у проєктах"
+  },
+  "profile.user-id": {
+    "message": "ID користувача: {id}"
+  },
+  "project-type.all": {
+    "message": "Усе"
+  },
+  "project-type.collection.plural": {
+    "message": "Добірки"
+  },
+  "project-type.collection.singular": {
+    "message": "Добірка"
+  },
+  "project-type.datapack.plural": {
+    "message": "Пакети даних"
+  },
+  "project-type.datapack.singular": {
+    "message": "Пакет даних"
+  },
+  "project-type.mod.plural": {
+    "message": "Модифікації"
+  },
+  "project-type.mod.singular": {
+    "message": "Модифікація"
+  },
+  "project-type.modpack.plural": {
+    "message": "Збірки"
+  },
+  "project-type.modpack.singular": {
+    "message": "Збірка"
+  },
+  "project-type.plugin.plural": {
+    "message": "Плаґіни"
+  },
+  "project-type.plugin.singular": {
+    "message": "Плаґін"
+  },
+  "project-type.project.plural": {
+    "message": "Проєкти"
+  },
+  "project-type.project.singular": {
+    "message": "Проєкт"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Пакети ресурсів"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Пакет ресурсів"
+  },
+  "project-type.shader.plural": {
+    "message": "Шейдери"
+  },
+  "project-type.shader.singular": {
+    "message": "Шейдер"
+  },
+  "revenue.transfers.total": {
+    "message": "Загалом ви вивели {amount}."
+  },
+  "revenue.transfers.total.method": {
+    "message": "Загалом ви вивели {amount} за допомогою {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "Протягом {year} ви вивели {amount}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "Протягом {year} ви вивели {amount} за допомогою {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "Доступ до ваших аналітичних даних"
+  },
+  "scopes.analytics.label": {
+    "message": "Дивитися аналітику"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Створення добірок"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Створювати добірки"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Видалення добірок"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Видаляти добірки"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Переглядання добірок"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Дивитися добірки"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Редагування добірок"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Редагувати добірки"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Переглядання ваших сповіщень"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Дивитися сповіщення"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Переглядання та видалення ваших сповіщень"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Редагувати сповіщення"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Створення організацій"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Створювати організації"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Видалення організацій"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Видаляти організації"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Переглядання організацій"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Дивитися організації"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Редагування організацій"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Редагувати організації"
+  },
+  "scopes.patCreate.description": {
+    "message": "Створення персональних токенів API"
+  },
+  "scopes.patCreate.label": {
+    "message": "Створювати токени доступу"
+  },
+  "scopes.patDelete.description": {
+    "message": "Видалення персональних токенів API"
+  },
+  "scopes.patDelete.label": {
+    "message": "Видаляти токени доступу"
+  },
+  "scopes.patRead.description": {
+    "message": "Переглядання створених токенів API"
+  },
+  "scopes.patRead.label": {
+    "message": "Дивитися токени доступу"
+  },
+  "scopes.patWrite.description": {
+    "message": "Змінення персональних токенів API"
+  },
+  "scopes.patWrite.label": {
+    "message": "Редагувати токени доступу"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Переглядання даних про ваші виплати"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Дивитися виплати"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Виведення коштів"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Редагувати виплати"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Виконання дій з аналітикою"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Виконувати аналітику"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Створення нових проєктів"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Створювати проєкти"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Видалення ваших проєктів"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Видаляти проєкти"
+  },
+  "scopes.projectRead.description": {
+    "message": "Переглядання всіх ваших проєктів"
+  },
+  "scopes.projectRead.label": {
+    "message": "Дивитися проєкти"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Редагування даних проєкта"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Редагувати проєкти"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Створення скарг"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Створювати скарги"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Видалення скарг"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Видаляти скарги"
+  },
+  "scopes.reportRead.description": {
+    "message": "Переглядання скарг"
+  },
+  "scopes.reportRead.label": {
+    "message": "Дивитися скарги"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Редагування скарг"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Редагувати скарги"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Доступ до сесій, створених Modrinth"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Доступ до сесій"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Видалення сесій"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Видаляти сесії"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Переглядання активних сесій"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Дивитися сесії"
+  },
+  "scopes.threadRead.description": {
+    "message": "Переглядання гілок"
+  },
+  "scopes.threadRead.label": {
+    "message": "Дивитися гілки"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Редагування гілок"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Редагувати гілки"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Змінювати ваші дані автентифікації"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Редагувати дані входу"
+  },
+  "scopes.userDelete.description": {
+    "message": "Видалення вашого облікового запису"
+  },
+  "scopes.userDelete.label": {
+    "message": "Видаляти обліковий запис"
+  },
+  "scopes.userRead.description": {
+    "message": "Доступ до публічної інформації вашого профілю"
+  },
+  "scopes.userRead.label": {
+    "message": "Дивитися дані користувача"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Переглядання вашої електронної адреси"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Дивитися електонну адресу користувача"
+  },
+  "scopes.userWrite.description": {
+    "message": "Редагування вашого профілю"
+  },
+  "scopes.userWrite.label": {
+    "message": "Редагувати дані користувача"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Створення нових версій"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Створювати версії"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Видалення версій"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Видаляти версії"
+  },
+  "scopes.versionRead.description": {
+    "message": "Переглядання усіх версій"
+  },
+  "scopes.versionRead.label": {
+    "message": "Дивитися версії"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Редагування даних версії"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Редагувати версії"
+  },
+  "settings.account.title": {
+    "message": "Аккаунт та безпека"
+  },
+  "settings.appearance.title": {
+    "message": "Вигляд"
+  },
+  "settings.applications.title": {
+    "message": "Ваші застосунки"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Авторизовані застосунки"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Деактивувати режим розробника"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Режим розробника</strong> активовано. Це дозволить вам бачити внутрішні ID різних елементів у Modrinth, що може знадобитися, якщо ви розробник, який використовує Modrinth API. Натисніть на логотип Modrinth унизу сторінки 5 разів, щоб увімкнути режим розробника."
+  },
+  "settings.display.flags.description": {
+    "message": "Увімкнення або вимкнення певних функцій на цьому пристрої."
+  },
+  "settings.display.flags.title": {
+    "message": "Перемикання функцій"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Сторінка пакетів даних"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Виберіть бажаний макет для кожної сторінки, що містить перелік проєктів для цього пристрою."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Сторінка модифікацій"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Сторінка збірок"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Сторінка плаґінів"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Сторінка пакетів ресурсів"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Сторінка шейдерів"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Макет переліку проєктів"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "Сторінки профілю користувача"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Вмикає розширені можливості візуалізації, такі як ефекти розмиття, через які можуть виникати проблеми з продуктивністю без апаратного прискорення."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Розширена візуалізація"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Зробити так, щоб посилання за межі Modrinth, відкривалися в новій вкладці. Незалежно від цього налаштування, посилання в одному домені та в описах з Markdown відкриватимуться в тій же вкладці, а посилання в оголошеннях і на сторінках редагування — в новій вкладці."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Відкривати зовнішні посилання в нових вкладках"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Прибирає кнопку «Одержати Modrinth App» з навігації. Сторінку Modrinth App все ще можна знайти на посадковій сторінці або унизу будь-якої сторінки."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Приховати пропозицію Modrinth App"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Переміщує бокове меню з деталями проєкту праворуч від вмісту сторінки."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Бокове меню проєкту праворуч"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Переміщує бокове меню з фільтрами пошуку праворуч від результатів пошуку."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Бокове меню пошуку праворуч"
+  },
+  "settings.display.theme.dark": {
+    "message": "Темна"
+  },
+  "settings.display.theme.description": {
+    "message": "Виберіть бажану тему для Modrinth для цього пристрою."
+  },
+  "settings.display.theme.light": {
+    "message": "Світла"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Бажано темна тема"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Бажано світла тема"
+  },
+  "settings.display.theme.retro": {
+    "message": "Ретро"
+  },
+  "settings.display.theme.system": {
+    "message": "Синхронізувати з системою"
+  },
+  "settings.display.theme.title": {
+    "message": "Кольорова тема"
+  },
+  "settings.language.categories.auto": {
+    "message": "Автоматично"
+  },
+  "settings.language.categories.default": {
+    "message": "Стандартні мови"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Експериментальні мови"
+  },
+  "settings.language.categories.fun": {
+    "message": "Жартівливі мови"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Результати пошуку"
+  },
+  "settings.language.description": {
+    "message": "Оберіть бажану мову сайту. Переклад виконується волонтерами <crowdin-link>на Crowdin</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Синхронізувати з мовою системи"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Застосування..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Помилка"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Не вдається завантажити цю мову. Спробуйте пізніше."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Підтвердити для фокусування на першому результаті пошуку"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Пошук мови..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "За вашим запитом {matches, plural, =0 {не знайдено жодної мови} one {знайдено # мову} few {знайдено # мови} other {знайдено # мов}}."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "За вашим запитом не знайдено жодної мови."
+  },
+  "settings.language.title": {
+    "message": "Мова"
+  },
+  "settings.pats.action.create": {
+    "message": "Створити токен доступу"
+  },
+  "settings.pats.description": {
+    "message": "Для доступу до API Modrinth вам знадобиться токен. Для детальної інформації перегляньте <doc-link>документацію Modrinth API</doc-link>. Вони можуть бути створені та відкликані в будь-який час."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Створити токен доступу"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Сплине"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Назва"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Введіть назву токена доступу..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Створити персональний токен доступу"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Видалити цей токен"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "Це видалить токен назавжди (дійсно назавжди)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Ви дійсно бажаєте видалити цей токен?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Редагувати персональний токен"
+  },
+  "settings.pats.title": {
+    "message": "Персональний токен доступу"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Редагувати токен"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Відкликати токен"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Сплив {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Сплине {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Використовувася {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Ніколи не використовувався"
+  },
+  "settings.profile.bio.description": {
+    "message": "Короткий опис, щоб розповісти всім трохи про вас."
+  },
+  "settings.profile.bio.title": {
+    "message": "Про себе"
+  },
+  "settings.profile.description": {
+    "message": "Інформація про ваш профіль є загальнодоступною на Modrinth та через <docs-link>Modrinth API</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "Відомості про профіль"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Скинути"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Зображення профілю"
+  },
+  "settings.profile.title": {
+    "message": "Публічний профіль"
+  },
+  "settings.profile.username.description": {
+    "message": "Унікальне ім’я без урахування регістру для ідентифікації вашого профілю."
+  },
+  "settings.profile.username.title": {
+    "message": "Ім’я користувача"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Завершити сеанс"
+  },
+  "settings.sessions.created-ago": {
+    "message": "Створено {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "Поточний сеанс"
+  },
+  "settings.sessions.description": {
+    "message": "Тут перераховані всі пристрої, на яких здійснено вхід у ваш обліковий запис Modrinth. Ви можете керувати сеансом на кожному з них.\n\nЯкщо ви бачите тут пристрій, якого у вас немає, негайно завершіть сеанс і змініть пароль до вашого облікового запису."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "Востаннє активний {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "Сеанси"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "Невідома ОС"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Невідома платформа"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long}, {time, time, short}"
+  }
+}

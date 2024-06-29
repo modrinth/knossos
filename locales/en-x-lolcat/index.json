@@ -1,0 +1,1040 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "Give him POOOWERS"
+  },
+  "auth.authorize.action.decline": {
+    "message": "no powers to it"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> by a thinghy called <creator-link>{creator}</creator-link> will have THE POWER to:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "givve powers to {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "noooo we are lost :("
+  },
+  "auth.authorize.redirect-url": {
+    "message": "You will be sent here ---> <redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "Send a magic lweamil"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "gimme your e-mail here - \\/ - an i ll send you an E mail with a recovery link backk to save your accunt!!"
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "Emeil or UserNam"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "emeil"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "un emeil withg instructiones got sent!! (only if u putt te right emeil in!)"
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "Sent a magic letter"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "yay! now you can join the party withh yoour BRAND MEW password!! OwO"
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Uur pasward sucassfule riset"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Reret puffrod"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Plase canfrim pafsword"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Tupe uur new puswurd bilow to gainnn accceess tu uur iccount."
+  },
+  "auth.reset-password.title": {
+    "message": "Risit paessrword"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Risetest uur pyuassword"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Pls entir a twu fecter cad to procied."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Etner tow fwector cad"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Intr code?????? K..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>I forgot.</forgot-password-link> • <create-account-link>Count me in!</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "emAil oR username?? plz?"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Secret code"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "oh hi sign in your  usEer acCCouNte"
+  },
+  "auth.sign-in.title": {
+    "message": "Sagn inin"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Ar ues paffword"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Craet acouent"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Same code. But again."
+  },
+  "auth.sign-up.email.label": {
+    "message": "My magic internet address is"
+  },
+  "auth.sign-up.label.username": {
+    "message": "My fake internet name is"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "Bi kreeating akount, u katee 2 Modetints <terms-link>Worms</terms-link> and <privacy-policy-link>Meow Polici</privacy-policy-link>."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "seekret koeds are not saem!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Seekret koed"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "bean heer alredi?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Pwease subscirsde to upfadest ubuut frogrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Sgin ap"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Or craft uur acunt withh nobofy"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Hiiii psl sig up wiht"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Knobs and dials"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Let me in"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "Ur imil is afleredy ferifed!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "You already vererifili... ensured the accuracy, of your magic internet address."
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Cat, ccan u send virfiCAAATziion imiel?"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "Forry, we camt virfact ur emial. Tray re-CATing pws the vificatieon eimal thriggh ur dafboad by signing un."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "Haw to viRfacCt ur imil? Tray re-Crararting thes verifications imil thruretsd theiei battuon bilow."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "OW NO! Couldn't veferifilify ur magik internet adres"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "YASSS! Magik internet adres got veferifilificated!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "Verarifilificate magik internet adres"
+  },
+  "auth.verify-email.title": {
+    "message": "Virfs eamli"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Pweasdee can usubcribe to upfates ubunt madrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Tank u far craft theii acUntTR!!!!1!! Yu cun naw falow andd creeaartinfg profecrs, recicifwvwe updatus AbUt Uur fovirite bRuHhhjects eaend mare!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Bi kreeating akount, u katee 2 Modetints <terms-link>Worms</terms-link> and <privacy-policy-link>Meow Polici</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Yay! ur heer!"
+  },
+  "auth.welcome.title": {
+    "message": "get out."
+  },
+  "button.cancel": {
+    "message": "stop it!"
+  },
+  "button.continue": {
+    "message": "katinuew!!"
+  },
+  "button.create-a-project": {
+    "message": "C1rut perg oject"
+  },
+  "button.edit": {
+    "message": "Chaenj"
+  },
+  "button.save": {
+    "message": "maek stay"
+  },
+  "button.save-changes": {
+    "message": "Svv canghesds"
+  },
+  "button.sign-in": {
+    "message": "Leeet meaghere"
+  },
+  "button.sign-out": {
+    "message": "Go uat hare"
+  },
+  "button.upload-image": {
+    "message": "Aplad greratimgae"
+  },
+  "collection.button.delete-icon": {
+    "message": "nuke piktuer"
+  },
+  "collection.button.edit-icon": {
+    "message": "chaeng piktuer"
+  },
+  "collection.button.remove-project": {
+    "message": "Nuke pawjekt!!"
+  },
+  "collection.button.unfollow-project": {
+    "message": "No more. Go away."
+  },
+  "collection.button.upload-icon": {
+    "message": "New one"
+  },
+  "collection.delete-modal.description": {
+    "message": "But itl go awai FOREVR!!! Cmon, pweeeeeease?"
+  },
+  "collection.delete-modal.title": {
+    "message": "Ar u liek 100% suer?"
+  },
+  "collection.description": {
+    "message": "{description}- ssesea thi caltaection {name} bay {username} oncuul frotgrrFnth"
+  },
+  "collection.description.following": {
+    "message": "Afrv-cenerated prAJjsedr collllectiOOoN Af ull tHis praejcte u fallowoing."
+  },
+  "collection.error.not-found": {
+    "message": "Lookd at de top of de pile and didnt see anyfing. "
+  },
+  "collection.label.collection": {
+    "message": "Kol-ek-shun"
+  },
+  "collection.label.created-at": {
+    "message": "Crtiatn {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "HeEee or shEEe is OvvVner"
+  },
+  "collection.label.no-projects": {
+    "message": "Herwe is no pragehsct:((((!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "U dont Ha ae rcool prajedt.\nWant u like to <create-link>afddd onw</create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Aewrner"
+  },
+  "collection.label.private": {
+    "message": "u kan onli sea diz"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> pawjekt} other {<stat>{count}</stat> pawekts}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Not tjed sme from a {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - HeeheE hafvw a coule calraertion"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "maek niew won!"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} pawjekt} other {{count} pawjekt}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Look inside"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Thees aer your"
+  },
+  "frog": {
+    "message": "you been toaded 🐸"
+  },
+  "frog.altText": {
+    "message": "OMG PIKTUR OF TOAD LABYRINT PEINTING"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural, one {{count} Kat} other {{count} Kats}} been also toaded!"
+  },
+  "frog.sinceOpened": {
+    "message": "Toad page opnd {ago}"
+  },
+  "frog.title": {
+    "message": "tasty jumpy thingy"
+  },
+  "input.view.gallery": {
+    "message": "Big pikturs!!"
+  },
+  "input.view.grid": {
+    "message": "oooooh squares"
+  },
+  "input.view.list": {
+    "message": "Loooekkk at hsis coOoOl coed"
+  },
+  "label.changes-saved": {
+    "message": "UrrR coul chenge sved"
+  },
+  "label.collections": {
+    "message": "Kol-ek-shuns"
+  },
+  "label.created-ago": {
+    "message": "Crdaeaet ed {ago}"
+  },
+  "label.dashboard": {
+    "message": "DashfrdfbOoadd"
+  },
+  "label.delete": {
+    "message": "nuek"
+  },
+  "label.description": {
+    "message": "Little text"
+  },
+  "label.error": {
+    "message": "IrRar"
+  },
+  "label.followed-projects": {
+    "message": "Falalwdared pragject"
+  },
+  "label.moderation": {
+    "message": "Aahhhh!! Scawe persooon"
+  },
+  "label.notifications": {
+    "message": "Notfuacaton"
+  },
+  "label.password": {
+    "message": "Seekret koed"
+  },
+  "label.public": {
+    "message": "otr kats kan see dis"
+  },
+  "label.rejected": {
+    "message": "ur kodes bad"
+  },
+  "label.scopes": {
+    "message": "AscOCpes"
+  },
+  "label.settings": {
+    "message": "Setaitng"
+  },
+  "label.title": {
+    "message": "Big text"
+  },
+  "label.unlisted": {
+    "message": "nobodi kan see diz"
+  },
+  "label.visibility": {
+    "message": "Can see"
+  },
+  "label.visit-your-profile": {
+    "message": "Heriei IsO UrRu profFIlwwwse"
+  },
+  "layout.action.change-theme": {
+    "message": "CHNANGWE THIS SCAWY THEME"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "ThreEre Is Fragrinth ApPp"
+  },
+  "layout.avatar.alt": {
+    "message": "Ur Auvvutur"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Mew! Ac cow nt settsig heer!"
+  },
+  "layout.banner.add-email.title": {
+    "message": "fur security put ur emeil in modhirit"
+  },
+  "layout.banner.staging.description": {
+    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+  },
+  "layout.banner.staging.title": {
+    "message": "You’re viewing Modrinth’s staging environment."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "sent AGAIN ur very veryfiCATzzion emeil"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "For security purposes, please verify your email address on Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "carer"
+  },
+  "layout.footer.company.privacy": {
+    "message": "nopawdi nows woat u do"
+  },
+  "layout.footer.company.rules": {
+    "message": "Rulez... boriingh rulez"
+  },
+  "layout.footer.company.terms": {
+    "message": "Termz.. very mutc boring"
+  },
+  "layout.footer.company.title": {
+    "message": "comPAWNY!"
+  },
+  "layout.footer.interact.title": {
+    "message": "meow wif us"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "diz is maed by mincekraft and iz aproovd bi so-gang and minibed!!"
+  },
+  "layout.footer.open-source": {
+    "message": "Mohdrint iz <github-link>4 FREE AND opaw sors!</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "bolg"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Borinj docuzment"
+  },
+  "layout.footer.resources.status": {
+    "message": "diz stat"
+  },
+  "layout.footer.resources.support": {
+    "message": "jelp hir>_<"
+  },
+  "layout.footer.resources.title": {
+    "message": "Resources"
+  },
+  "layout.menu-toggle.action": {
+    "message": "menu magik buttn °0°"
+  },
+  "layout.meta.description": {
+    "message": "Downlod MiNceraft pawgins, dattaboxes, cul lights thinghys, cul textures boxes, and modifications boxez on modirinth. discovez and pubblish progectzs on Modirint withz a nwe easy and cat friendly screen and api"
+  },
+  "layout.meta.og-description": {
+    "message": "Discover and publish Minecraft content!"
+  },
+  "layout.nav.home": {
+    "message": "hoem peag"
+  },
+  "layout.nav.search": {
+    "message": "find projecc"
+  },
+  "notification.error.title": {
+    "message": "ow no! kudnt catch tasty flying thingy!"
+  },
+  "profile.button.manage-projects": {
+    "message": "chaynj kode"
+  },
+  "profile.button.report": {
+    "message": "dis not rite"
+  },
+  "profile.error.not-found": {
+    "message": "Kat not heer :("
+  },
+  "profile.joined-at": {
+    "message": "Kat came {ago}"
+  },
+  "profile.label.no-collections": {
+    "message": "kat haz no baskets :("
+  },
+  "profile.label.no-collections-auth": {
+    "message": "U not hav basket wif kodes.\nWuud u liek 2 <create-link>maek oen</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "Dis Kat no kode :("
+  },
+  "profile.label.no-projects-auth": {
+    "message": "U not hav kode.\nWuud u lik 2 <create-link>give kode</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "teem of kats"
+  },
+  "profile.meta.description": {
+    "message": "eat {username}'s kode on Frogrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - eat {username}'s kode on Frogrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> eater} other {<stat>{count}</stat> eaters}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> folowr} other {<stat>{count}</stat> folowrs}} of kode"
+  },
+  "profile.user-id": {
+    "message": "boring numbr: {id}"
+  },
+  "project-type.all": {
+    "message": "Evryfin"
+  },
+  "project-type.collection.plural": {
+    "message": "baskets wif kodes"
+  },
+  "project-type.collection.singular": {
+    "message": "basket with kodes"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Pakz"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pak"
+  },
+  "project-type.mod.plural": {
+    "message": "Modz"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpakz"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpak"
+  },
+  "project-type.plugin.plural": {
+    "message": "Pawginz"
+  },
+  "project-type.plugin.singular": {
+    "message": "Pawgin"
+  },
+  "project-type.project.plural": {
+    "message": "pro jets"
+  },
+  "project-type.project.singular": {
+    "message": "projet"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resauce Pakz"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resauce Pak"
+  },
+  "project-type.shader.plural": {
+    "message": "Fancy Resauce Pakz"
+  },
+  "project-type.shader.singular": {
+    "message": "Fancy Resauce Pak"
+  },
+  "revenue.transfers.total": {
+    "message": "U stoel {amount} from frogrinf in toe tal."
+  },
+  "revenue.transfers.total.method": {
+    "message": "u stoel {amount} frue {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "u stoel {amount} in {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "u stoel {amount} in {year} frue {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "See if anibodi aktuali wants ur kode"
+  },
+  "scopes.analytics.label": {
+    "message": "luk at boring data about ur pro jets"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Kreeaet basket of kode."
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Kreeaet basket of kode."
+  },
+  "scopes.collectionDelete.description": {
+    "message": "nuke basket of kode."
+  },
+  "scopes.collectionDelete.label": {
+    "message": "nuke basket of kode."
+  },
+  "scopes.collectionRead.description": {
+    "message": "reed basket of kode."
+  },
+  "scopes.collectionRead.label": {
+    "message": "Reed basket of kode."
+  },
+  "scopes.collectionWrite.description": {
+    "message": "rite moer kode 2 basket"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "rite baskets"
+  },
+  "scopes.notificationRead.description": {
+    "message": "reed ur pings"
+  },
+  "scopes.notificationRead.label": {
+    "message": "reed pings"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "nuke/loke at ur pings"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "maek neew ping"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "creeaet teem of kats"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "creeaet teem of kats"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "nuke teem of kats"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "nuke teem of kats"
+  },
+  "scopes.organizationRead.description": {
+    "message": "luk at teem of kats"
+  },
+  "scopes.organizationRead.label": {
+    "message": "luk at teem of kats"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "ad neew kat 2 teem"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "maek teem of kats"
+  },
+  "scopes.patCreate.description": {
+    "message": "Maek PET!!"
+  },
+  "scopes.patCreate.label": {
+    "message": "Maek PETs"
+  },
+  "scopes.patDelete.description": {
+    "message": "nuke ur PET :("
+  },
+  "scopes.patDelete.label": {
+    "message": "Nuke PETs :("
+  },
+  "scopes.patRead.description": {
+    "message": "luk at ur PETs"
+  },
+  "scopes.patRead.label": {
+    "message": "reed PETs"
+  },
+  "scopes.patWrite.description": {
+    "message": "chaeng PETs"
+  },
+  "scopes.patWrite.label": {
+    "message": "rite PETs"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "luk at ur moon eye"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "luk at ur moon eye"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "taek ur moon eye"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Write payouts"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Perform analytics actions"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Perform analytics"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Create new projects"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Create projects"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Delete your projects"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Delete projects"
+  },
+  "scopes.projectRead.description": {
+    "message": "Read all your projects"
+  },
+  "scopes.projectRead.label": {
+    "message": "Read projects"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Write to project data"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Write projects"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Create reports"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Create reports"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Delete reports"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Delete reports"
+  },
+  "scopes.reportRead.description": {
+    "message": "Read reports"
+  },
+  "scopes.reportRead.label": {
+    "message": "Read reports"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Edit reports"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Write reports"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Access modrinth-issued sessions"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Access sessions"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Delete sessions"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Delete sessions"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Read active sessions"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Read sessions"
+  },
+  "scopes.threadRead.description": {
+    "message": "Read threads"
+  },
+  "scopes.threadRead.label": {
+    "message": "Read threads"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Write to threads"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Write threads"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Modify your authentication data"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Write auth data"
+  },
+  "scopes.userDelete.description": {
+    "message": "delete akow _~_"
+  },
+  "scopes.userDelete.label": {
+    "message": "Delete your account"
+  },
+  "scopes.userRead.description": {
+    "message": "Access your public profile information"
+  },
+  "scopes.userRead.label": {
+    "message": "Read user data"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Read your email"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Read user email"
+  },
+  "scopes.userWrite.description": {
+    "message": "Write to your profile"
+  },
+  "scopes.userWrite.label": {
+    "message": "Write user data"
+  },
+  "scopes.versionCreate.description": {
+    "message": "maek new purrrrrsions"
+  },
+  "scopes.versionCreate.label": {
+    "message": "maek purrrrrsions"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Vurrsion be gon"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Vurrsions be gon"
+  },
+  "scopes.versionRead.description": {
+    "message": "look at all!! purrsions"
+  },
+  "scopes.versionRead.label": {
+    "message": "look at purrsions"
+  },
+  "scopes.versionWrite.description": {
+    "message": "rite 2 purrsion data"
+  },
+  "scopes.versionWrite.label": {
+    "message": "rite purrsions"
+  },
+  "settings.account.title": {
+    "message": "ur akount and sekpurriti"
+  },
+  "settings.appearance.title": {
+    "message": "Appearance"
+  },
+  "settings.applications.title": {
+    "message": "ur aps"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Authorized apps"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Deactivate developer mode"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+  },
+  "settings.display.flags.description": {
+    "message": "Enable or disable certain features on this device."
+  },
+  "settings.display.flags.title": {
+    "message": "Toggle features"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Data Packs page"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Select your preferred layout for each page that displays project lists on this device."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Mods page"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Modpacks page"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "pawgins sheet"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Resource Packs page"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Shaders page"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Project list layouts"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "User profile pages"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Advanced rendering"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Open external links in new tab"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Hide Modrinth App promotions"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Aligns the project details sidebar to the right of the page's content."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Right-aligned project sidebar"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Aligns the search filters sidebar to the right of the search results."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Right-aligned search sidebar"
+  },
+  "settings.display.theme.dark": {
+    "message": "Dark"
+  },
+  "settings.display.theme.description": {
+    "message": "Select your preferred color theme for Modrinth on this device."
+  },
+  "settings.display.theme.light": {
+    "message": "Light"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Preferred dark theme"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Preferred light theme"
+  },
+  "settings.display.theme.retro": {
+    "message": "Retro"
+  },
+  "settings.display.theme.system": {
+    "message": "Sync with system"
+  },
+  "settings.display.theme.title": {
+    "message": "Color theme"
+  },
+  "settings.language.categories.auto": {
+    "message": "robot go brrrrrr"
+  },
+  "settings.language.categories.default": {
+    "message": "not-meow speeky thingys"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Ekzpiremental speeky thingys"
+  },
+  "settings.language.categories.fun": {
+    "message": "Haha speeky thingys"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Kat found dese stuff"
+  },
+  "settings.language.description": {
+    "message": "chooz your favrite lolcat dialect for dis site. Dialectz are given bye good kats <crowdin-link>on crow-din</crowdin-link>"
+  },
+  "settings.language.languages.automatic": {
+    "message": "Sink wit teh computr dilekt"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Apllyinn dilekt..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "Oopsie {label}"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Sry cant lod dilekt. Plz tri agn latr!"
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "entr 2 go 2 wat kat found"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Lok for not meow speeky thing..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {Kat find no speek thing wit} one {Kat found # speek thing wit} other {omg, kat found # speek thing wit}} wat u wantd."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "Sry, no dilekt is same 2 ur lookup"
+  },
+  "settings.language.title": {
+    "message": "Speaky thingy"
+  },
+  "settings.pats.action.create": {
+    "message": "Create a PAT"
+  },
+  "settings.pats.description": {
+    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Create PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Expires"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Name"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Enter the PAT's name..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Create personal access token"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "nuek dis pat on de bak"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "dis wil nuek dis token for evaaa!!"
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "u want to rm -rf / dis fingi?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "chaeng pat on de bak"
+  },
+  "settings.pats.title": {
+    "message": "PAT (on de bak)"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "chaeng thingy"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "i dont uant u to ues dis any moer"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "gots nuekd {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "gets nuekd {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "was usd {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "u nevr usd dis"
+  },
+  "settings.profile.bio.description": {
+    "message": "woat kind of kat ar u?"
+  },
+  "settings.profile.bio.title": {
+    "message": "Thingz about Kat"
+  },
+  "settings.profile.description": {
+    "message": "ur browsing data kan be seen bi otr kats on Moodriet and wif the <docs-link>Moderinorinth fingy</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "ur browsr data"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "set bak"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "ur piktuer"
+  },
+  "settings.profile.title": {
+    "message": "ani kat kan see dis"
+  },
+  "settings.profile.username.description": {
+    "message": "uhhh otr naem"
+  },
+  "settings.profile.username.title": {
+    "message": "katnaym"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "no mor sesion 4 u"
+  },
+  "settings.sessions.created-ago": {
+    "message": "apeerd {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "ur on dis robot rn"
+  },
+  "settings.sessions.description": {
+    "message": "Heer r all robots who no ur pasword. u can log out of evry robot.\n\nif u dont no a robot, kill it and chnge ur moodrinf pa$$word now!"
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "cat usd dis robot {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "sesons"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "idk dis os"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "idk dis catform"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} ad {time, time, short}"
+  }
+}

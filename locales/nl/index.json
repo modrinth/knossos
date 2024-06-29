@@ -1,0 +1,1040 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "Authoriseer"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Weiger"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> door <creator-link>{creator}</creator-link> kan het volgende:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Autoriseer {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "Geen doorverwijzingslocatie gevonden in antwoord"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "U zal worden doorgestuurd naar <redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "Herstel-e-mail verzenden"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Voer hieronder uw e-mailadres in en we sturen een herstellink zodat u uw account kunt herstellen."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "E-mail of gebruikersnaam"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "E-mail"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "Een e-mail met instructies is naar u verzonden als de e-mail eerder op uw account is opgeslagen."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "E-mail is verzonden"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "U kunt nu inloggen op uw account met uw nieuwe wachtwoord."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Wachtwoord succesvol opnieuw ingesteld"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Reset wachtwoord"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Bevestig wachtwoord"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Voer uw nieuwe wachtwoord hieronder in om toegang te krijgen tot uw account."
+  },
+  "auth.reset-password.title": {
+    "message": "Wachtwoord Opnieuw Instellen"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Je wachtwoord resetten"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Voer een tweestapsverificatiecode in om verder te gaan."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Voer twee factor code in"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Voer code in..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Wachtwoord vergeten?</forgot-password-link> • <create-account-link>Maak een account aan</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "E-mail of gebruikersnaam"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Wachtwoord"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Log in met"
+  },
+  "auth.sign-in.title": {
+    "message": "Log in"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Of gebruik een wachtwoord"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Account aanmaken"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Wachtwoord bevestigen"
+  },
+  "auth.sign-up.email.label": {
+    "message": "E-mail"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Gebruikersnaam"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "Door een account aan te maken ga je akkoord met Modrinth's <terms-link>Voorwaarden</terms-link> en <privacy-policy-link>Privacybeleid</privacy-policy-link>."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Wachtwoorden komen niet overeen!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Wachtwoord"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Heeft u al een account?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Abonneer op updates over Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Registreren"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Of maak zelf een account aan"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Registreer met"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Accountinstellingen"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Log in"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "Uw e-mailadres is al geverifieerd!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "E-mailadres al geverifieerd"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Verificatie e-mail opnieuw verzenden"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "We konden uw e-mailadres niet verifiëren. Probeer de verificatie e-mail opnieuw te verzenden via uw dashboard door in te loggen."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "We konden uw e-mailadres niet verifiëren. Probeer de verificatie e-mail opnieuw te verzenden via de knop hieronder."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "E-mail verificatie mislukt"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "Uw e-mailadres is succesvol geverifieerd!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "E-mail verificatie"
+  },
+  "auth.verify-email.title": {
+    "message": "E-mailadres verifiëren"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Abonneer op updates over Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Bedankt voor het aanmaken van een account. Je kunt nu projecten volgen en aanmaken, updates ontvangen over je favoriete projecten en meer!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Door het aanmaken van een account, ga je akkoord met Modrinth's <terms-link>Voorwaarden</terms-link> en <privacy-policy-link>Privacybeleid</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Welkom bij Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Welkom"
+  },
+  "button.cancel": {
+    "message": "Annuleren"
+  },
+  "button.continue": {
+    "message": "Doorgaan"
+  },
+  "button.create-a-project": {
+    "message": "Creëer een project"
+  },
+  "button.edit": {
+    "message": "Bewerk"
+  },
+  "button.save": {
+    "message": "Opslaan"
+  },
+  "button.save-changes": {
+    "message": "Wijzigingen opslaan"
+  },
+  "button.sign-in": {
+    "message": "Log in"
+  },
+  "button.sign-out": {
+    "message": "Log uit"
+  },
+  "button.upload-image": {
+    "message": "Upload afbeelding"
+  },
+  "collection.button.delete-icon": {
+    "message": "Pictogram verwijderen"
+  },
+  "collection.button.edit-icon": {
+    "message": "Pictogram aanpassen"
+  },
+  "collection.button.remove-project": {
+    "message": "Verwijder Project"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Ontvolg project"
+  },
+  "collection.button.upload-icon": {
+    "message": "Pictogram uploaden"
+  },
+  "collection.delete-modal.description": {
+    "message": "Dit zal deze collectie permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt."
+  },
+  "collection.delete-modal.title": {
+    "message": "Weet u zeker dat u deze collectie wil verwijderen?"
+  },
+  "collection.description": {
+    "message": "{description} - Bekijk de collectie {name} van {username} op Modrinth"
+  },
+  "collection.description.following": {
+    "message": "Automatisch gegenereerde collectie van alle projecten die je volgt."
+  },
+  "collection.error.not-found": {
+    "message": "Collectie niet gevonden"
+  },
+  "collection.label.collection": {
+    "message": "Collectie"
+  },
+  "collection.label.created-at": {
+    "message": "Aangemaakt {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Samengesteld door"
+  },
+  "collection.label.no-projects": {
+    "message": "Deze collectie bevat geen projecten!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "U heeft geen projecten.\nWilt u er <create-link>een maken</create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Eigenaar"
+  },
+  "collection.label.private": {
+    "message": "Privé"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projecten}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Bijgewerkt {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - Collectie"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Nieuwe maken"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} project} other {{count} projecten}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Zoek in je collecties"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Jouw collecties"
+  },
+  "frog": {
+    "message": "Je bent gekikkerd! 🐸"
+  },
+  "frog.altText": {
+    "message": "Een fotorealistisch schilderij van een kikkerlabyrint"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural,one {{count} andere persoon is}other {{count} andere personen zijn}} ook gekikkerd!"
+  },
+  "frog.sinceOpened": {
+    "message": "Deze pagina is {ago} geopend"
+  },
+  "frog.title": {
+    "message": "Kikker"
+  },
+  "input.view.gallery": {
+    "message": "Galerij weergave"
+  },
+  "input.view.grid": {
+    "message": "Rasterweergave"
+  },
+  "input.view.list": {
+    "message": "Rij weergave"
+  },
+  "label.changes-saved": {
+    "message": "Wijzigingen opgeslagen"
+  },
+  "label.collections": {
+    "message": "Collecties"
+  },
+  "label.created-ago": {
+    "message": "Aangemaakt {ago} geleden"
+  },
+  "label.dashboard": {
+    "message": "Dashboard"
+  },
+  "label.delete": {
+    "message": "Verwijder"
+  },
+  "label.description": {
+    "message": "Beschrijving"
+  },
+  "label.error": {
+    "message": "Error"
+  },
+  "label.followed-projects": {
+    "message": "Gevolgde Projecten"
+  },
+  "label.moderation": {
+    "message": "Moderatie"
+  },
+  "label.notifications": {
+    "message": "Meldingen"
+  },
+  "label.password": {
+    "message": "Wachtwoord"
+  },
+  "label.public": {
+    "message": "Openbaar"
+  },
+  "label.rejected": {
+    "message": "Afgewezen"
+  },
+  "label.scopes": {
+    "message": "Scopes"
+  },
+  "label.settings": {
+    "message": "Instellingen"
+  },
+  "label.title": {
+    "message": "Titel"
+  },
+  "label.unlisted": {
+    "message": "Verborgen"
+  },
+  "label.visibility": {
+    "message": "Zichtbaarheid"
+  },
+  "label.visit-your-profile": {
+    "message": "Bezoek je profiel"
+  },
+  "layout.action.change-theme": {
+    "message": "Thema veranderen"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Download Modrinth App"
+  },
+  "layout.avatar.alt": {
+    "message": "Jouw avatar"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Naar accountinstellingen"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Voor veiligheidsdoeleinden, voer alstublieft uw e-mailadres in op Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "De staging-omgeving draait op een kopie van de productie Modrinth-database. Dit wordt gebruikt voor test- en debugging doeleinden, en kan versies van de Modrinth backend of frontend draaien die nieuwer zijn dan de productie-site."
+  },
+  "layout.banner.staging.title": {
+    "message": "Je bekijkt de staging omgeving van Modrinth."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Verificatie e-mail opnieuw verzenden"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "Voor veiligheidsdoeleinden, verifieer alstublieft uw e-mailadres op Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Carrières"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Privacy"
+  },
+  "layout.footer.company.rules": {
+    "message": "Regels"
+  },
+  "layout.footer.company.terms": {
+    "message": "Voorwaarden"
+  },
+  "layout.footer.company.title": {
+    "message": "Bedrijf"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interactie"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "NIET EEN OFFICIËELE MINECRAFT SERVICE. NIET GOEDGEKEURD DOOR OF GEASSOCIEERD MET MOJANG OF MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth is <github-link>open source</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Documenten"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Ondersteuning"
+  },
+  "layout.footer.resources.title": {
+    "message": "Bronnen"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Menu in-/uitschakelen"
+  },
+  "layout.meta.description": {
+    "message": "Download Minecraft mods, plugins datapacks, shaders recourcepacks op Modrinth. Ontdek en publiceer projecten op Modrinth met een modern en makkelijk te gebruiken interface en API."
+  },
+  "layout.meta.og-description": {
+    "message": "Ontdek en publiceer Minecraft content!"
+  },
+  "layout.nav.home": {
+    "message": "Startpagina"
+  },
+  "layout.nav.search": {
+    "message": "Zoeken"
+  },
+  "notification.error.title": {
+    "message": "Er is een fout opgetreden"
+  },
+  "profile.button.manage-projects": {
+    "message": "Beheer projecten"
+  },
+  "profile.button.report": {
+    "message": "Rapporteer"
+  },
+  "profile.error.not-found": {
+    "message": "Gebruiker is niet gevonden"
+  },
+  "profile.joined-at": {
+    "message": "{ago} geleden lid geworden"
+  },
+  "profile.label.no-collections": {
+    "message": "Deze gebruiker heeft geen collecties!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Je hebt geen collecties.\nWil je een <create-link>aanmaken</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "Deze gebruiker heeft geen projecten!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "U heeft geen projecten.\nWilt u er <create-link>een maken</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Organisaties"
+  },
+  "profile.meta.description": {
+    "message": "Download projecten van {username} op Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Download {username}'s projecten op Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> download} other {<stat>{count}</stat> downloads}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> volger} other {<stat>{count}</stat> volgers}} van projecten"
+  },
+  "profile.user-id": {
+    "message": "Gebruiker ID: {id}"
+  },
+  "project-type.all": {
+    "message": "Alles"
+  },
+  "project-type.collection.plural": {
+    "message": "Collecties"
+  },
+  "project-type.collection.singular": {
+    "message": "Collectie"
+  },
+  "project-type.datapack.plural": {
+    "message": "Data Packs"
+  },
+  "project-type.datapack.singular": {
+    "message": "Data Pack"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projecten"
+  },
+  "project-type.project.singular": {
+    "message": "Project"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resource Packs"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resource Packs"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
+  },
+  "revenue.transfers.total": {
+    "message": "U heeft in totaal {amount} ingetrokken."
+  },
+  "revenue.transfers.total.method": {
+    "message": "U heeft {amount} opgenomen via {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "U heeft {amount} opgenomen in {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "U heeft {amount} in {year} opgenomen via {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "Toegang tot uw analytics data"
+  },
+  "scopes.analytics.label": {
+    "message": "Lees analytics"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Collecties aanmaken"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Collecties aanmaken"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Collecties verwijderen"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Collecties verwijderen"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Lees collecties"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Lees collecties"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Schrijf naar collecties"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Schrijf collecties"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Lees je meldingen"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Gelezen meldingen"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Uw meldingen verwijderen/bekijken"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Schrijf meldingen"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Maak organisaties"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Maak organisaties"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Organisaties verwijderen"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Organisaties verwijderen"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Organisaties lezen"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Organisaties lezen"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Write to organizations"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Write organizations"
+  },
+  "scopes.patCreate.description": {
+    "message": "Creëer persoonlijke API tokens"
+  },
+  "scopes.patCreate.label": {
+    "message": "Create PATs"
+  },
+  "scopes.patDelete.description": {
+    "message": "Verwijder uw persoonlijke API tokens"
+  },
+  "scopes.patDelete.label": {
+    "message": "Delete PATs"
+  },
+  "scopes.patRead.description": {
+    "message": "Bekijk gemaakte API tokens"
+  },
+  "scopes.patRead.label": {
+    "message": "Read PATs"
+  },
+  "scopes.patWrite.description": {
+    "message": "Bewerk persoonlijke API tokens"
+  },
+  "scopes.patWrite.label": {
+    "message": "Write PATs"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Lees uw betalingsgegevens"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Read payouts"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Withdraw money"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Write payouts"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Perform analytics actions"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Perform analytics"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Create new projects"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Create projects"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Delete your projects"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Delete projects"
+  },
+  "scopes.projectRead.description": {
+    "message": "Read all your projects"
+  },
+  "scopes.projectRead.label": {
+    "message": "Read projects"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Write to project data"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Write projects"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Create reports"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Create reports"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Delete reports"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Delete reports"
+  },
+  "scopes.reportRead.description": {
+    "message": "Read reports"
+  },
+  "scopes.reportRead.label": {
+    "message": "Read reports"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Edit reports"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Write reports"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Access modrinth-issued sessions"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Access sessions"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Delete sessions"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Delete sessions"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Read active sessions"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Read sessions"
+  },
+  "scopes.threadRead.description": {
+    "message": "Read threads"
+  },
+  "scopes.threadRead.label": {
+    "message": "Read threads"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Write to threads"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Write threads"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Modify your authentication data"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Write auth data"
+  },
+  "scopes.userDelete.description": {
+    "message": "Delete your account"
+  },
+  "scopes.userDelete.label": {
+    "message": "Delete your account"
+  },
+  "scopes.userRead.description": {
+    "message": "Access your public profile information"
+  },
+  "scopes.userRead.label": {
+    "message": "Read user data"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Read your email"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Read user email"
+  },
+  "scopes.userWrite.description": {
+    "message": "Schrijven naar je profiel"
+  },
+  "scopes.userWrite.label": {
+    "message": "Gebruikersgegevens veranderen"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Nieuwe versies aanmaken"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Versies aanmaken"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Een versie verwijderen"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Versies verwijderen"
+  },
+  "scopes.versionRead.description": {
+    "message": "Alle versies lezen"
+  },
+  "scopes.versionRead.label": {
+    "message": "Versies lezen"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Schrijven naar versie data"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Versies veranderen"
+  },
+  "settings.account.title": {
+    "message": "Account en veiligheid"
+  },
+  "settings.appearance.title": {
+    "message": "Uiterlijk"
+  },
+  "settings.applications.title": {
+    "message": "Jouw applicaties"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Geautoriseerde applicaties"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Ontwikkelaarsmodus deactiveren"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Ontwikkelaarsmodus</strong> is actief. Dit geeft je de mogelijkheid om de interne ID's van verschillende dingen in Modrinth te bekijken die handig kunnen zijn als je een ontwikkelaar bent en gebruik maakt van de Modrinth API. Klik 5 keer op het Modrinth logo onderaan de pagina om ontwikkelaarsmodus in of uit te schakelen."
+  },
+  "settings.display.flags.description": {
+    "message": "Schakel bepaalde functies op dit apparaat in of uit."
+  },
+  "settings.display.flags.title": {
+    "message": "Toggle features"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Data Packs page"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Selecteer de lay-out van uw voorkeur voor elke pagina die projectlijsten op dit apparaat toont."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Mods pagina"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Modpacks pagina"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Plugins pagina"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Resource Packs page"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Shaders pagina"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Project list layouts"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "Profielpagina's voor gebruikers"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Geavanceerde weergave"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Maak links die buiten Modrinth gaan open in een nieuw tabblad. Ongeacht deze instelling, links op hetzelfde domein en in Markdown beschrijvingen zullen worden geopend in hetzelfde tabblad, en links naar advertenties en bewerken pagina's worden geopend in een nieuw tabblad."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Externe links openen in nieuw tabblad"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Verbergt de \"Download Modrinth App\" knoppen in de primaire navigatie. De Modrinth App pagina kan nog steeds worden gevonden op de landingspagina of in de voettekst."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Verberg Modrinth App promoties"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Lijn de project-details zijbalk uit naar de rechterkant van de paginainhoud."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Rechts uitgelijnde project zijbalk"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Lijn de zoekfilters zijbalk uit aan de rechterkant van de zoekresultaten."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Rechts uitgelijnde zoekbalk"
+  },
+  "settings.display.theme.dark": {
+    "message": "Donker"
+  },
+  "settings.display.theme.description": {
+    "message": "Selecteer je gewenste kleurenthema voor Modrinth op dit apparaat."
+  },
+  "settings.display.theme.light": {
+    "message": "Licht"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Geprefereerd donker thema"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Geprefereerd licht thema"
+  },
+  "settings.display.theme.retro": {
+    "message": "Retro"
+  },
+  "settings.display.theme.system": {
+    "message": "Synchroniseren met systeem"
+  },
+  "settings.display.theme.title": {
+    "message": "Kleurthema"
+  },
+  "settings.language.categories.auto": {
+    "message": "Automatisch"
+  },
+  "settings.language.categories.default": {
+    "message": "Standaard talen"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Experimentele talen"
+  },
+  "settings.language.categories.fun": {
+    "message": "Grappige talen"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Zoekresultaten"
+  },
+  "settings.language.description": {
+    "message": "Kies uw voorkeurstaal voor de site. Vertalingen worden bijgedragen door vrijwilligers <crowdin-link>op Crowdin</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Synchroniseer met de systeemtaal"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Toepassen..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Fout"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Kan deze taal niet laden. Probeer het later opnieuw."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Verzend om het eerste zoekresultaat te selecteren"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Een taal zoeken..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {Er komen geen talen overeen} one {# taal komt overeen} other {# talen komen overeen}} met je zoekopdracht."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "Geen talen komen overeen met uw zoekopdracht."
+  },
+  "settings.language.title": {
+    "message": "Taal"
+  },
+  "settings.pats.action.create": {
+    "message": "Creëer een PAT"
+  },
+  "settings.pats.description": {
+    "message": "PAT's kunnen worden gebruikt om toegang te krijgen tot Modrinth's API. Zie <doc-link>Modrinth's API documentatie</doc-link> voor meer informatie.\nZe kunnen op elk moment worden gecreëerd en ingetrokken."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Creëer PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Verloopt"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Naam"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Voer de naam in van de PAT..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Persoonlijke toegangstoken aanmaken"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Verwijder deze token"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "Dit zal deze token voor altijd verwijderen (echt voor altijd)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Weet u zeker dat u deze token wilt verwijderen?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Persoonlijke toegangstoken bewerken"
+  },
+  "settings.pats.title": {
+    "message": "Persoonlijke toegangstokens"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Bewerk token"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Token intrekken"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "{ago} verlopen"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Verloopt {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Laatst gebruikt {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Nooit gebruikt"
+  },
+  "settings.profile.bio.description": {
+    "message": "Een korte beschrijving om iedereen wat over je te vertellen."
+  },
+  "settings.profile.bio.title": {
+    "message": "Bio"
+  },
+  "settings.profile.description": {
+    "message": "Je profielgegevens zijn openbaar op Modrinth en zichtbaar via de <docs-link>Modrinth API</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "Profielgegevens"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Reset"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Profielfoto"
+  },
+  "settings.profile.title": {
+    "message": "Openbaar profiel"
+  },
+  "settings.profile.username.description": {
+    "message": "Een unieke hoofdletterongevoelige naam om je profiel te identificeren."
+  },
+  "settings.profile.username.title": {
+    "message": "Gebruikersnaam"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Sessie beëindigen"
+  },
+  "settings.sessions.created-ago": {
+    "message": "Gecreëerd {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "Huidige sessie"
+  },
+  "settings.sessions.description": {
+    "message": "Hier zijn alle apparaten die momenteel zijn ingelogd met je Modrinth account. Je kunt elk afzonderlijk uitloggen.\n\nAls je een item ziet dat je niet herkent, log dan uit op dat apparaat en verander het wachtwoord van je Modrinth account."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "Laatst geopend {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "Sessies"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "Onbekend OS"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Onbekend platform"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} om {time, time, short}"
+  }
+}
