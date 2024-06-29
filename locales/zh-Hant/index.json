@@ -156,7 +156,7 @@
     "message": "訂閱 Modrinth 的最新消息"
   },
   "auth.welcome.description": {
-    "message": "感謝你建立帳號。你現在可以追蹤及建立專案、接收喜愛專案的動態，還有眾多精彩功能等你來發掘！"
+    "message": "感謝你建立帳號。你現在可以追蹤及建立專案、接收喜愛專案的更新內容，還有眾多精彩功能等你來發掘！"
   },
   "auth.welcome.label.tos": {
     "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>使用規定</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
