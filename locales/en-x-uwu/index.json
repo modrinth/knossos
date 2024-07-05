@@ -15,28 +15,28 @@
     "message": "No wediwect wocation found in wesponse"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "You will be rewirected to <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Send wecovewy emaiw"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Ewter your email below and we'll send a recovery liwnk to your account."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "Ewmail or uwsername"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "Ewmail"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "An ewmail with insructions has bween sent to you if the ewmail was previously saved on your awcoount."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "Ewmail sent"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "You can now lowg-in into your awccount with your new password."
   },
   "auth.reset-password.notification.password-reset.title": {
     "message": "Passwowd successfuwwy weset"
@@ -48,133 +48,133 @@
     "message": "Confiwm passwowd"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Ewter your new password below to gain access to your awccount."
   },
   "auth.reset-password.title": {
     "message": "Weset passwowd"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Rewset your password"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Pwease enter a two-factor code to proceed."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Ewter a two-factor code"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Ewter code..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Forgowt password?</forgot-password-link> • <create-account-link>Create an awccount</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Ewmail or uwsername"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "PassUwUrd"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Siwg in with"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Siwg In"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "Or use passUwUrd"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Create awccount"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Conwfirm password"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "Ewmail"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Uwsername"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "By creating an account, you aggre to Modrinth's <terms-link>Tewrms</terms-link> awnd <privacy-policy-link>Priwacy Policy</privacy-policy-link>."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "PassUwUrds do not match!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "PassUwUrd"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Already hawe an awccount?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Subscribe to upwdates about Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Siwn Up"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Or create an awccount yourself"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Siwn up with"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Awccount settings"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Siwn In"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "Your ewmail is already verified!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "Ewmail already verified"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Resend verification ewmail"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "We were unable to verify your ewmail. Try re-sending the verification email through your dashboawd by siwning in."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "We are unable to verify your ewmail. Try re-sending the verification ewmail through the buttown below."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "Ewmail verification failed"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "Your ewmail adress has bween sucesfully verified!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Ewmail verification"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Verify Ewmail"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Subscribe to uwdates about Modrinth"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "Thawnk you for creating an awccount. You can now follow and create projects, reciwe updates about your favourite prowjects, and more!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "By creating an account, you have awgreed to Modrinth's <terms-link>Tewrms</terms-link> and <privacy-policy-link>Priwacy Policy</privacy-policy-link>."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "Welwcome to Modrinth!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "Welwcome"
   },
   "button.cancel": {
     "message": "Cwancew"
   },
   "button.continue": {
-    "message": "Continue"
+    "message": "Cowtinue"
   },
   "button.create-a-project": {
-    "message": "Create a project"
+    "message": "Create a prowject"
   },
   "button.edit": {
     "message": "Edwit"
@@ -183,10 +183,10 @@
     "message": "Sawe"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Save chanwges"
   },
   "button.sign-in": {
-    "message": "Sign in"
+    "message": "Siwn in"
   },
   "button.sign-out": {
     "message": "Sign out"
