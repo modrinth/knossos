@@ -798,7 +798,7 @@
     "message": "˙ǝɔᴉʌǝp sᴉɥʇ uo sǝɹnʇɐǝɟ uᴉɐʇɹǝɔ ǝlqɐsᴉp ɹo ǝlqɐuƎ"
   },
   "settings.display.flags.title": {
-    "message": "Toggle features"
+    "message": "sǝɹnʇɐǝɟ ǝlƃƃo┴"
   },
   "settings.display.project-list-layouts.datapack": {
     "message": "ǝƃɐd sʞɔɐԁ ɐʇɐᗡ"
@@ -807,82 +807,82 @@
     "message": "˙ǝɔᴉʌǝp sᴉɥʇ uo sʇsᴉl ʇɔǝɾoɹd sʎɐldsᴉp ʇɐɥʇ ǝƃɐd ɥɔɐǝ ɹoɟ ʇnoʎɐl pǝɹɹǝɟǝɹd ɹnoʎ ʇɔǝlǝS"
   },
   "settings.display.project-list-layouts.mod": {
-    "message": "Mods page"
+    "message": "ǝƃɐd spoW"
   },
   "settings.display.project-list-layouts.modpack": {
-    "message": "Modpacks page"
+    "message": "ǝƃɐd sʞɔɐdpoW"
   },
   "settings.display.project-list-layouts.plugin": {
-    "message": "Plugins page"
+    "message": "ǝƃɐd suᴉƃnlԀ"
   },
   "settings.display.project-list-layouts.resourcepack": {
-    "message": "Resource Packs page"
+    "message": "ǝƃɐd sʞɔɐԀ ǝɔɹnosǝɹ"
   },
   "settings.display.project-list-layouts.shader": {
-    "message": "Shaders page"
+    "message": "ǝƃɐd sɹǝpɐɥS"
   },
   "settings.display.project-list-layouts.title": {
-    "message": "Project list layouts"
+    "message": "sʇnoʎɐl ʇsᴉl ʇɔǝɾoɹԀ"
   },
   "settings.display.project-list-layouts.user": {
-    "message": "User profile pages"
+    "message": "sǝƃɐd ǝlᴉɟoɹd ɹǝs∩"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+    "message": "˙ƃuᴉɹǝpuǝɹ pǝʇɐɹǝlǝɔɔɐ-ǝɹɐʍpɹɐɥ ʇnoɥʇᴉʍ sǝnssᴉ ǝɔuɐɯɹoɟɹǝd ǝsnɐɔ ʎɐɯ ʇɐɥʇ sʇɔǝɟɟǝ ɹnlq sɐ ɥɔns ƃuᴉɹǝpuǝɹ pǝɔuɐʌpɐ sǝlqɐuƎ"
   },
   "settings.display.sidebar.advanced-rendering.title": {
-    "message": "Advanced rendering"
+    "message": "ƃuᴉɹǝpuǝɹ pǝɔuɐʌp∀"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+    "message": "˙qɐʇ ʍǝu ɐ uᴉ uǝdo llᴉʍ sǝƃɐd ʇᴉpǝ puɐ spɐ uo sʞuᴉl puɐ 'qɐʇ ǝɯɐs ǝɥʇ uᴉ uǝdo llᴉʍ suoᴉʇdᴉɹɔsǝp uʍopʞɹɐW uᴉ puɐ uᴉɐɯop ǝɯɐs ǝɥʇ uo sʞuᴉl 'ƃuᴉʇʇǝs sᴉɥʇ ɹǝʇʇɐɯ oN ˙qɐʇ ʍǝu ɐ uᴉ uǝdo ɥʇuᴉɹpoW ɟo ǝpᴉsʇno oƃ ɥɔᴉɥʍ sʞuᴉl ǝʞɐW"
   },
   "settings.display.sidebar.external-links-new-tab.title": {
-    "message": "Open external links in new tab"
+    "message": "qɐʇ ʍǝu uᴉ sʞuᴉl lɐuɹǝʇxǝ uǝdO"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+    "message": "˙ɹǝʇooɟ ǝɥʇ uᴉ ɹo ǝƃɐd ƃuᴉpuɐl ǝɥʇ uo punoɟ ǝq llᴉʇs uɐɔ ǝƃɐd dd∀ ɥʇuᴉɹpoW ǝɥ┴ ˙uoᴉʇɐƃᴉʌɐu ʎɹɐɯᴉɹd ɯoɹɟ suoʇʇnq ,,dd∀ ɥʇuᴉɹpoW ʇǝפ,, ǝɥʇ sǝpᴉH"
   },
   "settings.display.sidebar.hide-app-promos.title": {
-    "message": "Hide Modrinth App promotions"
+    "message": "suoᴉʇoɯoɹd dd∀ ɥʇuᴉɹpoW ǝpᴉH"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
-    "message": "Aligns the project details sidebar to the right of the page's content."
+    "message": "˙ʇuǝʇuoɔ s,ǝƃɐd ǝɥʇ ɟo ʇɥƃᴉɹ ǝɥʇ oʇ ɹɐqǝpᴉs slᴉɐʇǝp ʇɔǝɾoɹd ǝɥʇ suƃᴉl∀"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.title": {
-    "message": "Right-aligned project sidebar"
+    "message": "ɹɐqǝpᴉs ʇɔǝɾoɹd pǝuƃᴉlɐ-ʇɥƃᴉɹ"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.description": {
-    "message": "Aligns the search filters sidebar to the right of the search results."
+    "message": "˙sʇlnsǝɹ ɥɔɹɐǝs ǝɥʇ ɟo ʇɥƃᴉɹ ǝɥʇ oʇ ɹɐqǝpᴉs sɹǝʇlᴉɟ ɥɔɹɐǝs ǝɥʇ suƃᴉl∀"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.title": {
-    "message": "Right-aligned search sidebar"
+    "message": "ɹɐqǝpᴉs ɥɔɹɐǝs pǝuƃᴉlɐ-ʇɥƃᴉɹ"
   },
   "settings.display.theme.dark": {
-    "message": "Dark"
+    "message": "ʞɹɐp"
   },
   "settings.display.theme.description": {
-    "message": "Select your preferred color theme for Modrinth on this device."
+    "message": "˙ǝɔᴉʌǝp sᴉɥʇ uo ɥʇuᴉɹpoW ɹoɟ ǝɯǝɥʇ ɹoloɔ pǝɹɹǝɟǝɹd ɹnoʎ ʇɔǝlǝS"
   },
   "settings.display.theme.light": {
-    "message": "Light"
+    "message": "ʇɥƃᴉ˥"
   },
   "settings.display.theme.oled": {
-    "message": "OLED"
+    "message": "pƎ˥O"
   },
   "settings.display.theme.preferred-dark-theme": {
-    "message": "Preferred dark theme"
+    "message": "ǝɯǝɥʇ ʞɹɐp pǝɹɹǝɟǝɹԀ"
   },
   "settings.display.theme.preferred-light-theme": {
-    "message": "Preferred light theme"
+    "message": "ǝɯǝɥʇ ʇɥƃᴉl pǝɹɹǝɟǝɹԀ"
   },
   "settings.display.theme.retro": {
-    "message": "Retro"
+    "message": "oɹʇǝɹ"
   },
   "settings.display.theme.system": {
-    "message": "Sync with system"
+    "message": "ɯǝʇsʎs ɥʇᴉʍ ɔuʎS"
   },
   "settings.display.theme.title": {
-    "message": "Color theme"
+    "message": "ǝɯǝɥʇ ɹoloƆ"
   },
   "settings.language.categories.auto": {
     "message": "ɔᴉʇɐɯoʇnⱯ"
@@ -963,7 +963,7 @@
     "message": "uǝʞoʇ ssǝɔɔɐ ꞁɐuosɹǝd ʇᴉpƎ"
   },
   "settings.pats.title": {
-    "message": "Personal access tokens"
+    "message": "suǝʞoʇ ssǝɔɔɐ lɐuosɹǝԀ"
   },
   "settings.pats.token.action.edit": {
     "message": "uǝʞoʇ ʇᴉpƎ"
@@ -984,31 +984,31 @@
     "message": "pǝsn ɹǝʌǝN"
   },
   "settings.profile.bio.description": {
-    "message": "A short description to tell everyone a little bit about you."
+    "message": "˙noʎ ʇnoqɐ ʇᴉq ǝlʇʇᴉl ɐ ǝuoʎɹǝʌǝ llǝʇ oʇ uoᴉʇdᴉɹɔsǝp ʇɹoɥs ∀"
   },
   "settings.profile.bio.title": {
-    "message": "Bio"
+    "message": "oᴉq"
   },
   "settings.profile.description": {
-    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+    "message": "<docs-link>IԀ∀ ɥʇuᴉɹpoW</docs-link> ǝɥʇ ɥƃnoɹɥʇ puɐ ɥʇuᴉɹpoW uo ǝlqɐʍǝᴉʌ ʎlɔᴉlqnd sᴉ uoᴉʇɐɯɹoɟuᴉ ǝlᴉɟoɹd ɹno⅄"
   },
   "settings.profile.profile-info": {
-    "message": "Profile information"
+    "message": "uoᴉʇɐɯɹoɟuᴉ ǝlᴉɟoɹԀ"
   },
   "settings.profile.profile-picture.reset": {
-    "message": "Reset"
+    "message": "ʇǝsǝɹ"
   },
   "settings.profile.profile-picture.title": {
-    "message": "Profile picture"
+    "message": "ǝɹnʇɔᴉd ǝlᴉɟoɹԀ"
   },
   "settings.profile.title": {
-    "message": "Public profile"
+    "message": "ǝlᴉɟoɹd ɔᴉlqnԀ"
   },
   "settings.profile.username.description": {
-    "message": "A unique case-insensitive name to identify your profile."
+    "message": "˙ǝlᴉɟoɹd ɹnoʎ ʎɟᴉʇuǝpᴉ oʇ ǝɯɐu ǝʌᴉʇᴉsuǝsuᴉ-ǝsɐɔ ǝnbᴉun ∀"
   },
   "settings.profile.username.title": {
-    "message": "Username"
+    "message": "ǝɯɐuɹǝs∩"
   },
   "settings.sessions.action.revoke-session": {
     "message": "uoᴉssǝs ǝʞoʌǝᴚ"
