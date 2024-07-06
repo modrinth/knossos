@@ -15,7 +15,7 @@
     "message": "响应中未找到重定向位置"
   },
   "auth.authorize.redirect-url": {
-    "message": "您将被重定向至<redirect-url>{url}</redirect-url>"
+    "message": "你将被重定向至<redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "发送恢复电子邮件"
@@ -24,10 +24,10 @@
     "message": "在下面输入您的电子邮箱，我们将发送恢复链接以允许您恢复账户。"
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "电子邮件或用户名"
+    "message": "电子邮箱或用户名"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "电子邮件"
+    "message": "电子邮箱"
   },
   "auth.reset-password.notification.email-sent.text": {
     "message": "如果该电子邮箱之前已保存在您的账户中，则已向您发送一封包含说明的电子邮件。"
@@ -36,10 +36,10 @@
     "message": "电子邮件已发送"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "现在您可以使用新密码登录您的账户。"
+    "message": "现在你可以使用新密码来登录你的账户。"
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "密码重置成功"
+    "message": "重置密码成功"
   },
   "auth.reset-password.post-challenge.action": {
     "message": "重置密码"
@@ -48,19 +48,19 @@
     "message": "确认密码"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "在下面输入您的新密码以访问您的账户。"
+    "message": "在下面输入你的新密码。"
   },
   "auth.reset-password.title": {
     "message": "重置密码"
   },
   "auth.reset-password.title.long": {
-    "message": "重置您的密码"
+    "message": "重置密码"
   },
   "auth.sign-in.2fa.description": {
-    "message": "请输入双因素验证代码以继续。"
+    "message": "请输入双重身份验证代码以继续。"
   },
   "auth.sign-in.2fa.label": {
-    "message": "输入双因素验证代码"
+    "message": "输入双重身份验证代码"
   },
   "auth.sign-in.2fa.placeholder": {
     "message": "输入代码..."
@@ -69,7 +69,7 @@
     "message": "<forgot-password-link>忘记密码？</forgot-password-link> • <create-account-link>注册账号</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "电子邮件或用户名"
+    "message": "电子邮箱或用户名"
   },
   "auth.sign-in.password.label": {
     "message": "密码"
@@ -135,16 +135,16 @@
     "message": "重新发送验证邮件"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "我们无法验证您的电子邮箱。尝试登录后通过仪表板重新发送验证电子邮件。"
+    "message": "我们无法验证你的电子邮箱。尝试登录后通过仪表板重新发送验证电子邮件。"
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "我们无法验证您的电子邮箱。尝试通过下面的按钮重新发送验证电子邮件。"
+    "message": "我们无法验证你的电子邮箱。尝试通过下面的按钮重新发送验证电子邮件。"
   },
   "auth.verify-email.failed-verification.title": {
     "message": "电子邮箱验证失败"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "您的电子邮件地址已成功验证！"
+    "message": "已成功验证你的电子邮箱地址！"
   },
   "auth.verify-email.post-verification.title": {
     "message": "电子邮箱验证"
@@ -162,7 +162,7 @@
     "message": "创建账户即代表你同意 Modrinth 的<terms-link>使用条款</terms-link>和<privacy-policy-link>隐私政策</privacy-policy-link>。"
   },
   "auth.welcome.long-title": {
-    "message": "欢迎使用 Modrinth！"
+    "message": "欢迎来到 Modrinth！"
   },
   "auth.welcome.title": {
     "message": "欢迎"
@@ -213,13 +213,13 @@
     "message": "这将永久删除该收藏夹。此操作无法撤消。"
   },
   "collection.delete-modal.title": {
-    "message": "您确定要删除该收藏夹吗？"
+    "message": "你确定要删除该收藏夹吗？"
   },
   "collection.description": {
     "message": "{description} - 前往 Modrinth 查看 {username} 的收藏夹 {name}"
   },
   "collection.description.following": {
-    "message": "自动生成您关注的所有项目的收藏夹。"
+    "message": "自动生成你关注的所有项目的收藏夹。"
   },
   "collection.error.not-found": {
     "message": "未找到收藏夹"
@@ -231,7 +231,7 @@
     "message": "创建于 {ago}"
   },
   "collection.label.curated-by": {
-    "message": "策展人"
+    "message": "策划人"
   },
   "collection.label.no-projects": {
     "message": "该收藏夹没有项目！"
@@ -261,10 +261,10 @@
     "message": "{count, plural, other {{count} 个项目}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "搜索您的收藏夹"
+    "message": "搜索你的收藏夹"
   },
   "dashboard.collections.long-title": {
-    "message": "您的收藏夹"
+    "message": "你的收藏夹"
   },
   "frog": {
     "message": "你被耍了！🐸"
@@ -345,7 +345,7 @@
     "message": "公开范围"
   },
   "label.visit-your-profile": {
-    "message": "访问您的个人资料"
+    "message": "访问你的个人资料"
   },
   "layout.action.change-theme": {
     "message": "更改主题"
@@ -354,25 +354,25 @@
     "message": "获取 Modrinth 应用"
   },
   "layout.avatar.alt": {
-    "message": "您的头像"
+    "message": "你的头像"
   },
   "layout.banner.add-email.button": {
     "message": "访问账户设置"
   },
   "layout.banner.add-email.title": {
-    "message": "为了安全起见，请在 Modrinth 上输入您的电子邮件。"
+    "message": "为了安全起见，请在 Modrinth 上输入你的电子邮箱地址。"
   },
   "layout.banner.staging.description": {
     "message": "暂存环境在生产 Modrinth 数据库的副本上运行。这用于测试和调试目的，并且可能运行比生产实例更新的 Modrinth 后端或前端的开发版本。"
   },
   "layout.banner.staging.title": {
-    "message": "您正在查看 Modrinth 的暂存环境。"
+    "message": "你正在查看 Modrinth 的暂存环境。"
   },
   "layout.banner.verify-email.action": {
     "message": "重新发送验证邮件"
   },
   "layout.banner.verify-email.title": {
-    "message": "为了安全起见，请在 Modrinth 上验证您的电子邮件地址。"
+    "message": "为了安全起见，请在 Modrinth 上验证你的电子邮箱地址。"
   },
   "layout.footer.company.careers": {
     "message": "招贤纳士"
@@ -396,7 +396,7 @@
     "message": "非官方 MINECRAFT 服务。未经 MOJANG 或 MICROSOFT 批准或与之关联。"
   },
   "layout.footer.open-source": {
-    "message": "Modrinth 是<github-link>开源</github-link>的。"
+    "message": "Modrinth 是<github-link>开源项目</github-link>。"
   },
   "layout.footer.resources.blog": {
     "message": "博客"
@@ -429,7 +429,7 @@
     "message": "搜索"
   },
   "notification.error.title": {
-    "message": "出错了"
+    "message": "出了点错误"
   },
   "profile.button.manage-projects": {
     "message": "管理项目"
@@ -525,19 +525,19 @@
     "message": "光影"
   },
   "revenue.transfers.total": {
-    "message": "您总共提现了{amount}。"
+    "message": "您总共提现了 {amount} 。"
   },
   "revenue.transfers.total.method": {
-    "message": "您通过{method}提现了{amount}。"
+    "message": "你通过 {method} 提现了 {amount} 。"
   },
   "revenue.transfers.total.year": {
-    "message": "您在{year}年提现了{amount}。"
+    "message": "你在 {year} 提现了 {amount} 。"
   },
   "revenue.transfers.total.year_method": {
-    "message": "您通过{method}在{year}年提现了{amount}。"
+    "message": "你在 {year} 通过 {method} 提现了 {amount} 。"
   },
   "scopes.analytics.description": {
-    "message": "访问您的分析数据"
+    "message": "访问你的分析数据"
   },
   "scopes.analytics.label": {
     "message": "读取分析"
@@ -567,13 +567,13 @@
     "message": "写入收藏夹"
   },
   "scopes.notificationRead.description": {
-    "message": "读取您的通知"
+    "message": "读取你的通知"
   },
   "scopes.notificationRead.label": {
     "message": "读取通知"
   },
   "scopes.notificationWrite.description": {
-    "message": "删除/查看您的通知"
+    "message": "删除/查看你的通知"
   },
   "scopes.notificationWrite.label": {
     "message": "写入通知"
@@ -606,28 +606,28 @@
     "message": "创建个人 API 令牌"
   },
   "scopes.patCreate.label": {
-    "message": "创建 PAT"
+    "message": "创建个人访问令牌"
   },
   "scopes.patDelete.description": {
     "message": "删除您的个人 API 令牌"
   },
   "scopes.patDelete.label": {
-    "message": "删除 PAT"
+    "message": "删除个人访问令牌"
   },
   "scopes.patRead.description": {
     "message": "查看已创建的 API 令牌"
   },
   "scopes.patRead.label": {
-    "message": "读取 PAT"
+    "message": "读取个人访问令牌"
   },
   "scopes.patWrite.description": {
     "message": "编辑个人 API 令牌"
   },
   "scopes.patWrite.label": {
-    "message": "写入 PAT"
+    "message": "写入个人访问令牌"
   },
   "scopes.payoutsRead.description": {
-    "message": "读取您的付款数据"
+    "message": "读取你的付款数据"
   },
   "scopes.payoutsRead.label": {
     "message": "读取付款"
@@ -657,7 +657,7 @@
     "message": "删除项目"
   },
   "scopes.projectRead.description": {
-    "message": "读取您的所有项目"
+    "message": "读取你的所有项目"
   },
   "scopes.projectRead.label": {
     "message": "读取项目"
@@ -723,25 +723,25 @@
     "message": "写入帖子"
   },
   "scopes.userAuthWrite.description": {
-    "message": "修改您的身份验证数据"
+    "message": "修改你的身份验证数据"
   },
   "scopes.userAuthWrite.label": {
     "message": "写入身份验证数据"
   },
   "scopes.userDelete.description": {
-    "message": "删除您的账户"
+    "message": "删除你的账户"
   },
   "scopes.userDelete.label": {
-    "message": "删除您的账户"
+    "message": "删除你的账户"
   },
   "scopes.userRead.description": {
-    "message": "访问您的公开资料信息"
+    "message": "访问你的公开资料信息"
   },
   "scopes.userRead.label": {
     "message": "读取用户数据"
   },
   "scopes.userReadEmail.description": {
-    "message": "读取您的邮箱地址"
+    "message": "读取你的邮箱地址"
   },
   "scopes.userReadEmail.label": {
     "message": "读取用户邮箱地址"
@@ -828,19 +828,19 @@
     "message": "用户个人资料页面"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "启用高级渲染，例如模糊效果，可能会在没有硬件加速渲染的情况下造成性能问题。"
+    "message": "启用高级渲染，例如模糊效果。可能会在没有硬件加速渲染的情况下造成性能问题。"
   },
   "settings.display.sidebar.advanced-rendering.title": {
     "message": "高级渲染"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "在新标签页中打开离开 Modrinth 的链接。 无论如何设置，同一域名和 Markdown 描述中的链接将在同一标签页中打开，而广告和编辑页面的链接将在新标签页中打开"
+    "message": "使离开 Modrinth 的链接在新标签页中打开。 无论如何设置，同一域名和 Markdown 描述中的链接将在同一标签页中打开，而广告和编辑页面的链接将在新标签页中打开。"
   },
   "settings.display.sidebar.external-links-new-tab.title": {
     "message": "始终在新标签页打开外部链接"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "隐藏主页中的“获取 Modrinth 应用”按钮。Modrinth 应用页面仍然可以在登陆页面或页脚中找到。"
+    "message": "隐藏主页中的“获取 Modrinth 应用”按钮。Modrinth 应用页面仍然可以在登录页面或页脚中找到。"
   },
   "settings.display.sidebar.hide-app-promos.title": {
     "message": "隐藏 Modrinth 应用程序推荐"
@@ -867,7 +867,7 @@
     "message": "浅色"
   },
   "settings.display.theme.oled": {
-    "message": "纯黑"
+    "message": "OLED"
   },
   "settings.display.theme.preferred-dark-theme": {
     "message": "首选深色主题"
@@ -918,10 +918,10 @@
     "message": "提交以聚焦第一个搜索结果"
   },
   "settings.language.languages.search-field.placeholder": {
-    "message": "搜索语言..."
+    "message": "搜索语言…"
   },
   "settings.language.languages.search-results-announcement": {
-    "message": "{matches, plural,=0 {没有语言}other {有 # 种语言}}匹配您的搜索。"
+    "message": "{matches, plural,=0 {没有语言}other {有 # 种语言}}匹配你的搜索。"
   },
   "settings.language.languages.search.no-results": {
     "message": "没有符合搜索条件的语言。"
@@ -939,7 +939,7 @@
     "message": "创建个人访问令牌"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "过期"
+    "message": "过期时间"
   },
   "settings.pats.modal.create.name.label": {
     "message": "名称"
@@ -975,7 +975,7 @@
     "message": "过期于 {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "过期于 {inTime}"
+    "message": "{inTime}过期"
   },
   "settings.pats.token.last-used": {
     "message": "上次使用于 {ago}"
@@ -1005,7 +1005,7 @@
     "message": "公开信息"
   },
   "settings.profile.username.description": {
-    "message": "不区分大小写的唯一名称，用于识别您的个人资料。"
+    "message": "不区分大小写的唯一名称，用于识别你的个人资料。"
   },
   "settings.profile.username.title": {
     "message": "用户名"
