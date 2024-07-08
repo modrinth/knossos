@@ -1,6 +1,6 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Құзырлау"
+    "message": "Тіркеу"
   },
   "auth.authorize.action.decline": {
     "message": "Бас тарту"
@@ -930,13 +930,13 @@
     "message": "Тіл"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "PAT аштыру"
   },
   "settings.pats.description": {
     "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "PAT аштыру"
   },
   "settings.pats.modal.create.expires.label": {
     "message": "Мерзімі"
@@ -945,13 +945,13 @@
     "message": "Атауы"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "PAT-тің атын жазыңыз..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Жеке токен аштыру"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Осы токенді жою"
   },
   "settings.pats.modal.delete.description": {
     "message": "This will remove this token forever (like really forever)."
@@ -966,7 +966,7 @@
     "message": "Personal access tokens"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Токенді өңдеу"
   },
   "settings.pats.token.action.revoke": {
     "message": "Revoke token"
@@ -987,13 +987,13 @@
     "message": "Барлығына өзіңіз жайлы кішігірім ақпаратты жариялау."
   },
   "settings.profile.bio.title": {
-    "message": "Bio"
+    "message": "Өзі туралы"
   },
   "settings.profile.description": {
     "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
   },
   "settings.profile.profile-info": {
-    "message": "Profile information"
+    "message": "Бейін ақпараты"
   },
   "settings.profile.profile-picture.reset": {
     "message": "Қайтару"
@@ -1002,13 +1002,13 @@
     "message": "Бейін суреті"
   },
   "settings.profile.title": {
-    "message": "Public profile"
+    "message": "Жария бейін"
   },
   "settings.profile.username.description": {
     "message": "A unique case-insensitive name to identify your profile."
   },
   "settings.profile.username.title": {
-    "message": "Username"
+    "message": "Қолданушы аты"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Сеансты аяқтау"
