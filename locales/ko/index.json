@@ -21,10 +21,10 @@
     "message": "복구 이메일 보내기"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "아래에 이메일을 입력하시면 계정 복구를 위한 복구 링크를 보내드립니다."
+    "message": "아래에 이메일을 입력하시면 계정 복구를 위한 링크를 보내드립니다."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "이메일 또는 아이디"
+    "message": "이메일 또는 사용자명"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
     "message": "이메일"
@@ -57,7 +57,7 @@
     "message": "비밀번호 재설정"
   },
   "auth.sign-in.2fa.description": {
-    "message": "진행하려면 이중 인증 코드를 입력해 주세요."
+    "message": "진행하려면 2단계 인증 코드를 입력해 주세요."
   },
   "auth.sign-in.2fa.label": {
     "message": "2단계 인증 코드 입력"
@@ -69,7 +69,7 @@
     "message": "<forgot-password-link>비밀번호를 잊으셨나요?</forgot-password-link> • <create-account-link>계정 만들기</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "이메일 또는 아이디"
+    "message": "이메일 또는 사용자명"
   },
   "auth.sign-in.password.label": {
     "message": "비밀번호"
@@ -204,7 +204,7 @@
     "message": "프로젝트 삭제"
   },
   "collection.button.unfollow-project": {
-    "message": "프로젝트 언팔로우"
+    "message": "프로젝트 팔로우 해제"
   },
   "collection.button.upload-icon": {
     "message": "아이콘 업로드"
@@ -228,13 +228,13 @@
     "message": "컬렉션"
   },
   "collection.label.created-at": {
-    "message": "{ago}에 생성됨"
+    "message": "{ago} 전에 생성됨"
   },
   "collection.label.curated-by": {
-    "message": "큐레이터:"
+    "message": "전시자"
   },
   "collection.label.no-projects": {
-    "message": "이 컬렉션에는 프로젝트가 없습니다."
+    "message": "이 컬렉션에는 프로젝트가 없습니다!"
   },
   "collection.label.no-projects-auth": {
     "message": "프로젝트가 없습니다.\n새로 <create-link>추가하시겠습니까</create-link>?"
@@ -246,10 +246,10 @@
     "message": "비공개"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, one {<stat>{count}</stat> 프로젝트} other {<stat>{count}</stat> 프로젝트}}"
   },
   "collection.label.updated-at": {
-    "message": "{ago} 에 업데이트됨"
+    "message": "{ago} 전에 업데이트됨"
   },
   "collection.title": {
     "message": "{name} - 컬렉션"
@@ -258,13 +258,13 @@
     "message": "새로 만들기"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, one {{count} 프로젝트} other {{count} 프로젝트}}"
   },
   "dashboard.collections.label.search-input": {
     "message": "컬렉션 검색"
   },
   "dashboard.collections.long-title": {
-    "message": "당신의 컬렉션"
+    "message": "내 컬렉션"
   },
   "frog": {
     "message": "당신은 개구리입니다! 🐸"
@@ -288,7 +288,7 @@
     "message": "바둑판식 보기"
   },
   "input.view.list": {
-    "message": "Rows view"
+    "message": "행 보기"
   },
   "label.changes-saved": {
     "message": "변경 내용 저장됨."
@@ -297,7 +297,7 @@
     "message": "컬렉션"
   },
   "label.created-ago": {
-    "message": "{ago}에 생성됨"
+    "message": "{ago} 전에 생성됨"
   },
   "label.dashboard": {
     "message": "대시보드"
@@ -375,7 +375,7 @@
     "message": "보안을 위해 Modrinth에서 사용하는 이메일을 입력해 주세요."
   },
   "layout.footer.company.careers": {
-    "message": "커리어"
+    "message": "채용"
   },
   "layout.footer.company.privacy": {
     "message": "개인정보 처리방침"
@@ -393,7 +393,7 @@
     "message": "커뮤니티"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "공식 마인크래프트 서비스가 아닙니다. MOJANG 또는 MICROSOFT에 의해 승인되거나 연관되어 있지 않습니다.\nNOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "공식 Minecraft 서비스가 아닙니다. Mojang 또는 Microsoft에 의해 승인되거나 연관되어 있지 않습니다."
   },
   "layout.footer.open-source": {
     "message": "Modrinth는 <github-link>오픈 소스</github-link>입니다."
@@ -417,10 +417,10 @@
     "message": "메뉴 전환"
   },
   "layout.meta.description": {
-    "message": "Modrinth에서 마인크래프트 모드, 플러그인, 데이터팩, 셰이더, 리소스팩, 그리고 모드팩을 다운로드하세요. 현대적이고 사용하기 쉬운 인터페이스 및 API를 통해 Modrinth에서 프로젝트를 발견하고 게시하세요."
+    "message": "Modrinth에서 Minecraft 모드, 플러그인, 데이터 팩, 셰이더, 리소스 팩, 그리고 모드팩을 다운로드하세요. 현대적이고 사용하기 쉬운 인터페이스 및 API를 통해 Modrinth에서 프로젝트를 탐색하고 게시하세요."
   },
   "layout.meta.og-description": {
-    "message": "마인크래프트 콘텐츠를 발견하고 게시하세요!"
+    "message": "Minecraft 콘텐츠를 탐색하고 게시하세요!"
   },
   "layout.nav.home": {
     "message": "홈"
@@ -447,40 +447,40 @@
     "message": "이 사용자는 컬렉션이 없습니다!"
   },
   "profile.label.no-collections-auth": {
-    "message": "컬렉션이 없습니다.\n새로 <create-link>추가하시겠습니까</create-link>?"
+    "message": "아직 컬렉션이 없습니다.\n<create-link>새 컬렉션</create-link>을 생성하시겠습니까?"
   },
   "profile.label.no-projects": {
-    "message": "이 사용자에게는 프로젝트가 없습니다!"
+    "message": "이 사용자는 프로젝트가 없습니다!"
   },
   "profile.label.no-projects-auth": {
-    "message": "프로젝트가 없습니다.\n새로 <create-link>만드시겠습니까</create-link>?"
+    "message": "아직 프로젝트가 없습니다.\n<create-link>새 프로젝트</create-link>를 생성하시겠습니까?"
   },
   "profile.label.organizations": {
     "message": "조직"
   },
   "profile.meta.description": {
-    "message": "Modrinth에서 {username}의 모드 내려받기"
+    "message": "Modrinth에서 {username}의 프로젝트 다운로드"
   },
   "profile.meta.description-with-bio": {
-    "message": "{bio} - Modrinth에서 {username}의 모드 내려받기"
+    "message": "{bio} - Modrinth에서 {username}의 프로젝트 다운로드"
   },
   "profile.stats.downloads": {
-    "message": "다운로드 {count, plural, other {<stat>{count}</stat>}}"
+    "message": "{count, plural, other {<stat>{count}</stat>}} 다운로드"
   },
   "profile.stats.projects-followers": {
-    "message": "프로젝트 팔로워 {count, plural, other {<stat>{count}</stat>}}"
+    "message": "{count, plural, other {<stat>{count}</stat>}} 프로젝트 팔로워"
   },
   "profile.user-id": {
     "message": "사용자 ID: {id}"
   },
   "project-type.all": {
-    "message": "전체"
+    "message": "모두"
   },
   "project-type.collection.plural": {
-    "message": "콜렉션"
+    "message": "컬렉션"
   },
   "project-type.collection.singular": {
-    "message": "콜렉션"
+    "message": "컬렉션"
   },
   "project-type.datapack.plural": {
     "message": "데이터 팩"
@@ -537,37 +537,37 @@
     "message": "{year}년간 {method}을(를) 이용해서 총 {amount}을(를) 인출하셨습니다."
   },
   "scopes.analytics.description": {
-    "message": "분석 데이터에 접근"
+    "message": "분석 데이터에 접근합니다."
   },
   "scopes.analytics.label": {
     "message": "분석 데이터 확인"
   },
   "scopes.collectionCreate.description": {
-    "message": "콜렉션 생성"
+    "message": "컬렉션을 생성합니다."
   },
   "scopes.collectionCreate.label": {
-    "message": "콜렉션 생성"
+    "message": "컬렉션 생성"
   },
   "scopes.collectionDelete.description": {
-    "message": "콜렉션 삭제"
+    "message": "컬렉션을 삭제합니다."
   },
   "scopes.collectionDelete.label": {
-    "message": "콜렉션 삭제"
+    "message": "컬렉션 삭제"
   },
   "scopes.collectionRead.description": {
-    "message": "콜렉션 읽기"
+    "message": "컬렉션 목록을 읽습니다."
   },
   "scopes.collectionRead.label": {
-    "message": "콜렉션 읽기"
+    "message": "컬렉션 읽기"
   },
   "scopes.collectionWrite.description": {
-    "message": "콜렉션에 쓰기"
+    "message": "컬렉션 목록을 작성합니다."
   },
   "scopes.collectionWrite.label": {
-    "message": "콜렉션 쓰기"
+    "message": "컬렉션 쓰기"
   },
   "scopes.notificationRead.description": {
-    "message": "알림 확인"
+    "message": "알림을 확인합니다."
   },
   "scopes.notificationRead.label": {
     "message": "알림 확인"
@@ -669,28 +669,28 @@
     "message": "프로젝트 쓰기"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "리포트 생성"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "리포트 생성"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "리포트 제거"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "리포트 제거"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "리포트 읽기"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "리포트 읽기"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "리포트 수정"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "리포트 작성"
   },
   "scopes.sessionAccess.description": {
     "message": "Modrinth 발급 세션에 접근"
@@ -711,13 +711,13 @@
     "message": "세션 읽기"
   },
   "scopes.threadRead.description": {
-    "message": "스레드를 읽습니다."
+    "message": "스레드 읽기"
   },
   "scopes.threadRead.label": {
     "message": "스레드 읽기"
   },
   "scopes.threadWrite.description": {
-    "message": "스레드에 작성합니다."
+    "message": "스레드 작성"
   },
   "scopes.threadWrite.label": {
     "message": "스레드 작성"
@@ -798,28 +798,28 @@
     "message": "이 장치에서 특정 기능을 사용하거나 사용하지 않도록 설정합니다."
   },
   "settings.display.flags.title": {
-    "message": "Toggle features"
+    "message": "기능 전환"
   },
   "settings.display.project-list-layouts.datapack": {
-    "message": "데이터 팩"
+    "message": "데이터 팩 페이지"
   },
   "settings.display.project-list-layouts.description": {
     "message": "이 장치에서 프로젝트 목록을 표시하는 각 페이지에 대해 원하는 레이아웃을 선택합니다."
   },
   "settings.display.project-list-layouts.mod": {
-    "message": "모드"
+    "message": "모드 페이지"
   },
   "settings.display.project-list-layouts.modpack": {
-    "message": "모드팩"
+    "message": "모드팩 페이지"
   },
   "settings.display.project-list-layouts.plugin": {
-    "message": "플러그인"
+    "message": "플러그인 페이지"
   },
   "settings.display.project-list-layouts.resourcepack": {
-    "message": "리소스 팩"
+    "message": "리소스 팩 페이지"
   },
   "settings.display.project-list-layouts.shader": {
-    "message": "쉐이더 팩"
+    "message": "쉐이더 팩 페이지"
   },
   "settings.display.project-list-layouts.title": {
     "message": "프로젝트 목록 레이아웃"
@@ -834,7 +834,7 @@
     "message": "고급 렌더링"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+    "message": "Modrinth 외부로 나가는 링크를 새 탭에서 엽니다. 이 설정에 상관없이 동일한 도메인과 마크다운 설명의 링크가 같은 탭에서 열리고 광고 및 편집 페이지의 링크가 새 탭에서 열립니다."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
     "message": "새 탭에서 링크 열기"
@@ -846,13 +846,13 @@
     "message": "Modrinth 앱 프로모션 숨기기"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
-    "message": "Aligns the project details sidebar to the right of the page's content."
+    "message": "프로젝트 세부 정보 사이드바를 페이지 내용의 오른쪽에 정렬합니다."
   },
   "settings.display.sidebar.right-aligned-project-sidebar.title": {
     "message": "오른쪽 정렬된 프로젝트 사이드바"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.description": {
-    "message": "Aligns the search filters sidebar to the right of the search results."
+    "message": "검색 필터 사이드바를 검색 결과의 오른쪽으로 정렬합니다."
   },
   "settings.display.sidebar.right-aligned-search-sidebar.title": {
     "message": "오른쪽 정렬된 검색 사이드바"
@@ -861,7 +861,7 @@
     "message": "어두운 테마"
   },
   "settings.display.theme.description": {
-    "message": "Select your preferred color theme for Modrinth on this device."
+    "message": "이 디바이스에서 선호하는 Modrinth의 색상 테마를 선택합니다."
   },
   "settings.display.theme.light": {
     "message": "밝은 테마"
@@ -888,10 +888,10 @@
     "message": "자동"
   },
   "settings.language.categories.default": {
-    "message": "표준 언어"
+    "message": "기본 언어"
   },
   "settings.language.categories.experimental": {
-    "message": "실험 중인 언어"
+    "message": "실험 언어"
   },
   "settings.language.categories.fun": {
     "message": "재미있는 언어"
@@ -933,7 +933,7 @@
     "message": "PAT 생성"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "PAT는 Modrinth API 접근에 사용됩니다. 자세한 내용 <doc-link>Modrinth API 문서</doc-link>를 확인하세요. 언제든지 생성 및 취소가 가능합니다."
   },
   "settings.pats.modal.create.action": {
     "message": "PAT 생성"
