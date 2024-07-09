@@ -9,13 +9,13 @@
     "message": "<strong>{appName}</strong> bởi <creator-link>{creator}</creator-link> sẽ có quyền:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Ủy quyền {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Không tìm thấy vị trí chuyển hướng trong phản hồi"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Bạn sẽ được chuyển hướng đến <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Gửi email khôi phục"
@@ -57,10 +57,10 @@
     "message": "Đặt lại mật khẩu của bạn"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Vui lòng nhập mã xác thực hai bước để tiếp tục."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Nhập mã xác thực hai bước"
   },
   "auth.sign-in.2fa.placeholder": {
     "message": "Nhập mã..."
@@ -114,13 +114,13 @@
     "message": "Đăng ký"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Hoặc tự tạo một tài khoản"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Đăng ký với"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Thiết lập Tài khoản"
   },
   "auth.verify-email.action.sign-in": {
     "message": "Đăng nhập"
@@ -129,28 +129,28 @@
     "message": "Email của bạn đã được xác minh!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "Email đã được xác minh"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Gửi lại email xác nhận"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Chúng tôi không thể xác minh địa chỉ email của bạn. Hãy thử gửi lại email xác minh thông qua bảng điều khiển của bạn bằng cách đăng nhập."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "Chúng tôi không thể xác minh địa chỉ email của bạn. Hãy thử gửi lại email xác minh thông qua nút bên dưới."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "Xác minh email thất bại"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "Địa chỉ email của bạn đã được xác minh thành công!"
   },
   "auth.verify-email.post-verification.title": {
     "message": "Xác minh email"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Xác nhận Email"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "Đăng kí để nhận cập nhật về Modrinth"
@@ -183,7 +183,7 @@
     "message": "Lưu"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Lưu các thay đổi"
   },
   "button.sign-in": {
     "message": "Đăng nhập"
@@ -195,34 +195,34 @@
     "message": "Tải ảnh"
   },
   "collection.button.delete-icon": {
-    "message": "Delete icon"
+    "message": "Xoá biểu tượng"
   },
   "collection.button.edit-icon": {
-    "message": "Edit icon"
+    "message": "Biểu tượng chỉnh sửa"
   },
   "collection.button.remove-project": {
-    "message": "Remove project"
+    "message": "Loại bỏ dự án"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Bỏ theo dõi dự án"
   },
   "collection.button.upload-icon": {
     "message": "Đăng biểu tượng"
   },
   "collection.delete-modal.description": {
-    "message": "This will remove this collection forever. This action cannot be undone."
+    "message": "Điều này sẽ xóa bộ sưu tập này vĩnh viễn. Hành động này không thể hoàn tác."
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "Bạn có chắc chắn muốn xóa bộ sưu tập này không?"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} - Xem bộ sưu tập {name} bởi {username} trên Modrinth"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "Tự động tạo bộ sưu tập của tất cả các dự án bạn đang theo dõi."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "Bộ sưu tập không được tìm thấy"
   },
   "collection.label.collection": {
     "message": "Bộ sưu tập"
@@ -234,10 +234,10 @@
     "message": "Giám sát bởi"
   },
   "collection.label.no-projects": {
-    "message": "This collection has no projects!"
+    "message": "Bộ sưu tập này không có dự án nào!"
   },
   "collection.label.no-projects-auth": {
-    "message": "You don't have any projects.\nWould you like to <create-link>add one</create-link>?"
+    "message": "Bạn không có dự án nào cả.\nBạn có muốn <create-link>thêm một dự án</create-link> không?"
   },
   "collection.label.owner": {
     "message": "Chủ sở hữu"
@@ -246,25 +246,25 @@
     "message": "Riêng tư"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural, one {<stat>{count}</stat> dự án} other {<stat>{count}</stat> dự án}}"
   },
   "collection.label.updated-at": {
     "message": "Đã cập nhật {ago}"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "{name} - Bộ sưu tập"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "Tạo mới"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, one {{count} Dự án} other {{count} Dự án}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "Tìm kiếm các bộ sưu tập của bạn"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "Bộ sưu tập của bạn"
   },
   "frog": {
     "message": "Bạn đã bị ếch ám! 🐸"
@@ -294,25 +294,25 @@
     "message": "Đã lưu thay đổi"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "Bộ sưu tập"
   },
   "label.created-ago": {
-    "message": "Created {ago}"
+    "message": "Đã tạo {ago}"
   },
   "label.dashboard": {
     "message": "Bảng theo dõi"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "Xóa"
   },
   "label.description": {
-    "message": "Description"
+    "message": "Mô tả"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Lỗi"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "Đã theo dõi dự án"
   },
   "label.moderation": {
     "message": "Điều phối"
@@ -321,31 +321,31 @@
     "message": "Thông báo"
   },
   "label.password": {
-    "message": "Password"
+    "message": "Mật khẩu"
   },
   "label.public": {
-    "message": "Public"
+    "message": "Công khai"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "Bị từ chối"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Phạm vi"
   },
   "label.settings": {
     "message": "Thiết đặt"
   },
   "label.title": {
-    "message": "Title"
+    "message": "Tiêu đề"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "Không công khai"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "Hiển thị"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Đến hồ sơ của bạn"
   },
   "layout.action.change-theme": {
     "message": "Thay đổi chủ đề"
@@ -357,46 +357,46 @@
     "message": "Hình đại diện của bạn"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "Đến thiết lập tài khoản"
   },
   "layout.banner.add-email.title": {
-    "message": "For security purposes, please enter your email on Modrinth."
+    "message": "Vì lý do bảo mật, vui lòng nhập email của bạn trên Modrinth."
   },
   "layout.banner.staging.description": {
-    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+    "message": "Môi trường thử nghiệm đang chạy trên một bản sao của cơ sở dữ liệu sản xuất Modrinth. Môi trường này được sử dụng cho mục đích kiểm tra và gỡ lỗi, và có thể đang chạy các phiên bản đang phát triển của backend hoặc frontend Modrinth mới hơn so với phiên bản sản xuất."
   },
   "layout.banner.staging.title": {
-    "message": "You’re viewing Modrinth’s staging environment."
+    "message": "Bạn đang xem môi trường thử nghiệm của Modrinth."
   },
   "layout.banner.verify-email.action": {
-    "message": "Re-send verification email"
+    "message": "Gửi lại email xác nhận"
   },
   "layout.banner.verify-email.title": {
-    "message": "For security purposes, please verify your email address on Modrinth."
+    "message": "Vì lý do bảo mật, vui lòng xác minh địa chỉ email của bạn trên Modrinth."
   },
   "layout.footer.company.careers": {
     "message": "Tuyển dụng"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "Riêng tư"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Quy tắc"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Điều khoản"
   },
   "layout.footer.company.title": {
     "message": "Công ty"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "Tương tác"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "KHÔNG PHẢI LÀ DỊCH VỤ CHÍNH THỨC CỦA MINECRAFT. KHÔNG ĐƯỢC MOJANG HOẶC MICROSOFT PHÊ DUYỆT HOẶC LIÊN KẾT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "Modrinth là <github-link>mã nguồn mở</github-link>."
   },
   "layout.footer.resources.blog": {
     "message": "Blog"
@@ -414,19 +414,19 @@
     "message": "Tài nguyên"
   },
   "layout.menu-toggle.action": {
-    "message": "Toggle menu"
+    "message": "Chuyển đổi menu"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Tải xuống các mod Minecraft, plugin, gói dữ liệu, shader, gói tài nguyên và gói mod trên Modrinth. Khám phá và xuất bản các dự án trên Modrinth với giao diện và API hiện đại, dễ sử dụng."
   },
   "layout.meta.og-description": {
-    "message": "Discover and publish Minecraft content!"
+    "message": "Khám phá và xuất bản nội dung Minecraft!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "Trang chủ"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "Tìm kiếm"
   },
   "notification.error.title": {
     "message": "Một lỗi đã xảy ra"
@@ -525,22 +525,22 @@
     "message": "Trình tô bóng"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "Bạn đã rút tổng cộng {amount}."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "Bạn đã rút {amount} qua phương thức {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "Bạn đã rút {amount} trong năm {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "Bạn đã rút {amount} vào năm {year} qua phương thức {method}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "Truy cập dữ liệu phân tích của bạn"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Đọc phân tích"
   },
   "scopes.collectionCreate.description": {
     "message": "Tạo bộ sưu tập"
@@ -591,16 +591,16 @@
     "message": "Xoá tổ chức"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Đọc các tổ chức"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Đọc các tổ chức"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Ghi lại cho các tổ chức"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Ghi lại các tổ chức"
   },
   "scopes.patCreate.description": {
     "message": "Đọc khoá API cá nhân"
@@ -615,34 +615,34 @@
     "message": "Xoá PAT"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Xem các khoá API đã tạo"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "Đọc các PAT"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Chỉnh sửa khoá API cá nhân"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Ghi các PAT"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Đọc các khoản thanh toán của bạn"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Đọc các khoản thanh toán"
   },
   "scopes.payoutsWrite.description": {
     "message": "Rút tiền"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Ghi các khoản thanh toán"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Thực hiện các hành động phân tích"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Thực hiện phân tích"
   },
   "scopes.projectCreate.description": {
     "message": "Tạo dự án mới"
@@ -711,70 +711,70 @@
     "message": "Đọc phiên"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Đọc các luồng"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Đọc các luồng"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Ghi lại các luồng"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Ghi các luồng"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Sửa đổi dữ liệu xác thực của bạn"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Ghi dữ liệu xác thực"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Xoá tài khoản của bạn"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Xoá tài khoản của bạn"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Truy cập thông tin hồ sơ công khai của bạn"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Đọc dữ liệu người dùng"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Đọc email của bạn"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "Đọc email người dùng"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Ghi vào hồ sơ của bạn"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Ghi dữ liệu người dùng"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Tạo phiên bản mới"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "Tạo phiên bản"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Xoá phiên bản"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Xoá phiên bản"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Đọc tất cả phiên bản"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "Đọc phiên bản"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Ghi vào dữ liệu phiên bản"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "Ghi các phiên bản"
   },
   "settings.account.title": {
     "message": "Tài khoản và bảo mật"
@@ -792,10 +792,10 @@
     "message": "Vô hiệu hoá chế độ nhà phát triển"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+    "message": "<strong>Chế độ nhà phát triển<strong> đang hoạt động. Điều này sẽ cho phép bạn xem các ID nội bộ của nhiều thứ khác nhau trên Modrinth, điều này có thể hữu ích nếu bạn là nhà phát triển sử dụng API của Modrinth. Nhấp vào biểu tượng Modrinth ở dưới cùng của trang 5 lần để bật hoặc tắt chế độ nhà phát triển."
   },
   "settings.display.flags.description": {
-    "message": "Enable or disable certain features on this device."
+    "message": "Bật hoặc tắt một số tính năng trên thiết bị này."
   },
   "settings.display.flags.title": {
     "message": "Bật tắt tính năng"
@@ -804,7 +804,7 @@
     "message": "Trang Gói dữ liệu"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "Select your preferred layout for each page that displays project lists on this device."
+    "message": "Chọn bố cục ưa thích của bạn cho từng trang hiển thị danh sách dự án trên thiết bị này."
   },
   "settings.display.project-list-layouts.mod": {
     "message": "Trang Mod"
@@ -819,49 +819,49 @@
     "message": "Trang Gói tài nguyên"
   },
   "settings.display.project-list-layouts.shader": {
-    "message": "Shaders page"
+    "message": "Trang Shader"
   },
   "settings.display.project-list-layouts.title": {
-    "message": "Project list layouts"
+    "message": "Bố cục danh sách dự án"
   },
   "settings.display.project-list-layouts.user": {
-    "message": "User profile pages"
+    "message": "Trang hồ sơ người dùng"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+    "message": "Cho phép kết xuất nâng cao như hiệu ứng làm mờ có thể gây ra các vấn đề về hiệu suất nếu không có kết xuất tăng tốc phần cứng."
   },
   "settings.display.sidebar.advanced-rendering.title": {
-    "message": "Advanced rendering"
+    "message": "Kết xuất nâng cao"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+    "message": "Tạo các liên kết dẫn ra ngoài Modrinth mở trong một tab mới. Bất kể cài đặt này, các liên kết trên cùng một tên miền và trong các mô tả Markdown sẽ mở trong cùng một tab, và các liên kết trên quảng cáo và các trang chỉnh sửa sẽ mở trong một tab mới."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
-    "message": "Open external links in new tab"
+    "message": "Mở các liên kết ngoài trong tab mới"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+    "message": "Ẩn các nút \"Tải ứng dụng Modrinth\" khỏi thanh điều hướng chính. Trang ứng dụng Modrinth vẫn có thể được tìm thấy trên trang đích hoặc ở phần chân trang."
   },
   "settings.display.sidebar.hide-app-promos.title": {
-    "message": "Hide Modrinth App promotions"
+    "message": "Ẩn quảng cáo ứng dụng Modrinth"
   },
   "settings.display.sidebar.right-aligned-project-sidebar.description": {
-    "message": "Aligns the project details sidebar to the right of the page's content."
+    "message": "Căn chỉnh thanh bên chi tiết dự án sang bên phải của nội dung trang."
   },
   "settings.display.sidebar.right-aligned-project-sidebar.title": {
-    "message": "Right-aligned project sidebar"
+    "message": "Thanh bên dự án căn phải"
   },
   "settings.display.sidebar.right-aligned-search-sidebar.description": {
-    "message": "Aligns the search filters sidebar to the right of the search results."
+    "message": "Căn chỉnh thanh bên bộ lọc tìm kiếm sang bên phải của kết quả tìm kiếm."
   },
   "settings.display.sidebar.right-aligned-search-sidebar.title": {
-    "message": "Right-aligned search sidebar"
+    "message": "Thanh bên tìm kiếm căn phải"
   },
   "settings.display.theme.dark": {
     "message": "Tối"
   },
   "settings.display.theme.description": {
-    "message": "Select your preferred color theme for Modrinth on this device."
+    "message": "Chọn chủ đề màu ưa thích của bạn cho Modrinth trên thiết bị này."
   },
   "settings.display.theme.light": {
     "message": "Sáng"
@@ -870,10 +870,10 @@
     "message": "OLED"
   },
   "settings.display.theme.preferred-dark-theme": {
-    "message": "Preferred dark theme"
+    "message": "Chủ đề tối được ưa thích"
   },
   "settings.display.theme.preferred-light-theme": {
-    "message": "Preferred light theme"
+    "message": "Chủ đề sáng được ưa thích"
   },
   "settings.display.theme.retro": {
     "message": "Hoài cổ"
@@ -930,67 +930,67 @@
     "message": "Ngôn ngữ"
   },
   "settings.pats.action.create": {
-    "message": "Create a PAT"
+    "message": "Tạo một PAT"
   },
   "settings.pats.description": {
-    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+    "message": "PAT có thể được sử dụng để truy cập API của Modrinth. Để biết thêm thông tin, xem <doc-link>Tài liệu API của Modrinth</doc-link>. Chúng có thể được tạo và thu hồi bất kỳ lúc nào."
   },
   "settings.pats.modal.create.action": {
-    "message": "Create PAT"
+    "message": "Tạo PAT"
   },
   "settings.pats.modal.create.expires.label": {
-    "message": "Expires"
+    "message": "Hết hạn"
   },
   "settings.pats.modal.create.name.label": {
-    "message": "Name"
+    "message": "Tên"
   },
   "settings.pats.modal.create.name.placeholder": {
-    "message": "Enter the PAT's name..."
+    "message": "Nhập tên của PAT..."
   },
   "settings.pats.modal.create.title": {
-    "message": "Create personal access token"
+    "message": "Tạo khoá truy cập cá nhân"
   },
   "settings.pats.modal.delete.action": {
-    "message": "Delete this token"
+    "message": "Xóa khoá này"
   },
   "settings.pats.modal.delete.description": {
-    "message": "This will remove this token forever (like really forever)."
+    "message": "Điều này sẽ xóa khóa này vĩnh viễn (thật sự vĩnh viễn)."
   },
   "settings.pats.modal.delete.title": {
-    "message": "Are you sure you want to delete this token?"
+    "message": "Bạn có chắc bạn muốn xóa bỏ khoá này không?"
   },
   "settings.pats.modal.edit.title": {
-    "message": "Edit personal access token"
+    "message": "Chỉnh sửa khoá truy cập cá nhân"
   },
   "settings.pats.title": {
-    "message": "Personal access tokens"
+    "message": "Khóa truy cập cá nhân"
   },
   "settings.pats.token.action.edit": {
-    "message": "Edit token"
+    "message": "Chỉnh sửa khoá"
   },
   "settings.pats.token.action.revoke": {
-    "message": "Revoke token"
+    "message": "Thu hồi khoá"
   },
   "settings.pats.token.expired-ago": {
-    "message": "Expired {ago}"
+    "message": "Quá hạn {ago}"
   },
   "settings.pats.token.expires-in": {
-    "message": "Expires {inTime}"
+    "message": "Hết hạn {inTime}"
   },
   "settings.pats.token.last-used": {
-    "message": "Last used {ago}"
+    "message": "Lần sử dụng cuối cùng {ago}"
   },
   "settings.pats.token.never-used": {
-    "message": "Never used"
+    "message": "Chưa từng được sử dụng"
   },
   "settings.profile.bio.description": {
-    "message": "A short description to tell everyone a little bit about you."
+    "message": "Một đoạn mô tả ngắn để cho mọi người biết một chút về bạn."
   },
   "settings.profile.bio.title": {
     "message": "Tiểu sử"
   },
   "settings.profile.description": {
-    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+    "message": "Thông tin hồ sơ của bạn có thể được công khai trên Modrinth và thông qua <docs-link>Modrinth API</docs-link>."
   },
   "settings.profile.profile-info": {
     "message": "Thông tin hồ sơ"
@@ -1005,34 +1005,34 @@
     "message": "Hồ sơ công khai"
   },
   "settings.profile.username.description": {
-    "message": "A unique case-insensitive name to identify your profile."
+    "message": "Một tên độc nhất (không phân biệt hoa thường) để xác định hồ sơ của bạn."
   },
   "settings.profile.username.title": {
-    "message": "Username"
+    "message": "Tên người dùng"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "Thu hồi phiên"
   },
   "settings.sessions.created-ago": {
-    "message": "Created {ago}"
+    "message": "Đã tạo {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "Phiên hiện tại"
   },
   "settings.sessions.description": {
     "message": "Đây là tất cả thiết bị đang được đăng nhập bằng tài khoản Modrinth của bạn. Bạn có thể đăng xuất từng cái một.\n\nNếu bạn thấy một mục mà bạn không nhận ra, hãy đăng xuất khỏi thiết bị đó và thay đổi mật khẩu tài khoản Modrinth ngay lập tức."
   },
   "settings.sessions.last-accessed-ago": {
-    "message": "Last accessed {ago}"
+    "message": "Truy cập lần cuối {ago}"
   },
   "settings.sessions.title": {
     "message": "Phiên"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "Hệ Điều Hành Không Rõ"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Nền tảng không rõ"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} vào lúc {time, time, short}"
