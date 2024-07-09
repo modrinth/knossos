@@ -6,7 +6,7 @@
     "message": "거부"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> 작성자 <creator-link>{creator}</creator-link>가 허용:"
+    "message": "<strong>{appName}</strong>의 제작자 <creator-link>{creator}</creator-link>에게 다음 권한을 허용합니다:"
   },
   "auth.authorize.authorize-app-name": {
     "message": "{appName} 승인"
@@ -30,7 +30,7 @@
     "message": "이메일"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "이메일이 계정에 이전에 저장되었다면, 지침이 포함된 이메일이 발송될것입니다."
+    "message": "이전에 이메일이 계정에 저장되있다면, 지침을 포함한 이메일이 발송됩니다."
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "이메일 전송"
@@ -237,7 +237,7 @@
     "message": "이 컬렉션에는 프로젝트가 없습니다!"
   },
   "collection.label.no-projects-auth": {
-    "message": "프로젝트가 없습니다.\n새로 <create-link>추가하시겠습니까</create-link>?"
+    "message": "아직 프로젝트가 없습니다.\n<create-link>새 프로젝트</create-link>를 생성하시겠습니까?"
   },
   "collection.label.owner": {
     "message": "소유자"
@@ -267,7 +267,7 @@
     "message": "내 컬렉션"
   },
   "frog": {
-    "message": "당신은 개구리입니다! 🐸"
+    "message": "개구리입니다! 🐸"
   },
   "frog.altText": {
     "message": "사진보다 더 사진 같은 개구리 미로 그림"
@@ -291,7 +291,7 @@
     "message": "행 보기"
   },
   "label.changes-saved": {
-    "message": "변경 내용 저장됨."
+    "message": "변경 내용 저장함"
   },
   "label.collections": {
     "message": "컬렉션"
@@ -363,10 +363,10 @@
     "message": "보안을 위해 Modrinth에서 사용하는 이메일을 입력해 주세요."
   },
   "layout.banner.staging.description": {
-    "message": "스테이징 환경은 프로덕션 Modrinth 데이터베이스의 복사본에서 실행되고 있습니다. 이는 테스트 및 디버깅 목적으로 사용되며, 프로덕션 인스턴스보다 새로운 개발 중인 Modrinth 백엔드 또는 프론트엔드 버전을 실행할 수 있습니다."
+    "message": "스테이징 환경은 프로덕션 Modrinth 데이터베이스의 복사본에서 실행됩니다. 테스트 및 디버깅 목적으로 사용되며 프로덕션 인스턴스보다 최신 버전의 Modrinth 백엔드 또는 프론트엔드의 개발 버전이 실행되고 있을 수 있습니다."
   },
   "layout.banner.staging.title": {
-    "message": "Modrinth의 스테이징 환경을 보고 계십니다."
+    "message": "Modrinth의 스테이징 환경을 보는 중입니다."
   },
   "layout.banner.verify-email.action": {
     "message": "인증 메일 다시 보내기"
@@ -525,67 +525,67 @@
     "message": "셰이더"
   },
   "revenue.transfers.total": {
-    "message": "총 {amount}을(를) 인출하셨습니다."
+    "message": "총 {amount}을(를) 인출했습니다."
   },
   "revenue.transfers.total.method": {
-    "message": "{method}을(를) 이용해서 총 {amount}을(를) 인출하셨습니다."
+    "message": "{method}을(를) 통해 총 {amount}을(를) 인출했습니다."
   },
   "revenue.transfers.total.year": {
-    "message": "{year}년간 총 {amount}을(를) 인출하셨습니다."
+    "message": "{year}년에 총 {amount}을(를) 인출했습니다."
   },
   "revenue.transfers.total.year_method": {
-    "message": "{year}년간 {method}을(를) 이용해서 총 {amount}을(를) 인출하셨습니다."
+    "message": "{method}을(를) 통해 {year}년에 총 {amount}을(를) 인출했습니다."
   },
   "scopes.analytics.description": {
-    "message": "분석 데이터에 접근합니다."
+    "message": "분석 데이터에 접근하기"
   },
   "scopes.analytics.label": {
-    "message": "분석 데이터 확인"
+    "message": "통계 확인"
   },
   "scopes.collectionCreate.description": {
-    "message": "컬렉션을 생성합니다."
+    "message": "컬렉션 생성하기"
   },
   "scopes.collectionCreate.label": {
     "message": "컬렉션 생성"
   },
   "scopes.collectionDelete.description": {
-    "message": "컬렉션을 삭제합니다."
+    "message": "컬렉션 삭제하기"
   },
   "scopes.collectionDelete.label": {
     "message": "컬렉션 삭제"
   },
   "scopes.collectionRead.description": {
-    "message": "컬렉션 목록을 읽습니다."
+    "message": "컬렉션 읽기"
   },
   "scopes.collectionRead.label": {
     "message": "컬렉션 읽기"
   },
   "scopes.collectionWrite.description": {
-    "message": "컬렉션 목록을 작성합니다."
+    "message": "컬렉션에 작성하기"
   },
   "scopes.collectionWrite.label": {
     "message": "컬렉션 쓰기"
   },
   "scopes.notificationRead.description": {
-    "message": "알림을 확인합니다."
+    "message": "알림 확인하기"
   },
   "scopes.notificationRead.label": {
     "message": "알림 확인"
   },
   "scopes.notificationWrite.description": {
-    "message": "알림 삭제/확인"
+    "message": "알림 확인/삭제하기"
   },
   "scopes.notificationWrite.label": {
     "message": "알림 작성"
   },
   "scopes.organizationCreate.description": {
-    "message": "조직 생성"
+    "message": "새 조직 만들기"
   },
   "scopes.organizationCreate.label": {
     "message": "조직 생성"
   },
   "scopes.organizationDelete.description": {
-    "message": "조직 삭제"
+    "message": "조직 제거하기"
   },
   "scopes.organizationDelete.label": {
     "message": "조직 삭제"
@@ -603,25 +603,25 @@
     "message": "조직 쓰기"
   },
   "scopes.patCreate.description": {
-    "message": "개인 API 토큰을 생성합니다."
+    "message": "개인 API 토큰 생성하기"
   },
   "scopes.patCreate.label": {
     "message": "PAT 생성"
   },
   "scopes.patDelete.description": {
-    "message": "개인 API 토큰을 삭제합니다."
+    "message": "개인 API 토큰 삭제하기"
   },
   "scopes.patDelete.label": {
     "message": "PAT 삭제"
   },
   "scopes.patRead.description": {
-    "message": "생성된 API 토큰을 확인합니다."
+    "message": "생성된 API 토큰 확인하기"
   },
   "scopes.patRead.label": {
     "message": "PAT 확인"
   },
   "scopes.patWrite.description": {
-    "message": "개인 API 토큰을 설정합니다."
+    "message": "개인 API 토큰 설정하기"
   },
   "scopes.patWrite.label": {
     "message": "PAT 쓰기"
@@ -633,31 +633,31 @@
     "message": "인출 방법 확인"
   },
   "scopes.payoutsWrite.description": {
-    "message": "인출"
+    "message": "자금 인출하기"
   },
   "scopes.payoutsWrite.label": {
     "message": "인출 방법 작성"
   },
   "scopes.performAnalytics.description": {
-    "message": "분석 수행"
+    "message": "분석 수행하기"
   },
   "scopes.performAnalytics.label": {
     "message": "분석 수행"
   },
   "scopes.projectCreate.description": {
-    "message": "새 프로젝트를 생성합니다."
+    "message": "새 프로젝트 생성하기"
   },
   "scopes.projectCreate.label": {
     "message": "프로젝트 생성"
   },
   "scopes.projectDelete.description": {
-    "message": "프로젝트를 삭제합니다."
+    "message": "프로젝트 삭제하기"
   },
   "scopes.projectDelete.label": {
     "message": "프로젝트 삭제"
   },
   "scopes.projectRead.description": {
-    "message": "당신의 모든 프로젝트를 볼 수 있습니다."
+    "message": "모든 프로젝트 읽기"
   },
   "scopes.projectRead.label": {
     "message": "프로젝트 읽기"
@@ -669,13 +669,13 @@
     "message": "프로젝트 쓰기"
   },
   "scopes.reportCreate.description": {
-    "message": "리포트 생성"
+    "message": "리포트 생성하기"
   },
   "scopes.reportCreate.label": {
     "message": "리포트 생성"
   },
   "scopes.reportDelete.description": {
-    "message": "리포트 제거"
+    "message": "리포트 제거하기"
   },
   "scopes.reportDelete.label": {
     "message": "리포트 제거"
@@ -687,19 +687,19 @@
     "message": "리포트 읽기"
   },
   "scopes.reportWrite.description": {
-    "message": "리포트 수정"
+    "message": "리포트 수정하기"
   },
   "scopes.reportWrite.label": {
     "message": "리포트 작성"
   },
   "scopes.sessionAccess.description": {
-    "message": "Modrinth 발급 세션에 접근"
+    "message": "Modrinth 발급 세션에 접근하기"
   },
   "scopes.sessionAccess.label": {
     "message": "세션 접근"
   },
   "scopes.sessionDelete.description": {
-    "message": "세션을 삭제합니다."
+    "message": "세션 삭제하기"
   },
   "scopes.sessionDelete.label": {
     "message": "세션 삭제"
@@ -717,25 +717,25 @@
     "message": "스레드 읽기"
   },
   "scopes.threadWrite.description": {
-    "message": "스레드 작성"
+    "message": "스레드 작성하기"
   },
   "scopes.threadWrite.label": {
     "message": "스레드 작성"
   },
   "scopes.userAuthWrite.description": {
-    "message": "인증 데이터 수정"
+    "message": "인증 데이터 수정하기"
   },
   "scopes.userAuthWrite.label": {
     "message": "인증 데이터 쓰기"
   },
   "scopes.userDelete.description": {
-    "message": "당신의 계정을 삭제합니다."
+    "message": "계정 삭제하기"
   },
   "scopes.userDelete.label": {
     "message": "계정 삭제"
   },
   "scopes.userRead.description": {
-    "message": "프로필 공개 정보 접근"
+    "message": "프로필 공개 정보 접근하기"
   },
   "scopes.userRead.label": {
     "message": "사용자 데이터 읽기"
@@ -753,13 +753,13 @@
     "message": "사용자 데이터 쓰기"
   },
   "scopes.versionCreate.description": {
-    "message": "새 버전을 만듭니다."
+    "message": "새 버전 만들기"
   },
   "scopes.versionCreate.label": {
     "message": "버전 생성"
   },
   "scopes.versionDelete.description": {
-    "message": "버전 삭제"
+    "message": "버전 삭제하기"
   },
   "scopes.versionDelete.label": {
     "message": "버전 삭제"
