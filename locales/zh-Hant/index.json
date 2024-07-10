@@ -795,7 +795,7 @@
     "message": "已啟用<strong>開發人員模式</strong>。這個模式可以讓你查看 Modrinth 的各種事物的內部 ID，對於使用 Modrinth API 的開發人員而言可能會很有幫助。按 5 次頁面底部的 Modrinth 標誌以開啟及關閉開發人員模式。"
   },
   "settings.display.flags.description": {
-    "message": "啟用或停用這部裝置上的特定功能。"
+    "message": "啟用或停用這個瀏覽器上的特定功能。"
   },
   "settings.display.flags.title": {
     "message": "開關功能"
@@ -804,7 +804,7 @@
     "message": "資料包頁面"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "依偏好選用每個顯示專案清單頁面的版面配置。"
+    "message": "依偏好選用每個顯示專案清單頁面的版面配置。（設定僅適用於這個瀏覽器）"
   },
   "settings.display.project-list-layouts.mod": {
     "message": "模組頁面"
@@ -861,7 +861,7 @@
     "message": "深色"
   },
   "settings.display.theme.description": {
-    "message": "依偏好選用 Modrinth 色彩主題。"
+    "message": "依偏好選用 Modrinth 色彩主題。（設定僅適用於這個瀏覽器）"
   },
   "settings.display.theme.light": {
     "message": "淺色"
@@ -879,7 +879,7 @@
     "message": "經典"
   },
   "settings.display.theme.system": {
-    "message": "與系統同步"
+    "message": "裝置"
   },
   "settings.display.theme.title": {
     "message": "色彩主題"
@@ -903,7 +903,7 @@
     "message": "選擇您偏好的網站語言。翻譯由 <crowdin-link>Crowdin</crowdin-link> 上的志願者所貢獻。"
   },
   "settings.language.languages.automatic": {
-    "message": "與系統語言同步"
+    "message": "使用裝置語言"
   },
   "settings.language.languages.language-label-applying": {
     "message": "{label}。正在套用…"
