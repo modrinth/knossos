@@ -15,7 +15,7 @@
     "message": "响应中未找到重定向位置"
   },
   "auth.authorize.redirect-url": {
-    "message": "你将被重定向至<redirect-url>{url}</redirect-url>"
+    "message": "您将被重定向至<redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "发送恢复电子邮件"
@@ -114,7 +114,7 @@
     "message": "注册"
   },
   "auth.sign-up.title.create-account": {
-    "message": "或自己创建帐户"
+    "message": "或自己创建账户"
   },
   "auth.sign-up.title.sign-up-with": {
     "message": "通过以下方式注册"
