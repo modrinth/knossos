@@ -780,7 +780,7 @@
     "message": "Account and security"
   },
   "settings.appearance.title": {
-    "message": "Appearance"
+    "message": "Vzhľad"
   },
   "settings.applications.title": {
     "message": "Your applications"
@@ -858,31 +858,31 @@
     "message": "Right-aligned search sidebar"
   },
   "settings.display.theme.dark": {
-    "message": "Dark"
+    "message": "Tmavý"
   },
   "settings.display.theme.description": {
     "message": "Select your preferred color theme for Modrinth on this device."
   },
   "settings.display.theme.light": {
-    "message": "Light"
+    "message": "Svetlý"
   },
   "settings.display.theme.oled": {
     "message": "OLED"
   },
   "settings.display.theme.preferred-dark-theme": {
-    "message": "Preferred dark theme"
+    "message": "Preferovať tmavý motív"
   },
   "settings.display.theme.preferred-light-theme": {
-    "message": "Preferred light theme"
+    "message": "Preferovať svetlý motív"
   },
   "settings.display.theme.retro": {
     "message": "Retro"
   },
   "settings.display.theme.system": {
-    "message": "Sync with system"
+    "message": "Synchronizovať so systémom"
   },
   "settings.display.theme.title": {
-    "message": "Color theme"
+    "message": "Farebný motív"
   },
   "settings.language.categories.auto": {
     "message": "Automaticky"
@@ -987,28 +987,28 @@
     "message": "A short description to tell everyone a little bit about you."
   },
   "settings.profile.bio.title": {
-    "message": "Bio"
+    "message": "Popis"
   },
   "settings.profile.description": {
     "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
   },
   "settings.profile.profile-info": {
-    "message": "Profile information"
+    "message": "Profilové informácie"
   },
   "settings.profile.profile-picture.reset": {
-    "message": "Reset"
+    "message": "Obnoviť"
   },
   "settings.profile.profile-picture.title": {
-    "message": "Profile picture"
+    "message": "Obrázok profilu"
   },
   "settings.profile.title": {
-    "message": "Public profile"
+    "message": "Užívateľský profil"
   },
   "settings.profile.username.description": {
-    "message": "A unique case-insensitive name to identify your profile."
+    "message": "Jedinečné meno na identifikáciu vášho profilu (nezáleží na veľkosti písmen)."
   },
   "settings.profile.username.title": {
-    "message": "Username"
+    "message": "Užívateľské meno"
   },
   "settings.sessions.action.revoke-session": {
     "message": "Zrušiť reláciu"
