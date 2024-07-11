@@ -411,7 +411,7 @@
     "message": "jelp hir>_<"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "Resourcez"
   },
   "layout.menu-toggle.action": {
     "message": "menu magik buttn °0°"
@@ -648,13 +648,13 @@
     "message": "Create new projects"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Mak atemtz"
   },
   "scopes.projectDelete.description": {
     "message": "Delete your projects"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Projecc be gon permesions"
   },
   "scopes.projectRead.description": {
     "message": "Read all your projects"
