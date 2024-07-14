@@ -615,70 +615,70 @@
     "message": "Выдаленне токенаў доступу"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Прагляд створаных API токенаў"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "Чытанне токенаў доступу"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Рэдагаваць асабістыя API токены"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Стварэнне токенаў доступу"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Доступ да дадзеных выплат"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Чытанне выплат"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Зняць грошы"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Запіс выплат"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Выкананне дзеянняў аналітыкі"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Аналітыка"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Стварыць новы праект"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Стварэнне новых праектаў"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Выдаленне вашых праектаў"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Выдаленне праектаў"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Чытанне ўсіх вашых праектаў"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Чытанне праектаў"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Запіс у даныя праекта"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Запіс праектаў"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Стварэнне скарг"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Стварэнне скарг"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Выдаленне скарг"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Выдаленне скарг"
   },
   "scopes.reportRead.description": {
     "message": "Чытаць спіс скарг"
@@ -705,13 +705,13 @@
     "message": "Сканчэнне сесій"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Чытанне актыўных сесій"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Чытанне сесій"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Чытанне паведамленняў"
   },
   "scopes.threadRead.label": {
     "message": "Read threads"
