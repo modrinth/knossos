@@ -12,10 +12,10 @@
     "message": "{appName} 승인"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "응답에서 리디렉션 위치를 찾을 수 없습니다"
+    "message": "응답에서 리다이렉트 위치를 찾을 수 없습니다"
   },
   "auth.authorize.redirect-url": {
-    "message": "<redirect-url>{url}</redirect-url>로 리디렉션됩니다."
+    "message": "<redirect-url>{url}</redirect-url>로 리다이렉트 됩니다"
   },
   "auth.reset-password.method-choice.action": {
     "message": "복구 이메일 보내기"
