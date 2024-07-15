@@ -312,7 +312,7 @@
     "message": "Fejl"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "Fulgte projekter"
   },
   "label.moderation": {
     "message": "Moderation"
@@ -330,7 +330,7 @@
     "message": "Afvist"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Omfang"
   },
   "label.settings": {
     "message": "Indstillinger"
@@ -339,7 +339,7 @@
     "message": "Titel"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "Unoteret"
   },
   "label.visibility": {
     "message": "Synlighed"
