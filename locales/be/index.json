@@ -714,67 +714,67 @@
     "message": "Чытанне паведамленняў"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Чытанне паведамленняў"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Запіс у паведамленні"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Запіс у паведамленні"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Змена аўтэнтыфікацыйных дадзеных"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Запіс аўтэнтыфікацыйных дадзеных"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Выдаленне ўліковага запісу"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Выдаленне ўліковага запісу"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Атрыманне доступу да агульнадаступнай інфармацыі профілю"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Счытванне карыстацкіх дадзеных"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Чытанне электроннай пошты"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "Чытанне электроннай пошты"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Рэдагаванне вашага профілю"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Запіс аўтэнтыфікацыйных дадзеных"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Стварэнне новых версій"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "Стварэнне версій"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Выдаленне версій"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Выдаленне версій"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Чытанне ўсіх версій"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "Чытанне версій"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Рэдагаванне дадзеных версій праектаў"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "Запіс версій"
   },
   "settings.account.title": {
     "message": "Account and security"
