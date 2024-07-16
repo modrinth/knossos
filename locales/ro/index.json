@@ -6,22 +6,22 @@
     "message": "Refuză"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> de <creator-link>{creator}</creator-link> va putea să:"
   },
   "auth.authorize.authorize-app-name": {
     "message": "Autorizează {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "Nu a fost găsită o locație redirecționată in răspuns"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Veți fi redirecționat către <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Trimite e-mail de recuperare"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Introduceți adresa de email mai jos și vom trimite un link de recuperare pentru a vă permite să vă recuperați contul."
   },
   "auth.reset-password.method-choice.email-username.label": {
     "message": "Email sau nume utilizator"
@@ -30,16 +30,16 @@
     "message": "E-mail"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "Un e-mail cu instrucțiuni v-a fost trimis dacă e-mailul a fost salvat anterior în contul dvs."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "Email trimis"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Acum vă puteți autentifica în contul dvs. cu noua parolă."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Parolă resetată cu succes"
   },
   "auth.reset-password.post-challenge.action": {
     "message": "Resetare parolă"
@@ -57,115 +57,115 @@
     "message": "Resetează-ți parola"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Te rugăm să introduci un cod two-factor pentru a continua."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Introduceți codul two-factor"
   },
   "auth.sign-in.2fa.placeholder": {
     "message": "Introdu codul..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Ați uitat parola?</forgot-password-link> • <create-account-link>Creați un cont</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Email sau numele de utilizator"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Parolă"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Conectează-te cu"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Conectare"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "Sau folosiți o parolă"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Creare cont"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Confirmați parola"
   },
   "auth.sign-up.email.label": {
     "message": "Email"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Nume de utilizator"
   },
   "auth.sign-up.legal-dislaimer": {
     "message": "Prin crearea unui cont, ești de acord cu <terms-link>Termenii</terms-link> și <privacy-policy-link>Politica de confidențialitate</privacy-policy-link> Modrinth."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "Parolele nu se potrivesc!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "Parolă"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Aveți deja un cont?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Abonați-vă la actualizările despre Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Înscriere"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "Sau vă puteți crea dvs. un cont"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Înregistrare cu"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Setările contului"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Autentificare"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "Adresa dvs de email este deja verificată!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "Email deja verificat"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Retrimite emailul de verificare"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Nu am reușit să vă verificăm adresa de e-mail. Vă rugăm să încercați să retrimiteți e-mailul de verificare prin intermediul panoului dumneavoastră de control, după ce vă conectați."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "Nu am reușit să vă verificăm adresa de e-mail. Vă rugăm să încercați să retrimiteți e-mailul de verificare utilizând butonul de mai jos."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "Verificarea email-ului a eșuat"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "Adresa dvs de email a fost verificată cu succes!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Verificare email"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Verificare email"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Abonați-vă la actualizările despre Modrinth"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "Vă mulțumim că v-ați creat un cont. Acum puteți urmări și crea proiecte, primi noutăți despre proiectele preferate și multe altele!"
   },
   "auth.welcome.label.tos": {
     "message": "Prin crearea unui cont, ești de acord cu <terms-link>Termenii</terms-link> și <privacy-policy-link>Politica de confidențialitate</privacy-policy-link> Modrinth."
   },
   "auth.welcome.long-title": {
-    "message": "Welcome to Modrinth!"
+    "message": "Bine ați venit pe Modrinth!"
   },
   "auth.welcome.title": {
-    "message": "Welcome"
+    "message": "Bine ați venit"
   },
   "button.cancel": {
     "message": "Anulează"
@@ -192,7 +192,7 @@
     "message": "Deconectare"
   },
   "button.upload-image": {
-    "message": "Upload image"
+    "message": "Încărcați o imagine"
   },
   "collection.button.delete-icon": {
     "message": "Șterge icon"
@@ -204,7 +204,7 @@
     "message": "Șterge proiect"
   },
   "collection.button.unfollow-project": {
-    "message": "Unfollow project"
+    "message": "Anulați urmărirea proiectului"
   },
   "collection.button.upload-icon": {
     "message": "Încarcă icon"
@@ -213,25 +213,25 @@
     "message": "Colecția va fi ștearsă pentru totdeauna. Aceasta acțiune nu va poate fi retrasă."
   },
   "collection.delete-modal.title": {
-    "message": "Are you sure you want to delete this collection?"
+    "message": "Sunteți sigur(ă) că doriți să ștergeți această colecție?"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} - Vizualizați colecția {name} de la {username} pe Modrinth"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "Colecție generată automat cu toate proiectele pe care le urmăriți."
   },
   "collection.error.not-found": {
-    "message": "Collection not found"
+    "message": "Colecția nu a fost găsită"
   },
   "collection.label.collection": {
-    "message": "Collection"
+    "message": "Colecție"
   },
   "collection.label.created-at": {
     "message": "Creat acum {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "Creat de"
   },
   "collection.label.no-projects": {
     "message": "Această colecție nu are proiecte!"
@@ -240,7 +240,7 @@
     "message": "Nu ai niciun proiect.\nVrei să <create-link>creezi unul</create-link>?"
   },
   "collection.label.owner": {
-    "message": "Owner"
+    "message": "Proprietar"
   },
   "collection.label.private": {
     "message": "Privat"
@@ -249,22 +249,22 @@
     "message": "{count, plural, one {<stat>{count}</stat> proiect} few {<stat>{count}</stat> proiecte} other {<stat>{count}</stat> de proiecte}}"
   },
   "collection.label.updated-at": {
-    "message": "Updated {ago}"
+    "message": "Actualizat acum {ago}"
   },
   "collection.title": {
-    "message": "{name} - Collection"
+    "message": "{name} - Colecție"
   },
   "dashboard.collections.button.create-new": {
-    "message": "Create new"
+    "message": "Creați"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural, one {{count} proiect} other {{count} proiecte}}"
   },
   "dashboard.collections.label.search-input": {
-    "message": "Search your collections"
+    "message": "Căutați în colecțiile dvs"
   },
   "dashboard.collections.long-title": {
-    "message": "Your collections"
+    "message": "Colecțiile dvs"
   },
   "frog": {
     "message": "Ai fost broscățuit! 🐸"
@@ -288,133 +288,133 @@
     "message": "Vizualizare în mod grilă"
   },
   "input.view.list": {
-    "message": "Rows view"
+    "message": "Vizualizare rânduri"
   },
   "label.changes-saved": {
-    "message": "Changes saved"
+    "message": "Modificări salvate"
   },
   "label.collections": {
-    "message": "Collections"
+    "message": "Colecții"
   },
   "label.created-ago": {
     "message": "Creat acum {ago}"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "Panou de control"
   },
   "label.delete": {
-    "message": "Delete"
+    "message": "Șterge-ți"
   },
   "label.description": {
-    "message": "Description"
+    "message": "Descriere"
   },
   "label.error": {
-    "message": "Error"
+    "message": "Eroare"
   },
   "label.followed-projects": {
-    "message": "Followed projects"
+    "message": "Proiecte urmărite"
   },
   "label.moderation": {
-    "message": "Moderation"
+    "message": "Moderație"
   },
   "label.notifications": {
-    "message": "Notifications"
+    "message": "Notificări"
   },
   "label.password": {
-    "message": "Password"
+    "message": "Parolă"
   },
   "label.public": {
     "message": "Public"
   },
   "label.rejected": {
-    "message": "Rejected"
+    "message": "Respins"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Scopuri"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "Setări"
   },
   "label.title": {
-    "message": "Title"
+    "message": "Titlu"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "Nelistat"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "Vizibilitate"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Vizitați-vă profilul"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "Schimbați tema"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "Descărcați Modrinth App"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "Avatarul dvs."
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "Vizitați setările contului"
   },
   "layout.banner.add-email.title": {
-    "message": "For security purposes, please enter your email on Modrinth."
+    "message": "Din motive de securitate, vă rugăm să introduceți adresa dvs de email pe Modrinth."
   },
   "layout.banner.staging.description": {
-    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+    "message": "Mediul de testare rulează pe o copie a bazei de date Modrinth de producție. Acesta este folosit în scopuri de testare și depanare și poate rula versiuni în dezvoltare ale backend-ului sau frontend-ului Modrinth, mai noi decât instanța de producție."
   },
   "layout.banner.staging.title": {
-    "message": "You’re viewing Modrinth’s staging environment."
+    "message": "Vizualizați mediul de testare Modrinth."
   },
   "layout.banner.verify-email.action": {
-    "message": "Re-send verification email"
+    "message": "Retrimiteți emailul de verificare"
   },
   "layout.banner.verify-email.title": {
-    "message": "For security purposes, please verify your email address on Modrinth."
+    "message": "Din motive de securitate, vă rugăm să vă verificați adresa de e-mail pe Modrinth."
   },
   "layout.footer.company.careers": {
-    "message": "Careers"
+    "message": "Cariere"
   },
   "layout.footer.company.privacy": {
-    "message": "Privacy"
+    "message": "Confidențialitate"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Reguli"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Termeni"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "Companie"
   },
   "layout.footer.interact.title": {
-    "message": "Interact"
+    "message": "Interacționați"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "NU ESTE UN SERVICIU OFICIAL MINECRAFT. NU ESTE APROBAT DE SAU ASOCIAT CU MOJANG SAU MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "Modrinth este <github-link>open source</github-link>."
   },
   "layout.footer.resources.blog": {
     "message": "Blog"
   },
   "layout.footer.resources.docs": {
-    "message": "Docs"
+    "message": "Documentație"
   },
   "layout.footer.resources.status": {
-    "message": "Status"
+    "message": "Stare"
   },
   "layout.footer.resources.support": {
-    "message": "Support"
+    "message": "Ajutor"
   },
   "layout.footer.resources.title": {
-    "message": "Resources"
+    "message": "Resurse"
   },
   "layout.menu-toggle.action": {
-    "message": "Toggle menu"
+    "message": "Comută meniul"
   },
   "layout.meta.description": {
     "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
@@ -642,154 +642,154 @@
     "message": "Perform analytics actions"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Efectuați analize"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Creați proiecte noi"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Creare proiecte"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Ștergeți proiectele dvs."
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Ștergere proiecte"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Citirea proiectelor dvs"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Citire proiecte"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Scrie în datele proiectului"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Creare proiecte"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Creare de rapoarte"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Creare rapoarte"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Șterge-ți rapoarte"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Ștergere rapoarte"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Citirea rapoartelor"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Citire rapoarte"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Editarea rapoartelor"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Editare rapoarte"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Acces la sesiunile emise de Modrinth"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Acces sesiuni"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Șterge sesiunile"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Ștergerea sesiunilor"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Citește sesiunile active"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Citire sesiuni"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Citește discuțiile"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Citire discuții"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Scrie in discuții"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Scrie în discuții"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Modifică datele dvs de acces"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Scrie date de acces"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Ștergerea contului dvs"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Ștergerea contului dvs"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Acces la informațiile publice despre profil"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Citirea datelor dvs"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Citește adresa de email"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "Citirea email-ului dvs"
   },
   "scopes.userWrite.description": {
-    "message": "Write to your profile"
+    "message": "Modifică profilul dvs"
   },
   "scopes.userWrite.label": {
-    "message": "Write user data"
+    "message": "Modifică datele dvs"
   },
   "scopes.versionCreate.description": {
-    "message": "Create new versions"
+    "message": "Creează versiuni noi"
   },
   "scopes.versionCreate.label": {
-    "message": "Create versions"
+    "message": "Creare versiuni"
   },
   "scopes.versionDelete.description": {
-    "message": "Delete a version"
+    "message": "Șterge versiuni"
   },
   "scopes.versionDelete.label": {
-    "message": "Delete versions"
+    "message": "Șterge versiuni"
   },
   "scopes.versionRead.description": {
-    "message": "Read all versions"
+    "message": "Citește toate versiunile"
   },
   "scopes.versionRead.label": {
-    "message": "Read versions"
+    "message": "Citire versiuni"
   },
   "scopes.versionWrite.description": {
-    "message": "Write to version data"
+    "message": "Modifică datele versiunii"
   },
   "scopes.versionWrite.label": {
-    "message": "Write versions"
+    "message": "Modificare versiuni"
   },
   "settings.account.title": {
-    "message": "Account and security"
+    "message": "Cont și securitate"
   },
   "settings.appearance.title": {
-    "message": "Appearance"
+    "message": "Aspect"
   },
   "settings.applications.title": {
-    "message": "Your applications"
+    "message": "Aplicațiile dvs"
   },
   "settings.authorized-apps.title": {
-    "message": "Authorized apps"
+    "message": "Aplicații autorizate"
   },
   "settings.display.banner.developer-mode.button": {
-    "message": "Deactivate developer mode"
+    "message": "Dezactivați modul de dezvoltator"
   },
   "settings.display.banner.developer-mode.description": {
     "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
@@ -990,34 +990,34 @@
     "message": "Bio"
   },
   "settings.profile.description": {
-    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+    "message": "Informațiile dvs de profil sunt disponibile publicului pe Modrinth și prin intermediul <docs-link>API-ului Modrinth</docs-link>."
   },
   "settings.profile.profile-info": {
-    "message": "Profile information"
+    "message": "Informațiile profilului"
   },
   "settings.profile.profile-picture.reset": {
-    "message": "Reset"
+    "message": "Resetare"
   },
   "settings.profile.profile-picture.title": {
-    "message": "Profile picture"
+    "message": "Poza de profil"
   },
   "settings.profile.title": {
-    "message": "Public profile"
+    "message": "Profil public"
   },
   "settings.profile.username.description": {
-    "message": "A unique case-insensitive name to identify your profile."
+    "message": "Un nume unic, insensibil la majuscule/minuscule, pentru a vă identifica profilul."
   },
   "settings.profile.username.title": {
-    "message": "Username"
+    "message": "Nume utilizator"
   },
   "settings.sessions.action.revoke-session": {
-    "message": "Revoke session"
+    "message": "Anulare sesiune"
   },
   "settings.sessions.created-ago": {
     "message": "Creat acum {ago}"
   },
   "settings.sessions.current-session": {
-    "message": "Current session"
+    "message": "Sesiune curentă"
   },
   "settings.sessions.description": {
     "message": "Aici sunt toate dispozitivele care sunt în prezent conectate la contul dvs. Modrinth. Vă puteți deconecta de la fiecare cont individual.\n\nDacă vedeți o intrare pe care nu o recunoașteți, deconectați-vă de pe acel dispozitiv și schimbați parola pentru contul Modrinth imediat."
@@ -1029,10 +1029,10 @@
     "message": "Sesiuni"
   },
   "settings.sessions.unknown-os": {
-    "message": "Unknown OS"
+    "message": "SO necunoscut"
   },
   "settings.sessions.unknown-platform": {
-    "message": "Unknown platform"
+    "message": "Platformă necunoscută"
   },
   "tooltip.date-at-time": {
     "message": "{date, date, long} la {time, time, short}"
