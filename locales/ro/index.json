@@ -417,16 +417,16 @@
     "message": "Comută meniul"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Descărcați moduri, pluginuri, pachete de date, shadere, pachete de resurse și pachete de moduri pentru Minecraft pe Modrinth. Descoperiți și publicați proiecte pe Modrinth cu o interfață modernă, ușor de utilizat, și cu API."
   },
   "layout.meta.og-description": {
-    "message": "Discover and publish Minecraft content!"
+    "message": "Descoperiți și publicați conținut de Minecraft!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "Acasă"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "Căutare"
   },
   "notification.error.title": {
     "message": "A avut loc o eroare"
@@ -444,10 +444,10 @@
     "message": "S-a alăturat acum {ago}"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "Acest utilizator nu are colecții!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Nu aveți colecții.\nDoriți să <create-link>creați una</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "Acest utilizator nu are proiecte!"
@@ -456,7 +456,7 @@
     "message": "Nu aveți proiecte.\nDoriți să <create-link>creați unul</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Organizații"
   },
   "profile.meta.description": {
     "message": "Descarcă proiectele lui {username} pe Modrinth"
@@ -477,10 +477,10 @@
     "message": "Toate"
   },
   "project-type.collection.plural": {
-    "message": "Collections"
+    "message": "Colecții"
   },
   "project-type.collection.singular": {
-    "message": "Collection"
+    "message": "Colecție"
   },
   "project-type.datapack.plural": {
     "message": "Data Packuri"
@@ -507,10 +507,10 @@
     "message": "Plugin"
   },
   "project-type.project.plural": {
-    "message": "Projects"
+    "message": "Proiecte"
   },
   "project-type.project.singular": {
-    "message": "Project"
+    "message": "Proiect"
   },
   "project-type.resourcepack.plural": {
     "message": "Resource Pack-uri"
@@ -525,121 +525,121 @@
     "message": "Shader"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "Ați retras în total {amount}."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "Ați retras {amount} prin {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "Ați retras {amount} în {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "Ați retras suma de {amount} în anul {year} prin intermediul {method}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "Accesați-vă datele analitice"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Citire analitice"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Creează colecții"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "Creare colecții"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Șterge colecțiile"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "Ștergere colecții"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Citește colecțiile"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Citire colecții"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Modifică colecțiile"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Modificare colecții"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Citește notificările dvs"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "Citire notificări"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Șterge/Vizualizează notificările dvs"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Scrie notificări"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Creează organizații"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Creare organizații"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Șterge organizațiile"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Ștergere organizații"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Citește organizațiile"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Citire organizații"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Modifică organizații"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Modificare organizații"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Creează token-uri personale API"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "Crează PAT-uri"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Șterge token-urile dvs personale API"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "Șterge PAT-urile"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Vizualizează token-urile API create"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "Citește PAT-urile"
   },
   "scopes.patWrite.description": {
-    "message": "Edit personal API tokens"
+    "message": "Editează token-urile personale API"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Modifică PAT-urile"
   },
   "scopes.payoutsRead.description": {
-    "message": "Read your payouts data"
+    "message": "Citește datele dvs de plată"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Citire plăți"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Retrage bani"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Retragere plăți"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Efectuează acțiuni analitice"
   },
   "scopes.performAnalytics.label": {
     "message": "Efectuați analize"
