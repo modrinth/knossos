@@ -30,7 +30,7 @@
     "message": "Surel"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "Email berisi instruksi telah dikirimkan kepada Anda jika email tersebut sebelumnya disimpan di akun Anda."
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "Email terkirim"
@@ -81,13 +81,13 @@
     "message": "Masuk"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "Atau gunakan kata sandi"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Buat akun"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Konfirmasi kata sandi"
   },
   "auth.sign-up.email.label": {
     "message": "Surel"
@@ -108,7 +108,7 @@
     "message": "Sudah memiliki akun?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Berlangganan pembaruan tentang Modrinth"
   },
   "auth.sign-up.title": {
     "message": "Daftar"
@@ -135,31 +135,31 @@
     "message": "Kirim ulang email verifikasi"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "Kami tidak dapat memverifikasi email Anda. Coba kirim ulang email verifikasi melalui dashboard Anda dengan login."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "Kami tidak dapat memverifikasi email Anda. Coba kirim ulang email verifikasi melalui tombol di bawah ini."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "Verifikasi Email gagal"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "Alamat email Anda telah berhasil diverifikasi!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Verifikasi email"
   },
   "auth.verify-email.title": {
-    "message": "Verify Email"
+    "message": "Verifikasi Email"
   },
   "auth.welcome.checkbox.subscribe": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Berlangganan pembaruan tentang Modrinth"
   },
   "auth.welcome.description": {
-    "message": "Thank you for creating an account. You can now follow and create projects, receive updates about your favorite projects, and more!"
+    "message": "Terima kasih telah membuat akun. Kini Anda dapat mengikuti dan membuat proyek, menerima pembaruan tentang proyek favorit Anda, dan banyak lagi!"
   },
   "auth.welcome.label.tos": {
-    "message": "By creating an account, you have agreed to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "Dengan membuat sebuah akun, anda telah menyetujui <terms-link>Ketentuan</terms-link> dan <privacy-policy-link>Kebijakan Privasi </privacy-policy-link> Modrinth."
   },
   "auth.welcome.long-title": {
     "message": "Selamat datang ke Modrinth!"
@@ -183,7 +183,7 @@
     "message": "Simpan"
   },
   "button.save-changes": {
-    "message": "Save changes"
+    "message": "Simpan perubahan"
   },
   "button.sign-in": {
     "message": "Masuk"
@@ -216,10 +216,10 @@
     "message": "Anda yakin ingin menghapus koleksi ini?"
   },
   "collection.description": {
-    "message": "{description} - View the collection {name} by {username} on Modrinth"
+    "message": "{description} - Lihat koleksi {name} oleh {username} di Modrinth"
   },
   "collection.description.following": {
-    "message": "Auto-generated collection of all the projects you're following."
+    "message": "Koleksi semua proyek yang Anda ikuti dibuat secara otomatis."
   },
   "collection.error.not-found": {
     "message": "Koleksi tidak ditemukan"
@@ -228,10 +228,10 @@
     "message": "Koleksi"
   },
   "collection.label.created-at": {
-    "message": "Created {ago}"
+    "message": "Dibuat {ago}"
   },
   "collection.label.curated-by": {
-    "message": "Curated by"
+    "message": "Disusun oleh"
   },
   "collection.label.no-projects": {
     "message": "Koleksi ini tidak memiliki projek apalun!"
@@ -246,7 +246,7 @@
     "message": "Pribadi"
   },
   "collection.label.projects-count": {
-    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+    "message": "{count, plural,other {<stat>{count}</stat> buah proyek}}"
   },
   "collection.label.updated-at": {
     "message": "Diperbarui {ago}"
@@ -258,7 +258,7 @@
     "message": "Buat baru"
   },
   "dashboard.collections.label.projects-count": {
-    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+    "message": "{count, plural,other {{count} buah proyek}}"
   },
   "dashboard.collections.label.search-input": {
     "message": "Cari koleksimu"
@@ -288,10 +288,10 @@
     "message": "Tampilan Kisi-kisi"
   },
   "input.view.list": {
-    "message": "Rows view"
+    "message": "Tampilan baris"
   },
   "label.changes-saved": {
-    "message": "Changes saved"
+    "message": "Perubahan disimpan"
   },
   "label.collections": {
     "message": "Koleksi"
@@ -330,7 +330,7 @@
     "message": "Ditolak"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Cakupan"
   },
   "label.settings": {
     "message": "Pengaturan"
@@ -351,7 +351,7 @@
     "message": "Ganti tema"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Dapatkan aplikasi Modrinth"
+    "message": "Dapatkan Modrinth App"
   },
   "layout.avatar.alt": {
     "message": "Avatarmu"
@@ -363,16 +363,16 @@
     "message": "Karena alasan keamanan, harap isi surelmu di Modrinth."
   },
   "layout.banner.staging.description": {
-    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+    "message": "Lingkungan pementasan berjalan pada salinan database produksi Modrinth. Ini digunakan untuk tujuan pengujian dan debugging, dan mungkin menjalankan versi backend Modrinth yang masih dalam pengembangan atau frontend yang lebih baru daripada instance produksi."
   },
   "layout.banner.staging.title": {
-    "message": "You’re viewing Modrinth’s staging environment."
+    "message": "Anda sedang melihat lingkungan pementasan Modrinth."
   },
   "layout.banner.verify-email.action": {
     "message": "Kirim ulang email verifikasi"
   },
   "layout.banner.verify-email.title": {
-    "message": "For security purposes, please verify your email address on Modrinth."
+    "message": "Untuk tujuan keamanan, harap verifikasi alamat email Anda di Modrinth."
   },
   "layout.footer.company.careers": {
     "message": "Karir"
@@ -393,10 +393,10 @@
     "message": "Interaksi"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "BUKAN LAYANAN MINECRAFT RESMI. TIDAK DISETUJUI ATAU TERKAIT DENGAN MOJANG ATAU MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "Modrinth adalah <github-link>sumber terbuka</github-link>."
   },
   "layout.footer.resources.blog": {
     "message": "Blog"
@@ -414,10 +414,10 @@
     "message": "Sumber Daya"
   },
   "layout.menu-toggle.action": {
-    "message": "Toggle menu"
+    "message": "Alihkan menu"
   },
   "layout.meta.description": {
-    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+    "message": "Unduh mod Minecraft, plugin, paket data, shader, paket sumber daya, dan modpack di Modrinth. Temukan dan publikasikan proyek di Modrinth dengan antarmuka dan API yang modern dan mudah digunakan."
   },
   "layout.meta.og-description": {
     "message": "Jelajahi dan publikasikan konten Minecraft!"
@@ -447,7 +447,7 @@
     "message": "Pengguna ini tidak memiliki koleksi apapun!"
   },
   "profile.label.no-collections-auth": {
-    "message": "You don't have any collections.\nWould you like to <create-link>create one</create-link>?"
+    "message": "Anda tidak memiliki proyek apa pun.\nApakah anda ingin <create-link>membuatnya</create-link>?"
   },
   "profile.label.no-projects": {
     "message": "Pengguna ini tidak memiliki proyek!"
@@ -525,97 +525,97 @@
     "message": "Shader"
   },
   "revenue.transfers.total": {
-    "message": "You have withdrawn {amount} in total."
+    "message": "Anda telah menarik total sebesar {amount}."
   },
   "revenue.transfers.total.method": {
-    "message": "You have withdrawn {amount} through {method}."
+    "message": "Anda telah menarik {amount} melalui {method}."
   },
   "revenue.transfers.total.year": {
-    "message": "You have withdrawn {amount} in {year}."
+    "message": "Anda telah menarik sejumlah {amount} pada tahun {year}."
   },
   "revenue.transfers.total.year_method": {
-    "message": "You have withdrawn {amount} in {year} through {method}."
+    "message": "Anda telah menarik sejumlah {amount} pada tahun {year} melalui {method}."
   },
   "scopes.analytics.description": {
-    "message": "Access your analytics data"
+    "message": "Akses data analitik Anda"
   },
   "scopes.analytics.label": {
-    "message": "Read analytics"
+    "message": "Baca analitik"
   },
   "scopes.collectionCreate.description": {
-    "message": "Create collections"
+    "message": "Buat Koleksi"
   },
   "scopes.collectionCreate.label": {
-    "message": "Create collections"
+    "message": "Buat Koleksi"
   },
   "scopes.collectionDelete.description": {
-    "message": "Delete collections"
+    "message": "Hapus Koleksi"
   },
   "scopes.collectionDelete.label": {
-    "message": "Delete collections"
+    "message": "Hapus Koleksi"
   },
   "scopes.collectionRead.description": {
-    "message": "Read collections"
+    "message": "Baca Koleksi"
   },
   "scopes.collectionRead.label": {
-    "message": "Read collections"
+    "message": "Baca Koleksi"
   },
   "scopes.collectionWrite.description": {
-    "message": "Write to collections"
+    "message": "Menulis ke koleksi"
   },
   "scopes.collectionWrite.label": {
-    "message": "Write collections"
+    "message": "Menulis ke koleksi"
   },
   "scopes.notificationRead.description": {
-    "message": "Read your notifications"
+    "message": "Baca notifikasi Anda"
   },
   "scopes.notificationRead.label": {
-    "message": "Read notifications"
+    "message": "Baca notifikasi"
   },
   "scopes.notificationWrite.description": {
-    "message": "Delete/View your notifications"
+    "message": "Hapus/Baca notifikasi Anda"
   },
   "scopes.notificationWrite.label": {
-    "message": "Write notifications"
+    "message": "Tulis notifikasi"
   },
   "scopes.organizationCreate.description": {
-    "message": "Create organizations"
+    "message": "Membuat organisasi"
   },
   "scopes.organizationCreate.label": {
-    "message": "Create organizations"
+    "message": "Membuat organisasi"
   },
   "scopes.organizationDelete.description": {
-    "message": "Delete organizations"
+    "message": "Hapus Organisasi"
   },
   "scopes.organizationDelete.label": {
-    "message": "Delete organizations"
+    "message": "Hapus Organisasi"
   },
   "scopes.organizationRead.description": {
-    "message": "Read organizations"
+    "message": "Baca Organisasi"
   },
   "scopes.organizationRead.label": {
-    "message": "Read organizations"
+    "message": "Baca Organisasi"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Menulis ke Organisasi"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Menulis Organisasi"
   },
   "scopes.patCreate.description": {
-    "message": "Create personal API tokens"
+    "message": "Membuat token API pribadi"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "Membuat token API pribadi"
   },
   "scopes.patDelete.description": {
-    "message": "Delete your personal API tokens"
+    "message": "Hapus token API pribadi Anda"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "Hapus PAT"
   },
   "scopes.patRead.description": {
-    "message": "View created API tokens"
+    "message": "Lihat token API yang dibuat"
   },
   "scopes.patRead.label": {
     "message": "Read PATs"
@@ -828,19 +828,19 @@
     "message": "User profile pages"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+    "message": "Mengaktifkan rendering tingkat lanjut seperti efek buram yang dapat menyebabkan masalah kinerja tanpa rendering yang dipercepat perangkat keras."
   },
   "settings.display.sidebar.advanced-rendering.title": {
-    "message": "Advanced rendering"
+    "message": "Render tingkat lanjut"
   },
   "settings.display.sidebar.external-links-new-tab.description": {
-    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+    "message": "Jadikan tautan di luar Modrinth terbuka di tab baru. Apa pun setelan ini, tautan pada domain yang sama dan dalam deskripsi Markdown akan terbuka di tab yang sama, dan tautan pada halaman iklan dan edit akan terbuka di tab baru."
   },
   "settings.display.sidebar.external-links-new-tab.title": {
-    "message": "Open external links in new tab"
+    "message": "Buka tautan eksternal di tab baru"
   },
   "settings.display.sidebar.hide-app-promos.description": {
-    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+    "message": "Menyembunyikan tombol \"Dapatkan Aplikasi Modrinth\" dari navigasi utama. Halaman Aplikasi Modrinth masih dapat ditemukan di halaman arahan atau di footer."
   },
   "settings.display.sidebar.hide-app-promos.title": {
     "message": "Hide Modrinth App promotions"
