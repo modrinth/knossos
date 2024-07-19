@@ -1,72 +1,72 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Authorize"
+    "message": "Autoritzar"
   },
   "auth.authorize.action.decline": {
-    "message": "Decline"
+    "message": "Rebutjar"
   },
   "auth.authorize.app-info": {
-    "message": "<strong>{appName}</strong> by <creator-link>{creator}</creator-link> will be able to:"
+    "message": "<strong>{appName}</strong> per <creator-link>{creator}</creator-link> tindrà accés a:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Authorize {appName}"
+    "message": "Autoritza {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
-    "message": "No redirect location found in response"
+    "message": "No s'ha trobat cap lloc de redirecció a la resposta"
   },
   "auth.authorize.redirect-url": {
-    "message": "You will be redirected to <redirect-url>{url}</redirect-url>"
+    "message": "Seràs redirigit a <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Send recovery email"
+    "message": "Envia un correu de recuperació"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Enter your email below and we'll send a recovery link to allow you to recover your account."
+    "message": "Introdueix la teva adreça de correu electrònic i t'enviarem un enllaç per recuperar el teu compte."
   },
   "auth.reset-password.method-choice.email-username.label": {
-    "message": "Email or username"
+    "message": "Correu o nom d'usuari"
   },
   "auth.reset-password.method-choice.email-username.placeholder": {
-    "message": "Email"
+    "message": "Correu"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "An email with instructions has been sent to you if the email was previously saved on your account."
+    "message": "S'ha enviat un correu electrònic amb instruccions si l'adreça estava associada amb el teu compte."
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "Email sent"
+    "message": "Correu enviat"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "You can now log-in into your account with your new password."
+    "message": "Ja pots iniciar sessió al teu compte amb la teva nova contrasenya."
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "Password successfully reset"
+    "message": "Contrasenya restablida exitosament"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Reset password"
+    "message": "Restablir la contrasenya"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Confirmar contrasenya"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "Enter your new password below to gain access to your account."
+    "message": "Introdueix baix la teva nova contrasenya per obtenir accés al teu compte."
   },
   "auth.reset-password.title": {
-    "message": "Reset Password"
+    "message": "Restablir contrasenya"
   },
   "auth.reset-password.title.long": {
-    "message": "Reset your password"
+    "message": "Restableix la teva contrasenya"
   },
   "auth.sign-in.2fa.description": {
-    "message": "Please enter a two-factor code to proceed."
+    "message": "Si us plau, introduïu un codi de doble factor per continuar."
   },
   "auth.sign-in.2fa.label": {
-    "message": "Enter two-factor code"
+    "message": "Introdueix un codi de doble factor"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "Enter code..."
+    "message": "Introdueix codi..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Forgot password?</forgot-password-link> • <create-account-link>Create an account</create-account-link>"
+    "message": "<forgot-password-link>Contrasenya oblidada?</forgot-password-link> • <create-account-link>Crea un compte</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
     "message": "Email or username"
