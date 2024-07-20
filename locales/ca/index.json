@@ -66,88 +66,88 @@
     "message": "Introdueix codi..."
   },
   "auth.sign-in.additional-options": {
-    "message": "<forgot-password-link>Contrasenya oblidada?</forgot-password-link> • <create-account-link>Crea un compte</create-account-link>"
+    "message": "<forgot-password-link>Has oblidat la teva contrasenya?</forgot-password-link> • <create-account-link>Crea un compte</create-account-link>"
   },
   "auth.sign-in.email-username.label": {
-    "message": "Email or username"
+    "message": "Correu o nom d'usuari"
   },
   "auth.sign-in.password.label": {
-    "message": "Password"
+    "message": "Contrasenya"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "Sign in with"
+    "message": "Inicia la sessió amb"
   },
   "auth.sign-in.title": {
-    "message": "Sign In"
+    "message": "Iniciar sessió"
   },
   "auth.sign-in.use-password": {
-    "message": "Or use a password"
+    "message": "O fes servir la teva contrasenya"
   },
   "auth.sign-up.action.create-account": {
-    "message": "Create account"
+    "message": "Crea un compte"
   },
   "auth.sign-up.confirm-password.label": {
-    "message": "Confirm password"
+    "message": "Confirmar contrasenya"
   },
   "auth.sign-up.email.label": {
-    "message": "Email"
+    "message": "Correu electrònic"
   },
   "auth.sign-up.label.username": {
-    "message": "Username"
+    "message": "Nom d'usuari"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "By creating an account, you agree to Modrinth's <terms-link>Terms</terms-link> and <privacy-policy-link>Privacy Policy</privacy-policy-link>."
+    "message": "En crear un compte, acceptes els <terms-link>Termes</terms-link> i la <privacy-policy-link>Política de Privacitat</privacy-policy-link> de Modrinth."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Passwords do not match!"
+    "message": "Les contrasenyes no coincideixen!"
   },
   "auth.sign-up.password.label": {
-    "message": "Password"
+    "message": "Contrasenya"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "Already have an account?"
+    "message": "Ja tens un compte?"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "Subscribe to updates about Modrinth"
+    "message": "Subscriure's a les actualitzacions de Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Sign Up"
+    "message": "Registrar-se"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Or create an account yourself"
+    "message": "O crea un compte tu mateix"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Sign up with"
+    "message": "Registrar-se amb"
   },
   "auth.verify-email.action.account-settings": {
-    "message": "Account settings"
+    "message": "Configuració del compte"
   },
   "auth.verify-email.action.sign-in": {
-    "message": "Sign in"
+    "message": "Inicia sessió"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "Your email is already verified!"
+    "message": "La teva adreça de correu ja està verificada!"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "Email already verified"
+    "message": "Adreça de correu ja verificada"
   },
   "auth.verify-email.failed-verification.action": {
-    "message": "Resend verification email"
+    "message": "Reenvia el correu de verificació"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through your dashboard by signing in."
+    "message": "No hem pogut verificar la teva adreça de correu. Prova de reenviar el correu de verificació a través del teu panell en iniciar sessió."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "We were unable to verify your email. Try re-sending the verification email through the button below."
+    "message": "No hem pogut verificar la teva adreça de correu. Prova de reenviar el correu de verificació a través d'aquest botó."
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "Email verification failed"
+    "message": "Verificació de l'adreça de correu fallida"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Your email address has been successfully verified!"
+    "message": "La teva adreça de correu s'ha verificat exitosament!"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "Email verification"
+    "message": "Verificació del correu"
   },
   "auth.verify-email.title": {
     "message": "Verify Email"
@@ -330,34 +330,34 @@
     "message": "Rejected"
   },
   "label.scopes": {
-    "message": "Scopes"
+    "message": "Permisos"
   },
   "label.settings": {
-    "message": "Settings"
+    "message": "Configuració"
   },
   "label.title": {
-    "message": "Title"
+    "message": "Títol"
   },
   "label.unlisted": {
-    "message": "Unlisted"
+    "message": "Ocult"
   },
   "label.visibility": {
-    "message": "Visibility"
+    "message": "Visibilitat"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Visita el teu perfil"
   },
   "layout.action.change-theme": {
-    "message": "Change theme"
+    "message": "Canvia el tema"
   },
   "layout.action.get-modrinth-app": {
-    "message": "Get Modrinth App"
+    "message": "Baixa l'app de Modrinth"
   },
   "layout.avatar.alt": {
-    "message": "Your avatar"
+    "message": "El teu avatar"
   },
   "layout.banner.add-email.button": {
-    "message": "Visit account settings"
+    "message": "Visita la configuració del compte"
   },
   "layout.banner.add-email.title": {
     "message": "For security purposes, please enter your email on Modrinth."
