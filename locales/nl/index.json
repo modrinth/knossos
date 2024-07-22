@@ -597,154 +597,154 @@
     "message": "Organisaties lezen"
   },
   "scopes.organizationWrite.description": {
-    "message": "Write to organizations"
+    "message": "Schrijf naar organisaties"
   },
   "scopes.organizationWrite.label": {
-    "message": "Write organizations"
+    "message": "Schrijf naar organisaties"
   },
   "scopes.patCreate.description": {
     "message": "Creëer persoonlijke API tokens"
   },
   "scopes.patCreate.label": {
-    "message": "Create PATs"
+    "message": "Creëer PAT's"
   },
   "scopes.patDelete.description": {
     "message": "Verwijder uw persoonlijke API tokens"
   },
   "scopes.patDelete.label": {
-    "message": "Delete PATs"
+    "message": "Verwijder PAT's"
   },
   "scopes.patRead.description": {
     "message": "Bekijk gemaakte API tokens"
   },
   "scopes.patRead.label": {
-    "message": "Read PATs"
+    "message": "Lees PAT's"
   },
   "scopes.patWrite.description": {
     "message": "Bewerk persoonlijke API tokens"
   },
   "scopes.patWrite.label": {
-    "message": "Write PATs"
+    "message": "Schrijf PAT's"
   },
   "scopes.payoutsRead.description": {
     "message": "Lees uw betalingsgegevens"
   },
   "scopes.payoutsRead.label": {
-    "message": "Read payouts"
+    "message": "Lees uitbetalingen"
   },
   "scopes.payoutsWrite.description": {
-    "message": "Withdraw money"
+    "message": "Geld opnemen"
   },
   "scopes.payoutsWrite.label": {
-    "message": "Write payouts"
+    "message": "Schrijf betalingen"
   },
   "scopes.performAnalytics.description": {
-    "message": "Perform analytics actions"
+    "message": "Voer analytische handelingen uit"
   },
   "scopes.performAnalytics.label": {
-    "message": "Perform analytics"
+    "message": "Voer analyses uit"
   },
   "scopes.projectCreate.description": {
-    "message": "Create new projects"
+    "message": "Nieuwe projecten aanmaken"
   },
   "scopes.projectCreate.label": {
-    "message": "Create projects"
+    "message": "Projecten aanmaken"
   },
   "scopes.projectDelete.description": {
-    "message": "Delete your projects"
+    "message": "Verwijder je projecten"
   },
   "scopes.projectDelete.label": {
-    "message": "Delete projects"
+    "message": "Projecten verwijderen"
   },
   "scopes.projectRead.description": {
-    "message": "Read all your projects"
+    "message": "Al je projecten lezen"
   },
   "scopes.projectRead.label": {
-    "message": "Read projects"
+    "message": "Je projecten lezen"
   },
   "scopes.projectWrite.description": {
-    "message": "Write to project data"
+    "message": "Schrijven naar projectgegevens"
   },
   "scopes.projectWrite.label": {
-    "message": "Write projects"
+    "message": "Projecten schrijven"
   },
   "scopes.reportCreate.description": {
-    "message": "Create reports"
+    "message": "Rapporten aanmaken"
   },
   "scopes.reportCreate.label": {
-    "message": "Create reports"
+    "message": "Rapporten aanmaken"
   },
   "scopes.reportDelete.description": {
-    "message": "Delete reports"
+    "message": "Rapporten verwijderen"
   },
   "scopes.reportDelete.label": {
-    "message": "Delete reports"
+    "message": "Rapporten verwijderen"
   },
   "scopes.reportRead.description": {
-    "message": "Read reports"
+    "message": "Rapporten lezen"
   },
   "scopes.reportRead.label": {
-    "message": "Read reports"
+    "message": "Rapporten lezen"
   },
   "scopes.reportWrite.description": {
-    "message": "Edit reports"
+    "message": "Rapporten bewerken"
   },
   "scopes.reportWrite.label": {
-    "message": "Write reports"
+    "message": "Schrijf rapporten"
   },
   "scopes.sessionAccess.description": {
-    "message": "Access modrinth-issued sessions"
+    "message": "Toegang tot Modrinth-uitgegeven sessies"
   },
   "scopes.sessionAccess.label": {
-    "message": "Access sessions"
+    "message": "Toegang tot sessies"
   },
   "scopes.sessionDelete.description": {
-    "message": "Delete sessions"
+    "message": "Verwijder sessies"
   },
   "scopes.sessionDelete.label": {
-    "message": "Delete sessions"
+    "message": "Verwijder sessies"
   },
   "scopes.sessionRead.description": {
-    "message": "Read active sessions"
+    "message": "Actieve sessies lezen"
   },
   "scopes.sessionRead.label": {
-    "message": "Read sessions"
+    "message": "Sessies lezen"
   },
   "scopes.threadRead.description": {
-    "message": "Read threads"
+    "message": "Threads lezen"
   },
   "scopes.threadRead.label": {
-    "message": "Read threads"
+    "message": "Threads lezen"
   },
   "scopes.threadWrite.description": {
-    "message": "Write to threads"
+    "message": "Schrijf naar threads"
   },
   "scopes.threadWrite.label": {
-    "message": "Write threads"
+    "message": "Schrijf naar threads"
   },
   "scopes.userAuthWrite.description": {
-    "message": "Modify your authentication data"
+    "message": "Je authenticatiegegevens wijzigen"
   },
   "scopes.userAuthWrite.label": {
-    "message": "Write auth data"
+    "message": "Authenticatiegegevens schrijven"
   },
   "scopes.userDelete.description": {
-    "message": "Delete your account"
+    "message": "Je account verwijderen"
   },
   "scopes.userDelete.label": {
-    "message": "Delete your account"
+    "message": "Je account verwijderen"
   },
   "scopes.userRead.description": {
-    "message": "Access your public profile information"
+    "message": "Toegang tot je openbare profielinformatie"
   },
   "scopes.userRead.label": {
-    "message": "Read user data"
+    "message": "Gebruikersgegevens lezen"
   },
   "scopes.userReadEmail.description": {
-    "message": "Read your email"
+    "message": "Je e-mail lezen"
   },
   "scopes.userReadEmail.label": {
-    "message": "Read user email"
+    "message": "Gebruikers-e-mail lezen"
   },
   "scopes.userWrite.description": {
     "message": "Schrijven naar je profiel"
@@ -798,10 +798,10 @@
     "message": "Schakel bepaalde functies op dit apparaat in of uit."
   },
   "settings.display.flags.title": {
-    "message": "Toggle features"
+    "message": "Functies in en uitschakelen"
   },
   "settings.display.project-list-layouts.datapack": {
-    "message": "Data Packs page"
+    "message": "Data Packs pagina"
   },
   "settings.display.project-list-layouts.description": {
     "message": "Selecteer de lay-out van uw voorkeur voor elke pagina die projectlijsten op dit apparaat toont."
@@ -816,19 +816,19 @@
     "message": "Plugins pagina"
   },
   "settings.display.project-list-layouts.resourcepack": {
-    "message": "Resource Packs page"
+    "message": "Resource Packs pagina"
   },
   "settings.display.project-list-layouts.shader": {
     "message": "Shaders pagina"
   },
   "settings.display.project-list-layouts.title": {
-    "message": "Project list layouts"
+    "message": "Indelingen van projectlijsten"
   },
   "settings.display.project-list-layouts.user": {
     "message": "Profielpagina's voor gebruikers"
   },
   "settings.display.sidebar.advanced-rendering.description": {
-    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+    "message": "Schakelt geavanceerde rendering in zoals vervaging effecten die prestatieproblemen kunnen veroorzaken zonder hardware-acceleratie."
   },
   "settings.display.sidebar.advanced-rendering.title": {
     "message": "Geavanceerde weergave"
