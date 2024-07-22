@@ -300,7 +300,7 @@
     "message": "Oprettet {ago}"
   },
   "label.dashboard": {
-    "message": "Dashboard"
+    "message": "Oversigt"
   },
   "label.delete": {
     "message": "Slet"
@@ -345,7 +345,7 @@
     "message": "Synlighed"
   },
   "label.visit-your-profile": {
-    "message": "Visit your profile"
+    "message": "Besøg din profil"
   },
   "layout.action.change-theme": {
     "message": "Skift tema"
@@ -381,22 +381,22 @@
     "message": "Privacy"
   },
   "layout.footer.company.rules": {
-    "message": "Rules"
+    "message": "Regler"
   },
   "layout.footer.company.terms": {
-    "message": "Terms"
+    "message": "Vilkår"
   },
   "layout.footer.company.title": {
-    "message": "Company"
+    "message": "Firma"
   },
   "layout.footer.interact.title": {
     "message": "Interact"
   },
   "layout.footer.legal-disclaimer": {
-    "message": "NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT."
+    "message": "IKKE EN OFFICIEL MINECRAFT YDELSE. IKKE GODKENDT AF ELLER TILKNYTTET MED MOJANG ELLER MICROSOFT."
   },
   "layout.footer.open-source": {
-    "message": "Modrinth is <github-link>open source</github-link>."
+    "message": "Modrinth er <github-link>open source</github-link>."
   },
   "layout.footer.resources.blog": {
     "message": "Blog"
@@ -423,10 +423,10 @@
     "message": "Discover and publish Minecraft content!"
   },
   "layout.nav.home": {
-    "message": "Home"
+    "message": "Hjem"
   },
   "layout.nav.search": {
-    "message": "Search"
+    "message": "Søg"
   },
   "notification.error.title": {
     "message": "Der opstod en fejl"
@@ -444,7 +444,7 @@
     "message": "Tilmeldt {ago}"
   },
   "profile.label.no-collections": {
-    "message": "This user has no collections!"
+    "message": "Denne bruger har ingen samlinger!"
   },
   "profile.label.no-collections-auth": {
     "message": "Du har ikke nogen samlinger.\nVil du gerne <create-link>oprette et</create-link>?"
@@ -456,7 +456,7 @@
     "message": "Du har ikke nogen projekter.\nVil du gerne <create-link>oprette et</create-link>?"
   },
   "profile.label.organizations": {
-    "message": "Organizations"
+    "message": "Organisationer"
   },
   "profile.meta.description": {
     "message": "Hent {username}'s projekter på Modrinth"
@@ -780,7 +780,7 @@
     "message": "Account and security"
   },
   "settings.appearance.title": {
-    "message": "Appearance"
+    "message": "Udseende"
   },
   "settings.applications.title": {
     "message": "Your applications"
@@ -858,13 +858,13 @@
     "message": "Right-aligned search sidebar"
   },
   "settings.display.theme.dark": {
-    "message": "Dark"
+    "message": "Mørkt"
   },
   "settings.display.theme.description": {
-    "message": "Select your preferred color theme for Modrinth on this device."
+    "message": "Vælg dit foretrukne farvetema til Modrinth på denne enhed."
   },
   "settings.display.theme.light": {
-    "message": "Light"
+    "message": "Lyst"
   },
   "settings.display.theme.oled": {
     "message": "OLED"
