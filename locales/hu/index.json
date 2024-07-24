@@ -6,7 +6,7 @@
     "message": "Elutasítás"
   },
   "auth.authorize.app-info": {
-    "message": "-strong>{appName}</strong> <creator-link>{creator}</creator-link>-tól/től tudni fog:"
+    "message": "<strong>{appName}</strong> <creator-link>{creator}</creator-link>-tól/től tudni fog:"
   },
   "auth.authorize.authorize-app-name": {
     "message": "Engedélyezd {appName}-t"
