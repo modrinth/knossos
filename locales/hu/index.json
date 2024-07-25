@@ -15,10 +15,10 @@
     "message": "Átirányítási útvonal nen található a válaszban"
   },
   "auth.authorize.redirect-url": {
-    "message": "Át lesz irányítva redirect-url>{url}</redirect-url>-ra/re"
+    "message": "Át lesz irányítva <redirect-url>{url}</redirect-url>-ra/re"
   },
   "auth.reset-password.method-choice.action": {
-    "message": "Helyreállító email küldés"
+    "message": "Helyreállító email küldése"
   },
   "auth.reset-password.method-choice.description": {
     "message": "Írja be email-címét az alábbi mezőbe és kiküldünk egy helyreállító hivatkozást hogy helyreállítsa fiókját."
@@ -30,19 +30,19 @@
     "message": "Email-cím"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "Egy email el lett küldve az email-címéra ha az email-cím el volt mentve a fiókjában."
+    "message": "Egy email el lett küldve az email-címére ha az email-cím el volt mentve a fiókjában."
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "Email elküldve"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "Mosmár be tud jelentkezni fiókjába az új jelszavával."
+    "message": "Mostmár be tud jelentkezni fiókjába az új jelszavával."
   },
   "auth.reset-password.notification.password-reset.title": {
     "message": "Jelszó sikeresen visszaállítva"
   },
   "auth.reset-password.post-challenge.action": {
-    "message": "Jelszó átállítása"
+    "message": "Jelszó visszaállítása"
   },
   "auth.reset-password.post-challenge.confirm-password.label": {
     "message": "Jelszó megerősítése"
@@ -51,7 +51,7 @@
     "message": "Írja be az új jelszavát lejjebb hogy hozzáférést szerezzen a fiókjához."
   },
   "auth.reset-password.title": {
-    "message": "Jelszó átállítása"
+    "message": "Jelszó visszaállítás"
   },
   "auth.reset-password.title.long": {
     "message": "Jelszava visszaállítása"
