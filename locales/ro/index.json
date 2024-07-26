@@ -792,37 +792,37 @@
     "message": "Dezactivați modul de dezvoltator"
   },
   "settings.display.banner.developer-mode.description": {
-    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+    "message": "<strong>Modul de dezvoltator</strong> este activ. Acest lucru vă va permite să vizualizați ID-urile interne ale diverselor lucruri din Modrinth, ceea ce poate fi util dacă sunteți un dezvoltator care folosește API-ul Modrinth. Faceți clic pe sigla Modrinth din partea de jos a paginii de 5 ori pentru a activa sau dezactiva modul de dezvoltator."
   },
   "settings.display.flags.description": {
-    "message": "Enable or disable certain features on this device."
+    "message": "Activați sau dezactivați anumite caracteristici pe acest dispozitiv."
   },
   "settings.display.flags.title": {
-    "message": "Toggle features"
+    "message": "Comutare caracteristici"
   },
   "settings.display.project-list-layouts.datapack": {
-    "message": "Data Packs page"
+    "message": "Pagina Data Pack-uri"
   },
   "settings.display.project-list-layouts.description": {
-    "message": "Select your preferred layout for each page that displays project lists on this device."
+    "message": "Selectați aspectul preferat pentru fiecare pagină care afișează liste de proiecte pe acest dispozitiv."
   },
   "settings.display.project-list-layouts.mod": {
-    "message": "Mods page"
+    "message": "Pagină modificări"
   },
   "settings.display.project-list-layouts.modpack": {
-    "message": "Modpacks page"
+    "message": "Pagină modpack-uri"
   },
   "settings.display.project-list-layouts.plugin": {
-    "message": "Plugins page"
+    "message": "Pagină plugin-uri"
   },
   "settings.display.project-list-layouts.resourcepack": {
-    "message": "Resource Packs page"
+    "message": "Pagină Resource Pack-uri"
   },
   "settings.display.project-list-layouts.shader": {
-    "message": "Shaders page"
+    "message": "Pagină Shader-uri"
   },
   "settings.display.project-list-layouts.title": {
-    "message": "Project list layouts"
+    "message": "Aspecte ale listelor de proiecte"
   },
   "settings.display.project-list-layouts.user": {
     "message": "User profile pages"
