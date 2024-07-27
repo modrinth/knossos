@@ -1,6 +1,6 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Авторизировать"
+    "message": "Авторизация"
   },
   "auth.authorize.action.decline": {
     "message": "Отклонить"
