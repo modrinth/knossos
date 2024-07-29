@@ -9,7 +9,7 @@
     "message": "<creator-link>{creator}</creator-link> 的 <strong>{appName}</strong> 将能够："
   },
   "auth.authorize.authorize-app-name": {
-    "message": "授权 {appName}"
+    "message": "授权给 {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
     "message": "响应中未找到重定向位置"
@@ -30,16 +30,16 @@
     "message": "电子邮箱"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "如果该电子邮箱之前已保存在您的账户中，则已向您发送一封包含说明的电子邮件。"
+    "message": "如果该电子邮箱之前已保存在您的账户中，则已经向您发送一封包含说明的电子邮件。"
   },
   "auth.reset-password.notification.email-sent.title": {
-    "message": "电子邮件已发送"
+    "message": "已发送电子邮件"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "现在你可以使用新密码来登录你的账户。"
+    "message": "现在你可以使用您的新密码来登录你的账户。"
   },
   "auth.reset-password.notification.password-reset.title": {
-    "message": "重置密码成功"
+    "message": "已重置密码"
   },
   "auth.reset-password.post-challenge.action": {
     "message": "重置密码"
@@ -48,22 +48,22 @@
     "message": "确认密码"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "在下面输入你的新密码。"
+    "message": "在下方输入您的新密码以访问您的账户。"
   },
   "auth.reset-password.title": {
     "message": "重置密码"
   },
   "auth.reset-password.title.long": {
-    "message": "重置密码"
+    "message": "重置你的密码"
   },
   "auth.sign-in.2fa.description": {
-    "message": "请输入双重身份验证代码以继续。"
+    "message": "请输入双因素验证代码以继续。"
   },
   "auth.sign-in.2fa.label": {
     "message": "输入双重身份验证代码"
   },
   "auth.sign-in.2fa.placeholder": {
-    "message": "输入代码..."
+    "message": "输入代码……"
   },
   "auth.sign-in.additional-options": {
     "message": "<forgot-password-link>忘记密码？</forgot-password-link> • <create-account-link>注册账号</create-account-link>"
@@ -75,13 +75,13 @@
     "message": "密码"
   },
   "auth.sign-in.sign-in-with": {
-    "message": "登录方式"
+    "message": "快捷登录"
   },
   "auth.sign-in.title": {
     "message": "登录"
   },
   "auth.sign-in.use-password": {
-    "message": "或使用密码"
+    "message": "或者使用密码"
   },
   "auth.sign-up.action.create-account": {
     "message": "创建账户"
@@ -96,25 +96,25 @@
     "message": "用户名"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "创建账户即表示您同意 Modrinth 的<terms-link>使用条款</terms-link>和<privacy-policy-link>隐私政策</privacy-policy-link>。"
+    "message": "创建账户即代表您同意 Modrinth 的<terms-link>使用条款</terms-link>和<privacy-policy-link>隐私政策</privacy-policy-link>。"
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "密码不匹配！"
+    "message": "密码错误！"
   },
   "auth.sign-up.password.label": {
     "message": "密码"
   },
   "auth.sign-up.sign-in-option.title": {
-    "message": "已有账户？"
+    "message": "已经有了一个账户？"
   },
   "auth.sign-up.subscribe.label": {
-    "message": "订阅有关 Modrinth 的更新"
+    "message": "订阅 Modrinth 的更新"
   },
   "auth.sign-up.title": {
     "message": "注册"
   },
   "auth.sign-up.title.create-account": {
-    "message": "或自己创建账户"
+    "message": "或自助创建一个账户"
   },
   "auth.sign-up.title.sign-up-with": {
     "message": "通过以下方式注册"
@@ -126,40 +126,40 @@
     "message": "登录"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "您的电子邮件已经验证！"
+    "message": "您的电子邮件已经通过验证！"
   },
   "auth.verify-email.already-verified.title": {
-    "message": "电子邮件已验证"
+    "message": "已验证电子邮件"
   },
   "auth.verify-email.failed-verification.action": {
     "message": "重新发送验证邮件"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "我们无法验证你的电子邮箱。尝试登录后通过仪表板重新发送验证电子邮件。"
+    "message": "我们无法验证你的电子邮箱。尝试登录后使用仪表板再次发送验证电子邮件。"
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "我们无法验证你的电子邮箱。尝试通过下面的按钮重新发送验证电子邮件。"
+    "message": "我们无法验证你的电子邮箱。尝试使用下面的按钮再次发送验证电子邮件。"
   },
   "auth.verify-email.failed-verification.title": {
-    "message": "电子邮箱验证失败"
+    "message": "验证电子邮箱失败"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "已成功验证你的电子邮箱地址！"
+    "message": "您的电子邮箱地址已验证完成！"
   },
   "auth.verify-email.post-verification.title": {
-    "message": "电子邮箱验证"
+    "message": "验证电子邮件"
   },
   "auth.verify-email.title": {
-    "message": "验证邮件"
+    "message": "电子邮件验证"
   },
   "auth.welcome.checkbox.subscribe": {
     "message": "订阅有关 Modrinth 的更新"
   },
   "auth.welcome.description": {
-    "message": "感谢您创建账户。您现在可以关注和创建项目，接收有关您喜爱的项目的更新等！"
+    "message": "感谢您创建账户。您现在可以关注和创建项目，接收有关您喜爱的项目的更新，还有更多！"
   },
   "auth.welcome.label.tos": {
-    "message": "创建账户即代表你同意 Modrinth 的<terms-link>使用条款</terms-link>和<privacy-policy-link>隐私政策</privacy-policy-link>。"
+    "message": "创建账户即代您同意 Modrinth 的<terms-link>使用条款</terms-link>和<privacy-policy-link>隐私政策</privacy-policy-link>。"
   },
   "auth.welcome.long-title": {
     "message": "欢迎来到 Modrinth！"
@@ -174,7 +174,7 @@
     "message": "继续"
   },
   "button.create-a-project": {
-    "message": "创建项目"
+    "message": "创建一个项目"
   },
   "button.edit": {
     "message": "编辑"
