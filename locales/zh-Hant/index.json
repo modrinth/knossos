@@ -21,7 +21,7 @@
     "message": "傳送密碼重設電子郵件"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "請輸入您的電子郵件地址，系統將傳送密碼重設連結，協助您取回帳號。"
+    "message": "請輸入你的電子郵件地址，系統將傳送密碼重設連結，協助你取回帳號。"
   },
   "auth.reset-password.method-choice.email-username.label": {
     "message": "電子郵件地址或使用者名稱"
@@ -30,13 +30,13 @@
     "message": "電子郵件地址"
   },
   "auth.reset-password.notification.email-sent.text": {
-    "message": "如果您的帳號中先前已儲存該電子郵件地址，系統已將一封內含指示的電子郵件傳送給您。"
+    "message": "如果你的帳號中先前已儲存該電子郵件地址，系統已將一封內含指示的電子郵件傳送給你。"
   },
   "auth.reset-password.notification.email-sent.title": {
     "message": "電子郵件已送出"
   },
   "auth.reset-password.notification.password-reset.text": {
-    "message": "請使用新密碼登入您的帳號。"
+    "message": "請使用新密碼登入你的帳號。"
   },
   "auth.reset-password.notification.password-reset.title": {
     "message": "密碼重設成功"
@@ -48,7 +48,7 @@
     "message": "確認密碼"
   },
   "auth.reset-password.post-challenge.description": {
-    "message": "請設定新密碼以登入您的帳號。"
+    "message": "請設定新密碼以登入你的帳號。"
   },
   "auth.reset-password.title": {
     "message": "重設密碼"
@@ -96,7 +96,7 @@
     "message": "使用者名稱"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>使用規定</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
+    "message": "建立帳號即表示你同意 Modrinth 的《<terms-link>使用規定</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
   },
   "auth.sign-up.notification.password-mismatch.text": {
     "message": "密碼不正確！"
@@ -126,7 +126,7 @@
     "message": "登入"
   },
   "auth.verify-email.already-verified.description": {
-    "message": "您的電子郵件地址已經驗證過了！"
+    "message": "你的電子郵件地址已經驗證過了！"
   },
   "auth.verify-email.already-verified.title": {
     "message": "電子郵件地址已經驗證過"
@@ -135,16 +135,16 @@
     "message": "重新傳送驗證電子郵件"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "系統無法驗證您的電子郵件地址。請在登入後，透過控制台重新傳送驗證電子郵件。"
+    "message": "系統無法驗證你的電子郵件地址。請在登入後，透過控制台重新傳送驗證電子郵件。"
   },
   "auth.verify-email.failed-verification.description.logged-in": {
-    "message": "系統無法驗證您的電子郵件地址。請透過下方按鈕重新傳送驗證電子郵件。"
+    "message": "系統無法驗證你的電子郵件地址。請透過下方按鈕重新傳送驗證電子郵件。"
   },
   "auth.verify-email.failed-verification.title": {
     "message": "電子郵件地址驗證失敗"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "您的電子郵件地址已成功驗證！"
+    "message": "你的電子郵件地址已成功驗證！"
   },
   "auth.verify-email.post-verification.title": {
     "message": "電子郵件地址驗證"
@@ -159,7 +159,7 @@
     "message": "感謝你建立帳號。你現在可以追蹤及建立專案、接收喜愛專案的更新內容，還有眾多精彩功能等你來發掘！"
   },
   "auth.welcome.label.tos": {
-    "message": "建立帳號即表示您同意 Modrinth 的《<terms-link>使用規定</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
+    "message": "建立帳號即表示你同意 Modrinth 的《<terms-link>使用規定</terms-link>》和《<privacy-policy-link>隱私權政策</privacy-policy-link>》。"
   },
   "auth.welcome.long-title": {
     "message": "歡迎使用 Modrinth！"
@@ -219,7 +219,7 @@
     "message": "{description} — 前往 Modrinth 查看 {username} 的收藏「{name}」"
   },
   "collection.description.following": {
-    "message": "由系統自動產生的收藏，包含您正在追蹤的所有專案。"
+    "message": "由系統自動產生的收藏，包含你正在追蹤的所有專案。"
   },
   "collection.error.not-found": {
     "message": "找不到收藏"
@@ -360,19 +360,19 @@
     "message": "前往帳號設定"
   },
   "layout.banner.add-email.title": {
-    "message": "基於安全考量，請在 Modrinth 上輸入您的電子郵件地址。"
+    "message": "基於安全考量，請在 Modrinth 上輸入你的電子郵件地址。"
   },
   "layout.banner.staging.description": {
     "message": "預備環境執行在 Modrinth 資料庫的副本上。這個環境用於測試和除錯目的，並且可能執行比生產實例更新的 Modrinth 後端或前端開發版本。"
   },
   "layout.banner.staging.title": {
-    "message": "您正在查看 Modrinth 的預備環境。"
+    "message": "你正在查看 Modrinth 的預備環境。"
   },
   "layout.banner.verify-email.action": {
     "message": "重新傳送驗證電子郵件"
   },
   "layout.banner.verify-email.title": {
-    "message": "基於安全考量，請在 Modrinth 上驗證您的電子郵件地址。"
+    "message": "基於安全考量，請在 Modrinth 上驗證你的電子郵件地址。"
   },
   "layout.footer.company.careers": {
     "message": "工作機會"
@@ -525,16 +525,16 @@
     "message": "光影包"
   },
   "revenue.transfers.total": {
-    "message": "您總共提款了 {amount} 美元。"
+    "message": "你總共提款了 {amount} 美元。"
   },
   "revenue.transfers.total.method": {
-    "message": "您透過 {method} 提款了 {amount} 美元。"
+    "message": "你透過 {method} 提款了 {amount} 美元。"
   },
   "revenue.transfers.total.year": {
-    "message": "您在 {year} 年提款了 {amount} 美元。"
+    "message": "你在 {year} 年提款了 {amount} 美元。"
   },
   "revenue.transfers.total.year_method": {
-    "message": "您透過 {method} 在 {year} 年提款了 {amount} 美元。"
+    "message": "你透過 {method} 在 {year} 年提款了 {amount} 美元。"
   },
   "scopes.analytics.description": {
     "message": "存取你的分析資料"
