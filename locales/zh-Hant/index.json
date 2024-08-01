@@ -282,7 +282,7 @@
     "message": "青蛙"
   },
   "input.view.gallery": {
-    "message": "畫廊檢視"
+    "message": "圖片庫檢視"
   },
   "input.view.grid": {
     "message": "格狀檢視"
@@ -294,7 +294,7 @@
     "message": "已儲存變更"
   },
   "label.collections": {
-    "message": "收藏庫"
+    "message": "收藏"
   },
   "label.created-ago": {
     "message": "建立於 {ago}"
