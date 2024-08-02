@@ -1,6 +1,6 @@
 {
   "auth.authorize.action.authorize": {
-    "message": "Авторизация"
+    "message": "Авторизовать"
   },
   "auth.authorize.action.decline": {
     "message": "Отклонить"
@@ -9,19 +9,19 @@
     "message": "<strong>{appName}</strong> от <creator-link>{creator}</creator-link> получит возможность:"
   },
   "auth.authorize.authorize-app-name": {
-    "message": "Авторизовать {appName}"
+    "message": "Авторизация {appName}"
   },
   "auth.authorize.error.no-redirect-url": {
     "message": "Адрес перенаправления не найден"
   },
   "auth.authorize.redirect-url": {
-    "message": "Перенаправление на <redirect-url>{url}</redirect-url>"
+    "message": "Вы будете перенаправлены на <redirect-url>{url}</redirect-url>"
   },
   "auth.reset-password.method-choice.action": {
     "message": "Отправить письмо для восстановления"
   },
   "auth.reset-password.method-choice.description": {
-    "message": "Укажите адрес своей электронной почты, чтобы получить ссылку для восстановления доступа к учётной записи."
+    "message": "Введите адрес своей электронной почты, чтобы получить ссылку для восстановления доступа к учётной записи."
   },
   "auth.reset-password.method-choice.email-username.label": {
     "message": "Электронная почта или имя пользователя"
@@ -54,7 +54,7 @@
     "message": "Сброс пароля"
   },
   "auth.reset-password.title.long": {
-    "message": "Восстановление пароля"
+    "message": "Сброс пароля"
   },
   "auth.sign-in.2fa.description": {
     "message": "Для продолжения введите код проверки двухфакторной аутентификации."
@@ -78,10 +78,10 @@
     "message": "Авторизуйтесь через"
   },
   "auth.sign-in.title": {
-    "message": "Регистрация"
+    "message": "Войти"
   },
   "auth.sign-in.use-password": {
-    "message": "... или через почту/пароль"
+    "message": "Или используйте пароль"
   },
   "auth.sign-up.action.create-account": {
     "message": "Создать учётную запись"
@@ -96,10 +96,10 @@
     "message": "Имя пользователя"
   },
   "auth.sign-up.legal-dislaimer": {
-    "message": "Создавая учётную запись, вы соглашаетесь с нашими <terms-link>условиями</terms-link> и <privacy-policy-link>политикой конфиденциальности</privacy-policy-link>."
+    "message": "Создавая учётную запись, вы принимаете наши <terms-link>условия</terms-link> и <privacy-policy-link>политику конфиденциальности</privacy-policy-link>."
   },
   "auth.sign-up.notification.password-mismatch.text": {
-    "message": "Пароль не совпадает"
+    "message": "Пароли не совпадают!"
   },
   "auth.sign-up.password.label": {
     "message": "Пароль"
@@ -111,13 +111,13 @@
     "message": "Подписаться на получение новостей Modrinth"
   },
   "auth.sign-up.title": {
-    "message": "Вход"
+    "message": "Регистрация"
   },
   "auth.sign-up.title.create-account": {
-    "message": "Или зарегистрируйтесь"
+    "message": "Или создайте учётную запись сами"
   },
   "auth.sign-up.title.sign-up-with": {
-    "message": "Вход через"
+    "message": "Зарегистрируйтесь через"
   },
   "auth.verify-email.action.account-settings": {
     "message": "Настройки учётной записи"
@@ -135,7 +135,7 @@
     "message": "Отправить письмо ещё раз"
   },
   "auth.verify-email.failed-verification.description": {
-    "message": "Нам не удалось проверить ваш адрес электронную почту. Попробуйте повторно отправить письмо для проверки через панель управления, войдя в систему."
+    "message": "Не удалось подтвердить электронную почту. Войдите в панель управления и попробуйте запросить письмо с подтверждением ещё раз."
   },
   "auth.verify-email.failed-verification.description.logged-in": {
     "message": "Не удалось подтвердить электронную почту. Попробуйте запросить письмо с подтверждением ещё раз при помощи кнопки ниже."
@@ -144,7 +144,7 @@
     "message": "Ошибка подтверждения электронной почты"
   },
   "auth.verify-email.post-verification.description": {
-    "message": "Адрес электронной почты успешно подтверждён"
+    "message": "Адрес электронной почты успешно подтверждён!"
   },
   "auth.verify-email.post-verification.title": {
     "message": "Подтверждение электронной почты"
@@ -369,10 +369,10 @@
     "message": "Вы находитесь на странице тестирования Modrinth."
   },
   "layout.banner.verify-email.action": {
-    "message": "Отправить письмо с подтверждением ещё раз"
+    "message": "Отправить письмо ещё раз"
   },
   "layout.banner.verify-email.title": {
-    "message": "В целях безопасности требуется подтвердить ваш электронный адрес."
+    "message": "В целях безопасности нужно подтвердить адрес вашей электронной почты."
   },
   "layout.footer.company.careers": {
     "message": "Вакансии"
