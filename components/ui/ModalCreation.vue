@@ -72,143 +72,137 @@
   </Modal>
 </template>
 
-<script>
+<script setup>
 import { Multiselect } from 'vue-multiselect'
 import CrossIcon from '~/assets/images/utils/x.svg?component'
 import CheckIcon from '~/assets/images/utils/right-arrow.svg?component'
 import Modal from '~/components/ui/Modal.vue'
 
-export default {
-  components: {
-    CrossIcon,
-    CheckIcon,
-    Modal,
-    Multiselect,
+const data = useNuxtApp()
+const router = useRouter()
+const tags = useTags()
+
+const modal = ref(null)
+
+const name = ref('')
+const slug = ref('')
+const description = ref('')
+const manualSlug = ref(false)
+const visibilities = ref([
+  {
+    actual: 'approved',
+    display: 'Public',
   },
-  props: {
-    organizationId: {
-      type: String,
-      required: false,
-      default: null,
-    },
+  {
+    actual: 'private',
+    display: 'Private',
   },
-  setup() {
-    const tags = useTags()
-
-    return { tags }
+  {
+    actual: 'unlisted',
+    display: 'Unlisted',
   },
-  data() {
-    return {
-      name: '',
-      slug: '',
-      description: '',
-      manualSlug: false,
-      visibilities: [
-        {
-          actual: 'approved',
-          display: 'Public',
-        },
-        {
-          actual: 'private',
-          display: 'Private',
-        },
-        {
-          actual: 'unlisted',
-          display: 'Unlisted',
-        },
-      ],
-      visibility: {
-        actual: 'approved',
-        display: 'Public',
-      },
-    }
+])
+const visibility = ref({
+  actual: 'approved',
+  display: 'Public',
+})
+
+const props = defineProps({
+  organizationId: {
+    type: String,
+    required: false,
+    default: null,
   },
-  methods: {
-    cancel() {
-      this.$refs.modal.hide()
-    },
-    async createProject() {
-      startLoading()
+})
 
-      const formData = new FormData()
-
-      const auth = await useAuth()
-
-      const projectData = {
-        title: this.name.trim(),
-        project_type: 'mod',
-        slug: this.slug,
-        description: this.description.trim(),
-        body: '',
-        requested_status: this.visibility.actual,
-        initial_versions: [],
-        team_members: [
-          {
-            user_id: auth.value.user.id,
-            name: auth.value.user.username,
-            role: 'Owner',
-          },
-        ],
-        categories: [],
-        client_side: 'required',
-        server_side: 'required',
-        license_id: 'LicenseRef-Unknown',
-        is_draft: true,
-      }
-
-      if (this.organizationId) {
-        projectData.organization_id = this.organizationId
-      }
-
-      formData.append('data', JSON.stringify(projectData))
-
-      try {
-        await useBaseFetch('project', {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Content-Disposition': formData,
-          },
-        })
-
-        this.$refs.modal.hide()
-        await this.$router.push({
-          name: 'type-id',
-          params: {
-            type: 'project',
-            id: this.slug,
-          },
-        })
-      } catch (err) {
-        this.$notify({
-          group: 'main',
-          title: 'An error occurred',
-          text: err.data.description,
-          type: 'error',
-        })
-      }
-      stopLoading()
-    },
-    show() {
-      this.projectType = this.tags.projectTypes[0].display
-      this.name = ''
-      this.slug = ''
-      this.description = ''
-      this.manualSlug = false
-      this.$refs.modal.show()
-    },
-    updatedName() {
-      if (!this.manualSlug) {
-        this.slug = this.name
-          .trim()
-          .toLowerCase()
-          .replaceAll(' ', '-')
-          .replaceAll(/[^a-zA-Z0-9!@$()`.+,_"-]/g, '')
-          .replaceAll(/--+/gm, '-')
-      }
-    },
-  },
+function cancel() {
+  modal.value.hide()
 }
+async function createProject() {
+  startLoading()
+
+  const formData = new FormData()
+
+  const auth = await useAuth()
+
+  const projectData = {
+    title: name.value.trim(),
+    project_type: 'mod',
+    slug: slug.value,
+    description: description.value.trim(),
+    body: '',
+    requested_status: visibility.value.actual,
+    initial_versions: [],
+    team_members: [
+      {
+        user_id: auth.value.user.id,
+        name: auth.value.user.username,
+        role: 'Owner',
+      },
+    ],
+    categories: [],
+    client_side: 'required',
+    server_side: 'required',
+    license_id: 'LicenseRef-Unknown',
+    is_draft: true,
+  }
+
+  if (props.organizationId) {
+    projectData.organization_id = props.organizationId
+  }
+
+  formData.append('data', JSON.stringify(projectData))
+
+  try {
+    await useBaseFetch('project', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-Disposition': formData,
+      },
+    })
+
+    modal.value.hide()
+    await router.push({
+      name: 'type-id',
+      params: {
+        type: 'project',
+        id: slug.value,
+      },
+    })
+  } catch (err) {
+    data.$notify({
+      group: 'main',
+      title: 'An error occurred',
+      text: err.data.description,
+      type: 'error',
+    })
+  }
+  stopLoading()
+}
+
+function show() {
+  name.value = ''
+  slug.value = ''
+  description.value = ''
+  manualSlug.value = false
+  modal.value.show()
+}
+
+function updatedName() {
+  if (!manualSlug.value) {
+    slug.value = name.value
+      .trim()
+      .toLowerCase()
+      .replaceAll(' ', '-')
+      .replaceAll(/[^a-zA-Z0-9!@$()`.+,_"-]/g, '')
+      .replaceAll(/--+/gm, '-')
+  }
+}
+
+defineExpose({
+  show,
+})
 </script>
 
 <style scoped lang="scss">
