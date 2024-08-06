@@ -254,6 +254,45 @@
   "collection.title": {
     "message": "{name} - Collection"
   },
+  "component.modal.modal-creation.header": {
+    "message": "Create a project"
+  },
+  "component.modal.modal-creation.description": {
+    "message": "New projects are created as drafts and can be found under your profile page."
+  },
+  "component.modal.modal-creation.name.label": {
+    "message": "Name"
+  },
+  "component.modal.modal-creation.name.placeholder": {
+    "message": "Enter project name..."
+  },
+  "component.modal.modal-creation.slug.label": {
+    "message": "URL"
+  },
+  "component.modal.modal-creation.visibility.label": {
+    "message": "Visibility"
+  },
+  "component.modal.modal-creation.visibility.description": {
+    "message": "The visibility of your project after it has been approved."
+  },
+  "component.modal.modal-creation.visibility.placeholder": {
+    "message": "Choose visibility..."
+  },
+  "component.modal.modal-creation.visibilitys.approved": {
+    "message": "Public"
+  },
+  "component.modal.modal-creation.visibilitys.private": {
+    "message": "Private"
+  },
+  "component.modal.modal-creation.visibilitys.unlisted": {
+    "message": "Unlisted"
+  },
+  "component.modal.modal-creation.summary.label": {
+    "message": "Summary"
+  },
+  "component.modal.modal-creation.summary.description": {
+    "message": "This appears in search and on the sidebar of your project's page."
+  },
   "dashboard.collections.button.create-new": {
     "message": "Create new"
   },
