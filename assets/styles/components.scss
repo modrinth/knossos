@@ -468,6 +468,7 @@
   @extend .button-base;
   background-color: transparent;
   border-radius: var(--size-rounded-sm);
+  transition: filter 0s;
 
   &:focus-visible:not(&:disabled),
   &:hover:not(&:disabled),
