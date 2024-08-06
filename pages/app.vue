@@ -1027,6 +1027,8 @@ useSeoMeta({
     margin: 0 auto;
     justify-content: center;
     mask-image: none;
+    position: relative;
+    z-index: 20;
 
     .outline-button {
       color: var(--landing-color-heading);
