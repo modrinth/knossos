@@ -1,0 +1,1040 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "يأذن"
+  },
+  "auth.authorize.action.decline": {
+    "message": "رفض"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> من <creator-link>{creator}</creator-link> سيكون قادرا على:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "السماح ل{appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "لم يتم العثور على موقع إعادة التوجيه في الرد"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "سيتم إعادة توجيهك إلى <redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "إرسال بريد الاسترجاع"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "أدخل بريدك الإلكتروني أدناه وسنرسل رابط استرداد للسماح لك باسترداد حسابك."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "البريد الإلكتروني أو اسم المستخدم"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "البريد الإلكتروني"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "تم إرسال بريد إلكتروني مع التعليمات إليك إذا كان البريد الإلكتروني قد تم حفظه مسبقاً على حسابك."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "تم إرسال البريد الإلكتروني"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "يمكنك الآن تسجيل الدخول إلى حسابك باستخدام كلمة المرور الجديدة."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "تمت إعادة تعيين كلمة المرور بنجاح"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "إعادة تعيين كلمة المرور"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "تأكيد كلمة المرور"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "أدخل كلمة المرور الجديدة أدناه للوصول إلى حسابك."
+  },
+  "auth.reset-password.title": {
+    "message": "إعادة تعيين كلمة المرور"
+  },
+  "auth.reset-password.title.long": {
+    "message": "أعد تعيين كلمة مرورك"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "الرجاء إدخال رمز المصادقة الثنائية للمتابعة."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "أدخل رمز المصادقة الثنائية"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "أدخل الرمز..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>نسيت كلمة المرور؟</forgot-password-link> * <create-account-link> إنشاء حساب </create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "البريد الإلكتروني أو اسم المستخدم"
+  },
+  "auth.sign-in.password.label": {
+    "message": "كلمة المرور"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "تسجيل دخول بإستخدام"
+  },
+  "auth.sign-in.title": {
+    "message": "تسجيل الدخول"
+  },
+  "auth.sign-in.use-password": {
+    "message": "أو استخدم كلمة مرور"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "إنشاء حساب"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "تأكيد كلمة المرور"
+  },
+  "auth.sign-up.email.label": {
+    "message": "البريد الإلكتروني"
+  },
+  "auth.sign-up.label.username": {
+    "message": "إسم المستخدم"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "بإنشاء حساب، فإنك توافق على <terms-link>شروط </terms-link>و <privacy-policy-link>سياسة الخصوصية</privacy-policy-link>ل Modrinth."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "كلمات المرور لا تتطابق!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "كلمة المرور"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "لديك حساب بالفعل؟"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "اشترك لتلقي تحديثات حول Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "التسجيل"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "أو أنشئ حسابك بنفسك"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "إنشاء حساب باستخدام"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "إعدادات الحساب"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "تسجيل الدخول"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "تم التحقق من بريدك الإلكتروني مسبقاً!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "تم التحقق من البريد الإلكتروني مسبقاً"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "إعادة إرسال رسالة التحقق"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "لم نتمكن من التحقق من بريدك الإلكتروني. حاول إعادة إرسال رسالة التحقق عبر لوحة التحكم الخاصة بك بتسجيل الدخول."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "لم نتمكن من التحقق من بريدك الإلكتروني. حاول إعادة إرسال رسالة التحقق عبر الزر أدناه."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "فشل التحقق من البريد الإلكتروني"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "تم التحقق من عنوان بريدك الإلكتروني بنجاح!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "التحقق من البريد الإلكتروني"
+  },
+  "auth.verify-email.title": {
+    "message": "التحقق من البريد الإلكتروني"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "اشترك لتلقي تحديثات حول Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "شكرا لك على إنشاء حساب. يمكنك الآن متابعة وإنشاء المشاريع، وتلقي التحديثات حول مشاريعك المفضلة، والمزيد!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "من خلال إنشاء حساب ، تكون قد وافقت على <terms-link>شروط </terms-link>و <privacy-policy-link>سياسة الخصوصية</privacy-policy-link> ل Modrinth."
+  },
+  "auth.welcome.long-title": {
+    "message": "مرحبًا بك في Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "مرحباً"
+  },
+  "button.cancel": {
+    "message": "إلغاء"
+  },
+  "button.continue": {
+    "message": "الاستمرار"
+  },
+  "button.create-a-project": {
+    "message": "إنشاء مشروع"
+  },
+  "button.edit": {
+    "message": "تعديل"
+  },
+  "button.save": {
+    "message": "حفظ"
+  },
+  "button.save-changes": {
+    "message": "حفظ التغييرات"
+  },
+  "button.sign-in": {
+    "message": "تسجيل الدخول"
+  },
+  "button.sign-out": {
+    "message": "تسجيل الخروج"
+  },
+  "button.upload-image": {
+    "message": "رفع صورة"
+  },
+  "collection.button.delete-icon": {
+    "message": "حذف الأيقونة"
+  },
+  "collection.button.edit-icon": {
+    "message": "تعديل الأيقونة"
+  },
+  "collection.button.remove-project": {
+    "message": "أزل المشروع"
+  },
+  "collection.button.unfollow-project": {
+    "message": "إلغاء متابعة المشروع"
+  },
+  "collection.button.upload-icon": {
+    "message": "رفع أيقون"
+  },
+  "collection.delete-modal.description": {
+    "message": "سيؤدي هذا إلى إزالة هذه المجموعة إلى الأبد. لا يمكن التراجع عن هذا الإجراء."
+  },
+  "collection.delete-modal.title": {
+    "message": "هل أنت متأكد من أنك تريد حذف هذه المجموعة؟"
+  },
+  "collection.description": {
+    "message": "{description} - عرض المجموعة {name} بواسطة {username} على Modrinth"
+  },
+  "collection.description.following": {
+    "message": "مجموعة تم إنشاؤها تلقائيا من جميع المشاريع التي تتابعها."
+  },
+  "collection.error.not-found": {
+    "message": "لم يتم العثور على المجموعة"
+  },
+  "collection.label.collection": {
+    "message": "مجموعة"
+  },
+  "collection.label.created-at": {
+    "message": "تم الإنشاء منذ {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "أنشئ من طرف"
+  },
+  "collection.label.no-projects": {
+    "message": "هذه المجموعة ليس لديها أي مشاريع!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "ليست لديك أيّة مشاريع.\nهل تودّ <create-link>إنشاء مشروع</create-link>؟"
+  },
+  "collection.label.owner": {
+    "message": "المالك"
+  },
+  "collection.label.private": {
+    "message": "خاصّة"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> project} other {<stat>{count}</stat> projects}}"
+  },
+  "collection.label.updated-at": {
+    "message": "تم التحديث منذ {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - مجموعة"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "إنشاء جديد"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} project} other {{count} projects}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "ابحث في المجموعات الخاصة بك"
+  },
+  "dashboard.collections.long-title": {
+    "message": "مجموعاتك"
+  },
+  "frog": {
+    "message": "لقد تم ضفدعتك! 🐸"
+  },
+  "frog.altText": {
+    "message": "لوحة واقعية لمتاهة الضفدع"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural, one {{count} المزيد من الأشخاص} other {{count}المزيد من الناس}} تم ضفادعها أيضًا!"
+  },
+  "frog.sinceOpened": {
+    "message": "تم فتح هذه الصفحة {ago}"
+  },
+  "frog.title": {
+    "message": "ضفدع"
+  },
+  "input.view.gallery": {
+    "message": "عرض بنمط العارضة"
+  },
+  "input.view.grid": {
+    "message": "عرض بنمط الشبكة"
+  },
+  "input.view.list": {
+    "message": "عرض الصفوف"
+  },
+  "label.changes-saved": {
+    "message": "تم حفظ التغييرات"
+  },
+  "label.collections": {
+    "message": "المجموعات"
+  },
+  "label.created-ago": {
+    "message": "تم الإنشاء منذ {ago}"
+  },
+  "label.dashboard": {
+    "message": "لوحة التحكم"
+  },
+  "label.delete": {
+    "message": "‏حذف"
+  },
+  "label.description": {
+    "message": "الوصف"
+  },
+  "label.error": {
+    "message": "خطأ"
+  },
+  "label.followed-projects": {
+    "message": "المشاريع المُتبعة"
+  },
+  "label.moderation": {
+    "message": "الإشراف"
+  },
+  "label.notifications": {
+    "message": "الإشعارات"
+  },
+  "label.password": {
+    "message": "كلمة المرور"
+  },
+  "label.public": {
+    "message": "عام"
+  },
+  "label.rejected": {
+    "message": "مرفوضة"
+  },
+  "label.scopes": {
+    "message": "المجالات"
+  },
+  "label.settings": {
+    "message": "الإعدادات"
+  },
+  "label.title": {
+    "message": "العنوان"
+  },
+  "label.unlisted": {
+    "message": "غير مدرج"
+  },
+  "label.visibility": {
+    "message": "الرؤية"
+  },
+  "label.visit-your-profile": {
+    "message": "زيارة ملفك الشخصي"
+  },
+  "layout.action.change-theme": {
+    "message": "غير النمط"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "احصل على تطبيق Modrinth"
+  },
+  "layout.avatar.alt": {
+    "message": "صورتك الرمزية"
+  },
+  "layout.banner.add-email.button": {
+    "message": "زيارة إعدادات الحساب"
+  },
+  "layout.banner.add-email.title": {
+    "message": "لأغراض أمنية، يرجى إدخال بريدك الإلكتروني على Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+  },
+  "layout.banner.staging.title": {
+    "message": "You’re viewing Modrinth’s staging environment."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "إعادة إرسال رسالة التحقق"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "For security purposes, please verify your email address on Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "الوظائف"
+  },
+  "layout.footer.company.privacy": {
+    "message": "الخصوصيـة"
+  },
+  "layout.footer.company.rules": {
+    "message": "القوانين"
+  },
+  "layout.footer.company.terms": {
+    "message": "الشروط"
+  },
+  "layout.footer.company.title": {
+    "message": "الشركة"
+  },
+  "layout.footer.interact.title": {
+    "message": "التفاعل"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "خدمة MINECRAFT غير رسمية. لم تتم الموافقة عليها و غير مرتبطة ب MOJANG و MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth is <github-link>open source</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "الوثائق"
+  },
+  "layout.footer.resources.status": {
+    "message": "الحالة"
+  },
+  "layout.footer.resources.support": {
+    "message": "الدعم"
+  },
+  "layout.footer.resources.title": {
+    "message": "المصادر"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Toggle menu"
+  },
+  "layout.meta.description": {
+    "message": "Download Minecraft mods, plugins, datapacks, shaders, resourcepacks, and modpacks on Modrinth. Discover and publish projects on Modrinth with a modern, easy to use interface and API."
+  },
+  "layout.meta.og-description": {
+    "message": "Discover and publish Minecraft content!"
+  },
+  "layout.nav.home": {
+    "message": "الصفحة الرئيسية"
+  },
+  "layout.nav.search": {
+    "message": "البحث"
+  },
+  "notification.error.title": {
+    "message": "حدثَ خطأ ما"
+  },
+  "profile.button.manage-projects": {
+    "message": "إدارة المشاريع"
+  },
+  "profile.button.report": {
+    "message": "تبليغ"
+  },
+  "profile.error.not-found": {
+    "message": "لم يتم العثور على المُستخدم"
+  },
+  "profile.joined-at": {
+    "message": "انضممت {ago}"
+  },
+  "profile.label.no-collections": {
+    "message": "هذا المستخدم ليس لديه مجموعات!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "ليس لديك أي مجموعه. هل تريد <create-link>صناعه مجموعه</create-link>؟"
+  },
+  "profile.label.no-projects": {
+    "message": "ليس لدى هذا المستخدم أيّة مشاريع!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "ليست لديك أيّة مشاريع.\nهل تودّ <create-link>إنشاء مشروع</create-link>؟"
+  },
+  "profile.label.organizations": {
+    "message": "مُنظمات"
+  },
+  "profile.meta.description": {
+    "message": "تنزيل مشاريع {username} على Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio}-تنزيل المشروع الخاص بـ{username} على Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural,one {<stat>{count}</stat> تنزيل} other {<stat>{count}</stat>تنزيلات}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> متابع} other {<stat>{count}</stat> متابعًا}} للمشاريع"
+  },
+  "profile.user-id": {
+    "message": "مٌعرف المستخدم: {id}"
+  },
+  "project-type.all": {
+    "message": "الكل"
+  },
+  "project-type.collection.plural": {
+    "message": "مجموعات"
+  },
+  "project-type.collection.singular": {
+    "message": "مجموعه"
+  },
+  "project-type.datapack.plural": {
+    "message": "حُزمة البيانات"
+  },
+  "project-type.datapack.singular": {
+    "message": "حزمة البيانات"
+  },
+  "project-type.mod.plural": {
+    "message": "تعديلات"
+  },
+  "project-type.mod.singular": {
+    "message": "تعديل"
+  },
+  "project-type.modpack.plural": {
+    "message": "حزم التعديلات"
+  },
+  "project-type.modpack.singular": {
+    "message": "حزمة التعديلات"
+  },
+  "project-type.plugin.plural": {
+    "message": "الملحقات"
+  },
+  "project-type.plugin.singular": {
+    "message": "مُلحق"
+  },
+  "project-type.project.plural": {
+    "message": "مشاريع"
+  },
+  "project-type.project.singular": {
+    "message": "مشروع"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "حزم الموارد"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "حُزمة الموارد"
+  },
+  "project-type.shader.plural": {
+    "message": "المظلّلات"
+  },
+  "project-type.shader.singular": {
+    "message": "المظلل"
+  },
+  "revenue.transfers.total": {
+    "message": "لقد سحبت {amount} إجمالاً."
+  },
+  "revenue.transfers.total.method": {
+    "message": "لقد سحبت {amount} بواسطة {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "لقد سحبت {amount} في {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "لقد سحبت {amount} في {year} بواسطة {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "الوصول إلى بياناتك التحليلية"
+  },
+  "scopes.analytics.label": {
+    "message": "قراءة التحليلات"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "إنشاء مجموعات"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "إنشاء مجموعات"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "حذف مجموعات"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "حذف مجموعات"
+  },
+  "scopes.collectionRead.description": {
+    "message": "قراءة مجموعات"
+  },
+  "scopes.collectionRead.label": {
+    "message": "قراءة مجموعات"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "كتابة إلى مجموعات"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "كتابة مجموعات"
+  },
+  "scopes.notificationRead.description": {
+    "message": "قراءة إشعاراتك"
+  },
+  "scopes.notificationRead.label": {
+    "message": "قراءة إشعارات"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "حذف\\عرض إشعاراتك"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "كتابة إشعارات"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "إنشاء مُنظمات"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "إنشاء منظمات"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "حذف مُنظمات"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "حذف مُنظمات"
+  },
+  "scopes.organizationRead.description": {
+    "message": "قراءة مُنظمات"
+  },
+  "scopes.organizationRead.label": {
+    "message": "قراءة مُنظمات"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "كتابة إلى المُنظمات"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "كتابة إلى المُنظمات"
+  },
+  "scopes.patCreate.description": {
+    "message": "إنشاء رموز API شخصية"
+  },
+  "scopes.patCreate.label": {
+    "message": "إنشاء رموز وصول الشخصية"
+  },
+  "scopes.patDelete.description": {
+    "message": "حذف رموز API الخاصة بك"
+  },
+  "scopes.patDelete.label": {
+    "message": "حذف رموز وصول الشخصية"
+  },
+  "scopes.patRead.description": {
+    "message": "عرض رموز وصول الشخصية التي تم إنشاؤها"
+  },
+  "scopes.patRead.label": {
+    "message": "قراءة رموز الوصول الشخصية"
+  },
+  "scopes.patWrite.description": {
+    "message": "تعديل رمز API الشخصي"
+  },
+  "scopes.patWrite.label": {
+    "message": "Write PATs"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "قراءة بيانات الدفعات الخاصة بك"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "قراءة الدفعات"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "سحب الأموال"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "كتابة الدفعات"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "تنفيذ إجراءات تحليلية"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "إجراء تحليلات"
+  },
+  "scopes.projectCreate.description": {
+    "message": "إنشاء مشروع جديد"
+  },
+  "scopes.projectCreate.label": {
+    "message": "إنشاء مشاريع"
+  },
+  "scopes.projectDelete.description": {
+    "message": "حذف مشاريعك"
+  },
+  "scopes.projectDelete.label": {
+    "message": "حذف مشاريع"
+  },
+  "scopes.projectRead.description": {
+    "message": "قراءة جميع مشاريعك"
+  },
+  "scopes.projectRead.label": {
+    "message": "قراءة المشاريع"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Write to project data"
+  },
+  "scopes.projectWrite.label": {
+    "message": "كتابة مشاريع"
+  },
+  "scopes.reportCreate.description": {
+    "message": "إنشاء تقارير"
+  },
+  "scopes.reportCreate.label": {
+    "message": "إنشاء تقارير"
+  },
+  "scopes.reportDelete.description": {
+    "message": "حذف تقارير"
+  },
+  "scopes.reportDelete.label": {
+    "message": "حذف تقارير"
+  },
+  "scopes.reportRead.description": {
+    "message": "قراءة التقارير"
+  },
+  "scopes.reportRead.label": {
+    "message": "قراءة التقارير"
+  },
+  "scopes.reportWrite.description": {
+    "message": "تحرير تقرير"
+  },
+  "scopes.reportWrite.label": {
+    "message": "كتابة التقارير"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Access modrinth-issued sessions"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "الوصول إلى الجلسات"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "حذف جلسات"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "حذف جلسات"
+  },
+  "scopes.sessionRead.description": {
+    "message": "قراءة الجلسات النشطة"
+  },
+  "scopes.sessionRead.label": {
+    "message": "قراءة الجلسات"
+  },
+  "scopes.threadRead.description": {
+    "message": "قراءة مواضيع"
+  },
+  "scopes.threadRead.label": {
+    "message": "كتابة مواضيع"
+  },
+  "scopes.threadWrite.description": {
+    "message": "كتابة إلى مواضيع"
+  },
+  "scopes.threadWrite.label": {
+    "message": "كتابة مواضيع"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "تعديل بياناتك المُصادقة"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "كتابة بيانات المصادقة"
+  },
+  "scopes.userDelete.description": {
+    "message": "حذف حسابك"
+  },
+  "scopes.userDelete.label": {
+    "message": "حذف حسابك"
+  },
+  "scopes.userRead.description": {
+    "message": "الوصول إلى معلومات ملفك الشخصي العام"
+  },
+  "scopes.userRead.label": {
+    "message": "قراءة بيانات المستخدم"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "قراءة بريدك الإلكتروني"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "قراءة البريد الإلكتروني للمستخدم"
+  },
+  "scopes.userWrite.description": {
+    "message": "كتابة إلى ملفك الشخصي"
+  },
+  "scopes.userWrite.label": {
+    "message": "كتابة بيانات مستخدم"
+  },
+  "scopes.versionCreate.description": {
+    "message": "إنشاء مصادر جديدة"
+  },
+  "scopes.versionCreate.label": {
+    "message": "إنشاء مصادر"
+  },
+  "scopes.versionDelete.description": {
+    "message": "أحذف مصدر"
+  },
+  "scopes.versionDelete.label": {
+    "message": "حذف مصادر"
+  },
+  "scopes.versionRead.description": {
+    "message": "قراءة كل المصادر"
+  },
+  "scopes.versionRead.label": {
+    "message": "قراءة مصادر"
+  },
+  "scopes.versionWrite.description": {
+    "message": "كتابة إلى بيانات الإصدار"
+  },
+  "scopes.versionWrite.label": {
+    "message": "كتابة أصدارات"
+  },
+  "settings.account.title": {
+    "message": "الحساب والأمان"
+  },
+  "settings.appearance.title": {
+    "message": "المظهر"
+  },
+  "settings.applications.title": {
+    "message": "تطبيقاتك"
+  },
+  "settings.authorized-apps.title": {
+    "message": "تطبيقات مأذون لها"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "تعطيل وضع المطور"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>وضع المطور </strong> نشط. هذا سيسمح لك بعرض المعرفات الداخلية لأشياء مختلفة في جميع أنحاء Modrinth التي قد تكون مفيدة إذا كنت مطورا باستخدام Modrinth API. انقر على شعار Modrinth في أسفل الصفحة 5 مرات لتبديل وضع المطور."
+  },
+  "settings.display.flags.description": {
+    "message": "تمكين أو تعطيل بعض الميزات على هذا الجهاز."
+  },
+  "settings.display.flags.title": {
+    "message": "تفعيل الميزات"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "صفحة حزم البيانات"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "حدد تخطيطك المفضل لكل صفحة تعرض قوائم المشاريع على هذا الجهاز."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "صفحة التعديلات"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "صفحة مجموعات المودات"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "صفحة الإضافات"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "صفحة حزم المصادر"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Shaders page"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Project list layouts"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "صفحات الملف الشخصي"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "التقديم المتقدم"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "فتح الروابط الخارجية في علامة تبويب جديدة"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "إخفاء أزرار \"الحصول على تطبيقModrinth\" من التنقل الأساسي. صفحة تطبيق Modrinth لا تزال موجودة في صفحة الهبوط أو في أخر الصفحة."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "إخفاء دعايات تطبيق Modrinth"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Aligns the project details sidebar to the right of the page's content."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Right-aligned project sidebar"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Aligns the search filters sidebar to the right of the search results."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Right-aligned search sidebar"
+  },
+  "settings.display.theme.dark": {
+    "message": "مظلم"
+  },
+  "settings.display.theme.description": {
+    "message": "حدد قالب اللون المفضل الخاص بك لModrinth على هذا الجهاز."
+  },
+  "settings.display.theme.light": {
+    "message": "مضيئ"
+  },
+  "settings.display.theme.oled": {
+    "message": "أوليد"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "الثيم المظلم المفضل"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "الثيم المضيء المفضل"
+  },
+  "settings.display.theme.retro": {
+    "message": "ريترو"
+  },
+  "settings.display.theme.system": {
+    "message": "تزامن مع النظام"
+  },
+  "settings.display.theme.title": {
+    "message": "لون الثيم"
+  },
+  "settings.language.categories.auto": {
+    "message": "تلقائي"
+  },
+  "settings.language.categories.default": {
+    "message": "اللغات المعيارية"
+  },
+  "settings.language.categories.experimental": {
+    "message": "اللغات التجريبية"
+  },
+  "settings.language.categories.fun": {
+    "message": "لغات ممتعة"
+  },
+  "settings.language.categories.search-result": {
+    "message": "نتائج البحث"
+  },
+  "settings.language.description": {
+    "message": "أختر لُغتك المُفضلة للموقع. تمت الترجمات من قِبل المُتطوعين <crowdin-link> على مِنصة Crowdin </crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "مُطابقة مع لغة النظام"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. جارٍ التطبيق..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. خطأ"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "لا يمكن تحميل هذه اللغة. حاول مرة أخرى بعد قليل."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "أرسل للتركيز على نتائج البحث الأولى"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "أبحث عن لُغة..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {لا تطابق في اللغات} one {# تطابق اللغات} other {# تطابق اللغاتh}} في بحثك."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "ما من لغات تتطابق مع بحثك."
+  },
+  "settings.language.title": {
+    "message": "لُغة"
+  },
+  "settings.pats.action.create": {
+    "message": "إنشاء رمز وصول شخصي"
+  },
+  "settings.pats.description": {
+    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "إنشاء رمز وصول شخصي"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "تنتهي الصلاحية في"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "الإسم"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "أدخل اسم رمز الوصول الشخصي..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "تعديل رمز الوصول الشخصي"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "حذف هذا الرمز"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "سيؤدي هذا إلى إزالة هذا الرمز إلى الأبد (حقا إلى الأبد)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "هل أنت متأكد من أنك تريد حذف هذا الرمز؟"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "تعديل رمز الوصول الشخصي"
+  },
+  "settings.pats.title": {
+    "message": "رموز الوصول الشخصي"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "تعديل الرمز"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "إلغاء الرمز"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "انتهت الصلاحية منذ {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "تنتهي الصلاحية {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "آخر وصول منذ {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "لم تستخدم"
+  },
+  "settings.profile.bio.description": {
+    "message": "وصف قصير لإخبار الجميع قليلاً عنك."
+  },
+  "settings.profile.bio.title": {
+    "message": "السيرة الذاتية"
+  },
+  "settings.profile.description": {
+    "message": "معلومات ملفك الشخصي قابلة للعرض علنا على Modrinth ومن خلال <docs-link>Modrinth API</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "معلومات الملف الشخصي"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "إعادة ضبط"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "الصورة الشخصية"
+  },
+  "settings.profile.title": {
+    "message": "الملف الشخصي العام"
+  },
+  "settings.profile.username.description": {
+    "message": "A unique case-insensitive name to identify your profile."
+  },
+  "settings.profile.username.title": {
+    "message": "اسم المستخدم"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "إلغاء الجلسة"
+  },
+  "settings.sessions.created-ago": {
+    "message": "تم الإنشاء منذ {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "الجلسة الحالية"
+  },
+  "settings.sessions.description": {
+    "message": "هُنا كل الأجهزة التي تمت تسجيل الدخول بحسابك في Modrinth حالياً. تستطيع تسجيل الخروج في كل جهاز بشكل فردي.\n\nأذا رأيت تسجيل لا تتذكره, سجل خروج من ذالِك الجهاز و غًير كلمة السر حسابك في Modrinth في الحال."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "آخر وصول منذ {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "الجلسات"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "نظام تشغيل غير معروف"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "مِنصة غير معروفة"
+  },
+  "tooltip.date-at-time": {
+    "message": "يوم {date, date, long} على الساعة {time, time, short}"
+  }
+}

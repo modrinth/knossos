@@ -1,0 +1,1040 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "Auktorisera"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Neka"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> av <creator-link>{creator}</creator-link> kommer kunna:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Auktorisera {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "Ingen omdirigeringsplats hittades i svar"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "Du kommer att omdirigeras till <redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "Skicka återställningsmejl"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Skriv in din e-post nedan så skickar vi en återställningslänk som låter dig återställa ditt konto."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "E-post eller användarnamn"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "E-post"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "Ett e-postmeddelande med instruktioner har skickats till dig e-postmeddelandet tidigare har sparats på ditt konto."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "E-postmeddelande skickat"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "Du kan nu logga in på ditt konto med ditt nya lösenord."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Lösenordet har återställts"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Återställ lösenord"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Bekräfta lösenord"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Ange ditt nya lösenord för att få tillgång till ditt konto."
+  },
+  "auth.reset-password.title": {
+    "message": "Återställ lösenord"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Återställ ditt lösenord"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Ange din tvåfaktorskod för att fortsätta."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Ange en tvåfaktorskod"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Ange kod..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Glömt lösenordet?</forgot-password-link> • <create-account-link>Skapa ett konto</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "E-post eller användarnamn"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Lösenord"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Logga in med"
+  },
+  "auth.sign-in.title": {
+    "message": "Logga in"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Eller använd ett lösenord"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Skapa konto"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Bekräfta lösenord"
+  },
+  "auth.sign-up.email.label": {
+    "message": "E-post"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Användarnamn"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "Genom att skapa ett konto godkänner du Modrinths <terms-link>villkor</terms-link> och <privacy-policy-link>sekretesspolicy</privacy-policy-link>."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Lösenorden matchar inte!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Lösenord"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Har du redan ett konto?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Jag vill få uppdateringar om Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Registrera dig"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Eller skapa ett konto själv"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Registrera dig med"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Kontoinställningar"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Logga in"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "Din e-postadress är redan verifierad!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "E-postadress är redan verifierad"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Skicka nytt bekräftelsemejl"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "Vi kan inte verifiera din e-post. Försök att skicka ett nytt bekräftelsemejl via kontrollpanelen genom att logga in."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "Vi kan inte verifiera din e-post. Försök skicka ett nytt bekräftelsemejl via knappen nedan."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "E-postverifiering misslyckades"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "Din e-postadress har verifierats!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "E-post verifiering"
+  },
+  "auth.verify-email.title": {
+    "message": "Verifiera e-post"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Jag vill få uppdateringar om Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Tack för att du skapar ett konto. Du kan nu följa och skapa projekt, få uppdateringar om projekten du älskar och mer!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "När du skapar ett konto godkänner du Modrinths <terms-link>villkor</terms-link> och <privacy-policy-link>sekretesspolicy</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Välkommen till Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Välkommen"
+  },
+  "button.cancel": {
+    "message": "Avbryt"
+  },
+  "button.continue": {
+    "message": "Fortsätt"
+  },
+  "button.create-a-project": {
+    "message": "Skapa ett projekt"
+  },
+  "button.edit": {
+    "message": "Redigera"
+  },
+  "button.save": {
+    "message": "Spara"
+  },
+  "button.save-changes": {
+    "message": "Spara ändringar"
+  },
+  "button.sign-in": {
+    "message": "Logga in"
+  },
+  "button.sign-out": {
+    "message": "Logga ut"
+  },
+  "button.upload-image": {
+    "message": "Ladda upp en bild"
+  },
+  "collection.button.delete-icon": {
+    "message": "Ta bort ikon"
+  },
+  "collection.button.edit-icon": {
+    "message": "Redigera ikon"
+  },
+  "collection.button.remove-project": {
+    "message": "Radera projektet"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Avfölj projektet"
+  },
+  "collection.button.upload-icon": {
+    "message": "Ladda upp ikon"
+  },
+  "collection.delete-modal.description": {
+    "message": "Detta kommer radera samlingen för evigt. Detta kan inte ångras."
+  },
+  "collection.delete-modal.title": {
+    "message": "Är du säker på att du vill radera samlingen?"
+  },
+  "collection.description": {
+    "message": "{description} - Visa samlingen {name} av {username} på Modrinth"
+  },
+  "collection.description.following": {
+    "message": "Auto-genererad samling av projekten du följer."
+  },
+  "collection.error.not-found": {
+    "message": "Samlingen hittades inte"
+  },
+  "collection.label.collection": {
+    "message": "Samling"
+  },
+  "collection.label.created-at": {
+    "message": "Skapades {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Kurerad av"
+  },
+  "collection.label.no-projects": {
+    "message": "Denna användare har inga projekt!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "Du har inga projekt.\nVill du <create-link>skapa ett</create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Ägare"
+  },
+  "collection.label.private": {
+    "message": "Privat"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> projekt} other {<stat>{count}</stat> projekt}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Uppdaterades för {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - samling"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Skapa ny"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} projekt} other {{count} projekt}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Sök i dina samlingar"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Dina samlingar"
+  },
+  "frog": {
+    "message": "Du har blivit grodad! 🐸"
+  },
+  "frog.altText": {
+    "message": "En fotorealistisk målning av en grodlabyrint"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural, one {{count} person} other {{count} personer}} har blivit grodad!"
+  },
+  "frog.sinceOpened": {
+    "message": "Sidan öppnades {ago}"
+  },
+  "frog.title": {
+    "message": "Groda"
+  },
+  "input.view.gallery": {
+    "message": "Gallerivy"
+  },
+  "input.view.grid": {
+    "message": "Rutnätsvy"
+  },
+  "input.view.list": {
+    "message": "Radvy"
+  },
+  "label.changes-saved": {
+    "message": "Ändringarna har sparats"
+  },
+  "label.collections": {
+    "message": "Samlingar"
+  },
+  "label.created-ago": {
+    "message": "Skapades {ago}"
+  },
+  "label.dashboard": {
+    "message": "Kontrollpanel"
+  },
+  "label.delete": {
+    "message": "Radera"
+  },
+  "label.description": {
+    "message": "Beskrivning"
+  },
+  "label.error": {
+    "message": "Fel"
+  },
+  "label.followed-projects": {
+    "message": "Följda projekt"
+  },
+  "label.moderation": {
+    "message": "Moderering"
+  },
+  "label.notifications": {
+    "message": "Notifikationer"
+  },
+  "label.password": {
+    "message": "Lösenord"
+  },
+  "label.public": {
+    "message": "Offentlig"
+  },
+  "label.rejected": {
+    "message": "Nekad"
+  },
+  "label.scopes": {
+    "message": "Omfattning"
+  },
+  "label.settings": {
+    "message": "Inställningar"
+  },
+  "label.title": {
+    "message": "Titel"
+  },
+  "label.unlisted": {
+    "message": "Olistad"
+  },
+  "label.visibility": {
+    "message": "Synlighet"
+  },
+  "label.visit-your-profile": {
+    "message": "Besök din profil"
+  },
+  "layout.action.change-theme": {
+    "message": "Ändra temat"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Installera Modrinth appen"
+  },
+  "layout.avatar.alt": {
+    "message": "Din avatar"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Gå till kontoinställningar"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Av säkerhetsskäl behöver du ange din e-postadress på Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "Staging miljön kör en kopia av Modrinths databas. Detta används för test och felsökning och kan köra experimentella versioner av Modrinth som inte släppts än."
+  },
+  "layout.banner.staging.title": {
+    "message": "Du använder Modrinths staging miljö."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Skicka nytt bekräftelsemejl"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "Av säkerhetsskäl behöver du verifiera din e-postadress på Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Karriärer"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Integritet"
+  },
+  "layout.footer.company.rules": {
+    "message": "Regler"
+  },
+  "layout.footer.company.terms": {
+    "message": "Villkor"
+  },
+  "layout.footer.company.title": {
+    "message": "Företag"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interagera"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "INTE EN OFFICIEL MINECRAFT TJÄNST. VARKEN GODKÄND AV ELLER ASSOCIERAD MED MOJANG ELLER MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth har <github-link>öppen källkod</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blogg"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Dokumentation"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Support"
+  },
+  "layout.footer.resources.title": {
+    "message": "Resurser"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Växla meny"
+  },
+  "layout.meta.description": {
+    "message": "Ladda ned Minecraft moddar, plugins, datapaket, shaders, resurspaket och modpaket på Modrinth. Upptäck och lägg upp projekt på Modrinth med ett modernt, enkelt att använda gränssnitt och API."
+  },
+  "layout.meta.og-description": {
+    "message": "Upptäck och lägg upp Minecraft innehåll!"
+  },
+  "layout.nav.home": {
+    "message": "Hem"
+  },
+  "layout.nav.search": {
+    "message": "Sök"
+  },
+  "notification.error.title": {
+    "message": "Ett fel inträffade"
+  },
+  "profile.button.manage-projects": {
+    "message": "Hantera projekt"
+  },
+  "profile.button.report": {
+    "message": "Rapportera"
+  },
+  "profile.error.not-found": {
+    "message": "Användaren kunde inte hittas"
+  },
+  "profile.joined-at": {
+    "message": "Gick med {ago}"
+  },
+  "profile.label.no-collections": {
+    "message": "Denna användare har inga samlingar!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Du har inte någon samling.\nVill du <create-link>skapa en</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "Denna användare har inga projekt!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "Du har inga projekt.\nVill du <create-link>skapa ett</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Organisationer"
+  },
+  "profile.meta.description": {
+    "message": "Ladda ner {username}s projekt på Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Ladda ned {username}s projekt på Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> nedladdning} other {<stat>{count}</stat> nedladdningar}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> följare} other {<stat>{count}</stat> följare}} från alla projekt"
+  },
+  "profile.user-id": {
+    "message": "Användar-ID: {id}"
+  },
+  "project-type.all": {
+    "message": "Allt"
+  },
+  "project-type.collection.plural": {
+    "message": "Samlingar"
+  },
+  "project-type.collection.singular": {
+    "message": "Samling"
+  },
+  "project-type.datapack.plural": {
+    "message": "Datapaket"
+  },
+  "project-type.datapack.singular": {
+    "message": "Datapaket"
+  },
+  "project-type.mod.plural": {
+    "message": "Moddar"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpaket"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpaket"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projekt"
+  },
+  "project-type.project.singular": {
+    "message": "Projekt"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Resurspaket"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Resurspaket"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
+  },
+  "revenue.transfers.total": {
+    "message": "Du har dragit ut totalt {amount}."
+  },
+  "revenue.transfers.total.method": {
+    "message": "Du har dragit ut {amount} via {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "Du har dragit ut {amount} under {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "Du har dragit ut {amount} under {year} via {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "Få tillgång till din analysdata"
+  },
+  "scopes.analytics.label": {
+    "message": "Läsa analyser"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Skapa samlingar"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Skapa samlingar"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Radera samlingar"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Radera samlingar"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Läsa samlingar"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Läsa samlingar"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Skriva till samlingar"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Skriva samlingar"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Läsa dina notiser"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Läsa notiser"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Visa/Radera dina notiser"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Skriva notiser"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Skapa organisationer"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Skapa organisationer"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Radera organisationer"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Radera organisationer"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Läsa organisationer"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Läsa organisationer"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Skriva till organisationer"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Skriva organisationer"
+  },
+  "scopes.patCreate.description": {
+    "message": "Skapa personliga API-tokens"
+  },
+  "scopes.patCreate.label": {
+    "message": "Skapa PATs"
+  },
+  "scopes.patDelete.description": {
+    "message": "Radera dina personliga API-tokens"
+  },
+  "scopes.patDelete.label": {
+    "message": "Radera PATs"
+  },
+  "scopes.patRead.description": {
+    "message": "Visa skapade API-tokens"
+  },
+  "scopes.patRead.label": {
+    "message": "Läsa PATs"
+  },
+  "scopes.patWrite.description": {
+    "message": "Redigera personliga API-tokens"
+  },
+  "scopes.patWrite.label": {
+    "message": "Skriva PATs"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Läsa din data för utdragningar"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Läsa utdragningar"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Dra ut pengar"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Skriva utdragningar"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Utföra analysåtgärder"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Utföra analyser"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Skapa nya projekt"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Skapa projekt"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Radera dina projekt"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Radera projekt"
+  },
+  "scopes.projectRead.description": {
+    "message": "Läsa alla dina projekt"
+  },
+  "scopes.projectRead.label": {
+    "message": "Läsa projekt"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Skriva till projektdata"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Skriva projekt"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Skapa rapporteringar"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Rapportera"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Radera rapporteringar"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Radera rapporteringar"
+  },
+  "scopes.reportRead.description": {
+    "message": "Läsa rapporteringar"
+  },
+  "scopes.reportRead.label": {
+    "message": "Läsa rapporteringar"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Redigera rapporteringar"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Skriva rapporteringar"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Få tillgång till modrinth-utfärdarde sessioner"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Komma åt sessioner"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Radera sessioner"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Radera sesioner"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Läsa aktiva sessioner"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Läsa sessioner"
+  },
+  "scopes.threadRead.description": {
+    "message": "Läsa trådar"
+  },
+  "scopes.threadRead.label": {
+    "message": "Läsa trådar"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Skriva till trådar"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Skriva trådar"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Ändra din autentiseringsdata"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Skriva autentiseringsdata"
+  },
+  "scopes.userDelete.description": {
+    "message": "Radera ditt konto"
+  },
+  "scopes.userDelete.label": {
+    "message": "Radera ditt konto"
+  },
+  "scopes.userRead.description": {
+    "message": "Få tillgång till din offentliga profilinformation"
+  },
+  "scopes.userRead.label": {
+    "message": "Läsa användardata"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Läsa din e-post"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Läsa användar e-post"
+  },
+  "scopes.userWrite.description": {
+    "message": "Skriva till din profil"
+  },
+  "scopes.userWrite.label": {
+    "message": "Skriva användardata"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Skapa nya versioner"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Skapa versioner"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Radera versioner"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Radera versioner"
+  },
+  "scopes.versionRead.description": {
+    "message": "Läsa alla versioner"
+  },
+  "scopes.versionRead.label": {
+    "message": "Läsa versioner"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Skriva till versionsdata"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Skriva versioner"
+  },
+  "settings.account.title": {
+    "message": "Konto och säkerhet"
+  },
+  "settings.appearance.title": {
+    "message": "Utseende"
+  },
+  "settings.applications.title": {
+    "message": "Dina applikationer"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Auktoriserade appar"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Inaktivera utvecklarläge"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Utvecklarläge</strong> är aktiverat. Detta tillåter dig att visa interna ID:n för olika saker genom Modrinth vilket kan vara användbart om du är en utvecklare och använder Modrinths API. Klicka på Modrinth-loggan längst ned fem gånger för att aktivera utvecklarläge."
+  },
+  "settings.display.flags.description": {
+    "message": "Aktivera eller inaktivera vissa funktioner på denna enhet."
+  },
+  "settings.display.flags.title": {
+    "message": "Växla funktioner"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Datapaketssida"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Välj en önskad layout för varje sida som visar projektlistor på denna enhet."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Mod-sida"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Modpaketssida"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Plugin-sida"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Resurspaket-sida"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Shaders-sida"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Projektlistans layouter"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "Användarprofil-sidor"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Aktiverar avancerad rendering som t.ex. oskärpa vilket kan leda till prestandaproblem utan hårdvaruaccelerande rendering."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Avancerad rendering"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Får länkar som leder utanför Modrinth att öppna en ny flik. Oavsett vad denna inställning har ställts in på kommer länkar med samma domän och i Markdown-beskrivningar att öppnas i samma flik, och länkar på annonser och redigeringssidor öppnas i en ny flik."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Öppna externa flikar i en ny flik"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Döljer \"Installera Modrinth appen\" knappen från primär navigering. Modrinth app-sidan kan fortfarande hittas på landningssidan eller i sidfoten."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Dölj \"Installera Modrinth\" knapp"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Justerar sidofältet med projektdetaljer till höger om sidans innehåll."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Högerjusterad projektsidofält"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Justerar sökfilternas sidofält till höger om sökresultaten."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Högerjusterad sidosökfält"
+  },
+  "settings.display.theme.dark": {
+    "message": "Mörkt"
+  },
+  "settings.display.theme.description": {
+    "message": "Välj ett färgtema du vill ha för Modrinth på denna enhet."
+  },
+  "settings.display.theme.light": {
+    "message": "Ljust"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Önskat mörkt tema"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Önskat ljust tema"
+  },
+  "settings.display.theme.retro": {
+    "message": "Retro"
+  },
+  "settings.display.theme.system": {
+    "message": "Synka med systemet"
+  },
+  "settings.display.theme.title": {
+    "message": "Färgtema"
+  },
+  "settings.language.categories.auto": {
+    "message": "Automatiskt"
+  },
+  "settings.language.categories.default": {
+    "message": "Standardspråk"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Experimentella språk"
+  },
+  "settings.language.categories.fun": {
+    "message": "Roliga språk"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Sökresultat"
+  },
+  "settings.language.description": {
+    "message": "Välj ditt önskade språk för webbplatsen. Översättningar bidras av volontärer <crowdin-link>på Crowdin</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Synka med systemets språk"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Tillämpar..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Fel"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Kunde inte ladda språket. Försök igen senare."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Tryck på enter för att fokusera på det första sökresultatet"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Sök efter ett språk..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {Inga språk matchar} one {# språk matchar} other {# språk matchar}} din sökning."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "Inga språk matchar din sökning."
+  },
+  "settings.language.title": {
+    "message": "Språk"
+  },
+  "settings.pats.action.create": {
+    "message": "Skapa en PAT"
+  },
+  "settings.pats.description": {
+    "message": "PAT:s kan användas för att komma åt Modrinths API. Se <doc-link>Modrinths API dokumentation</doc-link> för mer information. De kan skapas och återkallas när som helst."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Skapa PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Går ut"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Namn"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Skriv in ett namn..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Skapa personlig åtkomstnyckel"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Radera denna nyckel"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "Detta kommer radera nyckeln förevigt (asså förevigt)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Är du saker på att du vill radera nyckeln?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Redigera personliga åtkomstnyckeln"
+  },
+  "settings.pats.title": {
+    "message": "Personliga åtkomstnycklar"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Redigera nyckel"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Återkalla nyckel"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Gick ut {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Går ut {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Användes senast {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Har aldrig använts"
+  },
+  "settings.profile.bio.description": {
+    "message": "En kort beskrivning för att berätta lite om dig själv."
+  },
+  "settings.profile.bio.title": {
+    "message": "Om mig"
+  },
+  "settings.profile.description": {
+    "message": "Din profilinformation visas offentligt på Modrinth och i <docs-link>Modrinth API</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "Profilinformation"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Återställ"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Profilbild"
+  },
+  "settings.profile.title": {
+    "message": "Offentlig profil"
+  },
+  "settings.profile.username.description": {
+    "message": "Ett unikt skift-känsligt namn för att identifiera din profil."
+  },
+  "settings.profile.username.title": {
+    "message": "Användarnamn"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Återkalla session"
+  },
+  "settings.sessions.created-ago": {
+    "message": "Skapades {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "Nuvarande session"
+  },
+  "settings.sessions.description": {
+    "message": "Här är alla enheter som är inloggade på ditt Modrinth konto. Du kan logga ut från var och en individuellt.\n\nOm du ser en enhet som du inte känner igen loggar du ut från enheten och ändrar lösenordet på ditt Modrinth konto omedelbart."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "Användes {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "Sessioner"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "Okänt operativsystem"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Okänd plattform"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} kl. {time, time, short}"
+  }
+}

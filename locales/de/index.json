@@ -1,0 +1,1040 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "Autorisieren"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Ablehnen"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> von <creator-link>{creator}</creator-link> wird in der Lage sein:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Autorisiere {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "Keine Weiterleitungsposition in der Antwort gefunden"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "Du wirst zu <redirect-url>{url}</redirect-url> weitergeleitet"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "Wiederherstellungs-E-Mail senden"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Gib deine E-Mail im folgenden Feld ein und wir werden dir einen Wiederherstellungs-Link senden, um dir zu erlauben, dein Konto wiederherzustellen."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "E-Mail oder Benutzername"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "E-Mail"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "Eine E-Mail mit Anweisungen wurde dir gesendet, falls dein Account mit der E-Mail verbunden ist."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "E-Mail wurde gesendet"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "Du kannst jetzt in dein Konto mit dem neuen Password einloggen."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Passwort erfolgreich zurückgesetzt"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Passwort zurücksetzen"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Passwort bestätigen"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Gib unten dein neues Passwort ein, um Zugriff auf deinen Account zu erhalten."
+  },
+  "auth.reset-password.title": {
+    "message": "Passwort zurücksetzen"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Passwort zurücksetzen"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Bitte gib den Zwei-Faktor-Code ein, um fortzufahren."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Zwei-Faktor-Code eingeben"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Code eingeben..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Passwort vergessen?</forgot-password-link> • <create-account-link>Erstelle ein Konto</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "E-Mail oder Benutzername"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Passwort"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Anmelden mit"
+  },
+  "auth.sign-in.title": {
+    "message": "Anmelden"
+  },
+  "auth.sign-in.use-password": {
+    "message": "Oder Passwort verwenden"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Konto erstellen"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Passwort bestätigen"
+  },
+  "auth.sign-up.email.label": {
+    "message": "E-Mail"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Benutzername"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "Durch das Erstellen eines Kontos stimmst du den <terms-link>Nutzungsbedingungen</terms-link> und der <privacy-policy-link>Datenschutzrichtlinie</privacy-policy-link> von Modrinth zu."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Passwörter stimmen nicht überein."
+  },
+  "auth.sign-up.password.label": {
+    "message": "Passwort"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Hast du bereits einen Account?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Abonnieren Sie Updates über Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Registrieren"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "Oder erstelle ein Konto selbst"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Registrieren mit"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Kontoeinstellungen"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Anmelden"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "Deine E-Mail wurde bereits bestätigt!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "E-Mail schon bestätigt"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Bestätigungs-E-Mail erneut senden"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "Wir konnten deine E-Mail nicht verifizieren. Versuche die Bestätigungs-E-Mail erneut über dein Dashboard zu senden, indem du dich anmeldest."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "Wir konnten deine E-Mail nicht verifizieren. Versuche die Bestätigungs-E-Mail erneut über die Schaltfläche unten zu senden."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "E-Mail-Verifizierung fehlgeschlagen"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "Deine E-Mail wurde erfolgreich bestätigt!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "E-Mail-Überprüfung"
+  },
+  "auth.verify-email.title": {
+    "message": "E-Mail verifizieren"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Erhalte Neuigkeiten zu Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Danke, dass du ein Konto erstellt hast. Du kannst jetzt Projekte folgen, eigene erstellen, Updates zu deinen Favoriten erhalten und mehr!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "Durch das Erstellen eines Kontos stimmst du den <terms-link>Nutzungsbedingungen</terms-link> und der <privacy-policy-link>Datenschutzrichtlinie</privacy-policy-link> von Modrinth zu."
+  },
+  "auth.welcome.long-title": {
+    "message": "Willkommen bei Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Willkommen"
+  },
+  "button.cancel": {
+    "message": "Abbrechen"
+  },
+  "button.continue": {
+    "message": "Weiter"
+  },
+  "button.create-a-project": {
+    "message": "Projekt erstellen"
+  },
+  "button.edit": {
+    "message": "Bearbeiten"
+  },
+  "button.save": {
+    "message": "Speichern"
+  },
+  "button.save-changes": {
+    "message": "Änderungen speichern"
+  },
+  "button.sign-in": {
+    "message": "Anmelden"
+  },
+  "button.sign-out": {
+    "message": "Abmelden"
+  },
+  "button.upload-image": {
+    "message": "Bild hochladen"
+  },
+  "collection.button.delete-icon": {
+    "message": "Profilbild löschen"
+  },
+  "collection.button.edit-icon": {
+    "message": "Profilbild bearbeiten"
+  },
+  "collection.button.remove-project": {
+    "message": "Projekt entfernen"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Projekt nicht mehr folgen"
+  },
+  "collection.button.upload-icon": {
+    "message": "Profilbild hochladen"
+  },
+  "collection.delete-modal.description": {
+    "message": "Dies wird diese Sammlung für immer entfernen. Diese Aktion kann nicht rückgängig gemacht werden."
+  },
+  "collection.delete-modal.title": {
+    "message": "Sind Sie sicher, dass Sie diesen Abschnitt löschen wollen?"
+  },
+  "collection.description": {
+    "message": "{description} - {name} von {username} auf Modrinth ansehen"
+  },
+  "collection.description.following": {
+    "message": "Automatisch generierte Sammlung aller Projekte, denen Sie folgen."
+  },
+  "collection.error.not-found": {
+    "message": "Sammlung nicht gefunden"
+  },
+  "collection.label.collection": {
+    "message": "Sammlung"
+  },
+  "collection.label.created-at": {
+    "message": "Erstellt vor {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Erstellt von"
+  },
+  "collection.label.no-projects": {
+    "message": "Diese Sammlung hat keine Projekte!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "Du hast keine Projekte.\nMöchtest du eins  <create-link>erstellen<create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Eigentümer"
+  },
+  "collection.label.private": {
+    "message": "Privat"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, one {<stat>{count}</stat> Projekt} other {<stat>{count}</stat> Projekte}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Aktualisiert vor {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - Sammlung"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Neu erstellen"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, one {{count} Projekt} other {{count} Projekte}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Ihre Sammlungen durchsuchen"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Deine Sammlungen"
+  },
+  "frog": {
+    "message": "Du wurdest gefroscht! 🐸"
+  },
+  "frog.altText": {
+    "message": "Ein fotorealistisches Gemälde von einem Froschlabyrinth"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural, one {Eine andere Person wurde} other {{count} andere Personen wurden}} auch gefroscht!"
+  },
+  "frog.sinceOpened": {
+    "message": "Diese Seite wurde vor {ago} geöffnet"
+  },
+  "frog.title": {
+    "message": "Frosch"
+  },
+  "input.view.gallery": {
+    "message": "Galerieansicht"
+  },
+  "input.view.grid": {
+    "message": "Rasteransicht"
+  },
+  "input.view.list": {
+    "message": "Zeilenansicht"
+  },
+  "label.changes-saved": {
+    "message": "Änderungen gespeichert"
+  },
+  "label.collections": {
+    "message": "Sammlungen"
+  },
+  "label.created-ago": {
+    "message": "Erstellt vor {ago}"
+  },
+  "label.dashboard": {
+    "message": "Übersicht"
+  },
+  "label.delete": {
+    "message": "Löschen"
+  },
+  "label.description": {
+    "message": "Beschreibung"
+  },
+  "label.error": {
+    "message": "Fehler"
+  },
+  "label.followed-projects": {
+    "message": "Gefolgte Projekte"
+  },
+  "label.moderation": {
+    "message": "Moderation"
+  },
+  "label.notifications": {
+    "message": "Benachrichtigungen"
+  },
+  "label.password": {
+    "message": "Passwort"
+  },
+  "label.public": {
+    "message": "Öffentlich"
+  },
+  "label.rejected": {
+    "message": "Abgelehnt"
+  },
+  "label.scopes": {
+    "message": "Anwendungsbereich"
+  },
+  "label.settings": {
+    "message": "Einstellungen"
+  },
+  "label.title": {
+    "message": "Titel"
+  },
+  "label.unlisted": {
+    "message": "Nicht gelistet"
+  },
+  "label.visibility": {
+    "message": "Sichtbarkeit"
+  },
+  "label.visit-your-profile": {
+    "message": "Besuche dein Profil"
+  },
+  "layout.action.change-theme": {
+    "message": "Farbschema ändern"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Modrinth App herunterladen"
+  },
+  "layout.avatar.alt": {
+    "message": "Dein Avatar"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Accounteinstellungen besuchen"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Zu Sicherheitszwecken geben Sie bitte Ihre E-Mail auf Modrinth ein."
+  },
+  "layout.banner.staging.description": {
+    "message": "Die Staging-Umgebung läuft auf einer Kopie der Produktion Modrinth Datenbank. Dies wird für Test- und Debuggingzwecke verwendet und kann in der Entwicklung Versionen des Modrinth Backends oder Frontend neuer als die Produktionsinstanz sein."
+  },
+  "layout.banner.staging.title": {
+    "message": "Sie sehen sich Modrinths Bühnenumgebung an."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Bestätigungs-E-Mail erneut senden"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "Zu Sicherheitszwecken geben Sie bitte Ihre E-Mail auf Modrinth ein."
+  },
+  "layout.footer.company.careers": {
+    "message": "Karriere"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Datenschutz"
+  },
+  "layout.footer.company.rules": {
+    "message": "Regeln"
+  },
+  "layout.footer.company.terms": {
+    "message": "Nutzungsbedingungen"
+  },
+  "layout.footer.company.title": {
+    "message": "Unternehmen"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interagieren"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "KEINE OFFIZIELLE MINECRAFT SERVICE. NICHT VON MOJANG ODER MIT MICROSOFT VERBUNDEN."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth ist <github-link>Open Source</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Dokumentation"
+  },
+  "layout.footer.resources.status": {
+    "message": "Status"
+  },
+  "layout.footer.resources.support": {
+    "message": "Unterstützung"
+  },
+  "layout.footer.resources.title": {
+    "message": "Ressourcen"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Menü umschalten"
+  },
+  "layout.meta.description": {
+    "message": "Lade Minecraft-Mods, Plugins, Datapacks, Shader, Ressourcepacks und Modpacks auf Modrinth herunter. Entdecken und veröffentlichen Sie Projekte auf Modrinth mit einer modernen, einfach zu bedienenden Schnittstelle und API."
+  },
+  "layout.meta.og-description": {
+    "message": "Entdecke und veröffentliche Minecraft-Inhalte!"
+  },
+  "layout.nav.home": {
+    "message": "Startseite"
+  },
+  "layout.nav.search": {
+    "message": "Suche"
+  },
+  "notification.error.title": {
+    "message": "Ein Fehler ist aufgetreten"
+  },
+  "profile.button.manage-projects": {
+    "message": "Projekte verwalten"
+  },
+  "profile.button.report": {
+    "message": "Melden"
+  },
+  "profile.error.not-found": {
+    "message": "Benutzer nicht gefunden"
+  },
+  "profile.joined-at": {
+    "message": "Vor {ago} beigetreten"
+  },
+  "profile.label.no-collections": {
+    "message": "Dieser Benutzer hat keine Sammlungen!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "Du hast keine Sammlungen.\nMöchtest du eine <create-link>erstellen</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "Dieser Benutzer hat keine Projekte!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "Du hast keine Projekte.\nMöchtest du eins  <create-link>erstellen<create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Organisationen"
+  },
+  "profile.meta.description": {
+    "message": "Lade {username}'s Projekte auf Modrinth herunter"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Lade {username}'s Projekte auf Modrinth herunter"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> mal heruntergeladen} other {<stat>{count}</stat> mal heruntergeladen}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> Follower} other {<stat>{count}</stat> Follower}} von Projekten"
+  },
+  "profile.user-id": {
+    "message": "Nutzer-ID: {id}"
+  },
+  "project-type.all": {
+    "message": "Alle"
+  },
+  "project-type.collection.plural": {
+    "message": "Sammlungen"
+  },
+  "project-type.collection.singular": {
+    "message": "Sammlung"
+  },
+  "project-type.datapack.plural": {
+    "message": "Datenpakete"
+  },
+  "project-type.datapack.singular": {
+    "message": "Datenpaket"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Modpacks"
+  },
+  "project-type.modpack.singular": {
+    "message": "Modpack"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projekte"
+  },
+  "project-type.project.singular": {
+    "message": "Projekt"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Ressourcenpakete"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Ressourcenpaket"
+  },
+  "project-type.shader.plural": {
+    "message": "Shader"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
+  },
+  "revenue.transfers.total": {
+    "message": "Sie haben insgesamt {amount} abgehoben."
+  },
+  "revenue.transfers.total.method": {
+    "message": "Sie haben {amount} über {method} abgehoben."
+  },
+  "revenue.transfers.total.year": {
+    "message": "Sie haben im Jahr {year} {amount} abgehoben."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "Sie haben im Jahr {year} {amount} über {method} abgehoben."
+  },
+  "scopes.analytics.description": {
+    "message": "Greifen Sie auf Ihre Analysedaten zu"
+  },
+  "scopes.analytics.label": {
+    "message": "Analysen lesen"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Sammlungen erstellen"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Sammlungen erstellen"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Sammlungen löschen"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Sammlungen löschen"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Sammlungen lesen"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Sammlungen lesen"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "In Sammlungen schreiben"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "In Sammlungen schreiben"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Benachrichtigungen lesen"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Benachrichtigungen lesen"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Benachrichtigungen löschen/lesen"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Benachrichtigungen schreiben"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Organisationen erstellen"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Organisationen erstellen"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Organisationen löschen"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Organisationen löschen"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Organisationen lesen"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Organisationen lesen"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "In Organisationen schreiben"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "In Organisationen schreiben"
+  },
+  "scopes.patCreate.description": {
+    "message": "Persönliche API-Tokens erstellen"
+  },
+  "scopes.patCreate.label": {
+    "message": "PATs erstellen"
+  },
+  "scopes.patDelete.description": {
+    "message": "Persönliche API-Tokens löschen"
+  },
+  "scopes.patDelete.label": {
+    "message": "PATs löschen"
+  },
+  "scopes.patRead.description": {
+    "message": "Erstellte API-Tokens anzeigen"
+  },
+  "scopes.patRead.label": {
+    "message": "PATs lesen"
+  },
+  "scopes.patWrite.description": {
+    "message": "Persönliche API-Tokens bearbeiten"
+  },
+  "scopes.patWrite.label": {
+    "message": "PATs erstellen"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Auszahlungsdaten lesen"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Auszahlungen lesen"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Geld auszahlen"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Auszahlungen schreiben"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Analyseaktionen ausführen"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Analysen durchführen"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Neue Projekte erstellen"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Projekte erstellen"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Deine Projekte löschen"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Projekte löschen"
+  },
+  "scopes.projectRead.description": {
+    "message": "Alle deine Projekte lesen"
+  },
+  "scopes.projectRead.label": {
+    "message": "Projekte lesen"
+  },
+  "scopes.projectWrite.description": {
+    "message": "In Projektdaten schreiben"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Projekte schreiben"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Berichte erstellen"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Berichte erstellen"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Berichte löschen"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Berichte löschen"
+  },
+  "scopes.reportRead.description": {
+    "message": "Berichte lesen"
+  },
+  "scopes.reportRead.label": {
+    "message": "Berichte lesen"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Berichte bearbeiten"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Berichte schreiben"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Zugriff auf Modrinth-ausgestellte Sitzungen"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Zugriff auf Sitzungen"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Sitzungen löschen"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Sitzungen löschen"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Aktive Sitzungen lesen"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Sitzungen lesen"
+  },
+  "scopes.threadRead.description": {
+    "message": "Beiträge lesen"
+  },
+  "scopes.threadRead.label": {
+    "message": "Beiträge lesen"
+  },
+  "scopes.threadWrite.description": {
+    "message": "In Beiträge schreiben"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Beiträge schreiben"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Deine Authentifizierungsdaten ändern"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Authentifizierungsdaten schreiben"
+  },
+  "scopes.userDelete.description": {
+    "message": "Dein Konto löschen"
+  },
+  "scopes.userDelete.label": {
+    "message": "Dein Konto löschen"
+  },
+  "scopes.userRead.description": {
+    "message": "Zugriff auf Ihre öffentlichen Profilinformationen"
+  },
+  "scopes.userRead.label": {
+    "message": "Benutzerdaten lesen"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Deine E-Mail lesen"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Deine E-Mail lesen"
+  },
+  "scopes.userWrite.description": {
+    "message": "Auf Ihr Profil schreiben"
+  },
+  "scopes.userWrite.label": {
+    "message": "Auf Ihr Profil schreiben"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Neue Versionen erstellen"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Versionen erstellen"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Eine Version löschen"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Versionen löschen"
+  },
+  "scopes.versionRead.description": {
+    "message": "Alle Versionen lesen"
+  },
+  "scopes.versionRead.label": {
+    "message": "Versionen lesen"
+  },
+  "scopes.versionWrite.description": {
+    "message": "In Versionsdaten schreiben"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Versionen schreiben"
+  },
+  "settings.account.title": {
+    "message": "Konto und Sicherheit"
+  },
+  "settings.appearance.title": {
+    "message": "Erscheinungsbild"
+  },
+  "settings.applications.title": {
+    "message": "Deine Anwendungen"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Autorisierte Apps"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Entwicklermodus deaktivieren"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Entwicklermodus</strong> ist aktiviert. Dadurch kannst du die internen IDs verschiedener Elemente in Modrinth anzeigen, was für Entwickler, die die Modrinth-API verwenden, nützlich sein kann. Klicke fünfmal auf das Modrinth-Logo unten auf der Seite, um den Entwicklermodus umzuschalten."
+  },
+  "settings.display.flags.description": {
+    "message": "Aktiviere oder deaktiviere bestimmte Funktionen auf diesem Gerät."
+  },
+  "settings.display.flags.title": {
+    "message": "Funktionen umschalten"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Datenpakete-Seite"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Wähle dein bevorzugtes Layout für jede Seite mit Projektlisten auf diesem Gerät aus."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Mods-Seite"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Modpacks-Seite"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Plugins-Seite"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Ressourcenpakete-Seite"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Shader-Seite"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Layouts für Projektlisten"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "Benutzerprofilseiten"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Aktiviert erweiterte Renderfunktionen wie Unschärfeeffekte, die ohne hardwarebeschleunigtes Rendering zu Leistungsproblemen führen können."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Erweiterte Renderfunktionen"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Links, die außerhalb von Modrinth führen, sollten in einem neuen Tab geöffnet werden. Unabhängig von dieser Einstellung werden Links auf der gleichen Domain und in Markdown-Beschreibungen im selben Tab geöffnet, und Links auf Anzeigen- und Bearbeitungsseiten werden in einem neuen Tab geöffnet."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Externe Links in neuem Tab öffnen"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Versteckt die \"Modrinth App herunterladen\"-Schaltflächen aus der Hauptnavigation. Die Seite der Modrinth App kann immer noch auf der Startseite oder in der Fußzeile gefunden werden."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Modrinth App Werbung ausblenden"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Projektdetails-Seitenleiste rechts neben dem Inhalt der Seite ausrichten."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Rechtsbündige Projekt-Seitenleiste"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Suchfilter-Seitenleiste rechts neben den Suchergebnissen ausrichten."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Rechtsbündige Such-Seitenleiste"
+  },
+  "settings.display.theme.dark": {
+    "message": "Dunkel"
+  },
+  "settings.display.theme.description": {
+    "message": "Wähle dein bevorzugtes Farbschema für Modrinth auf diesem Gerät."
+  },
+  "settings.display.theme.light": {
+    "message": "Hell"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Bevorzugtes dunkles Design"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Bevorzugtes helles Design"
+  },
+  "settings.display.theme.retro": {
+    "message": "Retro"
+  },
+  "settings.display.theme.system": {
+    "message": "Mit System synchronisieren"
+  },
+  "settings.display.theme.title": {
+    "message": "Farbschema"
+  },
+  "settings.language.categories.auto": {
+    "message": "Automatisch"
+  },
+  "settings.language.categories.default": {
+    "message": "Standardsprachen"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Experimentelle Sprachen"
+  },
+  "settings.language.categories.fun": {
+    "message": "Spaß Sprachen"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Suchergebnisse"
+  },
+  "settings.language.description": {
+    "message": "Wähle deine bevorzugte Sprache für diese Website. Sprachen werden von Freiwilligen <crowdin-link>auf Crowdin</crowdin-link> übersetzt."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Mit der Systemsprache synchronisieren"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Anwenden..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Fehler"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "Diese Sprache konnte nicht geladen werden. Versuche es später erneut."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Absenden, um das erste Suchergebnis auszuwählen"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Nach einer Sprache suchen..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {Keine Sprache stimmt} one {Eine Sprache stimmt} other {# Sprachen stimmen}} mit deiner Suche überein."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "Keine Sprachen stimmen mit deiner Suche überein."
+  },
+  "settings.language.title": {
+    "message": "Sprache"
+  },
+  "settings.pats.action.create": {
+    "message": "Erstelle ein PAT"
+  },
+  "settings.pats.description": {
+    "message": "Mit PATs kannst du auf die API von Modrinth zugreifen. Weitere Informationen findest du in der <doc-link>Dokumentation zur Modrinth-API</doc-link>. Sie können jederzeit erstellt und widerrufen werden."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "PAT erstellen"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Ablaufdatum"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Name"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Gib den Namen des PAT ein..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Erstelle einen persönlichen Zugriffstoken"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Lösche diesen Token"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "Dies wird diesen Token für immer entfernen (wirklich für immer)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Bist du sicher, dass du diesen Token löschen möchtest?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Bearbeite den persönlichen Zugriffstoken"
+  },
+  "settings.pats.title": {
+    "message": "Persönliche Zugangstoken"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Token bearbeiten"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Token widerrufen"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Abgelaufen {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Verfällt in {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Zuletzt verwendet {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Nie verwendet"
+  },
+  "settings.profile.bio.description": {
+    "message": "Eine kurze Beschreibung, um allen ein wenig über dich zu erzählen."
+  },
+  "settings.profile.bio.title": {
+    "message": "Bio"
+  },
+  "settings.profile.description": {
+    "message": "Ihre Profilinformationen sind öffentlich auf Modrinth und über die <docs-link>Modrinth API</docs-link> einsehbar."
+  },
+  "settings.profile.profile-info": {
+    "message": "Profilinformationen"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Zurücksetzen"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Profilbild"
+  },
+  "settings.profile.title": {
+    "message": "Öffentliches Profil"
+  },
+  "settings.profile.username.description": {
+    "message": "Ein eindeutiger Name ohne Groß- und Kleinschreibung zur Identifizierung deines Profils."
+  },
+  "settings.profile.username.title": {
+    "message": "Benutzername"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Sitzung widerrufen"
+  },
+  "settings.sessions.created-ago": {
+    "message": "Erstellt {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "Aktuelle Sitzung"
+  },
+  "settings.sessions.description": {
+    "message": "Hier sind alle Geräte, die derzeit mit Ihrem Modrinth-Konto angemeldet sind. Sie können sich von jedem einzelnen separat ausloggen.\n\nWenn du einen Eintrag siehst, den du nicht kennst, logge dich von diesem Gerät aus und ändere umgehend das Passwort deines Modrinth-Kontos."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "Letzter Zugriff {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "Sitzungen"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "Unbekanntes Betriebssystem"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Unbekannte Plattform"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} um {time, time, short}"
+  }
+}

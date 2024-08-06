@@ -1,0 +1,1040 @@
+{
+  "auth.authorize.action.authorize": {
+    "message": "Autoritzar"
+  },
+  "auth.authorize.action.decline": {
+    "message": "Rebutjar"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> per <creator-link>{creator}</creator-link> tindrà accés a:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "Autoritza {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "No s'ha trobat cap lloc de redirecció a la resposta"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "Seràs redirigit a <redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "Envia un correu de recuperació"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "Introdueix la teva adreça de correu electrònic i t'enviarem un enllaç per recuperar el teu compte."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "Correu o nom d'usuari"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "Correu"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "S'ha enviat un correu electrònic amb instruccions si l'adreça estava associada amb el teu compte."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "Correu enviat"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "Ja pots iniciar sessió al teu compte amb la teva nova contrasenya."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "Contrasenya restablida exitosament"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "Restablir la contrasenya"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "Confirmar contrasenya"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "Introdueix baix la teva nova contrasenya per obtenir accés al teu compte."
+  },
+  "auth.reset-password.title": {
+    "message": "Restablir contrasenya"
+  },
+  "auth.reset-password.title.long": {
+    "message": "Restableix la teva contrasenya"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "Si us plau, introduïu un codi de doble factor per continuar."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "Introdueix un codi de doble factor"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "Introdueix codi..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>Has oblidat la teva contrasenya?</forgot-password-link> • <create-account-link>Crea un compte</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "Correu o nom d'usuari"
+  },
+  "auth.sign-in.password.label": {
+    "message": "Contrasenya"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "Inicia la sessió amb"
+  },
+  "auth.sign-in.title": {
+    "message": "Iniciar sessió"
+  },
+  "auth.sign-in.use-password": {
+    "message": "O fes servir la teva contrasenya"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "Crea un compte"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "Confirmar contrasenya"
+  },
+  "auth.sign-up.email.label": {
+    "message": "Correu electrònic"
+  },
+  "auth.sign-up.label.username": {
+    "message": "Nom d'usuari"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "En crear un compte, acceptes els <terms-link>Termes</terms-link> i la <privacy-policy-link>Política de Privacitat</privacy-policy-link> de Modrinth."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "Les contrasenyes no coincideixen!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "Contrasenya"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "Ja tens un compte?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Subscriure's a les actualitzacions de Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "Registrar-se"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "O crea un compte tu mateix"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "Registrar-se amb"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "Configuració del compte"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "Inicia sessió"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "La teva adreça de correu ja està verificada!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "Adreça de correu ja verificada"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "Reenvia el correu de verificació"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "No hem pogut verificar la teva adreça de correu. Prova de reenviar el correu de verificació a través del teu panell en iniciar sessió."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "No hem pogut verificar la teva adreça de correu. Prova de reenviar el correu de verificació a través d'aquest botó."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "Verificació de l'adreça de correu fallida"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "La teva adreça de correu s'ha verificat exitosament!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "Verificació del correu"
+  },
+  "auth.verify-email.title": {
+    "message": "Verifica el correu electrònic"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Subscriu-te a actualitzacions sobre Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "Gràcies per crear un compte. Ja pots seguir i crear projectes, rebre actualitzacions sobre els teus projectes preferits i més!"
+  },
+  "auth.welcome.label.tos": {
+    "message": "En crear un compte, has acceptat els <terms-link>Termes</terms-link> i la <privacy-policy-link>Política de Privacitat</privacy-policy-link>."
+  },
+  "auth.welcome.long-title": {
+    "message": "Benvingut a Modrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "Benvingut"
+  },
+  "button.cancel": {
+    "message": "Cancel·la"
+  },
+  "button.continue": {
+    "message": "Continuar"
+  },
+  "button.create-a-project": {
+    "message": "Crea un projecte"
+  },
+  "button.edit": {
+    "message": "Edita"
+  },
+  "button.save": {
+    "message": "Desa"
+  },
+  "button.save-changes": {
+    "message": "Desa els canvis"
+  },
+  "button.sign-in": {
+    "message": "Inicia sessió"
+  },
+  "button.sign-out": {
+    "message": "Tanca sessió"
+  },
+  "button.upload-image": {
+    "message": "Puja imatge"
+  },
+  "collection.button.delete-icon": {
+    "message": "Elimina icona"
+  },
+  "collection.button.edit-icon": {
+    "message": "Edita icona"
+  },
+  "collection.button.remove-project": {
+    "message": "Elimina projecte"
+  },
+  "collection.button.unfollow-project": {
+    "message": "Unfollow project"
+  },
+  "collection.button.upload-icon": {
+    "message": "Puja icona"
+  },
+  "collection.delete-modal.description": {
+    "message": "Això eliminarà aquesta col·lecció per sempre. Aquesta acció no pot ser desfeta."
+  },
+  "collection.delete-modal.title": {
+    "message": "Esteu segur que voleu suprimir aquesta col·lecció?"
+  },
+  "collection.description": {
+    "message": "{description} - Veu la col·lecció {name} de {username} a Modrinth"
+  },
+  "collection.description.following": {
+    "message": "Col·lecció autogenerada de tots els projectes que segueixes."
+  },
+  "collection.error.not-found": {
+    "message": "Col·lecció no trobada"
+  },
+  "collection.label.collection": {
+    "message": "Col·lecció"
+  },
+  "collection.label.created-at": {
+    "message": "Creat fa {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "Creat per"
+  },
+  "collection.label.no-projects": {
+    "message": "Aquesta col·lecció no té projectes!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "No tens cap projecte. T'agradaria <create-link>crear-ne un</create-link>?"
+  },
+  "collection.label.owner": {
+    "message": "Propietari"
+  },
+  "collection.label.private": {
+    "message": "Privat"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural,one {<stat>{count}</stat> projecte}other {<stat>{count}</stat> projectes}}"
+  },
+  "collection.label.updated-at": {
+    "message": "Actualitzat fa {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - Col·lecció"
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "Crear nova"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural,one {{count} projecte}other {{count} projectes}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "Busca les teves col·leccions"
+  },
+  "dashboard.collections.long-title": {
+    "message": "Les teves col·leccions"
+  },
+  "frog": {
+    "message": "Has estat granotat! 🐸"
+  },
+  "frog.altText": {
+    "message": "Una pintura fotorealista d'un laberint granota"
+  },
+  "frog.froggedPeople": {
+    "message": "{count, plural,one {{count} persona mès també ha estat granotada} other {{count} persones mès també han estat granotades}}!"
+  },
+  "frog.sinceOpened": {
+    "message": "Aquesta pàgina s'ha obert fa {ago}"
+  },
+  "frog.title": {
+    "message": "Granota"
+  },
+  "input.view.gallery": {
+    "message": "Vista en galeria"
+  },
+  "input.view.grid": {
+    "message": "Vista en quadrícula"
+  },
+  "input.view.list": {
+    "message": "Vista per files"
+  },
+  "label.changes-saved": {
+    "message": "Canvis desats"
+  },
+  "label.collections": {
+    "message": "Col·leccions"
+  },
+  "label.created-ago": {
+    "message": "Creat fa {ago}"
+  },
+  "label.dashboard": {
+    "message": "Tauler de control"
+  },
+  "label.delete": {
+    "message": "Suprimeix"
+  },
+  "label.description": {
+    "message": "Descripció"
+  },
+  "label.error": {
+    "message": "Error"
+  },
+  "label.followed-projects": {
+    "message": "Projectes seguits"
+  },
+  "label.moderation": {
+    "message": "Moderació"
+  },
+  "label.notifications": {
+    "message": "Notificacions"
+  },
+  "label.password": {
+    "message": "Contrasenya"
+  },
+  "label.public": {
+    "message": "Públic"
+  },
+  "label.rejected": {
+    "message": "Rebutjat"
+  },
+  "label.scopes": {
+    "message": "Permisos"
+  },
+  "label.settings": {
+    "message": "Configuració"
+  },
+  "label.title": {
+    "message": "Títol"
+  },
+  "label.unlisted": {
+    "message": "Ocult"
+  },
+  "label.visibility": {
+    "message": "Visibilitat"
+  },
+  "label.visit-your-profile": {
+    "message": "Visita el teu perfil"
+  },
+  "layout.action.change-theme": {
+    "message": "Canvia el tema"
+  },
+  "layout.action.get-modrinth-app": {
+    "message": "Baixa l'app de Modrinth"
+  },
+  "layout.avatar.alt": {
+    "message": "El teu avatar"
+  },
+  "layout.banner.add-email.button": {
+    "message": "Visita la configuració del compte"
+  },
+  "layout.banner.add-email.title": {
+    "message": "Per seguretat, si us plau poseu un correu electrònic a Modrinth."
+  },
+  "layout.banner.staging.description": {
+    "message": "The staging environment is running on a copy of the production Modrinth database. This is used for testing and debugging purposes, and may be running in-development versions of the Modrinth backend or frontend newer than the production instance."
+  },
+  "layout.banner.staging.title": {
+    "message": "You’re viewing Modrinth’s staging environment."
+  },
+  "layout.banner.verify-email.action": {
+    "message": "Reenvia el correu de verificació"
+  },
+  "layout.banner.verify-email.title": {
+    "message": "Per seguretat, si us plau verifiqui el seu correu electrònic a Modrinth."
+  },
+  "layout.footer.company.careers": {
+    "message": "Carreres"
+  },
+  "layout.footer.company.privacy": {
+    "message": "Privacitat"
+  },
+  "layout.footer.company.rules": {
+    "message": "Normes"
+  },
+  "layout.footer.company.terms": {
+    "message": "Termes"
+  },
+  "layout.footer.company.title": {
+    "message": "Empresa"
+  },
+  "layout.footer.interact.title": {
+    "message": "Interactua"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "SERVEI NO OFICIAL DE MINECRAFT. NO APROVAT PER O ASSOCIAT AMB MOJANG O MICROSOFT."
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth és <github-link>codi obert</github-link>."
+  },
+  "layout.footer.resources.blog": {
+    "message": "Blog"
+  },
+  "layout.footer.resources.docs": {
+    "message": "Documentació"
+  },
+  "layout.footer.resources.status": {
+    "message": "Estat"
+  },
+  "layout.footer.resources.support": {
+    "message": "Assistència"
+  },
+  "layout.footer.resources.title": {
+    "message": "Recursos"
+  },
+  "layout.menu-toggle.action": {
+    "message": "Menú desplegable"
+  },
+  "layout.meta.description": {
+    "message": "Descarrega mods, plugins, datapacks, shaders, resourcepacks, i modpacks de Minecraft a Modrinth. Descobreix i publica projectes a Modrinth amb una interfície i API, moderna i fàcil d'utilitzar."
+  },
+  "layout.meta.og-description": {
+    "message": "Descobreix i publica contingut de Minecraft!"
+  },
+  "layout.nav.home": {
+    "message": "Inici"
+  },
+  "layout.nav.search": {
+    "message": "Cerca"
+  },
+  "notification.error.title": {
+    "message": "S'ha produït un error"
+  },
+  "profile.button.manage-projects": {
+    "message": "Gestionar projectes"
+  },
+  "profile.button.report": {
+    "message": "Informa"
+  },
+  "profile.error.not-found": {
+    "message": "No s'ha trobat l'usuari"
+  },
+  "profile.joined-at": {
+    "message": "Es va unir fa {ago}"
+  },
+  "profile.label.no-collections": {
+    "message": "Aquest usuari no té col·leccions!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "No tens cap col·lecció. T'agradaria <create-link>crear-ne una</create-link>?"
+  },
+  "profile.label.no-projects": {
+    "message": "Aquest usuari no té projectes!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "No tens cap projecte. T'agradaria <create-link>crear-ne un</create-link>?"
+  },
+  "profile.label.organizations": {
+    "message": "Organitzacions"
+  },
+  "profile.meta.description": {
+    "message": "Descarrega els projectes de {username} a Modrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Descarrega els projectes de {username} a Modrinth"
+  },
+  "profile.stats.downloads": {
+    "message": "{count, plural, one {<stat>{count}</stat> descàrrega} other {<stat>{count}</stat> descàrregues}}"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, one {<stat>{count}</stat> seguidor} other {<stat>{count}</stat> seguidors}} de projectes"
+  },
+  "profile.user-id": {
+    "message": "ID d'usuari: {id}"
+  },
+  "project-type.all": {
+    "message": "Tot"
+  },
+  "project-type.collection.plural": {
+    "message": "Col·leccions"
+  },
+  "project-type.collection.singular": {
+    "message": "Col·lecció"
+  },
+  "project-type.datapack.plural": {
+    "message": "Paquets de dades"
+  },
+  "project-type.datapack.singular": {
+    "message": "Paquet de dades"
+  },
+  "project-type.mod.plural": {
+    "message": "Mods"
+  },
+  "project-type.mod.singular": {
+    "message": "Mod"
+  },
+  "project-type.modpack.plural": {
+    "message": "Paquets de mods"
+  },
+  "project-type.modpack.singular": {
+    "message": "Paquet de mods"
+  },
+  "project-type.plugin.plural": {
+    "message": "Plugins"
+  },
+  "project-type.plugin.singular": {
+    "message": "Plugin"
+  },
+  "project-type.project.plural": {
+    "message": "Projectes"
+  },
+  "project-type.project.singular": {
+    "message": "Projecte"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "Paquets de recursos"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "Paquet de recurursos"
+  },
+  "project-type.shader.plural": {
+    "message": "Shaders"
+  },
+  "project-type.shader.singular": {
+    "message": "Shader"
+  },
+  "revenue.transfers.total": {
+    "message": "Has retirat {amount} en total."
+  },
+  "revenue.transfers.total.method": {
+    "message": "Has retirat {amount} a través de {method}."
+  },
+  "revenue.transfers.total.year": {
+    "message": "Has retirat {amount} el {year}."
+  },
+  "revenue.transfers.total.year_method": {
+    "message": "Has retirat {amount} el {year} a través de {method}."
+  },
+  "scopes.analytics.description": {
+    "message": "Accedeix a les teves dades analítiques"
+  },
+  "scopes.analytics.label": {
+    "message": "Llegeix analítiques"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "Crea col·leccions"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "Crea col·leccions"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "Suprimeix col·leccions"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "Suprimeix col·leccions"
+  },
+  "scopes.collectionRead.description": {
+    "message": "Llegeix col·leccions"
+  },
+  "scopes.collectionRead.label": {
+    "message": "Llegeix col·leccions"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "Escriu a col·leccions"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "Escriu col·leccions"
+  },
+  "scopes.notificationRead.description": {
+    "message": "Llegeix les teves notificacions"
+  },
+  "scopes.notificationRead.label": {
+    "message": "Llegeix les notificacions"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "Suprimeix/Veu les teves notificacions"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "Escriu notificacions"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "Crea organitzacions"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "Crea organitzacions"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "Suprimeix organitzacions"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "Suprimeix organitzacions"
+  },
+  "scopes.organizationRead.description": {
+    "message": "Llegeix organitzacions"
+  },
+  "scopes.organizationRead.label": {
+    "message": "Llegeix organitzacions"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "Escriu a organitzacions"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "Escriu organitzacions"
+  },
+  "scopes.patCreate.description": {
+    "message": "Crear tokens personals de la API"
+  },
+  "scopes.patCreate.label": {
+    "message": "Crear PATs"
+  },
+  "scopes.patDelete.description": {
+    "message": "Suprimeix els teus tokens personals de la API"
+  },
+  "scopes.patDelete.label": {
+    "message": "Suprimeix PATs"
+  },
+  "scopes.patRead.description": {
+    "message": "Veure tokens de la API creats"
+  },
+  "scopes.patRead.label": {
+    "message": "Llegir PATs"
+  },
+  "scopes.patWrite.description": {
+    "message": "Editar tokens personals de la API"
+  },
+  "scopes.patWrite.label": {
+    "message": "Escriure PATs"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "Read your payouts data"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "Read payouts"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "Retirar diners"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "Write payouts"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "Perform analytics actions"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "Perform analytics"
+  },
+  "scopes.projectCreate.description": {
+    "message": "Create new projects"
+  },
+  "scopes.projectCreate.label": {
+    "message": "Create projects"
+  },
+  "scopes.projectDelete.description": {
+    "message": "Delete your projects"
+  },
+  "scopes.projectDelete.label": {
+    "message": "Delete projects"
+  },
+  "scopes.projectRead.description": {
+    "message": "Read all your projects"
+  },
+  "scopes.projectRead.label": {
+    "message": "Read projects"
+  },
+  "scopes.projectWrite.description": {
+    "message": "Write to project data"
+  },
+  "scopes.projectWrite.label": {
+    "message": "Write projects"
+  },
+  "scopes.reportCreate.description": {
+    "message": "Create reports"
+  },
+  "scopes.reportCreate.label": {
+    "message": "Create reports"
+  },
+  "scopes.reportDelete.description": {
+    "message": "Delete reports"
+  },
+  "scopes.reportDelete.label": {
+    "message": "Delete reports"
+  },
+  "scopes.reportRead.description": {
+    "message": "Read reports"
+  },
+  "scopes.reportRead.label": {
+    "message": "Read reports"
+  },
+  "scopes.reportWrite.description": {
+    "message": "Edit reports"
+  },
+  "scopes.reportWrite.label": {
+    "message": "Write reports"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "Access modrinth-issued sessions"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "Access sessions"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "Delete sessions"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "Delete sessions"
+  },
+  "scopes.sessionRead.description": {
+    "message": "Read active sessions"
+  },
+  "scopes.sessionRead.label": {
+    "message": "Read sessions"
+  },
+  "scopes.threadRead.description": {
+    "message": "Read threads"
+  },
+  "scopes.threadRead.label": {
+    "message": "Read threads"
+  },
+  "scopes.threadWrite.description": {
+    "message": "Write to threads"
+  },
+  "scopes.threadWrite.label": {
+    "message": "Write threads"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "Modify your authentication data"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "Write auth data"
+  },
+  "scopes.userDelete.description": {
+    "message": "Suprimir el vostre compte"
+  },
+  "scopes.userDelete.label": {
+    "message": "Suprimir el vostre compte"
+  },
+  "scopes.userRead.description": {
+    "message": "Access your public profile information"
+  },
+  "scopes.userRead.label": {
+    "message": "Llegir dades de l'usuari"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "Read your email"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "Read user email"
+  },
+  "scopes.userWrite.description": {
+    "message": "Write to your profile"
+  },
+  "scopes.userWrite.label": {
+    "message": "Write user data"
+  },
+  "scopes.versionCreate.description": {
+    "message": "Create new versions"
+  },
+  "scopes.versionCreate.label": {
+    "message": "Create versions"
+  },
+  "scopes.versionDelete.description": {
+    "message": "Delete a version"
+  },
+  "scopes.versionDelete.label": {
+    "message": "Delete versions"
+  },
+  "scopes.versionRead.description": {
+    "message": "Read all versions"
+  },
+  "scopes.versionRead.label": {
+    "message": "Read versions"
+  },
+  "scopes.versionWrite.description": {
+    "message": "Write to version data"
+  },
+  "scopes.versionWrite.label": {
+    "message": "Write versions"
+  },
+  "settings.account.title": {
+    "message": "Account and security"
+  },
+  "settings.appearance.title": {
+    "message": "Aspecte"
+  },
+  "settings.applications.title": {
+    "message": "Les teves aplicacions"
+  },
+  "settings.authorized-apps.title": {
+    "message": "Aplicacions autoritzades"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "Deactivate developer mode"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>Developer mode</strong> is active. This will allow you to view the internal IDs of various things throughout Modrinth that may be helpful if you're a developer using the Modrinth API. Click on the Modrinth logo at the bottom of the page 5 times to toggle developer mode."
+  },
+  "settings.display.flags.description": {
+    "message": "Enable or disable certain features on this device."
+  },
+  "settings.display.flags.title": {
+    "message": "Toggle features"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "Data Packs page"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "Select your preferred layout for each page that displays project lists on this device."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "Mods page"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "Modpacks page"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "Plugins page"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "Resource Packs page"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "Shaders page"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "Project list layouts"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "User profile pages"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "Enables advanced rendering such as blur effects that may cause performance issues without hardware-accelerated rendering."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "Advanced rendering"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Make links which go outside of Modrinth open in a new tab. No matter this setting, links on the same domain and in Markdown descriptions will open in the same tab, and links on ads and edit pages will open in a new tab."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "Open external links in new tab"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "Hides the \"Get Modrinth App\" buttons from primary navigation. The Modrinth App page can still be found on the landing page or in the footer."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Hide Modrinth App promotions"
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.description": {
+    "message": "Aligns the project details sidebar to the right of the page's content."
+  },
+  "settings.display.sidebar.right-aligned-project-sidebar.title": {
+    "message": "Right-aligned project sidebar"
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.description": {
+    "message": "Aligns the search filters sidebar to the right of the search results."
+  },
+  "settings.display.sidebar.right-aligned-search-sidebar.title": {
+    "message": "Right-aligned search sidebar"
+  },
+  "settings.display.theme.dark": {
+    "message": "Fosc"
+  },
+  "settings.display.theme.description": {
+    "message": "Select your preferred color theme for Modrinth on this device."
+  },
+  "settings.display.theme.light": {
+    "message": "Clar"
+  },
+  "settings.display.theme.oled": {
+    "message": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "message": "Preferred dark theme"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "message": "Preferred light theme"
+  },
+  "settings.display.theme.retro": {
+    "message": "Retro"
+  },
+  "settings.display.theme.system": {
+    "message": "Sync with system"
+  },
+  "settings.display.theme.title": {
+    "message": "Color theme"
+  },
+  "settings.language.categories.auto": {
+    "message": "Automàtic"
+  },
+  "settings.language.categories.default": {
+    "message": "Idiomes per defecte"
+  },
+  "settings.language.categories.experimental": {
+    "message": "Idiomes experimentals"
+  },
+  "settings.language.categories.fun": {
+    "message": "Idiomes divertits"
+  },
+  "settings.language.categories.search-result": {
+    "message": "Resultats de la cerca"
+  },
+  "settings.language.description": {
+    "message": "Tria l'idioma per la pàgina. Les traduccions són contribuïdes per voluntaris <crowdin-link>a Crowdin</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "Sincronitza amb l'idioma del sistema"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. Aplicant..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. Error"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "No es pot carregar aquest idioma. Torna-ho a provar en una estona."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "Envia per centrar el primer resultat de la cerca"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "Busca un idioma..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {Cap idioma coincideix} one {# idioma coincideix} other {# idiomes coincideixen}} amb la teva cerca."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "Cap idioma coincideix amb la teva cerca."
+  },
+  "settings.language.title": {
+    "message": "Idioma"
+  },
+  "settings.pats.action.create": {
+    "message": "Create a PAT"
+  },
+  "settings.pats.description": {
+    "message": "PATs can be used to access Modrinth's API. For more information, see <doc-link>Modrinth's API documentation</doc-link>. They can be created and revoked at any time."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "Create PAT"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "Expires"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "Name"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "Enter the PAT's name..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "Create personal access token"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "Delete this token"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "This will remove this token forever (like really forever)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "Are you sure you want to delete this token?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "Edit personal access token"
+  },
+  "settings.pats.title": {
+    "message": "Personal access tokens"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "Edit token"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "Revoke token"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "Caducat fa {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "Expires {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "Last used {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "Never used"
+  },
+  "settings.profile.bio.description": {
+    "message": "A short description to tell everyone a little bit about you."
+  },
+  "settings.profile.bio.title": {
+    "message": "Bio"
+  },
+  "settings.profile.description": {
+    "message": "Your profile information is publicly viewable on Modrinth and through the <docs-link>Modrinth API</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "Profile information"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "Restableix"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "Foto de perfil"
+  },
+  "settings.profile.title": {
+    "message": "Perfil públic"
+  },
+  "settings.profile.username.description": {
+    "message": "A unique case-insensitive name to identify your profile."
+  },
+  "settings.profile.username.title": {
+    "message": "Nom d'usuari"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "Revoke session"
+  },
+  "settings.sessions.created-ago": {
+    "message": "Creat fa {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "Sessió actual"
+  },
+  "settings.sessions.description": {
+    "message": "Aquests són tots els dispositius on tens la sessió iniciada amb el teu compte de Modrinth. Pots tancar la sessió de cada dispositiu individualment.\n\nSi veus alguna entrada que no reconeixes, tanca la sessió en aquell dispositiu i canvia la contrasenya del teu compte de Modrinth immediatament."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "Últim accés fa {ago}"
+  },
+  "settings.sessions.title": {
+    "message": "Sessions"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "SO desconegut"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "Plataforma desconeguda"
+  },
+  "tooltip.date-at-time": {
+    "message": "{date, date, long} a les {time, time, short}"
+  }
+}
